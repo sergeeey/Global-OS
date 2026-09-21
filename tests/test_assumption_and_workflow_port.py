@@ -87,4 +87,9 @@ def test_workflow_port_local_adapter_not_temporal():
     state = adapter.start_or_resume("run_1", definition, {})
     assert state == {"a": 1, "b": 2}
     with pytest.raises(TemporalAdapterUnavailable, match="ADR-0002"):
-        TemporalWorkflowAdapter().start_or_resume("run_x", definition, {})
+        TemporalWorkflowAdapter(address="").start_or_resume("run_x", definition, {})
+
+
+def test_temporal_probe_fails_closed_unreachable():
+    with pytest.raises(TemporalAdapterUnavailable, match="refusing silent LocalDurable"):
+        TemporalWorkflowAdapter(address="127.0.0.1:1", connect_timeout_s=0.5).probe_server()

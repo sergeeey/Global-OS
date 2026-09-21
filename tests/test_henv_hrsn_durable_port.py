@@ -30,16 +30,35 @@ def test_h_rsn_001_harness_preserves_verification_tier():
     assert report["trials"]["fixed_high"]["verification_tier"] == 3
 
 
-def test_postgres_url_fails_closed_without_psycopg(monkeypatch: pytest.MonkeyPatch):
+def test_postgres_url_fails_closed_without_server(monkeypatch: pytest.MonkeyPatch):
     monkeypatch.delenv("DATABASE_URL", raising=False)
     conn = connect_durable_store(None)
     assert conn is not None
     conn.close()
+    # psycopg may be installed — still must not fall back to SQLite on unreachable Postgres
     with pytest.raises(PostgresUnavailable, match="refusing silent SQLite fallback"):
-        connect_durable_store("postgresql://localhost/gos")
+        connect_durable_store("postgresql://127.0.0.1:1/gos")
     # sqlite explicit still works
     s = connect_durable_store("sqlite:///:memory:")
     assert s is not None
     s.close()
     # connect_sqlite still the local path
     assert connect_sqlite(":memory:") is not None
+
+
+def test_postgres_url_fails_closed_without_psycopg(monkeypatch: pytest.MonkeyPatch):
+    import builtins
+    import sys
+
+    real_import = builtins.__import__
+
+    def fake_import(name: str, *args: object, **kwargs: object):  # type: ignore[no-untyped-def]
+        if name == "psycopg" or name.startswith("psycopg."):
+            raise ImportError("mocked missing psycopg")
+        return real_import(name, *args, **kwargs)  # type: ignore[arg-type]
+
+    monkeypatch.setattr(builtins, "__import__", fake_import)
+    # Drop cached module so import path is exercised
+    sys.modules.pop("psycopg", None)
+    with pytest.raises(PostgresUnavailable, match="psycopg is not installed"):
+        connect_durable_store("postgresql://localhost/gos")

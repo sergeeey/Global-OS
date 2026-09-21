@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import os
 import sqlite3
+from pathlib import Path
 from typing import Any
 
-from global_os.adapters.storage.sql import connect_sqlite
+from global_os.adapters.storage.sql import _migrations_dir, connect_sqlite
 
 
 class DurableStoreError(Exception):
@@ -35,16 +36,36 @@ def connect_durable_store(database_url: str | None = None) -> Any:
 
     if url.startswith(("postgres://", "postgresql://")):
         try:
-            import psycopg  # type: ignore[import-not-found]
+            import psycopg
         except ImportError as exc:
             raise PostgresUnavailable(
                 "DATABASE_URL requests Postgres but psycopg is not installed; "
                 "refusing silent SQLite fallback"
             ) from exc
-        conn = psycopg.connect(url)
+        try:
+            conn = psycopg.connect(url, connect_timeout=2)
+        except Exception as exc:
+            raise PostgresUnavailable(
+                f"Postgres unreachable/unavailable ({exc}); refusing silent SQLite fallback"
+            ) from exc
         return conn
 
     raise DurableStoreError(f"unsupported DATABASE_URL scheme: {url!r}")
+
+
+def apply_postgres_migrations(conn: Any, migrations_dir: Path | None = None) -> int:
+    """Apply SQL migrations on a live Postgres connection. Returns statements executed."""
+    root = migrations_dir or _migrations_dir()
+    count = 0
+    for path in sorted(root.glob("*.sql")):
+        sql = path.read_text(encoding="utf-8")
+        # Split on semicolons at line ends — simple dialect-safe splitter for our migrations
+        statements = [s.strip() for s in sql.split(";") if s.strip() and not s.strip().startswith("--")]
+        for stmt in statements:
+            conn.execute(stmt)
+            count += 1
+        conn.commit()
+    return count
 
 
 def assert_sqlite_connection(conn: Any) -> sqlite3.Connection:

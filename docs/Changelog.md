@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.9 — 2026-09-21
+
+### Added
+
+- ADR-0005 fail-closed durable adapters
+- Temporal probe + Postgres connect fail-closed (optional `[durable]` extras)
+- `apply_postgres_migrations` helper (requires live Postgres)
+
+### Honesty
+
+- `temporal_durability` / `postgres_durable_state` remain CONTRACTED
+
 ## 0.1.8 — 2026-09-21
 
 ### Added

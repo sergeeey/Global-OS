@@ -2,8 +2,8 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **66**
-- capabilities tracked: **41**
+- pytest collected: **68**
+- capabilities tracked: **43**
 
 | Capability | State | Evidence |
 | ---------- | ----- | -------- |
@@ -48,4 +48,6 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | h_rsn_001_benchmark | RUNTIME_VERIFIED_LOCAL | Synthetic harness summarize_h_rsn_001 + GOS-I23; INCONCLUSIVE_NEEDS_REAL_MODEL |
 | postgres_connection_port | RUNTIME_VERIFIED_LOCAL | connect_durable_store fails closed on postgres URL without psycopg; no silent SQLite fallback |
 | evidence_candidate_pipeline | RUNTIME_VERIFIED_LOCAL | GOS-I22 EvidenceCandidatePipeline; tool_result↛SYSTEM_TRUSTED; tests/test_evidence_candidate.py |
+| temporal_fail_closed_probe | RUNTIME_VERIFIED_LOCAL | TemporalWorkflowAdapter.probe_server fails closed; ≠ Temporal DoD |
+| postgres_fail_closed_connect | RUNTIME_VERIFIED_LOCAL | connect_durable_store unreachable/missing-psycopg → PostgresUnavailable; no SQLite fallback |
 
