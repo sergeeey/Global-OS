@@ -1,24 +1,19 @@
 # Tasktracker
 
-## Done (M0 consolidation)
+## Done (M0 consolidation + remainder)
 
-- [x] Fix invalid `actions/setup-python` immutable SHA (CI unblock)
-- [x] Action pin resolve validator (`tools/validate_action_pins.py`)
-- [x] Capability matrix CONTRACTED/STUBBED/RUNTIME_VERIFIED*
-- [x] Generated `docs/IMPLEMENTATION_STATUS.md` via `tools/project_status.py`
-- [x] EnvironmentCompiler contracts + ADR-0003
-- [x] ReasoningBudget / ContextManifest / ClarificationPolicy / EnvironmentPolicy / EnvironmentChangeProposal schemas
-- [x] Observation / Belief / Commitment schemas + EPISTEMIC_INVALIDATION.md
-- [x] GOS-I21 reasoning trace ≠ evidence
-- [x] Survival fidelity split; GoalIntegritySurvival excludes stubs
-- [x] SPEC/ROADMAP/README formula includes EnvironmentCompiler
-- [x] Prior baseline: goal/event/authority/gateway/budget/workers/repo-audit/hypothesis/sandbox/source-verify
+- [x] CI pin fix + Action pin validator + capability matrix
+- [x] EnvironmentCompiler contracts + Observation/Belief/Commitment schemas
+- [x] GOS-I21 + Survival fidelity honesty
+- [x] Minimal OTel (in-process Goal→Task→Action; not Temporal-distributed)
+- [x] Observation/Belief runtime + invalidation chain
+- [x] EnvironmentCompiler.compile() deterministic stub
 
-## Next (only after M0 green)
+## Next (M1 — Durable Cognitive Runtime)
 
-- [ ] Minimal OTel (with Temporal, not after)
-- [ ] Temporal acceptance: physical kill, no duplicate effects, server/worker unavailable cases
-- [ ] Durable shared-state acceptance (concurrent writers, projection rebuild) — Postgres as implementation
-- [ ] Epistemic Graph runtime beyond claim←evidence seed
+- [ ] Temporal adapter + physical kill / no duplicate effects acceptance
+- [ ] Durable shared-state acceptance (concurrent writers, projection rebuild)
+- [ ] Distributed OTel with Temporal workflow spans
+- [ ] Epistemic Model/Forecast/Decision nodes + recursive invalidation
 - [ ] Rust Authority boundary after semantic contract freeze
 - [ ] Strong sandbox + deep repo-audit

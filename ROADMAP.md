@@ -18,8 +18,9 @@ Track states in `docs/capability_matrix.json`.
 - [x] DurableRunner process-kill harness (≠ Temporal)
 - [x] Survival: runtime_injected vs stub split
 - [x] Capability matrix + generated IMPLEMENTATION_STATUS
-- [ ] Minimal OTel traces
-- [ ] CI continuously green on `main`
+- [x] Minimal OTel traces (local in-memory; Temporal-distributed still CONTRACTED)
+- [x] CI green on `main` (post consolidation)
+- [x] Observation/Belief runtime seed + EnvironmentCompiler.compile()
 
 ## M1 — Durable Cognitive Runtime
 

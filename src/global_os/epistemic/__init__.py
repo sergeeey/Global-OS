@@ -4,9 +4,10 @@ from global_os.epistemic.hypotheses import (
     HypothesisState,
     HypothesisStore,
 )
-from global_os.epistemic.store import EpistemicStore
+from global_os.epistemic.store import EpistemicError, EpistemicStore
 
 __all__ = [
+    "EpistemicError",
     "EpistemicStore",
     "Hypothesis",
     "HypothesisError",

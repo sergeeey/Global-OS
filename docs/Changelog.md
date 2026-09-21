@@ -1,6 +1,18 @@
 # Changelog
 
-## 0.1.1 — 2026-09-21 (architecture consolidation)
+## 0.1.2 — 2026-09-21
+
+### Added
+
+- Minimal OTel Goal→Task→Action spans (`global_os.observability`) with in-memory exporter
+- Observation/Belief store APIs + obs→belief→claim invalidation; GOS-I21 rejection of reasoning-as-SYSTEM_TRUSTED
+- EnvironmentCompiler.compile() from Goal+OrgUnit+Task (schema-validated)
+
+### Honesty
+
+- `otel_traces` = RUNTIME_VERIFIED_LOCAL; `otel_distributed_temporal` remains CONTRACTED
+- `environment_compiler` = RUNTIME_VERIFIED_LOCAL compile; dynamic recompilation CONTRACTED
+- Full Epistemic Graph still not claimed (Model/Forecast/Decision deferred)
 
 ### Fixed
 
