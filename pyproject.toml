@@ -29,7 +29,7 @@ packages = ["src/global_os"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["src"]
+pythonpath = ["src", "."]
 
 [tool.ruff]
 line-length = 100
@@ -40,3 +40,4 @@ python_version = "3.11"
 strict = true
 packages = ["global_os"]
 mypy_path = "src"
+explicit_package_bases = true
