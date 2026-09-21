@@ -8,7 +8,7 @@
     "RUNTIME_VERIFIED_LOCAL",
     "PRODUCTION_PROVEN"
   ],
-  "rule": "implemented approximation ≠ fulfilled contract",
+  "rule": "implemented approximation \u2260 fulfilled contract",
   "capabilities": [
     {
       "id": "goal_contract_immutable",
@@ -68,7 +68,7 @@
     {
       "id": "otel_distributed_temporal",
       "state": "CONTRACTED",
-      "evidence": "full Goal→Workflow→Activity OTel with Temporal deferred to M1"
+      "evidence": "full Goal\u2192Workflow\u2192Activity OTel with Temporal deferred to M1"
     },
     {
       "id": "survival_process_kill",
@@ -83,7 +83,7 @@
     {
       "id": "full_epistemic_graph",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "tests/test_epistemic.py; Observation→Belief→Claim→Model→Forecast→Decision→Commitment invalidation (GOS-I12)"
+      "evidence": "tests/test_epistemic.py; Observation\u2192Belief\u2192Claim\u2192Model\u2192Forecast\u2192Decision\u2192Commitment invalidation (GOS-I12)"
     },
     {
       "id": "observation_belief_runtime",
@@ -98,7 +98,7 @@
     {
       "id": "environment_compiler_dynamic",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "EnvironmentChangeGate PROPOSED→…→ACTIVE with authority gate; no silent rewrite (GOS-I20); tests/test_epistemic_graph_env_replay.py"
+      "evidence": "EnvironmentChangeGate PROPOSED\u2192\u2026\u2192ACTIVE with authority gate; no silent rewrite (GOS-I20); tests/test_epistemic_graph_env_replay.py"
     },
     {
       "id": "sandbox_mvp",
@@ -158,7 +158,7 @@
     {
       "id": "clarification_assumption_recording",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "ClarificationEngine → assumption schema + ledger"
+      "evidence": "ClarificationEngine \u2192 EpistemicStore + assumption STALE on claim/evidence invalidation"
     },
     {
       "id": "reasoning_budget_controller",
@@ -178,7 +178,7 @@
     {
       "id": "retrieval_router",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "intent→strategy; GraphRAG not default"
+      "evidence": "intent\u2192strategy; GraphRAG not default"
     },
     {
       "id": "evaluator_registry",
@@ -188,12 +188,17 @@
     {
       "id": "environment_lifecycle",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "PROPOSED→…→REVOKED transitions"
+      "evidence": "PROPOSED\u2192\u2026\u2192REVOKED transitions"
     },
     {
       "id": "h_env_001_benchmark",
       "state": "CONTRACTED",
       "evidence": "EVALS.md H-ENV-001 preregistered; not yet run"
+    },
+    {
+      "id": "workflow_runner_port",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "LocalDurableAdapter wraps DurableRunner; TemporalWorkflowAdapter fails closed (\u2260 Temporal DoD)"
     }
   ]
 }

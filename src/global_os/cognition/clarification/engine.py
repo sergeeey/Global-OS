@@ -8,12 +8,18 @@ from typing import Any
 from global_os.cognition.metareasoning.materiality import MaterialityLevel, assess_materiality
 from global_os.common.hashing import new_id
 from global_os.contracts.validate import validate
+from global_os.epistemic.store import EpistemicStore
 from global_os.runtime.events.ledger import EventLedger
 
 
 class ClarificationEngine:
-    def __init__(self, ledger: EventLedger) -> None:
+    def __init__(
+        self,
+        ledger: EventLedger,
+        epistemic: EpistemicStore | None = None,
+    ) -> None:
         self._ledger = ledger
+        self._epistemic = epistemic
         self._assumptions: dict[str, dict[str, Any]] = {}
 
     def decide(
@@ -30,6 +36,8 @@ class ClarificationEngine:
         workspace_id: str,
         assumption_statement: str,
         task_id: str | None = None,
+        depends_on_claim_ids: list[str] | None = None,
+        depends_on_evidence_ids: list[str] | None = None,
     ) -> dict[str, Any]:
         validate(policy, "clarification_policy.schema.json")
         mat = assess_materiality(
@@ -54,7 +62,7 @@ class ClarificationEngine:
 
         if policy.get("record_assumption", True):
             assumption_id: str = new_id("asm")
-            assumption = {
+            assumption: dict[str, Any] = {
                 "assumption_id": assumption_id,
                 "schema_version": "0.1.0",
                 "goal_id": goal_id,
@@ -67,9 +75,15 @@ class ClarificationEngine:
                 "recorded_at": datetime.now(UTC).isoformat(),
                 "reopen_condition": "materiality increased or user dispute",
             }
+            if depends_on_claim_ids:
+                assumption["depends_on_claim_ids"] = list(depends_on_claim_ids)
+            if depends_on_evidence_ids:
+                assumption["depends_on_evidence_ids"] = list(depends_on_evidence_ids)
             assumption = {k: v for k, v in assumption.items() if v is not None}
             validate(assumption, "assumption.schema.json")
             self._assumptions[assumption_id] = assumption
+            if self._epistemic is not None:
+                self._epistemic.put_assumption(assumption)
             self._ledger.append(
                 event_type="task.transitioned",
                 tenant_id=tenant_id,
@@ -89,4 +103,6 @@ class ClarificationEngine:
         return {"action": "assume", "materiality": mat.level.value, "rationale": mat.rationale}
 
     def get_assumption(self, assumption_id: str) -> dict[str, Any]:
+        if self._epistemic is not None:
+            return self._epistemic.get_assumption(assumption_id)
         return dict(self._assumptions[assumption_id])

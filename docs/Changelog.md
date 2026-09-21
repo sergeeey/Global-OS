@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.5 — 2026-09-21
+
+### Added
+
+- ClarificationEngine writes Assumptions into EpistemicStore; STALE on claim/evidence invalidation
+- WorkflowRunnerPort + LocalDurableAdapter; TemporalWorkflowAdapter fails closed (ADR-0002 honesty)
+
+### Honesty
+
+- LocalDurableAdapter ≠ Temporal DoD (`temporal_durability` remains CONTRACTED)
+
 ## 0.1.4 — 2026-09-21
 
 ### Added

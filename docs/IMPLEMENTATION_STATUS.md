@@ -2,8 +2,8 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **54**
-- capabilities tracked: **37**
+- pytest collected: **56**
+- capabilities tracked: **38**
 
 | Capability | State | Evidence |
 | ---------- | ----- | -------- |
@@ -36,7 +36,7 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | event_replay_engine | RUNTIME_VERIFIED_LOCAL | EventReplayEngine status projection rebuild from ledger; not full entity-body snapshot restore |
 | mission_outcome_contract | RUNTIME_VERIFIED_LOCAL | MissionAssigner outcome-level MissionContract; rejects microstep objectives; tests/test_epistemic_graph_env_replay.py |
 | materiality_engine | RUNTIME_VERIFIED_LOCAL | tests/test_materiality_clarification_budget.py |
-| clarification_assumption_recording | RUNTIME_VERIFIED_LOCAL | ClarificationEngine → assumption schema + ledger |
+| clarification_assumption_recording | RUNTIME_VERIFIED_LOCAL | ClarificationEngine → EpistemicStore + assumption STALE on claim/evidence invalidation |
 | reasoning_budget_controller | RUNTIME_VERIFIED_LOCAL | GOS-I23: effort changes; verification_tier unchanged |
 | capability_registry | RUNTIME_VERIFIED_LOCAL | tests/test_env_extensions.py; GOS-I25 |
 | context_assembler | RUNTIME_VERIFIED_LOCAL | ContextItem provenance + token budget |
@@ -44,4 +44,5 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | evaluator_registry | RUNTIME_VERIFIED_LOCAL | GOS-I24 self-judge rejected; calibration fields contracted for production use |
 | environment_lifecycle | RUNTIME_VERIFIED_LOCAL | PROPOSED→…→REVOKED transitions |
 | h_env_001_benchmark | CONTRACTED | EVALS.md H-ENV-001 preregistered; not yet run |
+| workflow_runner_port | RUNTIME_VERIFIED_LOCAL | LocalDurableAdapter wraps DurableRunner; TemporalWorkflowAdapter fails closed (≠ Temporal DoD) |
 

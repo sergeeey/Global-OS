@@ -159,6 +159,7 @@ class EpistemicStore:
             "forecasts": downstream["forecasts"],
             "decisions": downstream["decisions"],
             "commitments": downstream["commitments"],
+            "assumptions": downstream["assumptions"],
         }
 
     def invalidate_observation(
@@ -230,6 +231,7 @@ class EpistemicStore:
             "forecasts": downstream["forecasts"],
             "decisions": downstream["decisions"],
             "commitments": downstream["commitments"],
+            "assumptions": downstream["assumptions"],
         }
 
     def _propagate_from_claims(
@@ -326,11 +328,38 @@ class EpistemicStore:
                     producer="epistemic.invalidation",
                 )
 
+        stale_assumptions: list[str] = []
+        for assumption in self._assumptions.values():
+            if assumption["status"] != "ACTIVE":
+                continue
+            cdeps = set(assumption.get("depends_on_claim_ids", []))
+            edeps = set(assumption.get("depends_on_evidence_ids", []))
+            evidence_invalid = any(
+                eid in self._evidence and self._evidence[eid].get("status") == "INVALIDATED"
+                for eid in edeps
+            )
+            if (cdeps & claim_set) or evidence_invalid:
+                assumption["status"] = "STALE"
+                stale_assumptions.append(assumption["assumption_id"])
+                self._ledger.append(
+                    event_type="assumption.staled",
+                    tenant_id=tenant_id,
+                    workspace_id=workspace_id,
+                    goal_id=assumption.get("goal_id"),
+                    payload={
+                        "assumption_id": assumption["assumption_id"],
+                        "because_claims": sorted(cdeps & claim_set),
+                        "because_evidence": sorted(edeps) if evidence_invalid else [],
+                    },
+                    producer="epistemic.invalidation",
+                )
+
         return {
             "models": stale_models,
             "forecasts": stale_forecasts,
             "decisions": review_decisions,
             "commitments": review_commitments,
+            "assumptions": stale_assumptions,
         }
 
     def _stale_beliefs_for_claims(

@@ -38,6 +38,7 @@ class EventReplayEngine:
             "decision": {},
             "commitment": {},
             "belief": {},
+            "assumption": {},
         }
         if seed:
             for kind, items in seed.items():
@@ -67,6 +68,8 @@ class EventReplayEngine:
                 projection["decision"][payload["decision_id"]] = "NEEDS_REVIEW"
             elif et == "commitment.needs_review":
                 projection["commitment"][payload["commitment_id"]] = "NEEDS_REVIEW"
+            elif et == "assumption.staled":
+                projection["assumption"][payload["assumption_id"]] = "STALE"
 
         self._ledger.append(
             event_type="projection.rebuilt",

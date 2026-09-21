@@ -42,6 +42,14 @@
     },
     "ask_deferred": { "type": "boolean" },
     "recorded_at": { "type": "string", "format": "date-time" },
-    "reopen_condition": { "type": "string" }
+    "reopen_condition": { "type": "string" },
+    "depends_on_claim_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "depends_on_evidence_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
   }
 }

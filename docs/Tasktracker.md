@@ -14,12 +14,13 @@
 - [x] EnvironmentChangeGate (PROPOSED→…→ACTIVE, authority-gated, GOS-I20)
 - [x] EventReplayEngine status projection rebuild
 - [x] MissionAssigner outcome-first (rejects microsteps)
+- [x] Clarification → EpistemicStore + assumption STALE on invalidation
+- [x] WorkflowRunnerPort + LocalDurableAdapter (Temporal fails closed)
 
 ## Next (M1)
 
-- [ ] Temporal adapter + physical kill acceptance
+- [ ] Real Temporal SDK/server adapter + physical kill acceptance
 - [ ] Durable shared-state acceptance (Postgres as one impl)
 - [ ] Distributed OTel with workflows
 - [ ] Run H-ENV-001 / H-RSN-001 benchmarks (not claim results early)
-- [ ] Assumption invalidation wiring into full graph events
 - [ ] Rust Authority boundary after contract freeze

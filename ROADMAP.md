@@ -21,13 +21,17 @@ Track states in `docs/capability_matrix.json`.
 - [x] Minimal OTel traces (local in-memory; Temporal-distributed still CONTRACTED)
 - [x] CI green on `main` (post consolidation)
 - [x] Observation/Belief runtime seed + EnvironmentCompiler.compile()
+- [x] Epistemic Model/Forecast/Decision/Commitment + assumption invalidation
+- [x] EnvironmentChangeGate + MissionAssigner + EventReplay status projection
+- [x] WorkflowRunnerPort + LocalDurableAdapter (Temporal still CONTRACTED)
 
 ## M1 — Durable Cognitive Runtime
 
-- Temporal adapter with physical worker-kill + no duplicate material effects
-- Durable shared state surviving process/container loss + concurrent writers (Postgres is one implementation)
-- OTel Goal→…→Action traces
-- Full Epistemic Graph runtime (Observation→…→Commitment) with recursive invalidation
+- [ ] Real Temporal adapter with physical worker-kill + no duplicate material effects
+- [ ] Durable shared state surviving process/container loss + concurrent writers (Postgres is one implementation)
+- [ ] Distributed OTel Goal→…→Action with Temporal workflows
+- [x] Full Epistemic Graph runtime (Observation→…→Commitment) with recursive invalidation (local)
+- [ ] H-ENV-001 / H-RSN-001 measured runs (preregistered only)
 
 ## M2 — Cognitive Organization
 
