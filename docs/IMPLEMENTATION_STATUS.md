@@ -2,8 +2,8 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **103**
-- capabilities tracked: **49**
+- pytest collected: **105**
+- capabilities tracked: **50**
 
 | Capability | State | Evidence |
 | ---------- | ----- | -------- |
@@ -20,6 +20,7 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | otel_traces | RUNTIME_VERIFIED_LOCAL | tests/test_otel.py (in-memory exporter + OTLP fail-closed without endpoint/package; live collector export not claimed) |
 | otel_distributed_temporal | RUNTIME_VERIFIED_LOCAL | TemporalBridge Workflow+Activity spans (time-skipping env); tests/test_temporal_bridge.py::test_temporal_otel_workflow_activity_spans; cross-process OTel collector export still not claimed |
 | otel_otlp_fail_closed | RUNTIME_VERIFIED_LOCAL | configure_otlp_exporter raises OtlpExportError when endpoint unset or exporter package missing; tests/test_otel.py |
+| otel_otlp_live_export | RUNTIME_VERIFIED_HARNESS | OTLP HTTP export to external receiver (in-process sink + deploy compose collector); tests/test_otlp_collector_live.py; CI starts otel-collector |
 | survival_process_kill | RUNTIME_VERIFIED_HARNESS | Injection.PROCESS_KILL real abort/resume |
 | survival_other_injections | RUNTIME_VERIFIED_HARNESS | run_survival_suite 9 RUNTIME_INJECTED incl. API_OUTAGE/MODEL_SWAP/SLOW_DEPENDENCY/CONSTRAINT_CHANGE; tests/test_survival_multi.py; remaining: MALICIOUS_DOCUMENT, HUMAN_REJECTION, CONTRADICTORY_EVIDENCE, CORRUPTED_STATE |
 | full_epistemic_graph | RUNTIME_VERIFIED_LOCAL | tests/test_epistemic.py; Observation→Belief→Claim→Model→Forecast→Decision→Commitment invalidation (GOS-I12) |
@@ -27,7 +28,7 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | environment_compiler | RUNTIME_VERIFIED_LOCAL | tests/test_environment_compiler.py (deterministic compile; no model calls) |
 | environment_compiler_dynamic | RUNTIME_VERIFIED_LOCAL | EnvironmentChangeGate PROPOSED→…→ACTIVE with authority gate; no silent rewrite (GOS-I20); tests/test_epistemic_graph_env_replay.py |
 | sandbox_mvp | RUNTIME_VERIFIED_LOCAL | tests/test_sandbox.py (local process, not container) |
-| sandbox_strong | RUNTIME_VERIFIED_LOCAL | open_sandbox/ContainerSandbox fail-closed without docker (ADR-0006); gvisor/microvm refuse silent process_local; live docker isolation optional/skipped without daemon; tests/test_sandbox.py |
+| sandbox_strong | RUNTIME_VERIFIED_HARNESS | run_sandboxed_task network=none + memory limits + destroy; tests/test_sandbox_docker_live.py; CI GOS_REQUIRE_DOCKER=1; nested-overlay hosts may skip |
 | source_verification | RUNTIME_VERIFIED_LOCAL | tests/test_source_verification.py (local file resolve) |
 | independent_verification_diversity | RUNTIME_VERIFIED_LOCAL | IndependentVerificationStack multi-method consensus; rejects same-model-family LLM judges (GOS-I10); numeric dual deterministic stack; tests/test_independent_verification_stack.py; remote multi-provider adapters still optional |
 | rust_authority_boundary | RUNTIME_VERIFIED_HARNESS | crates/authority_kernel + gos-authority CLI process boundary; GOS-I01/I04/I05; tests/test_rust_authority.py; cargo test |

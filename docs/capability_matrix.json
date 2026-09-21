@@ -76,6 +76,11 @@
       "evidence": "configure_otlp_exporter raises OtlpExportError when endpoint unset or exporter package missing; tests/test_otel.py"
     },
     {
+      "id": "otel_otlp_live_export",
+      "state": "RUNTIME_VERIFIED_HARNESS",
+      "evidence": "OTLP HTTP export to external receiver (in-process sink + deploy compose collector); tests/test_otlp_collector_live.py; CI starts otel-collector"
+    },
+    {
       "id": "survival_process_kill",
       "state": "RUNTIME_VERIFIED_HARNESS",
       "evidence": "Injection.PROCESS_KILL real abort/resume"
@@ -112,8 +117,8 @@
     },
     {
       "id": "sandbox_strong",
-      "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "open_sandbox/ContainerSandbox fail-closed without docker (ADR-0006); gvisor/microvm refuse silent process_local; live docker isolation optional/skipped without daemon; tests/test_sandbox.py"
+      "state": "RUNTIME_VERIFIED_HARNESS",
+      "evidence": "run_sandboxed_task network=none + memory limits + destroy; tests/test_sandbox_docker_live.py; CI GOS_REQUIRE_DOCKER=1; nested-overlay hosts may skip"
     },
     {
       "id": "source_verification",

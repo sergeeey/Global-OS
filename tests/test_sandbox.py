@@ -61,7 +61,10 @@ def test_container_sandbox_live_when_docker_available():
         pytest.skip("docker unavailable — fail-closed path covered elsewhere")
     sb = open_sandbox("container")
     try:
-        sid = sb.create()
+        try:
+            sid = sb.create()
+        except StrongSandboxUnavailable as exc:
+            pytest.skip(f"docker cannot create containers here: {exc}")
         assert sid
         result = sb.execute(["python", "-c", "print('gos-container-ok')"])
         assert result.exit_code == 0

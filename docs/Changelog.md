@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.25 — 2026-09-21
+
+### Added
+
+- Reality Contact infra: `deploy/docker-compose.reality.yml` + OTLP collector config
+- `run_sandboxed_task` — Goal/Task → container → network/limits check → destroy
+- Live tests: `test_sandbox_docker_live.py`, `test_otlp_collector_live.py` (OTLP HTTP sink + optional compose)
+- CI requires Docker containers + OTLP collector (`GOS_REQUIRE_DOCKER` / `GOS_REQUIRE_OTLP`)
+
 ## 0.1.24 — 2026-09-21
 
 ### Added

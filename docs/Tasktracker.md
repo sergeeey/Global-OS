@@ -18,9 +18,9 @@
 
 ## Next (M1 Reality Contact)
 
-- [ ] Live OTLP collector export
+- [x] Docker sandbox path + CI (`run_sandboxed_task`, compose-ready; live containers required in GHA)
+- [x] OTLP export path (HTTP sink + compose collector; CI starts collector)
 - [ ] Real-model eval runs (H-ENV/H-RSN/H-ORG/…)
-- [ ] CI Docker harness for live container isolation
 - [ ] Remaining Survival: MALICIOUS_DOCUMENT / HUMAN_REJECTION / CONTRADICTORY_EVIDENCE / CORRUPTED_STATE
 - [ ] 48h durable run
 - [ ] Remote multi-provider verification adapters

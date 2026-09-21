@@ -25,9 +25,9 @@ Harness-verified durable path exists; **production reality contact still open**:
 - [x] Production profile → Rust Authority fail-closed (ADR-0007)
 - [x] Strong sandbox fail-closed port (ADR-0006; live Docker CI optional)
 - [x] Survival suite expanded (9 RUNTIME_INJECTED; remaining enum deferred)
-- [ ] Live OTLP collector export
+- [x] Docker Reality Contact path + CI (`run_sandboxed_task`, GOS_REQUIRE_DOCKER)
+- [x] OTLP Reality Contact path + CI collector compose (GOS_REQUIRE_OTLP)
 - [ ] Real model provider runs (replace synthetic evals)
-- [ ] Docker isolation in CI (promote sandbox_strong to HARNESS)
 - [ ] Remaining survival: malicious_document / human_rejection / contradictory_evidence / corrupted_state
 - [ ] 48h durable run evidence
 

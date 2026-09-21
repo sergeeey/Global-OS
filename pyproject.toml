@@ -31,7 +31,7 @@ dev = [
   "ruff>=0.6.0",
   "mypy>=1.11.0",
   "types-jsonschema>=4.23.0",
-  "global-os[durable]",
+  "global-os[durable,otel]",
 ]
 
 [tool.hatch.build.targets.wheel]

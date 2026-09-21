@@ -62,9 +62,7 @@ def configure_otlp_exporter(
     if not ep:
         raise OtlpExportError("OTEL_EXPORTER_OTLP_ENDPOINT unset; refusing silent pretend-export")
     try:
-        from opentelemetry.exporter.otlp.proto.http.trace_exporter import (  # type: ignore[import-not-found]
-            OTLPSpanExporter,
-        )
+        from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
     except ImportError as exc:
         raise OtlpExportError(
             "opentelemetry-exporter-otlp-proto-http not installed; "
