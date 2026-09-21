@@ -67,15 +67,21 @@ jobs:
         run: |
           docker pull python:3.13-slim
           mkdir -p deploy/otel-out
+          chmod 777 deploy/otel-out
           # Prove containers actually run (not only docker info)
           docker run --rm --network=none python:3.13-slim python -c "print('docker-ok')"
           docker compose -f deploy/docker-compose.reality.yml up -d
           for i in $(seq 1 60); do
-            if curl -sf -o /dev/null http://127.0.0.1:4318/v1/traces -X POST \
-              -H 'Content-Type: application/json' -d '{}' || \
-               nc -z 127.0.0.1 4318; then
-              echo "OTLP port open after ${i}s"
+            if docker compose -f deploy/docker-compose.reality.yml ps --status running | grep -q otel-collector \
+               && nc -z 127.0.0.1 4318; then
+              echo "OTLP collector ready after ${i}s"
               exit 0
+            fi
+            # Surface crash loops early
+            if docker compose -f deploy/docker-compose.reality.yml ps | grep -qi exit; then
+              echo "collector exited"
+              docker compose -f deploy/docker-compose.reality.yml logs || true
+              exit 1
             fi
             sleep 1
           done

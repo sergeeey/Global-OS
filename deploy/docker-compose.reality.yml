@@ -7,6 +7,7 @@ services:
   otel-collector:
     image: otel/opentelemetry-collector:0.114.0
     command: ["--config=/etc/otel-collector-config.yaml"]
+    user: "0:0"
     volumes:
       - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml:ro
       - ./otel-out:/var/lib/otel
