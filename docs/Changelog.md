@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.6 — 2026-09-21
+
+### Added
+
+- H-ENV-001 / H-RSN-001 synthetic harnesses (`verdict=INCONCLUSIVE_NEEDS_REAL_MODEL`)
+- `connect_durable_store` Postgres URL fail-closed (no silent SQLite fallback)
+
+### Honesty
+
+- Synthetic hint ≠ scientific confirmation of H-ENV-001 / H-RSN-001
+- `postgres_durable_state` remains CONTRACTED until real Postgres runtime proof
+
 ## 0.1.5 — 2026-09-21
 
 ### Added

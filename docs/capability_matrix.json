@@ -192,13 +192,23 @@
     },
     {
       "id": "h_env_001_benchmark",
-      "state": "CONTRACTED",
-      "evidence": "EVALS.md H-ENV-001 preregistered; not yet run"
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "Synthetic harness summarize_h_env_001; verdict INCONCLUSIVE_NEEDS_REAL_MODEL (not scientific confirmation)"
     },
     {
       "id": "workflow_runner_port",
       "state": "RUNTIME_VERIFIED_LOCAL",
       "evidence": "LocalDurableAdapter wraps DurableRunner; TemporalWorkflowAdapter fails closed (\u2260 Temporal DoD)"
+    },
+    {
+      "id": "h_rsn_001_benchmark",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "Synthetic harness summarize_h_rsn_001 + GOS-I23; INCONCLUSIVE_NEEDS_REAL_MODEL"
+    },
+    {
+      "id": "postgres_connection_port",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "connect_durable_store fails closed on postgres URL without psycopg; no silent SQLite fallback"
     }
   ]
 }

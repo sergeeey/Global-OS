@@ -32,6 +32,8 @@ Separately: same environment, different prompts.
 
 **Do not** treat “80% environment / 20% prompt” as a fact — it is a rhetorical claim to be tested.
 
+Harness status: `global_os.evals.environment` runs **synthetic_deterministic** sweeps; verdict stays `INCONCLUSIVE_NEEDS_REAL_MODEL` until frontier-model evidence is recorded.
+
 ## Reasoning Budget (H-RSN-001)
 
 Dynamic reasoning allocation improves quality/cost vs fixed-high effort.  

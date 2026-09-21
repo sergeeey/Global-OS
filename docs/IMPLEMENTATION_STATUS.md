@@ -2,8 +2,8 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **56**
-- capabilities tracked: **38**
+- pytest collected: **59**
+- capabilities tracked: **40**
 
 | Capability | State | Evidence |
 | ---------- | ----- | -------- |
@@ -43,6 +43,8 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | retrieval_router | RUNTIME_VERIFIED_LOCAL | intent→strategy; GraphRAG not default |
 | evaluator_registry | RUNTIME_VERIFIED_LOCAL | GOS-I24 self-judge rejected; calibration fields contracted for production use |
 | environment_lifecycle | RUNTIME_VERIFIED_LOCAL | PROPOSED→…→REVOKED transitions |
-| h_env_001_benchmark | CONTRACTED | EVALS.md H-ENV-001 preregistered; not yet run |
+| h_env_001_benchmark | RUNTIME_VERIFIED_LOCAL | Synthetic harness summarize_h_env_001; verdict INCONCLUSIVE_NEEDS_REAL_MODEL (not scientific confirmation) |
 | workflow_runner_port | RUNTIME_VERIFIED_LOCAL | LocalDurableAdapter wraps DurableRunner; TemporalWorkflowAdapter fails closed (≠ Temporal DoD) |
+| h_rsn_001_benchmark | RUNTIME_VERIFIED_LOCAL | Synthetic harness summarize_h_rsn_001 + GOS-I23; INCONCLUSIVE_NEEDS_REAL_MODEL |
+| postgres_connection_port | RUNTIME_VERIFIED_LOCAL | connect_durable_store fails closed on postgres URL without psycopg; no silent SQLite fallback |
 
