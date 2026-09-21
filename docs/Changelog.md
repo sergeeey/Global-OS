@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.17 — 2026-09-21
+
+### Added
+
+- `IndependentVerificationStack` — multi-method consensus with distinct diversity axes (GOS-I10)
+- Rejects same-model-family LLM-only stacks; conflicted outcomes are first-class (GOS-I16)
+- Numeric dual deterministic stack wired into `VerificationRouter` for tier ≥ INDEPENDENT
+- `independent_verification_diversity` → RUNTIME_VERIFIED_LOCAL
+
+### Honesty
+
+- Local multi-method diversity verified; remote multi-provider adapters still optional
+
 ## 0.1.16 — 2026-09-21
 
 ### Added

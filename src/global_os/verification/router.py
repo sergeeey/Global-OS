@@ -8,6 +8,10 @@ from enum import Enum
 from typing import Any
 
 from global_os.verification.diversity import meets_tier_diversity
+from global_os.verification.independent_stack import (
+    IndependentVerificationStack,
+    numeric_independent_stack,
+)
 
 
 class ResultClass(str, Enum):
@@ -89,12 +93,25 @@ class VerificationRouter:
         self._verifiers: dict[ResultClass, Verifier] = {
             ResultClass.NUMERIC: deterministic_numeric_verifier,
         }
+        self._stacks: dict[ResultClass, IndependentVerificationStack] = {
+            ResultClass.NUMERIC: numeric_independent_stack(),
+        }
 
     def register(self, result_class: ResultClass, verifier: Verifier) -> None:
         self._verifiers[result_class] = verifier
 
+    def register_stack(
+        self, result_class: ResultClass, stack: IndependentVerificationStack
+    ) -> None:
+        self._stacks[result_class] = stack
+
     def route(self, request: VerificationRequest) -> VerificationOutcome:
         tier = required_tier(request)
+        stack = self._stacks.get(request.result_class)
+        if stack is not None and tier.value >= VerificationTier.INDEPENDENT.value:
+            stack_out = stack.verify(request.payload, required_tier=tier.value)
+            return stack_out.as_verification_outcome(tier=tier)
+
         verifier = self._verifiers.get(request.result_class)
         if verifier is None:
             return VerificationOutcome(

@@ -7,6 +7,13 @@ from global_os.verification.evidence_candidate import (
     EvidenceCandidateError,
     EvidenceCandidatePipeline,
 )
+from global_os.verification.independent_stack import (
+    IndependentVerificationStack,
+    MethodResult,
+    MethodSpec,
+    StackOutcome,
+    numeric_independent_stack,
+)
 from global_os.verification.router import (
     ResultClass,
     VerificationOutcome,
@@ -21,7 +28,11 @@ __all__ = [
     "DiversityAssessment",
     "EvidenceCandidateError",
     "EvidenceCandidatePipeline",
+    "IndependentVerificationStack",
+    "MethodResult",
+    "MethodSpec",
     "ResultClass",
+    "StackOutcome",
     "VerificationOutcome",
     "VerificationRequest",
     "VerificationRouter",
@@ -29,5 +40,6 @@ __all__ = [
     "assess_diversity",
     "deterministic_numeric_verifier",
     "meets_tier_diversity",
+    "numeric_independent_stack",
     "required_tier",
 ]

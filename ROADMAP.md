@@ -29,6 +29,7 @@ Track states in `docs/capability_matrix.json`.
 - [ ] Real multi-injection Survival (not stub catalog)
 - [ ] H-ORG-001 with measured baselines
 - [ ] Strong sandbox (container/gVisor)
+- [x] IndependentVerificationStack (local multi-method; remote providers optional)
 
 ## Later
 

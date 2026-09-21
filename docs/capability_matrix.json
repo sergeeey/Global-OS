@@ -122,8 +122,8 @@
     },
     {
       "id": "independent_verification_diversity",
-      "state": "STUBBED",
-      "evidence": "diversity factors recorded; multi-provider path absent"
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "IndependentVerificationStack multi-method consensus; rejects same-model-family LLM judges (GOS-I10); numeric dual deterministic stack; tests/test_independent_verification_stack.py; remote multi-provider adapters still optional"
     },
     {
       "id": "rust_authority_boundary",
