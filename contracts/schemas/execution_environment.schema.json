@@ -146,11 +146,17 @@
     "clarification": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["materiality_policy", "ask_when"],
+      "required": ["materiality_policy", "ask_when", "assume_when", "record_assumption"],
       "properties": {
         "materiality_policy": {
           "type": "string",
-          "enum": ["never", "high_impact_only", "ambiguous_constraints", "always_uncertain"]
+          "enum": [
+            "never",
+            "high_impact_only",
+            "ambiguous_constraints",
+            "always_uncertain",
+            "materiality_based"
+          ]
         },
         "ask_when": {
           "type": "array",
@@ -162,10 +168,21 @@
               "authority_gap",
               "irreversible_action",
               "budget_ambiguous",
-              "external_commitment"
+              "external_commitment",
+              "goal_interpretation_changes",
+              "result_materially_changes",
+              "authority_boundary_unclear"
             ]
           }
         },
+        "assume_when": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["formatting_only", "reversible", "low_impact", "evidence_can_resolve_later"]
+          }
+        },
+        "record_assumption": { "type": "boolean" },
         "max_rounds": { "type": "integer", "minimum": 0, "maximum": 20 }
       }
     },

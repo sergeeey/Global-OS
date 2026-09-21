@@ -119,3 +119,39 @@ $$
 $$
 
 Marker, SHA, citation, красивый reasoning — не proof (см. также GOS-I08).
+
+## GOS-I22 — Execution trace ≠ verified world fact
+
+Tool call / log / return value — это **evidence candidate**, не verified truth.
+
+```text
+Execution Trace → Evidence Candidate → Verification → Epistemic status
+```
+
+`tool returned 200` ≠ intended world effect (см. GOS-I13).
+
+## GOS-I23 — ReasoningBudget ≠ VerificationRequirement
+
+Model confidence и reasoning effort могут менять **exploration/compute**.  
+Они **не** снижают required verification tier и не заменяют Authority Kernel.
+
+```text
+high model confidence → may reduce exploration
+high model confidence ↛ skip verification
+```
+
+## GOS-I24 — Judge cannot validate itself
+
+LLM-as-judge / evaluator не является independent verifier самого себя.  
+Требуются: human/reference set, bias probes, и/или deterministic checks.  
+Нет constitutional magic thresholds (включая фиксированный κ).
+
+## GOS-I25 — Stable core ≠ Capability registry ≠ World facts
+
+Три слоя не смешиваются в одном prompt/memory blob:
+
+| Layer | Cadence | Examples |
+|-------|---------|----------|
+| Stable Core | months/years | CONSTITUTION, authority semantics, epistemic types |
+| Capability Registry | days/weeks | models, tools, prices, limits |
+| World Facts | minutes/hours | invoice unpaid, current branch SHA |

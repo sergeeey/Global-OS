@@ -1,6 +1,21 @@
 # Changelog
 
-## 0.1.2 — 2026-09-21
+## 0.1.3 — 2026-09-21
+
+### Added
+
+- GOS-I22..I25; ADR-0004 (Stable Core / Capability Registry / World Facts)
+- Schemas: assumption, capability_descriptor, context_item, mission_contract, evaluator_descriptor
+- ClarificationEngine (assumptions recorded), MaterialityEngine, ReasoningBudgetController (GOS-I23)
+- CapabilityRegistry, ContextAssembler, RetrievalRouter, EvaluatorRegistry, EnvironmentLifecycle
+- Preregistered H-ENV-001, H-RSN-001, H-EVAL-001, H-CTX-001 (EVALS.md)
+
+### Explicitly NOT claimed
+
+- κ≥0.75 constitutional rule
+- “80% environment / 20% prompt” as fact
+- GraphRAG default / unverified GraphRAG percentages
+- Model confidence as truth or verification skip
 
 ### Added
 

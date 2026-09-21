@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/mission_contract.schema.json",
+  "title": "MissionContract",
+  "description": "Outcome contract for an OrganizationalUnit — mission, not microsteps.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "schema_version",
+    "org_unit_id",
+    "goal_id",
+    "objective",
+    "success_criteria",
+    "constraints",
+    "evidence_required",
+    "authority",
+    "budget",
+    "output_contract"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^msn_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "org_unit_id": { "type": "string" },
+    "goal_id": { "type": "string" },
+    "objective": { "type": "string", "minLength": 1 },
+    "success_criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "constraints": { "type": "array", "items": { "type": "string" } },
+    "evidence_required": { "type": "array", "items": { "type": "string" } },
+    "authority": {
+      "type": "object",
+      "required": ["capabilities"],
+      "properties": {
+        "capabilities": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "budget": {
+      "type": "object",
+      "required": ["usd", "tokens"],
+      "properties": {
+        "usd": { "type": "number", "minimum": 0 },
+        "tokens": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "output_contract": { "type": "string", "minLength": 1 }
+  }
+}

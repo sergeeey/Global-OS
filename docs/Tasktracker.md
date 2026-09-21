@@ -1,19 +1,21 @@
 # Tasktracker
 
-## Done (M0 consolidation + remainder)
+## Done
 
-- [x] CI pin fix + Action pin validator + capability matrix
-- [x] EnvironmentCompiler contracts + Observation/Belief/Commitment schemas
-- [x] GOS-I21 + Survival fidelity honesty
-- [x] Minimal OTel (in-process Goal→Task→Action; not Temporal-distributed)
-- [x] Observation/Belief runtime + invalidation chain
-- [x] EnvironmentCompiler.compile() deterministic stub
+- [x] M0 consolidation + OTel/Observation/Belief/EnvironmentCompiler
+- [x] GOS-I22..I25 (trace≠fact, budget≠verification, judge≠self, three layers)
+- [x] Assumption schema + ClarificationEngine (ask/assume → recorded assumption)
+- [x] Materiality engine + ReasoningBudgetController
+- [x] Capability Registry + ContextAssembler + RetrievalRouter
+- [x] EvaluatorRegistry (no self-judge) + Environment lifecycle
+- [x] MissionContract schema + H-ENV/RSN/EVAL/CTX in EVALS
+- [x] ADR-0004 three-layer separation
 
-## Next (M1 — Durable Cognitive Runtime)
+## Next (M1)
 
-- [ ] Temporal adapter + physical kill / no duplicate effects acceptance
-- [ ] Durable shared-state acceptance (concurrent writers, projection rebuild)
-- [ ] Distributed OTel with Temporal workflow spans
-- [ ] Epistemic Model/Forecast/Decision nodes + recursive invalidation
-- [ ] Rust Authority boundary after semantic contract freeze
-- [ ] Strong sandbox + deep repo-audit
+- [ ] Temporal adapter + physical kill acceptance
+- [ ] Durable shared-state acceptance (Postgres as one impl)
+- [ ] Distributed OTel with workflows
+- [ ] Run H-ENV-001 / H-RSN-001 benchmarks (not claim results early)
+- [ ] Epistemic Model/Forecast/Decision nodes
+- [ ] Rust Authority boundary after contract freeze

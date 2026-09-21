@@ -2,10 +2,52 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://global-os.dev/schemas/reasoning_budget.schema.json",
   "title": "ReasoningBudget",
+  "description": "Adaptive compute for reasoning. Does not alter verification tier (GOS-I23).",
   "type": "object",
   "additionalProperties": false,
   "required": ["requested", "maximum", "policy_source"],
   "properties": {
+    "policy": {
+      "type": "string",
+      "enum": ["fixed", "adaptive"],
+      "default": "adaptive"
+    },
+    "default_effort": {
+      "type": "string",
+      "enum": ["none", "low", "medium", "high", "xhigh", "max"]
+    },
+    "min_effort": {
+      "type": "string",
+      "enum": ["none", "low", "medium", "high", "xhigh", "max"]
+    },
+    "max_effort": {
+      "type": "string",
+      "enum": ["none", "low", "medium", "high", "xhigh", "max"]
+    },
+    "increase_when": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "verification_failed",
+          "uncertainty_high",
+          "task_high_impact",
+          "solution_space_large"
+        ]
+      }
+    },
+    "decrease_when": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "deterministic_task",
+          "repeated_task",
+          "confidence_high",
+          "cheap_verification_available"
+        ]
+      }
+    },
     "requested": {
       "type": "object",
       "additionalProperties": false,
@@ -26,6 +68,7 @@
         "wall_time_seconds": { "type": "integer", "minimum": 0 }
       }
     },
+    "hard_cost_limit_usd": { "type": "number", "minimum": 0 },
     "policy_source": {
       "type": "string",
       "enum": ["goal_contract", "org_unit", "environment_policy", "human_override"]

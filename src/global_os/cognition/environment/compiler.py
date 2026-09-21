@@ -71,8 +71,15 @@ class EnvironmentCompiler:
                 "include_refs": ["goal_contract", task["task_id"]],
             },
             "clarification": {
-                "materiality_policy": "high_impact_only",
-                "ask_when": ["authority_gap", "irreversible_action"],
+                "materiality_policy": "materiality_based",
+                "ask_when": [
+                    "authority_gap",
+                    "irreversible_action",
+                    "goal_interpretation_changes",
+                    "result_materially_changes",
+                ],
+                "assume_when": ["formatting_only", "reversible", "low_impact"],
+                "record_assumption": True,
                 "max_rounds": 2,
             },
             "verification": {"required_tier": verification_tier},

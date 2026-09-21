@@ -2,8 +2,8 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **40**
-- capabilities tracked: **27**
+- pytest collected: **49**
+- capabilities tracked: **36**
 
 | Capability | State | Evidence |
 | ---------- | ----- | -------- |
@@ -34,4 +34,13 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | repo_audit_deep | STUBBED | structure scan only |
 | hypothesis_lifecycle | RUNTIME_VERIFIED_LOCAL | tests/test_hypotheses.py |
 | event_replay_engine | STUBBED | list_events available; full replay/projection rebuild contracted |
+| materiality_engine | RUNTIME_VERIFIED_LOCAL | tests/test_materiality_clarification_budget.py |
+| clarification_assumption_recording | RUNTIME_VERIFIED_LOCAL | ClarificationEngine → assumption schema + ledger |
+| reasoning_budget_controller | RUNTIME_VERIFIED_LOCAL | GOS-I23: effort changes; verification_tier unchanged |
+| capability_registry | RUNTIME_VERIFIED_LOCAL | tests/test_env_extensions.py; GOS-I25 |
+| context_assembler | RUNTIME_VERIFIED_LOCAL | ContextItem provenance + token budget |
+| retrieval_router | RUNTIME_VERIFIED_LOCAL | intent→strategy; GraphRAG not default |
+| evaluator_registry | RUNTIME_VERIFIED_LOCAL | GOS-I24 self-judge rejected; calibration fields contracted for production use |
+| environment_lifecycle | RUNTIME_VERIFIED_LOCAL | PROPOSED→…→REVOKED transitions |
+| h_env_001_benchmark | CONTRACTED | EVALS.md H-ENV-001 preregistered; not yet run |
 

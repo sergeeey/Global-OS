@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/assumption.schema.json",
+  "title": "Assumption",
+  "description": "Recorded when clarification is skipped (assume_when). First-class epistemic node.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "assumption_id",
+    "schema_version",
+    "goal_id",
+    "statement",
+    "status",
+    "origin",
+    "materiality",
+    "recorded_at"
+  ],
+  "properties": {
+    "assumption_id": { "type": "string", "pattern": "^asm_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "goal_id": { "type": "string" },
+    "task_id": { "type": "string" },
+    "statement": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["ACTIVE", "VALIDATED", "FALSIFIED", "SUPERSEDED", "WITHDRAWN"]
+    },
+    "origin": {
+      "type": "string",
+      "enum": ["clarification_skipped", "user_explicit", "policy_default", "imported"]
+    },
+    "materiality": {
+      "type": "string",
+      "enum": ["none", "low", "moderate", "high", "critical"]
+    },
+    "ask_deferred": { "type": "boolean" },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "reopen_condition": { "type": "string" }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/context_item.schema.json",
+  "title": "ContextItem",
+  "description": "Provenance-bearing unit assembled into a model call context.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "schema_version",
+    "source",
+    "type",
+    "trust",
+    "freshness",
+    "goal_scope",
+    "token_cost",
+    "reason_included"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^ctx_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "source": { "type": "string", "minLength": 1 },
+    "type": {
+      "type": "string",
+      "enum": [
+        "goal_fragment",
+        "observation",
+        "belief",
+        "procedure",
+        "capability",
+        "artifact",
+        "constraint",
+        "assumption",
+        "note"
+      ]
+    },
+    "trust": {
+      "type": "string",
+      "enum": [
+        "SYSTEM_TRUSTED",
+        "USER_TRUSTED",
+        "ORG_TRUSTED",
+        "EXTERNAL_UNTRUSTED",
+        "MODEL_GENERATED",
+        "DERIVED"
+      ]
+    },
+    "freshness": { "type": "string", "minLength": 1 },
+    "goal_scope": { "type": "string", "minLength": 1 },
+    "token_cost": { "type": "integer", "minimum": 0 },
+    "reason_included": { "type": "string", "minLength": 1 },
+    "content_ref": { "type": "string" }
+  }
+}

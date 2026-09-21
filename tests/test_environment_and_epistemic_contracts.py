@@ -33,6 +33,8 @@ def test_execution_environment_contract_validates():
         "clarification": {
             "materiality_policy": "high_impact_only",
             "ask_when": ["authority_gap", "irreversible_action"],
+            "assume_when": ["formatting_only", "low_impact"],
+            "record_assumption": True,
             "max_rounds": 2,
         },
         "verification": {"required_tier": 2},

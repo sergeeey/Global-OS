@@ -99,7 +99,8 @@
       "id": "environment_compiler_dynamic",
       "state": "CONTRACTED",
       "evidence": "adaptive recompilation / change proposals runtime deferred"
-    },    {
+    },
+    {
       "id": "sandbox_mvp",
       "state": "RUNTIME_VERIFIED_LOCAL",
       "evidence": "tests/test_sandbox.py (local process, not container)"
@@ -143,6 +144,51 @@
       "id": "event_replay_engine",
       "state": "STUBBED",
       "evidence": "list_events available; full replay/projection rebuild contracted"
+    },
+    {
+      "id": "materiality_engine",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "tests/test_materiality_clarification_budget.py"
+    },
+    {
+      "id": "clarification_assumption_recording",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "ClarificationEngine → assumption schema + ledger"
+    },
+    {
+      "id": "reasoning_budget_controller",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "GOS-I23: effort changes; verification_tier unchanged"
+    },
+    {
+      "id": "capability_registry",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "tests/test_env_extensions.py; GOS-I25"
+    },
+    {
+      "id": "context_assembler",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "ContextItem provenance + token budget"
+    },
+    {
+      "id": "retrieval_router",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "intent→strategy; GraphRAG not default"
+    },
+    {
+      "id": "evaluator_registry",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "GOS-I24 self-judge rejected; calibration fields contracted for production use"
+    },
+    {
+      "id": "environment_lifecycle",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "PROPOSED→…→REVOKED transitions"
+    },
+    {
+      "id": "h_env_001_benchmark",
+      "state": "CONTRACTED",
+      "evidence": "EVALS.md H-ENV-001 preregistered; not yet run"
     }
   ]
 }

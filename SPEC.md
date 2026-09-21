@@ -132,6 +132,10 @@ Real workers + EnvironmentCompiler runtime + deep repo audit.
 - H-CF-001 Counterfactual memory ↑ decision calibration  
 - H-VOI-001 VOI-aware planning ↓ cost per successful decision  
 - H-ADAPT-001 Governed self-improvement without regression explosion  
+- H-ENV-001 Environment configuration > prompt elongation (after min instruction quality)  
+- H-RSN-001 Adaptive reasoning budgets > fixed-high on quality/cost (≠ lower verification)  
+- H-EVAL-001 Calibrated evaluator stack > raw LLM judge  
+- H-CTX-001 Structured context retrieval > repeated compaction for state integrity  
 
 ## Reference tech (2026, replaceable)
 

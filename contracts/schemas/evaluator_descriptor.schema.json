@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/evaluator_descriptor.schema.json",
+  "title": "EvaluatorDescriptor",
+  "description": "Calibrated judge/evaluator registry entry. No magic kappa threshold.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "schema_version",
+    "model",
+    "domain",
+    "calibrated_on",
+    "metrics",
+    "valid_until"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^evl_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "model": { "type": "string", "minLength": 1 },
+    "domain": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "calibrated_on": {
+      "type": "object",
+      "required": ["dataset_id"],
+      "properties": {
+        "dataset_id": { "type": "string" },
+        "n_items": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "human_agreement",
+        "swap_consistency",
+        "verbosity_bias",
+        "false_positive",
+        "false_negative"
+      ],
+      "properties": {
+        "human_agreement": { "type": "number", "minimum": 0, "maximum": 1 },
+        "kappa": { "type": "number" },
+        "kappa_ci_low": { "type": "number" },
+        "kappa_ci_high": { "type": "number" },
+        "swap_consistency": { "type": "number", "minimum": 0, "maximum": 1 },
+        "verbosity_bias": { "type": "number" },
+        "false_positive": { "type": "number", "minimum": 0, "maximum": 1 },
+        "false_negative": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "valid_until": { "type": "string", "format": "date-time" },
+    "acceptance_policy": {
+      "type": "string",
+      "enum": ["task_specific"],
+      "default": "task_specific"
+    }
+  }
+}
