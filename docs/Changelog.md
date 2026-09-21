@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.14 — 2026-09-21
+
+### Added
+
+- Rust `authority_kernel` crate + `gos-authority` CLI (process boundary)
+- Python `decide_via_rust` fail-closed client
+- CI builds/tests Rust Authority before pytest
+- `rust_authority_boundary` → RUNTIME_VERIFIED_HARNESS
+
 ## 0.1.12 — 2026-09-21
 
 ### Added

@@ -122,8 +122,8 @@
     },
     {
       "id": "rust_authority_boundary",
-      "state": "CONTRACTED",
-      "evidence": "semantic contract in Python first"
+      "state": "RUNTIME_VERIFIED_HARNESS",
+      "evidence": "crates/authority_kernel + gos-authority CLI process boundary; GOS-I01/I04/I05; tests/test_rust_authority.py; cargo test"
     },
     {
       "id": "repo_audit_structure",

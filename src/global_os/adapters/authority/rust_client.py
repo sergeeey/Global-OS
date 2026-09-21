@@ -48,6 +48,7 @@ def decide_via_rust(request: dict[str, Any], proposal: dict[str, Any] | None = N
     if not proc.stdout.strip():
         raise RustAuthorityError(f"empty response from gos-authority: {proc.stderr}")
     try:
-        return json.loads(proc.stdout)
+        parsed: dict[str, Any] = json.loads(proc.stdout)
     except json.JSONDecodeError as exc:
         raise RustAuthorityError(f"invalid JSON from gos-authority: {proc.stdout}") from exc
+    return parsed

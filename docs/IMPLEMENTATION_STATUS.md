@@ -29,7 +29,7 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | sandbox_strong | CONTRACTED | container/gVisor deferred |
 | source_verification | RUNTIME_VERIFIED_LOCAL | tests/test_source_verification.py (local file resolve) |
 | independent_verification_diversity | STUBBED | diversity factors recorded; multi-provider path absent |
-| rust_authority_boundary | CONTRACTED | semantic contract in Python first |
+| rust_authority_boundary | RUNTIME_VERIFIED_HARNESS | crates/authority_kernel + gos-authority CLI process boundary; GOS-I01/I04/I05; tests/test_rust_authority.py; cargo test |
 | repo_audit_structure | RUNTIME_VERIFIED_LOCAL | tests/test_repo_audit.py; gos audit |
 | repo_audit_deep | STUBBED | structure scan only |
 | hypothesis_lifecycle | RUNTIME_VERIFIED_LOCAL | tests/test_hypotheses.py |

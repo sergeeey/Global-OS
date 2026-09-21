@@ -13,6 +13,7 @@ def test_capability_matrix_states_are_known():
     # Honesty anchors
     by_id = {c["id"]: c for c in matrix["capabilities"]}
     assert by_id["temporal_durability"]["state"] == "RUNTIME_VERIFIED_HARNESS"
+    assert by_id["rust_authority_boundary"]["state"] == "RUNTIME_VERIFIED_HARNESS"
     assert by_id["durable_runner_process_kill"]["state"] == "RUNTIME_VERIFIED_HARNESS"
     assert by_id["survival_other_injections"]["state"] == "STUBBED"
     assert by_id["environment_compiler"]["state"] == "RUNTIME_VERIFIED_LOCAL"
