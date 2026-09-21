@@ -18,4 +18,9 @@
 - BudgetKernel (reserve/commit, cannot go negative/overspend)
 - OrganizationCompiler manager_workers + repo-audit task DAG
 - Survival Benchmark scaffold (GoalIntegritySurvival metric)
+- SQL EventLedger/GoalStore + migrations/001_init.sql
+- DurableRunner with process-kill resume (ADR-0002)
+- ApprovalService (HMAC, one-time, action_hash bound)
+- Cedar base.cedar + PolicyEngine wired into AuthorityKernel
+- H-ORG-001 synthetic baseline: single_solver vs manager_workers
 

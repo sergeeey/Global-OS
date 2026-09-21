@@ -8,6 +8,7 @@ from typing import Any
 
 from global_os.common.hashing import content_hash, new_id
 from global_os.contracts.validate import validate
+from global_os.kernel.policy import PolicyEngine, PolicyRequest
 from global_os.runtime.events.ledger import EventLedger
 
 
@@ -28,8 +29,9 @@ class AuthzResult:
 class AuthorityKernel:
     """Deterministic authorization. Models are never invoked here (GOS-I01/I05)."""
 
-    def __init__(self, ledger: EventLedger) -> None:
+    def __init__(self, ledger: EventLedger, policy: PolicyEngine | None = None) -> None:
         self._ledger = ledger
+        self._policy = policy or PolicyEngine()
         # principal_id -> frozenset of capabilities
         self._grants: dict[str, frozenset[str]] = {}
         # parent_id -> child_id relationships for inheritance checks
@@ -82,30 +84,31 @@ class AuthorityKernel:
         principal = proposal["principal_id"]
         capability = proposal["capability"]
         granted = self._grants.get(principal, frozenset())
+        parent_raw = proposal.get("parent_capabilities")
+        parent_set = frozenset(parent_raw) if parent_raw is not None else None
+        approval_refs = proposal.get("approval_refs") or []
+        approval_id = approval_refs[0] if approval_refs else None
 
-        # Parent capability envelope if provided on proposal
-        parent_caps = proposal.get("parent_capabilities")
-        if parent_caps is not None:
-            parent_set = frozenset(parent_caps)
-            if capability not in parent_set:
-                result = AuthzResult(
-                    Decision.DENY,
-                    "capability not in parent authority (GOS-I04)",
-                    proposal_hash=proposal_hash,
-                )
-                self._record_decision(result, proposal, tenant_id, workspace_id)
-                return result
-
-        if capability not in granted:
-            result = AuthzResult(
-                Decision.DENY,
-                f"capability not granted to principal: {capability}",
-                proposal_hash=proposal_hash,
+        policy = self._policy.decide(
+            PolicyRequest(
+                principal=principal,
+                action=capability,
+                resource=str(proposal.get("resource", "")),
+                capability=capability,
+                granted_capabilities=granted,
+                parent_capabilities=parent_set,
+                approval_id=approval_id,
             )
+        )
+        if not policy.allowed:
+            decision = (
+                Decision.PENDING_APPROVAL if "approval required" in policy.reason else Decision.DENY
+            )
+            result = AuthzResult(decision, policy.reason, proposal_hash=proposal_hash)
             self._record_decision(result, proposal, tenant_id, workspace_id)
             return result
 
-        if require_approval and not proposal.get("approval_refs"):
+        if require_approval and not approval_id:
             result = AuthzResult(
                 Decision.PENDING_APPROVAL,
                 "approval required",
@@ -117,7 +120,7 @@ class AuthorityKernel:
         token = new_id("tok")
         result = AuthzResult(
             Decision.ALLOW,
-            "allowed",
+            policy.reason,
             execution_token=token,
             proposal_hash=proposal_hash,
         )

@@ -15,13 +15,18 @@
 - [x] Budget kernel
 - [x] OrgUnit manager-workers + repo-audit DAG
 - [x] Survival Benchmark scaffold
+- [x] SQL persistence (SQLite now; Postgres-compatible schema)
+- [x] DurableRunner crash/recovery (Temporal-shaped; ADR-0002)
+- [x] Approval token signing (HMAC, one-time, action_hash-bound)
+- [x] Cedar policies + PolicyEngine (default-deny)
+- [x] Process-kill survival harness
+- [x] Single-agent vs manager-workers baseline eval
 
 ## Next
 
-- [ ] Postgres persistence for ledger/goals
-- [ ] Temporal Goal Workflow + crash/recovery harness
-- [ ] Cedar policies + Rust Authority service boundary
-- [ ] Approval token signing
-- [ ] Process-kill recovery harness (real Survival run)
-- [ ] Single-agent vs organization baseline eval
-
+- [ ] Postgres runtime (psycopg) behind same SQL schema
+- [ ] Temporal adapter wiring
+- [ ] Rust Authority service boundary
+- [ ] Worker execution loop + artifact store
+- [ ] Verification Router
+- [ ] Repo-audit toolset (killer use case end-to-end)

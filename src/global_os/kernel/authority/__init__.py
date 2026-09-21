@@ -1,3 +1,4 @@
+from global_os.kernel.authority.approvals import ApprovalInvalid, ApprovalService, ApprovalToken
 from global_os.kernel.authority.kernel import (
     AuthorityKernel,
     AuthzResult,
@@ -5,4 +6,12 @@ from global_os.kernel.authority.kernel import (
     assert_no_model_imports,
 )
 
-__all__ = ["AuthorityKernel", "AuthzResult", "Decision", "assert_no_model_imports"]
+__all__ = [
+    "ApprovalInvalid",
+    "ApprovalService",
+    "ApprovalToken",
+    "AuthorityKernel",
+    "AuthzResult",
+    "Decision",
+    "assert_no_model_imports",
+]
