@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/epistemic_decision.schema.json",
+  "title": "EpistemicDecision",
+  "description": "Epistemic decision node (choose among options given claims/forecasts). Distinct from Authority Decision. Needs review when dependencies invalidate (GOS-I12/I19).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "decision_id",
+    "schema_version",
+    "goal_id",
+    "statement",
+    "status",
+    "recorded_at"
+  ],
+  "properties": {
+    "decision_id": { "type": "string", "pattern": "^edn_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "goal_id": { "type": "string" },
+    "statement": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["ACTIVE", "NEEDS_REVIEW", "SUPERSEDED", "WITHDRAWN"]
+    },
+    "depends_on_claim_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "depends_on_forecast_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "options": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "chosen": { "type": "string" },
+    "recorded_at": { "type": "string", "format": "date-time" }
+  }
+}

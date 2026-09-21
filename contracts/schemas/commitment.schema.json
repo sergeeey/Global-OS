@@ -21,7 +21,14 @@
     "statement": { "type": "string", "minLength": 1 },
     "status": {
       "type": "string",
-      "enum": ["ACTIVE", "FULFILLED", "BREACHED", "SUPERSEDED", "CANCELLED"]
+      "enum": [
+        "ACTIVE",
+        "FULFILLED",
+        "BREACHED",
+        "SUPERSEDED",
+        "CANCELLED",
+        "NEEDS_REVIEW"
+      ]
     },
     "authority_ref": { "type": "string", "minLength": 1 },
     "recorded_at": { "type": "string", "format": "date-time" },

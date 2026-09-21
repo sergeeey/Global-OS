@@ -10,6 +10,10 @@
 - [x] EvaluatorRegistry (no self-judge) + Environment lifecycle
 - [x] MissionContract schema + H-ENV/RSN/EVAL/CTX in EVALS
 - [x] ADR-0004 three-layer separation
+- [x] Epistemic Model/Forecast/Decision/Commitment invalidation chain (GOS-I12)
+- [x] EnvironmentChangeGate (PROPOSED→…→ACTIVE, authority-gated, GOS-I20)
+- [x] EventReplayEngine status projection rebuild
+- [x] MissionAssigner outcome-first (rejects microsteps)
 
 ## Next (M1)
 
@@ -17,5 +21,5 @@
 - [ ] Durable shared-state acceptance (Postgres as one impl)
 - [ ] Distributed OTel with workflows
 - [ ] Run H-ENV-001 / H-RSN-001 benchmarks (not claim results early)
-- [ ] Epistemic Model/Forecast/Decision nodes
+- [ ] Assumption invalidation wiring into full graph events
 - [ ] Rust Authority boundary after contract freeze

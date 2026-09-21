@@ -10,15 +10,16 @@
 
 ## Несущие конструкции
 
-Goal Contract · Epistemic Kernel · Durable Runtime · Authority Kernel · Dynamic Cognitive Organization · World Interaction · Verification · Adaptation
+Goal Contract · Epistemic Kernel · Durable Runtime · Authority Kernel · Dynamic Cognitive Organization · **EnvironmentCompiler** · World Interaction · VerificationFabric · AdaptiveLearning
 
 ## Текущий baseline
 
-- Contracts-first monorepo
-- JSON Schema для core entities
-- Python: GoalStore, EventLedger, AuthorityKernel, ToolGateway, EpistemicStore
+- Contracts-first monorepo; EnvironmentCompiler + ChangeGate (GOS-I20)
+- Epistemic graph local: Observation→Belief→Claim→Model→Forecast→Decision→Commitment
+- MissionAssigner (outcome contracts) + EventReplay status projections
 - CI: schema validation + ruff + mypy + pytest
-- Rust Authority Service — следующий hardening шаг (сейчас typed Python stub с теми же инвариантами)
+- M1 ещё CONTRACTED: Temporal, Postgres durable shared state, distributed OTel
+- Rust Authority Service — следующий hardening шаг после contract freeze
 
 ## Документы
 

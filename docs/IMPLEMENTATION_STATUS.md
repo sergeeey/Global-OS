@@ -2,8 +2,8 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **49**
-- capabilities tracked: **36**
+- pytest collected: **54**
+- capabilities tracked: **37**
 
 | Capability | State | Evidence |
 | ---------- | ----- | -------- |
@@ -21,10 +21,10 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | otel_distributed_temporal | CONTRACTED | full Goal→Workflow→Activity OTel with Temporal deferred to M1 |
 | survival_process_kill | RUNTIME_VERIFIED_HARNESS | Injection.PROCESS_KILL real abort/resume |
 | survival_other_injections | STUBBED | scenarios marked fidelity=stub; excluded from GoalIntegritySurvival |
-| full_epistemic_graph | STUBBED | Observation/Belief runtime + obs→belief→claim invalidation; Model/Forecast/Decision nodes still CONTRACTED |
+| full_epistemic_graph | RUNTIME_VERIFIED_LOCAL | tests/test_epistemic.py; Observation→Belief→Claim→Model→Forecast→Decision→Commitment invalidation (GOS-I12) |
 | observation_belief_runtime | RUNTIME_VERIFIED_LOCAL | tests/test_observation_belief.py; GOS-I21 guard |
 | environment_compiler | RUNTIME_VERIFIED_LOCAL | tests/test_environment_compiler.py (deterministic compile; no model calls) |
-| environment_compiler_dynamic | CONTRACTED | adaptive recompilation / change proposals runtime deferred |
+| environment_compiler_dynamic | RUNTIME_VERIFIED_LOCAL | EnvironmentChangeGate PROPOSED→…→ACTIVE with authority gate; no silent rewrite (GOS-I20); tests/test_epistemic_graph_env_replay.py |
 | sandbox_mvp | RUNTIME_VERIFIED_LOCAL | tests/test_sandbox.py (local process, not container) |
 | sandbox_strong | CONTRACTED | container/gVisor deferred |
 | source_verification | RUNTIME_VERIFIED_LOCAL | tests/test_source_verification.py (local file resolve) |
@@ -33,7 +33,8 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | repo_audit_structure | RUNTIME_VERIFIED_LOCAL | tests/test_repo_audit.py; gos audit |
 | repo_audit_deep | STUBBED | structure scan only |
 | hypothesis_lifecycle | RUNTIME_VERIFIED_LOCAL | tests/test_hypotheses.py |
-| event_replay_engine | STUBBED | list_events available; full replay/projection rebuild contracted |
+| event_replay_engine | RUNTIME_VERIFIED_LOCAL | EventReplayEngine status projection rebuild from ledger; not full entity-body snapshot restore |
+| mission_outcome_contract | RUNTIME_VERIFIED_LOCAL | MissionAssigner outcome-level MissionContract; rejects microstep objectives; tests/test_epistemic_graph_env_replay.py |
 | materiality_engine | RUNTIME_VERIFIED_LOCAL | tests/test_materiality_clarification_budget.py |
 | clarification_assumption_recording | RUNTIME_VERIFIED_LOCAL | ClarificationEngine → assumption schema + ledger |
 | reasoning_budget_controller | RUNTIME_VERIFIED_LOCAL | GOS-I23: effort changes; verification_tier unchanged |

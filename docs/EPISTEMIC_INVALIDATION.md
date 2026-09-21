@@ -6,26 +6,25 @@ $$
 \text{implemented approximation} \neq \text{fulfilled contract}
 $$
 
-Current runtime seed: `evidence INVALIDATED → dependent ACTIVE claim → STALE`.
-
-Target chain (CONTRACTED until graph runtime lands):
+## Runtime chain (GOS-I12)
 
 ```text
 Source stale/invalid
   → Observation STALE/INVALIDATED
-  → Claim STALE / CONTRADICTED
-  → Assumption STALE
-  → Belief STALE / CONFLICTED
-  → Hypothesis needs_review | KILLED
+  → Claim STALE / CONTRADICTED / NEEDS_REVIEW
+  → Belief STALE
   → Model STALE
   → Forecast STALE
   → Decision NEEDS_REVIEW
   → Commitment NEEDS_REVIEW (if depends_on claims)
 ```
 
-## GOS-I21 reminder
+Evidence: `tests/test_epistemic.py`, `tests/test_observation_belief.py`.
 
-Reasoning traces, chain-of-thought, and model self-report are **not** evidence and must not create Observation nodes with `trust_label=SYSTEM_TRUSTED`.
+## GOS-I21 / GOS-I22 reminder
+
+- Reasoning traces ≠ evidence (cannot create SYSTEM_TRUSTED Observation).
+- Execution/tool traces = evidence candidates until Verification assigns epistemic status.
 
 ## Allowed edges (contract)
 
@@ -41,11 +40,12 @@ Decision --depends_on--> Claim|Forecast
 Commitment --depends_on--> Claim
 ```
 
-## Current implementation evidence
+## Implementation evidence
 
 | Transition | State |
 | ---------- | ----- |
 | evidence → claim STALE | RUNTIME_VERIFIED_LOCAL |
-| observation → belief | CONTRACTED (schemas only) |
-| recursive model/forecast/decision | CONTRACTED |
+| observation → belief → claim | RUNTIME_VERIFIED_LOCAL |
+| claim → model → forecast → decision → commitment | RUNTIME_VERIFIED_LOCAL |
 | reasoning_trace → evidence | FORBIDDEN (GOS-I21) |
+| event replay status projection | RUNTIME_VERIFIED_LOCAL |

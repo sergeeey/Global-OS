@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.1.4 — 2026-09-21
+
+### Added
+
+- Epistemic Model / Forecast / Decision schemas + store APIs
+- Full GOS-I12 invalidation: evidence→claim→model→forecast→decision→commitment
+- EnvironmentChangeGate: propose→sandbox→eval→approve→active (authority-gated; no identity rewrite)
+- EventReplayEngine: rebuild status projections from append-only ledger
+- MissionAssigner: outcome MissionContract for OrgUnit; rejects microstep objectives
+- Event types: model.staled, forecast.staled, decision.needs_review, commitment.needs_review,
+  environment.change_proposed, environment.lifecycle_transitioned, mission.assigned, projection.rebuilt
+
+### Honesty
+
+- Event replay = status projection rebuild, not full entity-body snapshot restore
+- EnvironmentChangeGate ≠ unsupervised adaptive self-rewrite of T0
+- Temporal / Postgres / distributed OTel remain CONTRACTED (M1)
+
 ## 0.1.3 — 2026-09-21
 
 ### Added
@@ -26,8 +44,8 @@
 ### Honesty
 
 - `otel_traces` = RUNTIME_VERIFIED_LOCAL; `otel_distributed_temporal` remains CONTRACTED
-- `environment_compiler` = RUNTIME_VERIFIED_LOCAL compile; dynamic recompilation CONTRACTED
-- Full Epistemic Graph still not claimed (Model/Forecast/Decision deferred)
+- `environment_compiler` = RUNTIME_VERIFIED_LOCAL compile; dynamic ChangeGate RUNTIME (0.1.4)
+- Full Epistemic Graph Model/Forecast/Decision — see 0.1.4
 
 ### Fixed
 

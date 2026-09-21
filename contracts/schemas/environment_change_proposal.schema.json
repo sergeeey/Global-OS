@@ -11,7 +11,10 @@
     "proposer",
     "reason",
     "diff",
-    "requires_approval"
+    "requires_approval",
+    "lifecycle_state",
+    "evaluation_plan",
+    "required_authority"
   ],
   "properties": {
     "id": { "type": "string", "pattern": "^ecp_[a-zA-Z0-9_\\-]+$" },
@@ -25,6 +28,29 @@
       "description": "Partial fields proposed to change; never silent overwrite of environment identity"
     },
     "requires_approval": { "type": "boolean" },
-    "approval_refs": { "type": "array", "items": { "type": "string" } }
+    "approval_refs": { "type": "array", "items": { "type": "string" } },
+    "lifecycle_state": {
+      "type": "string",
+      "enum": [
+        "PROPOSED",
+        "SANDBOXED",
+        "EVALUATED",
+        "APPROVED",
+        "ACTIVE",
+        "MONITORED",
+        "REVOKED"
+      ]
+    },
+    "expected_gain": { "type": "string" },
+    "new_risks": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "evaluation_plan": { "type": "string", "minLength": 1 },
+    "required_authority": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    }
   }
 }

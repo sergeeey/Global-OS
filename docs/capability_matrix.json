@@ -82,8 +82,8 @@
     },
     {
       "id": "full_epistemic_graph",
-      "state": "STUBBED",
-      "evidence": "Observation/Belief runtime + obs→belief→claim invalidation; Model/Forecast/Decision nodes still CONTRACTED"
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "tests/test_epistemic.py; Observation→Belief→Claim→Model→Forecast→Decision→Commitment invalidation (GOS-I12)"
     },
     {
       "id": "observation_belief_runtime",
@@ -97,8 +97,8 @@
     },
     {
       "id": "environment_compiler_dynamic",
-      "state": "CONTRACTED",
-      "evidence": "adaptive recompilation / change proposals runtime deferred"
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "EnvironmentChangeGate PROPOSED→…→ACTIVE with authority gate; no silent rewrite (GOS-I20); tests/test_epistemic_graph_env_replay.py"
     },
     {
       "id": "sandbox_mvp",
@@ -142,8 +142,13 @@
     },
     {
       "id": "event_replay_engine",
-      "state": "STUBBED",
-      "evidence": "list_events available; full replay/projection rebuild contracted"
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "EventReplayEngine status projection rebuild from ledger; not full entity-body snapshot restore"
+    },
+    {
+      "id": "mission_outcome_contract",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "MissionAssigner outcome-level MissionContract; rejects microstep objectives; tests/test_epistemic_graph_env_replay.py"
     },
     {
       "id": "materiality_engine",

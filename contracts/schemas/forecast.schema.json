@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/forecast.schema.json",
+  "title": "Forecast",
+  "description": "Prediction derived from EpistemicModel(s) and/or claims. Not evidence. Stales when models/claims invalidate (GOS-I12).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "forecast_id",
+    "schema_version",
+    "goal_id",
+    "statement",
+    "status",
+    "depends_on_model_ids",
+    "recorded_at"
+  ],
+  "properties": {
+    "forecast_id": { "type": "string", "pattern": "^fc_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "goal_id": { "type": "string" },
+    "statement": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["ACTIVE", "STALE", "WITHDRAWN", "NEEDS_REVIEW"]
+    },
+    "depends_on_model_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "depends_on_claim_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "horizon": { "type": "string" },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "valid_until": { "type": "string", "format": "date-time" }
+  }
+}

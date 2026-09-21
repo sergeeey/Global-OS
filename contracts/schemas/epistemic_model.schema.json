@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/epistemic_model.schema.json",
+  "title": "EpistemicModel",
+  "description": "World/predictive model node in the epistemic graph — not an LLM provider. Depends on claims; invalidated when supports go stale (GOS-I12).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "model_id",
+    "schema_version",
+    "goal_id",
+    "statement",
+    "status",
+    "depends_on_claim_ids",
+    "recorded_at"
+  ],
+  "properties": {
+    "model_id": { "type": "string", "pattern": "^mdl_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "goal_id": { "type": "string" },
+    "statement": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["ACTIVE", "STALE", "WITHDRAWN", "NEEDS_REVIEW"]
+    },
+    "depends_on_claim_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "known_at": { "type": "string", "format": "date-time" },
+    "confidence": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH", "VERY_HIGH"]
+    },
+    "confidence_basis": { "type": "string" }
+  }
+}

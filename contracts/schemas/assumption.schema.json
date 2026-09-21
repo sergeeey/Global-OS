@@ -23,7 +23,14 @@
     "statement": { "type": "string", "minLength": 1 },
     "status": {
       "type": "string",
-      "enum": ["ACTIVE", "VALIDATED", "FALSIFIED", "SUPERSEDED", "WITHDRAWN"]
+      "enum": [
+        "ACTIVE",
+        "VALIDATED",
+        "FALSIFIED",
+        "SUPERSEDED",
+        "WITHDRAWN",
+        "STALE"
+      ]
     },
     "origin": {
       "type": "string",

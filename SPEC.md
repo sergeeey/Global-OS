@@ -48,10 +48,12 @@ Sequence: Problem → Contract → Invariant → Tests → Implementation → Ru
 | Event | RUNTIME_VERIFIED_LOCAL | Append-only; SQLite adapter |
 | ActionProposal / EffectReceipt | RUNTIME_VERIFIED_LOCAL | Authority + gateway |
 | Evidence / Claim | RUNTIME_VERIFIED_LOCAL | Invalidation seed |
-| Observation / Belief / Commitment | CONTRACTED | Schemas + invalidation contracts |
+| Observation / Belief / Commitment | RUNTIME_VERIFIED_LOCAL | Obs/Belief store + Commitment NEEDS_REVIEW on invalidation |
 | OrgUnit | RUNTIME_VERIFIED_LOCAL | manager_workers compiler |
-| ExecutionEnvironment | CONTRACTED | EnvironmentCompiler contracts (ADR-0003) |
-| ReasoningBudget / ContextManifest / ClarificationPolicy | CONTRACTED | Schemas only |
+| MissionContract | RUNTIME_VERIFIED_LOCAL | Outcome assigner; rejects microsteps |
+| ExecutionEnvironment | RUNTIME_VERIFIED_LOCAL | EnvironmentCompiler + ChangeGate lifecycle |
+| Epistemic Model / Forecast / Decision | RUNTIME_VERIFIED_LOCAL | Invalidation chain GOS-I12 |
+| ReasoningBudget / ContextManifest / ClarificationPolicy | RUNTIME_VERIFIED_LOCAL | Controllers + schemas |
 | Preference | CONTRACTED | Cannot auto-mutate Goal |
 
 ## Goal Contract (summary)
@@ -92,16 +94,16 @@ Still the gate for calling the milestone complete — **not** currently claimed:
 4. Execute tasks via **Temporal** (CONTRACTED; DurableRunner ≠ Temporal)  
 5. Die mid-task  
 6. Resume after restart  
-7. Store observations separately from beliefs (schemas CONTRACTED; dual-store runtime incomplete)  
+7. Store observations separately from beliefs (**RUNTIME_VERIFIED_LOCAL**; Model/Forecast/Decision local-runtime too)  
 8. Create claim + evidence  
 9. Invalidation marks claim stale  
 10. Worker cannot exceed parent authority  
 11. Forbidden action never reaches Tool Gateway  
 12. External canary action yields Effect Receipt  
-13. Event history allows replay (list_events RUNTIME; full replay engine STUBBED)  
+13. Event history allows replay (status projection **RUNTIME_VERIFIED_LOCAL**; full body restore limited)  
 14. All model calls via provider abstraction  
 15. All tool calls via Tool abstraction  
-16. Basic OTel traces (CONTRACTED)  
+16. Basic OTel traces (**RUNTIME_VERIFIED_LOCAL** in-memory; Temporal-distributed CONTRACTED)  
 17. Budget limits operation  
 18. Null result persisted  
 19. Test: single-agent vs organization  
@@ -111,7 +113,7 @@ Still the gate for calling the milestone complete — **not** currently claimed:
 
 ### M0 — Trustworthy Skeleton (current target)
 
-CI green; versioned contracts; immutable goals; default-deny authority; forbidden tools unreachable; process-kill recovery harness; claim invalidation; event persistence; Survival real vs stub split; Environment contracts present; OTel minimal (still open).
+CI green; versioned contracts; immutable goals; default-deny authority; forbidden tools unreachable; process-kill recovery harness; claim invalidation; event persistence; Survival real vs stub split; EnvironmentCompiler + ChangeGate; epistemic graph local; OTel local in-memory.
 
 ### M1 — Durable Cognitive Runtime
 
