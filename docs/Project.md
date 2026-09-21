@@ -17,9 +17,9 @@ Goal Contract · Epistemic Kernel · Durable Runtime · Authority Kernel · Dyna
 - Contracts-first monorepo; EnvironmentCompiler + ChangeGate (GOS-I20)
 - Epistemic graph local: Observation→Belief→Claim→Model→Forecast→Decision→Commitment
 - MissionAssigner (outcome contracts) + EventReplay status projections
-- CI: schema validation + ruff + mypy + pytest
-- M1 ещё CONTRACTED: Temporal, Postgres durable shared state, distributed OTel
-- Rust Authority Service — следующий hardening шаг после contract freeze
+- M1 harness-verified: TemporalBridge, Postgres durable, OTel (+ OTLP fail-closed), Rust Authority
+- CI: schema validation + ruff + mypy + pytest (+ cargo / Temporal / Postgres where configured)
+- DoD v0.1 ещё не PRODUCTION_PROVEN; next: live OTLP collector, real-model evals, M2 organization depth
 
 ## Документы
 

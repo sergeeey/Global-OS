@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.16 — 2026-09-21
+
+### Added
+
+- OTLP HTTP exporter config (`configure_otlp_exporter`) — fail-closed when endpoint unset or exporter package missing (`OtlpExportError`)
+- Optional dependency `global-os[otel]` (`opentelemetry-exporter-otlp-proto-http`)
+- `otel_otlp_fail_closed` → RUNTIME_VERIFIED_LOCAL
+
+### Honesty
+
+- Live OTLP collector export still not claimed as PRODUCTION_PROVEN
+
 ## 0.1.15 — 2026-09-21
 
 ### Added

@@ -14,6 +14,7 @@ from opentelemetry.sdk.trace.export.in_memory_span_exporter import InMemorySpanE
 
 _EXPORTER: InMemorySpanExporter | None = None
 _CONFIGURED = False
+_OTLP_CONFIGURED = False
 
 REQUIRED_ATTR_KEYS = (
     "goal.id",
@@ -23,6 +24,10 @@ REQUIRED_ATTR_KEYS = (
     "org_unit.id",
     "principal.id",
 )
+
+
+class OtlpExportError(Exception):
+    """Fail-closed when OTLP was requested but cannot be configured."""
 
 
 def configure_tracing(*, service_name: str = "global-os") -> InMemorySpanExporter:
@@ -37,6 +42,47 @@ def configure_tracing(*, service_name: str = "global-os") -> InMemorySpanExporte
     _EXPORTER = exporter
     _CONFIGURED = True
     return exporter
+
+
+def configure_otlp_exporter(
+    *,
+    endpoint: str | None = None,
+    service_name: str = "global-os",
+) -> None:
+    """Attach OTLP HTTP exporter when endpoint provided. Never silently no-ops.
+
+    Requires optional dependency ``opentelemetry-exporter-otlp-proto-http``.
+    If endpoint is set but package/connect config fails → OtlpExportError.
+    """
+    import os
+
+    global _OTLP_CONFIGURED
+    ep = endpoint if endpoint is not None else os.environ.get("OTEL_EXPORTER_OTLP_ENDPOINT", "")
+    ep = (ep or "").strip()
+    if not ep:
+        raise OtlpExportError("OTEL_EXPORTER_OTLP_ENDPOINT unset; refusing silent pretend-export")
+    try:
+        from opentelemetry.exporter.otlp.proto.http.trace_exporter import (  # type: ignore[import-not-found]
+            OTLPSpanExporter,
+        )
+    except ImportError as exc:
+        raise OtlpExportError(
+            "opentelemetry-exporter-otlp-proto-http not installed; "
+            "refusing silent in-memory-only fallback while OTLP was requested"
+        ) from exc
+
+    if not _CONFIGURED:
+        configure_tracing(service_name=service_name)
+    provider = trace.get_tracer_provider()
+    if not isinstance(provider, TracerProvider):
+        raise OtlpExportError("tracer provider is not SDK TracerProvider")
+    exporter = OTLPSpanExporter(endpoint=ep)
+    provider.add_span_processor(SimpleSpanProcessor(exporter))
+    _OTLP_CONFIGURED = True
+
+
+def otlp_configured() -> bool:
+    return _OTLP_CONFIGURED
 
 
 def get_tracer(name: str = "global_os") -> trace.Tracer:

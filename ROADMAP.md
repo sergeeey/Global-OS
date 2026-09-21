@@ -8,45 +8,35 @@ $$
 
 Track states in `docs/capability_matrix.json`.
 
-## M0 — Trustworthy Skeleton (active)
+## M0 — Trustworthy Skeleton
 
-- [x] CONSTITUTION (+ GOS-I21), SPEC, ARCHITECTURE, models, NON_GOALS, AGENTS, EVALS
-- [x] Core JSON schemas + EnvironmentCompiler contracts (ADR-0003)
-- [x] Observation / Belief / Commitment schemas + invalidation contract doc
-- [x] CI with resolvable Action SHA pins + pin validator
-- [x] Goal / Event / Authority / Gateway / Budget (local runtime verified)
-- [x] DurableRunner process-kill harness (≠ Temporal)
-- [x] Survival: runtime_injected vs stub split
-- [x] Capability matrix + generated IMPLEMENTATION_STATUS
-- [x] Minimal OTel traces (local in-memory; Temporal-distributed still CONTRACTED)
-- [x] CI green on `main` (post consolidation)
-- [x] Observation/Belief runtime seed + EnvironmentCompiler.compile()
-- [x] Epistemic Model/Forecast/Decision/Commitment + assumption invalidation
-- [x] EnvironmentChangeGate + MissionAssigner + EventReplay status projection
-- [x] WorkflowRunnerPort + LocalDurableAdapter (Temporal still CONTRACTED)
+- [x] Contracts, CI pins, Goal/Event/Authority/Gateway, Survival process-kill
+- [x] EnvironmentCompiler + ChangeGate + MissionAssigner
+- [x] Epistemic graph (Observation→…→Commitment) + EvidenceCandidate (GOS-I22)
+- [x] Synthetic H-ENV/H-RSN/H-EVAL/H-CTX harnesses (`INCONCLUSIVE_NEEDS_REAL_MODEL`)
 
-## M1 — Durable Cognitive Runtime
+## M1 — Durable Cognitive Runtime (largely harness-verified)
 
-- [ ] Real Temporal adapter with physical worker-kill + no duplicate material effects
-- [ ] Durable shared state surviving process/container loss + concurrent writers (Postgres is one implementation)
-- [ ] Distributed OTel Goal→…→Action with Temporal workflows
-- [x] Full Epistemic Graph runtime (Observation→…→Commitment) with recursive invalidation (local)
-- [ ] H-ENV-001 / H-RSN-001 measured runs (preregistered only)
+- [x] TemporalBridge + kill/retry + live multi-worker restart (RUNTIME_VERIFIED_HARNESS)
+- [x] Postgres durable shared-state reconnect + concurrent writers (RUNTIME_VERIFIED_HARNESS)
+- [x] OTel Goal/Task/Action + Workflow/Activity spans (RUNTIME_VERIFIED_LOCAL; collector export optional)
+- [x] Rust Authority process boundary + `AuthorityKernel(backend=rust)`
+- [ ] Real-model H-ENV/H-RSN measured runs (replace synthetic)
 
 ## M2 — Cognitive Organization
 
-- EnvironmentCompiler runtime
-- Deep repo-audit (beyond structure scan)
-- Real multi-injection Survival (not stub catalog)
-- H-ORG-001 with measured baselines
+- [ ] Deep repo-audit (beyond structure scan)
+- [ ] Real multi-injection Survival (not stub catalog)
+- [ ] H-ORG-001 with measured baselines
+- [ ] Strong sandbox (container/gVisor)
 
 ## Later
 
-- Rust Authority process boundary (after semantic contract stable)
-- Strong sandbox (container/gVisor)
 - Preference Ledger / Counterfactual / VOI
+- Default production profile `GOS_AUTHORITY_BACKEND=rust`
 - v1.0: 48h+ task with injected failures
 
 ## Definition of Done v0.1
 
-См. `SPEC.md` — not claimed complete until Temporal + OTel + observation/belief runtime separation are RUNTIME_VERIFIED.
+См. `SPEC.md`. Temporal + Postgres + OTel path now have RUNTIME_VERIFIED_* harness evidence;
+DoD v0.1 still not claimed as PRODUCTION_PROVEN.

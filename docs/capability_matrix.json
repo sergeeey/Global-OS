@@ -63,12 +63,17 @@
     {
       "id": "otel_traces",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "tests/test_otel.py (in-memory exporter; not Temporal-distributed)"
+      "evidence": "tests/test_otel.py (in-memory exporter + OTLP fail-closed without endpoint/package; live collector export not claimed)"
     },
     {
       "id": "otel_distributed_temporal",
       "state": "RUNTIME_VERIFIED_LOCAL",
       "evidence": "TemporalBridge Workflow+Activity spans (time-skipping env); tests/test_temporal_bridge.py::test_temporal_otel_workflow_activity_spans; cross-process OTel collector export still not claimed"
+    },
+    {
+      "id": "otel_otlp_fail_closed",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "configure_otlp_exporter raises OtlpExportError when endpoint unset or exporter package missing; tests/test_otel.py"
     },
     {
       "id": "survival_process_kill",

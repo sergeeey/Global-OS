@@ -91,7 +91,7 @@ Still the gate for calling the milestone complete — **not** currently claimed:
 1. Accept versioned Goal Contract  
 2. Build task DAG  
 3. Create org: parent + workers  
-4. Execute tasks via **Temporal** (CONTRACTED; DurableRunner ≠ Temporal)  
+4. Execute tasks via **Temporal** (**RUNTIME_VERIFIED_HARNESS** TemporalBridge; LocalDurable ≠ Temporal)  
 5. Die mid-task  
 6. Resume after restart  
 7. Store observations separately from beliefs (**RUNTIME_VERIFIED_LOCAL**; Model/Forecast/Decision local-runtime too)  
@@ -103,7 +103,7 @@ Still the gate for calling the milestone complete — **not** currently claimed:
 13. Event history allows replay (status projection **RUNTIME_VERIFIED_LOCAL**; full body restore limited)  
 14. All model calls via provider abstraction  
 15. All tool calls via Tool abstraction  
-16. Basic OTel traces (**RUNTIME_VERIFIED_LOCAL** in-memory; Temporal-distributed CONTRACTED)  
+16. Basic OTel traces (**RUNTIME_VERIFIED_LOCAL**; Workflow/Activity on TemporalBridge; OTLP collector optional)  
 17. Budget limits operation  
 18. Null result persisted  
 19. Test: single-agent vs organization  
@@ -111,13 +111,13 @@ Still the gate for calling the milestone complete — **not** currently claimed:
 
 ## Milestones
 
-### M0 — Trustworthy Skeleton (current target)
+### M0 — Trustworthy Skeleton
 
-CI green; versioned contracts; immutable goals; default-deny authority; forbidden tools unreachable; process-kill recovery harness; claim invalidation; event persistence; Survival real vs stub split; EnvironmentCompiler + ChangeGate; epistemic graph local; OTel local in-memory.
+Complete for harness scope (see ROADMAP).
 
 ### M1 — Durable Cognitive Runtime
 
-Temporal + durable shared state (e.g. Postgres) + OTel + Epistemic Graph runtime.
+Temporal + Postgres + OTel + Epistemic Graph + Rust Authority — **harness-verified**; not PRODUCTION_PROVEN.
 
 ### M2 — Cognitive Organization
 
