@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.23 — 2026-09-21
+
+### Added
+
+- Survival injections: API_OUTAGE, MODEL_SWAP, SLOW_DEPENDENCY, CONSTRAINT_CHANGE
+- `OutageModelProvider` / `SwappableModelProvider` / `SlowModelProvider` fail-closed stubs
+
 ## 0.1.22 — 2026-09-21
 
 ### Added

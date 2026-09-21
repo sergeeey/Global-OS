@@ -59,3 +59,65 @@ class EchoModelProvider(ModelProvider):
         self, request: GenerateRequest, schema: dict[str, Any]
     ) -> dict[str, Any]:
         return {"echo": request.prompt, "schema_title": schema.get("title")}
+
+
+class ModelProviderError(Exception):
+    """Provider-level failure (outage, timeout) — must not invent success."""
+
+
+class OutageModelProvider(ModelProvider):
+    """Simulates API outage — always fails closed."""
+
+    def generate(self, request: GenerateRequest) -> GenerateResponse:
+        raise ModelProviderError("api_outage: provider unreachable")
+
+    def structured_generate(
+        self, request: GenerateRequest, schema: dict[str, Any]
+    ) -> dict[str, Any]:
+        raise ModelProviderError("api_outage: provider unreachable")
+
+
+class SwappableModelProvider(ModelProvider):
+    """Allows mid-run model swap while callers keep the same interface."""
+
+    def __init__(self, primary: ModelProvider) -> None:
+        self._current = primary
+        self.swap_count = 0
+
+    @property
+    def current(self) -> ModelProvider:
+        return self._current
+
+    def swap(self, provider: ModelProvider) -> None:
+        self._current = provider
+        self.swap_count += 1
+
+    def generate(self, request: GenerateRequest) -> GenerateResponse:
+        return self._current.generate(request)
+
+    def structured_generate(
+        self, request: GenerateRequest, schema: dict[str, Any]
+    ) -> dict[str, Any]:
+        return self._current.structured_generate(request, schema)
+
+
+class SlowModelProvider(ModelProvider):
+    """Simulates slow dependency by exceeding a wall budget check."""
+
+    def __init__(self, *, delay_seconds: float = 10.0, budget_seconds: float = 0.01) -> None:
+        self.delay_seconds = delay_seconds
+        self.budget_seconds = budget_seconds
+
+    def generate(self, request: GenerateRequest) -> GenerateResponse:
+        if self.delay_seconds > self.budget_seconds:
+            raise ModelProviderError(
+                f"slow_dependency: delay {self.delay_seconds}s exceeds budget {self.budget_seconds}s"
+            )
+        return EchoModelProvider().generate(request)
+
+    def structured_generate(
+        self, request: GenerateRequest, schema: dict[str, Any]
+    ) -> dict[str, Any]:
+        if self.delay_seconds > self.budget_seconds:
+            raise ModelProviderError("slow_dependency: exceeded wall budget")
+        return EchoModelProvider().structured_generate(request, schema)

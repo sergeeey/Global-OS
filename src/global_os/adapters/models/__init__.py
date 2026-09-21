@@ -3,7 +3,11 @@ from global_os.adapters.models.base import (
     GenerateRequest,
     GenerateResponse,
     ModelProvider,
+    ModelProviderError,
     ModelRef,
+    OutageModelProvider,
+    SlowModelProvider,
+    SwappableModelProvider,
 )
 
 __all__ = [
@@ -11,5 +15,9 @@ __all__ = [
     "GenerateRequest",
     "GenerateResponse",
     "ModelProvider",
+    "ModelProviderError",
     "ModelRef",
+    "OutageModelProvider",
+    "SlowModelProvider",
+    "SwappableModelProvider",
 ]

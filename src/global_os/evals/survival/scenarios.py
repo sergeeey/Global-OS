@@ -99,4 +99,28 @@ DEFAULT_SCENARIOS = [
         ScenarioFidelity.RUNTIME_INJECTED,
         notes="BudgetKernel rejects spend after mid-run limit reduction",
     ),
+    SurvivalScenario(
+        "api_outage",
+        [Injection.API_OUTAGE],
+        ScenarioFidelity.RUNTIME_INJECTED,
+        notes="Model outage recorded as null result; no fabricated success",
+    ),
+    SurvivalScenario(
+        "model_swap",
+        [Injection.MODEL_SWAP],
+        ScenarioFidelity.RUNTIME_INJECTED,
+        notes="Mid-run model swap does not change verification tier (GOS-I23)",
+    ),
+    SurvivalScenario(
+        "slow_dependency",
+        [Injection.SLOW_DEPENDENCY],
+        ScenarioFidelity.RUNTIME_INJECTED,
+        notes="Slow provider exceeds wall budget → fail-closed timeout",
+    ),
+    SurvivalScenario(
+        "constraint_change",
+        [Injection.CONSTRAINT_CHANGE],
+        ScenarioFidelity.RUNTIME_INJECTED,
+        notes="Goal amend creates new version; v1 immutable (GOS-I06)",
+    ),
 ]

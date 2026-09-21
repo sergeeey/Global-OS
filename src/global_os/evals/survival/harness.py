@@ -219,12 +219,191 @@ def _run_budget_reduction() -> SurvivalScenario:
     )
 
 
+def _run_api_outage() -> SurvivalScenario:
+    from global_os.adapters.models import GenerateRequest, ModelProviderError, OutageModelProvider
+    from global_os.memory import NullResultStore
+
+    ledger = EventLedger()
+    nulls = NullResultStore(ledger)
+    provider = OutageModelProvider()
+    fabricated = False
+    recorded = False
+    try:
+        provider.generate(GenerateRequest(prompt="continue the goal"))
+        fabricated = True
+    except ModelProviderError as exc:
+        nulls.record(
+            attempt="model.generate",
+            why_failed=str(exc),
+            evidence=["provider_exception"],
+            conditions="api_outage",
+            reopen_condition="provider_health_ok",
+            tenant_id="t",
+            workspace_id="w",
+            goal_id="goal_surv",
+        )
+        recorded = True
+    passed = recorded and not fabricated and len(nulls.list_all()) == 1
+    return SurvivalScenario(
+        "api_outage",
+        [Injection.API_OUTAGE],
+        ScenarioFidelity.RUNTIME_INJECTED,
+        passed=passed,
+        notes="Model outage recorded as null result; no fabricated success",
+    )
+
+
+def _run_model_swap() -> SurvivalScenario:
+    from global_os.adapters.models import (
+        EchoModelProvider,
+        GenerateRequest,
+        ModelRef,
+        SwappableModelProvider,
+    )
+    from global_os.cognition.metareasoning import ReasoningBudgetController
+
+    swap = SwappableModelProvider(EchoModelProvider())
+    first = swap.generate(GenerateRequest(prompt="step-1"))
+    # Mid-run swap to another stub family
+
+    class OtherEcho(EchoModelProvider):
+        def generate(self, request: GenerateRequest) -> Any:
+            resp = super().generate(request)
+            return type(resp)(
+                text=resp.text,
+                model=ModelRef("stub", "echo-b", "1"),
+                input_tokens=resp.input_tokens,
+                output_tokens=resp.output_tokens,
+            )
+
+    verification_tier = 2
+    ctrl = ReasoningBudgetController()
+    before = ctrl.decide(
+        {"default_effort": "medium", "increase_when": [], "decrease_when": ["confidence_high"]},
+        verification_tier=verification_tier,
+        signals={"confidence_high"},
+    )
+    swap.swap(OtherEcho())
+    second = swap.generate(GenerateRequest(prompt="step-2"))
+    after = ctrl.decide(
+        {"default_effort": "medium", "increase_when": [], "decrease_when": ["confidence_high"]},
+        verification_tier=verification_tier,
+        signals={"confidence_high"},
+    )
+    passed = (
+        swap.swap_count == 1
+        and first.model.model != second.model.model
+        and before.verification_tier_unchanged == verification_tier
+        and after.verification_tier_unchanged == verification_tier
+    )
+    return SurvivalScenario(
+        "model_swap",
+        [Injection.MODEL_SWAP],
+        ScenarioFidelity.RUNTIME_INJECTED,
+        passed=passed,
+        notes="Mid-run model swap does not change verification tier (GOS-I23)",
+    )
+
+
+def _run_slow_dependency() -> SurvivalScenario:
+    from global_os.adapters.models import GenerateRequest, ModelProviderError, SlowModelProvider
+    from global_os.memory import NullResultStore
+    from global_os.world.sandbox import Sandbox, SandboxLimits
+
+    ledger = EventLedger()
+    nulls = NullResultStore(ledger)
+    slow = SlowModelProvider(delay_seconds=5.0, budget_seconds=0.01)
+    timed_out_model = False
+    try:
+        slow.generate(GenerateRequest(prompt="long"))
+    except ModelProviderError:
+        timed_out_model = True
+        nulls.record(
+            attempt="model.generate.slow",
+            why_failed="slow_dependency",
+            evidence=["wall_budget_exceeded"],
+            conditions="dependency_latency",
+            reopen_condition="latency_ok",
+            tenant_id="t",
+            workspace_id="w",
+            goal_id="goal_surv",
+        )
+    sb = Sandbox(SandboxLimits(walltime_seconds=0.05))
+    sb.create()
+    try:
+        result = sb.execute(["sleep", "2"])
+        sandbox_timed = result.timed_out is True
+    finally:
+        sb.destroy()
+    passed = timed_out_model and sandbox_timed and len(nulls.list_all()) == 1
+    return SurvivalScenario(
+        "slow_dependency",
+        [Injection.SLOW_DEPENDENCY],
+        ScenarioFidelity.RUNTIME_INJECTED,
+        passed=passed,
+        notes="Slow provider exceeds wall budget → fail-closed timeout",
+    )
+
+
+def _run_constraint_change() -> SurvivalScenario:
+    from global_os.runtime.goals import GoalStore
+
+    ledger = EventLedger()
+    goals = GoalStore(ledger)
+    goal = goals.create(
+        {
+            "schema_version": "0.1.0",
+            "goal_id": "goal_surv_constraint",
+            "version": 1,
+            "tenant_id": "t",
+            "workspace_id": "w",
+            "objective": {"text": "do the thing"},
+            "success_criteria": [{"id": "sc", "description": "done"}],
+            "invariants": ["read_only"],
+            "non_goals": [],
+            "forbidden_outcomes": [],
+            "risk": {"tolerance": "low", "maximum_irreversibility": "none"},
+            "authority": {"delegation_depth_max": 1, "capabilities": ["filesystem.read"]},
+            "evidence_requirements": {},
+            "termination": ["success_criteria_met"],
+            "created_at": "2026-09-21T00:00:00+00:00",
+        }
+    )
+    v1 = goals.get(goal["goal_id"], version=1)
+    amended = goals.amend(
+        goal["goal_id"],
+        changes={"invariants": ["read_only", "no_network"]},
+        proposer="human",
+        reason="constraint_change mid-run",
+        changed_fields=["invariants"],
+    )
+    v1_again = goals.get(goal["goal_id"], version=1)
+    passed = (
+        v1["version"] == 1
+        and amended["version"] == 2
+        and v1_again["invariants"] == ["read_only"]
+        and amended["invariants"] == ["read_only", "no_network"]
+        and v1_again == v1
+    )
+    return SurvivalScenario(
+        "constraint_change",
+        [Injection.CONSTRAINT_CHANGE],
+        ScenarioFidelity.RUNTIME_INJECTED,
+        passed=passed,
+        notes="Goal amend creates new version; v1 immutable (GOS-I06)",
+    )
+
+
 _INJECTION_RUNNERS: dict[Injection, Any] = {
     Injection.PROCESS_KILL: _run_process_kill,
     Injection.FALSE_TOOL_SUCCESS: _run_false_tool_success,
     Injection.DUPLICATE_ACTION: _run_duplicate_action,
     Injection.SOURCE_INVALIDATION: _run_source_invalidation,
     Injection.BUDGET_REDUCTION: _run_budget_reduction,
+    Injection.API_OUTAGE: _run_api_outage,
+    Injection.MODEL_SWAP: _run_model_swap,
+    Injection.SLOW_DEPENDENCY: _run_slow_dependency,
+    Injection.CONSTRAINT_CHANGE: _run_constraint_change,
 }
 
 

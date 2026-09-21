@@ -83,7 +83,7 @@
     {
       "id": "survival_other_injections",
       "state": "RUNTIME_VERIFIED_HARNESS",
-      "evidence": "run_survival_suite: FALSE_TOOL_SUCCESS, SOURCE_INVALIDATION, DUPLICATE_ACTION, BUDGET_REDUCTION; tests/test_survival_multi.py; remaining Injection enum values (API_OUTAGE, MODEL_SWAP, …) still not in DEFAULT_SCENARIOS"
+      "evidence": "run_survival_suite 9 RUNTIME_INJECTED incl. API_OUTAGE/MODEL_SWAP/SLOW_DEPENDENCY/CONSTRAINT_CHANGE; tests/test_survival_multi.py; remaining: MALICIOUS_DOCUMENT, HUMAN_REJECTION, CONTRADICTORY_EVIDENCE, CORRUPTED_STATE"
     },
     {
       "id": "full_epistemic_graph",

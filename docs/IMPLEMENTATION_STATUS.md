@@ -21,7 +21,7 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | otel_distributed_temporal | RUNTIME_VERIFIED_LOCAL | TemporalBridge Workflow+Activity spans (time-skipping env); tests/test_temporal_bridge.py::test_temporal_otel_workflow_activity_spans; cross-process OTel collector export still not claimed |
 | otel_otlp_fail_closed | RUNTIME_VERIFIED_LOCAL | configure_otlp_exporter raises OtlpExportError when endpoint unset or exporter package missing; tests/test_otel.py |
 | survival_process_kill | RUNTIME_VERIFIED_HARNESS | Injection.PROCESS_KILL real abort/resume |
-| survival_other_injections | RUNTIME_VERIFIED_HARNESS | run_survival_suite: FALSE_TOOL_SUCCESS, SOURCE_INVALIDATION, DUPLICATE_ACTION, BUDGET_REDUCTION; tests/test_survival_multi.py; remaining Injection enum values (API_OUTAGE, MODEL_SWAP, …) still not in DEFAULT_SCENARIOS |
+| survival_other_injections | RUNTIME_VERIFIED_HARNESS | run_survival_suite 9 RUNTIME_INJECTED incl. API_OUTAGE/MODEL_SWAP/SLOW_DEPENDENCY/CONSTRAINT_CHANGE; tests/test_survival_multi.py; remaining: MALICIOUS_DOCUMENT, HUMAN_REJECTION, CONTRADICTORY_EVIDENCE, CORRUPTED_STATE |
 | full_epistemic_graph | RUNTIME_VERIFIED_LOCAL | tests/test_epistemic.py; Observation→Belief→Claim→Model→Forecast→Decision→Commitment invalidation (GOS-I12) |
 | observation_belief_runtime | RUNTIME_VERIFIED_LOCAL | tests/test_observation_belief.py; GOS-I21 guard |
 | environment_compiler | RUNTIME_VERIFIED_LOCAL | tests/test_environment_compiler.py (deterministic compile; no model calls) |
