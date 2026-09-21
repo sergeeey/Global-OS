@@ -26,7 +26,7 @@ Track states in `docs/capability_matrix.json`.
 ## M2 — Cognitive Organization
 
 - [x] Deep repo-audit (deterministic static: invariants / forbidden / schemas / provider boundary)
-- [ ] Real multi-injection Survival (not stub catalog)
+- [x] Real multi-injection Survival (DEFAULT suite RUNTIME_INJECTED; remaining enum values deferred)
 - [ ] H-ORG-001 with measured baselines
 - [ ] Strong sandbox (container/gVisor)
 - [x] IndependentVerificationStack (local multi-method; remote providers optional)

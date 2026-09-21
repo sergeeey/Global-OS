@@ -82,8 +82,8 @@
     },
     {
       "id": "survival_other_injections",
-      "state": "STUBBED",
-      "evidence": "scenarios marked fidelity=stub; excluded from GoalIntegritySurvival"
+      "state": "RUNTIME_VERIFIED_HARNESS",
+      "evidence": "run_survival_suite: FALSE_TOOL_SUCCESS, SOURCE_INVALIDATION, DUPLICATE_ACTION, BUDGET_REDUCTION; tests/test_survival_multi.py; remaining Injection enum values (API_OUTAGE, MODEL_SWAP, …) still not in DEFAULT_SCENARIOS"
     },
     {
       "id": "full_epistemic_graph",

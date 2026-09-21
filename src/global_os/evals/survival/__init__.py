@@ -1,3 +1,4 @@
+from global_os.evals.survival.harness import run_survival_suite
 from global_os.evals.survival.scenarios import (
     DEFAULT_SCENARIOS,
     Injection,
@@ -12,4 +13,5 @@ __all__ = [
     "ScenarioFidelity",
     "SurvivalReport",
     "SurvivalScenario",
+    "run_survival_suite",
 ]

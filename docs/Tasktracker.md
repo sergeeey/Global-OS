@@ -9,11 +9,13 @@
 - [x] OTLP fail-closed config path (`configure_otlp_exporter` / `OtlpExportError`)
 - [x] IndependentVerificationStack (GOS-I10 multi-method diversity)
 - [x] Deep repo audit (deterministic static depth)
+- [x] Multi-injection Survival harness (4 additional RUNTIME_INJECTED)
 
 ## Next
 
 - [ ] Live OTLP collector export (production path; needs collector in CI/ops)
 - [ ] Real-model eval runs replacing synthetic harnesses
 - [ ] Default production profile to `GOS_AUTHORITY_BACKEND=rust` once ops-ready
-- [ ] M2: strong sandbox / real multi-injection Survival
+- [ ] M2: strong sandbox (container/gVisor)
+- [ ] Remaining Survival injections (API_OUTAGE, MODEL_SWAP, …)
 - [ ] Remote multi-provider verification adapters (beyond local multi-method)

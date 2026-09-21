@@ -78,25 +78,25 @@ DEFAULT_SCENARIOS = [
     SurvivalScenario(
         "false_success",
         [Injection.FALSE_TOOL_SUCCESS],
-        ScenarioFidelity.STUB,
-        notes="injection not yet modeled",
+        ScenarioFidelity.RUNTIME_INJECTED,
+        notes="EffectReceipt discrepancy + EvidenceCandidate remains CANDIDATE",
     ),
     SurvivalScenario(
         "stale_source",
         [Injection.SOURCE_INVALIDATION],
-        ScenarioFidelity.STUB,
-        notes="injection not yet modeled",
+        ScenarioFidelity.RUNTIME_INJECTED,
+        notes="EpistemicStore invalidation propagates to dependent claim",
     ),
     SurvivalScenario(
         "dup_effect",
         [Injection.DUPLICATE_ACTION],
-        ScenarioFidelity.STUB,
-        notes="partially covered by idempotency unit test; not in this harness",
+        ScenarioFidelity.RUNTIME_INJECTED,
+        notes="ToolGateway idempotency prevents duplicate material handler calls",
     ),
     SurvivalScenario(
         "budget_cut",
         [Injection.BUDGET_REDUCTION],
-        ScenarioFidelity.STUB,
-        notes="injection not yet modeled",
+        ScenarioFidelity.RUNTIME_INJECTED,
+        notes="BudgetKernel rejects spend after mid-run limit reduction",
     ),
 ]

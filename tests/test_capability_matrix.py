@@ -15,7 +15,7 @@ def test_capability_matrix_states_are_known():
     assert by_id["temporal_durability"]["state"] == "RUNTIME_VERIFIED_HARNESS"
     assert by_id["rust_authority_boundary"]["state"] == "RUNTIME_VERIFIED_HARNESS"
     assert by_id["durable_runner_process_kill"]["state"] == "RUNTIME_VERIFIED_HARNESS"
-    assert by_id["survival_other_injections"]["state"] == "STUBBED"
+    assert by_id["survival_other_injections"]["state"] == "RUNTIME_VERIFIED_HARNESS"
     assert by_id["environment_compiler"]["state"] == "RUNTIME_VERIFIED_LOCAL"
     assert by_id["environment_compiler_dynamic"]["state"] == "RUNTIME_VERIFIED_LOCAL"
     assert by_id["full_epistemic_graph"]["state"] == "RUNTIME_VERIFIED_LOCAL"

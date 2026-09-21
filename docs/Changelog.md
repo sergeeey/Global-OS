@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.19 — 2026-09-21
+
+### Added
+
+- Survival harness runtime injections: FALSE_TOOL_SUCCESS, SOURCE_INVALIDATION, DUPLICATE_ACTION, BUDGET_REDUCTION
+- `run_survival_suite()`; `survival_other_injections` → RUNTIME_VERIFIED_HARNESS
+
+### Honesty
+
+- Injection enum still lists unimplemented kinds (API_OUTAGE, MODEL_SWAP, …) outside DEFAULT_SCENARIOS
+
 ## 0.1.18 — 2026-09-21
 
 ### Added
