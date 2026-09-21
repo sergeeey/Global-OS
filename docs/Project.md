@@ -25,7 +25,8 @@ Goal Contract · Epistemic Kernel · Durable Runtime · Authority Kernel · Dyna
 - M1 Reality Contact nearly closed (Docker/OTLP/models/survival/soak wire)
 - **ADR-0009:** architecture freeze → Empirical Science until M1.5
 - Goal Integrity Score + eval contracts; incidents + DoD V2 gate + dogfood (no auto-merge)
-- **P0 open:** live H-ENV/H-RSN + wall-clock 48h
+- Free pins: OpenRouter Nemotron 550b / Groq gpt-oss-120b / Gemini 3.6-flash; `run_hrsn_measured` + scheduled 48h soak
+- **P0 open:** user keys → live smoke + H-ENV JSON + measured H-RSN → then wall-clock 48h
 - DoD V2 / M1.5 / PRODUCTION_PROVEN **не заявлены**
 
 ## Документы
