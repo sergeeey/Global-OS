@@ -15,12 +15,15 @@
 - [x] Production profile defaults Rust Authority (`GOS_PROFILE=production`, ADR-0007)
 - [x] Survival: API_OUTAGE / MODEL_SWAP / SLOW_DEPENDENCY / CONSTRAINT_CHANGE
 - [x] SPEC-ADDENDUM-V2 + CONSTITUTION I26–I30 + GoalDriftDetector + ≥3 Org topologies (GOS-I30)
-
-## Next (M1 Reality Contact)
-
 - [x] Docker sandbox path + CI (`run_sandboxed_task`, compose-ready; live containers required in GHA)
 - [x] OTLP export path (HTTP sink + compose collector; CI starts collector)
-- [ ] Real-model eval runs (H-ENV/H-RSN/H-ORG/…)
-- [ ] Remaining Survival: MALICIOUS_DOCUMENT / HUMAN_REJECTION / CONTRADICTORY_EVIDENCE / CORRUPTED_STATE
-- [ ] 48h durable run
-- [ ] Remote multi-provider verification adapters
+- [x] Real-model provider adapters ×2 + `model.invoked` trail (wire harness; live keys optional)
+- [x] Survival: MALICIOUS_DOCUMENT / HUMAN_REJECTION / CONTRADICTORY_EVIDENCE / CORRUPTED_STATE
+- [x] Remote multi-provider verification adapters
+- [x] 48h GoalIntegritySurvival soak (accelerated; wall optional)
+
+## Next
+
+- [ ] Live remote model evals when keys present (H-ENV/H-RSN/H-ORG measured)
+- [ ] Wall-clock 48h evidence (`GOS_REQUIRE_48H=1`)
+- [ ] Measured H-ORG-001 vs strong baselines (P1; after real heterogeneous tasks)

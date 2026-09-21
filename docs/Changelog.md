@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.1.26 — 2026-09-21
+
+### Added
+
+- Real model providers: `OpenAICompatProvider` + `AnthropicProvider` (stdlib HTTP, no vendor SDK)
+- `RecordingModelProvider` → `model.invoked` event trail (model/version/cost/latency/output digest)
+- Fail-closed without API keys; wire-path dual-provider tests; optional live keys (`GOS_REQUIRE_MODELS`)
+- Survival RUNTIME_INJECTED: MALICIOUS_DOCUMENT, HUMAN_REJECTION, CONTRADICTORY_EVIDENCE, CORRUPTED_STATE (13 total)
+- `EpistemicStore.mark_contradicted` + `CorruptedCheckpointError` (GOS-I16/I26/I29)
+- Multi-provider verification adapters (`multi_provider_verification_stack`)
+- Accelerated 48h `GoalIntegritySurvival` soak (`run_goal_integrity_soak`; wall via `GOS_REQUIRE_48H`)
+
+### Honesty
+
+- Live remote model calls not claimed without keys; soak fidelity=`ACCELERATED_SIMULATED` unless `GOS_REQUIRE_48H`
+- H-ORG-001 measured superiority still `INCONCLUSIVE_NEEDS_REAL_MODEL` / P1
+
 ## 0.1.25 — 2026-09-21
 
 ### Added

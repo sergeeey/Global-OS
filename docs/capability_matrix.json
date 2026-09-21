@@ -88,7 +88,22 @@
     {
       "id": "survival_other_injections",
       "state": "RUNTIME_VERIFIED_HARNESS",
-      "evidence": "run_survival_suite 9 RUNTIME_INJECTED incl. API_OUTAGE/MODEL_SWAP/SLOW_DEPENDENCY/CONSTRAINT_CHANGE; tests/test_survival_multi.py; remaining: MALICIOUS_DOCUMENT, HUMAN_REJECTION, CONTRADICTORY_EVIDENCE, CORRUPTED_STATE"
+      "evidence": "run_survival_suite 13 RUNTIME_INJECTED incl. MALICIOUS_DOCUMENT/HUMAN_REJECTION/CONTRADICTORY_EVIDENCE/CORRUPTED_STATE; tests/test_survival_multi.py"
+    },
+    {
+      "id": "real_model_providers",
+      "state": "RUNTIME_VERIFIED_HARNESS",
+      "evidence": "OpenAICompat+Anthropic HTTP adapters (no vendor SDK); RecordingModelProvider model.invoked trail (model/version/cost/latency/output); fail-closed without keys; wire mock + optional live keys; tests/test_model_providers_live.py"
+    },
+    {
+      "id": "multi_provider_verification",
+      "state": "RUNTIME_VERIFIED_HARNESS",
+      "evidence": "multi_provider_verification_stack openai×anthropic distinct families (GOS-I10); wire HTTP judges + conflicted consensus; tests/test_multi_provider_verification.py"
+    },
+    {
+      "id": "goal_integrity_soak_48h",
+      "state": "RUNTIME_VERIFIED_HARNESS",
+      "evidence": "run_goal_integrity_soak simulated 48h ACCELERATED_SIMULATED; wall-clock via GOS_REQUIRE_48H; tests/test_survival_soak.py — not PRODUCTION_PROVEN wall 48h"
     },
     {
       "id": "full_epistemic_graph",
@@ -127,8 +142,8 @@
     },
     {
       "id": "independent_verification_diversity",
-      "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "IndependentVerificationStack multi-method consensus; rejects same-model-family LLM judges (GOS-I10); numeric dual deterministic stack; tests/test_independent_verification_stack.py; remote multi-provider adapters still optional"
+      "state": "RUNTIME_VERIFIED_HARNESS",
+      "evidence": "IndependentVerificationStack multi-method consensus; rejects same-model-family LLM judges (GOS-I10); numeric dual stack + remote openai/anthropic judge adapters; tests/test_independent_verification_stack.py; tests/test_multi_provider_verification.py"
     },
     {
       "id": "rust_authority_boundary",

@@ -15,6 +15,10 @@ class WorkflowAborted(Exception):
     """Injected failure (e.g. process kill simulation)."""
 
 
+class CorruptedCheckpointError(Exception):
+    """Checkpoint bytes are unusable — fail closed; never invent state (GOS-I29)."""
+
+
 @dataclass
 class WorkflowStep:
     name: str
@@ -83,9 +87,16 @@ class DurableRunner:
         ).fetchone()
         if row is None:
             return {}
-        raw = json.loads(row["state_json"])
+        try:
+            raw = json.loads(row["state_json"])
+        except json.JSONDecodeError as exc:
+            raise CorruptedCheckpointError(
+                f"corrupted checkpoint run_id={run_id} step={step_index}: invalid JSON"
+            ) from exc
         if not isinstance(raw, dict):
-            raise TypeError("checkpoint state must be object")
+            raise CorruptedCheckpointError(
+                f"corrupted checkpoint run_id={run_id} step={step_index}: state must be object"
+            )
         return cast(dict[str, Any], raw)
 
     def _checkpoint(

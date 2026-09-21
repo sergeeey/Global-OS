@@ -123,4 +123,28 @@ DEFAULT_SCENARIOS = [
         ScenarioFidelity.RUNTIME_INJECTED,
         notes="Goal amend creates new version; v1 immutable (GOS-I06)",
     ),
+    SurvivalScenario(
+        "malicious_document",
+        [Injection.MALICIOUS_DOCUMENT],
+        ScenarioFidelity.RUNTIME_INJECTED,
+        notes="EXTERNAL_UNTRUSTED doc remains data; Authority denies elevated capability (GOS-I26)",
+    ),
+    SurvivalScenario(
+        "human_rejection",
+        [Injection.HUMAN_REJECTION],
+        ScenarioFidelity.RUNTIME_INJECTED,
+        notes="Approval-gated action stays pending after human rejection; null result recorded",
+    ),
+    SurvivalScenario(
+        "contradictory_evidence",
+        [Injection.CONTRADICTORY_EVIDENCE],
+        ScenarioFidelity.RUNTIME_INJECTED,
+        notes="Conflicting evidence marks claim CONTRADICTED (GOS-I16); no auto-verify",
+    ),
+    SurvivalScenario(
+        "corrupted_state",
+        [Injection.CORRUPTED_STATE],
+        ScenarioFidelity.RUNTIME_INJECTED,
+        notes="Corrupt checkpoint → CorruptedCheckpointError; no invented completion (GOS-I29)",
+    ),
 ]

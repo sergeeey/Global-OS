@@ -38,8 +38,8 @@ def test_multi_injection_survival_suite_honest_metric():
 def test_default_scenarios_all_have_runtime_runners():
     assert all(s.fidelity == ScenarioFidelity.RUNTIME_INJECTED for s in DEFAULT_SCENARIOS)
     covered = {inj for s in DEFAULT_SCENARIOS for inj in s.injections}
-    # Remaining enum values intentionally not yet harnessed
-    assert Injection.MALICIOUS_DOCUMENT not in covered
-    assert Injection.HUMAN_REJECTION not in covered
-    assert Injection.CONTRADICTORY_EVIDENCE not in covered
-    assert Injection.CORRUPTED_STATE not in covered
+    assert Injection.MALICIOUS_DOCUMENT in covered
+    assert Injection.HUMAN_REJECTION in covered
+    assert Injection.CONTRADICTORY_EVIDENCE in covered
+    assert Injection.CORRUPTED_STATE in covered
+    assert len(DEFAULT_SCENARIOS) >= 13

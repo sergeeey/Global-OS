@@ -1,4 +1,5 @@
 from global_os.runtime.workflows.durable import (
+    CorruptedCheckpointError,
     DurableRunner,
     WorkflowAborted,
     WorkflowDefinition,
@@ -7,6 +8,7 @@ from global_os.runtime.workflows.durable import (
 )
 
 __all__ = [
+    "CorruptedCheckpointError",
     "DurableRunner",
     "WorkflowAborted",
     "WorkflowDefinition",

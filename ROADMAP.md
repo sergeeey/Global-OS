@@ -24,12 +24,14 @@ Harness-verified durable path exists; **production reality contact still open**:
 - [x] TemporalBridge / Postgres / OTel spans / Rust Authority (RUNTIME_VERIFIED_*)
 - [x] Production profile → Rust Authority fail-closed (ADR-0007)
 - [x] Strong sandbox fail-closed port (ADR-0006; live Docker CI optional)
-- [x] Survival suite expanded (9 RUNTIME_INJECTED; remaining enum deferred)
+- [x] Survival suite expanded (13 RUNTIME_INJECTED)
 - [x] Docker Reality Contact path + CI (`run_sandboxed_task`, GOS_REQUIRE_DOCKER)
 - [x] OTLP Reality Contact path + CI collector compose (GOS_REQUIRE_OTLP)
-- [ ] Real model provider runs (replace synthetic evals)
-- [ ] Remaining survival: malicious_document / human_rejection / contradictory_evidence / corrupted_state
-- [ ] 48h durable run evidence
+- [x] Real model provider adapters ×2 + event trail (wire; live keys optional)
+- [x] Remaining survival: malicious_document / human_rejection / contradictory_evidence / corrupted_state
+- [x] 48h durable soak harness (accelerated; wall via GOS_REQUIRE_48H)
+- [ ] Live remote model evals replacing synthetic H-* when keys available
+- [ ] Wall-clock 48h production evidence
 
 ## M2 — Cognitive Organization (contracts P0; proof P1)
 

@@ -2,8 +2,8 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **105**
-- capabilities tracked: **50**
+- pytest collected: **116**
+- capabilities tracked: **53**
 
 | Capability | State | Evidence |
 | ---------- | ----- | -------- |
@@ -22,7 +22,10 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | otel_otlp_fail_closed | RUNTIME_VERIFIED_LOCAL | configure_otlp_exporter raises OtlpExportError when endpoint unset or exporter package missing; tests/test_otel.py |
 | otel_otlp_live_export | RUNTIME_VERIFIED_HARNESS | OTLP HTTP export to external receiver (in-process sink + deploy compose collector); tests/test_otlp_collector_live.py; CI starts otel-collector |
 | survival_process_kill | RUNTIME_VERIFIED_HARNESS | Injection.PROCESS_KILL real abort/resume |
-| survival_other_injections | RUNTIME_VERIFIED_HARNESS | run_survival_suite 9 RUNTIME_INJECTED incl. API_OUTAGE/MODEL_SWAP/SLOW_DEPENDENCY/CONSTRAINT_CHANGE; tests/test_survival_multi.py; remaining: MALICIOUS_DOCUMENT, HUMAN_REJECTION, CONTRADICTORY_EVIDENCE, CORRUPTED_STATE |
+| survival_other_injections | RUNTIME_VERIFIED_HARNESS | run_survival_suite 13 RUNTIME_INJECTED incl. MALICIOUS_DOCUMENT/HUMAN_REJECTION/CONTRADICTORY_EVIDENCE/CORRUPTED_STATE; tests/test_survival_multi.py |
+| real_model_providers | RUNTIME_VERIFIED_HARNESS | OpenAICompat+Anthropic HTTP adapters (no vendor SDK); RecordingModelProvider model.invoked trail (model/version/cost/latency/output); fail-closed without keys; wire mock + optional live keys; tests/test_model_providers_live.py |
+| multi_provider_verification | RUNTIME_VERIFIED_HARNESS | multi_provider_verification_stack openai×anthropic distinct families (GOS-I10); wire HTTP judges + conflicted consensus; tests/test_multi_provider_verification.py |
+| goal_integrity_soak_48h | RUNTIME_VERIFIED_HARNESS | run_goal_integrity_soak simulated 48h ACCELERATED_SIMULATED; wall-clock via GOS_REQUIRE_48H; tests/test_survival_soak.py — not PRODUCTION_PROVEN wall 48h |
 | full_epistemic_graph | RUNTIME_VERIFIED_LOCAL | tests/test_epistemic.py; Observation→Belief→Claim→Model→Forecast→Decision→Commitment invalidation (GOS-I12) |
 | observation_belief_runtime | RUNTIME_VERIFIED_LOCAL | tests/test_observation_belief.py; GOS-I21 guard |
 | environment_compiler | RUNTIME_VERIFIED_LOCAL | tests/test_environment_compiler.py (deterministic compile; no model calls) |
@@ -30,7 +33,7 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | sandbox_mvp | RUNTIME_VERIFIED_LOCAL | tests/test_sandbox.py (local process, not container) |
 | sandbox_strong | RUNTIME_VERIFIED_HARNESS | run_sandboxed_task network=none + memory limits + destroy; tests/test_sandbox_docker_live.py; CI GOS_REQUIRE_DOCKER=1; nested-overlay hosts may skip |
 | source_verification | RUNTIME_VERIFIED_LOCAL | tests/test_source_verification.py (local file resolve) |
-| independent_verification_diversity | RUNTIME_VERIFIED_LOCAL | IndependentVerificationStack multi-method consensus; rejects same-model-family LLM judges (GOS-I10); numeric dual deterministic stack; tests/test_independent_verification_stack.py; remote multi-provider adapters still optional |
+| independent_verification_diversity | RUNTIME_VERIFIED_HARNESS | IndependentVerificationStack multi-method consensus; rejects same-model-family LLM judges (GOS-I10); numeric dual stack + remote openai/anthropic judge adapters; tests/test_independent_verification_stack.py; tests/test_multi_provider_verification.py |
 | rust_authority_boundary | RUNTIME_VERIFIED_HARNESS | crates/authority_kernel + gos-authority CLI process boundary; GOS-I01/I04/I05; tests/test_rust_authority.py; cargo test |
 | repo_audit_structure | RUNTIME_VERIFIED_LOCAL | tests/test_repo_audit.py; gos audit |
 | repo_audit_deep | RUNTIME_VERIFIED_LOCAL | deterministic deep static: invariant coverage GOS-I01..I25, forbidden patterns, schema inventory, provider boundary; tests/test_repo_audit.py; not LLM/security pentest |

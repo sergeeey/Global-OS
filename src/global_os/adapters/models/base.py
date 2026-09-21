@@ -28,6 +28,8 @@ class GenerateResponse:
     model: ModelRef
     input_tokens: int
     output_tokens: int
+    latency_ms: float = 0.0
+    cost_usd: float | None = None
 
 
 class ModelProvider(ABC):

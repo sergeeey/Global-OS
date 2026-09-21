@@ -14,6 +14,11 @@ from global_os.verification.independent_stack import (
     StackOutcome,
     numeric_independent_stack,
 )
+from global_os.verification.multi_provider import (
+    make_provider_judge,
+    multi_provider_verification_stack,
+    scripted_pass_provider,
+)
 from global_os.verification.router import (
     ResultClass,
     VerificationOutcome,
@@ -39,7 +44,10 @@ __all__ = [
     "VerificationTier",
     "assess_diversity",
     "deterministic_numeric_verifier",
+    "make_provider_judge",
     "meets_tier_diversity",
+    "multi_provider_verification_stack",
     "numeric_independent_stack",
     "required_tier",
+    "scripted_pass_provider",
 ]

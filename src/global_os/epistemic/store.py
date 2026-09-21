@@ -112,6 +112,43 @@ class EpistemicStore:
     def get_assumption(self, assumption_id: str) -> dict[str, Any]:
         return deepcopy(self._assumptions[assumption_id])
 
+    def mark_contradicted(
+        self,
+        claim_id: str,
+        *,
+        evidence_ids: list[str],
+        tenant_id: str,
+        workspace_id: str,
+        reason: str,
+    ) -> dict[str, Any]:
+        """Two+ conflicting evidence refs → claim CONTRADICTED (GOS-I16). Never auto-VERIFIED."""
+        claim = self._claims[claim_id]
+        if len(evidence_ids) < 2:
+            raise EpistemicError("contradiction requires ≥2 evidence ids")
+        for eid in evidence_ids:
+            if eid not in self._evidence:
+                raise EpistemicError(f"unknown evidence for contradiction: {eid}")
+        claim["status"] = "CONTRADICTED"
+        claim["evidence_ids"] = list(dict.fromkeys([*claim.get("evidence_ids", []), *evidence_ids]))
+        claim["confidence"] = "LOW"
+        claim["confidence_basis"] = f"contradictory evidence: {reason}"
+        self._ledger.append(
+            event_type="claim.contradicted",
+            tenant_id=tenant_id,
+            workspace_id=workspace_id,
+            goal_id=claim.get("goal_id"),
+            payload={
+                "claim_id": claim_id,
+                "evidence_ids": evidence_ids,
+                "reason": reason,
+            },
+            producer="epistemic.contradiction",
+        )
+        downstream = self._propagate_from_claims(
+            [claim_id], tenant_id=tenant_id, workspace_id=workspace_id
+        )
+        return {"claim_id": claim_id, "status": "CONTRADICTED", **downstream}
+
     def invalidate_evidence(
         self,
         evidence_id: str,

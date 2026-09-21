@@ -38,10 +38,12 @@
         "evidence.candidate_rejected",
         "claim.staled",
         "model.staled",
+        "model.invoked",
         "forecast.staled",
         "decision.needs_review",
         "commitment.needs_review",
         "assumption.staled",
+        "claim.contradicted",
         "environment.change_proposed",
         "environment.lifecycle_transitioned",
         "mission.assigned",
@@ -49,7 +51,9 @@
         "null_result.recorded",
         "procedure.promoted",
         "budget.reserved",
-        "budget.consumed"
+        "budget.consumed",
+        "approval.rejected",
+        "checkpoint.corrupted"
       ]
     },
     "schema_version": { "type": "string", "const": "0.1.0" },

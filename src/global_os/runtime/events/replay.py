@@ -60,6 +60,8 @@ class EventReplayEngine:
                     projection["belief"][payload["belief_id"]] = payload.get(
                         "new_status", "STALE"
                     )
+            elif et == "claim.contradicted" and "claim_id" in payload:
+                projection["claim"][payload["claim_id"]] = "CONTRADICTED"
             elif et == "model.staled":
                 projection["model"][payload["model_id"]] = "STALE"
             elif et == "forecast.staled":
