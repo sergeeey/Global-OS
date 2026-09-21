@@ -29,7 +29,7 @@ class OpenRouterProvider(OpenAICompatProvider):
             raise ModelProviderError(
                 "openrouter: openrouter/free forbidden for scientific eval — pin exact model:free"
             )
-        allow = False if scientific else True
+        allow = not scientific
         if allow_model_substitution is not None:
             allow = allow_model_substitution
         extra = {

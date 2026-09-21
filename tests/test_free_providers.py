@@ -6,8 +6,8 @@ import pytest
 
 from global_os.adapters.capabilities import CapabilityRegistry
 from global_os.adapters.models import (
-    GenerateRequest,
     GeminiProvider,
+    GenerateRequest,
     GroqProvider,
     ModelProviderError,
     OpenRouterProvider,

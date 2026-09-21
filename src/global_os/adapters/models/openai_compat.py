@@ -174,6 +174,4 @@ class OpenAICompatProvider(ModelProvider):
 def _model_compatible(requested: str, actual: str) -> bool:
     if requested == actual:
         return True
-    if requested.endswith(":free") and actual == requested[: -len(":free")]:
-        return True
-    return False
+    return requested.endswith(":free") and actual == requested[: -len(":free")]
