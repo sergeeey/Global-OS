@@ -1,0 +1,3 @@
+# OTLP collector writes traces.json here (bind-mounted).
+*
+!.gitkeep
