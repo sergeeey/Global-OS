@@ -24,7 +24,8 @@ Goal Contract · Epistemic Kernel · Durable Runtime · Authority Kernel · Dyna
 - OrgCompiler ≥3 topologies + GoalDriftDetector; H-ORG-1..4 split; claims not accepted
 - M1 Reality Contact nearly closed (Docker/OTLP/models/survival/soak wire)
 - **ADR-0009:** architecture freeze → Empirical Science until M1.5
-- Goal Integrity Score + eval contracts landed; live keys / wall 48h still open
+- Goal Integrity Score + eval contracts; incidents + DoD V2 gate + dogfood (no auto-merge)
+- **P0 open:** live H-ENV/H-RSN + wall-clock 48h
 - DoD V2 / M1.5 / PRODUCTION_PROVEN **не заявлены**
 
 ## Документы

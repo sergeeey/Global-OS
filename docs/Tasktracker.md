@@ -2,16 +2,18 @@
 
 ## Done
 
-- [x] M0/M1 Reality Contact harness path (Docker, OTLP, models×2, survival×13, multi-provider, accelerated 48h)
-- [x] H-ORG measured pipeline (`scientific_claim_accepted=false`)
-- [x] ADR-0009 Empirical Science freeze + M1.5 definition
-- [x] Goal Integrity Score + H-ENV ladder + H-RSN VUW/Cost + H-ORG-1..4 + 48h schedule + self-audit
+- [x] M0/M1 Reality Contact foundation + Empirical Science contracts (ADR-0009)
+- [x] Incident system + DoD V2 evidence gate + dogfooding mission (no auto-merge)
 
-## Next (Empirical Science — no new architecture)
+## P0 — until M1.5
 
-- [ ] Live-model H-ENV ladder (API keys)
-- [ ] Live-model H-RSN (API keys)
-- [ ] Wall-clock 48h with scheduled injections (`GOS_REQUIRE_48H=1`, weekly/RC)
-- [ ] M1.5 Operationally Validated checklist complete
-- [ ] Dogfooding mission (propose→branch; human merge)
-- [ ] H-ORG-1..4 live multi-class evidence (after M1.5)
+- [ ] Live-model H-ENV ladder
+- [ ] Live-model H-RSN (VUW/Cost; VR fixed)
+- [ ] Wall-clock 48h + scheduled injections + Goal Integrity PASS
+
+## After M1.5
+
+- [ ] Close DoD V2 (all items PASS, not PARTIAL)
+- [ ] M2 H-ORG-1..4 live multi-class
+- [ ] Continuous dogfooding on Global OS + audits + research/business tasks
+- [ ] Per-capability PRODUCTION_PROVEN only with expensive evidence

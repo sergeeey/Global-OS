@@ -6,79 +6,95 @@ $$
 \text{implemented approximation} \neq \text{fulfilled contract}
 $$
 
-Track states in `docs/capability_matrix.json`.  
+$$
+\boxed{Implement \rightarrow Measure \rightarrow Falsify \rightarrow Learn}
+$$
+
+Track states in `docs/capability_matrix.json` **per capability** (not one sticker for whole OS).  
 Architecture V2: `SPEC-ADDENDUM-V2.md`.  
-**DCO contracts = P0; recursive hierarchy superiority = P1 experiment (GOS-I30).**  
-**ADR-0009:** architecture freeze until M1.5 — phase is Empirical Science, not new layers.
+**ADR-0009:** no new T0/T1 layers until M1.5 — Empirical Science phase.
 
-## M0 — Trustworthy Skeleton
-
-- [x] Contracts, CI pins, Goal/Event/Authority/Gateway, Survival process-kill
-- [x] EnvironmentCompiler + ChangeGate + MissionAssigner
-- [x] Epistemic graph (Observation→…→Commitment) + EvidenceCandidate (GOS-I22)
-- [x] Synthetic H-ENV/H-RSN/H-EVAL/H-CTX harnesses (`INCONCLUSIVE_NEEDS_REAL_MODEL`)
-
-## M1 — Reality Contact (nearly closed)
-
-Harness-verified durable path exists; **PRODUCTION_PROVEN not claimed**:
-
-- [x] TemporalBridge / Postgres / OTel spans / Rust Authority (RUNTIME_VERIFIED_*)
-- [x] Production profile → Rust Authority fail-closed (ADR-0007)
-- [x] Strong sandbox fail-closed port (ADR-0006; live Docker CI optional)
-- [x] Survival suite expanded (13 RUNTIME_INJECTED)
-- [x] Docker Reality Contact path + CI (`run_sandboxed_task`, GOS_REQUIRE_DOCKER)
-- [x] OTLP Reality Contact path + CI collector compose (GOS_REQUIRE_OTLP)
-- [x] Real model provider adapters ×2 + event trail (wire; live keys optional)
-- [x] Remaining survival: malicious_document / human_rejection / contradictory_evidence / corrupted_state
-- [x] 48h durable soak harness (accelerated; wall via GOS_REQUIRE_48H)
-- [x] Goal Integrity Score (hard PASS/FAIL gates; soft metrics separate)
-- [x] H-ENV ladder / H-RSN VUW÷Cost / H-ORG-1..4 contracts (scientific claims false)
-- [x] Wall-clock 48h injection schedule (release gate, not PR)
-- [x] Capability self-audit maturity pass
-- [ ] Live remote model H-ENV / H-RSN when keys available
-- [ ] Wall-clock 48h operational evidence (`GOS_REQUIRE_48H=1`)
-
-## M1.5 — Operationally Validated (next gate)
-
-Before M2 science claims:
+## Path (locked)
 
 ```text
-✓ real-model H-ENV run
-✓ real-model H-RSN run
-✓ 48h real wall-clock + scheduled injections
-✓ real provider outage/recovery + model switch
-✓ Docker isolation + OTLP collector active
-✓ 13 survival + corrupted + malicious isolation
-✓ no authority bypass; evidence/replay intact
-✓ Goal Integrity Score = PASS on hard gates
+CURRENT b3d49f7+
+  architecture + CI/runtime + survival×13 done; science not accepted
+        │
+        ▼
+M1.5 REALITY VALIDATION     ← P0 now
+  live H-ENV + live H-RSN + wall-clock 48h + Goal Integrity PASS
+        │
+        ▼
+DoD V2
+  every Architecture V2 invariant has integration+adversarial path
+        │
+        ▼
+M2 COGNITIVE ORGANIZATION
+  H-ORG-1..4; topology conditional on task class
+        │
+        ▼
+M3 ADAPTIVE GLOBAL OS
+  self-improve under governance (no T0/T1 self-promote)
+        │
+        ▼
+PRODUCTION_PROVEN (per capability; expensive)
 ```
 
-Dogfooding: observe → analyze → propose → branch → test → verify → **request merge**  
-(no autonomous merge of trusted-core).
+## M0 — Trustworthy Skeleton — done
 
-## M2 — Cognitive Organization (after M1.5)
+## M1 — Reality Contact — nearly closed
 
-Question: can we organize intelligence better than one strong model?
+- [x] Durable/Authority/Docker/OTLP/models×2/survival×13/multi-provider/accelerated 48h
+- [x] Goal Integrity Score · H-ENV/H-RSN/H-ORG-1..4 contracts · 48h schedule · self-audit
+- [x] Incident system · DoD V2 evidence gate · dogfooding mission (no auto-merge)
+- [ ] **P0:** Live H-ENV (real models/API)
+- [ ] **P0:** Live H-RSN (fixed L/M/H vs adaptive; VR fixed)
+- [ ] **P0:** Wall-clock 48h `GOS_REQUIRE_48H=1` + scheduled injections + Goal Integrity
 
-- [x] OrganizationalUnit + MissionContract + OrgCompiler ≥3 topologies (GOS-I30)
-- [x] GoalDriftDetector (GOS-I27)
-- [x] H-ORG-1..4 hypothesis split (specialization / hierarchy / independent plane / adaptive distribution)
-- [ ] Live multi-class evidence for H-ORG-1..4 (`scientific_claim_accepted` only with thresholds)
-- [ ] InformationLoss_hierarchy on real artifacts
-- [ ] Adaptive compiler on mixed task distribution
+## M1.5 — Operationally Validated
 
-## M3 — Recursive Adaptation
+```text
+✓ real-model H-ENV + H-RSN
+✓ 48h wall-clock + injected faults
+✓ provider outage/recovery + model swap
+✓ Docker + OTLP active
+✓ survival×13 + corrupted + malicious
+✓ Goal Integrity hard gates PASS
+✓ no authority bypass; replay intact
+```
 
-- Preference Ledger / Counterfactual / VOI
-- Regime detection + gated self-improvement (no T0 self-promote)
+Still **≠** PRODUCTION_PROVEN.
 
-## PRODUCTION_PROVEN (expensive; not a single 48h)
+## DoD V2
 
-≥10 long-horizon real runs · ≥3 task classes · ≥2 providers · 0 unauthorized material effects ·
-0 silent authority/sandbox fallback · 100% material actions reconciled · recovery from injections ·
-provenance intact · real operator usage · incidents/postmortems · independent audit.
+Checklist in `global_os.evals.maturity.dod_v2` — closed only when every item is PASS
+(integration + adversarial), not merely “code exists”. Currently `closed=false`.
+
+## M2 — Cognitive Organization (after DoD V2)
+
+Strong single → manager-workers → 2-level → recursive → +independent verification → adaptive.  
+H-ORG-1 specialization · H-ORG-2 hierarchy · H-ORG-3 independent plane · H-ORG-4 adaptive on distribution.  
+Success = compiler learns **which topology for which task class**, not “hierarchy wins”.
+
+## M3 — Adaptive / Recursive
+
+observe→hypothesis→branch→tests→replay→benchmark→adversarial→human promotion→canary.  
+Procedural / org / env / routing / retrieval / verification policy learning · VOI ·
+counterfactual · regime · preference provenance. T0/T1 never self-promoted.
+
+## PRODUCTION_PROVEN (per capability)
+
+≥10 long-horizon runs · ≥3 task classes · ≥2 providers · real outage/swap/Docker/OTLP ·
+0 unauthorized effects · 0 silent authority/sandbox fallback · 100% effects reconciled ·
+corrupted recovery · malicious containment · provenance · operator use · postmortems ·
+independent audit.
+
+## Dogfooding / incidents / self-audit
+
+- Dogfood: observe→…→request_merge; **autonomous merge forbidden**
+- Incidents: root cause, blast radius, detection gap, why tests missed, regression, fix, residual risk
+- Self-audit: Claim→Implementation→Tests→Runtime→maturity; overstated → CLAIM OVERSTATED
 
 ## Definition of Done
 
-См. `SPEC.md` + `SPEC-ADDENDUM-V2.md` §92–93.  
-DoD Architecture V2 / PRODUCTION_PROVEN / M1.5 **not claimed**.
+M1.5 / DoD V2 / PRODUCTION_PROVEN **not claimed** on current HEAD.

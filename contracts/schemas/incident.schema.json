@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/incident.schema.json",
+  "title": "Incident",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "incident_id",
+    "schema_version",
+    "title",
+    "status",
+    "detected_at",
+    "root_cause",
+    "blast_radius",
+    "detection_gap",
+    "why_tests_missed",
+    "regression_test",
+    "fix",
+    "residual_risk"
+  ],
+  "properties": {
+    "incident_id": { "type": "string", "pattern": "^inc_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "title": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["OPEN", "MITIGATED", "RESOLVED", "ACCEPTED_RISK"]
+    },
+    "detected_at": { "type": "string", "format": "date-time" },
+    "resolved_at": { "type": "string", "format": "date-time" },
+    "root_cause": { "type": "string", "minLength": 1 },
+    "blast_radius": { "type": "string", "minLength": 1 },
+    "detection_gap": { "type": "string", "minLength": 1 },
+    "why_tests_missed": { "type": "string", "minLength": 1 },
+    "regression_test": { "type": "string", "minLength": 1 },
+    "fix": { "type": "string", "minLength": 1 },
+    "residual_risk": { "type": "string", "minLength": 1 },
+    "goal_id": { "type": "string" },
+    "capability_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

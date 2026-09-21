@@ -2,8 +2,8 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **129**
-- capabilities tracked: **54**
+- pytest collected: **133**
+- capabilities tracked: **57**
 
 | Capability | State | Evidence |
 | ---------- | ----- | -------- |
@@ -60,5 +60,8 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | spec_addendum_v2 | RUNTIME_VERIFIED_LOCAL | SPEC-ADDENDUM-V2.md normative; CONSTITUTION GOS-I26..I30; DCO P0 vs H-ORG P1 (GOS-I30) |
 | goal_drift_detector | RUNTIME_VERIFIED_LOCAL | GoalDriftDetector explore→execute + forbidden_outcome; tests/test_organization.py; GOS-I27 |
 | empirical_science_freeze | RUNTIME_VERIFIED_LOCAL | ADR-0009; Goal Integrity Score; H-ENV ladder; H-RSN VUW/Cost; H-ORG-1..4; wall_clock schedule; self-audit; tests/test_empirical_science.py; M1.5/PRODUCTION_PROVEN not claimed |
+| incident_system | RUNTIME_VERIFIED_LOCAL | IncidentStore postmortem fields + ledger events; tests/test_path_lock_m15.py |
+| dod_v2_gate | RUNTIME_VERIFIED_LOCAL | summarize_dod_v2 closed=false while PARTIALs remain; tests/test_path_lock_m15.py |
+| dogfood_mission | RUNTIME_VERIFIED_LOCAL | DogfoodMission ordered stages; autonomous merge forbidden; tests/test_path_lock_m15.py |
 | org_compiler_multi_topology | RUNTIME_VERIFIED_LOCAL | single_solver + manager_workers + parallel_workers; recursive_hierarchy fail-closed; hypothesis_status=UNPROVEN; tests/test_organization.py; GOS-I30 |
 

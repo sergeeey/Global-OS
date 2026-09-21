@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.30 — 2026-09-21
+
+### Added
+
+- Path lock: M1.5 → DoD V2 → M2 → M3 → per-capability PRODUCTION_PROVEN
+- `IncidentStore` + `incident.schema.json` (postmortem-required fields)
+- DoD V2 evidence gate (`summarize_dod_v2`, currently `closed=false`)
+- Dogfooding mission stages through `request_merge`; autonomous merge fail-closed
+
+### Honesty
+
+- No new architecture layers; tooling for Measure→Falsify→Learn only
+
 ## 0.1.29 — 2026-09-21
 
 ### Added

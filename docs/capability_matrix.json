@@ -276,6 +276,21 @@
       "evidence": "ADR-0009; Goal Integrity Score; H-ENV ladder; H-RSN VUW/Cost; H-ORG-1..4; wall_clock schedule; self-audit; tests/test_empirical_science.py; M1.5/PRODUCTION_PROVEN not claimed"
     },
     {
+      "id": "incident_system",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "IncidentStore postmortem fields + ledger events; tests/test_path_lock_m15.py"
+    },
+    {
+      "id": "dod_v2_gate",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "summarize_dod_v2 closed=false while PARTIALs remain; tests/test_path_lock_m15.py"
+    },
+    {
+      "id": "dogfood_mission",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "DogfoodMission ordered stages; autonomous merge forbidden; tests/test_path_lock_m15.py"
+    },
+    {
       "id": "org_compiler_multi_topology",
       "state": "RUNTIME_VERIFIED_LOCAL",
       "evidence": "single_solver + manager_workers + parallel_workers; recursive_hierarchy fail-closed; hypothesis_status=UNPROVEN; tests/test_organization.py; GOS-I30"
