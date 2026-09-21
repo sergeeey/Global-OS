@@ -2,14 +2,17 @@
 
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any
+from typing import Any, Literal
 
 from global_os.common.hashing import content_hash, new_id
 from global_os.contracts.validate import validate
 from global_os.kernel.policy import PolicyEngine, PolicyRequest
 from global_os.runtime.events.ledger import EventLedger
+
+AuthorityBackend = Literal["python", "rust"]
 
 
 class Decision(str, Enum):
@@ -29,13 +32,21 @@ class AuthzResult:
 class AuthorityKernel:
     """Deterministic authorization. Models are never invoked here (GOS-I01/I05)."""
 
-    def __init__(self, ledger: EventLedger, policy: PolicyEngine | None = None) -> None:
+    def __init__(
+        self,
+        ledger: EventLedger,
+        policy: PolicyEngine | None = None,
+        *,
+        backend: AuthorityBackend | None = None,
+    ) -> None:
         self._ledger = ledger
         self._policy = policy or PolicyEngine()
-        # principal_id -> frozenset of capabilities
         self._grants: dict[str, frozenset[str]] = {}
-        # parent_id -> child_id relationships for inheritance checks
         self._parents: dict[str, str] = {}
+        raw = backend or os.environ.get("GOS_AUTHORITY_BACKEND", "python")
+        if raw not in {"python", "rust"}:
+            raise ValueError(f"unsupported authority backend: {raw}")
+        self._backend: AuthorityBackend = raw  # type: ignore[assignment]
 
     def grant(
         self,
@@ -80,6 +91,58 @@ class AuthorityKernel:
         require_approval: bool = False,
     ) -> AuthzResult:
         validate(proposal, "action_proposal.schema.json")
+        if self._backend == "rust":
+            result = self._decide_rust(proposal, require_approval=require_approval)
+            self._record_decision(result, proposal, tenant_id, workspace_id)
+            return result
+        return self._decide_python(
+            proposal,
+            tenant_id=tenant_id,
+            workspace_id=workspace_id,
+            require_approval=require_approval,
+        )
+
+    def _decide_rust(self, proposal: dict[str, Any], *, require_approval: bool) -> AuthzResult:
+        from global_os.adapters.authority import decide_via_rust
+
+        principal = proposal["principal_id"]
+        capability = proposal["capability"]
+        granted = self._grants.get(principal, frozenset())
+        parent_raw = proposal.get("parent_capabilities")
+        approval_refs = proposal.get("approval_refs") or []
+        approval_id = approval_refs[0] if approval_refs else None
+        if require_approval and not approval_id:
+            return AuthzResult(
+                Decision.PENDING_APPROVAL,
+                "approval required",
+                proposal_hash=content_hash(proposal),
+            )
+        request = {
+            "principal": principal,
+            "action": capability,
+            "capability": capability,
+            "resource": str(proposal.get("resource", "")),
+            "granted_capabilities": sorted(granted),
+            "parent_capabilities": list(parent_raw) if parent_raw is not None else None,
+            "approval_id": approval_id,
+        }
+        raw = decide_via_rust(request, proposal)
+        decision = Decision(raw["decision"])
+        return AuthzResult(
+            decision,
+            str(raw.get("reason", "")),
+            execution_token=raw.get("execution_token"),
+            proposal_hash=raw.get("proposal_hash") or content_hash(proposal),
+        )
+
+    def _decide_python(
+        self,
+        proposal: dict[str, Any],
+        *,
+        tenant_id: str,
+        workspace_id: str,
+        require_approval: bool,
+    ) -> AuthzResult:
         proposal_hash = content_hash(proposal)
         principal = proposal["principal_id"]
         capability = proposal["capability"]
@@ -147,12 +210,12 @@ class AuthorityKernel:
                 "capability": proposal.get("capability"),
                 "proposal_hash": result.proposal_hash,
                 "execution_token": result.execution_token,
+                "backend": self._backend,
             },
             producer="kernel.authority",
         )
 
 
-# Sentinel: prove no LLM path exists
 def assert_no_model_imports() -> None:
     """Authority package must not import model adapters."""
     import sys

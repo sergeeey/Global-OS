@@ -141,3 +141,29 @@ def test_idempotency_single_effect(sample_proposal):
     )
     assert receipt1["receipt_id"] == receipt2["receipt_id"]
     assert calls["n"] == 1
+
+
+def test_authority_kernel_rust_backend(sample_proposal):
+    from global_os.adapters.authority import find_gos_authority_bin
+
+    if find_gos_authority_bin() is None:
+        pytest.skip("gos-authority not built")
+    ledger = EventLedger()
+    auth = AuthorityKernel(ledger, backend="rust")
+    auth.grant(
+        principal_id="worker_research_1",
+        capabilities={"web.read", "filesystem.read"},
+        tenant_id="t",
+        workspace_id="w",
+    )
+    allowed = auth.decide(sample_proposal(), tenant_id="t", workspace_id="w")
+    assert allowed.decision == Decision.ALLOW
+    assert allowed.execution_token
+    denied = auth.decide(
+        sample_proposal(capability="email.send", parent_capabilities=["filesystem.read"]),
+        tenant_id="t",
+        workspace_id="w",
+    )
+    assert denied.decision == Decision.DENY
+    events = ledger.list_events()
+    assert any(e["payload"].get("backend") == "rust" for e in events)

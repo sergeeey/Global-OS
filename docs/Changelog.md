@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.15 — 2026-09-21
+
+### Added
+
+- `AuthorityKernel(backend="rust"|"python")` / `GOS_AUTHORITY_BACKEND` — prefer Rust process boundary
+
 ## 0.1.14 — 2026-09-21
 
 ### Added
