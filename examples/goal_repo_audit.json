@@ -1,0 +1,42 @@
+# examples/goal_repo_audit.json
+{
+  "schema_version": "0.1.0",
+  "goal_id": "goal_repo_audit_001",
+  "version": 1,
+  "tenant_id": "tenant_local",
+  "workspace_id": "ws_dev",
+  "objective": {
+    "text": "Провести комплексный аудит GitHub repository и подготовить проверяемый engineering report. Ничего в репозитории не менять."
+  },
+  "success_criteria": [
+    {
+      "id": "sc_01",
+      "description": "verified engineering report with evidence-linked findings"
+    }
+  ],
+  "invariants": ["read_only_target_repo", "no_binding_external_commitments"],
+  "non_goals": ["modify_code", "push_commits", "execute_investment"],
+  "forbidden_outcomes": ["disclose_secrets", "write_to_target_repo"],
+  "risk": {
+    "tolerance": "low",
+    "maximum_irreversibility": "none"
+  },
+  "authority": {
+    "delegation_depth_max": 4,
+    "capabilities": [
+      "filesystem.read",
+      "web.read",
+      "code.execute.sandbox",
+      "git.read"
+    ]
+  },
+  "evidence_requirements": {
+    "major_finding": { "verification_tier": 2 }
+  },
+  "termination": [
+    "success_criteria_met",
+    "user_cancelled",
+    "epistemic_stop_recommended_and_accepted"
+  ],
+  "created_at": "2026-09-21T00:00:00+00:00"
+}

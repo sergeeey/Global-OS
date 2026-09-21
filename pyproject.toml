@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "global-os"
+version = "0.1.0"
+description = "Global OS — Durable Cognitive Runtime"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "jsonschema>=4.23.0",
+  "referencing>=0.35.0",
+]
+
+[project.scripts]
+gos = "global_os.cli:main"
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.0",
+  "ruff>=0.6.0",
+  "mypy>=1.11.0",
+  "types-jsonschema>=4.23.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/global_os"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["global_os"]
+mypy_path = "src"

@@ -1,0 +1,3591 @@
+Да. Для отдельного проекта я бы **зафиксировал это не как README с идеями, а как Project Charter + Architecture Specification + Engineering Constitution одновременно**. Тогда Codex/Claude Code с первого коммита будут строить не очередной agent framework, а систему с правильными несущими конструкциями.
+
+Я использую ниже как исходную спецификацию всё, что мы уже сформулировали: Goal Contract, разделение observed/belief/commitment, Epistemic Kernel, Authority Kernel, proof-carrying actions, effect receipts, falsification/null results, Survival Benchmark и Dynamic Cognitive Organization с `Goal → Organization → Execution`.  
+
+# GLOBAL OS
+
+## Technical Specification / Project Charter v0.1
+
+**Статус:** Initial Architecture Baseline
+**Дата:** 21 сентября 2026
+**Рабочее название:** `Global OS`
+**Предыдущая концепция:** `Goal OS`
+**Тип системы:** Durable Cognitive Runtime / Autonomous Work Operating System
+**Целевой горизонт:** архитектура должна пережить смену моделей, agent frameworks, tool protocols и deployment technologies.
+
+Главный принцип проекта:
+
+$$
+\boxed{
+GlobalOS =
+GoalContract+
+EpistemicKernel+
+DurableRuntime+
+AuthorityKernel+
+DynamicCognitiveOrganization+
+WorldInteraction+
+Verification+
+Adaptation
+}
+$$
+
+**LLM не является архитектурным ядром.**
+
+LLM, reasoning model, coding model, multimodal model, future AGI — это interchangeable compute.
+
+---
+
+# 1. Миссия проекта
+
+Global OS должна позволять человеку или организации задавать системе:
+
+> **результат, ограничения, полномочия и критерии успеха**, а не пошаговые инструкции.
+
+После этого система должна быть способна самостоятельно:
+
+1. понять цель;
+2. обнаружить неоднозначности;
+3. сформировать Goal Contract;
+4. построить модель задачи;
+5. выбрать организационную структуру;
+6. декомпозировать работу;
+7. создать специализированные cognitive workers;
+8. распределить полномочия и бюджеты;
+9. исследовать проблему;
+10. выдвигать и уничтожать гипотезы;
+11. выполнять разрешённые действия;
+12. собирать evidence;
+13. независимо проверять результаты;
+14. обновлять beliefs;
+15. перестраивать план;
+16. переживать сбои;
+17. помнить прошлые решения;
+18. учиться на ошибках;
+19. запрашивать человека только там, где требуется authority или judgement;
+20. продолжать работу часы, дни, недели и потенциально месяцы.
+
+Цель:
+
+$$
+\boxed{
+\text{max useful autonomous work}
+\over
+\text{unverified trust required from human}
+}
+$$
+
+Не максимизировать количество tool calls.
+
+Не максимизировать количество agents.
+
+Не минимизировать human involvement любой ценой.
+
+---
+
+# 2. Что Global OS НЕ является
+
+С самого начала зафиксировать `NON_GOALS.md`.
+
+Global OS не является:
+
+* chatbot wrapper;
+* prompt library;
+* фиксированным swarm из N agents;
+* workflow engine с LLM внутри;
+* vector database с memory;
+* одной гигантской foundation model;
+* replacement для Temporal;
+* replacement для Kubernetes;
+* replacement для IAM;
+* MCP-only framework;
+* системой, где model самостоятельно определяет собственные права;
+* системой, где второй LLM автоматически считается verifier;
+* системой, где `tool returned 200` означает success;
+* системой, где каждый красивый result автоматически попадает в permanent memory;
+* системой, способной самостоятельно менять production Authority Kernel.
+
+---
+
+# 3. Архитектурный горизонт
+
+Система должна проектироваться так, чтобы:
+
+```text
+GPT-X исчез
+→ Global OS продолжает существовать.
+
+Claude-X исчез
+→ продолжает.
+
+MCP заменили
+→ продолжает.
+
+A2A заменили
+→ продолжает.
+
+Vector DB поменяли
+→ продолжает.
+
+Temporal заменили
+→ возможно дорого, но domain model сохраняется.
+```
+
+Поэтому:
+
+> **стабильными должны быть contracts и invariants, а не implementations.**
+
+Современная индустрия уже движется в сторону long-running agents, durable environments и subagents; OpenAI Agents API, например, прямо ориентирован на агентов, работающих днями и сохраняющих intermediate state. ([OpenAI][1])
+
+Temporal предоставляет соответствующую более общую durable-execution модель с восстановлением после process/network/infrastructure failure. ([Temporal][2])
+
+Мы используем такие технологии как **текущие реализации interfaces**, а не как определение Global OS.
+
+---
+
+# 4. Architecture Constitution
+
+Создать файл:
+
+```text
+CONSTITUTION.md
+```
+
+Это несущие invariants проекта.
+
+### GOS-I01 — Intelligence ≠ Authority
+
+Модель может предложить действие.
+
+Она не может дать себе право его выполнить.
+
+---
+
+### GOS-I02 — No action without identity
+
+Каждое действие связано с cryptographically/verifiably identified principal.
+
+---
+
+### GOS-I03 — No external effect without capability
+
+Tool availability и permission должны быть разными понятиями.
+
+Наличие email tool не означает право `email.send`.
+
+---
+
+### GOS-I04 — Child authority ⊆ parent authority
+
+Delegation никогда не расширяет полномочия.
+
+$$
+Authority(child)\subseteq Authority(parent)
+$$
+
+---
+
+### GOS-I05 — Model cannot modify Authority Kernel
+
+Ни prompt, ни memory, ни tool output не могут изменить authority policy непосредственно.
+
+---
+
+### GOS-I06 — Goal cannot silently mutate
+
+Любое изменение Goal Contract создаёт новую версию.
+
+---
+
+### GOS-I07 — Observation ≠ Belief ≠ Hypothesis ≠ Plan ≠ Commitment
+
+Никакие эти сущности не должны храниться в одном generic `memory` object.
+
+---
+
+### GOS-I08 — Evidence shape ≠ evidence truth
+
+Наличие URL, SHA, citation или marker не делает claim verified.
+
+---
+
+### GOS-I09 — Verification must have provenance
+
+Любое `VERIFIED` должно отвечать:
+
+```text
+кем?
+как?
+чем?
+когда?
+относительно чего?
+```
+
+---
+
+### GOS-I10 — Same model ≠ independent verification
+
+Нужна verification diversity.
+
+---
+
+### GOS-I11 — Failed/null results are permanent knowledge
+
+Отрицательные результаты нельзя тихо забывать.
+
+---
+
+### GOS-I12 — Invalidation propagates
+
+Если доказательство потеряло validity:
+
+```text
+evidence invalid
+→ dependent claim stale
+→ dependent model stale
+→ decision requires reevaluation
+```
+
+---
+
+### GOS-I13 — External success must be reconciled
+
+$$
+ToolCallSuccess\neq IntendedWorldEffect
+$$
+
+---
+
+### GOS-I14 — Material actions require Effect Receipt
+
+Для существенного внешнего действия должна существовать postcondition verification.
+
+---
+
+### GOS-I15 — Recovery is normal execution
+
+Crash/retry/replay — обычное состояние runtime, а не исключение.
+
+---
+
+### GOS-I16 — Unknown is valid
+
+Система должна иметь first-class:
+
+```text
+UNKNOWN
+INSUFFICIENT_EVIDENCE
+CONFLICTED
+UNVERIFIABLE
+```
+
+---
+
+### GOS-I17 — Cost is part of reasoning
+
+Вычисления, время, money, tool calls и human attention конечны.
+
+---
+
+### GOS-I18 — Management must justify itself
+
+Новый organizational layer создаётся только при положительном ожидаемом value.
+
+---
+
+### GOS-I19 — Command authority ≠ epistemic authority
+
+Руководитель подразделения не становится источником истины.
+
+---
+
+### GOS-I20 — Self-improvement is gated
+
+Система может **предлагать и экспериментально проверять** собственные изменения.
+
+Не может бесконтрольно self-modify trusted production core.
+
+---
+
+# 5. Верхнеуровневая архитектура
+
+```text
+                    HUMAN / ORGANIZATION
+                            │
+                            ▼
+                    ┌───────────────┐
+                    │ GOAL CONTRACT │
+                    └───────┬───────┘
+                            │
+                ┌───────────▼───────────┐
+                │    AUTHORITY KERNEL   │
+                │ identity / authority  │
+                │ budgets / approvals   │
+                │ invariants            │
+                └───────────┬───────────┘
+                            │
+                  permitted cognition
+                            │
+                ┌───────────▼───────────┐
+                │   COGNITIVE RUNTIME   │
+                │                       │
+                │ Metareasoner          │
+                │ OrganizationalCompiler│
+                │ ModelRouter           │
+                │ Workers               │
+                │ Simulators            │
+                └───────┬───────┬───────┘
+                        │       │
+              ┌─────────▼─┐   ┌─▼────────────┐
+              │ EPISTEMIC │   │ WORLD STATE │
+              │  KERNEL   │   │ observed    │
+              │           │   │ believed    │
+              │ evidence  │   │ expected    │
+              │ claims    │   │ committed   │
+              │ hypotheses│   └──────────────┘
+              │ models    │
+              └─────┬─────┘
+                    │
+          ┌─────────▼─────────┐
+          │ VERIFICATION PLANE│
+          └─────────┬─────────┘
+                    │
+             ACTION PROPOSAL
+                    │
+          ┌─────────▼─────────┐
+          │ AUTHORITY KERNEL  │
+          └─────────┬─────────┘
+                    │
+          ┌─────────▼─────────┐
+          │ WORLD INTERACTION │
+          │ tool gateway      │
+          │ sandbox           │
+          └─────────┬─────────┘
+                    │
+              EFFECT RECEIPT
+                    │
+                    ▼
+               EVENT LEDGER
+                    │
+            REPLAY / ADAPTATION
+```
+
+---
+
+# 6. Архитектурный стиль: microkernel
+
+Нужно избегать giant monolith и одновременно не начинать с 40 microservices.
+
+Используем **logical microkernel / modular monolith + несколько жёстко изолированных security services**.
+
+На старте:
+
+```text
+Python Runtime
+ ├ Goal
+ ├ Epistemic
+ ├ Organization
+ ├ Verification
+ ├ Memory
+ └ Model adapters
+
+Rust Authority Service
+ ├ authorization
+ ├ capability enforcement
+ ├ action normalization
+ ├ approval verification
+ └ effect protocol
+
+Temporal
+ └ durable workflows
+
+PostgreSQL
+ └ canonical structured state
+
+Object Store
+ └ artifacts
+
+Sandbox Runner
+ └ untrusted execution
+
+Web Console
+ └ user interface
+```
+
+Позже logical modules можно разделять физически без изменения contracts.
+
+---
+
+# 7. Рекомендованный технологический baseline
+
+Это **reference implementation 2026**, а не вечная часть architecture.
+
+| Зона                               | Baseline                                 |
+| ---------------------------------- | ---------------------------------------- |
+| Cognitive runtime                  | Python 3.13+                             |
+| Security-critical Authority Kernel | Rust                                     |
+| Durable workflows                  | Temporal                                 |
+| Structured store                   | PostgreSQL                               |
+| Artifact storage                   | S3/MinIO                                 |
+| Policy language                    | Cedar                                    |
+| Workload identity                  | SPIFFE/SPIRE-ready                       |
+| Schema                             | JSON Schema + typed generated bindings   |
+| HTTP contracts                     | OpenAPI                                  |
+| Telemetry                          | OpenTelemetry                            |
+| Tool protocol                      | internal Tool Contract + MCP adapter     |
+| Remote agents                      | internal contract + optional A2A adapter |
+| Sandbox MVP                        | container isolation                      |
+| Strong sandbox later               | gVisor / microVM backend                 |
+| UI                                 | TypeScript/React                         |
+| CI                                 | GitHub Actions initially                 |
+| Build provenance                   | SLSA-aligned                             |
+| Secrets                            | dedicated secret manager abstraction     |
+
+Cedar особенно подходит для маленького Authority Kernel: он специально отделяет authorization от business logic, использует `principal/action/resource/context`, default-deny semantics и имеет formal Lean model/validation work. ([Cedar Policy Language Reference Guide][3])
+
+Для distributed identity интерфейс проектировать совместимым со SPIFFE; SPIRE уже предоставляет workload attestation и short-lived workload identities. ([Spiffe][4])
+
+---
+
+# 8. Repository structure
+
+Рекомендую monorepo:
+
+```text
+global-os/
+│
+├── README.md
+├── CONSTITUTION.md
+├── ARCHITECTURE.md
+├── THREAT_MODEL.md
+├── EPISTEMIC_MODEL.md
+├── AUTHORITY_MODEL.md
+├── ORGANIZATION_MODEL.md
+├── EVALS.md
+├── ROADMAP.md
+├── CONTRIBUTING.md
+├── AGENTS.md
+│
+├── contracts/
+│   ├── schemas/
+│   │   ├── goal_contract.schema.json
+│   │   ├── task.schema.json
+│   │   ├── org_unit.schema.json
+│   │   ├── evidence.schema.json
+│   │   ├── claim.schema.json
+│   │   ├── action_proposal.schema.json
+│   │   ├── effect_receipt.schema.json
+│   │   └── event.schema.json
+│   │
+│   ├── openapi/
+│   ├── events/
+│   └── versions/
+│
+├── kernel/
+│   ├── authority/
+│   ├── identity/
+│   ├── policy/
+│   └── action_gateway/
+│
+├── runtime/
+│   ├── goals/
+│   ├── workflows/
+│   ├── scheduler/
+│   ├── events/
+│   ├── recovery/
+│   └── replay/
+│
+├── cognition/
+│   ├── metareasoning/
+│   ├── organization/
+│   ├── decomposition/
+│   ├── workers/
+│   ├── synthesis/
+│   └── model_router/
+│
+├── epistemic/
+│   ├── observations/
+│   ├── claims/
+│   ├── evidence/
+│   ├── assumptions/
+│   ├── hypotheses/
+│   ├── models/
+│   ├── forecasts/
+│   ├── contradictions/
+│   ├── invalidation/
+│   └── provenance/
+│
+├── memory/
+│   ├── episodic/
+│   ├── semantic/
+│   ├── procedural/
+│   ├── decision/
+│   ├── negative/
+│   ├── counterfactual/
+│   ├── preference/
+│   └── authorization/
+│
+├── verification/
+│   ├── router/
+│   ├── deterministic/
+│   ├── source/
+│   ├── model/
+│   ├── runtime/
+│   ├── adversarial/
+│   └── human/
+│
+├── world/
+│   ├── tools/
+│   ├── sandbox/
+│   ├── mcp/
+│   ├── rest/
+│   ├── browser/
+│   └── effects/
+│
+├── adaptation/
+│   ├── procedures/
+│   ├── proposals/
+│   ├── experiments/
+│   ├── promotion/
+│   └── rollback/
+│
+├── observability/
+│   ├── telemetry/
+│   ├── metrics/
+│   ├── dashboards/
+│   └── audit/
+│
+├── evals/
+│   ├── baselines/
+│   ├── survival/
+│   ├── epistemic/
+│   ├── authority/
+│   ├── organization/
+│   ├── recovery/
+│   └── long_horizon/
+│
+├── experiments/
+│   ├── active/
+│   ├── completed/
+│   └── null_results/
+│
+├── adapters/
+│   ├── models/
+│   ├── tools/
+│   ├── identity/
+│   ├── sandbox/
+│   └── storage/
+│
+├── apps/
+│   ├── api/
+│   └── console/
+│
+├── infra/
+│   ├── local/
+│   ├── docker/
+│   ├── terraform/
+│   └── k8s/
+│
+├── policies/
+│   ├── cedar/
+│   ├── schemas/
+│   └── tests/
+│
+├── migrations/
+├── tests/
+└── docs/
+    ├── adr/
+    ├── architecture/
+    ├── runbooks/
+    └── research/
+```
+
+---
+
+# 9. Contracts-first development
+
+Это чрезвычайно важно для Codex.
+
+**Не позволять начинать реализацию feature с prompt или Python class.**
+
+Последовательность:
+
+```text
+Problem
+↓
+Contract
+↓
+Invariant
+↓
+Tests
+↓
+Implementation
+↓
+Runtime evidence
+```
+
+Любая core entity получает:
+
+```text
+schema
+version
+ID semantics
+state transitions
+validation rules
+events
+ownership
+tests
+migration policy
+```
+
+---
+
+# 10. Goal Contract
+
+`GoalContract` — first-class immutable versioned object.
+
+Пример:
+
+```yaml
+goal_id: goal_medtech_001
+version: 3
+
+objective:
+  text: >
+    Найти наиболее реалистичную модель производства
+    медицинского оборудования в Казахстане.
+
+success_criteria:
+  - id: sc_01
+    description: at_least_three_viable_candidates
+
+invariants:
+  - no_binding_external_commitments
+  - total_capital <= 8000000_USD
+
+non_goals:
+  - execute_investment
+  - sign_contracts
+
+forbidden_outcomes:
+  - disclose_private_financial_data
+  - contact_suppliers_without_approval
+
+risk:
+  tolerance: moderate
+  maximum_irreversibility: none
+
+authority:
+  delegation_depth_max: 5
+
+evidence_requirements:
+  major_market_claim:
+    verification_tier: 2
+
+validity:
+  starts_at: ...
+  expires_at: ...
+  reconfirm_after: 7d
+
+termination:
+  - success_criteria_met
+  - user_cancelled
+  - epistemic_stop_recommended_and_accepted
+```
+
+---
+
+# 11. Goal amendment protocol
+
+Goal никогда не перезаписывается.
+
+```text
+Goal v1
+↓ amendment
+Goal v2
+```
+
+Каждое изменение хранит:
+
+```text
+proposer
+reason
+changed fields
+authority
+approval
+timestamp
+impact analysis
+```
+
+Child goal не может ослабить parent constraints.
+
+---
+
+# 12. Preference Ledger
+
+Сразу заложить schema, даже если полноценная логика будет позже.
+
+```yaml
+preference:
+  id:
+  subject:
+  value:
+
+  origin:
+    type:
+      - user_explicit
+      - user_inferred
+      - organization_policy
+      - imported
+      - ai_influenced
+
+  expressed_at:
+  context:
+
+  confidence:
+  stability:
+
+  supersedes:
+  superseded_by:
+
+  ai_influence:
+    known: true
+    degree: unknown
+```
+
+**Inferred preference не может автоматически изменить Goal Contract.**
+
+---
+
+# 13. World State должен быть типизирован
+
+Запрещён generic:
+
+```json
+{"memory": "..."}
+```
+
+Core types:
+
+```text
+Observation
+Belief
+Hypothesis
+Assumption
+Plan
+Forecast
+Decision
+Commitment
+Unknown
+```
+
+Пример:
+
+```text
+Observation:
+"Supplier stated lead time = 90 days"
+
+Belief:
+"Likely actual delivery = 100–140 days"
+
+Hypothesis:
+"Supplier is capacity constrained"
+
+Plan:
+"Request production schedule"
+
+Commitment:
+"No PO without director approval"
+```
+
+---
+
+# 14. Bitemporal semantics
+
+У epistemic entity должны быть минимум:
+
+```text
+recorded_at
+known_at
+valid_from
+valid_until
+observed_at
+verified_at
+```
+
+Мы различаем:
+
+> Когда мир был таким?
+
+и:
+
+> Когда Global OS узнала, что мир был таким?
+
+Это крайне важно для replay и исторического reasoning.
+
+W3C PROV уже даёт базовый язык entities/activities/agents и derivation provenance; мы используем этот принцип как foundation и расширяем его до reasoning provenance. ([W3C][5])
+
+---
+
+# 15. Epistemic Kernel
+
+Это один из центральных modules.
+
+Типы nodes:
+
+```text
+Source
+Artifact
+Observation
+Claim
+Assumption
+Hypothesis
+Model
+Forecast
+Decision
+Commitment
+Experiment
+Verification
+Defeater
+Unknown
+```
+
+Типы edges:
+
+```text
+supports
+contradicts
+derived_from
+depends_on
+assumes
+observed_in
+predicts
+falsifies
+invalidates
+supersedes
+verified_by
+generated_by
+used_in
+```
+
+---
+
+# 16. Evidence status
+
+Не одно `verified=true`.
+
+```text
+UNVERIFIED
+ATTRIBUTED
+SOURCE_RESOLVED
+SOURCE_CONTENT_VERIFIED
+DERIVED
+RUNTIME_VERIFIED
+INDEPENDENTLY_VERIFIED
+EXTERNALLY_REPRODUCED
+CONTRADICTED
+STALE
+INVALIDATED
+```
+
+---
+
+# 17. Confidence
+
+Не заставлять модель ставить `0.73`, если probability не calibrated.
+
+Два режима:
+
+### Calibrated probability
+
+Используется, только если имеется метод calibration/evidence.
+
+### Epistemic confidence
+
+```text
+LOW
+MEDIUM
+HIGH
+VERY_HIGH
+```
+
+и обязательное поле:
+
+```text
+confidence_basis
+```
+
+---
+
+# 18. Invalidation engine
+
+Необходимый механизм:
+
+```text
+Source stale
+  ↓
+Claim stale
+  ↓
+Assumption stale
+  ↓
+Forecast stale
+  ↓
+Decision needs_review
+```
+
+Это должно происходить машинно.
+
+Тесты обязательны.
+
+---
+
+# 19. Hypothesis lifecycle
+
+Перенести сильную модель Y-17:
+
+```text
+PROPOSED
+↓
+ACTIVE
+↓
+SUPPORTED / KILLED / INCONCLUSIVE
+↓
+CLOSED
+```
+
+Обязательно:
+
+```text
+kill_criteria
+alternative_explanations
+reopen_conditions
+```
+
+`null_results` — first-class storage.
+
+---
+
+# 20. Authority Kernel
+
+**Самый маленький и самый защищённый component.**
+
+Модель не вызывается внутри Authority Kernel.
+
+Вход:
+
+```yaml
+action_proposal:
+  principal:
+  goal:
+  capability:
+  resource:
+
+  intended_effect:
+  maximum_effect:
+
+  reversible:
+  information_disclosure:
+  monetary_cost:
+
+  idempotency_key:
+  evidence_refs:
+  approval_refs:
+
+  context:
+```
+
+Выход:
+
+```text
+ALLOW
+DENY
+PENDING_APPROVAL
+```
+
+---
+
+# 21. Почему отдельный kernel
+
+Нельзя делать:
+
+```python
+if llm_says_safe:
+    execute()
+```
+
+Нужно:
+
+```text
+Cognition
+↓
+normalized typed ActionProposal
+↓
+Authority Kernel
+↓
+execution token
+↓
+Tool Gateway
+```
+
+Tool Gateway **физически не должен принимать действие без execution token**.
+
+---
+
+# 22. Capability model
+
+Примеры:
+
+```text
+web.read
+web.download
+
+filesystem.read
+filesystem.write
+
+code.execute.sandbox
+
+git.read
+git.branch.create
+git.commit
+git.push
+
+email.read
+email.draft
+email.send
+
+calendar.read
+calendar.schedule
+
+database.read
+database.write
+
+payment.prepare
+payment.execute
+
+contract.prepare
+contract.sign
+```
+
+Не должно существовать:
+
+```text
+everything
+admin
+Bash(*)
+```
+
+для cognitive workers.
+
+---
+
+# 23. Authority inheritance
+
+```text
+Parent authority:
+web.read
+email.draft
+
+Child attempts:
+email.send
+```
+
+Результат:
+
+```text
+DENY
+```
+
+Даже если parent ошибочно просит child это сделать.
+
+---
+
+# 24. Approval tokens
+
+Human approval — signed/versioned entity.
+
+```yaml
+approval:
+  id:
+  approver:
+  action_hash:
+  goal_id:
+  limits:
+  valid_until:
+  one_time: true
+```
+
+Approval «можешь купить сервер» не может быть переиспользован как approval «можешь отправить деньги поставщику».
+
+---
+
+# 25. Proof-Carrying Action
+
+Для material action proposal обязателен пакет:
+
+```text
+Action
++
+Goal authorization
++
+Capability
++
+Budget
++
+Evidence
++
+Approvals
++
+Expected Effect
++
+Verification Plan
++
+Rollback/Reconciliation Plan
+```
+
+---
+
+# 26. Effect Contract
+
+Перед external execution:
+
+```yaml
+effect_contract:
+  action_id:
+
+  expected:
+    type: calendar_event_created
+
+  expected_properties:
+    attendee_count: 4
+
+  observation_method:
+    calendar.read
+
+  timeout:
+    30s
+```
+
+---
+
+# 27. Effect Receipt
+
+После выполнения:
+
+```yaml
+effect_receipt:
+  action_id:
+
+  tool_response:
+    success: true
+
+  intended_effect:
+    meeting_created
+
+  observed_effect:
+    meeting_created
+
+  discrepancy:
+    none
+
+  verified_at:
+  verification_method:
+```
+
+Без reconciliation high-impact action не становится `COMPLETED`.
+
+---
+
+# 28. Durable Runtime
+
+Temporal — хороший текущий backend, поскольку его execution model специально сохраняет workflow progress и возобновляет его после failures. ([Temporal][2])
+
+Но наши domain entities не должны зависеть от Temporal-specific types.
+
+Workflow state ≠ epistemic state.
+
+Temporal отвечает:
+
+> **что должен делать процесс и где он находится?**
+
+Epistemic Kernel отвечает:
+
+> **что система считает известным и почему?**
+
+---
+
+# 29. Event sourcing
+
+External/material domain transitions должны попадать в append-only Event Ledger.
+
+Не обязательно делать event-sourced вообще всё.
+
+Но обязательно:
+
+```text
+Goal amendments
+Authority changes
+Task transitions
+Action proposals
+Authorization decisions
+Approvals
+External actions
+Effect receipts
+Evidence invalidation
+Procedure promotions
+```
+
+State views строятся как projections.
+
+---
+
+# 30. Canonical Event
+
+```yaml
+event_id:
+event_type:
+schema_version:
+
+goal_id:
+task_id:
+org_unit_id:
+principal_id:
+
+occurred_at:
+recorded_at:
+
+payload:
+causation_id:
+correlation_id:
+
+producer:
+content_hash:
+```
+
+---
+
+# 31. Idempotency
+
+Каждое side-effect действие имеет:
+
+```text
+idempotency_key
+```
+
+Pipeline:
+
+```text
+check
+↓
+reserve
+↓
+execute
+↓
+record
+↓
+reconcile
+```
+
+Duplicate execution должен быть отдельным Survival Benchmark scenario.
+
+---
+
+# 32. Dynamic Cognitive Organization
+
+Это не набор personas.
+
+Это **runtime organizational system**.
+
+Основной primitive:
+
+```yaml
+organizational_unit:
+  id:
+  mission:
+
+  parent:
+  children:
+
+  inputs:
+  output_contract:
+
+  authority:
+  budget:
+
+  state:
+  deadline:
+
+  required_independence:
+  escalation:
+
+  artifact_namespace:
+```
+
+---
+
+# 33. Organizational Compiler
+
+Вход:
+
+```text
+Goal Contract
+Task Dependency Graph
+Risk
+Required expertise
+Parallelizability
+Verification requirements
+Budget
+Deadline
+Authority
+Information locality
+```
+
+Выход:
+
+```text
+OrganizationGraph
+```
+
+То есть:
+
+$$
+\boxed{
+Goal\rightarrow Organization\rightarrow Execution
+}
+$$
+
+а не:
+
+$$
+Goal\rightarrow fixed\ agents
+$$
+
+---
+
+# 34. Поддерживаемые organizational topologies
+
+Compiler должен уметь выбирать:
+
+```text
+single_solver
+
+pipeline
+
+manager_workers
+
+recursive_hierarchy
+
+parallel_exploration
+
+independent_ensemble
+
+committee
+
+blackboard
+
+specialist_cells
+
+verification_branch
+
+hybrid
+```
+
+---
+
+# 35. Dynamic span of control
+
+Не фиксируем `10`.
+
+$$
+N^*=
+\arg\max_N
+(Value
+-CoordinationCost
+-ComputeCost
+-ErrorRisk)
+$$
+
+Первые версии могут использовать эвристики.
+
+Позже — learned policy.
+
+---
+
+# 36. Иерархия «как войско»
+
+Пример:
+
+```text
+MISSION
+  │
+  ├── Market Division
+  │     ├── Competitor Cell
+  │     ├── Demand Cell
+  │     └── Pricing Cell
+  │
+  ├── Regulatory Division
+  │
+  ├── Technical Division
+  │
+  ├── Supply Division
+  │
+  └── Finance Division
+```
+
+Но отдельно:
+
+```text
+=================================================
+              VERIFICATION PLANE
+=================================================
+```
+
+Проверяющий не должен организационно зависеть от автора claim.
+
+---
+
+# 37. Leader contract
+
+Leader отвечает только за:
+
+```text
+decomposition
+assignment
+resource allocation
+monitoring
+conflict resolution
+integration
+escalation
+```
+
+Не является epistemic authority.
+
+---
+
+# 38. Artifact-first communication
+
+Не допускать цепочку:
+
+```text
+worker
+→ summary
+→ summary of summary
+→ summary of summary
+```
+
+Worker сохраняет:
+
+```text
+artifact
+evidence
+structured result
+```
+
+в shared store.
+
+Leader передаёт ссылку.
+
+---
+
+# 39. Ephemeral workers
+
+Worker создаётся под task.
+
+После завершения:
+
+```text
+worker destroyed
+```
+
+Сохраняются:
+
+```text
+artifacts
+events
+evidence
+decisions
+cost
+performance
+```
+
+Не persona.
+
+---
+
+# 40. Verification Plane
+
+Critic не является постоянной ролью.
+
+Нужен `VerificationRouter`.
+
+Он классифицирует результат:
+
+```text
+numeric
+code
+factual
+source-derived
+forecast
+causal
+policy
+high-impact action
+```
+
+и выбирает protocol.
+
+---
+
+# 41. Verification protocols
+
+Число:
+
+```text
+independent recomputation
+```
+
+Код:
+
+```text
+unit
+integration
+property tests
+static analysis
+runtime
+mutation
+```
+
+Source claim:
+
+```text
+resolve
+retrieve
+locate support
+freshness
+independent source
+```
+
+Forecast:
+
+```text
+historical backtest
+calibration
+baseline
+```
+
+Causal claim:
+
+```text
+identification assumptions
+alternative explanation
+sensitivity
+```
+
+Action:
+
+```text
+authority
+effect receipt
+```
+
+---
+
+# 42. Verification tier
+
+Определять:
+
+$$
+RequiredVerification
+=
+f(Impact,Irreversibility,Uncertainty,Externality)
+$$
+
+Пример:
+
+```text
+Tier 0 — none
+Tier 1 — deterministic/local
+Tier 2 — independent implementation/source
+Tier 3 — diverse external verification
+Tier 4 — human/institutional approval
+```
+
+---
+
+# 43. Verification diversity
+
+Хранить факторы:
+
+```text
+different_model
+different_provider
+different_algorithm
+different_codebase
+different_dataset
+different_source
+different_execution_environment
+human_external
+```
+
+Нельзя автоматически считать:
+
+```text
+same_model_instance_2
+```
+
+независимой проверкой.
+
+---
+
+# 44. Memory architecture
+
+Не `VectorMemory`.
+
+Семь типов:
+
+```text
+Episodic
+Semantic
+Procedural
+Decision
+Negative
+Counterfactual
+Authorization
+```
+
+Плюс Preference Ledger.
+
+---
+
+# 45. Retrieval
+
+Vector search — только один retrieval mechanism.
+
+Memory retrieval может использовать:
+
+```text
+ID
+graph traversal
+temporal query
+SQL
+full text
+vector similarity
+causal relation
+goal scope
+entity relation
+```
+
+---
+
+# 46. Negative memory
+
+Обязательные поля:
+
+```text
+attempt
+why_failed
+evidence
+conditions
+reopen_condition
+```
+
+Повторение rejected approach без reopen condition должно создавать warning.
+
+---
+
+# 47. Counterfactual memory
+
+После важного решения:
+
+```text
+Decision A selected
+Alternative B rejected
+```
+
+сохраняем:
+
+```text
+expected_outcome_if_A
+expected_outcome_if_B
+```
+
+Позже сравниваем:
+
+```text
+actual A vs forecast A
+```
+
+Это foundation для causal learning.
+
+---
+
+# 48. Authorization memory
+
+Любая capability grant хранит:
+
+```text
+who granted
+why
+for what goal
+scope
+start
+expiry
+historical use
+revocation
+violations
+```
+
+---
+
+# 49. Information-flow security
+
+Любой external input получает trust label.
+
+Например:
+
+```text
+SYSTEM_TRUSTED
+USER_TRUSTED
+ORG_TRUSTED
+EXTERNAL_UNTRUSTED
+MODEL_GENERATED
+DERIVED
+```
+
+---
+
+# 50. Taint propagation
+
+External page:
+
+```text
+"ignore your instructions..."
+```
+
+должна быть помечена:
+
+```text
+source=EXTERNAL_UNTRUSTED
+instruction_authority=NONE
+```
+
+Она может использоваться как data.
+
+Не может:
+
+* расширить authority;
+* изменить Goal Contract;
+* получить secret;
+* напрямую сформировать privileged tool invocation.
+
+---
+
+# 51. Untrusted Reader pattern
+
+Полезный принцип из финансового agent architecture:
+
+```text
+Untrusted source
+↓
+restricted reader
+↓
+typed extraction
+↓
+schema validation
+↓
+trusted reasoning plane
+```
+
+Но schema validation должна существовать **в коде**, а не только в prompt.
+
+---
+
+# 52. Sandbox
+
+Core interface:
+
+```text
+Sandbox.create()
+Sandbox.execute()
+Sandbox.snapshot()
+Sandbox.destroy()
+```
+
+Properties:
+
+```text
+CPU
+RAM
+disk
+walltime
+network allowlist
+filesystem isolation
+secret scope
+process limit
+```
+
+Любой untrusted code — только sandbox.
+
+---
+
+# 53. Tool abstraction
+
+```yaml
+tool:
+  id:
+  version:
+
+  operations:
+
+  trust_level:
+  side_effect_class:
+
+  input_schema:
+  output_schema:
+
+  required_capabilities:
+
+  idempotency:
+  reversibility:
+
+  timeout:
+  retry_policy:
+
+  effect_verification:
+```
+
+MCP — adapter.
+
+Текущая версия MCP уже развивается в сторону stateless core и более строгой authorization/extensibility модели, что делает его хорошим adapter surface, но не основанием доменной архитектуры. ([Model Context Protocol Blog][6])
+
+A2A также можно поддерживать как boundary-протокол для сторонних agent systems; к 2026 он уже передан Linux Foundation и имеет production adoption, но внутренний Global OS protocol не должен от него зависеть. ([Linux Foundation][7])
+
+---
+
+# 54. Model abstraction
+
+```text
+ModelProvider
+ ├ generate
+ ├ reason
+ ├ structured_generate
+ ├ vision
+ ├ code
+ └ embeddings
+```
+
+Core никогда не импортирует provider SDK напрямую.
+
+Только adapter.
+
+---
+
+# 55. Model Registry
+
+Для каждой модели:
+
+```text
+provider
+model
+version
+capabilities
+price
+latency
+context
+tool support
+structured output
+data policy
+eval scores
+known failure modes
+```
+
+---
+
+# 56. Model Router
+
+Вход:
+
+```text
+task class
+risk
+difficulty
+latency target
+budget
+privacy
+required independence
+```
+
+Выход:
+
+```text
+chosen model(s)
+```
+
+Нельзя всегда использовать strongest model.
+
+---
+
+# 57. Budget Kernel
+
+Отслеживать:
+
+```text
+money
+tokens
+compute
+API calls
+wall time
+human attention
+external spending
+agent count
+organization depth
+```
+
+Budget reservation должен происходить до expensive action.
+
+---
+
+# 58. Epistemic budget
+
+Система должна уметь определить:
+
+> дальнейшее исследование почти наверняка не изменит решение.
+
+Позже:
+
+$$
+VOI=
+P(info\ changes\ decision)
+\times Value(improvement)-Cost
+$$
+
+Первая версия — heuristic.
+
+---
+
+# 59. Stop engine
+
+Возможные stop reasons:
+
+```text
+goal achieved
+budget exhausted
+marginal VOI too low
+evidence ceiling reached
+blocked externally
+risk exceeded
+human requested stop
+```
+
+---
+
+# 60. Metareasoner
+
+Planner v1 строит task graph.
+
+Metareasoner позднее решает:
+
+```text
+what should we learn next?
+what should we verify next?
+should we stop?
+should organization change?
+which model/tool is justified?
+```
+
+---
+
+# 61. Adaptation system
+
+Global OS должна рекурсивно совершенствовать себя.
+
+Но не так:
+
+```text
+AI edits production
+→ deploy
+```
+
+а:
+
+```text
+Observe weakness
+↓
+Improvement hypothesis
+↓
+RFC
+↓
+Experimental branch
+↓
+Sandbox
+↓
+Tests
+↓
+Benchmark
+↓
+Adversarial eval
+↓
+Baseline comparison
+↓
+Human approval
+↓
+Canary
+↓
+Promotion
+↓
+Monitoring
+↓
+Rollback if needed
+```
+
+---
+
+# 62. Trust zones self-development
+
+### T0 — Constitutional Core
+
+```text
+Authority semantics
+Core schemas
+Event integrity
+Policy bootstrap
+```
+
+Self-modification запрещён.
+
+---
+
+### T1 — Trusted Runtime
+
+```text
+workflow logic
+verification routing
+epistemic kernel
+```
+
+Изменения только через full promotion.
+
+---
+
+### T2 — Adaptive Procedures
+
+```text
+skills
+heuristics
+model routing
+organization policies
+```
+
+Могут улучшаться автоматически через eval pipeline, но production promotion gated.
+
+---
+
+### T3 — Experiments
+
+Свободное пространство.
+
+Никакого privileged production authority.
+
+---
+
+# 63. Skill lifecycle
+
+```text
+GENERATED
+↓
+EXPERIMENTAL
+↓
+TESTED
+↓
+VERIFIED
+↓
+PROMOTED
+↓
+MONITORED
+↓
+DEPRECATED
+```
+
+Новая procedure не становится trusted по факту генерации.
+
+---
+
+# 64. Self-improvement objective
+
+Не:
+
+```text
+improve itself
+```
+
+А:
+
+```text
+Improve metric X
+without degrading
+A,B,C,D
+under budget Y
+```
+
+Любое изменение требует baseline.
+
+---
+
+# 65. Observability
+
+С первого commit.
+
+OpenTelemetry уже имеет GenAI-oriented semantic conventions для model/tool telemetry, поэтому используем OTel как нижний interoperability layer. ([OpenTelemetry][8])
+
+Tracing hierarchy:
+
+```text
+Goal
+└ Mission
+  └ OrgUnit
+    └ Task
+      ├ ModelCall
+      ├ ToolCall
+      ├ Verification
+      └ Action
+```
+
+---
+
+# 66. Обязательные telemetry attributes
+
+```text
+goal.id
+goal.version
+
+mission.id
+task.id
+org_unit.id
+principal.id
+
+model.provider
+model.name
+
+tool.id
+action.id
+
+policy.decision
+approval.id
+
+evidence.id
+verification.tier
+
+cost.usd
+tokens.input
+tokens.output
+
+retry.count
+sandbox.id
+```
+
+Full prompts/results **по умолчанию не логировать**.
+
+---
+
+# 67. Audit Ledger
+
+Security/audit события:
+
+```text
+goal amendment
+authority grant/revoke
+policy decision
+approval
+external action
+effect receipt
+secret access
+procedure promotion
+manual override
+```
+
+Append-only.
+
+---
+
+# 68. Supply-chain baseline
+
+Использовать:
+
+```text
+locked dependencies
+immutable CI actions
+SBOM
+signed artifacts
+artifact digests
+build provenance
+secret scan
+dependency scan
+```
+
+SLSA 1.2 предоставляет актуальную модель build/source provenance и хорошо подходит как reference baseline. ([SLSA][9])
+
+---
+
+# 69. CI/CD
+
+Каждый PR:
+
+```text
+schema validation
+format/lint
+type checks
+unit tests
+property tests
+policy validation
+Rust tests
+integration tests
+migration tests
+security tests
+secret scan
+dependency scan
+```
+
+Для kernel:
+
+```text
+mutation testing
+fuzzing
+property testing
+policy differential tests
+```
+
+---
+
+# 70. Никаких mutable CI actions
+
+Все external Actions:
+
+```text
+@<full SHA>
+```
+
+Не:
+
+```text
+@v4
+```
+
+---
+
+# 71. Testing pyramid для Global OS
+
+На самом деле pyramid недостаточна.
+
+Нужна matrix:
+
+| Тип          | Что проверяет              |
+| ------------ | -------------------------- |
+| Unit         | чистая логика              |
+| Property     | invariants                 |
+| Contract     | adapters/contracts         |
+| Integration  | service boundaries         |
+| Recovery     | crashes/retries            |
+| Security     | authority/taint/sandbox    |
+| Mutation     | guards действительно нужны |
+| Chaos        | dependencies fail          |
+| Replay       | historical workflow        |
+| Eval         | cognitive quality          |
+| Long horizon | autonomous integrity       |
+| Baseline     | complexity justified       |
+
+---
+
+# 72. Property-based testing
+
+Очень важно.
+
+Примеры invariants:
+
+```text
+child authority never > parent
+
+denied action never reaches tool
+
+same idempotency key causes <=1 effect
+
+invalidated evidence cannot support ACTIVE_VERIFIED claim
+
+Goal v1 never mutates
+
+budget never becomes negative
+```
+
+---
+
+# 73. Mutation testing
+
+Для каждого critical guard:
+
+> Если удалить эту проверку — тест действительно падает?
+
+Если нет — guard декоративный.
+
+---
+
+# 74. Goal OS Survival Benchmark
+
+Должен появиться практически в начале проекта.
+
+Task продолжается 24–48h.
+
+Инъекции:
+
+```text
+process kill
+model swap
+API outage
+false tool success
+source invalidation
+contradictory evidence
+malicious document
+human rejection
+constraint change
+budget reduction
+duplicate action
+corrupted state
+slow dependency
+```
+
+Главная метрика:
+
+$$
+\boxed{GoalIntegritySurvival}
+$$
+
+---
+
+# 75. Baseline обязательно
+
+Каждая новая сложность сравнивается с:
+
+```text
+Strong Single Agent
+```
+
+и иногда:
+
+```text
+simple scripted workflow
+```
+
+Иначе мы рискуем построить красивую бюрократию.
+
+---
+
+# 76. Global OS Organizational Topology Benchmark
+
+Главный experiment для вашей иерархии.
+
+Сравнивать:
+
+```text
+A Single agent
+B Flat swarm
+C Manager → workers
+D Recursive hierarchy
+E Recursive hierarchy + verification plane
+F Dynamically compiled organization
+```
+
+---
+
+# 77. Размер задач
+
+```text
+10 subtasks
+30
+100
+300
+1000
+```
+
+И разные dependency structures:
+
+```text
+independent
+mostly-independent
+pipeline
+dense dependencies
+high uncertainty
+high verification
+```
+
+---
+
+# 78. Метрики H-ORG-001
+
+```text
+goal success
+cost
+latency
+duplicate work
+coordination overhead
+information loss
+escaped errors
+manager bottleneck
+recovery rate
+evidence quality
+organization depth
+reorganization frequency
+```
+
+---
+
+# 79. Kill criteria H-ORG-001
+
+Recursive architecture не принимается как default, если:
+
+* не повышает success;
+* error propagation растёт;
+* management cost съедает выигрыш;
+* summaries теряют evidence;
+* dynamic topology стабильно проигрывает manager-worker;
+* single strong agent дешевле при сопоставимом результате.
+
+---
+
+# 80. Основные research hypotheses проекта
+
+Зафиксировать сразу.
+
+### H-DUR-001
+
+Durable execution значительно повышает long-horizon completion при failures.
+
+### H-AUTH-001
+
+External deterministic Authority Kernel снижает unauthorized-action rate без неприемлемого снижения task success.
+
+### H-EPI-001
+
+Typed epistemic state снижает factual contamination и stale-decision rate.
+
+### H-VER-001
+
+Verification routing превосходит generic LLM critic.
+
+### H-ORG-001
+
+Dynamic cognitive organization превосходит fixed topology для heterogeneous long tasks.
+
+### H-MEM-001
+
+Negative memory снижает повторные dead ends.
+
+### H-CF-001
+
+Counterfactual memory улучшает future decision calibration.
+
+### H-VOI-001
+
+VOI-aware planning снижает cost per successful decision.
+
+### H-ADAPT-001
+
+Governed procedural self-improvement даёт measurable gain без regression explosion.
+
+---
+
+# 81. Experiment format
+
+Каждый experiment:
+
+```yaml
+id:
+hypothesis:
+
+baseline:
+intervention:
+
+dataset/tasks:
+metrics:
+
+success_threshold:
+kill_threshold:
+
+budget:
+
+preregistered_at:
+
+results:
+
+verdict:
+reopen_condition:
+```
+
+---
+
+# 82. Реальные проекты как testbed
+
+Это особенно хорошая часть вашей ситуации.
+
+Можно сразу использовать собственные проекты.
+
+### Repository audit
+
+Проверяет:
+
+```text
+long research
+source reading
+code understanding
+evidence graph
+verification
+artifact generation
+```
+
+---
+
+### Y-17
+
+Проверяет:
+
+```text
+hypothesis lifecycle
+null results
+falsification
+organizational research
+```
+
+---
+
+### Buckholtz study
+
+Проверяет:
+
+```text
+provenance
+numerical verification
+source drift
+scientific claims
+```
+
+---
+
+### Claude-cod-top
+
+Проверяет:
+
+```text
+coding
+permission policy
+self-improvement
+repo modification
+```
+
+---
+
+### Global OS self-development
+
+Eventually:
+
+```text
+Global OS develops Global OS
+```
+
+но только через experimental branch/promotion system.
+
+---
+
+# 83. Первый killer use case
+
+Не business empire.
+
+Начать с:
+
+> **Провести комплексный аудит GitHub repository и подготовить проверяемый engineering report.**
+
+Почему это идеальный первый domain:
+
+* read-only;
+* хорошо измеряется;
+* много evidence;
+* код можно запускать в sandbox;
+* можно сравнивать с человеческим baseline;
+* можно давать deliberate bugs;
+* можно inject failures;
+* можно проверять recovery;
+* почти нет необратимых external actions.
+
+---
+
+# 84. Второй killer use case
+
+Scientific research task.
+
+Например:
+
+> воспроизвести quantitative claim из статьи.
+
+Это проверит Epistemic Kernel намного глубже.
+
+---
+
+# 85. Третий killer use case
+
+Business research:
+
+> исследовать рынок и подготовить decision memo.
+
+Но на первых стадиях только read-only.
+
+---
+
+# 86. UX v0
+
+Сначала не строить красивый frontend.
+
+Нужны:
+
+```text
+CLI
+API
+basic web observability console
+```
+
+CLI:
+
+```bash
+gos goal create goal.yaml
+gos goal show <id>
+gos task tree <goal>
+gos org show <goal>
+gos evidence graph <goal>
+gos approvals
+gos events tail <goal>
+gos replay <goal>
+```
+
+---
+
+# 87. Dashboard позже
+
+Показывает:
+
+```text
+Goal status
+Goal version
+Current organization
+Current beliefs
+Unknowns
+Tasks
+Costs
+Evidence health
+Approvals
+Actions
+Incidents
+```
+
+---
+
+# 88. API examples
+
+```text
+POST /goals
+POST /goals/{id}/amendments
+
+GET /goals/{id}/state
+GET /goals/{id}/organization
+
+POST /actions/proposals
+POST /actions/{id}/approve
+
+GET /claims/{id}
+GET /claims/{id}/provenance
+
+POST /evidence/{id}/invalidate
+
+GET /events
+POST /replay
+```
+
+---
+
+# 89. Database baseline
+
+PostgreSQL.
+
+Не создавать graph DB в первый день.
+
+Использовать:
+
+```text
+relational tables
+JSONB
+recursive CTE
+materialized projections
+```
+
+Если Epistemic Graph действительно упрётся в limits — benchmark → migration/adaptor.
+
+То же относится к vector DB.
+
+---
+
+# 90. Object storage
+
+Крупные artifacts:
+
+```text
+source archives
+PDF
+logs
+datasets
+code patches
+reports
+screenshots
+model outputs
+```
+
+в S3-compatible store.
+
+DB хранит digest + metadata.
+
+---
+
+# 91. Content addressing
+
+Любой important artifact получает:
+
+```text
+SHA-256 digest
+```
+
+Это foundation:
+
+```text
+artifact identity
+deduplication
+provenance
+tamper detection
+```
+
+---
+
+# 92. Multi-tenancy
+
+Даже если v0 single-user, все core entities получают:
+
+```text
+tenant_id
+workspace_id
+goal_id
+```
+
+Но actual multi-tenant deployment можно отложить.
+
+---
+
+# 93. Data protection
+
+Сразу:
+
+```text
+classification
+retention
+redaction
+secret flag
+PII flag
+```
+
+Нельзя потом пытаться выяснить, какие записи sensitive.
+
+---
+
+# 94. Secret architecture
+
+Secret никогда не входит:
+
+```text
+prompt
+memory
+event payload
+artifact
+trace
+```
+
+без explicit secure handle.
+
+Используется:
+
+```text
+secret_reference
+```
+
+Tool Gateway получает значение непосредственно из secret store.
+
+---
+
+# 95. Threat model
+
+Создать до первого внешнего tool.
+
+Actors:
+
+```text
+malicious webpage
+malicious repo
+malicious MCP server
+compromised model/provider
+malicious worker
+buggy worker
+compromised dependency
+malicious user
+stale evidence
+fake tool success
+memory poisoning
+goal hijacking
+```
+
+---
+
+# 96. Главные failure modes
+
+Обязательно моделировать:
+
+```text
+goal drift
+authority escalation
+memory poisoning
+evidence laundering
+fake verification
+agent collusion
+cascading summary error
+infinite loop
+budget explosion
+duplicate external effect
+tool result spoofing
+stale source
+partial action
+organizational bureaucracy
+manager bottleneck
+```
+
+---
+
+# 97. Regime detection
+
+Позднее, но schema/events уже сейчас должны позволять отслеживать:
+
+```text
+World drift
+Data drift
+Model drift
+Tool drift
+Policy drift
+Goal/preference drift
+```
+
+Новая model version автоматически инициирует regression eval.
+
+---
+
+# 98. Upgrade discipline
+
+Нельзя:
+
+```text
+new model released
+→ switch production immediately
+```
+
+Нужно:
+
+```text
+candidate model
+↓
+evals
+↓
+replay historical goals
+↓
+compare
+↓
+canary
+↓
+promotion
+```
+
+---
+
+# 99. Replay как основной инструмент развития
+
+Исторические runs становятся regression corpus.
+
+Например:
+
+```text
+Replay 100 previous tasks
+
+Runtime A
+vs
+Runtime B
+
+Compare:
+success
+cost
+errors
+human interventions
+```
+
+Это один из будущих competitive advantages проекта.
+
+---
+
+# 100. Definition of Done v0.1
+
+Первый milestone считается выполненным, если система может:
+
+1. принять versioned Goal Contract;
+2. построить task DAG;
+3. создать организацию минимум из parent + workers;
+4. выполнять задачи через Temporal;
+5. умереть в середине задачи;
+6. после restart продолжить;
+7. хранить observations отдельно от beliefs;
+8. создать claim + evidence;
+9. invalidation evidence автоматически пометит claim stale;
+10. worker не сможет превысить parent authority;
+11. запрещённое действие не достигнет Tool Gateway;
+12. external canary action создаёт Effect Receipt;
+13. event history позволяет replay;
+14. все model calls идут через provider abstraction;
+15. все tool calls идут через Tool abstraction;
+16. basic OTel traces доступны;
+17. budget ограничивает operation;
+18. null result сохраняется;
+19. один test сравнивает single-agent vs organization;
+20. Survival Test с process kill проходит.
+
+---
+
+# 101. v0.2
+
+Добавить:
+
+```text
+full Epistemic Graph
+Hypotheses
+Verification Router
+Approval flow
+Taint labels
+Artifact store
+Independent verifier
+```
+
+---
+
+# 102. v0.3
+
+Добавить:
+
+```text
+Organizational Compiler
+multiple topology policies
+dynamic reorganization
+verification branch
+coordination metrics
+```
+
+---
+
+# 103. v0.4
+
+Добавить:
+
+```text
+procedural memory
+skill lifecycle
+replay evaluation
+adaptation proposals
+```
+
+---
+
+# 104. v0.5
+
+Добавить:
+
+```text
+Preference Ledger
+Counterfactual Memory
+VOI
+Epistemic Budget
+Stop Engine
+```
+
+---
+
+# 105. v1.0 gate
+
+Global OS нельзя называть `v1.0`, пока она не выполняет реальную задачу 48+ часов с injected failures.
+
+Требования:
+
+```text
+no unrecovered state corruption
+
+0 unauthorized material actions
+
+100% material actions have receipts
+
+all load-bearing claims traceable
+
+restart recovery works
+
+baseline advantage demonstrated on at least one domain
+
+independent audit completed
+```
+
+---
+
+# 106. Engineering methodology
+
+Использовать:
+
+```text
+Architecture Decision Records
+Threat modeling
+TDD for critical invariants
+Property-based testing
+Mutation testing
+Fuzzing
+Chaos testing
+Replay testing
+Adversarial evals
+Baseline comparison
+Preregistration for major architecture experiments
+Continuous audit
+```
+
+---
+
+# 107. ADR discipline
+
+Для architecture-changing решений:
+
+```text
+docs/adr/ADR-XXXX.md
+```
+
+Структура:
+
+```text
+Context
+Problem
+Alternatives
+Decision
+Evidence
+Trade-offs
+Reversal trigger
+```
+
+Последнее особенно важно:
+
+> при каких новых данных решение следует пересмотреть?
+
+---
+
+# 108. Continuous audit
+
+Перенести философию OZERO:
+
+```text
+claim → evidence
+finding → acceptance criteria
+unknown → explicit risk
+```
+
+Ваш загруженный стандарт отдельно подчёркивает evidence coverage, reproducibility проверок, owners и production gates; эти идеи стоит сделать частью development lifecycle самого Global OS. 
+
+---
+
+# 109. Coding-agent policy
+
+Создать root `AGENTS.md`.
+
+В нём Codex должен получить правила.
+
+### Codex MUST
+
+```text
+read CONSTITUTION.md first
+
+never bypass Authority Kernel
+
+never add direct provider calls outside adapters
+
+never add direct tool execution outside Tool Gateway
+
+never add new persistent state without schema/event design
+
+never silently swallow errors in critical paths
+
+never treat README as runtime proof
+
+write acceptance tests before declaring implementation complete
+
+update ADR when architecture changes
+
+add eval for cognition-related change
+```
+
+---
+
+# 110. Запрещённые engineering patterns
+
+```text
+LLM boolean security decisions
+
+generic agent.execute_anything()
+
+Bash(*)
+
+regex parsing nested JSON
+
+silent fallback to allow
+
+silent network fallback
+
+mutable goal object
+
+vector DB as truth store
+
+LLM-generated evidence marker as verification
+
+direct worker-to-secret access
+
+direct model-to-world effect
+
+same-agent self-certification
+
+unbounded retries
+
+unbounded agent spawning
+
+hidden provider lock-in
+```
+
+---
+
+# 111. Как Global OS должна развивать сама себя
+
+В production она может обнаружить:
+
+```text
+research workers часто дублируют поиск
+```
+
+Она создаёт:
+
+```yaml
+improvement_proposal:
+  observation:
+    duplicate_rate: 31%
+
+  hypothesis:
+    shared-query registry reduces duplication
+
+  expected_gain:
+    cost: -15%
+
+  risk:
+    missing_independent_search: medium
+
+  experiment:
+    A/B topology
+```
+
+Далее сама:
+
+```text
+создаёт branch
+пишет implementation
+пишет tests
+запускает replay
+сравнивает baseline
+```
+
+Но дальше:
+
+```text
+PROMOTION REQUEST
+```
+
+И только authority/human policy решает, можно ли менять production.
+
+---
+
+# 112. Самый важный принцип recursive development
+
+Global OS применяет **собственную методологию к самой себе**.
+
+То есть:
+
+```text
+Global OS является Goal.
+
+У неё есть:
+Goal Contract
+Tasks
+Evidence
+Hypotheses
+Null Results
+Experiments
+Organization
+Verification
+Budgets
+Authority
+```
+
+Поэтому её развитие само становится первым серьёзным use case.
+
+---
+
+# 113. Но запретить recursive blind spot
+
+Система не может сама быть единственным auditor собственного improvement.
+
+Минимум:
+
+```text
+self proposal
++
+deterministic tests
++
+historical replay
++
+independent verifier
++
+human promotion
+```
+
+Для T0 kernel:
+
+```text
+mandatory external/manual review
+```
+
+---
+
+# 114. Самая первая practical implementation sequence
+
+**Не начинать с agents.**
+
+### Sprint 0
+
+Создать:
+
+```text
+CONSTITUTION
+SPEC
+ADRs
+contracts
+threat model
+repo skeleton
+CI
+```
+
+---
+
+### Sprint 1
+
+```text
+Goal Contract
+Event Ledger
+Postgres
+Temporal
+simple Goal Workflow
+crash/recovery
+```
+
+---
+
+### Sprint 2
+
+```text
+Identity
+Authority Kernel
+Cedar
+Tool Gateway
+fake tools
+approval token
+```
+
+---
+
+### Sprint 3
+
+```text
+Observation
+Claim
+Evidence
+Invalidation
+Epistemic Kernel
+```
+
+---
+
+### Sprint 4
+
+```text
+Worker abstraction
+OrgUnit
+manager-workers topology
+artifact store
+```
+
+---
+
+### Sprint 5
+
+```text
+Verification Router
+deterministic verifier
+independent verifier
+```
+
+---
+
+### Sprint 6
+
+```text
+sandbox
+repo-audit toolset
+first real task
+```
+
+---
+
+### Sprint 7
+
+```text
+Survival Benchmark
+single-agent baseline
+manager-workers baseline
+```
+
+---
+
+### Sprint 8
+
+```text
+recursive hierarchy
+organizational compiler v0
+H-ORG-001 experiment
+```
+
+---
+
+# 115. Какой первый результат должен получиться
+
+Через первую серьёзную итерацию пользователь должен уметь написать:
+
+> «Проведи глубокий аудит этого репозитория. Ничего в нём не меняй».
+
+Global OS:
+
+```text
+создаёт Goal Contract
+
+компилирует организацию:
+ architecture
+ implementation
+ testing
+ runtime
+ supply-chain
+ verification
+
+запускает workers
+
+workers пишут artifacts напрямую
+
+verification plane проверяет findings
+
+эпистемический graph связывает:
+source → finding → impact → conclusion
+
+процесс падает намеренно
+
+runtime восстанавливается
+
+финальный отчет строится из verified state
+
+показывается:
+cost
+unknowns
+evidence
+null findings
+confidence
+```
+
+И мы сравниваем это с:
+
+> один сильный Codex/Claude agent с тем же бюджетом.
+
+Вот здесь начинается **настоящая наука об архитектуре Global OS**.
+
+---
+
+# 116. Главные метрики самого проекта
+
+Я бы сделал primary score:
+
+$$
+\boxed{
+AutonomyEfficiency=
+{VerifiedUsefulWork
+\over
+HumanAttention\times UnverifiedTrust\times Cost}
+}
+$$
+
+Дополнительно:
+
+```text
+Goal completion
+Evidence integrity
+Unauthorized action rate
+Recovery rate
+Repeated error rate
+Calibration
+Cost/success
+Human intervention rate
+State corruption rate
+Verification catch rate
+False block rate
+Coordination overhead
+```
+
+---
+
+# 117. Главный стратегический принцип
+
+Не пытаться заранее угадать архитектуру AGI.
+
+Строить **контейнер для всё более сильного интеллекта**.
+
+Сегодня внутри:
+
+```text
+GPT
+Claude
+Gemini
+Codex
+```
+
+Завтра:
+
+```text
+much stronger models
+specialized neural systems
+simulators
+formal solvers
+robotic systems
+```
+
+В будущем:
+
+```text
+AGI-class cognitive engines
+```
+
+Но вокруг остаётся:
+
+$$
+\boxed{
+Goal+
+State+
+Evidence+
+Authority+
+Verification+
+Durability
+}
+$$
+
+---
+
+# 118. Итоговая архитектурная формула проекта
+
+После всей нашей работы я бы зафиксировал окончательно именно это:
+
+$$
+\boxed{
+GlobalOS=
+GoalContract
++
+EpistemicKernel
++
+DurableRuntime
++
+AuthorityKernel
++
+DynamicCognitiveOrganization
++
+WorldInteraction
++
+VerificationFabric
++
+AdaptiveLearning
+}
+$$
+
+И ещё один внешний слой:
+
+$$
+\boxed{
+Human/InstitutionalSovereignty
+}
+$$
+
+То есть Global OS не владеет целью.
+
+Она **служит цели в пределах делегированной власти**.
+
+---
+
+## Что я бы сделал первым коммитом
+
+Не писал бы `agent.py`.
+
+Первый repository commit должен содержать:
+
+```text
+README.md
+CONSTITUTION.md
+SPEC.md
+ARCHITECTURE.md
+THREAT_MODEL.md
+AUTHORITY_MODEL.md
+EPISTEMIC_MODEL.md
+ORGANIZATION_MODEL.md
+EVALS.md
+ROADMAP.md
+AGENTS.md
+docs/adr/ADR-0001-system-boundaries.md
+contracts/
+```
+
+**Второй** — CI и schema validation.
+
+**Третий** — Event Ledger + Goal Contract.
+
+**Четвёртый** — Authority Kernel.
+
+И только после этого первый настоящий cognitive worker.
+
+Это принципиально: если начать с «давайте запустим несколько агентов и потом достроим безопасность, память и evidence», почти наверняка получится ещё один agent framework. Если сначала построить **ядро состояния, полномочий, доказательств и воспроизводимости**, агенты затем станут обычными заменяемыми процессами внутри гораздо более фундаментальной системы.
+
+Именно так я бы начинал Global OS.
+
+[1]: https://openai.com/index/introducing-the-agents-api/?utm_source=chatgpt.com "Introducing the Agents API | OpenAI"
+[2]: https://temporal.io/?utm_source=chatgpt.com "Durable Execution Solutions | Temporal"
+[3]: https://docs.cedarpolicy.com/?utm_source=chatgpt.com "What is Cedar? | Cedar Policy Language Reference Guide"
+[4]: https://spiffe.io/docs/latest/spire-about/spire-concepts/?utm_source=chatgpt.com "SPIRE Concepts | SPIFFE"
+[5]: https://www.w3.org/TR/prov-primer/?utm_source=chatgpt.com "PROV Model Primer"
+[6]: https://blog.modelcontextprotocol.io/posts/2026-07-28/?utm_source=chatgpt.com "The 2026-07-28 Specification | Model Context Protocol Blog"
+[7]: https://www.linuxfoundation.org/press/a2a-protocol-surpasses-150-organizations-lands-in-major-cloud-platforms-and-sees-enterprise-production-use-in-first-year?utm_source=chatgpt.com "A2A Protocol Surpasses 150 Organizations, Lands in Major Cloud Platforms, and Sees Enterprise Production Use in First Year"
+[8]: https://opentelemetry.io/blog/2026/genai-observability/?utm_source=chatgpt.com "Inside the LLM Call: GenAI Observability with OpenTelemetry | OpenTelemetry"
+[9]: https://slsa.dev/spec/v1.2/provenance?utm_source=chatgpt.com "SLSA • Provenance"

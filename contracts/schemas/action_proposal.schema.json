@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/action_proposal.schema.json",
+  "title": "ActionProposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "proposal_id",
+    "schema_version",
+    "principal_id",
+    "goal_id",
+    "capability",
+    "resource",
+    "intended_effect",
+    "maximum_effect",
+    "reversible",
+    "information_disclosure",
+    "monetary_cost",
+    "idempotency_key",
+    "evidence_refs",
+    "approval_refs",
+    "context"
+  ],
+  "properties": {
+    "proposal_id": { "type": "string", "minLength": 1, "pattern": "^ap_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "principal_id": { "type": "string", "minLength": 1 },
+    "goal_id": { "type": "string", "minLength": 1 },
+    "capability": { "type": "string", "pattern": "^[a-z0-9_]+(\\.[a-z0-9_]+)+$" },
+    "resource": { "type": "string", "minLength": 1 },
+    "intended_effect": { "type": "string", "minLength": 1 },
+    "maximum_effect": { "type": "string", "minLength": 1 },
+    "reversible": { "type": "boolean" },
+    "information_disclosure": {
+      "type": "string",
+      "enum": ["none", "internal", "external_limited", "external_public"]
+    },
+    "monetary_cost": { "type": "number", "minimum": 0 },
+    "idempotency_key": { "type": "string", "minLength": 8 },
+    "evidence_refs": { "type": "array", "items": { "type": "string" } },
+    "approval_refs": { "type": "array", "items": { "type": "string" } },
+    "context": { "type": "object" },
+    "parent_principal_id": { "type": "string" },
+    "parent_capabilities": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

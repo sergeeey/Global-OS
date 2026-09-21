@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/org_unit.schema.json",
+  "title": "OrganizationalUnit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "schema_version",
+    "goal_id",
+    "mission",
+    "authority",
+    "budget",
+    "state",
+    "output_contract"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^org_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "goal_id": { "type": "string" },
+    "mission": { "type": "string", "minLength": 1 },
+    "parent": { "type": ["string", "null"] },
+    "children": { "type": "array", "items": { "type": "string" } },
+    "inputs": { "type": "array", "items": { "type": "string" } },
+    "output_contract": { "type": "string", "minLength": 1 },
+    "authority": {
+      "type": "object",
+      "required": ["capabilities"],
+      "properties": {
+        "capabilities": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "budget": {
+      "type": "object",
+      "required": ["usd", "tokens"],
+      "properties": {
+        "usd": { "type": "number", "minimum": 0 },
+        "tokens": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "state": {
+      "type": "string",
+      "enum": ["PLANNED", "ACTIVE", "BLOCKED", "COMPLETED", "FAILED", "CANCELLED"]
+    },
+    "deadline": { "type": "string", "format": "date-time" },
+    "required_independence": { "type": "boolean" },
+    "escalation": { "type": "string" },
+    "artifact_namespace": { "type": "string" }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/claim.schema.json",
+  "title": "Claim",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "claim_id",
+    "schema_version",
+    "goal_id",
+    "statement",
+    "status",
+    "evidence_ids",
+    "confidence",
+    "confidence_basis",
+    "recorded_at"
+  ],
+  "properties": {
+    "claim_id": { "type": "string", "pattern": "^cl_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "goal_id": { "type": "string" },
+    "statement": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["ACTIVE", "STALE", "CONTRADICTED", "WITHDRAWN", "NEEDS_REVIEW"]
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH", "VERY_HIGH"]
+    },
+    "confidence_basis": { "type": "string", "minLength": 1 },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "calibrated_probability": { "type": "number", "minimum": 0, "maximum": 1 }
+  }
+}

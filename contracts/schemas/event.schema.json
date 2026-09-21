@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/event.schema.json",
+  "title": "CanonicalEvent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "event_type",
+    "schema_version",
+    "tenant_id",
+    "workspace_id",
+    "occurred_at",
+    "recorded_at",
+    "payload",
+    "producer",
+    "content_hash"
+  ],
+  "properties": {
+    "event_id": { "type": "string", "minLength": 1, "pattern": "^evt_[a-zA-Z0-9_\\-]+$" },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "goal.created",
+        "goal.amended",
+        "authority.granted",
+        "authority.revoked",
+        "authority.decision",
+        "task.transitioned",
+        "action.proposed",
+        "action.approved",
+        "action.denied",
+        "action.executed",
+        "effect.receipted",
+        "evidence.invalidated",
+        "claim.staled",
+        "null_result.recorded",
+        "procedure.promoted",
+        "budget.reserved",
+        "budget.consumed"
+      ]
+    },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "tenant_id": { "type": "string", "minLength": 1 },
+    "workspace_id": { "type": "string", "minLength": 1 },
+    "goal_id": { "type": "string" },
+    "task_id": { "type": "string" },
+    "org_unit_id": { "type": "string" },
+    "principal_id": { "type": "string" },
+    "occurred_at": { "type": "string", "format": "date-time" },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "payload": { "type": "object" },
+    "causation_id": { "type": "string" },
+    "correlation_id": { "type": "string" },
+    "producer": { "type": "string", "minLength": 1 },
+    "content_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+  }
+}

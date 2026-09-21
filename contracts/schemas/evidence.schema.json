@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/evidence.schema.json",
+  "title": "Evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_id",
+    "schema_version",
+    "goal_id",
+    "status",
+    "trust_label",
+    "recorded_at",
+    "known_at",
+    "content_digest"
+  ],
+  "properties": {
+    "evidence_id": { "type": "string", "pattern": "^ev_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "goal_id": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": [
+        "UNVERIFIED",
+        "ATTRIBUTED",
+        "SOURCE_RESOLVED",
+        "SOURCE_CONTENT_VERIFIED",
+        "DERIVED",
+        "RUNTIME_VERIFIED",
+        "INDEPENDENTLY_VERIFIED",
+        "EXTERNALLY_REPRODUCED",
+        "CONTRADICTED",
+        "STALE",
+        "INVALIDATED"
+      ]
+    },
+    "trust_label": {
+      "type": "string",
+      "enum": [
+        "SYSTEM_TRUSTED",
+        "USER_TRUSTED",
+        "ORG_TRUSTED",
+        "EXTERNAL_UNTRUSTED",
+        "MODEL_GENERATED",
+        "DERIVED"
+      ]
+    },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "known_at": { "type": "string", "format": "date-time" },
+    "valid_from": { "type": "string", "format": "date-time" },
+    "valid_until": { "type": "string", "format": "date-time" },
+    "observed_at": { "type": "string", "format": "date-time" },
+    "verified_at": { "type": "string", "format": "date-time" },
+    "content_digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "source_ref": { "type": "string" },
+    "summary": { "type": "string" }
+  }
+}

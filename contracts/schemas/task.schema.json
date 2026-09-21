@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/task.schema.json",
+  "title": "Task",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "task_id",
+    "schema_version",
+    "goal_id",
+    "title",
+    "state",
+    "depends_on"
+  ],
+  "properties": {
+    "task_id": { "type": "string", "pattern": "^task_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "goal_id": { "type": "string" },
+    "org_unit_id": { "type": "string" },
+    "title": { "type": "string", "minLength": 1 },
+    "state": {
+      "type": "string",
+      "enum": ["PENDING", "READY", "RUNNING", "BLOCKED", "COMPLETED", "FAILED", "CANCELLED"]
+    },
+    "depends_on": { "type": "array", "items": { "type": "string" } },
+    "output_artifact_refs": { "type": "array", "items": { "type": "string" } }
+  }
+}
