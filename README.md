@@ -26,6 +26,7 @@ make check
 gos goal create examples/goal_repo_audit.json
 gos goal show goal_repo_audit_001
 gos events tail --goal-id goal_repo_audit_001
+gos audit .
 ```
 
 Локальное состояние CLI пишется в `.gos/` (не production store).

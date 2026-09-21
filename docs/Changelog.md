@@ -23,4 +23,7 @@
 - ApprovalService (HMAC, one-time, action_hash bound)
 - Cedar base.cedar + PolicyEngine wired into AuthorityKernel
 - H-ORG-001 synthetic baseline: single_solver vs manager_workers
+- Ephemeral workers + SHA-256 artifact store
+- VerificationRouter (tiering + deterministic numeric)
+- Repo-audit read-only toolset, E2E smoke, `gos audit`
 
