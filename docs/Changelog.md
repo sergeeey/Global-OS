@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.21 — 2026-09-21
+
+### Added
+
+- H-ORG-001 full topology suite (flat swarm → dynamically compiled) + kill-criteria evaluator
+- `summarize_h_org_001` → `INCONCLUSIVE_NEEDS_REAL_MODEL`; `h_org_001_benchmark` tracked
+
 ## 0.1.20 — 2026-09-21
 
 ### Added

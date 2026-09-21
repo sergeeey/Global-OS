@@ -229,6 +229,11 @@
       "id": "postgres_fail_closed_connect",
       "state": "RUNTIME_VERIFIED_LOCAL",
       "evidence": "connect_durable_store unreachable/missing-psycopg \u2192 PostgresUnavailable; no SQLite fallback"
+    },
+    {
+      "id": "h_org_001_benchmark",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "summarize_h_org_001 six topologies + kill criteria; INCONCLUSIVE_NEEDS_REAL_MODEL; tests/test_baseline_and_survival.py"
     }
   ]
 }

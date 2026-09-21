@@ -11,13 +11,13 @@
 - [x] Deep repo audit (deterministic static depth)
 - [x] Multi-injection Survival harness (4 additional RUNTIME_INJECTED)
 - [x] Strong sandbox fail-closed port (ADR-0006; live Docker optional)
+- [x] H-ORG-001 synthetic topology suite + kill criteria
 
 ## Next
 
 - [ ] Live OTLP collector export (production path; needs collector in CI/ops)
-- [ ] Real-model eval runs replacing synthetic harnesses
+- [ ] Real-model eval runs replacing synthetic harnesses (H-ENV/H-RSN/H-ORG/…)
 - [ ] Default production profile to `GOS_AUTHORITY_BACKEND=rust` once ops-ready
 - [ ] CI Docker harness for live container isolation (promote sandbox_strong to HARNESS)
 - [ ] Remaining Survival injections (API_OUTAGE, MODEL_SWAP, …)
 - [ ] Remote multi-provider verification adapters (beyond local multi-method)
-- [ ] H-ORG-001 measured baselines

@@ -2,8 +2,8 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **94**
-- capabilities tracked: **44**
+- pytest collected: **95**
+- capabilities tracked: **45**
 
 | Capability | State | Evidence |
 | ---------- | ----- | -------- |
@@ -51,4 +51,5 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | evidence_candidate_pipeline | RUNTIME_VERIFIED_LOCAL | GOS-I22 EvidenceCandidatePipeline; tool_result↛SYSTEM_TRUSTED; tests/test_evidence_candidate.py |
 | temporal_fail_closed_probe | RUNTIME_VERIFIED_LOCAL | TemporalWorkflowAdapter.probe_server fails closed; ≠ Temporal DoD |
 | postgres_fail_closed_connect | RUNTIME_VERIFIED_LOCAL | connect_durable_store unreachable/missing-psycopg → PostgresUnavailable; no SQLite fallback |
+| h_org_001_benchmark | RUNTIME_VERIFIED_LOCAL | summarize_h_org_001 six topologies + kill criteria; INCONCLUSIVE_NEEDS_REAL_MODEL; tests/test_baseline_and_survival.py |
 
