@@ -9,6 +9,7 @@ venv/
 .ruff_cache/
 dist/
 build/
+target/
 
 # Env / secrets
 .env

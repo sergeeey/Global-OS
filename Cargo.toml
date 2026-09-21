@@ -1,0 +1,3 @@
+[workspace]
+members = ["crates/authority_kernel"]
+resolver = "2"

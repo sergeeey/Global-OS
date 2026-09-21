@@ -1,0 +1,16 @@
+[package]
+name = "authority_kernel"
+version = "0.1.0"
+edition = "2021"
+description = "Global OS Authority Kernel boundary — default-deny, no model calls (GOS-I01/I04/I05)"
+license = "Apache-2.0"
+
+[[bin]]
+name = "gos-authority"
+path = "src/main.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+hex = "0.4"
