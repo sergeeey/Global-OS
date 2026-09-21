@@ -22,4 +22,5 @@ def test_capability_matrix_states_are_known():
     assert by_id["otel_distributed_temporal"]["state"] == "CONTRACTED"
     assert by_id["otel_traces"]["state"] == "RUNTIME_VERIFIED_LOCAL"
     assert by_id["h_env_001_benchmark"]["state"] == "RUNTIME_VERIFIED_LOCAL"
-    assert by_id["postgres_durable_state"]["state"] == "CONTRACTED"
+    assert by_id["postgres_durable_state"]["state"] == "RUNTIME_VERIFIED_HARNESS"
+    assert by_id["temporal_durability"]["state"] == "CONTRACTED"

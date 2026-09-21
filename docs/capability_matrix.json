@@ -52,8 +52,8 @@
     },
     {
       "id": "postgres_durable_state",
-      "state": "CONTRACTED",
-      "evidence": "migrations/001_init.sql (dialect); SQLite adapter only"
+      "state": "RUNTIME_VERIFIED_HARNESS",
+      "evidence": "PostgresEventLedger reconnect + concurrent writers; tests/test_postgres_acceptance.py; CI postgres:16 service"
     },
     {
       "id": "sql_sqlite_adapter",

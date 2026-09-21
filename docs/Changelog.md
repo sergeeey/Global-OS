@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.10 — 2026-09-21
+
+### Added
+
+- PostgresEventLedger + reconnect/concurrent-writer acceptance harness
+- CI `postgres:16` service + `GOS_TEST_DATABASE_URL`
+- Sequence-safe concurrent seq allocation (`gos_events_seq`)
+
+### Changed
+
+- `postgres_durable_state` → RUNTIME_VERIFIED_HARNESS
+- `temporal_durability` remains CONTRACTED
+
 ## 0.1.9 — 2026-09-21
 
 ### Added

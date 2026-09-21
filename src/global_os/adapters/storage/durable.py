@@ -58,9 +58,15 @@ def apply_postgres_migrations(conn: Any, migrations_dir: Path | None = None) -> 
     root = migrations_dir or _migrations_dir()
     count = 0
     for path in sorted(root.glob("*.sql")):
-        sql = path.read_text(encoding="utf-8")
-        # Split on semicolons at line ends — simple dialect-safe splitter for our migrations
-        statements = [s.strip() for s in sql.split(";") if s.strip() and not s.strip().startswith("--")]
+        raw_lines = path.read_text(encoding="utf-8").splitlines()
+        cleaned: list[str] = []
+        for line in raw_lines:
+            stripped = line.strip()
+            if stripped.startswith("--"):
+                continue
+            cleaned.append(line)
+        sql = "\n".join(cleaned)
+        statements = [s.strip() for s in sql.split(";") if s.strip()]
         for stmt in statements:
             conn.execute(stmt)
             count += 1

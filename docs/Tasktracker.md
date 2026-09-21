@@ -2,17 +2,15 @@
 
 ## Done
 
-- [x] M0 consolidation + EnvironmentCompiler ecosystem + epistemic graph
-- [x] EnvironmentChangeGate + MissionAssigner + EventReplay
-- [x] Assumption → EpistemicStore invalidation
-- [x] WorkflowRunnerPort + LocalDurableAdapter (Temporal fail-closed)
-- [x] H-ENV-001 / H-RSN-001 synthetic harnesses (INCONCLUSIVE — not claimed)
-- [x] connect_durable_store Postgres fail-closed port
+- [x] M0 + EnvironmentCompiler ecosystem + epistemic graph + ChangeGate
+- [x] H-ENV/H-RSN/H-EVAL/H-CTX synthetic harnesses (INCONCLUSIVE)
+- [x] EvidenceCandidate (GOS-I22) + verification diversity (GOS-I10)
+- [x] Fail-closed Temporal/Postgres ports (ADR-0005)
+- [x] Postgres durable shared-state harness (reconnect + concurrent writers)
 
 ## Next (M1)
 
 - [ ] Real Temporal SDK/server adapter + physical kill acceptance
-- [ ] Real Postgres durable shared-state acceptance
-- [ ] Distributed OTel with workflows
-- [ ] Real-model H-ENV-001 / H-RSN-001 runs (replace synthetic)
+- [ ] Distributed OTel with Temporal workflows
+- [ ] Real-model eval runs replacing synthetic harnesses
 - [ ] Rust Authority boundary after contract freeze
