@@ -2,8 +2,8 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **120**
-- capabilities tracked: **53**
+- pytest collected: **129**
+- capabilities tracked: **54**
 
 | Capability | State | Evidence |
 | ---------- | ----- | -------- |
@@ -59,5 +59,6 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | production_profile_rust_authority | RUNTIME_VERIFIED_LOCAL | GOS_PROFILE=production defaults rust + probes gos-authority; forbids python backend; ADR-0007; tests/test_runtime_profile.py |
 | spec_addendum_v2 | RUNTIME_VERIFIED_LOCAL | SPEC-ADDENDUM-V2.md normative; CONSTITUTION GOS-I26..I30; DCO P0 vs H-ORG P1 (GOS-I30) |
 | goal_drift_detector | RUNTIME_VERIFIED_LOCAL | GoalDriftDetector explore→execute + forbidden_outcome; tests/test_organization.py; GOS-I27 |
+| empirical_science_freeze | RUNTIME_VERIFIED_LOCAL | ADR-0009; Goal Integrity Score; H-ENV ladder; H-RSN VUW/Cost; H-ORG-1..4; wall_clock schedule; self-audit; tests/test_empirical_science.py; M1.5/PRODUCTION_PROVEN not claimed |
 | org_compiler_multi_topology | RUNTIME_VERIFIED_LOCAL | single_solver + manager_workers + parallel_workers; recursive_hierarchy fail-closed; hypothesis_status=UNPROVEN; tests/test_organization.py; GOS-I30 |
 

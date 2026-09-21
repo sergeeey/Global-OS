@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.1.29 — 2026-09-21
+
+### Added
+
+- ADR-0009 Empirical Science freeze + M1.5 Operationally Validated gate
+- Goal Integrity Score (8 hard PASS/FAIL gates; soft metrics never rescue)
+- H-ENV A–E ladder contract (`run_henv_ladder`; E not required to win)
+- H-RSN fixed-low/medium/high vs adaptive (`VerifiedUsefulWork/Cost`, GOS-I23)
+- H-ORG-1..4 hypothesis split + conditional synthetic map (claims not accepted)
+- Wall-clock 48h injection schedule (release gate, not PR)
+- Capability self-audit (`audit_capability_matrix`)
+
+### Honesty
+
+- M1 nearly closed; M1.5 / PRODUCTION_PROVEN not claimed
+- Architecture → Empirical Science; no new kernel layers until live evidence
+
 ## 0.1.28 — 2026-09-21
 
 ### Fixed

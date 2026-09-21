@@ -11,12 +11,14 @@ from global_os.evals.organization.baseline import (
     run_single_solver,
     summarize_h_org_001,
 )
+from global_os.evals.organization.hypotheses import HYPOTHESES, summarize_horg_family
 from global_os.evals.organization.measured import (
     measure_h_org_001,
     summarize_h_org_001_measured,
 )
 
 __all__ = [
+    "HYPOTHESES",
     "TopologyResult",
     "compare_all_topologies",
     "compare_baselines",
@@ -30,4 +32,5 @@ __all__ = [
     "run_single_solver",
     "summarize_h_org_001",
     "summarize_h_org_001_measured",
+    "summarize_horg_family",
 ]

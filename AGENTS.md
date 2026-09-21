@@ -16,7 +16,10 @@
 - писать acceptance tests до объявления implementation complete;
 - обновлять ADR при architecture changes;
 - добавлять eval для cognition-related change;
-- обновлять `docs/capability_matrix.json` maturity по evidence.
+- обновлять `docs/capability_matrix.json` maturity по evidence;
+- **ADR-0009:** не добавлять новые T0/T1 архитектурные поверхности до M1.5 —
+  только bugfix / eval harness / evidence / honesty tooling;
+- dogfood: observe→propose→branch→test→verify→**request merge** (no autonomous T0/T1 merge).
 
 ## MUST NOT (forbidden patterns)
 

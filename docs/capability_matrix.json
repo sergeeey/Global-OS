@@ -271,6 +271,11 @@
       "evidence": "GoalDriftDetector explore→execute + forbidden_outcome; tests/test_organization.py; GOS-I27"
     },
     {
+      "id": "empirical_science_freeze",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "ADR-0009; Goal Integrity Score; H-ENV ladder; H-RSN VUW/Cost; H-ORG-1..4; wall_clock schedule; self-audit; tests/test_empirical_science.py; M1.5/PRODUCTION_PROVEN not claimed"
+    },
+    {
       "id": "org_compiler_multi_topology",
       "state": "RUNTIME_VERIFIED_LOCAL",
       "evidence": "single_solver + manager_workers + parallel_workers; recursive_hierarchy fail-closed; hypothesis_status=UNPROVEN; tests/test_organization.py; GOS-I30"

@@ -21,11 +21,11 @@ Goal Contract · Epistemic Kernel · Durable Runtime · Authority Kernel · Dyna
 
 - Contracts-first monorepo; EnvironmentCompiler + ChangeGate (GOS-I20)
 - Epistemic graph local + EvidenceCandidate (GOS-I22)
-- OrgCompiler ≥3 topologies + GoalDriftDetector; H-ORG synthetic INCONCLUSIVE
-- M1 harness-verified: TemporalBridge, Postgres, OTel (+ OTLP live), Rust Authority, Docker sandbox
-- Real model adapters ×2 + multi-provider verification (wire); 13 survival injections; 48h accelerated soak
-- CI: schema + ruff + mypy + pytest (+ cargo / Temporal / Postgres / Docker / OTLP)
-- DoD V2 / PRODUCTION_PROVEN не заявлены; next = live keys at scale + wall 48h + H-ORG scientific acceptance (P1)
+- OrgCompiler ≥3 topologies + GoalDriftDetector; H-ORG-1..4 split; claims not accepted
+- M1 Reality Contact nearly closed (Docker/OTLP/models/survival/soak wire)
+- **ADR-0009:** architecture freeze → Empirical Science until M1.5
+- Goal Integrity Score + eval contracts landed; live keys / wall 48h still open
+- DoD V2 / M1.5 / PRODUCTION_PROVEN **не заявлены**
 
 ## Документы
 
