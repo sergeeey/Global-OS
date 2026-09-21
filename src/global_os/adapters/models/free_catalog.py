@@ -6,13 +6,19 @@ from datetime import UTC, datetime
 from typing import Any
 
 from global_os.adapters.capabilities.registry import CapabilityRegistry
+from global_os.adapters.models.pins import (
+    GEMINI_FLASH,
+    GROQ_VERIFIER,
+    OPENROUTER_REASONER,
+    OPENROUTER_SMOKE,
+)
 
 FREE_MODEL_CATALOG: tuple[dict[str, Any], ...] = (
     {
         "id": "cap_model.openrouter.nemotron3ultra_free",
         "role": "general_reasoner",
         "provider": "openrouter",
-        "implementation": "nvidia/nemotron-3-ultra:free",
+        "implementation": OPENROUTER_REASONER,
         "capabilities": ["reasoning", "orchestration", "long_context", "research"],
         "privacy": {
             "free_tier": True,
@@ -38,7 +44,7 @@ FREE_MODEL_CATALOG: tuple[dict[str, Any], ...] = (
         "id": "cap_model.openrouter.smoke_free",
         "role": "smoke_fallback",
         "provider": "openrouter",
-        "implementation": "openrouter/free",
+        "implementation": OPENROUTER_SMOKE,
         "capabilities": ["smoke"],
         "privacy": {
             "free_tier": True,
@@ -48,10 +54,10 @@ FREE_MODEL_CATALOG: tuple[dict[str, Any], ...] = (
         "scientific_use": {"pinned": False, "smoke_router_ok": True},
     },
     {
-        "id": "cap_model.groq.qwen3",
+        "id": "cap_model.groq.gpt_oss_120b",
         "role": "independent_verifier",
         "provider": "groq",
-        "implementation": "qwen/qwen3-32b",
+        "implementation": GROQ_VERIFIER,
         "capabilities": ["reasoning", "verification"],
         "privacy": {
             "free_tier": True,
@@ -64,7 +70,7 @@ FREE_MODEL_CATALOG: tuple[dict[str, Any], ...] = (
         "id": "cap_model.gemini.flash_free",
         "role": "independent_verifier",
         "provider": "gemini",
-        "implementation": "gemini-2.0-flash",
+        "implementation": GEMINI_FLASH,
         "capabilities": ["reasoning", "verification"],
         "privacy": {
             "free_tier": True,

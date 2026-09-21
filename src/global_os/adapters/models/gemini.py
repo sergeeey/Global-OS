@@ -15,9 +15,10 @@ from global_os.adapters.models.base import (
     ModelRef,
 )
 from global_os.adapters.models.http_json import HttpJsonError, post_json
+from global_os.adapters.models.pins import GEMINI_FLASH
 
 GEMINI_BASE = "https://generativelanguage.googleapis.com/v1beta"
-DEFAULT_GEMINI_MODEL = "gemini-2.0-flash"
+DEFAULT_GEMINI_MODEL = GEMINI_FLASH
 
 
 class GeminiProvider(ModelProvider):
@@ -35,9 +36,7 @@ class GeminiProvider(ModelProvider):
             # Also accept GOOGLE_API_KEY alias
             key = os.environ.get("GOOGLE_API_KEY", "")
         if not key.strip():
-            raise ModelProviderError(
-                "gemini: missing GEMINI_API_KEY — refuse silent stub fallback"
-            )
+            raise ModelProviderError("gemini: missing GEMINI_API_KEY — refuse silent stub fallback")
         self._api_key = key.strip()
         self._model = model
         self._scientific = scientific
@@ -106,9 +105,7 @@ class GeminiProvider(ModelProvider):
         parts = content.get("parts")
         if not isinstance(parts, list) or not parts:
             raise ModelProviderError("gemini: missing parts")
-        texts = [
-            str(p.get("text", "")) for p in parts if isinstance(p, dict) and "text" in p
-        ]
+        texts = [str(p.get("text", "")) for p in parts if isinstance(p, dict) and "text" in p]
         if not texts:
             raise ModelProviderError("gemini: no text parts")
         usage_raw = data.get("usageMetadata")

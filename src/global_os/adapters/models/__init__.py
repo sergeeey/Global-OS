@@ -24,6 +24,7 @@ from global_os.adapters.models.gemini import GeminiProvider
 from global_os.adapters.models.groq import GroqProvider
 from global_os.adapters.models.openai_compat import OpenAICompatProvider
 from global_os.adapters.models.openrouter import OpenRouterProvider
+from global_os.adapters.models.pins import GEMINI_FLASH, GROQ_VERIFIER, OPENROUTER_REASONER
 from global_os.adapters.models.recording import RecordingModelProvider
 from global_os.adapters.models.zero_cost import (
     assert_zero_cost_allowed,
@@ -33,6 +34,9 @@ from global_os.adapters.models.zero_cost import (
 )
 
 __all__ = [
+    "GEMINI_FLASH",
+    "GROQ_VERIFIER",
+    "OPENROUTER_REASONER",
     "AnthropicProvider",
     "EchoModelProvider",
     "GeminiProvider",

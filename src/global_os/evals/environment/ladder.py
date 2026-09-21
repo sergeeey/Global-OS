@@ -121,13 +121,17 @@ def run_henv_ladder(
             scores["cost"] = float(resp.cost_usd or 0.0)
             scores["latency"] = float(resp.latency_ms)
             trials.append(
-                LadderTrial(level=level, label=label, scores=scores, model_calls=1, notes=resp.text[:80])
+                LadderTrial(
+                    level=level, label=label, scores=scores, model_calls=1, notes=resp.text[:80]
+                )
             )
         except ModelProviderError as exc:
             scores = {f: 0.0 for f in SCORE_FIELDS}
             scores["escaped_errors"] = 1.0
             trials.append(
-                LadderTrial(level=level, label=label, scores=scores, model_calls=0, notes=str(exc)[:120])
+                LadderTrial(
+                    level=level, label=label, scores=scores, model_calls=0, notes=str(exc)[:120]
+                )
             )
 
     # Utility = goal_success - 0.2*escaped_errors - cost_norm; do not prefer E a priori

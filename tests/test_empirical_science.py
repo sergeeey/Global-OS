@@ -77,6 +77,42 @@ def test_hrsn_vuw_per_cost_and_gos_i23():
     assert all(t["verification_tier"] == 2 for t in d["trials"])
 
 
+def test_hrsn_measured_uses_real_provider_calls():
+    from global_os.evals.environment.hrsn_experiment import run_hrsn_measured
+    from tests.support.scripted_hetero_provider import ScriptedHeterogeneousProvider
+
+    class _Measurable(ScriptedHeterogeneousProvider):
+        def generate(self, request):  # type: ignore[no-untyped-def]
+            from global_os.adapters.models.base import GenerateResponse, ModelRef
+
+            text = (
+                "132"
+                if "12*11" in request.prompt
+                else ("YES" if "YES or NO" in request.prompt else "2026")
+            )
+            return GenerateResponse(
+                text=text,
+                model=ModelRef("scripted", "hrsn", "0"),
+                input_tokens=5,
+                output_tokens=1,
+                latency_ms=1.0,
+                cost_usd=0.0,
+            )
+
+    report = run_hrsn_measured(_Measurable(), fidelity="PROVIDER_WIRE")
+    assert report["scientific_claim_accepted"] is False
+    assert report["gos_i23_ok"] is True
+    assert len(report["trials"]) == 4
+    assert {t["policy"] for t in report["trials"]} == {
+        "fixed_low",
+        "fixed_medium",
+        "fixed_high",
+        "adaptive",
+    }
+    assert all(t["model_calls"] == 3 for t in report["trials"])
+    assert report["verification_requirement_fixed"] == 2
+
+
 def test_horg_family_split_four_hypotheses_no_acceptance():
     report = summarize_horg_family()
     d = report.as_dict()

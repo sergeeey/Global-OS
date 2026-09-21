@@ -18,6 +18,7 @@ from global_os.adapters.models import (
     register_free_models,
 )
 from global_os.adapters.models.openai_compat import OpenAICompatProvider
+from global_os.adapters.models.pins import GROQ_VERIFIER, OPENROUTER_REASONER
 from global_os.runtime.events.ledger import EventLedger
 from tests.support.model_http_sink import model_http_sink
 
@@ -35,6 +36,8 @@ def test_openrouter_smoke_allowed_when_not_scientific():
 def test_groq_rejects_deprecated_compound():
     with pytest.raises(ModelProviderError, match="deprecated"):
         GroqProvider(api_key="gsk-test", model="groq/compound")
+    with pytest.raises(ModelProviderError, match="deprecated"):
+        GroqProvider(api_key="gsk-test", model="qwen/qwen3-32b")
 
 
 def test_zero_cost_mode_denies_paid_openai(monkeypatch: pytest.MonkeyPatch):
@@ -86,7 +89,7 @@ def test_openrouter_and_groq_wire_path_zero_cost():
         or_p = RecordingModelProvider(
             OpenAICompatProvider(
                 api_key="sk-or",
-                model="nvidia/nemotron-3-ultra:free",
+                model=OPENROUTER_REASONER,
                 base_url=oai.base_url + "/v1",
                 provider_id="openrouter",
                 api_key_env="OPENROUTER_API_KEY",
@@ -99,7 +102,7 @@ def test_openrouter_and_groq_wire_path_zero_cost():
         groq_p = RecordingModelProvider(
             OpenAICompatProvider(
                 api_key="gsk",
-                model="qwen/qwen3-32b",
+                model=GROQ_VERIFIER,
                 base_url=gq.base_url + "/v1",
                 provider_id="groq",
                 api_key_env="GROQ_API_KEY",
@@ -133,7 +136,7 @@ def test_scientific_refuses_model_substitution():
 
         p = _Forced(
             api_key="sk",
-            model="nvidia/nemotron-3-ultra:free",
+            model=OPENROUTER_REASONER,
             base_url=sink.base_url + "/v1",
             provider_id="openrouter",
             force_cost_usd=0.0,

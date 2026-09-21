@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.32 — 2026-09-21
+
+### Changed
+
+- Free model pins: OpenRouter `nvidia/nemotron-3-ultra-550b-a55b:free`, Groq `openai/gpt-oss-120b`,
+  Gemini `gemini-3.6-flash` (deprecated qwen3-32b / gemini-2.0-flash removed)
+
+### Added
+
+- `run_hrsn_measured` — real provider calls for fixed L/M/H vs adaptive (claim still false)
+- Schedule-driven 48h soak (`run_scheduled_48h_soak` / `WALL_CLOCK_48H_SCHEDULE`)
+
 ## 0.1.31 — 2026-09-21
 
 ### Added

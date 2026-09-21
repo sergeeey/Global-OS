@@ -6,11 +6,20 @@ import os
 
 from global_os.adapters.models.base import ModelProviderError
 from global_os.adapters.models.openai_compat import OpenAICompatProvider
+from global_os.adapters.models.pins import GROQ_VERIFIER
 
 GROQ_BASE = "https://api.groq.com/openai/v1"
-# Free/developer models (do not use groq/compound — deprecated 2026-09-21)
-DEFAULT_GROQ_MODEL = "qwen/qwen3-32b"
-DEPRECATED_GROQ = frozenset({"groq/compound", "groq/compound-mini", "compound", "compound-mini"})
+DEFAULT_GROQ_MODEL = GROQ_VERIFIER
+DEPRECATED_GROQ = frozenset(
+    {
+        "groq/compound",
+        "groq/compound-mini",
+        "compound",
+        "compound-mini",
+        "qwen/qwen3-32b",
+        "qwen/qwen3.8-27b",
+    }
+)
 
 
 class GroqProvider(OpenAICompatProvider):
@@ -24,9 +33,7 @@ class GroqProvider(OpenAICompatProvider):
         base_url: str | None = None,
     ) -> None:
         if model in DEPRECATED_GROQ or model.startswith("compound"):
-            raise ModelProviderError(
-                f"groq: model {model!r} deprecated — use qwen/qwen3-* or openai/gpt-oss-*"
-            )
+            raise ModelProviderError(f"groq: model {model!r} deprecated — use {GROQ_VERIFIER}")
         super().__init__(
             api_key=api_key,
             model=model,

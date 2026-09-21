@@ -86,7 +86,8 @@ def summarize_h_rsn_001() -> dict[str, Any]:
             and easy.verification_tier == 3
             and hard.verification_tier == 3
         ),
-        "synthetic_hint_adaptive_qpc_better_on_easy": easy.quality_per_cost > fixed.quality_per_cost,
+        "synthetic_hint_adaptive_qpc_better_on_easy": easy.quality_per_cost
+        > fixed.quality_per_cost,
         "verdict": "INCONCLUSIVE_NEEDS_REAL_MODEL",
         "note": "Harness proves plumbing + GOS-I23; not scientific confirmation.",
     }

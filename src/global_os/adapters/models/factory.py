@@ -11,6 +11,7 @@ from global_os.adapters.models.gemini import GeminiProvider
 from global_os.adapters.models.groq import GroqProvider
 from global_os.adapters.models.openai_compat import OpenAICompatProvider
 from global_os.adapters.models.openrouter import OpenRouterProvider
+from global_os.adapters.models.pins import GEMINI_FLASH, GROQ_VERIFIER, OPENROUTER_REASONER
 from global_os.adapters.models.zero_cost import scientific_eval_mode, zero_cost_mode_enabled
 
 ProviderName = Literal["openai", "anthropic", "openrouter", "groq", "gemini"]
@@ -49,7 +50,7 @@ def open_model_provider(
     if name == "openrouter":
         return OpenRouterProvider(
             api_key=api_key,
-            model=model or "nvidia/nemotron-3-ultra:free",
+            model=model or OPENROUTER_REASONER,
             base_url=base_url,
             timeout_seconds=timeout_seconds,
             scientific=sci,
@@ -57,7 +58,7 @@ def open_model_provider(
     if name == "groq":
         return GroqProvider(
             api_key=api_key,
-            model=model or "qwen/qwen3-32b",
+            model=model or GROQ_VERIFIER,
             base_url=base_url,
             timeout_seconds=timeout_seconds,
             scientific=sci,
@@ -65,7 +66,7 @@ def open_model_provider(
     if name == "gemini":
         return GeminiProvider(
             api_key=api_key,
-            model=model or "gemini-2.0-flash",
+            model=model or GEMINI_FLASH,
             base_url=base_url,
             timeout_seconds=timeout_seconds,
             scientific=sci,

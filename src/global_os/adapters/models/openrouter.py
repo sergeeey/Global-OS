@@ -6,12 +6,11 @@ import os
 
 from global_os.adapters.models.base import ModelProviderError
 from global_os.adapters.models.openai_compat import OpenAICompatProvider
+from global_os.adapters.models.pins import OPENROUTER_REASONER, OPENROUTER_SMOKE
 
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"
-# Smoke-only router — forbidden when scientific=True
-OPENROUTER_SMOKE_MODEL = "openrouter/free"
-# Default scientific pin (free catalog; override via model=)
-DEFAULT_OPENROUTER_REASONER = "nvidia/nemotron-3-ultra:free"
+OPENROUTER_SMOKE_MODEL = OPENROUTER_SMOKE
+DEFAULT_OPENROUTER_REASONER = OPENROUTER_REASONER
 
 
 class OpenRouterProvider(OpenAICompatProvider):

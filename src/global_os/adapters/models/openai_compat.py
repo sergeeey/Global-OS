@@ -60,9 +60,7 @@ class OpenAICompatProvider(ModelProvider):
         ).rstrip("/")
         # OpenAI uses OPENAI_BASE_URL
         if provider_id == "openai" and base_url is None:
-            self._base_url = (
-                os.environ.get("OPENAI_BASE_URL") or DEFAULT_OPENAI_BASE
-            ).rstrip("/")
+            self._base_url = (os.environ.get("OPENAI_BASE_URL") or DEFAULT_OPENAI_BASE).rstrip("/")
         self._timeout = timeout_seconds
         self._extra_headers = dict(extra_headers or {})
         self._force_cost_usd = force_cost_usd
