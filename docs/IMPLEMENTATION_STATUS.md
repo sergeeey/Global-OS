@@ -2,7 +2,7 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **89**
+- pytest collected: **94**
 - capabilities tracked: **44**
 
 | Capability | State | Evidence |
@@ -27,7 +27,7 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | environment_compiler | RUNTIME_VERIFIED_LOCAL | tests/test_environment_compiler.py (deterministic compile; no model calls) |
 | environment_compiler_dynamic | RUNTIME_VERIFIED_LOCAL | EnvironmentChangeGate PROPOSED→…→ACTIVE with authority gate; no silent rewrite (GOS-I20); tests/test_epistemic_graph_env_replay.py |
 | sandbox_mvp | RUNTIME_VERIFIED_LOCAL | tests/test_sandbox.py (local process, not container) |
-| sandbox_strong | CONTRACTED | container/gVisor deferred |
+| sandbox_strong | RUNTIME_VERIFIED_LOCAL | open_sandbox/ContainerSandbox fail-closed without docker (ADR-0006); gvisor/microvm refuse silent process_local; live docker isolation optional/skipped without daemon; tests/test_sandbox.py |
 | source_verification | RUNTIME_VERIFIED_LOCAL | tests/test_source_verification.py (local file resolve) |
 | independent_verification_diversity | RUNTIME_VERIFIED_LOCAL | IndependentVerificationStack multi-method consensus; rejects same-model-family LLM judges (GOS-I10); numeric dual deterministic stack; tests/test_independent_verification_stack.py; remote multi-provider adapters still optional |
 | rust_authority_boundary | RUNTIME_VERIFIED_HARNESS | crates/authority_kernel + gos-authority CLI process boundary; GOS-I01/I04/I05; tests/test_rust_authority.py; cargo test |

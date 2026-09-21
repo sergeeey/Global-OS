@@ -28,7 +28,7 @@ Track states in `docs/capability_matrix.json`.
 - [x] Deep repo-audit (deterministic static: invariants / forbidden / schemas / provider boundary)
 - [x] Real multi-injection Survival (DEFAULT suite RUNTIME_INJECTED; remaining enum values deferred)
 - [ ] H-ORG-001 with measured baselines
-- [ ] Strong sandbox (container/gVisor)
+- [x] Strong sandbox fail-closed port (ADR-0006; live Docker/gVisor harness still optional)
 - [x] IndependentVerificationStack (local multi-method; remote providers optional)
 
 ## Later

@@ -112,8 +112,8 @@
     },
     {
       "id": "sandbox_strong",
-      "state": "CONTRACTED",
-      "evidence": "container/gVisor deferred"
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "open_sandbox/ContainerSandbox fail-closed without docker (ADR-0006); gvisor/microvm refuse silent process_local; live docker isolation optional/skipped without daemon; tests/test_sandbox.py"
     },
     {
       "id": "source_verification",

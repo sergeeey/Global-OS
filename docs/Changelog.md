@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.20 — 2026-09-21
+
+### Added
+
+- Strong sandbox port: `open_sandbox` / `ContainerSandbox` / `probe_docker` (ADR-0006)
+- Fail-closed for `container` without Docker and for unimplemented `gvisor`/`microvm`
+- `sandbox_strong` → RUNTIME_VERIFIED_LOCAL (live Docker isolation not claimed without daemon)
+
 ## 0.1.19 — 2026-09-21
 
 ### Added
