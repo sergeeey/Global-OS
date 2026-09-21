@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import asyncio
+
 import pytest
 
 from global_os.adapters.workflows.temporal_bridge import (
@@ -82,3 +84,28 @@ def test_temporal_otel_workflow_activity_spans():
     ]
     assert "plan" in activities
     assert "report" in activities
+
+
+def test_temporal_live_worker_restart_no_duplicate_effects():
+    """Requires live TEMPORAL_ADDRESS (e.g. temporal server start-dev)."""
+    import os
+    import uuid
+
+    addr = os.environ.get("TEMPORAL_ADDRESS")
+    if not addr:
+        pytest.skip("TEMPORAL_ADDRESS not set")
+    bridge = TemporalBridge(address=addr)
+    run_id = f"temporal_live_restart_{uuid.uuid4().hex[:12]}"
+    result = asyncio.run(
+        bridge.run_with_worker_restart(
+            run_id,
+            goal_execution_workflow(),
+            {"goal_id": "goal_live"},
+            kill_after_step="organize",
+            address=addr,
+        )
+    )
+    assert result["phase"] == "reported"
+    effects = side_effects()
+    assert effects.count("effect:organize") == 1
+    assert "effect:report" in effects

@@ -164,15 +164,66 @@ class TemporalBridge:
         initial_state: dict[str, Any],
         *,
         kill_after_step: str,
+        address: str | None = None,
     ) -> dict[str, Any]:
-        """Reserved for live Temporal multi-worker kill; use start_or_resume(kill_after_step=...) in harness.
+        """Live Temporal: start workflow, drop worker after kill step, resume with new worker."""
+        try:
+            from temporalio.client import Client
+            from temporalio.worker import Worker
+        except ImportError as exc:
+            raise TemporalAdapterUnavailable(
+                "temporalio not installed; refusing silent LocalDurable fallback"
+            ) from exc
 
-        Time-skipping env + abrupt Worker context exit can hang; keep fail-closed to real address path.
-        """
-        raise TemporalAdapterUnavailable(
-            "multi-worker restart harness requires live TEMPORAL_ADDRESS; "
-            "use kill_after_step retry path for CI (no silent LocalDurable fallback)"
+        target = address if address is not None else self._address
+        if not target:
+            raise TemporalAdapterUnavailable(
+                "TEMPORAL_ADDRESS unset for multi-worker restart; "
+                "refusing silent LocalDurable fallback"
+            )
+
+        reset_temporal_harness()
+        register_steps(definition)
+        configure_kill_after(kill_after_step)
+        step_names = [s.name for s in definition.steps]
+        goal_id = str(initial_state.get("goal_id", ""))
+        state_with_run = {**initial_state, "_gos_run_id": run_id}
+        task_queue = f"gos-live-restart-{run_id}"
+
+        client = await Client.connect(target)
+        handle = None
+        worker1 = Worker(
+            client,
+            task_queue=task_queue,
+            workflows=[GosGoalExecution],
+            activities=[run_step_activity],
         )
+        await worker1.__aenter__()
+        try:
+            handle = await client.start_workflow(
+                GosGoalExecution.run,
+                args=[state_with_run, step_names],
+                id=run_id,
+                task_queue=task_queue,
+            )
+            for _ in range(200):
+                if _KILLED:
+                    break
+                await asyncio.sleep(0.05)
+            if not _KILLED:
+                raise TemporalAdapterUnavailable("kill step was not reached before timeout")
+        finally:
+            await worker1.__aexit__(None, None, None)
+
+        configure_kill_after(None)
+        async with Worker(
+            client,
+            task_queue=task_queue,
+            workflows=[GosGoalExecution],
+            activities=[run_step_activity],
+        ):
+            assert handle is not None
+            return await handle.result()
 
     def start_or_resume(
         self,

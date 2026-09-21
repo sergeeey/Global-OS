@@ -2,7 +2,7 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **74**
+- pytest collected: **75**
 - capabilities tracked: **43**
 
 | Capability | State | Evidence |
