@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.33 — 2026-09-21
+
+### Added
+
+- `.env.example` — safe free-tier key template (Git Bash / PowerShell load notes)
+
 ## 0.1.32 — 2026-09-21
 
 ### Changed

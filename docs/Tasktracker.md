@@ -9,7 +9,7 @@
 
 - [x] Free model pins updated (Nemotron 550b / gpt-oss-120b / gemini-3.6-flash)
 - [x] `run_hrsn_measured` + scheduled 48h soak runner
-- [ ] Set free keys locally: `OPENROUTER_API_KEY` / `GROQ_API_KEY` / `GEMINI_API_KEY` (never commit)
+- [ ] Set free keys locally (see `.env.example`; Windows: keep under `secret\.env`, never commit)
 - [ ] 3-provider live smoke + live H-ENV JSON artifacts
 - [ ] Live `run_hrsn_measured` on pinned free models
 - [ ] Wall-clock 48h schedule (`GOS_REQUIRE_48H=1`) after live paths stable
