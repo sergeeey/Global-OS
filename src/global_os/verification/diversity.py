@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-
 FORBIDDEN_SOLE_FACTORS = frozenset(
     {
         "same_model",
