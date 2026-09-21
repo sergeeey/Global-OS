@@ -38,12 +38,20 @@ jobs:
       - name: Start Temporal (dev)
         run: |
           curl -sSf https://temporal.download/cli.sh | sh
+          export PATH="$HOME/.temporalio/bin:$PATH"
           echo "$HOME/.temporalio/bin" >> "$GITHUB_PATH"
-          temporal server start-dev --ip 127.0.0.1 --port 7233 --headless &
-          for i in $(seq 1 30); do
-            temporal operator cluster health --address 127.0.0.1:7233 && break
+          temporal server start-dev --ip 127.0.0.1 --port 7233 --headless > /tmp/temporal-dev.log 2>&1 &
+          echo $! > /tmp/temporal-dev.pid
+          for i in $(seq 1 60); do
+            if temporal operator cluster health --address 127.0.0.1:7233; then
+              echo "Temporal healthy after ${i}s"
+              exit 0
+            fi
             sleep 1
           done
+          echo "Temporal failed to become healthy"
+          cat /tmp/temporal-dev.log || true
+          exit 1
 
       - name: Validate Action pins resolve
         run: python -m tools.validate_action_pins
