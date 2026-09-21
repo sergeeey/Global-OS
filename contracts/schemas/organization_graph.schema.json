@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/organization_graph.schema.json",
+  "title": "OrganizationGraph",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "goal_id", "topology", "units", "hypothesis_status"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "goal_id": { "type": "string" },
+    "topology": {
+      "type": "string",
+      "enum": [
+        "single_solver",
+        "pipeline",
+        "manager_workers",
+        "parallel_workers",
+        "recursive_hierarchy",
+        "independent_ensemble",
+        "specialist_cells",
+        "committee",
+        "verification_branch",
+        "hybrid"
+      ]
+    },
+    "units": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "object" }
+    },
+    "hypothesis_status": {
+      "type": "string",
+      "enum": ["CONTRACTED", "UNPROVEN", "INCONCLUSIVE", "SUPPORTED", "REJECTED"],
+      "description": "Topology choice is never default truth (GOS-I30)"
+    },
+    "notes": { "type": "string" }
+  }
+}

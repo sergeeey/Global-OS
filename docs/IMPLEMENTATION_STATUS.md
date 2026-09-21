@@ -2,8 +2,8 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **100**
-- capabilities tracked: **46**
+- pytest collected: **103**
+- capabilities tracked: **49**
 
 | Capability | State | Evidence |
 | ---------- | ----- | -------- |
@@ -53,4 +53,7 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | postgres_fail_closed_connect | RUNTIME_VERIFIED_LOCAL | connect_durable_store unreachable/missing-psycopg → PostgresUnavailable; no SQLite fallback |
 | h_org_001_benchmark | RUNTIME_VERIFIED_LOCAL | summarize_h_org_001 six topologies + kill criteria; INCONCLUSIVE_NEEDS_REAL_MODEL; tests/test_baseline_and_survival.py |
 | production_profile_rust_authority | RUNTIME_VERIFIED_LOCAL | GOS_PROFILE=production defaults rust + probes gos-authority; forbids python backend; ADR-0007; tests/test_runtime_profile.py |
+| spec_addendum_v2 | RUNTIME_VERIFIED_LOCAL | SPEC-ADDENDUM-V2.md normative; CONSTITUTION GOS-I26..I30; DCO P0 vs H-ORG P1 (GOS-I30) |
+| goal_drift_detector | RUNTIME_VERIFIED_LOCAL | GoalDriftDetector explore→execute + forbidden_outcome; tests/test_organization.py; GOS-I27 |
+| org_compiler_multi_topology | RUNTIME_VERIFIED_LOCAL | single_solver + manager_workers + parallel_workers; recursive_hierarchy fail-closed; hypothesis_status=UNPROVEN; tests/test_organization.py; GOS-I30 |
 

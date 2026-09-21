@@ -6,7 +6,9 @@ $$
 \text{implemented approximation} \neq \text{fulfilled contract}
 $$
 
-Track states in `docs/capability_matrix.json`.
+Track states in `docs/capability_matrix.json`.  
+Architecture V2: `SPEC-ADDENDUM-V2.md`.  
+**DCO contracts = P0; recursive hierarchy superiority = P1 experiment (GOS-I30).**
 
 ## M0 — Trustworthy Skeleton
 
@@ -15,29 +17,37 @@ Track states in `docs/capability_matrix.json`.
 - [x] Epistemic graph (Observation→…→Commitment) + EvidenceCandidate (GOS-I22)
 - [x] Synthetic H-ENV/H-RSN/H-EVAL/H-CTX harnesses (`INCONCLUSIVE_NEEDS_REAL_MODEL`)
 
-## M1 — Durable Cognitive Runtime (largely harness-verified)
+## M1 — Reality Contact (active)
 
-- [x] TemporalBridge + kill/retry + live multi-worker restart (RUNTIME_VERIFIED_HARNESS)
-- [x] Postgres durable shared-state reconnect + concurrent writers (RUNTIME_VERIFIED_HARNESS)
-- [x] OTel Goal/Task/Action + Workflow/Activity spans (RUNTIME_VERIFIED_LOCAL; collector export optional)
-- [x] Rust Authority process boundary + `AuthorityKernel(backend=rust)`
-- [ ] Real-model H-ENV/H-RSN measured runs (replace synthetic)
+Harness-verified durable path exists; **production reality contact still open**:
 
-## M2 — Cognitive Organization
+- [x] TemporalBridge / Postgres / OTel spans / Rust Authority (RUNTIME_VERIFIED_*)
+- [x] Production profile → Rust Authority fail-closed (ADR-0007)
+- [x] Strong sandbox fail-closed port (ADR-0006; live Docker CI optional)
+- [x] Survival suite expanded (9 RUNTIME_INJECTED; remaining enum deferred)
+- [ ] Live OTLP collector export
+- [ ] Real model provider runs (replace synthetic evals)
+- [ ] Docker isolation in CI (promote sandbox_strong to HARNESS)
+- [ ] Remaining survival: malicious_document / human_rejection / contradictory_evidence / corrupted_state
+- [ ] 48h durable run evidence
 
-- [x] Deep repo-audit (deterministic static: invariants / forbidden / schemas / provider boundary)
-- [x] Real multi-injection Survival (DEFAULT suite RUNTIME_INJECTED; remaining enum values deferred)
-- [x] H-ORG-001 synthetic topology suite + kill criteria (`INCONCLUSIVE_NEEDS_REAL_MODEL`)
-- [x] Strong sandbox fail-closed port (ADR-0006; live Docker/gVisor harness still optional)
-- [x] IndependentVerificationStack (local multi-method; remote providers optional)
+## M2 — Cognitive Organization (contracts P0; proof P1)
 
-## Later
+- [x] OrganizationalUnit + MissionContract + manager_workers compiler
+- [x] Org topology suite + H-ORG kill criteria (`INCONCLUSIVE_NEEDS_REAL_MODEL`)
+- [x] GoalDriftDetector (GOS-I27)
+- [x] OrgCompiler ≥3 topologies without declaring a winner (GOS-I30)
+- [ ] Measured H-ORG-001 vs strong single / scripted baselines (real tasks)
+- [ ] InformationLoss_hierarchy metric on real artifacts
+- [ ] Adaptive compiler experiments (single → manager → 2-level → 3-level)
+
+## M3 — Recursive Adaptation
 
 - Preference Ledger / Counterfactual / VOI
-- [x] Production profile `GOS_PROFILE=production` → Rust Authority (ADR-0007)
-- v1.0: 48h+ task with injected failures
+- Regime detection + gated self-improvement (no T0 self-promote)
+- v1.0: 48h+ task with injected failures → LONG_HORIZON / PRODUCTION_PROVEN claims only with evidence
 
-## Definition of Done v0.1
+## Definition of Done
 
-См. `SPEC.md`. Temporal + Postgres + OTel path now have RUNTIME_VERIFIED_* harness evidence;
-DoD v0.1 still not claimed as PRODUCTION_PROVEN.
+См. `SPEC.md` + `SPEC-ADDENDUM-V2.md` §92–93.  
+DoD Architecture V2 / PRODUCTION_PROVEN **not claimed**.

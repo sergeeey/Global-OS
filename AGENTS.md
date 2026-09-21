@@ -1,10 +1,12 @@
 # AGENTS.md — Coding Agent Policy
 
-Перед любой работой: прочитай `CONSTITUTION.md`.
+Перед любой работой: прочитай `CONSTITUTION.md` и `SPEC-ADDENDUM-V2.md` (Architecture V2).
 
 ## MUST
 
 - читать `CONSTITUTION.md` первым;
+- следовать Architecture V2 формуле (GoalContract + Epistemic + Durable + Authority + DCO + EnvironmentCompiler + World + Verification + AdaptiveLearning);
+- закладывать **DCO contracts as P0**; не превращать H-ORG recursive superiority в axiom;
 - никогда не обходить Authority Kernel;
 - никогда не добавлять прямые provider calls вне `adapters/models/`;
 - никогда не добавлять прямое tool execution вне Tool Gateway;
@@ -13,7 +15,8 @@
 - никогда не считать README runtime proof;
 - писать acceptance tests до объявления implementation complete;
 - обновлять ADR при architecture changes;
-- добавлять eval для cognition-related change.
+- добавлять eval для cognition-related change;
+- обновлять `docs/capability_matrix.json` maturity по evidence.
 
 ## MUST NOT (forbidden patterns)
 
@@ -29,9 +32,29 @@
 - direct model-to-world effect;
 - same-agent self-certification;
 - unbounded retries / unbounded agent spawning;
-- hidden provider lock-in.
+- hidden provider lock-in;
+- mark PRODUCTION_PROVEN without evidence;
+- invent evidence / invent missing state;
+- treat model confidence as verification;
+- treat recursive_hierarchy as proven optimal by default;
+- self-promote adaptive changes into T0/T1.
 
-## Development sequence
+## Development sequence (core capability)
+
+```text
+1 identify contract
+2 identify invariants
+3 identify authority boundary
+4 identify epistemic effects
+5 identify failure modes
+6 write acceptance tests
+7 write adversarial tests
+8 implement
+9 add runtime proof
+10 update maturity matrix
+```
+
+Кратко:
 
 ```text
 Problem → Contract → Invariant → Tests → Implementation → Runtime evidence
@@ -43,7 +66,8 @@ Problem → Contract → Invariant → Tests → Implementation → Runtime evid
 implemented approximation ≠ fulfilled contract
 ```
 
-Use capability states in `docs/capability_matrix.json`. Do not claim Temporal/OTel/full Survival from local harnesses.
+Use capability states in `docs/capability_matrix.json`.  
+Dynamic Cognitive Organization **contracts** = P0; **topology superiority** = P1 experiment.
 
 ## Trust zones
 

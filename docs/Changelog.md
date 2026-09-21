@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.24 — 2026-09-21
+
+### Added
+
+- `SPEC-ADDENDUM-V2.md` — normative Architecture V2 extension
+- GOS-I26…I30 (external instruction taint, goal drift, maturity evidence, no invented state, topology≠truth)
+- `GoalDriftDetector` (GOS-I27)
+- OrgCompiler `single_solver` / `parallel_workers` / `manager_workers`; contracted topologies fail-closed (GOS-I30)
+- `organization_graph.schema.json`; DCO contracts P0 vs H-ORG proof P1 in ROADMAP/AGENTS
+
 ## 0.1.23 — 2026-09-21
 
 ### Added

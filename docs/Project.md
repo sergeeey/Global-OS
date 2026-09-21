@@ -8,6 +8,11 @@
 
 Максимизировать полезную автономную работу при минимальном непроверенном доверии человека.
 
+## Architecture V2
+
+См. `SPEC-ADDENDUM-V2.md`.  
+**DCO contracts = P0; recursive hierarchy superiority = P1 experiment (GOS-I30).**
+
 ## Несущие конструкции
 
 Goal Contract · Epistemic Kernel · Durable Runtime · Authority Kernel · Dynamic Cognitive Organization · **EnvironmentCompiler** · World Interaction · VerificationFabric · AdaptiveLearning
@@ -15,12 +20,13 @@ Goal Contract · Epistemic Kernel · Durable Runtime · Authority Kernel · Dyna
 ## Текущий baseline
 
 - Contracts-first monorepo; EnvironmentCompiler + ChangeGate (GOS-I20)
-- Epistemic graph local: Observation→Belief→Claim→Model→Forecast→Decision→Commitment
-- MissionAssigner (outcome contracts) + EventReplay status projections
-- M1 harness-verified: TemporalBridge, Postgres durable, OTel (+ OTLP fail-closed), Rust Authority
-- CI: schema validation + ruff + mypy + pytest (+ cargo / Temporal / Postgres where configured)
-- DoD v0.1 ещё не PRODUCTION_PROVEN; next: live OTLP collector, real-model evals, M2 organization depth
+- Epistemic graph local + EvidenceCandidate (GOS-I22)
+- OrgCompiler ≥3 topologies + GoalDriftDetector; H-ORG synthetic INCONCLUSIVE
+- M1 harness-verified: TemporalBridge, Postgres, OTel (+ OTLP fail-closed), Rust Authority
+- CI: schema + ruff + mypy + pytest (+ cargo / Temporal / Postgres)
+- DoD V2 / PRODUCTION_PROVEN не заявлены; next = Reality Contact (real model, Docker CI, collector, 48h)
 
 ## Документы
 
-CONSTITUTION · SPEC · ARCHITECTURE · AUTHORITY_MODEL · EPISTEMIC_MODEL · ORGANIZATION_MODEL · THREAT_MODEL · EVALS · ROADMAP · AGENTS · NON_GOALS
+CONSTITUTION · SPEC · **SPEC-ADDENDUM-V2** · ARCHITECTURE · AUTHORITY_MODEL · EPISTEMIC_MODEL · ORGANIZATION_MODEL · THREAT_MODEL · EVALS · ROADMAP · AGENTS · NON_GOALS
+

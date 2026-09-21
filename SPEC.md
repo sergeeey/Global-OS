@@ -2,7 +2,10 @@
 
 **Project:** Global OS (ex Goal OS)  
 **Date:** 2026-09-21  
-**Status:** M0 Trustworthy Skeleton (in progress) — not claimed DoD v0.1 complete  
+**Status:** Architecture V2 baseline (`SPEC-ADDENDUM-V2.md`); M1 Reality Contact — not PRODUCTION_PROVEN  
+
+**Normative extension:** `SPEC-ADDENDUM-V2.md` (supplements this file; supersedes conflicting Goal OS-era notes).  
+**DCO:** organization **contracts** are P0; recursive hierarchy **superiority** is experimental P1 (GOS-I30).
 
 ## Mission
 

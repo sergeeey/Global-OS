@@ -239,6 +239,21 @@
       "id": "production_profile_rust_authority",
       "state": "RUNTIME_VERIFIED_LOCAL",
       "evidence": "GOS_PROFILE=production defaults rust + probes gos-authority; forbids python backend; ADR-0007; tests/test_runtime_profile.py"
+    },
+    {
+      "id": "spec_addendum_v2",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "SPEC-ADDENDUM-V2.md normative; CONSTITUTION GOS-I26..I30; DCO P0 vs H-ORG P1 (GOS-I30)"
+    },
+    {
+      "id": "goal_drift_detector",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "GoalDriftDetector explore→execute + forbidden_outcome; tests/test_organization.py; GOS-I27"
+    },
+    {
+      "id": "org_compiler_multi_topology",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "single_solver + manager_workers + parallel_workers; recursive_hierarchy fail-closed; hypothesis_status=UNPROVEN; tests/test_organization.py; GOS-I30"
     }
   ]
 }
