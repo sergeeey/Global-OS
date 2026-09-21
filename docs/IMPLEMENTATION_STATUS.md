@@ -2,7 +2,7 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **116**
+- pytest collected: **120**
 - capabilities tracked: **53**
 
 | Capability | State | Evidence |
@@ -55,7 +55,7 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | evidence_candidate_pipeline | RUNTIME_VERIFIED_LOCAL | GOS-I22 EvidenceCandidatePipeline; tool_result↛SYSTEM_TRUSTED; tests/test_evidence_candidate.py |
 | temporal_fail_closed_probe | RUNTIME_VERIFIED_LOCAL | TemporalWorkflowAdapter.probe_server fails closed; ≠ Temporal DoD |
 | postgres_fail_closed_connect | RUNTIME_VERIFIED_LOCAL | connect_durable_store unreachable/missing-psycopg → PostgresUnavailable; no SQLite fallback |
-| h_org_001_benchmark | RUNTIME_VERIFIED_LOCAL | summarize_h_org_001 six topologies + kill criteria; INCONCLUSIVE_NEEDS_REAL_MODEL; tests/test_baseline_and_survival.py |
+| h_org_001_benchmark | RUNTIME_VERIFIED_HARNESS | summarize_h_org_001 synthetic INCONCLUSIVE; measure_h_org_001 provider-backed wire pipeline (scientific_claim_accepted=false); live keys optional; tests/test_baseline_and_survival.py; tests/test_h_org_measured.py |
 | production_profile_rust_authority | RUNTIME_VERIFIED_LOCAL | GOS_PROFILE=production defaults rust + probes gos-authority; forbids python backend; ADR-0007; tests/test_runtime_profile.py |
 | spec_addendum_v2 | RUNTIME_VERIFIED_LOCAL | SPEC-ADDENDUM-V2.md normative; CONSTITUTION GOS-I26..I30; DCO P0 vs H-ORG P1 (GOS-I30) |
 | goal_drift_detector | RUNTIME_VERIFIED_LOCAL | GoalDriftDetector explore→execute + forbidden_outcome; tests/test_organization.py; GOS-I27 |

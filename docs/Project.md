@@ -25,7 +25,7 @@ Goal Contract · Epistemic Kernel · Durable Runtime · Authority Kernel · Dyna
 - M1 harness-verified: TemporalBridge, Postgres, OTel (+ OTLP live), Rust Authority, Docker sandbox
 - Real model adapters ×2 + multi-provider verification (wire); 13 survival injections; 48h accelerated soak
 - CI: schema + ruff + mypy + pytest (+ cargo / Temporal / Postgres / Docker / OTLP)
-- DoD V2 / PRODUCTION_PROVEN не заявлены; next = live keys evals + wall 48h + measured H-ORG (P1)
+- DoD V2 / PRODUCTION_PROVEN не заявлены; next = live keys at scale + wall 48h + H-ORG scientific acceptance (P1)
 
 ## Документы
 

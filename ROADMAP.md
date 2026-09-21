@@ -39,7 +39,8 @@ Harness-verified durable path exists; **production reality contact still open**:
 - [x] Org topology suite + H-ORG kill criteria (`INCONCLUSIVE_NEEDS_REAL_MODEL`)
 - [x] GoalDriftDetector (GOS-I27)
 - [x] OrgCompiler ≥3 topologies without declaring a winner (GOS-I30)
-- [ ] Measured H-ORG-001 vs strong single / scripted baselines (real tasks)
+- [x] H-ORG measured pipeline (wire/live providers; scientific claim not accepted)
+- [ ] H-ORG-001 scientific acceptance vs strong baselines (long-horizon real tasks)
 - [ ] InformationLoss_hierarchy metric on real artifacts
 - [ ] Adaptive compiler experiments (single → manager → 2-level → 3-level)
 

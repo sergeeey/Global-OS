@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.27 — 2026-09-21
+
+### Added
+
+- H-ORG-001 measured path: `measure_h_org_001` / `summarize_h_org_001_measured`
+- Heterogeneous micro-task suite vs single_solver / manager_workers with provider + event trail
+- Wire pipeline verdict `WIRE_MEASURED_PIPELINE_OK_NOT_SCIENTIFIC`; live keys → `LIVE_MODEL_*`
+
+### Honesty
+
+- `scientific_claim_accepted` always false until larger long-horizon evidence (GOS-I30)
+- Without keys, default remains `INCONCLUSIVE_NEEDS_REAL_MODEL`
+
 ## 0.1.26 — 2026-09-21
 
 ### Added

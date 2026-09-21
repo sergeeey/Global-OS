@@ -21,9 +21,10 @@
 - [x] Survival: MALICIOUS_DOCUMENT / HUMAN_REJECTION / CONTRADICTORY_EVIDENCE / CORRUPTED_STATE
 - [x] Remote multi-provider verification adapters
 - [x] 48h GoalIntegritySurvival soak (accelerated; wall optional)
+- [x] H-ORG measured pipeline (`measure_h_org_001`; scientific claim not accepted)
 
 ## Next
 
-- [ ] Live remote model evals when keys present (H-ENV/H-RSN/H-ORG measured)
+- [ ] Live remote model evals at scale when keys present (H-ENV/H-RSN)
 - [ ] Wall-clock 48h evidence (`GOS_REQUIRE_48H=1`)
-- [ ] Measured H-ORG-001 vs strong baselines (P1; after real heterogeneous tasks)
+- [ ] H-ORG-001 scientific acceptance on long-horizon heterogeneous tasks (GOS-I30)
