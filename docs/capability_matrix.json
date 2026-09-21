@@ -291,6 +291,11 @@
       "evidence": "DogfoodMission ordered stages; autonomous merge forbidden; tests/test_path_lock_m15.py"
     },
     {
+      "id": "free_model_providers",
+      "state": "RUNTIME_VERIFIED_HARNESS",
+      "evidence": "OpenRouter/Groq/Gemini adapters; GOS_ZERO_COST_MODE; scientific pin; free catalog+privacy; tests/test_free_providers.py — live keys user-supplied"
+    },
+    {
       "id": "org_compiler_multi_topology",
       "state": "RUNTIME_VERIFIED_LOCAL",
       "evidence": "single_solver + manager_workers + parallel_workers; recursive_hierarchy fail-closed; hypothesis_status=UNPROVEN; tests/test_organization.py; GOS-I30"

@@ -2,8 +2,8 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **133**
-- capabilities tracked: **57**
+- pytest collected: **143**
+- capabilities tracked: **58**
 
 | Capability | State | Evidence |
 | ---------- | ----- | -------- |
@@ -63,5 +63,6 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | incident_system | RUNTIME_VERIFIED_LOCAL | IncidentStore postmortem fields + ledger events; tests/test_path_lock_m15.py |
 | dod_v2_gate | RUNTIME_VERIFIED_LOCAL | summarize_dod_v2 closed=false while PARTIALs remain; tests/test_path_lock_m15.py |
 | dogfood_mission | RUNTIME_VERIFIED_LOCAL | DogfoodMission ordered stages; autonomous merge forbidden; tests/test_path_lock_m15.py |
+| free_model_providers | RUNTIME_VERIFIED_HARNESS | OpenRouter/Groq/Gemini adapters; GOS_ZERO_COST_MODE; scientific pin; free catalog+privacy; tests/test_free_providers.py — live keys user-supplied |
 | org_compiler_multi_topology | RUNTIME_VERIFIED_LOCAL | single_solver + manager_workers + parallel_workers; recursive_hierarchy fail-closed; hypothesis_status=UNPROVEN; tests/test_organization.py; GOS-I30 |
 

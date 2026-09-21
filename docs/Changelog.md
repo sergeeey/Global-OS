@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.1.31 — 2026-09-21
+
+### Added
+
+- Free providers: OpenRouter / Groq / Gemini adapters (OpenAI-compat + Gemini HTTP)
+- `GOS_ZERO_COST_MODE=1` denies paid OpenAI/Anthropic and cost_usd>0
+- Scientific pin: `openrouter/free` forbidden; model substitution fail-closed + `model.substituted` event
+- Free model Capability Registry catalog + privacy/training_allowed
+- ExecutionEnvironment optional `data_policy` (public/confidential)
+
+### Honesty
+
+- Live free-tier evals still need user-supplied `OPENROUTER_API_KEY` / `GROQ_API_KEY` / `GEMINI_API_KEY`
+- Do not send confidential data to training-possible free providers
+
 ## 0.1.30 — 2026-09-21
 
 ### Added

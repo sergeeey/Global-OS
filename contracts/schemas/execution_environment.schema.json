@@ -194,6 +194,19 @@
         "required_tier": { "type": "integer", "minimum": 0, "maximum": 4 }
       }
     },
-    "output_contract": { "type": "string", "minLength": 1 }
+    "output_contract": { "type": "string", "minLength": 1 },
+    "data_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification"],
+      "properties": {
+        "classification": {
+          "type": "string",
+          "enum": ["public", "internal", "confidential"]
+        },
+        "allow_training_possible_providers": { "type": "boolean" },
+        "zero_cost_required": { "type": "boolean" }
+      }
+    }
   }
 }

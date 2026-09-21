@@ -45,6 +45,22 @@ class RecordingModelProvider(ModelProvider):
         except ModelProviderError as exc:
             self._record_failure(request, str(exc))
             raise
+        sub = getattr(self._inner, "last_substitution", None)
+        if isinstance(sub, dict) and sub:
+            self._ledger.append(
+                event_type="model.substituted",
+                tenant_id=self._tenant_id,
+                workspace_id=self._workspace_id,
+                goal_id=self._goal_id,
+                payload=dict(sub),
+                producer=self._producer,
+            )
+        from global_os.adapters.models.zero_cost import assert_zero_cost_allowed
+
+        assert_zero_cost_allowed(
+            cost_usd=resp.cost_usd,
+            free_tier=resp.cost_usd == 0.0 or resp.cost_usd is None,
+        )
         self._record_success(request, resp)
         return resp
 

@@ -32,6 +32,28 @@
       "type": "array",
       "items": { "type": "string" },
       "description": "Fine-grained capability tags (web.read, reasoning, coding, …)"
+    },
+    "role": { "type": "string" },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "free_tier": { "type": "boolean" },
+        "training_allowed": {
+          "type": ["string", "boolean"],
+          "description": "possible|denied|unknown or boolean"
+        },
+        "zero_data_retention": { "type": "boolean" },
+        "retention": { "type": "string" }
+      }
+    },
+    "scientific_use": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pinned": { "type": "boolean" },
+        "smoke_router_ok": { "type": "boolean" }
+      }
     }
   }
 }

@@ -39,6 +39,7 @@
         "claim.staled",
         "model.staled",
         "model.invoked",
+        "model.substituted",
         "forecast.staled",
         "decision.needs_review",
         "commitment.needs_review",

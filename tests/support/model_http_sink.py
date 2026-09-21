@@ -42,9 +42,16 @@ class ModelHttpSink:
                     }
                 )
                 if sink.kind == "openai":
+                    req_model = "gpt-4o-mini-wire"
+                    try:
+                        parsed_body = json.loads(body.decode("utf-8") or "{}")
+                        if isinstance(parsed_body, dict) and parsed_body.get("model"):
+                            req_model = str(parsed_body["model"])
+                    except json.JSONDecodeError:
+                        pass
                     payload = {
                         "id": "chatcmpl-wire",
-                        "model": "gpt-4o-mini-wire",
+                        "model": req_model,
                         "choices": [
                             {
                                 "index": 0,

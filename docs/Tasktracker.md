@@ -7,7 +7,8 @@
 
 ## P0 — until M1.5
 
-- [ ] Live-model H-ENV ladder
+- [ ] Set free keys locally: `OPENROUTER_API_KEY` / `GROQ_API_KEY` / `GEMINI_API_KEY` (never commit)
+- [ ] Live-model H-ENV ladder on pinned free models (`GOS_ZERO_COST_MODE=1`)
 - [ ] Live-model H-RSN (VUW/Cost; VR fixed)
 - [ ] Wall-clock 48h + scheduled injections + Goal Integrity PASS
 
