@@ -186,7 +186,6 @@ class TemporalBridge:
         register_steps(definition)
         configure_kill_after(kill_after_step)
         step_names = [s.name for s in definition.steps]
-        goal_id = str(initial_state.get("goal_id", ""))
         state_with_run = {**initial_state, "_gos_run_id": run_id}
         task_queue = f"gos-live-restart-{run_id}"
 
