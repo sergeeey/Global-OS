@@ -209,6 +209,11 @@
       "id": "postgres_connection_port",
       "state": "RUNTIME_VERIFIED_LOCAL",
       "evidence": "connect_durable_store fails closed on postgres URL without psycopg; no silent SQLite fallback"
+    },
+    {
+      "id": "evidence_candidate_pipeline",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "GOS-I22 EvidenceCandidatePipeline; tool_result\u219bSYSTEM_TRUSTED; tests/test_evidence_candidate.py"
     }
   ]
 }

@@ -3,6 +3,10 @@ from global_os.verification.diversity import (
     assess_diversity,
     meets_tier_diversity,
 )
+from global_os.verification.evidence_candidate import (
+    EvidenceCandidateError,
+    EvidenceCandidatePipeline,
+)
 from global_os.verification.router import (
     ResultClass,
     VerificationOutcome,
@@ -15,6 +19,8 @@ from global_os.verification.router import (
 
 __all__ = [
     "DiversityAssessment",
+    "EvidenceCandidateError",
+    "EvidenceCandidatePipeline",
     "ResultClass",
     "VerificationOutcome",
     "VerificationRequest",

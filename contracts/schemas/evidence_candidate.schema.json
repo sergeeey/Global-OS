@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/evidence_candidate.schema.json",
+  "title": "EvidenceCandidate",
+  "description": "Execution/tool trace awaiting verification. Not verified world fact (GOS-I22).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "candidate_id",
+    "schema_version",
+    "goal_id",
+    "status",
+    "origin",
+    "content_digest",
+    "recorded_at"
+  ],
+  "properties": {
+    "candidate_id": { "type": "string", "pattern": "^ecand_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "goal_id": { "type": "string" },
+    "task_id": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["CANDIDATE", "REJECTED", "PROMOTED", "SUPERSEDED"]
+    },
+    "origin": {
+      "type": "string",
+      "enum": [
+        "tool_result",
+        "effect_receipt",
+        "runtime_artifact",
+        "external_observation",
+        "measurement",
+        "test_report"
+      ]
+    },
+    "tool_name": { "type": "string" },
+    "raw_ref": { "type": "string" },
+    "summary": { "type": "string" },
+    "content_digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "promoted_evidence_id": { "type": "string" },
+    "rejection_reason": { "type": "string" }
+  }
+}

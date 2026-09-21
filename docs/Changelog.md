@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.8 — 2026-09-21
+
+### Added
+
+- EvidenceCandidate schema + pipeline (Execution Trace → Candidate → Verification → Evidence)
+- GOS-I22 enforcement: tool_result cannot promote to SYSTEM_TRUSTED; CoT rejected
+
 ## 0.1.6 — 2026-09-21
 
 ### Added
