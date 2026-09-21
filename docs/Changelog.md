@@ -26,4 +26,7 @@
 - Ephemeral workers + SHA-256 artifact store
 - VerificationRouter (tiering + deterministic numeric)
 - Repo-audit read-only toolset, E2E smoke, `gos audit`
+- Hypothesis lifecycle (Y-17) with null_result on kill
+- Sandbox MVP + source verification protocol
+- Multi-injection Survival suite (GoalIntegritySurvival=1.0 in harness)
 

@@ -10,13 +10,17 @@
 - [x] Ephemeral workers + content-addressed artifacts
 - [x] Verification Router + deterministic numeric verifier
 - [x] Repo-audit toolset + E2E smoke + `gos audit`
+- [x] Hypothesis lifecycle (Y-17) + null_result on kill
+- [x] Sandbox MVP (create/execute/snapshot/destroy)
+- [x] Source-claim verification protocol
+- [x] Multi-injection Survival suite harness
 
 ## Next
 
 - [ ] Postgres runtime (psycopg) behind same SQL schema
 - [ ] Temporal adapter wiring
 - [ ] Rust Authority service boundary
-- [ ] Full Verification protocols (source/code/forecast)
-- [ ] Hypothesis lifecycle + null-result reopen gates
-- [ ] Sandbox runner for untrusted code
-- [ ] Longer Survival Benchmark (multi-injection suite)
+- [ ] Code/forecast verification protocols
+- [ ] Stronger sandbox (container/gVisor)
+- [ ] Preference Ledger runtime
+- [ ] Long-horizon Survival (24h+ with real process kill)
