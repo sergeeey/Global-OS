@@ -2,7 +2,7 @@
 
 **Project:** Global OS (ex Goal OS)  
 **Date:** 2026-09-21  
-**Status:** Initial Architecture Baseline  
+**Status:** M0 Trustworthy Skeleton (in progress) — not claimed DoD v0.1 complete  
 
 ## Mission
 
@@ -11,10 +11,28 @@ Maximize useful autonomous work per unit of unverified human trust — not tool-
 ## Formula
 
 $$
-\text{GlobalOS} = \text{GoalContract} + \text{EpistemicKernel} + \text{DurableRuntime} + \text{AuthorityKernel} + \text{DynamicCognitiveOrganization} + \text{WorldInteraction} + \text{Verification} + \text{Adaptation}
+\text{GlobalOS} =
+\text{GoalContract} +
+\text{EpistemicKernel} +
+\text{DurableRuntime} +
+\text{AuthorityKernel} +
+\text{DynamicCognitiveOrganization} +
+\text{EnvironmentCompiler} +
+\text{WorldInteraction} +
+\text{VerificationFabric} +
+\text{AdaptiveLearning}
 $$
 
 LLM is interchangeable compute behind adapters.
+
+## Honesty rule
+
+$$
+\text{implemented approximation} \neq \text{fulfilled contract}
+$$
+
+Capability states: `CONTRACTED` | `STUBBED` | `STATICALLY_IMPLEMENTED` | `RUNTIME_VERIFIED_*` | `PRODUCTION_PROVEN`.  
+See `docs/capability_matrix.json` and generated `docs/IMPLEMENTATION_STATUS.md`.
 
 ## Contracts-first rule
 
@@ -22,17 +40,19 @@ Every core entity has: schema, version, ID semantics, state transitions, validat
 
 Sequence: Problem → Contract → Invariant → Tests → Implementation → Runtime evidence.
 
-## Core entities (v0.1)
+## Core entities
 
-| Entity | Immature? | Notes |
-|--------|-----------|-------|
-| GoalContract | no | Immutable versioned; amendments only |
-| Event | no | Append-only ledger |
-| ActionProposal | no | Normalized typed input to Authority |
-| EffectReceipt | no | Required for material actions |
-| Evidence / Claim | partial Sprint 3 | Separate from Observation/Belief |
-| OrgUnit | partial Sprint 4 | Runtime organization, not personas |
-| Preference | schema only | Cannot auto-mutate Goal |
+| Entity | State | Notes |
+|--------|-------|-------|
+| GoalContract | RUNTIME_VERIFIED_LOCAL | Immutable versions; amendments only |
+| Event | RUNTIME_VERIFIED_LOCAL | Append-only; SQLite adapter |
+| ActionProposal / EffectReceipt | RUNTIME_VERIFIED_LOCAL | Authority + gateway |
+| Evidence / Claim | RUNTIME_VERIFIED_LOCAL | Invalidation seed |
+| Observation / Belief / Commitment | CONTRACTED | Schemas + invalidation contracts |
+| OrgUnit | RUNTIME_VERIFIED_LOCAL | manager_workers compiler |
+| ExecutionEnvironment | CONTRACTED | EnvironmentCompiler contracts (ADR-0003) |
+| ReasoningBudget / ContextManifest / ClarificationPolicy | CONTRACTED | Schemas only |
+| Preference | CONTRACTED | Cannot auto-mutate Goal |
 
 ## Goal Contract (summary)
 
@@ -50,37 +70,56 @@ Tool Gateway physically rejects actions without valid execution token.
 
 ## Epistemic separation
 
-Observation ≠ Belief ≠ Hypothesis ≠ Plan ≠ Commitment ≠ Unknown.
+Observation ≠ Belief ≠ Hypothesis ≠ Plan ≠ Commitment ≠ Unknown.  
+Reasoning trace ≠ evidence (GOS-I21).
 
-Evidence status is a state machine (not `verified=true`).
+Evidence status is a state machine (not `verified=true`).  
+See `docs/EPISTEMIC_INVALIDATION.md`.
 
 ## Durable runtime
 
 Temporal (or successor) is an implementation of durable workflows — domain model must not depend on Temporal types.  
+`DurableRunner` is a **local harness** (ADR-0002), not Temporal fulfillment.  
 Workflow state ≠ epistemic state.
 
 ## Definition of Done v0.1
 
+Still the gate for calling the milestone complete — **not** currently claimed:
+
 1. Accept versioned Goal Contract  
 2. Build task DAG  
 3. Create org: parent + workers  
-4. Execute tasks via Temporal  
+4. Execute tasks via **Temporal** (CONTRACTED; DurableRunner ≠ Temporal)  
 5. Die mid-task  
 6. Resume after restart  
-7. Store observations separately from beliefs  
+7. Store observations separately from beliefs (schemas CONTRACTED; dual-store runtime incomplete)  
 8. Create claim + evidence  
 9. Invalidation marks claim stale  
 10. Worker cannot exceed parent authority  
 11. Forbidden action never reaches Tool Gateway  
 12. External canary action yields Effect Receipt  
-13. Event history allows replay  
+13. Event history allows replay (list_events RUNTIME; full replay engine STUBBED)  
 14. All model calls via provider abstraction  
 15. All tool calls via Tool abstraction  
-16. Basic OTel traces  
+16. Basic OTel traces (CONTRACTED)  
 17. Budget limits operation  
 18. Null result persisted  
 19. Test: single-agent vs organization  
-20. Survival Test with process kill passes  
+20. Survival Test with process kill passes (RUNTIME_VERIFIED_HARNESS; other injections STUBBED)
+
+## Milestones
+
+### M0 — Trustworthy Skeleton (current target)
+
+CI green; versioned contracts; immutable goals; default-deny authority; forbidden tools unreachable; process-kill recovery harness; claim invalidation; event persistence; Survival real vs stub split; Environment contracts present; OTel minimal (still open).
+
+### M1 — Durable Cognitive Runtime
+
+Temporal + durable shared state (e.g. Postgres) + OTel + Epistemic Graph runtime.
+
+### M2 — Cognitive Organization
+
+Real workers + EnvironmentCompiler runtime + deep repo audit.
 
 ## Hypotheses (preregistered)
 

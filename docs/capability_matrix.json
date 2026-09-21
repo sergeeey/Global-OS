@@ -1,0 +1,134 @@
+{
+  "schema_version": "0.1.0",
+  "states": [
+    "CONTRACTED",
+    "STUBBED",
+    "STATICALLY_IMPLEMENTED",
+    "RUNTIME_VERIFIED_HARNESS",
+    "RUNTIME_VERIFIED_LOCAL",
+    "PRODUCTION_PROVEN"
+  ],
+  "rule": "implemented approximation ≠ fulfilled contract",
+  "capabilities": [
+    {
+      "id": "goal_contract_immutable",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "tests/test_goal_and_events.py"
+    },
+    {
+      "id": "event_ledger_append_only",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "tests/test_goal_and_events.py; tests/test_sql_store.py"
+    },
+    {
+      "id": "authority_default_deny",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "tests/test_authority.py; tests/test_policy.py"
+    },
+    {
+      "id": "tool_gateway_token_gate",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "tests/test_authority.py"
+    },
+    {
+      "id": "effect_receipt",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "tests/test_authority.py"
+    },
+    {
+      "id": "claim_invalidation",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "tests/test_epistemic.py"
+    },
+    {
+      "id": "durable_runner_process_kill",
+      "state": "RUNTIME_VERIFIED_HARNESS",
+      "evidence": "tests/test_durable_recovery.py; tests/test_survival_multi.py"
+    },
+    {
+      "id": "temporal_durability",
+      "state": "CONTRACTED",
+      "evidence": "SPEC.md DoD #4; ADR-0002"
+    },
+    {
+      "id": "postgres_durable_state",
+      "state": "CONTRACTED",
+      "evidence": "migrations/001_init.sql (dialect); SQLite adapter only"
+    },
+    {
+      "id": "sql_sqlite_adapter",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "tests/test_sql_store.py"
+    },
+    {
+      "id": "otel_traces",
+      "state": "CONTRACTED",
+      "evidence": "SPEC.md DoD #16"
+    },
+    {
+      "id": "survival_process_kill",
+      "state": "RUNTIME_VERIFIED_HARNESS",
+      "evidence": "Injection.PROCESS_KILL real abort/resume"
+    },
+    {
+      "id": "survival_other_injections",
+      "state": "STUBBED",
+      "evidence": "scenarios marked fidelity=stub; excluded from GoalIntegritySurvival"
+    },
+    {
+      "id": "full_epistemic_graph",
+      "state": "CONTRACTED",
+      "evidence": "observation/belief schemas; store still claim/evidence seed"
+    },
+    {
+      "id": "environment_compiler",
+      "state": "CONTRACTED",
+      "evidence": "contracts/schemas/*environment*; ADR-0003"
+    },
+    {
+      "id": "sandbox_mvp",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "tests/test_sandbox.py (local process, not container)"
+    },
+    {
+      "id": "sandbox_strong",
+      "state": "CONTRACTED",
+      "evidence": "container/gVisor deferred"
+    },
+    {
+      "id": "source_verification",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "tests/test_source_verification.py (local file resolve)"
+    },
+    {
+      "id": "independent_verification_diversity",
+      "state": "STUBBED",
+      "evidence": "diversity factors recorded; multi-provider path absent"
+    },
+    {
+      "id": "rust_authority_boundary",
+      "state": "CONTRACTED",
+      "evidence": "semantic contract in Python first"
+    },
+    {
+      "id": "repo_audit_structure",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "tests/test_repo_audit.py; gos audit"
+    },
+    {
+      "id": "repo_audit_deep",
+      "state": "STUBBED",
+      "evidence": "structure scan only"
+    },
+    {
+      "id": "hypothesis_lifecycle",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "tests/test_hypotheses.py"
+    },
+    {
+      "id": "event_replay_engine",
+      "state": "STUBBED",
+      "evidence": "list_events available; full replay/projection rebuild contracted"
+    }
+  ]
+}

@@ -1,6 +1,25 @@
 # Changelog
 
-## 0.1.0 — 2026-09-21
+## 0.1.1 — 2026-09-21 (architecture consolidation)
+
+### Fixed
+
+- Invalid immutable pin for `actions/setup-python` (truncated SHA broke CI run #7)
+- Survival `GoalIntegritySurvival` no longer counts stub injections as runtime proof
+
+### Added
+
+- `tools/validate_action_pins.py` — full SHA + remote resolve
+- `docs/capability_matrix.json` + `tools/project_status.py` → `IMPLEMENTATION_STATUS.md`
+- EnvironmentCompiler contracts (ADR-0003): ExecutionEnvironment, EnvironmentPolicy, ReasoningBudget, ContextManifest, ClarificationPolicy, EnvironmentChangeProposal
+- Observation / Belief / Commitment schemas + `EPISTEMIC_INVALIDATION.md`
+- GOS-I21 — Reasoning trace ≠ evidence
+- ScenarioFidelity (`runtime_injected` vs `stub`) for Survival harness
+
+### Changed
+
+- Architectural formula includes EnvironmentCompiler + VerificationFabric + AdaptiveLearning
+- SPEC/ROADMAP/Tasktracker realigned to M0/M1/M2; DoD v0.1 not falsely claimed
 
 ### Added
 

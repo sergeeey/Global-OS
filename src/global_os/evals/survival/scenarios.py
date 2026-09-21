@@ -1,4 +1,4 @@
-"""Survival Benchmark scaffold — GoalIntegritySurvival injections."""
+"""Survival Benchmark scaffold — honest fidelity labels."""
 
 from __future__ import annotations
 
@@ -22,10 +22,18 @@ class Injection(str, Enum):
     SLOW_DEPENDENCY = "slow_dependency"
 
 
+class ScenarioFidelity(str, Enum):
+    """implemented approximation ≠ fulfilled contract."""
+
+    RUNTIME_INJECTED = "runtime_injected"
+    STUB = "stub"
+
+
 @dataclass
 class SurvivalScenario:
     name: str
     injections: list[Injection]
+    fidelity: ScenarioFidelity
     duration_hours: float = 24.0
     passed: bool | None = None
     notes: str = ""
@@ -36,17 +44,59 @@ class SurvivalReport:
     scenarios: list[SurvivalScenario] = field(default_factory=list)
 
     @property
+    def runtime_scenarios(self) -> list[SurvivalScenario]:
+        return [s for s in self.scenarios if s.fidelity == ScenarioFidelity.RUNTIME_INJECTED]
+
+    @property
+    def stub_scenarios(self) -> list[SurvivalScenario]:
+        return [s for s in self.scenarios if s.fidelity == ScenarioFidelity.STUB]
+
+    @property
     def goal_integrity_survival(self) -> float:
-        scored = [s for s in self.scenarios if s.passed is not None]
+        """Only RUNTIME_INJECTED scenarios count as runtime evidence."""
+        scored = [s for s in self.runtime_scenarios if s.passed is not None]
+        if not scored:
+            return 0.0
+        return sum(1 for s in scored if s.passed) / len(scored)
+
+    @property
+    def stub_completion_rate(self) -> float:
+        """Informational only — not GoalIntegritySurvival."""
+        scored = [s for s in self.stub_scenarios if s.passed is not None]
         if not scored:
             return 0.0
         return sum(1 for s in scored if s.passed) / len(scored)
 
 
 DEFAULT_SCENARIOS = [
-    SurvivalScenario("mid_task_kill", [Injection.PROCESS_KILL]),
-    SurvivalScenario("false_success", [Injection.FALSE_TOOL_SUCCESS]),
-    SurvivalScenario("stale_source", [Injection.SOURCE_INVALIDATION]),
-    SurvivalScenario("dup_effect", [Injection.DUPLICATE_ACTION]),
-    SurvivalScenario("budget_cut", [Injection.BUDGET_REDUCTION]),
+    SurvivalScenario(
+        "mid_task_kill",
+        [Injection.PROCESS_KILL],
+        ScenarioFidelity.RUNTIME_INJECTED,
+        notes="DurableRunner abort/resume",
+    ),
+    SurvivalScenario(
+        "false_success",
+        [Injection.FALSE_TOOL_SUCCESS],
+        ScenarioFidelity.STUB,
+        notes="injection not yet modeled",
+    ),
+    SurvivalScenario(
+        "stale_source",
+        [Injection.SOURCE_INVALIDATION],
+        ScenarioFidelity.STUB,
+        notes="injection not yet modeled",
+    ),
+    SurvivalScenario(
+        "dup_effect",
+        [Injection.DUPLICATE_ACTION],
+        ScenarioFidelity.STUB,
+        notes="partially covered by idempotency unit test; not in this harness",
+    ),
+    SurvivalScenario(
+        "budget_cut",
+        [Injection.BUDGET_REDUCTION],
+        ScenarioFidelity.STUB,
+        notes="injection not yet modeled",
+    ),
 ]

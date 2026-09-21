@@ -4,7 +4,7 @@ import pytest
 
 from global_os.adapters.storage import connect_sqlite
 from global_os.evals.organization import compare_baselines
-from global_os.evals.survival import Injection, SurvivalReport, SurvivalScenario
+from global_os.evals.survival import Injection, ScenarioFidelity, SurvivalReport, SurvivalScenario
 from global_os.runtime.workflows import DurableRunner, WorkflowAborted, goal_execution_workflow
 
 
@@ -27,6 +27,7 @@ def test_survival_process_kill_scenario_passes():
     scenario = SurvivalScenario(
         "mid_task_kill",
         [Injection.PROCESS_KILL],
+        ScenarioFidelity.RUNTIME_INJECTED,
         passed=final.get("phase") == "reported",
     )
     report = SurvivalReport(scenarios=[scenario])

@@ -102,3 +102,20 @@ First-class: `UNKNOWN`, `INSUFFICIENT_EVIDENCE`, `CONFLICTED`, `UNVERIFIABLE`.
 
 Система может предлагать и экспериментально проверять изменения.  
 Не может бесконтрольно self-modify trusted production core (T0).
+
+## GOS-I21 — Reasoning trace ≠ evidence
+
+Chain-of-thought, model self-report и любой reasoning trace **не являются evidence**.
+
+Они не могут:
+
+* создать Observation с `SYSTEM_TRUSTED`;
+* перевести claim в `VERIFIED` / `INDEPENDENTLY_VERIFIED`;
+* расширить authority;
+* заменить Effect Receipt или source verification.
+
+$$
+\text{implemented approximation} \neq \text{fulfilled contract}
+$$
+
+Marker, SHA, citation, красивый reasoning — не proof (см. также GOS-I08).

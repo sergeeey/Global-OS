@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/environment_change_proposal.schema.json",
+  "title": "EnvironmentChangeProposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "schema_version",
+    "environment_id",
+    "proposer",
+    "reason",
+    "diff",
+    "requires_approval"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^ecp_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "environment_id": { "type": "string" },
+    "proposer": { "type": "string", "minLength": 1 },
+    "reason": { "type": "string", "minLength": 1 },
+    "diff": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Partial fields proposed to change; never silent overwrite of environment identity"
+    },
+    "requires_approval": { "type": "boolean" },
+    "approval_refs": { "type": "array", "items": { "type": "string" } }
+  }
+}

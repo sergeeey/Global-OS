@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/commitment.schema.json",
+  "title": "Commitment",
+  "description": "Binding stance about future action/constraint. Not an observation or belief.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "commitment_id",
+    "schema_version",
+    "goal_id",
+    "statement",
+    "status",
+    "authority_ref",
+    "recorded_at"
+  ],
+  "properties": {
+    "commitment_id": { "type": "string", "pattern": "^com_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "goal_id": { "type": "string" },
+    "statement": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["ACTIVE", "FULFILLED", "BREACHED", "SUPERSEDED", "CANCELLED"]
+    },
+    "authority_ref": { "type": "string", "minLength": 1 },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "depends_on_claim_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

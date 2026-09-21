@@ -1,0 +1,18 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+
+def test_capability_matrix_states_are_known():
+    matrix = json.loads(Path("docs/capability_matrix.json").read_text(encoding="utf-8"))
+    allowed = set(matrix["states"])
+    assert "CONTRACTED" in allowed
+    for item in matrix["capabilities"]:
+        assert item["state"] in allowed, item
+    # Honesty anchors
+    by_id = {c["id"]: c for c in matrix["capabilities"]}
+    assert by_id["temporal_durability"]["state"] == "CONTRACTED"
+    assert by_id["durable_runner_process_kill"]["state"] == "RUNTIME_VERIFIED_HARNESS"
+    assert by_id["survival_other_injections"]["state"] == "STUBBED"
+    assert by_id["environment_compiler"]["state"] == "CONTRACTED"

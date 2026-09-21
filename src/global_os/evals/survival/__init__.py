@@ -1,6 +1,7 @@
 from global_os.evals.survival.scenarios import (
     DEFAULT_SCENARIOS,
     Injection,
+    ScenarioFidelity,
     SurvivalReport,
     SurvivalScenario,
 )
@@ -8,6 +9,7 @@ from global_os.evals.survival.scenarios import (
 __all__ = [
     "DEFAULT_SCENARIOS",
     "Injection",
+    "ScenarioFidelity",
     "SurvivalReport",
     "SurvivalScenario",
 ]

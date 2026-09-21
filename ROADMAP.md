@@ -1,70 +1,47 @@
 # ROADMAP.md
 
-## Sprint 0 — Architecture Baseline ✅ (in progress)
+## Honesty
 
-- CONSTITUTION, SPEC, ARCHITECTURE, threat/authority/epistemic/org models
-- NON_GOALS, AGENTS, EVALS
-- contracts (JSON Schema)
-- ADR-0001 system boundaries
-- repo skeleton + CI schema validation
+$$
+\text{implemented approximation} \neq \text{fulfilled contract}
+$$
 
-## Sprint 1 — Goal + Durable Ledger
+Track states in `docs/capability_matrix.json`.
 
-- Goal Contract create/amend (immutable versions)
-- Event Ledger (append-only)
-- Postgres persistence
-- Temporal Goal Workflow skeleton
-- crash/recovery smoke test
+## M0 — Trustworthy Skeleton (active)
 
-## Sprint 2 — Authority
+- [x] CONSTITUTION (+ GOS-I21), SPEC, ARCHITECTURE, models, NON_GOALS, AGENTS, EVALS
+- [x] Core JSON schemas + EnvironmentCompiler contracts (ADR-0003)
+- [x] Observation / Belief / Commitment schemas + invalidation contract doc
+- [x] CI with resolvable Action SHA pins + pin validator
+- [x] Goal / Event / Authority / Gateway / Budget (local runtime verified)
+- [x] DurableRunner process-kill harness (≠ Temporal)
+- [x] Survival: runtime_injected vs stub split
+- [x] Capability matrix + generated IMPLEMENTATION_STATUS
+- [ ] Minimal OTel traces
+- [ ] CI continuously green on `main`
 
-- Identity principal
-- Authority Kernel (Rust service or Python stub → Rust)
-- Cedar policies
-- Tool Gateway + execution token
-- fake tools + approval tokens
+## M1 — Durable Cognitive Runtime
 
-## Sprint 3 — Epistemic Kernel
+- Temporal adapter with physical worker-kill + no duplicate material effects
+- Durable shared state surviving process/container loss + concurrent writers (Postgres is one implementation)
+- OTel Goal→…→Action traces
+- Full Epistemic Graph runtime (Observation→…→Commitment) with recursive invalidation
 
-- Observation / Claim / Evidence
-- Invalidation engine
-- Evidence status machine
-- Null results storage
+## M2 — Cognitive Organization
 
-## Sprint 4 — Organization
+- EnvironmentCompiler runtime
+- Deep repo-audit (beyond structure scan)
+- Real multi-injection Survival (not stub catalog)
+- H-ORG-001 with measured baselines
 
-- Worker abstraction
-- OrgUnit
-- manager-workers topology
-- artifact store (content-addressed)
+## Later
 
-## Sprint 5 — Verification Plane
-
-- Verification Router
-- deterministic verifier
-- independent verifier diversity tracking
-
-## Sprint 6 — First real task
-
-- sandbox
-- repo-audit toolset
-- killer use case: GitHub repository audit (read-only)
-
-## Sprint 7 — Survival Benchmark
-
-- process kill / model swap / false tool success
-- single-agent vs manager-workers baseline
-
-## Sprint 8 — Organizational Compiler
-
-- recursive hierarchy
-- compiler v0
-- H-ORG-001 experiment
+- Rust Authority process boundary (after semantic contract stable)
+- Strong sandbox (container/gVisor)
+- Preference Ledger / Counterfactual / VOI
+- v1.0: 48h+ task with injected failures
 
 ## Definition of Done v0.1
 
-См. `SPEC.md` § DoD v0.1 (20 пунктов).
-
-## v1.0 gate
-
-48h+ real task with injected failures; 0 unauthorized material actions; 100% receipts; restart recovery; baseline advantage; independent audit.
+См. `SPEC.md` — not claimed complete until Temporal + OTel + observation/belief runtime separation are RUNTIME_VERIFIED.

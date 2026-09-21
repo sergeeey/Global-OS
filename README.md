@@ -7,12 +7,28 @@ Global OS принимает от человека или организации
 LLM **не** является архитектурным ядром. Модели — interchangeable compute за adapter boundary.
 
 $$
-\text{GlobalOS} = \text{GoalContract} + \text{EpistemicKernel} + \text{DurableRuntime} + \text{AuthorityKernel} + \text{DynamicCognitiveOrganization} + \text{WorldInteraction} + \text{Verification} + \text{Adaptation}
+\text{GlobalOS} =
+\text{GoalContract} +
+\text{EpistemicKernel} +
+\text{DurableRuntime} +
+\text{AuthorityKernel} +
+\text{DynamicCognitiveOrganization} +
+\text{EnvironmentCompiler} +
+\text{WorldInteraction} +
+\text{VerificationFabric} +
+\text{AdaptiveLearning}
 $$
 
 ## Статус
 
-Milestone: **Sprint 0 — Architecture Baseline** (contracts-first).
+Milestone: **M0 — Trustworthy Skeleton** (architecture consolidation).  
+DoD v0.1 **не** claimed complete. Evidence: `docs/capability_matrix.json`, `docs/IMPLEMENTATION_STATUS.md`.
+
+Правило:
+
+$$
+\text{implemented approximation} \neq \text{fulfilled contract}
+$$
 
 См. [ROADMAP.md](ROADMAP.md), [CONSTITUTION.md](CONSTITUTION.md), [SPEC.md](SPEC.md).
 

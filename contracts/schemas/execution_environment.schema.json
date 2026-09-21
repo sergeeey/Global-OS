@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/execution_environment.schema.json",
+  "title": "ExecutionEnvironment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "schema_version",
+    "task_id",
+    "org_unit_id",
+    "model_requirements",
+    "reasoning_budget",
+    "tools",
+    "sandbox",
+    "retrieval",
+    "memory",
+    "context",
+    "clarification",
+    "verification",
+    "output_contract"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^env_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "task_id": { "type": "string", "minLength": 1 },
+    "org_unit_id": { "type": "string", "minLength": 1 },
+    "goal_id": { "type": "string" },
+    "model_requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reasoning", "vision", "coding", "tool_use"],
+      "properties": {
+        "reasoning": { "type": "string", "enum": ["none", "low", "medium", "high"] },
+        "vision": { "type": "boolean" },
+        "coding": { "type": "boolean" },
+        "tool_use": { "type": "boolean" }
+      }
+    },
+    "reasoning_budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requested", "maximum", "policy_source"],
+      "properties": {
+        "requested": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["tokens", "usd", "wall_time_seconds"],
+          "properties": {
+            "tokens": { "type": "integer", "minimum": 0 },
+            "usd": { "type": "number", "minimum": 0 },
+            "wall_time_seconds": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "maximum": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["tokens", "usd", "wall_time_seconds"],
+          "properties": {
+            "tokens": { "type": "integer", "minimum": 0 },
+            "usd": { "type": "number", "minimum": 0 },
+            "wall_time_seconds": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "policy_source": {
+          "type": "string",
+          "enum": ["goal_contract", "org_unit", "environment_policy", "human_override"]
+        }
+      }
+    },
+    "tools": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allow"],
+      "properties": {
+        "allow": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[a-z0-9_]+(\\.[a-z0-9_]+)+$" }
+        }
+      }
+    },
+    "sandbox": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile"],
+      "properties": {
+        "profile": {
+          "type": "string",
+          "enum": ["none", "process_local", "container", "gvisor", "microvm"]
+        }
+      }
+    },
+    "retrieval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["strategy"],
+      "properties": {
+        "strategy": {
+          "type": "string",
+          "enum": ["none", "id", "graph", "temporal", "sql", "fulltext", "vector", "hybrid"]
+        }
+      }
+    },
+    "memory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scopes"],
+      "properties": {
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "episodic",
+              "semantic",
+              "procedural",
+              "decision",
+              "negative",
+              "counterfactual",
+              "authorization",
+              "preference"
+            ]
+          }
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["token_budget", "freshness", "include_refs"],
+      "properties": {
+        "token_budget": { "type": "integer", "minimum": 0 },
+        "freshness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["max_age"],
+          "properties": {
+            "max_age": { "type": "string", "minLength": 1 },
+            "prefer_verified": { "type": "boolean" }
+          }
+        },
+        "include_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "exclude_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "clarification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["materiality_policy", "ask_when"],
+      "properties": {
+        "materiality_policy": {
+          "type": "string",
+          "enum": ["never", "high_impact_only", "ambiguous_constraints", "always_uncertain"]
+        },
+        "ask_when": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "missing_success_criteria",
+              "conflicting_invariants",
+              "authority_gap",
+              "irreversible_action",
+              "budget_ambiguous",
+              "external_commitment"
+            ]
+          }
+        },
+        "max_rounds": { "type": "integer", "minimum": 0, "maximum": 20 }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_tier"],
+      "properties": {
+        "required_tier": { "type": "integer", "minimum": 0, "maximum": 4 }
+      }
+    },
+    "output_contract": { "type": "string", "minLength": 1 }
+  }
+}

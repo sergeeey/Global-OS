@@ -24,8 +24,8 @@ Web Console — UX (deferred past CLI/API)
 HUMAN / ORG
     → GOAL CONTRACT
     → AUTHORITY KERNEL (identity / budgets / approvals / invariants)
-    → COGNITIVE RUNTIME (Metareasoner · OrgCompiler · ModelRouter · Workers)
-         ├ EPISTEMIC KERNEL (evidence · claims · hypotheses · models)
+    → COGNITIVE RUNTIME (Metareasoner · OrgCompiler · EnvironmentCompiler · ModelRouter · Workers)
+         ├ EPISTEMIC KERNEL (observations · beliefs · evidence · claims · hypotheses · models)
          └ WORLD STATE (observed · believed · expected · committed)
     → VERIFICATION PLANE
     → ACTION PROPOSAL
@@ -35,6 +35,8 @@ HUMAN / ORG
     → EVENT LEDGER
     → REPLAY / ADAPTATION
 ```
+
+EnvironmentCompiler produces typed `ExecutionEnvironment` (tools, sandbox, reasoning budget, context, clarification, verification tier) before execution — see ADR-0003.
 
 ## Stability principle
 

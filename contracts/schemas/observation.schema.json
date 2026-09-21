@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/observation.schema.json",
+  "title": "Observation",
+  "description": "Raw observed world fact. Not a belief. Reasoning traces are not observations (GOS-I21).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "observation_id",
+    "schema_version",
+    "goal_id",
+    "statement",
+    "source_ref",
+    "trust_label",
+    "observed_at",
+    "recorded_at",
+    "known_at",
+    "content_digest"
+  ],
+  "properties": {
+    "observation_id": { "type": "string", "pattern": "^obs_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "goal_id": { "type": "string" },
+    "statement": { "type": "string", "minLength": 1 },
+    "source_ref": { "type": "string", "minLength": 1 },
+    "trust_label": {
+      "type": "string",
+      "enum": [
+        "SYSTEM_TRUSTED",
+        "USER_TRUSTED",
+        "ORG_TRUSTED",
+        "EXTERNAL_UNTRUSTED",
+        "MODEL_GENERATED",
+        "DERIVED"
+      ]
+    },
+    "observed_at": { "type": "string", "format": "date-time" },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "known_at": { "type": "string", "format": "date-time" },
+    "valid_from": { "type": "string", "format": "date-time" },
+    "valid_until": { "type": "string", "format": "date-time" },
+    "content_digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "evidence_id": { "type": "string" }
+  }
+}

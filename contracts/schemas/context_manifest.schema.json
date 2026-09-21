@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/context_manifest.schema.json",
+  "title": "ContextManifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["token_budget", "freshness", "include_refs"],
+  "properties": {
+    "token_budget": { "type": "integer", "minimum": 0 },
+    "freshness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_age"],
+      "properties": {
+        "max_age": { "type": "string", "minLength": 1 },
+        "prefer_verified": { "type": "boolean", "default": true }
+      }
+    },
+    "include_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "exclude_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "taint_allow": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "SYSTEM_TRUSTED",
+          "USER_TRUSTED",
+          "ORG_TRUSTED",
+          "EXTERNAL_UNTRUSTED",
+          "MODEL_GENERATED",
+          "DERIVED"
+        ]
+      }
+    }
+  }
+}

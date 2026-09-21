@@ -37,6 +37,14 @@
 Problem → Contract → Invariant → Tests → Implementation → Runtime evidence
 ```
 
+## Honesty
+
+```text
+implemented approximation ≠ fulfilled contract
+```
+
+Use capability states in `docs/capability_matrix.json`. Do not claim Temporal/OTel/full Survival from local harnesses.
+
 ## Trust zones
 
 | Zone | Scope | Self-mod |

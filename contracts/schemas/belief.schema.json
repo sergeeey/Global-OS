@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/belief.schema.json",
+  "title": "Belief",
+  "description": "Interpreted stance derived from observations/claims. Distinct from Observation (GOS-I07). Not verified by being model-generated (GOS-I21).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "belief_id",
+    "schema_version",
+    "goal_id",
+    "statement",
+    "status",
+    "confidence",
+    "confidence_basis",
+    "derived_from_observation_ids",
+    "recorded_at"
+  ],
+  "properties": {
+    "belief_id": { "type": "string", "pattern": "^bel_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "goal_id": { "type": "string" },
+    "statement": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["ACTIVE", "STALE", "CONFLICTED", "WITHDRAWN", "NEEDS_REVIEW"]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH", "VERY_HIGH"]
+    },
+    "confidence_basis": { "type": "string", "minLength": 1 },
+    "derived_from_observation_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "supports_claim_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "known_at": { "type": "string", "format": "date-time" },
+    "calibrated_probability": { "type": "number", "minimum": 0, "maximum": 1 }
+  }
+}
