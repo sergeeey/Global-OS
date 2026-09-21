@@ -13,3 +13,9 @@
 - CI workflow (pinned Actions SHAs), Makefile, schema validator
 - Acceptance tests: goal immutability, authority inheritance, gateway denial, idempotency, invalidation, adapters, null results
 
+### Also in 0.1.x follow-up
+
+- BudgetKernel (reserve/commit, cannot go negative/overspend)
+- OrganizationCompiler manager_workers + repo-audit task DAG
+- Survival Benchmark scaffold (GoalIntegritySurvival metric)
+

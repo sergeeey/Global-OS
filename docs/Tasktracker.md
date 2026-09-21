@@ -12,6 +12,9 @@
 - [x] Null result memory
 - [x] Model/Tool adapter interfaces
 - [x] CLI (`gos goal create|show`, `gos events tail`)
+- [x] Budget kernel
+- [x] OrgUnit manager-workers + repo-audit DAG
+- [x] Survival Benchmark scaffold
 
 ## Next
 
@@ -19,7 +22,6 @@
 - [ ] Temporal Goal Workflow + crash/recovery harness
 - [ ] Cedar policies + Rust Authority service boundary
 - [ ] Approval token signing
-- [ ] Budget kernel
-- [ ] Survival Benchmark scaffold
-- [ ] OrgUnit + manager-workers topology
+- [ ] Process-kill recovery harness (real Survival run)
+- [ ] Single-agent vs organization baseline eval
 
