@@ -1,0 +1,180 @@
+"""Temporal workflow bridge — domain steps as activities (ADR-0002).
+
+Requires temporalio. Never silently falls back to LocalDurableAdapter.
+Workflow/activity classes are module-level (Temporal forbids local classes).
+"""
+
+from __future__ import annotations
+
+import asyncio
+import os
+from collections.abc import Callable
+from dataclasses import dataclass, field
+from datetime import timedelta
+from typing import Any
+
+from temporalio import activity, workflow
+from temporalio.common import RetryPolicy
+
+from global_os.adapters.workflows.port import TemporalAdapterUnavailable
+from global_os.runtime.workflows.durable import WorkflowDefinition
+
+
+@dataclass
+class SideEffectLedger:
+    """Records material effects for duplicate detection across retries/restarts."""
+
+    effects: list[str] = field(default_factory=list)
+
+    def record_once(self, name: str) -> bool:
+        if name in self.effects:
+            return False
+        self.effects.append(name)
+        return True
+
+
+_STEP_FNS: dict[str, Callable[[dict[str, Any]], dict[str, Any]]] = {}
+_SIDE_EFFECTS: SideEffectLedger = SideEffectLedger()
+_KILL_AFTER: str | None = None
+_KILLED: bool = False
+
+
+def reset_temporal_harness() -> None:
+    global _STEP_FNS, _SIDE_EFFECTS, _KILL_AFTER, _KILLED
+    _STEP_FNS = {}
+    _SIDE_EFFECTS = SideEffectLedger()
+    _KILL_AFTER = None
+    _KILLED = False
+
+
+def register_steps(definition: WorkflowDefinition) -> None:
+    for step in definition.steps:
+        _STEP_FNS[step.name] = step.fn
+
+
+def configure_kill_after(step_name: str | None) -> None:
+    global _KILL_AFTER, _KILLED
+    _KILL_AFTER = step_name
+    _KILLED = False
+
+
+def side_effects() -> list[str]:
+    return list(_SIDE_EFFECTS.effects)
+
+
+@activity.defn(name="gos_run_step")
+async def run_step_activity(step_name: str, state: dict[str, Any]) -> dict[str, Any]:
+    global _KILLED
+    _SIDE_EFFECTS.record_once(f"effect:{step_name}")
+    if _KILL_AFTER is not None and step_name == _KILL_AFTER and not _KILLED:
+        _KILLED = True
+        raise RuntimeError(f"simulated worker kill after {step_name}")
+    fn = _STEP_FNS[step_name]
+    return fn(dict(state))
+
+
+@workflow.defn(name="GosGoalExecution")
+class GosGoalExecution:
+    @workflow.run
+    async def run(self, initial_state: dict[str, Any], step_names: list[str]) -> dict[str, Any]:
+        state = dict(initial_state)
+        for name in step_names:
+            state = await workflow.execute_activity(
+                run_step_activity,
+                args=[name, state],
+                start_to_close_timeout=timedelta(seconds=30),
+                retry_policy=RetryPolicy(
+                    maximum_attempts=8,
+                    initial_interval=timedelta(milliseconds=50),
+                ),
+            )
+        return state
+
+
+class TemporalBridge:
+    """Runs a WorkflowDefinition on Temporal (time-skipping env or TEMPORAL_ADDRESS)."""
+
+    backend = "temporal"
+
+    def __init__(self, address: str | None = None) -> None:
+        self._address = address if address is not None else os.environ.get("TEMPORAL_ADDRESS", "")
+
+    async def run_definition(
+        self,
+        run_id: str,
+        definition: WorkflowDefinition,
+        initial_state: dict[str, Any],
+        *,
+        kill_after_step: str | None = None,
+        use_time_skipping: bool = True,
+    ) -> dict[str, Any]:
+        try:
+            from temporalio.client import Client
+            from temporalio.testing import WorkflowEnvironment
+            from temporalio.worker import Worker
+        except ImportError as exc:
+            raise TemporalAdapterUnavailable(
+                "temporalio not installed; refusing silent LocalDurable fallback"
+            ) from exc
+
+        reset_temporal_harness()
+        register_steps(definition)
+        configure_kill_after(kill_after_step)
+        step_names = [s.name for s in definition.steps]
+
+        async def _execute(client: Client) -> dict[str, Any]:
+            task_queue = f"gos-{run_id}"
+            async with Worker(
+                client,
+                task_queue=task_queue,
+                workflows=[GosGoalExecution],
+                activities=[run_step_activity],
+            ):
+                return await client.execute_workflow(
+                    GosGoalExecution.run,
+                    args=[initial_state, step_names],
+                    id=run_id,
+                    task_queue=task_queue,
+                )
+
+        if use_time_skipping or not self._address:
+            async with await WorkflowEnvironment.start_time_skipping() as env:
+                return await _execute(env.client)
+
+        client = await Client.connect(self._address)
+        return await _execute(client)
+
+    async def run_with_worker_restart(
+        self,
+        run_id: str,
+        definition: WorkflowDefinition,
+        initial_state: dict[str, Any],
+        *,
+        kill_after_step: str,
+    ) -> dict[str, Any]:
+        """Reserved for live Temporal multi-worker kill; use start_or_resume(kill_after_step=...) in harness.
+
+        Time-skipping env + abrupt Worker context exit can hang; keep fail-closed to real address path.
+        """
+        raise TemporalAdapterUnavailable(
+            "multi-worker restart harness requires live TEMPORAL_ADDRESS; "
+            "use kill_after_step retry path for CI (no silent LocalDurable fallback)"
+        )
+
+    def start_or_resume(
+        self,
+        run_id: str,
+        definition: WorkflowDefinition,
+        initial_state: dict[str, Any],
+        *,
+        kill_after_step: str | None = None,
+    ) -> dict[str, Any]:
+        return asyncio.run(
+            self.run_definition(
+                run_id,
+                definition,
+                initial_state,
+                kill_after_step=kill_after_step,
+                use_time_skipping=True,
+            )
+        )

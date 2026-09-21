@@ -2,7 +2,7 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **70**
+- pytest collected: **73**
 - capabilities tracked: **43**
 
 | Capability | State | Evidence |
@@ -14,7 +14,7 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | effect_receipt | RUNTIME_VERIFIED_LOCAL | tests/test_authority.py |
 | claim_invalidation | RUNTIME_VERIFIED_LOCAL | tests/test_epistemic.py |
 | durable_runner_process_kill | RUNTIME_VERIFIED_HARNESS | tests/test_durable_recovery.py; tests/test_survival_multi.py |
-| temporal_durability | CONTRACTED | SPEC.md DoD #4; ADR-0002 |
+| temporal_durability | RUNTIME_VERIFIED_HARNESS | TemporalBridge + time-skipping env; kill/retry without duplicate material effects; tests/test_temporal_bridge.py (≠ LocalDurable) |
 | postgres_durable_state | RUNTIME_VERIFIED_HARNESS | PostgresEventLedger reconnect + concurrent writers; tests/test_postgres_acceptance.py; CI postgres:16 service |
 | sql_sqlite_adapter | RUNTIME_VERIFIED_LOCAL | tests/test_sql_store.py |
 | otel_traces | RUNTIME_VERIFIED_LOCAL | tests/test_otel.py (in-memory exporter; not Temporal-distributed) |

@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.11 — 2026-09-21
+
+### Added
+
+- TemporalBridge (GosGoalExecution workflow + gos_run_step activity)
+- Kill/retry harness: no duplicate material effects
+- `temporal_durability` → RUNTIME_VERIFIED_HARNESS (time-skipping Temporal env)
+
+### Honesty
+
+- Multi-worker live restart still reserved for TEMPORAL_ADDRESS path
+- LocalDurableAdapter ≠ TemporalBridge
+
 ## 0.1.10 — 2026-09-21
 
 ### Added

@@ -47,8 +47,8 @@
     },
     {
       "id": "temporal_durability",
-      "state": "CONTRACTED",
-      "evidence": "SPEC.md DoD #4; ADR-0002"
+      "state": "RUNTIME_VERIFIED_HARNESS",
+      "evidence": "TemporalBridge + time-skipping env; kill/retry without duplicate material effects; tests/test_temporal_bridge.py (\u2260 LocalDurable)"
     },
     {
       "id": "postgres_durable_state",
