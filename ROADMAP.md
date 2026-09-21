@@ -34,7 +34,7 @@ Track states in `docs/capability_matrix.json`.
 ## Later
 
 - Preference Ledger / Counterfactual / VOI
-- Default production profile `GOS_AUTHORITY_BACKEND=rust`
+- [x] Production profile `GOS_PROFILE=production` → Rust Authority (ADR-0007)
 - v1.0: 48h+ task with injected failures
 
 ## Definition of Done v0.1

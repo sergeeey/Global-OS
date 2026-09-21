@@ -43,10 +43,16 @@ class AuthorityKernel:
         self._policy = policy or PolicyEngine()
         self._grants: dict[str, frozenset[str]] = {}
         self._parents: dict[str, str] = {}
-        raw = backend or os.environ.get("GOS_AUTHORITY_BACKEND", "python")
-        if raw not in {"python", "rust"}:
-            raise ValueError(f"unsupported authority backend: {raw}")
-        self._backend: AuthorityBackend = raw  # type: ignore[assignment]
+        if backend is not None:
+            self._backend = backend
+        else:
+            from global_os.runtime.profile import resolve_authority_backend
+
+            env = os.environ.get("GOS_AUTHORITY_BACKEND")
+            if env is not None and env not in {"python", "rust"}:
+                raise ValueError(f"unsupported authority backend: {env}")
+            self._backend = resolve_authority_backend()
+
 
     def grant(
         self,

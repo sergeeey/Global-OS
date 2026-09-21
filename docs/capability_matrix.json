@@ -234,6 +234,11 @@
       "id": "h_org_001_benchmark",
       "state": "RUNTIME_VERIFIED_LOCAL",
       "evidence": "summarize_h_org_001 six topologies + kill criteria; INCONCLUSIVE_NEEDS_REAL_MODEL; tests/test_baseline_and_survival.py"
+    },
+    {
+      "id": "production_profile_rust_authority",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "GOS_PROFILE=production defaults rust + probes gos-authority; forbids python backend; ADR-0007; tests/test_runtime_profile.py"
     }
   ]
 }

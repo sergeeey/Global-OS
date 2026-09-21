@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.22 — 2026-09-21
+
+### Added
+
+- `GOS_PROFILE=dev|production` — production defaults Authority to Rust + startup probe (ADR-0007)
+- `ProductionProfileError` fail-closed when binary missing or python backend forced in production
+
 ## 0.1.21 — 2026-09-21
 
 ### Added
