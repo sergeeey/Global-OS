@@ -7,6 +7,8 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Any
 
+from global_os.verification.diversity import meets_tier_diversity
+
 
 class ResultClass(str, Enum):
     NUMERIC = "numeric"
@@ -78,7 +80,7 @@ def deterministic_numeric_verifier(payload: dict[str, Any]) -> VerificationOutco
         tier=VerificationTier.DETERMINISTIC,
         passed=passed,
         details={"expected": expected, "actual": actual},
-        diversity_factors=("different_algorithm",),
+        diversity_factors=("different_algorithm", "deterministic_recompute"),
     )
 
 
@@ -103,13 +105,15 @@ class VerificationRouter:
                 diversity_factors=(),
             )
         outcome = verifier(request.payload)
-        # same_model_instance is never accepted as diversity
-        if "same_model_instance_2" in outcome.diversity_factors:
+        if not meets_tier_diversity(tier.value, outcome.diversity_factors):
             return VerificationOutcome(
                 protocol=outcome.protocol,
                 tier=tier,
                 passed=False,
-                details={"reason": "same model is not independent (GOS-I10)"},
+                details={
+                    "reason": "insufficient verification diversity (GOS-I10)",
+                    "claimed_factors": list(outcome.diversity_factors),
+                },
                 diversity_factors=outcome.diversity_factors,
             )
         return VerificationOutcome(
