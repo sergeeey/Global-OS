@@ -67,8 +67,8 @@
     },
     {
       "id": "otel_distributed_temporal",
-      "state": "CONTRACTED",
-      "evidence": "full Goal\u2192Workflow\u2192Activity OTel with Temporal deferred to M1"
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "TemporalBridge Workflow+Activity spans (time-skipping env); tests/test_temporal_bridge.py::test_temporal_otel_workflow_activity_spans; cross-process OTel collector export still not claimed"
     },
     {
       "id": "survival_process_kill",

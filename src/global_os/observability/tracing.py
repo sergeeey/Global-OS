@@ -138,3 +138,39 @@ def action_span(
             "policy.decision": policy_decision,
         },
     )
+
+
+def workflow_span(
+    *,
+    goal_id: str,
+    run_id: str,
+    workflow_name: str,
+) -> Any:
+    return span(
+        f"workflow:{workflow_name}",
+        kind="Workflow",
+        attributes={
+            "goal.id": goal_id,
+            "workflow.run_id": run_id,
+            "workflow.name": workflow_name,
+            "runtime": "temporal",
+        },
+    )
+
+
+def activity_span(
+    *,
+    goal_id: str,
+    run_id: str,
+    step_name: str,
+) -> Any:
+    return span(
+        f"activity:{step_name}",
+        kind="Activity",
+        attributes={
+            "goal.id": goal_id,
+            "workflow.run_id": run_id,
+            "activity.step": step_name,
+            "runtime": "temporal",
+        },
+    )

@@ -2,7 +2,7 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **73**
+- pytest collected: **74**
 - capabilities tracked: **43**
 
 | Capability | State | Evidence |
@@ -18,7 +18,7 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | postgres_durable_state | RUNTIME_VERIFIED_HARNESS | PostgresEventLedger reconnect + concurrent writers; tests/test_postgres_acceptance.py; CI postgres:16 service |
 | sql_sqlite_adapter | RUNTIME_VERIFIED_LOCAL | tests/test_sql_store.py |
 | otel_traces | RUNTIME_VERIFIED_LOCAL | tests/test_otel.py (in-memory exporter; not Temporal-distributed) |
-| otel_distributed_temporal | CONTRACTED | full Goal→Workflow→Activity OTel with Temporal deferred to M1 |
+| otel_distributed_temporal | RUNTIME_VERIFIED_LOCAL | TemporalBridge Workflow+Activity spans (time-skipping env); tests/test_temporal_bridge.py::test_temporal_otel_workflow_activity_spans; cross-process OTel collector export still not claimed |
 | survival_process_kill | RUNTIME_VERIFIED_HARNESS | Injection.PROCESS_KILL real abort/resume |
 | survival_other_injections | STUBBED | scenarios marked fidelity=stub; excluded from GoalIntegritySurvival |
 | full_epistemic_graph | RUNTIME_VERIFIED_LOCAL | tests/test_epistemic.py; Observation→Belief→Claim→Model→Forecast→Decision→Commitment invalidation (GOS-I12) |

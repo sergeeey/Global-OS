@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.12 — 2026-09-21
+
+### Added
+
+- OTel Workflow + Activity spans on TemporalBridge path
+- `otel_distributed_temporal` → RUNTIME_VERIFIED_LOCAL (in-process time-skipping; collector export not claimed)
+
 ## 0.1.11 — 2026-09-21
 
 ### Added

@@ -65,12 +65,17 @@ def side_effects() -> list[str]:
 @activity.defn(name="gos_run_step")
 async def run_step_activity(step_name: str, state: dict[str, Any]) -> dict[str, Any]:
     global _KILLED
-    _SIDE_EFFECTS.record_once(f"effect:{step_name}")
-    if _KILL_AFTER is not None and step_name == _KILL_AFTER and not _KILLED:
-        _KILLED = True
-        raise RuntimeError(f"simulated worker kill after {step_name}")
-    fn = _STEP_FNS[step_name]
-    return fn(dict(state))
+    from global_os.observability import activity_span
+
+    goal_id = str(state.get("goal_id", ""))
+    run_id = str(state.get("_gos_run_id", ""))
+    with activity_span(goal_id=goal_id, run_id=run_id, step_name=step_name):
+        _SIDE_EFFECTS.record_once(f"effect:{step_name}")
+        if _KILL_AFTER is not None and step_name == _KILL_AFTER and not _KILLED:
+            _KILLED = True
+            raise RuntimeError(f"simulated worker kill after {step_name}")
+        fn = _STEP_FNS[step_name]
+        return fn(dict(state))
 
 
 @workflow.defn(name="GosGoalExecution")
@@ -121,21 +126,29 @@ class TemporalBridge:
         register_steps(definition)
         configure_kill_after(kill_after_step)
         step_names = [s.name for s in definition.steps]
+        goal_id = str(initial_state.get("goal_id", ""))
+        state_with_run = {**initial_state, "_gos_run_id": run_id}
 
         async def _execute(client: Client) -> dict[str, Any]:
+            from global_os.observability import configure_tracing, workflow_span
+
+            configure_tracing()
             task_queue = f"gos-{run_id}"
-            async with Worker(
-                client,
-                task_queue=task_queue,
-                workflows=[GosGoalExecution],
-                activities=[run_step_activity],
+            with workflow_span(
+                goal_id=goal_id, run_id=run_id, workflow_name=definition.name
             ):
-                return await client.execute_workflow(
-                    GosGoalExecution.run,
-                    args=[initial_state, step_names],
-                    id=run_id,
+                async with Worker(
+                    client,
                     task_queue=task_queue,
-                )
+                    workflows=[GosGoalExecution],
+                    activities=[run_step_activity],
+                ):
+                    return await client.execute_workflow(
+                        GosGoalExecution.run,
+                        args=[state_with_run, step_names],
+                        id=run_id,
+                        task_queue=task_queue,
+                    )
 
         if use_time_skipping or not self._address:
             async with await WorkflowEnvironment.start_time_skipping() as env:

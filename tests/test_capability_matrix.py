@@ -19,7 +19,7 @@ def test_capability_matrix_states_are_known():
     assert by_id["environment_compiler_dynamic"]["state"] == "RUNTIME_VERIFIED_LOCAL"
     assert by_id["full_epistemic_graph"]["state"] == "RUNTIME_VERIFIED_LOCAL"
     assert by_id["event_replay_engine"]["state"] == "RUNTIME_VERIFIED_LOCAL"
-    assert by_id["otel_distributed_temporal"]["state"] == "CONTRACTED"
+    assert by_id["otel_distributed_temporal"]["state"] == "RUNTIME_VERIFIED_LOCAL"
     assert by_id["otel_traces"]["state"] == "RUNTIME_VERIFIED_LOCAL"
     assert by_id["h_env_001_benchmark"]["state"] == "RUNTIME_VERIFIED_LOCAL"
     assert by_id["postgres_durable_state"]["state"] == "RUNTIME_VERIFIED_HARNESS"
