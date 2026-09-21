@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.28 — 2026-09-21
+
+### Fixed
+
+- Action pin validator retries on GitHub API 403/429; CI passes `GITHUB_TOKEN` to avoid rate-limit flakes
+
 ## 0.1.27 — 2026-09-21
 
 ### Added

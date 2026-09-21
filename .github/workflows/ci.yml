@@ -89,6 +89,8 @@ jobs:
           exit 1
 
       - name: Validate Action pins resolve
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -m tools.validate_action_pins
 
       - name: Validate schemas
