@@ -34,6 +34,14 @@ def cmd_events_tail(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_audit_repo(args: argparse.Namespace) -> int:
+    from global_os.world.tools import run_repo_audit
+
+    report = run_repo_audit(Path(args.path))
+    print(dump_json(report))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="gos", description="Global OS CLI")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -56,6 +64,10 @@ def build_parser() -> argparse.ArgumentParser:
     tail.add_argument("--goal-id", dest="goal_id", default=None)
     tail.add_argument("-n", type=int, default=20)
     tail.set_defaults(func=cmd_events_tail)
+
+    audit = sub.add_parser("audit", help="Read-only repository audit")
+    audit.add_argument("path", nargs="?", default=".", help="Repo path to audit")
+    audit.set_defaults(func=cmd_audit_repo)
 
     return parser
 

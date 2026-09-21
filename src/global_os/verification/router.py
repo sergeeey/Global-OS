@@ -1,0 +1,121 @@
+"""Verification Router — classifies results and selects protocol (not LLM critic)."""
+
+from __future__ import annotations
+
+from collections.abc import Callable
+from dataclasses import dataclass
+from enum import Enum
+from typing import Any
+
+
+class ResultClass(str, Enum):
+    NUMERIC = "numeric"
+    CODE = "code"
+    FACTUAL = "factual"
+    SOURCE_DERIVED = "source_derived"
+    FORECAST = "forecast"
+    CAUSAL = "causal"
+    POLICY = "policy"
+    HIGH_IMPACT_ACTION = "high_impact_action"
+
+
+class VerificationTier(int, Enum):
+    NONE = 0
+    DETERMINISTIC = 1
+    INDEPENDENT = 2
+    DIVERSE_EXTERNAL = 3
+    HUMAN = 4
+
+
+@dataclass(frozen=True)
+class VerificationRequest:
+    result_class: ResultClass
+    payload: dict[str, Any]
+    impact: str = "low"
+    irreversibility: str = "none"
+    uncertainty: str = "medium"
+
+
+@dataclass(frozen=True)
+class VerificationOutcome:
+    protocol: str
+    tier: VerificationTier
+    passed: bool
+    details: dict[str, Any]
+    diversity_factors: tuple[str, ...]
+
+
+Verifier = Callable[[dict[str, Any]], VerificationOutcome]
+
+
+def required_tier(req: VerificationRequest) -> VerificationTier:
+    score = 0
+    if req.impact in {"high", "critical"}:
+        score += 2
+    if req.irreversibility in {"moderate", "high"}:
+        score += 2
+    if req.uncertainty in {"high", "very_high"}:
+        score += 1
+    if req.result_class == ResultClass.HIGH_IMPACT_ACTION:
+        score += 2
+    if score >= 5:
+        return VerificationTier.HUMAN
+    if score >= 3:
+        return VerificationTier.DIVERSE_EXTERNAL
+    if score >= 2:
+        return VerificationTier.INDEPENDENT
+    if score >= 1:
+        return VerificationTier.DETERMINISTIC
+    return VerificationTier.NONE
+
+
+def deterministic_numeric_verifier(payload: dict[str, Any]) -> VerificationOutcome:
+    expected = payload.get("expected")
+    actual = payload.get("actual")
+    passed = expected == actual
+    return VerificationOutcome(
+        protocol="independent_recomputation",
+        tier=VerificationTier.DETERMINISTIC,
+        passed=passed,
+        details={"expected": expected, "actual": actual},
+        diversity_factors=("different_algorithm",),
+    )
+
+
+class VerificationRouter:
+    def __init__(self) -> None:
+        self._verifiers: dict[ResultClass, Verifier] = {
+            ResultClass.NUMERIC: deterministic_numeric_verifier,
+        }
+
+    def register(self, result_class: ResultClass, verifier: Verifier) -> None:
+        self._verifiers[result_class] = verifier
+
+    def route(self, request: VerificationRequest) -> VerificationOutcome:
+        tier = required_tier(request)
+        verifier = self._verifiers.get(request.result_class)
+        if verifier is None:
+            return VerificationOutcome(
+                protocol="unsupported",
+                tier=tier,
+                passed=False,
+                details={"reason": f"no verifier for {request.result_class}"},
+                diversity_factors=(),
+            )
+        outcome = verifier(request.payload)
+        # same_model_instance is never accepted as diversity
+        if "same_model_instance_2" in outcome.diversity_factors:
+            return VerificationOutcome(
+                protocol=outcome.protocol,
+                tier=tier,
+                passed=False,
+                details={"reason": "same model is not independent (GOS-I10)"},
+                diversity_factors=outcome.diversity_factors,
+            )
+        return VerificationOutcome(
+            protocol=outcome.protocol,
+            tier=tier,
+            passed=outcome.passed,
+            details=outcome.details,
+            diversity_factors=outcome.diversity_factors,
+        )
