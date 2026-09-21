@@ -111,7 +111,8 @@ class GeminiProvider(ModelProvider):
         ]
         if not texts:
             raise ModelProviderError("gemini: no text parts")
-        usage = data.get("usageMetadata") if isinstance(data.get("usageMetadata"), dict) else {}
+        usage_raw = data.get("usageMetadata")
+        usage: dict[str, Any] = usage_raw if isinstance(usage_raw, dict) else {}
         in_tok = int(usage.get("promptTokenCount") or 0)
         out_tok = int(usage.get("candidatesTokenCount") or 0)
         return GenerateResponse(
