@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.18 — 2026-09-21
+
+### Added
+
+- Deep repo audit (`depth=deep`): invariant coverage, forbidden-pattern scan, schema inventory, provider-boundary heuristic
+- `repo_audit_deep` → RUNTIME_VERIFIED_LOCAL (deterministic static; not LLM pentest)
+
 ## 0.1.17 — 2026-09-21
 
 ### Added

@@ -25,7 +25,7 @@ Track states in `docs/capability_matrix.json`.
 
 ## M2 — Cognitive Organization
 
-- [ ] Deep repo-audit (beyond structure scan)
+- [x] Deep repo-audit (deterministic static: invariants / forbidden / schemas / provider boundary)
 - [ ] Real multi-injection Survival (not stub catalog)
 - [ ] H-ORG-001 with measured baselines
 - [ ] Strong sandbox (container/gVisor)

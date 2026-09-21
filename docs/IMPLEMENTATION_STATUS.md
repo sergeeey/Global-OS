@@ -2,7 +2,7 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **85**
+- pytest collected: **88**
 - capabilities tracked: **44**
 
 | Capability | State | Evidence |
@@ -32,7 +32,7 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | independent_verification_diversity | RUNTIME_VERIFIED_LOCAL | IndependentVerificationStack multi-method consensus; rejects same-model-family LLM judges (GOS-I10); numeric dual deterministic stack; tests/test_independent_verification_stack.py; remote multi-provider adapters still optional |
 | rust_authority_boundary | RUNTIME_VERIFIED_HARNESS | crates/authority_kernel + gos-authority CLI process boundary; GOS-I01/I04/I05; tests/test_rust_authority.py; cargo test |
 | repo_audit_structure | RUNTIME_VERIFIED_LOCAL | tests/test_repo_audit.py; gos audit |
-| repo_audit_deep | STUBBED | structure scan only |
+| repo_audit_deep | RUNTIME_VERIFIED_LOCAL | deterministic deep static: invariant coverage GOS-I01..I25, forbidden patterns, schema inventory, provider boundary; tests/test_repo_audit.py; not LLM/security pentest |
 | hypothesis_lifecycle | RUNTIME_VERIFIED_LOCAL | tests/test_hypotheses.py |
 | event_replay_engine | RUNTIME_VERIFIED_LOCAL | EventReplayEngine status projection rebuild from ledger; not full entity-body snapshot restore |
 | mission_outcome_contract | RUNTIME_VERIFIED_LOCAL | MissionAssigner outcome-level MissionContract; rejects microstep objectives; tests/test_epistemic_graph_env_replay.py |

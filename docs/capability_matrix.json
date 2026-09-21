@@ -137,8 +137,8 @@
     },
     {
       "id": "repo_audit_deep",
-      "state": "STUBBED",
-      "evidence": "structure scan only"
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "deterministic deep static: invariant coverage GOS-I01..I25, forbidden patterns, schema inventory, provider boundary; tests/test_repo_audit.py; not LLM/security pentest"
     },
     {
       "id": "hypothesis_lifecycle",
