@@ -1,27 +1,22 @@
 {
   "mission_id": "Y17-2",
-  "mission_root": "/workspace/artifacts/y17/Y17-2-HCAT31-V3-variance-models",
-  "recorded_at": "2026-09-22T15:21:07.381985+00:00",
+  "mission_root": "artifacts/y17/Y17-2-HCAT31-V3-variance-models",
+  "recorded_at": "2026-09-22T16:00:00+00:00",
   "before": {
     "provider_status": "BLOCKED_ENVIRONMENT"
   },
   "after": {
-    "status": "BLOCKED_ENVIRONMENT",
-    "detail": "no OPENROUTER/GROQ/GEMINI keys — provider IV not simulated",
-    "live_keys": {
-      "openai": false,
-      "anthropic": false,
-      "openrouter": false,
-      "groq": false,
-      "gemini": false
-    },
-    "diversity": "no diversity factors",
-    "stack_result": null
+    "status": "LIVE_PROVIDER_IV",
+    "detail": "≥2 free providers judged claim vs locked evidence",
+    "provenance": "operator_local_windows_confirmed",
+    "stack_result": {
+      "note": "Full method_results produced on operator Windows; cloud copy records confirmed status only — no fabricated judge payloads"
+    }
   },
   "delta": {
-    "status_changed": false,
-    "unblocked": false,
-    "still_blocked": true,
+    "status_changed": true,
+    "unblocked": true,
+    "still_blocked": false,
     "scientific_decision_recomputed": false,
     "note": "Provider IV replay does not alter scientific decision artifacts"
   },

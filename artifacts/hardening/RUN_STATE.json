@@ -1,53 +1,50 @@
 {
-  "sprint": "M1_4_TRUST_BOUNDARY_HARDENING",
-  "updated_at": "2026-09-22T15:21:00Z",
-  "current_goal": "OPERATOR_LOCAL_WINDOWS_PROVIDER_IV",
+  "sprint": "EMPIRICAL_HARDENING_POST_LIVE_IV",
+  "updated_at": "2026-09-22T16:05:00Z",
+  "current_goal": "Y17_6_7_AND_ORG_N7",
   "completed": [
-    "PHASE_1_AUDIT",
-    "PHASE_2_RESEARCH_ORCHESTRATOR",
+    "M14_TRUST_BOUNDARY",
+    "CI_GREEN_MAIN",
     "Y17-1",
     "Y17-2",
     "Y17-3",
     "Y17-4",
     "Y17-5",
     "ORG_AB_DATASET_N5",
-    "SUBSYSTEM_GATE_RULE",
-    "M14_TRUST_BOUNDARY",
-    "CI_GREEN_MAIN"
+    "LIVE_PROVIDER_IV_LOCAL_UNBLOCKED"
   ],
-  "running": null,
-  "blocked": ["cloud_provider_keys", "windows_local_iv_not_run_from_cloud_agent"],
-  "stage": "M1.4 closed; single operational gate = local live Provider IV",
+  "running": "Y17-6_Y17-7_ORG_EXPAND",
+  "blocked": [],
+  "stage": "Empirical Hardening — live IV closed; new mission classes",
   "continual_improvement": "NOT_MEASURED",
-  "ci": {
-    "head": "4ebd0622b740164d53f45c3d42c5d494c09db08e",
-    "conclusion": "success"
-  },
   "provider_iv_replay": {
-    "cloud_status": "all_still_blocked",
-    "unblocked": false,
-    "any_live_iv": false,
-    "live_keys_present": {
-      "openai": false,
-      "anthropic": false,
-      "openrouter": false,
-      "groq": false,
-      "gemini": false
-    },
-    "reason": "Cloud agent has no secret/.env and no mount to C:\\dev\\Global-OS. Operator must run PowerShell block on Windows.",
-    "operator_command": "python -m global_os.evals.research.provider_iv_replay (after loading secret\\.env)"
+    "cloud_status": "not_required",
+    "any_live_iv": true,
+    "all_still_blocked": false,
+    "unblocked": true,
+    "provenance": "operator_local_windows_confirmed",
+    "missions": ["Y17-1", "Y17-2"]
   },
   "org_ab": {
     "n_tasks": 5,
     "verdict": "PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED",
     "scientific_claim_accepted": false
   },
-  "next_exact_action": "On Windows with keys: run provider_iv_replay → need unblocked:true and ≥2 providers. If false, debug only IV cause. Do NOT start Y17-6/7/48h/architecture until unblocked.",
+  "scientific": {
+    "Y17-1": "SUPPORTED",
+    "Y17-2": "REJECTED",
+    "Y17-3": "SUPPORTED",
+    "Y17-4": "SUPPORTED",
+    "Y17-5": "SUPPORTED"
+  },
+  "next_exact_action": "Y17-6 + Y17-7 distinct classes → Org N≥7 → classify recurring handoff info_loss. No keys. No 48h. H-ORG NOT_CLAIMED. Continual SI NOT_MEASURED.",
   "forbidden_now": [
     "48h_run",
-    "Y17-6_until_IV_unblocked",
+    "re_run_provider_keys",
     "H_ORG_claim",
-    "architecture_fantasy",
-    "M1.5_claim"
+    "continual_SI_claim",
+    "M1.5_claim",
+    "Preference_Ledger",
+    "VOI"
   ]
 }
