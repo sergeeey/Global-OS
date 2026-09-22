@@ -30,11 +30,14 @@
     "all_still_blocked": false,
     "unblocked": true,
     "provenance": "operator_local_windows_confirmed",
-    "missions": ["Y17-1", "Y17-2"]
+    "missions": [
+      "Y17-1",
+      "Y17-2"
+    ]
   },
   "long_horizon": {
     "program": "persistent_research_48h",
-    "frozen_at_commit": "pending_phase_lock_commit",
+    "frozen_at_commit": "dcdea6974ee96565463a005d13ca1c4baf4ff3cb",
     "contract": "artifacts/hardening/long_horizon_48h/preflight/program_contract.json",
     "pass_criteria_frozen": true,
     "preflight_compressed": "PASS",
@@ -58,7 +61,10 @@
     "n_tasks": 7,
     "verdict": "PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED",
     "B_information_loss_rate": 0.714,
-    "artifact_first_handoff": ["Y17-6", "Y17-7"],
+    "artifact_first_handoff": [
+      "Y17-6",
+      "Y17-7"
+    ],
     "scientific_claim_accepted": false
   },
   "failures_recurring": [
