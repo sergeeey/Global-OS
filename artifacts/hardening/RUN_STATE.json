@@ -1,7 +1,8 @@
 {
-  "sprint": "LONG_HORIZON_PREFLIGHT",
-  "updated_at": "2026-09-22T16:50:00Z",
-  "current_goal": "PREFLIGHT_DONE_WALL_48H_NOT_STARTED",
+  "sprint": "LONG_HORIZON_VALIDATION_ENTRY",
+  "updated_at": "2026-09-22T16:55:00Z",
+  "current_goal": "OPERATOR_WINDOWS_WALL_PREFLIGHT_60_120MIN",
+  "phase_statement": "Empirical Hardening COMPLETE — standing at entrance to Long-Horizon Validation. Proof not started.",
   "completed": [
     "M14_TRUST_BOUNDARY",
     "CI_GREEN_MAIN",
@@ -16,12 +17,14 @@
     "ORG_AB_DATASET_N7",
     "ARTIFACT_FIRST_HANDOFF_FIX",
     "LH48_PROGRAM_CONTRACT",
-    "LH48_PREFLIGHT_COMPRESSED"
+    "LH48_PREFLIGHT_COMPRESSED",
+    "EMPIRICAL_HARDENING_COMPLETE"
   ],
   "running": null,
   "blocked": [],
-  "stage": "Long-Horizon Validation — program prepared; compressed preflight PASS; wall 48h NOT started",
+  "stage": "Empirical Hardening COMPLETE → Long-Horizon Validation ENTRY (wall proof NOT started)",
   "continual_improvement": "NOT_MEASURED",
+  "code_freeze_until": "windows_wall_preflight_result",
   "provider_iv_replay": {
     "any_live_iv": true,
     "all_still_blocked": false,
@@ -31,12 +34,16 @@
   },
   "long_horizon": {
     "program": "persistent_research_48h",
+    "frozen_at_commit": "pending_phase_lock_commit",
     "contract": "artifacts/hardening/long_horizon_48h/preflight/program_contract.json",
-    "preflight": "PASS_COMPRESSED",
+    "pass_criteria_frozen": true,
+    "preflight_compressed": "PASS",
+    "preflight_wall_60_120min": "PENDING_OPERATOR_WINDOWS",
     "wall_48h": "NOT_STARTED",
     "m15_claimed": false,
     "start_gate": "GOS_REQUIRE_48H=1 AND GOS_START_RESEARCH_48H=1",
-    "pass_criteria_frozen": true
+    "evaluation_rule": "only_frozen_PASS_criteria_no_impression",
+    "during_run_rule": "no_manual_help_except_contract_allowed_actions"
   },
   "scientific": {
     "Y17-1": "SUPPORTED",
@@ -60,12 +67,19 @@
       "fix": "artifact_handoff on Y17-6/7; legacy summary loss remains on earlier tasks"
     }
   ],
-  "next_exact_action": "Optional wall preflight 60–120min on operator machine, then start wall-clock 48h only with double gate. Do NOT claim M1.5 until wall PASS. Keys retired. H-ORG NOT_CLAIMED. Continual SI NOT_MEASURED.",
+  "next_exact_action": "Operator Windows: 60–120min wall preflight of same contour. If no structural failure → freeze commit/config → then wall 48h with double gate. Do not change code unless preflight finds a concrete bug. Do not claim M1.5. Keys retired.",
+  "fork_after_48h": {
+    "PASS": "review artifacts → confirm no hidden intervention → M1.5 candidate",
+    "FAIL": "classify → minimal fix → regression → compressed replay → new 48h attempt"
+  },
   "forbidden_now": [
+    "code_change_without_wall_preflight_bug",
+    "cosmetic_fixes_before_freeze",
     "claim_M1.5_without_wall_48h",
     "re_run_provider_keys",
     "H_ORG_claim",
     "continual_SI_claim",
-    "auto_start_wall_48h"
+    "auto_start_wall_48h",
+    "manual_help_during_48h_outside_contract"
   ]
 }

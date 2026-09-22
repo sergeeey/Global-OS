@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.47 — 2026-09-22
+
+### Phase lock — Empirical Hardening complete
+
+- Project statement: **Empirical Hardening COMPLETE**; standing at
+  **Long-Horizon Validation ENTRY** (wall proof not started)
+- Code freeze until Windows wall preflight 60–120min result (no cosmetics)
+- Operator order documented in `artifacts/hardening/long_horizon_48h/PROGRAM.md`
+- 48h FAIL remains a valuable failure case; score only frozen PASS criteria
+- M1.5 / H-ORG / continual SI still not claimed; keys not touched; no code change
+
 ## 0.1.46 — 2026-09-22
 
 ### Long-Horizon Validation — program prep + preflight

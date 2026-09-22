@@ -1,29 +1,32 @@
 # Tasktracker
 
-## Done
+## Done — Empirical Hardening
 
 - [x] M0/M1 Reality Contact foundation + Empirical Science contracts (ADR-0009)
 - [x] Incident system + DoD V2 evidence gate + dogfooding mission (no auto-merge)
 - [x] Free pins + measured H-RSN + scheduled soak runner
-- [x] Operator live smoke + live H-ENV/H-RSN JSON (claim=false; M1.5 stays IN PROGRESS)
+- [x] Operator live smoke + live H-ENV/H-RSN JSON (claim=false)
 - [x] M1.4 Trust Boundary Hardening + CI green
 - [x] Local live Provider IV ≥2 → `unblocked: true` (operator Windows evidence)
 - [x] Y17-1..Y17-7 real dogfood missions
 - [x] Org A/B N=7 + artifact-first handoff fix for recurring info_loss
+- [x] Freeze 48h program contract + PASS criteria + double gate
+- [x] Compressed preflight (`make preflight-48h`)
 
-## Active mode — Long-Horizon Validation (prep)
+## Active — Long-Horizon Validation ENTRY (proof not started)
 
-- [x] Freeze 48h program contract + PASS criteria
-- [x] Compressed preflight (`make preflight-48h` / `research_program`)
-- [ ] Optional operator wall preflight 60–120min
-- [ ] Wall-clock 48h only with `GOS_REQUIRE_48H=1` + `GOS_START_RESEARCH_48H=1`
+- [ ] **Operator Windows wall preflight 60–120min** (same contour; not M1.5)
+- [ ] Freeze commit/config after wall preflight PASS (no cosmetics)
+- [ ] Wall-clock 48h with `GOS_REQUIRE_48H=1` + `GOS_START_RESEARCH_48H=1`
+- [ ] Score only frozen PASS criteria; no manual help outside contract
 - [ ] Continual SI holdout measurement (still NOT_MEASURED)
 - [ ] H-ORG claim only after larger multi-class + token costs
 
 ## Gate — M1.5 durability (do not claim yet)
 
-- [ ] Wall-clock 48h research program PASS (not synthetic-only soak)
-- [ ] M1.5 claim only after wall evidence + Goal Integrity PASS
+- [ ] Wall-clock 48h research program PASS (not synthetic-only / not compressed preflight)
+- [ ] Review artifacts + confirm no hidden intervention → M1.5 candidate
+- [ ] On FAIL: classify → minimal fix → regression → compressed replay → new 48h
 
 ## After usable Y-17 missions
 

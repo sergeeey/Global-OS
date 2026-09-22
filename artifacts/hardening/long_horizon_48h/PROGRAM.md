@@ -1,11 +1,24 @@
 # Persistent Research 48h Program
 
-**Status:** PREPARED · compressed preflight PASS · wall NOT started · M1.5 NOT claimed
+**Phase:** Empirical Hardening COMPLETE → Long-Horizon Validation ENTRY  
+**Status:** PREPARED · compressed preflight PASS · wall proof NOT started · M1.5 NOT claimed  
+**Code freeze:** no code changes unless Windows wall preflight finds a structural bug
 
-## Question
+## What this proves (when wall 48h runs)
 
-Can Global OS keep doing real research work over long wall time without
-Goal / Epistemic / Authority integrity collapse?
+```text
+Goal survives time
+State survives restart
+Epistemic integrity survives contradiction/invalidation
+Authority boundaries survive faults
+No duplicate irreversible effects
+Blocked resources degrade gracefully
+Mission state remains auditable
+Program resumes instead of starting over
+```
+
+Evaluate **only** frozen PASS criteria — not impressions.  
+FAIL is a valuable failure case, not a project collapse.
 
 ## Scenario (frozen)
 
@@ -24,26 +37,75 @@ T0 Goal Contract
 → Goal + Epistemic + Authority integrity audit
 ```
 
-## PASS (frozen before run)
+## Operator order (Windows)
 
-See `PASS_CRITERIA` in `global_os.evals.survival.research_program`.
-Post-hoc rationalization is forbidden.
+### 1. Wall preflight 60–120 min (same contour as 48h)
 
-## How to run
+Not an M1.5 proof. Checks: wall scheduler lives, checkpoints write,
+restart/resume works, injections arrive on time, logs/artifacts bounded,
+no hang, sleep/timing OK on Windows.
 
-```bash
-# Compressed preflight (CI / local seconds) — NOT wall proof
-make preflight-48h
+```powershell
+cd C:\dev\Global-OS
+git pull
+git rev-parse HEAD   # expect freeze candidate (see RUN_STATE frozen_at_commit)
 
-# Wall-clock 48h (operator only; double gate)
-GOS_REQUIRE_48H=1 GOS_START_RESEARCH_48H=1 \
-  python -c "from global_os.evals.survival.research_program import run_persistent_research_program as r; \
-  print(r(mode='wall_48h').as_dict())"
+# Compress 48h schedule into ~90 minutes wall time:
+# hour_seconds = 90*60/48 = 112.5
+$env:GOS_PREFLIGHT_HOUR_SECONDS = "112.5"
+python -c @"
+from pathlib import Path
+from global_os.evals.survival.research_program import run_persistent_research_program
+r = run_persistent_research_program(
+    mode='preflight',
+    artifact_root=Path('artifacts/hardening/long_horizon_48h/preflight_wall_windows'),
+    sleep=True,
+)
+print('passed', r.passed, 'fidelity', r.fidelity, 'wall_s', r.wall_seconds)
+print('m15_claimed', r.m15_claimed)
+"@
 ```
 
-## Out of scope for this program
+If structural failure → classify, minimal fix, stop.  
+If PASS → **freeze commit/config**; no cosmetics.
+
+### 2. Full wall 48h (only after freeze)
+
+```powershell
+$env:GOS_REQUIRE_48H = "1"
+$env:GOS_START_RESEARCH_48H = "1"
+# real hours (default); do not set GOS_SOAK_ALLOW_FAST_WALL
+python -c @"
+from pathlib import Path
+from global_os.evals.survival.research_program import run_persistent_research_program
+r = run_persistent_research_program(
+    mode='wall_48h',
+    artifact_root=Path('artifacts/hardening/long_horizon_48h/wall_48h'),
+)
+print(r.as_dict())
+"@
+```
+
+During the run: no manual help except actions allowed by contract.
+
+### 3. After result
+
+```text
+48h PASS → review artifacts → confirm no hidden intervention → M1.5 candidate
+48h FAIL → classify → minimal fix → regression → compressed replay → new attempt
+```
+
+## Compressed CI preflight (already done)
+
+```bash
+make preflight-48h
+```
+
+≠ wall proof.
+
+## Out of scope
 
 - H-ORG proof
 - Continual self-improvement measurement
 - Re-touching provider keys
-- Claiming M1.5 from preflight alone
+- Claiming M1.5 from any preflight alone
