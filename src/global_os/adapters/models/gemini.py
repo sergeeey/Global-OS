@@ -14,7 +14,7 @@ from global_os.adapters.models.base import (
     ModelProviderError,
     ModelRef,
 )
-from global_os.adapters.models.http_json import HttpJsonError, post_json
+from global_os.adapters.models.http_json import HttpJsonError, post_json, sanitize_api_key
 from global_os.adapters.models.pins import GEMINI_FLASH
 
 GEMINI_BASE = "https://generativelanguage.googleapis.com/v1beta"
@@ -32,12 +32,12 @@ class GeminiProvider(ModelProvider):
         base_url: str | None = None,
     ) -> None:
         key = api_key if api_key is not None else os.environ.get("GEMINI_API_KEY", "")
-        if not key.strip():
-            # Also accept GOOGLE_API_KEY alias
+        if not sanitize_api_key(key):
             key = os.environ.get("GOOGLE_API_KEY", "")
-        if not key.strip():
+        key = sanitize_api_key(key)
+        if not key:
             raise ModelProviderError("gemini: missing GEMINI_API_KEY — refuse silent stub fallback")
-        self._api_key = key.strip()
+        self._api_key = key
         self._model = model
         self._scientific = scientific
         self._timeout = timeout_seconds
@@ -96,18 +96,29 @@ class GeminiProvider(ModelProvider):
         return parsed
 
     def _parse(self, data: dict[str, Any], *, latency_ms: float) -> GenerateResponse:
+        feedback = data.get("promptFeedback")
+        if isinstance(feedback, dict) and feedback.get("blockReason"):
+            raise ModelProviderError(f"gemini: blocked promptFeedback={feedback!r}")
         cands = data.get("candidates")
         if not isinstance(cands, list) or not cands:
-            raise ModelProviderError("gemini: missing candidates")
-        content = cands[0].get("content") if isinstance(cands[0], dict) else None
+            raise ModelProviderError(f"gemini: missing candidates body_keys={list(data)[:12]}")
+        first = cands[0] if isinstance(cands[0], dict) else {}
+        finish = first.get("finishReason") if isinstance(first, dict) else None
+        content = first.get("content") if isinstance(first, dict) else None
         if not isinstance(content, dict):
-            raise ModelProviderError("gemini: missing content")
+            raise ModelProviderError(f"gemini: missing content finishReason={finish!r}")
         parts = content.get("parts")
         if not isinstance(parts, list) or not parts:
-            raise ModelProviderError("gemini: missing parts")
+            raise ModelProviderError(
+                f"gemini: missing parts finishReason={finish!r} "
+                "(often max_tokens too low for thinking models — raise max_tokens)"
+            )
         texts = [str(p.get("text", "")) for p in parts if isinstance(p, dict) and "text" in p]
         if not texts:
-            raise ModelProviderError("gemini: no text parts")
+            raise ModelProviderError(
+                f"gemini: no text parts finishReason={finish!r} part_keys="
+                f"{[list(p) if isinstance(p, dict) else type(p).__name__ for p in parts]!r}"
+            )
         usage_raw = data.get("usageMetadata")
         usage: dict[str, Any] = usage_raw if isinstance(usage_raw, dict) else {}
         in_tok = int(usage.get("promptTokenCount") or 0)

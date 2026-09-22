@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.35 — 2026-09-22
+
+### Fixed
+
+- Model HTTP client: preserve Authorization on redirects; set User-Agent (Groq CF 1010)
+- Sanitize env API keys (BOM/ZWSP/quotes); Gemini errors include finishReason / max_tokens hint
+
 ## 0.1.34 — 2026-09-22
 
 ### Added

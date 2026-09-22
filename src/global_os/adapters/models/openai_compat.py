@@ -13,7 +13,7 @@ from global_os.adapters.models.base import (
     ModelProviderError,
     ModelRef,
 )
-from global_os.adapters.models.http_json import HttpJsonError, post_json
+from global_os.adapters.models.http_json import HttpJsonError, post_json, sanitize_api_key
 from global_os.adapters.models.pricing import estimate_cost_usd
 
 DEFAULT_OPENAI_BASE = "https://api.openai.com/v1"
@@ -39,7 +39,8 @@ class OpenAICompatProvider(ModelProvider):
         scientific: bool = False,
     ) -> None:
         key = api_key if api_key is not None else os.environ.get(api_key_env, "")
-        if not key.strip():
+        key = sanitize_api_key(key)
+        if not key:
             raise ModelProviderError(
                 f"{provider_id}: missing {api_key_env} — refuse silent stub fallback"
             )
@@ -48,9 +49,8 @@ class OpenAICompatProvider(ModelProvider):
                 f"{provider_id}: router model {model!r} forbidden in scientific eval — pin exact model"
             )
         if scientific and not allow_model_substitution:
-            # scientific defaults: no silent swap
             allow_model_substitution = False
-        self._api_key = key.strip()
+        self._api_key = key
         self._model = model
         self._requested_model = model
         self._version = version
