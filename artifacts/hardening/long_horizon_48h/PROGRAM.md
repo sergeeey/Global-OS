@@ -41,14 +41,16 @@ T0 Goal Contract
 
 ### 1. Wall preflight 60–120 min (same contour as 48h)
 
-Not an M1.5 proof. Checks: wall scheduler lives, checkpoints write,
-restart/resume works, injections arrive on time, logs/artifacts bounded,
-no hang, sleep/timing OK on Windows.
+**Retry after LH-FC-PORTABILITY-SLEEP** (Unix `sleep` → `sys.executable`).  
+Pull latest main before running. Not an M1.5 proof.
 
 ```powershell
 cd C:\dev\Global-OS
 git pull
-git rev-parse HEAD   # expect freeze candidate (see RUN_STATE frozen_at_commit)
+git rev-parse HEAD
+# Confirm harness no longer uses bare "sleep":
+Select-String -Path src\global_os\evals\survival\harness.py -Pattern 'execute\(\["sleep"'
+# (should find nothing)
 
 # Compress 48h schedule into ~90 minutes wall time:
 # hour_seconds = 90*60/48 = 112.5
@@ -67,7 +69,7 @@ print('m15_claimed', r.m15_claimed)
 ```
 
 If structural failure → classify, minimal fix, stop.  
-If PASS → **freeze commit/config**; no cosmetics.
+If PASS → **freeze that commit/config**; no cosmetics.
 
 ### 2. Full wall 48h (only after freeze)
 

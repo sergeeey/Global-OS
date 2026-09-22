@@ -1,6 +1,6 @@
 {
-  "taxonomy_version": "0.4.0",
-  "updated_at": "2026-09-22T16:13:22Z",
+  "taxonomy_version": "0.4.1",
+  "updated_at": "2026-09-22T18:55:00Z",
   "rule": "classify every mission failure; fix only recurring/high-impact/generalizable/testable",
   "subsystem_gate": "artifacts/hardening/DEVELOPMENT_RULES_DOGFOOD.md",
   "cases": [
@@ -88,6 +88,19 @@
         "Y17-7"
       ],
       "fix": "artifact-first handoff (evals.organization.artifact_handoff); applied on Y17-6/7 org B"
+    },
+    {
+      "id": "LH-FC-PORTABILITY-SLEEP",
+      "class": "PORTABILITY_ENVIRONMENT",
+      "title": "survival slow_dependency used Unix sleep binary (WinError 2 on Windows)",
+      "recurring": false,
+      "missions": [
+        "LH48-WALL-PREFLIGHT"
+      ],
+      "found_by": "operator Windows wall preflight 60–120min",
+      "detail": "harness._run_slow_dependency sb.execute(['sleep','2']) → FileNotFoundError on Windows",
+      "fix": "cross_platform_sleep_argv via sys.executable -c time.sleep; timeout semantics unchanged",
+      "pass_criteria_changed": false
     }
   ],
   "not_bugs": [
@@ -97,7 +110,8 @@
     "provider IV still BLOCKED_ENVIRONMENT in cloud (honest, not fabricated)",
     "Y17-7 scientific REJECTED (finite-n p50 shift \u2014 null preserved)",
     "org A/B N=7 PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED",
-    "live Provider IV closed locally \u2014 do not re-call keys from cloud"
+    "live Provider IV closed locally \u2014 do not re-call keys from cloud",
+    "LH48 compressed preflight PASS on Linux did not surface Windows sleep portability"
   ],
   "continual_improvement_question": {
     "status": "NOT_MEASURED",

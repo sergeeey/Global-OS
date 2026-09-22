@@ -12,10 +12,11 @@
 - [x] Org A/B N=7 + artifact-first handoff fix for recurring info_loss
 - [x] Freeze 48h program contract + PASS criteria + double gate
 - [x] Compressed preflight (`make preflight-48h`)
+- [x] LH-FC-PORTABILITY-SLEEP fix (Unix sleep → sys.executable; from Windows wall preflight)
 
 ## Active — Long-Horizon Validation ENTRY (proof not started)
 
-- [ ] **Operator Windows wall preflight 60–120min** (same contour; not M1.5)
+- [ ] **Operator Windows wall preflight 60–120min RETRY** on post-portability-fix SHA
 - [ ] Freeze commit/config after wall preflight PASS (no cosmetics)
 - [ ] Wall-clock 48h with `GOS_REQUIRE_48H=1` + `GOS_START_RESEARCH_48H=1`
 - [ ] Score only frozen PASS criteria; no manual help outside contract

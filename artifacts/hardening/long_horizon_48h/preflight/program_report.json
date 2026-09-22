@@ -50,83 +50,83 @@
       "Goal + Epistemic + Authority integrity audit"
     ]
   },
-  "goal_id": "goal_0c84e68985e44f78",
+  "goal_id": "goal_a144443781814c74",
   "stages": [
     {
       "stage": "T0_goal_created",
-      "goal_id": "goal_0c84e68985e44f78",
-      "at": "2026-09-22T16:33:18.740411+00:00"
+      "goal_id": "goal_a144443781814c74",
+      "at": "2026-09-22T18:56:46.173214+00:00"
     },
     {
       "stage": "mission_LH-1",
       "decision": "SUPPORTED",
-      "at": "2026-09-22T16:33:18.743250+00:00"
+      "at": "2026-09-22T18:56:46.176441+00:00"
     },
     {
       "stage": "mission_LH-2",
       "decision": "SUPPORTED",
-      "at": "2026-09-22T16:33:18.745731+00:00"
+      "at": "2026-09-22T18:56:46.179292+00:00"
     },
     {
       "stage": "process_kill_restart",
       "aborted": true,
       "final_phase": "reported",
       "effects": 1,
-      "at": "2026-09-22T16:33:18.746672+00:00"
+      "at": "2026-09-22T18:56:46.180040+00:00"
     },
     {
       "stage": "injection_slow_dependency",
       "offset_hours": 2.0,
       "passed": true,
-      "at": "2026-09-22T16:33:18.803109+00:00"
+      "at": "2026-09-22T18:56:46.235959+00:00"
     },
     {
       "stage": "injection_process_kill",
       "offset_hours": 5.0,
       "passed": true,
-      "at": "2026-09-22T16:33:18.803845+00:00"
+      "at": "2026-09-22T18:56:46.236593+00:00"
     },
     {
       "stage": "injection_contradictory_evidence",
       "offset_hours": 8.0,
       "passed": true,
-      "at": "2026-09-22T16:33:18.804375+00:00"
+      "at": "2026-09-22T18:56:46.237141+00:00"
     },
     {
       "stage": "injection_model_swap",
       "offset_hours": 12.0,
       "passed": true,
-      "at": "2026-09-22T16:33:18.806026+00:00"
+      "at": "2026-09-22T18:56:46.238721+00:00"
     },
     {
       "stage": "injection_budget_reduction",
       "offset_hours": 18.0,
       "passed": true,
-      "at": "2026-09-22T16:33:18.806303+00:00"
+      "at": "2026-09-22T18:56:46.239006+00:00"
     },
     {
       "stage": "injection_constraint_change",
       "offset_hours": 24.0,
       "passed": true,
-      "at": "2026-09-22T16:33:18.807071+00:00"
+      "at": "2026-09-22T18:56:46.239704+00:00"
     },
     {
       "stage": "injection_api_outage",
       "offset_hours": 30.0,
       "passed": true,
-      "at": "2026-09-22T16:33:18.807226+00:00"
+      "at": "2026-09-22T18:56:46.239820+00:00"
     },
     {
       "stage": "injection_source_invalidation",
       "offset_hours": 36.0,
       "passed": true,
-      "at": "2026-09-22T16:33:18.807650+00:00"
+      "at": "2026-09-22T18:56:46.240190+00:00"
     },
     {
       "stage": "injection_corrupted_state",
       "offset_hours": 42.0,
       "passed": true,
-      "at": "2026-09-22T16:33:18.808567+00:00"
+      "at": "2026-09-22T18:56:46.241059+00:00"
     },
     {
       "stage": "invalidation_and_cold_restore",
@@ -139,18 +139,18 @@
         "assumptions": []
       },
       "restored_claim_status": "CONTRADICTED",
-      "at": "2026-09-22T16:33:18.808906+00:00"
+      "at": "2026-09-22T18:56:46.241390+00:00"
     },
     {
       "stage": "constraint_change",
       "goal_version": 2,
       "caps_unchanged": true,
-      "at": "2026-09-22T16:33:18.809348+00:00"
+      "at": "2026-09-22T18:56:46.241812+00:00"
     },
     {
       "stage": "mission_LH-3",
       "decision": "SUPPORTED",
-      "at": "2026-09-22T16:33:18.811764+00:00"
+      "at": "2026-09-22T18:56:46.244484+00:00"
     }
   ],
   "criteria": [
@@ -312,7 +312,7 @@
   },
   "passed": true,
   "stop_condition": "all_schedule_injections_completed_and_missions_finished",
-  "wall_seconds": 0.07245310800499283,
+  "wall_seconds": 0.07232441000815015,
   "m15_claimed": false,
   "notes": "preflight complete; fidelity=PREFLIGHT_COMPRESSED; M1.5 NOT claimed; keys not touched; H-ORG/SI untouched",
   "artifact_root": "/workspace/artifacts/hardening/long_horizon_48h/preflight"

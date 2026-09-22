@@ -308,6 +308,17 @@ def _run_model_swap() -> SurvivalScenario:
     )
 
 
+def cross_platform_sleep_argv(seconds: float) -> list[str]:
+    """Sleep via current interpreter — no Unix `sleep` binary (Windows portability).
+
+    Semantics preserved: argv is a long-running process for Sandbox walltime timeout.
+    """
+    import sys
+
+    # Literal seconds in -c keeps argv a plain list[str] for Sandbox.execute contract.
+    return [sys.executable, "-c", f"import time; time.sleep({float(seconds)})"]
+
+
 def _run_slow_dependency() -> SurvivalScenario:
     from global_os.adapters.models import GenerateRequest, ModelProviderError, SlowModelProvider
     from global_os.memory import NullResultStore
@@ -334,7 +345,7 @@ def _run_slow_dependency() -> SurvivalScenario:
     sb = Sandbox(SandboxLimits(walltime_seconds=0.05))
     sb.create()
     try:
-        result = sb.execute(["sleep", "2"])
+        result = sb.execute(cross_platform_sleep_argv(2.0))
         sandbox_timed = result.timed_out is True
     finally:
         sb.destroy()

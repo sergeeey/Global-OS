@@ -1,8 +1,8 @@
 {
   "sprint": "LONG_HORIZON_VALIDATION_ENTRY",
-  "updated_at": "2026-09-22T16:55:00Z",
-  "current_goal": "OPERATOR_WINDOWS_WALL_PREFLIGHT_60_120MIN",
-  "phase_statement": "Empirical Hardening COMPLETE — standing at entrance to Long-Horizon Validation. Proof not started.",
+  "updated_at": "2026-09-22T18:55:00Z",
+  "current_goal": "OPERATOR_WINDOWS_WALL_PREFLIGHT_RETRY_AFTER_PORTABILITY_FIX",
+  "phase_statement": "Empirical Hardening COMPLETE — Long-Horizon Validation ENTRY. Wall proof NOT started. Portability fix applied after wall preflight failure.",
   "completed": [
     "M14_TRUST_BOUNDARY",
     "CI_GREEN_MAIN",
@@ -18,38 +18,40 @@
     "ARTIFACT_FIRST_HANDOFF_FIX",
     "LH48_PROGRAM_CONTRACT",
     "LH48_PREFLIGHT_COMPRESSED",
-    "EMPIRICAL_HARDENING_COMPLETE"
+    "EMPIRICAL_HARDENING_COMPLETE",
+    "LH_FC_PORTABILITY_SLEEP_FIX"
   ],
   "running": null,
   "blocked": [],
-  "stage": "Empirical Hardening COMPLETE → Long-Horizon Validation ENTRY (wall proof NOT started)",
+  "stage": "Empirical Hardening COMPLETE → Long-Horizon Validation ENTRY (wall proof NOT started; re-preflight required)",
   "continual_improvement": "NOT_MEASURED",
-  "code_freeze_until": "windows_wall_preflight_result",
+  "code_freeze_until": "windows_wall_preflight_PASS_on_post_fix_SHA",
   "provider_iv_replay": {
     "any_live_iv": true,
     "all_still_blocked": false,
     "unblocked": true,
     "provenance": "operator_local_windows_confirmed",
-    "missions": [
-      "Y17-1",
-      "Y17-2"
-    ]
+    "missions": ["Y17-1", "Y17-2"]
   },
   "long_horizon": {
     "program": "persistent_research_48h",
-    "frozen_at_commit": "7d0fc4a",
-    "contract": "artifacts/hardening/long_horizon_48h/preflight/program_contract.json",
     "pass_criteria_frozen": true,
+    "pass_criteria_unchanged_by_portability_fix": true,
     "preflight_compressed": "PASS",
-    "preflight_wall_60_120min": "PENDING_OPERATOR_WINDOWS",
+    "preflight_wall_60_120min": "FAILED_THEN_FIXED_RETRY_PENDING",
+    "wall_preflight_failure": {
+      "id": "LH-FC-PORTABILITY-SLEEP",
+      "class": "PORTABILITY_ENVIRONMENT",
+      "detail": "sb.execute(['sleep','2']) FileNotFoundError WinError 2",
+      "prior_freeze_candidate": "7d0fc4a"
+    },
     "wall_48h": "NOT_STARTED",
     "m15_claimed": false,
     "start_gate": "GOS_REQUIRE_48H=1 AND GOS_START_RESEARCH_48H=1",
     "evaluation_rule": "only_frozen_PASS_criteria_no_impression",
     "during_run_rule": "no_manual_help_except_contract_allowed_actions",
-    "program_code_freeze_commit": "7d0fc4a",
-    "phase_lock_docs_commit": "cfbd17f",
-    "note": "No code changes after 7d0fc4a unless Windows wall preflight finds structural bug"
+    "contract": "artifacts/hardening/long_horizon_48h/preflight/program_contract.json",
+    "note": "Minimal portability fix only; re-run Windows wall preflight before new freeze"
   },
   "scientific": {
     "Y17-1": "SUPPORTED",
@@ -64,10 +66,7 @@
     "n_tasks": 7,
     "verdict": "PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED",
     "B_information_loss_rate": 0.714,
-    "artifact_first_handoff": [
-      "Y17-6",
-      "Y17-7"
-    ],
+    "artifact_first_handoff": ["Y17-6", "Y17-7"],
     "scientific_claim_accepted": false
   },
   "failures_recurring": [
@@ -76,19 +75,26 @@
       "fix": "artifact_handoff on Y17-6/7; legacy summary loss remains on earlier tasks"
     }
   ],
-  "next_exact_action": "Operator Windows: 60–120min wall preflight of same contour. If no structural failure → freeze commit/config → then wall 48h with double gate. Do not change code unless preflight finds a concrete bug. Do not claim M1.5. Keys retired.",
+  "failures_fixed": [
+    {
+      "id": "LH-FC-PORTABILITY-SLEEP",
+      "class": "PORTABILITY_ENVIRONMENT",
+      "fix": "cross_platform_sleep_argv via sys.executable"
+    }
+  ],
+  "next_exact_action": "Operator Windows: re-run 60–120min wall preflight on post-fix SHA. If PASS → freeze that SHA → then wall 48h with double gate. 48h NOT started. M1.5 not claimed. PASS criteria unchanged.",
   "fork_after_48h": {
     "PASS": "review artifacts → confirm no hidden intervention → M1.5 candidate",
     "FAIL": "classify → minimal fix → regression → compressed replay → new 48h attempt"
   },
   "forbidden_now": [
-    "code_change_without_wall_preflight_bug",
     "cosmetic_fixes_before_freeze",
     "claim_M1.5_without_wall_48h",
     "re_run_provider_keys",
     "H_ORG_claim",
     "continual_SI_claim",
     "auto_start_wall_48h",
-    "manual_help_during_48h_outside_contract"
+    "manual_help_during_48h_outside_contract",
+    "change_frozen_PASS_criteria"
   ]
 }

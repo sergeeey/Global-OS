@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.48 — 2026-09-22
+
+### Portability fix from Windows wall preflight
+
+- **LH-FC-PORTABILITY-SLEEP** (`PORTABILITY_ENVIRONMENT`): survival
+  `_run_slow_dependency` called Unix `sleep` → `FileNotFoundError` on Windows
+- Fix: `cross_platform_sleep_argv` via `sys.executable -c "import time; time.sleep(...)"`
+  (Sandbox timeout semantics unchanged)
+- Regression: `tests/test_survival_portability.py`
+- PASS criteria unchanged; compressed preflight still PASS; **48h not started**; M1.5 not claimed
+- Next: operator re-runs Windows wall preflight 60–120min on this SHA
+
 ## 0.1.47 — 2026-09-22
 
 ### Phase lock — Empirical Hardening complete
