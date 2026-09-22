@@ -31,7 +31,10 @@
     "all_still_blocked": false,
     "unblocked": true,
     "provenance": "operator_local_windows_confirmed",
-    "missions": ["Y17-1", "Y17-2"]
+    "missions": [
+      "Y17-1",
+      "Y17-2"
+    ]
   },
   "long_horizon": {
     "program": "persistent_research_48h",
@@ -51,7 +54,9 @@
     "evaluation_rule": "only_frozen_PASS_criteria_no_impression",
     "during_run_rule": "no_manual_help_except_contract_allowed_actions",
     "contract": "artifacts/hardening/long_horizon_48h/preflight/program_contract.json",
-    "note": "Minimal portability fix only; re-run Windows wall preflight before new freeze"
+    "note": "Minimal portability fix only; re-run Windows wall preflight before new freeze",
+    "fix_commit": "16fca1fff0b90b30bacb552e0b05d5ec9dc9ef26",
+    "freeze_candidate_after_preflight_retry": "16fca1fff0b90b30bacb552e0b05d5ec9dc9ef26"
   },
   "scientific": {
     "Y17-1": "SUPPORTED",
@@ -66,7 +71,10 @@
     "n_tasks": 7,
     "verdict": "PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED",
     "B_information_loss_rate": 0.714,
-    "artifact_first_handoff": ["Y17-6", "Y17-7"],
+    "artifact_first_handoff": [
+      "Y17-6",
+      "Y17-7"
+    ],
     "scientific_claim_accepted": false
   },
   "failures_recurring": [
