@@ -22,7 +22,7 @@
     "CI_PATHS_LOCKFILE_TEMPORAL_PIN"
   ],
   "running": null,
-  "blocked": ["cloud_provider_keys", "ci_green_awaiting_push"],
+  "blocked": ["cloud_provider_keys"],
   "stage": "M1.4 Trust Boundary Hardening",
   "continual_improvement": "NOT_MEASURED",
   "org_ab": {
@@ -34,7 +34,7 @@
     "cloud_status": "all_still_blocked",
     "unblocked": false
   },
-  "next_exact_action": "Confirm CI green on main. Then local provider-IV (≥2 keys). Do NOT start 48h. Do NOT expand H-ORG for count. Do NOT add Preference Ledger/VOI/learned org compiler.",
+  "next_exact_action": "Await CI green on main @6c05246. Then local provider-IV (≥2 keys). Do NOT start 48h. Do NOT expand H-ORG for count. Do NOT add Preference Ledger/VOI/learned org compiler.",
   "forbidden_now": [
     "48h_run",
     "H_ORG_claim",
