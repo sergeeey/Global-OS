@@ -25,3 +25,6 @@ target/
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# External scientific domain clone (read-only source; never commit)
+Y-17-100-gipotez/

@@ -1,0 +1,55 @@
+{
+  "mission_id": "Y17-1",
+  "preregistered_before_data": true,
+  "statement": "On fresh independent matrices at N_DIM ∈ {16,24,32,40,50}, the Fisher combination of the five per-slice Spearman p-values for (ω(A), M1) is significant at α=0.05.",
+  "population": {
+    "n_dim_values": [16, 24, 32, 40, 50],
+    "seed_start": 400,
+    "seed_end_exclusive": 460,
+    "n_seeds_per_slice": 60,
+    "total_pairs": 300,
+    "matrix_builder": "Y-17 experiments/.../multiseed-multin build_matrix_with_seed_and_n (SeedSequence([n_dim, seed]))",
+    "descriptor": "ω(A)=λ_max((A+Aᵀ)/2) via H-B2-1n numerical_abscissa",
+    "outcome": "M1 via H-B2-1k dim_sweep.measure_m1"
+  },
+  "fresh_seed_policy": {
+    "rule": "Zero overlap with previously used seed index ranges in the ω(A)/κ(V)/pseudospectral arc",
+    "excluded_ranges": [
+      {"label": "H-B2-1n exploratory", "seeds": [0, 39]},
+      {"label": "H-B2-1o confirmatory", "seeds": [40, 99]},
+      {"label": "H-B2-1p boundary (approx)", "seeds": [0, 59]},
+      {"label": "H-B2-1q fixedgrid", "seeds": [100, 159]},
+      {"label": "H-B2-1t fresh confirmatory", "seeds": [300, 339]}
+    ],
+    "chosen_range": [400, 459],
+    "rng_independence_checks": [
+      "SeedSequence([n_dim, seed]) — not seed-alone shared stream across N_DIM",
+      "Assert chosen seeds ∩ excluded index sets = ∅"
+    ]
+  },
+  "primary_criterion": {
+    "statistic": "scipy.stats.combine_pvalues(slice_ps, method='fisher')",
+    "alpha": 0.05,
+    "multiplicity": "Fisher combination is the single primary test; per-slice α=0.05 reported as secondary only",
+    "decision_rule": {
+      "SUPPORTED": "fisher_combined_p < 0.05",
+      "REJECTED": "fisher_combined_p >= 0.05",
+      "WEAKENED": "not used for primary (binary confirmatory by design; may appear only as scope note)",
+      "INCONCLUSIVE": "compute/verification blocked or corrupted"
+    },
+    "mapping_to_y17_letter": "SUPPORTED↔CONFIRMED, REJECTED↔REJECTED"
+  },
+  "kill_criterion": "If fisher_combined_p >= 0.05 on this fresh range, reject the claim that the H-B2-1n exploratory Fisher signal is a stable replicable combined effect under this confirmatory design. Do not fall back to majority-of-slices or exploratory upgrades after seeing data.",
+  "anti_overfitting": [
+    "Do not use H-B2-1n exploratory Fisher p=0.013 as confirmation",
+    "Do not re-analyze seeds 0–99",
+    "Do not change α, N_DIM set, or seed range after unblinding results",
+    "H-B2-1o prior CONFIRMED is background, not this mission's outcome"
+  ],
+  "secondary_descriptive_only": [
+    "n_slices_significant",
+    "sign consistency",
+    "per-slice rho/p",
+    "optional partial-conjunction k-of-5 (walled off from verdict)"
+  ]
+}

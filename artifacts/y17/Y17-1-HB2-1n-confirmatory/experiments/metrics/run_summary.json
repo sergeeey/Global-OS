@@ -1,0 +1,51 @@
+{
+  "config": {
+    "n_dim_values": [
+      16,
+      24,
+      32,
+      40,
+      50
+    ],
+    "seed_range": [
+      400,
+      460
+    ],
+    "n_seeds_per_slice": 60,
+    "population_note": "FRESH seeds 400-459 \u2014 zero overlap with H-B2-1n (0-39), H-B2-1o (40-99), H-B2-1q (100-159), H-B2-1t (300-339). Same N_DIM set as H-B2-1o confirmatory."
+  },
+  "rng_checks": {
+    "seed_disjoint_from_excluded": true,
+    "seedsequence_n_dim_seed_used": true,
+    "different_ndim_same_seed_index_not_identical": true
+  },
+  "primary_criterion": {
+    "statistic": "fisher_combined_p",
+    "pre_registered_threshold": 0.05,
+    "fisher_combined_statistic": 63.43283344117487,
+    "fisher_combined_p": 8.074518405962517e-10
+  },
+  "secondary_descriptive": {
+    "n_slices_significant_alpha05": 4,
+    "n_slices_positive": 5,
+    "n_slices_negative": 0,
+    "slice_rhos": [
+      0.5628230063906642,
+      0.47846624062239523,
+      0.3129758266185052,
+      0.3273131425395944,
+      0.12659071964434568
+    ],
+    "slice_ps": [
+      2.8574764500754233e-06,
+      0.00011028103866744481,
+      0.01489944249465623,
+      0.01068719276503278,
+      0.3351336709521185
+    ],
+    "note": "NOT verdict-determining"
+  },
+  "verdict_primary": "SUPPORTED",
+  "verdict_y17_letter": "CONFIRMED",
+  "wall_seconds": 24.193979057999968
+}

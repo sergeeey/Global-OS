@@ -1,0 +1,23 @@
+{
+  "mission_id": "Y17-1",
+  "recorded_at": "2026-09-22T09:23:58.686645+00:00",
+  "y17_git": "https://github.com/sergeeey/Y-17-100-gipotez.git",
+  "artifact_root": "artifacts/y17/Y17-1-HB2-1n-confirmatory",
+  "decision": "SUPPORTED",
+  "files": [
+    "claims.json",
+    "decision.md",
+    "experiments/metrics/run.json",
+    "experiments/metrics/run_summary.json",
+    "experiments/run_confirmatory.py",
+    "failure_cases.json",
+    "mission.json",
+    "null_results.json",
+    "plan.json",
+    "postmortem.json",
+    "preregistration.json",
+    "run_manifest.json",
+    "sources.json",
+    "verification.json"
+  ]
+}

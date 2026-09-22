@@ -1,0 +1,49 @@
+{
+  "primary_claim": {
+    "hypothesis_id": "hyp_cf881fb71038457d",
+    "goal_id": "goal_y17_1_hb2_1n_conf",
+    "statement": "On fresh seeds 400-459 at N_DIM in {16,24,32,40,50}, Fisher-combined Spearman p-values for (omega(A), M1) are significant at alpha=0.05.",
+    "state": "SUPPORTED",
+    "kill_criteria": [
+      "REJECTED if fisher_combined_p >= 0.05 on preregistered fresh seeds",
+      "Do not upgrade from exploratory H-B2-1n Fisher after seeing data"
+    ],
+    "alternative_explanations": [
+      "Sample-specific noise in H-B2-1n exploratory window",
+      "Effect concentrated at moderate N only (scope limitation)",
+      "RNG / analysis bug"
+    ],
+    "reopen_conditions": [
+      "Different descriptor (e.g. pseudospectral) for N>=40",
+      "Pre-registered fixed-grid at larger N with new seeds"
+    ],
+    "evidence_ids": [
+      "artifacts/y17/Y17-1-HB2-1n-confirmatory/experiments/metrics/run.json"
+    ]
+  },
+  "result_summary": {
+    "fisher_p": 8.074518405962517e-10,
+    "verdict": "SUPPORTED",
+    "y17_letter": "CONFIRMED",
+    "secondary": {
+      "n_slices_significant_alpha05": 4,
+      "n_slices_positive": 5,
+      "n_slices_negative": 0,
+      "slice_rhos": [
+        0.5628230063906642,
+        0.47846624062239523,
+        0.3129758266185052,
+        0.3273131425395944,
+        0.12659071964434568
+      ],
+      "slice_ps": [
+        2.8574764500754233e-06,
+        0.00011028103866744481,
+        0.01489944249465623,
+        0.01068719276503278,
+        0.3351336709521185
+      ],
+      "note": "NOT verdict-determining"
+    }
+  }
+}

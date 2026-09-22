@@ -1,0 +1,20 @@
+[
+  {
+    "id": "Y17-FC-001",
+    "title": "Independent verification blocked without live keys in Cloud VM",
+    "severity": "medium",
+    "mitigation": "Mark BLOCKED_ENVIRONMENT; continue deterministic path; do not fake LLM skeptic"
+  },
+  {
+    "id": "Y17-FC-002",
+    "title": "No dedicated research-mission orchestration in Global OS",
+    "severity": "low",
+    "mitigation": "Thin script under artifacts/; defer new subsystem until second mission needs it"
+  },
+  {
+    "id": "Y17-FC-003",
+    "title": "Hypothesis selection risk: confirmatory already existed as H-B2-1o",
+    "severity": "medium",
+    "mitigation": "Reframed Y17-1 as independent replication with new seeds; documented prior H-B2-1o"
+  }
+]

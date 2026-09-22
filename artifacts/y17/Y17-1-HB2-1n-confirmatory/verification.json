@@ -1,0 +1,24 @@
+{
+  "deterministic": {
+    "status": "PASS",
+    "checks": [
+      "seed range disjoint from excluded",
+      "SeedSequence([n_dim,seed]) used by Y-17 builder",
+      "Fisher recomputed from stored slice_ps matches run_summary",
+      "primary rule applied without post-hoc change"
+    ],
+    "fisher_recompute_p": 8.074518405962517e-10,
+    "match_run_json": true
+  },
+  "independent_provider": {
+    "status": "BLOCKED_ENVIRONMENT",
+    "reason": "No OPENROUTER/GROQ/GEMINI keys in Cloud VM; not simulated",
+    "live_keys_present": {
+      "openai": false,
+      "anthropic": false,
+      "openrouter": false,
+      "groq": false,
+      "gemini": false
+    }
+  }
+}

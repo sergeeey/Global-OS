@@ -1,0 +1,27 @@
+{
+  "mission_id": "Y17-1",
+  "title": "Global OS dogfood: confirmatory Fisher replication for ω(A)–M1 (H-B2-1n lineage)",
+  "hypothesis_id": "Y17-1-HB2-1n-confirmatory",
+  "y17_source_nodes": {
+    "grounding": "H-B2-1n",
+    "prior_confirmatory": "H-B2-1o",
+    "honesty": "H-B2-1o already ran the first fresh-seed Fisher confirmatory (seeds 40–99) and got CONFIRMED [WEAK]. Y17-1 does NOT re-analyze H-B2-1n exploratory data and does NOT treat H-B2-1o as this mission's result. Y17-1 is an independent Global OS replication of the same pre-registered confirmatory design on a new seed range."
+  },
+  "goal_contract": {
+    "goal": "Test whether the exploratory Fisher-combined ω(A)–M1 signal from H-B2-1n replicates on independent (N_DIM, seed) draws under a pre-registered primary Fisher criterion.",
+    "success": "Produce decision SUPPORTED|REJECTED|INCONCLUSIVE with raw artifacts, null preservation, deterministic verification, and (if keys present) independent provider review; never rewrite Y-17 scientific files.",
+    "non_goals": [
+      "Do not upgrade H-B2-1n verdict from exploratory Fisher",
+      "Do not modify Y-17-100-gipotez contents",
+      "Do not add new Global OS architecture subsystems unless mission-blocking"
+    ]
+  },
+  "domain_path": "/workspace/Y-17-100-gipotez",
+  "artifact_root": "artifacts/y17/Y17-1-HB2-1n-confirmatory",
+  "providers": {
+    "compute": "local_deterministic_numpy_scipy",
+    "independent_verification": "live_provider_if_keys_else_BLOCKED_ENVIRONMENT"
+  },
+  "status": "PREREGISTERED",
+  "created_at": "2026-09-22T00:00:00Z"
+}

@@ -1,0 +1,12 @@
+{
+  "y17_clone": "https://github.com/sergeeey/Y-17-100-gipotez.git",
+  "read_only": true,
+  "files_used": [
+    "registry/graph.yaml (H-B2-1n, H-B2-1o)",
+    "experiments/20260907-chernoff-neuralode-nd-numerical-abscissa/run.py",
+    "experiments/20260907-chernoff-neuralode-nd-numerical-abscissa-confirmatory/claim.md",
+    "experiments/20260907-chernoff-neuralode-nd-multiseed-multin/run.py",
+    "experiments/20260907-chernoff-neuralode-nd-dimension-sweep/run.py"
+  ],
+  "invented_sources": false
+}

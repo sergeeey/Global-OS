@@ -1,0 +1,11 @@
+{
+  "steps": [
+    "Read H-B2-1n/H-B2-1o materials (read-only Y-17)",
+    "Preregister population, seeds 400-459, Fisher primary",
+    "Compute \u03c9(A) and M1 via Y-17 builders",
+    "Deterministic Fisher recompute",
+    "Independent LLM verification if keys else BLOCKED_ENVIRONMENT",
+    "Decision + postmortem"
+  ],
+  "locked_before_compute": true
+}

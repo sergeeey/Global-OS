@@ -1,0 +1,11 @@
+{
+  "preserved_nulls": [
+    {
+      "slice_n_dim": 50,
+      "spearman_rho": 0.12659071964434568,
+      "spearman_p": 0.3351336709521185,
+      "note": "N=50 not individually significant \u2014 preserved as null/secondary, does not override Fisher primary"
+    }
+  ],
+  "rule": "GOS-I11 Failed/null results are permanent knowledge"
+}

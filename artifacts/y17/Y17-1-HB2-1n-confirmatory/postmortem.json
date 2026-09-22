@@ -1,0 +1,21 @@
+{
+  "real_evidence_found": true,
+  "sources_invented": false,
+  "null_results_preserved": true,
+  "verifier_caught_researcher_errors": "N/A_PROVIDER_BLOCKED \u2014 deterministic checks only",
+  "unnecessary_duplication": "Honest note: H-B2-1o already confirmed this design once; Y17-1 is an independent Global OS replication on new seeds, not a silent re-use of H-B2-1o numbers.",
+  "cost": {
+    "wall_seconds": 24.193979057999968,
+    "api_cost_usd": 0.0,
+    "pairs_computed": 300
+  },
+  "human_intervention": [
+    "User selected H-B2-1n confirmatory lineage and instructed public clone path",
+    "No keys in cloud \u2014 independent LLM verification blocked"
+  ],
+  "what_blocked_global_os": [
+    "Cloud VM lacks live model keys \u2192 independent verification BLOCKED_ENVIRONMENT",
+    "No first-class 'research mission runner' \u2014 mission assembled via thin script + HypothesisStore",
+    "Y-17 domain not packaged as Global OS EnvironmentCompiler resource descriptor"
+  ]
+}
