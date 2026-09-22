@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.36 — 2026-09-22
+
+### Progress
+
+- Operator live smoke: OpenRouter + Groq + Gemini PASS at cost=0 (local Windows; not claimed as M1.5)
+
 ## 0.1.35 — 2026-09-22
 
 ### Fixed
