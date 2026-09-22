@@ -1,7 +1,7 @@
 {
   "sprint": "M1_4_TRUST_BOUNDARY_HARDENING",
-  "updated_at": "2026-09-22T15:30:00Z",
-  "current_goal": "M1_4_CI_GREEN_THEN_LOCAL_IV",
+  "updated_at": "2026-09-22T15:05:00Z",
+  "current_goal": "LOCAL_PROVIDER_IV_THEN_Y17_CONTINUE",
   "completed": [
     "PHASE_1_AUDIT",
     "PHASE_2_RESEARCH_ORCHESTRATOR",
@@ -19,12 +19,17 @@
     "M14_COLD_RESTART_EPISTEMIC",
     "M14_EFFECT_RECONCILIATION",
     "M14_ADR_0010",
-    "CI_PATHS_LOCKFILE_TEMPORAL_PIN"
+    "CI_PATHS_LOCKFILE_TEMPORAL_PIN",
+    "CI_GREEN_MAIN_4ebd062"
   ],
   "running": null,
   "blocked": ["cloud_provider_keys"],
-  "stage": "M1.4 Trust Boundary Hardening",
+  "stage": "M1.4 Trust Boundary Hardening — CI green; await local IV",
   "continual_improvement": "NOT_MEASURED",
+  "ci": {
+    "head": "4ebd0622b740164d53f45c3d42c5d494c09db08e",
+    "conclusion": "success"
+  },
   "org_ab": {
     "n_tasks": 5,
     "verdict": "PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED",
@@ -34,7 +39,7 @@
     "cloud_status": "all_still_blocked",
     "unblocked": false
   },
-  "next_exact_action": "Await CI green on main @6c05246. Then local provider-IV (≥2 keys). Do NOT start 48h. Do NOT expand H-ORG for count. Do NOT add Preference Ledger/VOI/learned org compiler.",
+  "next_exact_action": "Local live provider-IV (≥2 free keys) → unblocked:true. Then Y17-6/7 + Org N↑ with token/cost. Do NOT start 48h. Do NOT claim H-ORG / M1.5 / continual SI.",
   "forbidden_now": [
     "48h_run",
     "H_ORG_claim",
