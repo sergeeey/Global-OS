@@ -47,7 +47,7 @@ def test_replay_blocked_without_keys(tmp_path: Path, monkeypatch):
 
 
 def test_mission_payload_from_y17_1_artifacts():
-    root = Path("/workspace/artifacts/y17/Y17-1-HB2-1n-confirmatory")
+    root = Path(__file__).resolve().parents[1] / "artifacts" / "y17" / "Y17-1-HB2-1n-confirmatory"
     if not root.exists():
         return
     payload = mission_payload(root)

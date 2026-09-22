@@ -1,7 +1,7 @@
 {
-  "sprint": "GLOBAL_OS_AUTONOMOUS_HARDENING",
-  "updated_at": "2026-09-22T14:20:00Z",
-  "current_goal": "AWAIT_LOCAL_IV_THEN_EXPAND_ORG_OR_48H",
+  "sprint": "M1_4_TRUST_BOUNDARY_HARDENING",
+  "updated_at": "2026-09-22T15:30:00Z",
+  "current_goal": "M1_4_CI_GREEN_THEN_LOCAL_IV",
   "completed": [
     "PHASE_1_AUDIT",
     "PHASE_2_RESEARCH_ORCHESTRATOR",
@@ -10,56 +10,38 @@
     "Y17-3",
     "Y17-4",
     "Y17-5",
-    "PROVIDER_IV_REPLAY_SCAFFOLD",
     "ORG_AB_DATASET_N5",
     "SUBSYSTEM_GATE_RULE",
-    "FAILURE_TAXONOMY_V3"
+    "M14_EXECUTION_TOKEN_BINDING",
+    "M14_LEDGER_NO_RAW_BEARER",
+    "M14_APPROVAL_VERIFY_AND_CONSUME",
+    "M14_IMMUTABLE_CLAIMS_EVIDENCE",
+    "M14_COLD_RESTART_EPISTEMIC",
+    "M14_EFFECT_RECONCILIATION",
+    "M14_ADR_0010",
+    "CI_PATHS_LOCKFILE_TEMPORAL_PIN"
   ],
   "running": null,
-  "blocked": ["cloud_provider_keys"],
-  "failures_discovered": [
-    "Y17-FC-001",
-    "Y17-FC-002",
-    "Y17-FC-003",
-    "Y17-2-FC-PRIOR-CLOSED",
-    "Y17-3-FC-DATA",
-    "Y17-IV-REPLAY-CLOUD",
-    "Y17-5-FC-IV"
-  ],
-  "fixes_applied": [
-    "research.mission_runner BLOCKED_ENVIRONMENT provider IV",
-    "PriorWorkReframe",
-    "contradictory_evidence persistence",
-    "provider_iv_replay harness",
-    "subsystem creation gate (dogfood rules)",
-    "forecasting holdout protocol for predictive missions",
-    "org A/B decomposability stratification N=5"
-  ],
-  "scientific": {
-    "Y17-1": "SUPPORTED",
-    "Y17-2": "REJECTED",
-    "Y17-3": "SUPPORTED",
-    "Y17-4": "SUPPORTED",
-    "Y17-5": "SUPPORTED (holdout RMSE ratio≈0.819 ≤ 0.90)"
-  },
-  "provider_iv_replay": {
-    "cloud_status": "all_still_blocked",
-    "any_live_iv": false,
-    "unblocked": false,
-    "operator_action": "PYTHONPATH=src python3 -m global_os.evals.research.provider_iv_replay with ≥2 free keys"
-  },
+  "blocked": ["cloud_provider_keys", "ci_green_awaiting_push"],
+  "stage": "M1.4 Trust Boundary Hardening",
+  "continual_improvement": "NOT_MEASURED",
   "org_ab": {
     "n_tasks": 5,
     "verdict": "PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED",
-    "decomposability": {
-      "HIGH": ["Y17-1", "Y17-3", "Y17-5"],
-      "MEDIUM": ["Y17-4"],
-      "LOW": ["Y17-2"]
-    },
-    "artifact": "artifacts/hardening/org_ab_dataset.json",
     "scientific_claim_accepted": false
   },
-  "stage": "Empirical Hardening / Real-World Dogfood Phase",
-  "continual_improvement": "NOT_MEASURED",
-  "next_exact_action": "Local live provider-IV (≥2 free keys) → unblocked:true. Optionally grow org A/B to N=6+ with token costs. Do NOT start 48h yet. Do NOT claim continual self-improvement or H-ORG."
+  "provider_iv_replay": {
+    "cloud_status": "all_still_blocked",
+    "unblocked": false
+  },
+  "next_exact_action": "Confirm CI green on main. Then local provider-IV (≥2 keys). Do NOT start 48h. Do NOT expand H-ORG for count. Do NOT add Preference Ledger/VOI/learned org compiler.",
+  "forbidden_now": [
+    "48h_run",
+    "H_ORG_claim",
+    "Preference_Ledger",
+    "VOI",
+    "Counterfactual_Memory",
+    "learned_organization_compiler",
+    "M1.5_claim"
+  ]
 }

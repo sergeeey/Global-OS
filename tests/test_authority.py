@@ -70,7 +70,9 @@ def test_allow_issues_token_and_effect_receipt(sample_proposal):
     result = auth.decide(proposal, tenant_id="t", workspace_id="w")
     assert result.decision == Decision.ALLOW
     assert result.execution_token
-    gateway.accept_token(result.execution_token)
+    assert result.execution_token_id
+    assert result.execution_token_hash
+    # Gateway verifies proposal binding — no accept_token deposit required
 
     receipt = gateway.execute(
         tool_id="web.fetch",
@@ -82,7 +84,15 @@ def test_allow_issues_token_and_effect_receipt(sample_proposal):
         observation={"effect": "page_fetched"},
     )
     assert receipt["discrepancy"] == "none"
+    assert receipt["reconciliation_status"] == "RECONCILED"
+    assert receipt["world_success"] is True
     assert receipt["tool_response"]["success"] is True
+
+    # raw bearer must not appear in ledger
+    for event in ledger.list_events():
+        payload = event.get("payload") or {}
+        assert payload.get("execution_token") is None
+        assert result.execution_token not in str(payload)
 
     with pytest.raises(MissingExecutionToken):
         gateway.execute(
@@ -114,7 +124,6 @@ def test_idempotency_single_effect(sample_proposal):
     )
     proposal = sample_proposal(idempotency_key="idem-dup-1", parent_capabilities=["web.read"])
     r1 = auth.decide(proposal, tenant_id="t", workspace_id="w")
-    gateway.accept_token(r1.execution_token)
     receipt1 = gateway.execute(
         tool_id="web.fetch",
         proposal=proposal,
@@ -124,15 +133,11 @@ def test_idempotency_single_effect(sample_proposal):
         intended_effect="page_fetched",
         observation={"effect": "page_fetched"},
     )
-    r2 = auth.decide(
-        {**proposal, "proposal_id": "ap_canary_002"},
-        tenant_id="t",
-        workspace_id="w",
-    )
-    gateway.accept_token(r2.execution_token)
+    r2_proposal = {**proposal, "proposal_id": "ap_canary_002"}
+    r2 = auth.decide(r2_proposal, tenant_id="t", workspace_id="w")
     receipt2 = gateway.execute(
         tool_id="web.fetch",
-        proposal=proposal,
+        proposal=r2_proposal,
         execution_token=r2.execution_token,
         tenant_id="t",
         workspace_id="w",

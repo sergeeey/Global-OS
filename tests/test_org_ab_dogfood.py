@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-ROOT = Path("/workspace")
+ROOT = Path(__file__).resolve().parents[1]
 DATASET = ROOT / "artifacts" / "hardening" / "org_ab_dataset.json"
 
 
@@ -26,7 +26,6 @@ def test_org_ab_dataset_n_at_least_5_with_decomposability():
         assert "same_decision" in t["comparison"]
     assert "by_decomposability" in report
     assert set(report["by_decomposability"].keys()) >= {"HIGH"}
-    # must include REJECTED scientific path (Y17-2) so org does not only see wins
     decisions = {t["A"]["decision"] for t in tasks}
     assert "REJECTED" in decisions or any("Y17-2" in t["task"] for t in tasks)
 

@@ -26,35 +26,130 @@ class EpistemicStore:
         self._commitments: dict[str, dict[str, Any]] = {}
         self._assumptions: dict[str, dict[str, Any]] = {}
 
-    def put_evidence(self, evidence: dict[str, Any]) -> None:
-        self._evidence[evidence["evidence_id"]] = deepcopy(evidence)
+    def put_evidence(
+        self,
+        evidence: dict[str, Any],
+        *,
+        tenant_id: str = "local",
+        workspace_id: str = "local",
+    ) -> None:
+        eid = evidence["evidence_id"]
+        if eid in self._evidence:
+            raise EpistemicError(
+                f"evidence_id immutable: {eid}; create a new version instead of overwrite"
+            )
+        self._evidence[eid] = deepcopy(evidence)
+        self._ledger.append(
+            event_type="epistemic.evidence.put",
+            tenant_id=tenant_id,
+            workspace_id=workspace_id,
+            goal_id=evidence.get("goal_id"),
+            payload=deepcopy(evidence),
+            producer="epistemic.store",
+        )
 
-    def put_claim(self, claim: dict[str, Any]) -> None:
-        self._claims[claim["claim_id"]] = deepcopy(claim)
+    def put_claim(
+        self,
+        claim: dict[str, Any],
+        *,
+        tenant_id: str = "local",
+        workspace_id: str = "local",
+    ) -> None:
+        cid = claim["claim_id"]
+        if cid in self._claims:
+            raise EpistemicError(
+                f"claim_id immutable: {cid}; create a new version instead of overwrite"
+            )
+        self._claims[cid] = deepcopy(claim)
+        self._ledger.append(
+            event_type="epistemic.claim.put",
+            tenant_id=tenant_id,
+            workspace_id=workspace_id,
+            goal_id=claim.get("goal_id"),
+            payload=deepcopy(claim),
+            producer="epistemic.store",
+        )
 
-    def put_observation(self, observation: dict[str, Any]) -> None:
+    def put_observation(
+        self,
+        observation: dict[str, Any],
+        *,
+        tenant_id: str = "local",
+        workspace_id: str = "local",
+    ) -> None:
         validate(observation, "observation.schema.json")
         if observation["trust_label"] == "SYSTEM_TRUSTED" and observation.get(
             "source_ref", ""
         ).startswith("reasoning:"):
             raise EpistemicError("reasoning trace cannot be SYSTEM_TRUSTED observation (GOS-I21)")
-        self._observations[observation["observation_id"]] = deepcopy(observation)
+        oid = observation["observation_id"]
+        if oid in self._observations:
+            raise EpistemicError(f"observation_id immutable: {oid}")
+        self._observations[oid] = deepcopy(observation)
+        self._ledger.append(
+            event_type="epistemic.observation.put",
+            tenant_id=tenant_id,
+            workspace_id=workspace_id,
+            goal_id=observation.get("goal_id"),
+            payload=deepcopy(observation),
+            producer="epistemic.store",
+        )
 
-    def put_belief(self, belief: dict[str, Any]) -> None:
+    def put_belief(
+        self,
+        belief: dict[str, Any],
+        *,
+        tenant_id: str = "local",
+        workspace_id: str = "local",
+    ) -> None:
         validate(belief, "belief.schema.json")
         for obs_id in belief.get("derived_from_observation_ids", []):
             if obs_id not in self._observations:
                 raise EpistemicError(f"belief references missing observation: {obs_id}")
-        self._beliefs[belief["belief_id"]] = deepcopy(belief)
+        bid = belief["belief_id"]
+        if bid in self._beliefs:
+            raise EpistemicError(f"belief_id immutable: {bid}")
+        self._beliefs[bid] = deepcopy(belief)
+        self._ledger.append(
+            event_type="epistemic.belief.put",
+            tenant_id=tenant_id,
+            workspace_id=workspace_id,
+            goal_id=belief.get("goal_id"),
+            payload=deepcopy(belief),
+            producer="epistemic.store",
+        )
 
-    def put_model(self, model: dict[str, Any]) -> None:
+    def put_model(
+        self,
+        model: dict[str, Any],
+        *,
+        tenant_id: str = "local",
+        workspace_id: str = "local",
+    ) -> None:
         validate(model, "epistemic_model.schema.json")
         for claim_id in model.get("depends_on_claim_ids", []):
             if claim_id not in self._claims:
                 raise EpistemicError(f"model references missing claim: {claim_id}")
-        self._models[model["model_id"]] = deepcopy(model)
+        mid = model["model_id"]
+        if mid in self._models:
+            raise EpistemicError(f"model_id immutable: {mid}")
+        self._models[mid] = deepcopy(model)
+        self._ledger.append(
+            event_type="epistemic.model.put",
+            tenant_id=tenant_id,
+            workspace_id=workspace_id,
+            goal_id=model.get("goal_id"),
+            payload=deepcopy(model),
+            producer="epistemic.store",
+        )
 
-    def put_forecast(self, forecast: dict[str, Any]) -> None:
+    def put_forecast(
+        self,
+        forecast: dict[str, Any],
+        *,
+        tenant_id: str = "local",
+        workspace_id: str = "local",
+    ) -> None:
         validate(forecast, "forecast.schema.json")
         for mid in forecast.get("depends_on_model_ids", []):
             if mid not in self._models:
@@ -62,9 +157,26 @@ class EpistemicStore:
         for claim_id in forecast.get("depends_on_claim_ids", []):
             if claim_id not in self._claims:
                 raise EpistemicError(f"forecast references missing claim: {claim_id}")
-        self._forecasts[forecast["forecast_id"]] = deepcopy(forecast)
+        fid = forecast["forecast_id"]
+        if fid in self._forecasts:
+            raise EpistemicError(f"forecast_id immutable: {fid}")
+        self._forecasts[fid] = deepcopy(forecast)
+        self._ledger.append(
+            event_type="epistemic.forecast.put",
+            tenant_id=tenant_id,
+            workspace_id=workspace_id,
+            goal_id=forecast.get("goal_id"),
+            payload=deepcopy(forecast),
+            producer="epistemic.store",
+        )
 
-    def put_decision(self, decision: dict[str, Any]) -> None:
+    def put_decision(
+        self,
+        decision: dict[str, Any],
+        *,
+        tenant_id: str = "local",
+        workspace_id: str = "local",
+    ) -> None:
         validate(decision, "epistemic_decision.schema.json")
         for claim_id in decision.get("depends_on_claim_ids", []):
             if claim_id not in self._claims:
@@ -72,18 +184,150 @@ class EpistemicStore:
         for fid in decision.get("depends_on_forecast_ids", []):
             if fid not in self._forecasts:
                 raise EpistemicError(f"decision references missing forecast: {fid}")
-        self._decisions[decision["decision_id"]] = deepcopy(decision)
+        did = decision["decision_id"]
+        if did in self._decisions:
+            raise EpistemicError(f"decision_id immutable: {did}")
+        self._decisions[did] = deepcopy(decision)
+        self._ledger.append(
+            event_type="epistemic.decision.put",
+            tenant_id=tenant_id,
+            workspace_id=workspace_id,
+            goal_id=decision.get("goal_id"),
+            payload=deepcopy(decision),
+            producer="epistemic.store",
+        )
 
-    def put_commitment(self, commitment: dict[str, Any]) -> None:
+    def put_commitment(
+        self,
+        commitment: dict[str, Any],
+        *,
+        tenant_id: str = "local",
+        workspace_id: str = "local",
+    ) -> None:
         validate(commitment, "commitment.schema.json")
         for claim_id in commitment.get("depends_on_claim_ids", []):
             if claim_id not in self._claims:
                 raise EpistemicError(f"commitment references missing claim: {claim_id}")
-        self._commitments[commitment["commitment_id"]] = deepcopy(commitment)
+        cid = commitment["commitment_id"]
+        if cid in self._commitments:
+            raise EpistemicError(f"commitment_id immutable: {cid}")
+        self._commitments[cid] = deepcopy(commitment)
+        self._ledger.append(
+            event_type="epistemic.commitment.put",
+            tenant_id=tenant_id,
+            workspace_id=workspace_id,
+            goal_id=commitment.get("goal_id"),
+            payload=deepcopy(commitment),
+            producer="epistemic.store",
+        )
 
-    def put_assumption(self, assumption: dict[str, Any]) -> None:
+    def put_assumption(
+        self,
+        assumption: dict[str, Any],
+        *,
+        tenant_id: str = "local",
+        workspace_id: str = "local",
+    ) -> None:
         validate(assumption, "assumption.schema.json")
-        self._assumptions[assumption["assumption_id"]] = deepcopy(assumption)
+        aid = assumption["assumption_id"]
+        if aid in self._assumptions:
+            raise EpistemicError(f"assumption_id immutable: {aid}")
+        self._assumptions[aid] = deepcopy(assumption)
+        self._ledger.append(
+            event_type="epistemic.assumption.put",
+            tenant_id=tenant_id,
+            workspace_id=workspace_id,
+            goal_id=assumption.get("goal_id"),
+            payload=deepcopy(assumption),
+            producer="epistemic.store",
+        )
+
+    def canonical_graph(self) -> dict[str, Any]:
+        """Stable snapshot for cold-restart equality checks."""
+        return {
+            "evidence": {k: self._evidence[k] for k in sorted(self._evidence)},
+            "claims": {k: self._claims[k] for k in sorted(self._claims)},
+            "observations": {k: self._observations[k] for k in sorted(self._observations)},
+            "beliefs": {k: self._beliefs[k] for k in sorted(self._beliefs)},
+            "models": {k: self._models[k] for k in sorted(self._models)},
+            "forecasts": {k: self._forecasts[k] for k in sorted(self._forecasts)},
+            "decisions": {k: self._decisions[k] for k in sorted(self._decisions)},
+            "commitments": {k: self._commitments[k] for k in sorted(self._commitments)},
+            "assumptions": {k: self._assumptions[k] for k in sorted(self._assumptions)},
+        }
+
+    @classmethod
+    def restore_from_ledger(cls, ledger: EventLedger) -> EpistemicStore:
+        """Cold-start reconstruction from durable event history only (empty RAM)."""
+        store = cls(ledger)
+        # Replay without re-appending: load maps directly then skip duplicate ledger writes
+        # by using internal hydrate path.
+        for event in ledger.list_events():
+            et = event.get("event_type", "")
+            payload = deepcopy(event.get("payload") or {})
+            if et == "epistemic.evidence.put":
+                store._evidence[payload["evidence_id"]] = payload
+            elif et == "epistemic.claim.put":
+                store._claims[payload["claim_id"]] = payload
+            elif et == "epistemic.observation.put":
+                store._observations[payload["observation_id"]] = payload
+            elif et == "epistemic.belief.put":
+                store._beliefs[payload["belief_id"]] = payload
+            elif et == "epistemic.model.put":
+                store._models[payload["model_id"]] = payload
+            elif et == "epistemic.forecast.put":
+                store._forecasts[payload["forecast_id"]] = payload
+            elif et == "epistemic.decision.put":
+                store._decisions[payload["decision_id"]] = payload
+            elif et == "epistemic.commitment.put":
+                store._commitments[payload["commitment_id"]] = payload
+            elif et == "epistemic.assumption.put":
+                store._assumptions[payload["assumption_id"]] = payload
+            elif et == "evidence.invalidated":
+                eid = payload.get("evidence_id")
+                if eid in store._evidence:
+                    store._evidence[eid]["status"] = "INVALIDATED"
+            elif et == "claim.staled":
+                cid = payload.get("claim_id")
+                if cid in store._claims:
+                    store._claims[cid]["status"] = "STALE"
+            elif et == "claim.contradicted":
+                cid = payload.get("claim_id")
+                if cid in store._claims:
+                    store._claims[cid]["status"] = "CONTRADICTED"
+            elif et == "model.staled":
+                mid = payload.get("model_id")
+                if mid in store._models:
+                    store._models[mid]["status"] = "STALE"
+            elif et == "forecast.staled":
+                fid = payload.get("forecast_id")
+                if fid in store._forecasts:
+                    store._forecasts[fid]["status"] = "STALE"
+            elif et == "decision.staled":
+                did = payload.get("decision_id")
+                if did in store._decisions:
+                    store._decisions[did]["status"] = "STALE"
+            elif et == "decision.needs_review":
+                did = payload.get("decision_id")
+                if did in store._decisions:
+                    store._decisions[did]["status"] = "NEEDS_REVIEW"
+            elif et == "commitment.staled":
+                cid = payload.get("commitment_id")
+                if cid in store._commitments:
+                    store._commitments[cid]["status"] = "STALE"
+            elif et == "commitment.needs_review":
+                cid = payload.get("commitment_id")
+                if cid in store._commitments:
+                    store._commitments[cid]["status"] = "NEEDS_REVIEW"
+            elif et == "belief.staled":
+                bid = payload.get("belief_id")
+                if bid in store._beliefs:
+                    store._beliefs[bid]["status"] = "STALE"
+            elif et == "assumption.staled":
+                aid = payload.get("assumption_id")
+                if aid in store._assumptions:
+                    store._assumptions[aid]["status"] = "STALE"
+        return store
 
     def get_claim(self, claim_id: str) -> dict[str, Any]:
         return deepcopy(self._claims[claim_id])

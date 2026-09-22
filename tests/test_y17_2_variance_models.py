@@ -6,8 +6,11 @@ import importlib.util
 from pathlib import Path
 
 import numpy as np
+import pytest
 
-RUN = Path("/workspace/artifacts/y17/Y17-2-HCAT31-V3-variance-models/experiments/run_mission.py")
+from global_os.common.paths import y17_available
+
+RUN = Path(__file__).resolve().parents[1] / "artifacts" / "y17" / "Y17-2-HCAT31-V3-variance-models" / "experiments" / "run_mission.py"
 
 
 def _load():
@@ -55,6 +58,8 @@ def test_nested_f_rejects_pure_c_over_n():
 
 def test_y17_2_real_artifacts_decision_stable():
     """Replay lock: committed Y-17 rows must keep REJECTED under locked rule."""
+    if not y17_available():
+        pytest.skip("Y-17 clone not present")
     mod = _load()
     raw = mod.run_experiment()
     assert raw["decision"] == "REJECTED"

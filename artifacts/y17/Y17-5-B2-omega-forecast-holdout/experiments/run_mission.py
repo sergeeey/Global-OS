@@ -19,7 +19,7 @@ from typing import Any
 
 import numpy as np
 
-Y17 = Path("/workspace/Y-17-100-gipotez/experiments")
+Y17 = Path(__file__).resolve().parents[4] / "Y-17-100-gipotez" / "experiments"
 MULTIN = Y17 / "20260907-chernoff-neuralode-nd-multiseed-multin" / "run.py"
 DIM = Y17 / "20260907-chernoff-neuralode-nd-dimension-sweep" / "run.py"
 ABS = Y17 / "20260907-chernoff-neuralode-nd-numerical-abscissa" / "run.py"

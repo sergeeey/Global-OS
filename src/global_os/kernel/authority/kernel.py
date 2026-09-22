@@ -3,13 +3,20 @@
 from __future__ import annotations
 
 import os
+import sqlite3
 from dataclasses import dataclass
 from enum import Enum
 from typing import Any, Literal
 
-from global_os.common.hashing import content_hash, new_id
+from global_os.common.hashing import content_hash
 from global_os.contracts.validate import validate
-from global_os.kernel.policy import PolicyEngine, PolicyRequest
+from global_os.kernel.authority.approvals import (
+    ApprovalInvalid,
+    ApprovalService,
+    ApprovalToken,
+)
+from global_os.kernel.authority.execution_token import ExecutionTokenService, MintedExecutionToken
+from global_os.kernel.policy import APPROVAL_REQUIRED, PolicyEngine, PolicyRequest
 from global_os.runtime.events.ledger import EventLedger
 
 AuthorityBackend = Literal["python", "rust"]
@@ -27,6 +34,8 @@ class AuthzResult:
     reason: str
     execution_token: str | None = None
     proposal_hash: str | None = None
+    execution_token_id: str | None = None
+    execution_token_hash: str | None = None
 
 
 class AuthorityKernel:
@@ -38,11 +47,15 @@ class AuthorityKernel:
         policy: PolicyEngine | None = None,
         *,
         backend: AuthorityBackend | None = None,
+        token_service: ExecutionTokenService | None = None,
+        approval_service: ApprovalService | None = None,
     ) -> None:
         self._ledger = ledger
         self._policy = policy or PolicyEngine()
         self._grants: dict[str, frozenset[str]] = {}
         self._parents: dict[str, str] = {}
+        self._token_service = token_service or ExecutionTokenService()
+        self._approval_service = approval_service
         if backend is not None:
             self._backend = backend
         else:
@@ -52,7 +65,6 @@ class AuthorityKernel:
             if env is not None and env not in {"python", "rust"}:
                 raise ValueError(f"unsupported authority backend: {env}")
             self._backend = resolve_authority_backend()
-
 
     def grant(
         self,
@@ -108,6 +120,71 @@ class AuthorityKernel:
             require_approval=require_approval,
         )
 
+    def _approval_action_hash(self, proposal: dict[str, Any]) -> str:
+        """Bind approval to proposal fields excluding approval_token (chicken-egg safe)."""
+        body = {k: v for k, v in proposal.items() if k != "approval_token"}
+        return content_hash(body)
+
+    def _consume_approval_if_required(
+        self,
+        proposal: dict[str, Any],
+        *,
+        proposal_hash: str,
+        require_approval: bool,
+    ) -> AuthzResult | None:
+        """Hard-bind ApprovalService.verify_and_consume — approval_id string alone is insufficient."""
+        capability = proposal["capability"]
+        needs = require_approval or capability in APPROVAL_REQUIRED
+        if not needs:
+            return None
+
+        token = self._extract_approval_token(proposal)
+        if token is None:
+            return AuthzResult(
+                Decision.PENDING_APPROVAL,
+                "approval required — ApprovalToken missing (approval_id string alone insufficient)",
+                proposal_hash=proposal_hash,
+            )
+        if self._approval_service is None:
+            return AuthzResult(
+                Decision.DENY,
+                "approval required but ApprovalService not configured",
+                proposal_hash=proposal_hash,
+            )
+        try:
+            self._approval_service.verify_and_consume(
+                token,
+                action_hash=self._approval_action_hash(proposal),
+                goal_id=str(proposal["goal_id"]),
+            )
+        except ApprovalInvalid as exc:
+            return AuthzResult(
+                Decision.DENY,
+                f"approval invalid: {exc}",
+                proposal_hash=proposal_hash,
+            )
+        return None
+
+    def _extract_approval_token(self, proposal: dict[str, Any]) -> ApprovalToken | None:
+        raw = proposal.get("approval_token")
+        if isinstance(raw, ApprovalToken):
+            return raw
+        if isinstance(raw, dict) and "signature" in raw and "approval_id" in raw:
+            return ApprovalToken(
+                approval_id=str(raw["approval_id"]),
+                approver=str(raw["approver"]),
+                action_hash=str(raw["action_hash"]),
+                goal_id=str(raw["goal_id"]),
+                limits=dict(raw.get("limits") or {}),
+                valid_until=str(raw["valid_until"]),
+                one_time=bool(raw.get("one_time", True)),
+                signature=str(raw["signature"]),
+            )
+        return None
+
+    def _mint_token(self, proposal: dict[str, Any], proposal_hash: str) -> MintedExecutionToken:
+        return self._token_service.mint(proposal=proposal, proposal_hash=proposal_hash)
+
     def _decide_rust(self, proposal: dict[str, Any], *, require_approval: bool) -> AuthzResult:
         from global_os.adapters.authority import decide_via_rust
 
@@ -115,14 +192,9 @@ class AuthorityKernel:
         capability = proposal["capability"]
         granted = self._grants.get(principal, frozenset())
         parent_raw = proposal.get("parent_capabilities")
-        approval_refs = proposal.get("approval_refs") or []
-        approval_id = approval_refs[0] if approval_refs else None
-        if require_approval and not approval_id:
-            return AuthzResult(
-                Decision.PENDING_APPROVAL,
-                "approval required",
-                proposal_hash=content_hash(proposal),
-            )
+        proposal_hash = content_hash(proposal)
+        approval_present = self._extract_approval_token(proposal) is not None
+        # Capability / parent checks first (approval alone must not unlock missing grants)
         request = {
             "principal": principal,
             "action": capability,
@@ -130,15 +202,50 @@ class AuthorityKernel:
             "resource": str(proposal.get("resource", "")),
             "granted_capabilities": sorted(granted),
             "parent_capabilities": list(parent_raw) if parent_raw is not None else None,
-            "approval_id": approval_id,
+            "approval_id": "verified" if approval_present else None,
         }
         raw = decide_via_rust(request, proposal)
         decision = Decision(raw["decision"])
+        if decision != Decision.ALLOW:
+            # Rust PENDING_APPROVAL → still hard-bind if we would otherwise allow
+            if decision == Decision.PENDING_APPROVAL:
+                blocked = self._consume_approval_if_required(
+                    proposal, proposal_hash=proposal_hash, require_approval=True
+                )
+                if blocked is not None:
+                    return blocked
+                # verified — re-ask rust with presence flag
+                request["approval_id"] = "verified"
+                raw = decide_via_rust(request, proposal)
+                decision = Decision(raw["decision"])
+                if decision != Decision.ALLOW:
+                    return AuthzResult(
+                        decision,
+                        str(raw.get("reason", "")),
+                        proposal_hash=raw.get("proposal_hash") or proposal_hash,
+                    )
+            else:
+                return AuthzResult(
+                    decision,
+                    str(raw.get("reason", "")),
+                    proposal_hash=raw.get("proposal_hash") or proposal_hash,
+                )
+        else:
+            blocked = self._consume_approval_if_required(
+                proposal, proposal_hash=proposal_hash, require_approval=require_approval
+            )
+            if blocked is not None:
+                return blocked
+
+        minted = self._mint_token(proposal, proposal_hash)
+        refs = self._token_service.ledger_refs(minted)
         return AuthzResult(
-            decision,
+            Decision.ALLOW,
             str(raw.get("reason", "")),
-            execution_token=raw.get("execution_token"),
-            proposal_hash=raw.get("proposal_hash") or content_hash(proposal),
+            execution_token=minted.bearer,
+            proposal_hash=proposal_hash,
+            execution_token_id=refs["execution_token_id"],
+            execution_token_hash=refs["execution_token_hash"],
         )
 
     def _decide_python(
@@ -155,8 +262,8 @@ class AuthorityKernel:
         granted = self._grants.get(principal, frozenset())
         parent_raw = proposal.get("parent_capabilities")
         parent_set = frozenset(parent_raw) if parent_raw is not None else None
-        approval_refs = proposal.get("approval_refs") or []
-        approval_id = approval_refs[0] if approval_refs else None
+        # Presence flag only for policy engine; hard verify happens separately
+        approval_present = self._extract_approval_token(proposal) is not None
 
         policy = self._policy.decide(
             PolicyRequest(
@@ -166,7 +273,7 @@ class AuthorityKernel:
                 capability=capability,
                 granted_capabilities=granted,
                 parent_capabilities=parent_set,
-                approval_id=approval_id,
+                approval_id="verified" if approval_present else None,
             )
         )
         if not policy.allowed:
@@ -177,21 +284,22 @@ class AuthorityKernel:
             self._record_decision(result, proposal, tenant_id, workspace_id)
             return result
 
-        if require_approval and not approval_id:
-            result = AuthzResult(
-                Decision.PENDING_APPROVAL,
-                "approval required",
-                proposal_hash=proposal_hash,
-            )
-            self._record_decision(result, proposal, tenant_id, workspace_id)
-            return result
+        blocked = self._consume_approval_if_required(
+            proposal, proposal_hash=proposal_hash, require_approval=require_approval
+        )
+        if blocked is not None:
+            self._record_decision(blocked, proposal, tenant_id, workspace_id)
+            return blocked
 
-        token = new_id("tok")
+        minted = self._mint_token(proposal, proposal_hash)
+        refs = self._token_service.ledger_refs(minted)
         result = AuthzResult(
             Decision.ALLOW,
             policy.reason,
-            execution_token=token,
+            execution_token=minted.bearer,
             proposal_hash=proposal_hash,
+            execution_token_id=refs["execution_token_id"],
+            execution_token_hash=refs["execution_token_hash"],
         )
         self._record_decision(result, proposal, tenant_id, workspace_id)
         return result
@@ -203,23 +311,51 @@ class AuthorityKernel:
         tenant_id: str,
         workspace_id: str,
     ) -> None:
+        payload: dict[str, Any] = {
+            "decision": result.decision.value,
+            "reason": result.reason,
+            "proposal_id": proposal.get("proposal_id"),
+            "capability": proposal.get("capability"),
+            "proposal_hash": result.proposal_hash,
+            "backend": self._backend,
+        }
+        # Never write raw bearer into the ledger
+        if result.execution_token_id is not None:
+            payload["execution_token_id"] = result.execution_token_id
+        if result.execution_token_hash is not None:
+            payload["execution_token_hash"] = result.execution_token_hash
         self._ledger.append(
             event_type="authority.decision",
             tenant_id=tenant_id,
             workspace_id=workspace_id,
             goal_id=proposal.get("goal_id"),
             principal_id=proposal.get("principal_id"),
-            payload={
-                "decision": result.decision.value,
-                "reason": result.reason,
-                "proposal_id": proposal.get("proposal_id"),
-                "capability": proposal.get("capability"),
-                "proposal_hash": result.proposal_hash,
-                "execution_token": result.execution_token,
-                "backend": self._backend,
-            },
+            payload=payload,
             producer="kernel.authority",
         )
+
+
+def memory_approval_service(signing_key: bytes | None = None) -> ApprovalService:
+    """Test/helper: sqlite :memory: ApprovalService ready for AuthorityKernel."""
+    conn = sqlite3.connect(":memory:")
+    conn.row_factory = sqlite3.Row
+    conn.execute(
+        """
+        CREATE TABLE approvals (
+            approval_id TEXT PRIMARY KEY,
+            approver TEXT NOT NULL,
+            action_hash TEXT NOT NULL,
+            goal_id TEXT NOT NULL,
+            limits_json TEXT NOT NULL,
+            valid_until TEXT NOT NULL,
+            one_time INTEGER NOT NULL,
+            consumed INTEGER NOT NULL,
+            signature TEXT NOT NULL
+        )
+        """
+    )
+    conn.commit()
+    return ApprovalService(conn, signing_key or b"gos-dev-approval-key")
 
 
 def assert_no_model_imports() -> None:

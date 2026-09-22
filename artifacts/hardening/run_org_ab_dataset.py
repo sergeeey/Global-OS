@@ -17,14 +17,15 @@ from typing import Any
 import numpy as np
 from scipy.stats import combine_pvalues
 
-OUT = Path("/workspace/artifacts/hardening/org_ab_dataset.json")
-Y173 = Path("/workspace/artifacts/hardening/org_ab_y17_3.json")
-Y171_METRICS = Path(
-    "/workspace/artifacts/y17/Y17-1-HB2-1n-confirmatory/experiments/metrics/run.json"
+_ROOT = Path(__file__).resolve().parents[2]
+OUT = _ROOT / "artifacts" / "hardening" / "org_ab_dataset.json"
+Y173 = _ROOT / "artifacts" / "hardening" / "org_ab_y17_3.json"
+Y171_METRICS = (
+    _ROOT / "artifacts" / "y17" / "Y17-1-HB2-1n-confirmatory" / "experiments" / "metrics" / "run.json"
 )
-RUN2 = Path("/workspace/artifacts/y17/Y17-2-HCAT31-V3-variance-models/experiments/run_mission.py")
-RUN4 = Path("/workspace/artifacts/y17/Y17-4-B2-GOE-spacing/experiments/run_mission.py")
-RUN5 = Path("/workspace/artifacts/y17/Y17-5-B2-omega-forecast-holdout/experiments/run_mission.py")
+RUN2 = _ROOT / "artifacts" / "y17" / "Y17-2-HCAT31-V3-variance-models" / "experiments" / "run_mission.py"
+RUN4 = _ROOT / "artifacts" / "y17" / "Y17-4-B2-GOE-spacing" / "experiments" / "run_mission.py"
+RUN5 = _ROOT / "artifacts" / "y17" / "Y17-5-B2-omega-forecast-holdout" / "experiments" / "run_mission.py"
 
 PRIMARY_ALPHA = 0.05
 

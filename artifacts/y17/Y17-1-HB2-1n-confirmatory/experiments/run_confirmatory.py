@@ -13,8 +13,8 @@ from pathlib import Path
 import numpy as np
 from scipy.stats import combine_pvalues, spearmanr
 
-Y17 = Path("/workspace/Y-17-100-gipotez/experiments")
-OUT = Path("/workspace/artifacts/y17/Y17-1-HB2-1n-confirmatory")
+Y17 = Path(__file__).resolve().parents[4] / "Y-17-100-gipotez" / "experiments"
+OUT = Path(__file__).resolve().parents[1]
 EXP = OUT / "experiments"
 METRICS = EXP / "metrics"
 

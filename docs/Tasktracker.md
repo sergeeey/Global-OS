@@ -7,26 +7,19 @@
 - [x] Free pins + measured H-RSN + scheduled soak runner
 - [x] Operator live smoke + live H-ENV/H-RSN JSON (claim=false; M1.5 stays IN PROGRESS)
 
-## Active mode — Dogfood (mission → failure → fix → replay)
+## Active mode — M1.4 Trust Boundary Hardening (before more dogfood/48h)
 
-- [x] **Y17-1:** confirmatory Fisher replication (H-B2-1n lineage) on seeds 400–459 → **SUPPORTED**
-- [x] Artifacts under `artifacts/y17/Y17-1-HB2-1n-confirmatory/` (provider IV = BLOCKED_ENVIRONMENT)
-- [x] Failure cases Y17-FC-001..003 recorded
-- [x] **Y17-2:** H-CAT31-V3 nested Var models → **REJECTED**; PriorWorkReframe from closed H-B7-3
-- [x] Orchestrator: persist contradictory_evidence.json (regression tests)
-- [x] **Y17-3:** causal Boolean H-B7-2 permanent-clamp independent recompute → **SUPPORTED**
-- [x] Org A/B datapoint (sample=1) → INCONCLUSIVE_REAL_SAMPLE_TOO_SMALL
-- [x] Docs drift consistency tests
-- [x] Provider-IV replay harness + verification_delta (cloud still BLOCKED)
-- [x] **Y17-4:** cross-domain RMT GOE-spacing on B2 spectra → **SUPPORTED**
-- [x] Org A/B dataset N=2 → still INCONCLUSIVE
-- [x] Subsystem gate rule (dogfood development rules)
-- [x] **Y17-5:** forecasting holdout ω→M1 vs mean baseline → **SUPPORTED** (ratio≈0.819)
-- [x] Org A/B N=3 → still INCONCLUSIVE; continual-improvement NOT_MEASURED
-- [x] Org A/B N=5 + decomposability stratification → PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED
-- [ ] Local (≥2 free keys) live provider-IV replay → `unblocked: true`
-- [ ] Optionally grow org sample to N=6+ with token costs (H-ORG still not claimed)
-- [ ] 48h persistent research program (later; after local IV)
+- [x] CI: remove `/workspace` abs paths; numpy/scipy `[research]`; lockfile; Temporal CLI pin
+- [x] Proposal-bound ExecutionToken + Gateway verify
+- [x] Ledger: no raw bearer (token_id/hash only)
+- [x] ApprovalService.verify_and_consume on Authority path
+- [x] Immutable claims/evidence + cold-restart epistemic restore
+- [x] Effect reconciliation statuses (GOS-I13)
+- [x] ADR-0010 + ROADMAP M1.4
+- [ ] CI green on `main` (evidence)
+- [ ] Local (≥2 free keys) live provider-IV → `unblocked: true`
+- [ ] Y17-6/7 + Org N↑ with token/cost (H-ORG still not claimed)
+- [ ] 48h persistent research program (only after M1.4 green)
 
 ## Paused — M1.5 durability (do not start 48h now)
 

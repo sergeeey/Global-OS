@@ -82,3 +82,15 @@ class EventLedger:
     def mutate_forbidden(self, index: int, **_kwargs: Any) -> None:
         """Guard for tests — ledger entries are immutable."""
         raise AppendOnlyViolation("Event ledger is append-only; mutation forbidden")
+
+    def export_snapshot(self) -> list[dict[str, Any]]:
+        """Durable export of all events (cold-restart source of truth)."""
+        return self.list_events()
+
+    @classmethod
+    def from_snapshot(cls, events: list[dict[str, Any]]) -> EventLedger:
+        """Rebuild ledger RAM from durable snapshot — does not re-hash/re-validate producer."""
+        ledger = cls()
+        for event in events:
+            ledger._events.append(deepcopy(event))
+        return ledger

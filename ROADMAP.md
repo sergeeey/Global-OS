@@ -12,17 +12,29 @@ $$
 
 Track states in `docs/capability_matrix.json` **per capability** (not one sticker for whole OS).  
 Architecture V2: `SPEC-ADDENDUM-V2.md`.  
-**ADR-0009:** no new T0/T1 layers until M1.5 — Empirical Science phase.
+**ADR-0009:** no new T0/T1 layers until M1.5 — Empirical Science phase.  
+**ADR-0010:** M1.4 Trust Boundary Hardening before 48h / M1.5 claim.
 
 ## Path (locked)
 
 ```text
-CURRENT b3d49f7+
-  architecture + CI/runtime + survival×13 done; science not accepted
+CURRENT
+  architecture + dogfood Y17-1..5; trust boundaries incomplete
         │
         ▼
-M1.5 REALITY VALIDATION     ← P0 now
-  live H-ENV + live H-RSN + wall-clock 48h + Goal Integrity PASS
+M1.4 TRUST BOUNDARY HARDENING   ← P0 now
+  CI green
+  proposal-bound ExecutionToken
+  approval verify_and_consume
+  immutable/versioned claims/evidence
+  cold-restart epistemic reconstruction
+  effect reconciliation (ToolSuccess ≠ WorldSuccess)
+        │
+        ▼
+M1.5 LONG-HORIZON REALITY VALIDATION
+  live provider IV (≥2)
+  persistent 48h research workload (not synthetic-only)
+  scheduled failures + Goal Integrity PASS
         │
         ▼
 DoD V2
@@ -47,11 +59,25 @@ PRODUCTION_PROVEN (per capability; expensive)
 - [x] Durable/Authority/Docker/OTLP/models×2/survival×13/multi-provider/accelerated 48h
 - [x] Goal Integrity Score · H-ENV/H-RSN/H-ORG-1..4 contracts · 48h schedule · self-audit
 - [x] Incident system · DoD V2 evidence gate · dogfooding mission (no auto-merge)
-- [ ] **P0:** Live H-ENV (real models/API)
-- [ ] **P0:** Live H-RSN (fixed L/M/H vs adaptive; VR fixed)
-- [ ] **P0:** Wall-clock 48h `GOS_REQUIRE_48H=1` + scheduled injections + Goal Integrity
+- [ ] Live H-ENV / H-RSN deferred until after M1.4
+- [ ] Wall-clock 48h deferred until after M1.4
 
-## M1.5 — Operationally Validated
+## M1.4 — Trust Boundary Hardening (ADR-0010)
+
+```text
+✓ CI green (numpy/scipy in [research], lockfile, pinned Temporal CLI, no /workspace abs paths)
+✓ proposal-bound ExecutionToken + Gateway verify_and_consume
+✓ ledger stores token_id/hash only (no raw bearer)
+✓ ApprovalService.verify_and_consume on Authority path
+✓ immutable claim/evidence insert
+✓ cold-restart EpistemicStore.restore_from_ledger
+✓ effect reconciliation statuses (OBSERVATION_PENDING / RECONCILED / DISCREPANCY / ESCALATION)
+```
+
+Acceptance: `tests/test_m14_trust_boundary.py`.  
+**Not claimed complete until CI on main is green.**
+
+## M1.5 — Long-Horizon Reality Validation
 
 ```text
 ✓ real-model H-ENV + H-RSN
@@ -61,9 +87,10 @@ PRODUCTION_PROVEN (per capability; expensive)
 ✓ survival×13 + corrupted + malicious
 ✓ Goal Integrity hard gates PASS
 ✓ no authority bypass; replay intact
+✓ cold epistemic restore under load
 ```
 
-Still **≠** PRODUCTION_PROVEN.
+Still **≠** PRODUCTION_PROVEN. Do **not** start 48h until M1.4 acceptance is green on main.
 
 ## DoD V2
 
@@ -97,4 +124,4 @@ independent audit.
 
 ## Definition of Done
 
-M1.5 / DoD V2 / PRODUCTION_PROVEN **not claimed** on current HEAD.
+M1.4 / M1.5 / DoD V2 / PRODUCTION_PROVEN **not claimed** on current HEAD until evidence gates pass.

@@ -6,8 +6,11 @@ import importlib.util
 from pathlib import Path
 
 import numpy as np
+import pytest
 
-RUN = Path("/workspace/artifacts/y17/Y17-4-B2-GOE-spacing/experiments/run_mission.py")
+from global_os.common.paths import y17_available
+
+RUN = Path(__file__).resolve().parents[1] / "artifacts" / "y17" / "Y17-4-B2-GOE-spacing" / "experiments" / "run_mission.py"
 
 
 def _load():
@@ -24,6 +27,7 @@ def test_r_stat_identity_on_equal_spacings():
     assert mod.mean_r(levels) == 1.0
 
 
+@pytest.mark.skipif(not y17_available(), reason="Y-17 clone not present")
 def test_y17_4_decision_stable_and_controls():
     mod = _load()
     raw = mod.run_experiment()

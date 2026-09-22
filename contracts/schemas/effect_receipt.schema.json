@@ -32,6 +32,18 @@
     "observed_effect": { "type": "string", "minLength": 1 },
     "discrepancy": { "type": "string" },
     "verified_at": { "type": "string", "format": "date-time" },
-    "verification_method": { "type": "string", "minLength": 1 }
+    "verification_method": { "type": "string", "minLength": 1 },
+    "reconciliation_status": {
+      "type": "string",
+      "enum": [
+        "EXECUTED",
+        "OBSERVATION_PENDING",
+        "RECONCILED",
+        "DISCREPANCY",
+        "ESCALATION_REQUIRED",
+        "COMPENSATION_REQUIRED"
+      ]
+    },
+    "world_success": { "type": "boolean" }
   }
 }

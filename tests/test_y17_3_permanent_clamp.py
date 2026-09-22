@@ -5,7 +5,11 @@ from __future__ import annotations
 import importlib.util
 from pathlib import Path
 
-RUN = Path("/workspace/artifacts/y17/Y17-3-HB7-2-permanent-clamp/experiments/run_mission.py")
+import pytest
+
+from global_os.common.paths import y17_available
+
+RUN = Path(__file__).resolve().parents[1] / "artifacts" / "y17" / "Y17-3-HB7-2-permanent-clamp" / "experiments" / "run_mission.py"
 
 
 def _load():
@@ -16,6 +20,7 @@ def _load():
     return mod
 
 
+@pytest.mark.skipif(not y17_available(), reason="Y-17 clone not present")
 def test_y17_3_rb_complex_p27_point_and_matches_prior():
     mod = _load()
     raw = mod.run_experiment()

@@ -21,7 +21,7 @@ from typing import Any
 import numpy as np
 from scipy import stats
 
-Y17 = Path("/workspace/Y-17-100-gipotez/experiments")
+Y17 = Path(__file__).resolve().parents[4] / "Y-17-100-gipotez" / "experiments"
 COMPOSITE_RUN = (
     Y17 / "20260910-lovasz-theta-variance-scaling-cat31-3" / "metrics" / "run.json"
 )

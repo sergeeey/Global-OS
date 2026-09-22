@@ -6,8 +6,11 @@ import importlib.util
 from pathlib import Path
 
 import numpy as np
+import pytest
 
-RUN = Path("/workspace/artifacts/y17/Y17-5-B2-omega-forecast-holdout/experiments/run_mission.py")
+from global_os.common.paths import y17_available
+
+RUN = Path(__file__).resolve().parents[1] / "artifacts" / "y17" / "Y17-5-B2-omega-forecast-holdout" / "experiments" / "run_mission.py"
 
 
 def _load():
@@ -33,6 +36,7 @@ def test_mean_baseline_cannot_beat_itself_on_identical_data():
     assert mod._rmse(y, pred) == np.std(y, ddof=0)
 
 
+@pytest.mark.skipif(not y17_available(), reason="Y-17 clone not present")
 def test_y17_5_real_holdout_stable():
     mod = _load()
     raw = mod.run_experiment()
@@ -46,7 +50,7 @@ def test_y17_5_real_holdout_stable():
 
 
 def test_docs_subsystem_gate_rule_present():
-    text = Path("/workspace/artifacts/hardening/DEVELOPMENT_RULES_DOGFOOD.md").read_text(
+    text = (Path(__file__).resolve().parents[1] / "artifacts" / "hardening" / "DEVELOPMENT_RULES_DOGFOOD.md").read_text(
         encoding="utf-8"
     )
     assert "≥2 independent real missions" in text or ">=2 independent real missions" in text

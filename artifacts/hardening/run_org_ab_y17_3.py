@@ -14,8 +14,9 @@ import time
 from pathlib import Path
 from typing import Any
 
-OUT = Path("/workspace/artifacts/hardening/org_ab_y17_3.json")
-RUN = Path("/workspace/artifacts/y17/Y17-3-HB7-2-permanent-clamp/experiments/run_mission.py")
+_ROOT = Path(__file__).resolve().parents[2]
+OUT = _ROOT / "artifacts" / "hardening" / "org_ab_y17_3.json"
+RUN = _ROOT / "artifacts" / "y17" / "Y17-3-HB7-2-permanent-clamp" / "experiments" / "run_mission.py"
 
 
 def _load():

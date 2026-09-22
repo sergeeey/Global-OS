@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.1.44 — 2026-09-22
+
+### M1.4 Trust Boundary Hardening (ADR-0010)
+
+- **CI:** `numpy`/`scipy` via `[research]`; `requirements-dev.lock`; Temporal CLI pinned `1.9.1`;
+  remove absolute `/workspace` paths from tests/artifact runners; Y-17 tests skip if clone absent
+- **ExecutionToken:** proposal-bound HMAC token (jti, capability, resource, goal, expiry);
+  Gateway `verify_and_consume` — no opaque `accept_token` required for new path
+- **Ledger:** authority.decision stores `execution_token_id`/`hash` only (never raw bearer)
+- **Approval:** `ApprovalService.verify_and_consume` hard-bound on Authority path;
+  `approval_id` string alone insufficient
+- **Epistemic:** immutable claim/evidence insert; `restore_from_ledger` cold-restart;
+  put events persisted
+- **Effects:** reconciliation statuses EXECUTED→OBSERVATION_PENDING→RECONCILED|DISCREPANCY→ESCALATION
+- Acceptance: `tests/test_m14_trust_boundary.py`
+- Roadmap: M1.4 before M1.5; no 48h / Preference Ledger / VOI / H-ORG expansion yet
+
 ## 0.1.43 — 2026-09-22
 
 ### Dogfood

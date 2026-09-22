@@ -16,7 +16,7 @@ from typing import Any
 
 import numpy as np
 
-Y17 = Path("/workspace/Y-17-100-gipotez/experiments")
+Y17 = Path(__file__).resolve().parents[4] / "Y-17-100-gipotez" / "experiments"
 MULTIN = Y17 / "20260907-chernoff-neuralode-nd-multiseed-multin" / "run.py"
 
 R_POISSON = 2 * math.log(2) - 1  # ≈0.386294

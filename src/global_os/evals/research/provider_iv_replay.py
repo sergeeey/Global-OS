@@ -26,7 +26,7 @@ from global_os.verification.independent_stack import IndependentVerificationStac
 from global_os.verification.multi_provider import make_provider_judge
 from global_os.verification.router import VerificationTier
 
-ROOT = Path("/workspace")
+ROOT = Path(__file__).resolve().parents[4]
 DEFAULT_MISSIONS = (
     ROOT / "artifacts" / "y17" / "Y17-1-HB2-1n-confirmatory",
     ROOT / "artifacts" / "y17" / "Y17-2-HCAT31-V3-variance-models",

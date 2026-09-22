@@ -6,7 +6,7 @@ import json
 import re
 from pathlib import Path
 
-ROOT = Path("/workspace")
+ROOT = Path(__file__).resolve().parents[1]
 FORBIDDEN_PHRASES = [
     r"M1\.5\s+complete",
     r"DoD\s*V2\s+complete",

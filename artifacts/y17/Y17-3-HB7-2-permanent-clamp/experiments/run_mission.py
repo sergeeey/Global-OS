@@ -11,7 +11,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-Y17 = Path("/workspace/Y-17-100-gipotez/experiments")
+Y17 = Path(__file__).resolve().parents[4] / "Y-17-100-gipotez" / "experiments"
 H1 = Y17 / "20260906-kauffman-cellcycle-attractors-h1" / "run.py"
 H2 = Y17 / "20260906-kauffman-cellcycle-perturbation-h2" / "run.py"
 H2_PRIOR_METRICS = Y17 / "20260906-kauffman-cellcycle-perturbation-h2" / "metrics" / "run.json"

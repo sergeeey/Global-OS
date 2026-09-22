@@ -39,6 +39,13 @@
     "idempotency_key": { "type": "string", "minLength": 8 },
     "evidence_refs": { "type": "array", "items": { "type": "string" } },
     "approval_refs": { "type": "array", "items": { "type": "string" } },
+    "approval_token": {
+      "type": "object",
+      "description": "Full ApprovalToken — approval_id string alone is insufficient"
+    },
+    "goal_version": {
+      "oneOf": [{ "type": "integer" }, { "type": "string" }]
+    },
     "context": { "type": "object" },
     "parent_principal_id": { "type": "string" },
     "parent_capabilities": {
