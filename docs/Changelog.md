@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.37 — 2026-09-22
+
+### Mode
+
+- Switch primary cycle to dogfood: Y-17 one-hypothesis mission → failure → fix → replay
+- M1.5 remains IN PROGRESS; wall-clock 48h explicitly paused (not blocking real work)
+
 ## 0.1.36 — 2026-09-22
 
 ### Progress

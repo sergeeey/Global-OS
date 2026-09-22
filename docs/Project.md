@@ -27,8 +27,9 @@ Goal Contract · Epistemic Kernel · Durable Runtime · Authority Kernel · Dyna
 - Goal Integrity Score + eval contracts; incidents + DoD V2 gate + dogfood (no auto-merge)
 - Free pins: OpenRouter Nemotron 550b / Groq gpt-oss-120b / Gemini 3.6-flash; `run_hrsn_measured` + scheduled 48h soak
 - **Operator Reality Contact:** 3-provider smoke + live H-ENV/H-RSN JSON (claim=false; winner often A — ladder B–E still prompt-conditioned)
-- **P0 open:** persist keys across PS restart → wall-clock 48h (`GOS_REQUIRE_48H=1`)
-- DoD V2 / M1.5 / PRODUCTION_PROVEN **не заявлены**
+- **Active mode:** dogfood — `Y17 mission → GlobalOS → failure → fix → replay` (M1.5 = IN PROGRESS; 48h paused)
+- **Next:** one unfinished Y-17 hypothesis E2E → `artifacts/y17/<id>/` (no rewrite of scientific results)
+- DoD V2 / M1.5 closed / PRODUCTION_PROVEN **не заявлены**
 
 ## Документы
 
