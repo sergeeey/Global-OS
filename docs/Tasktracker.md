@@ -9,10 +9,11 @@
 
 ## Active mode — Dogfood (mission → failure → fix → replay)
 
-- [ ] **Y-17-1:** one unfinished hypothesis end-to-end (no rewrite of scientific results)
-- [ ] Artifacts under `artifacts/y17/<hypothesis-id>/` (mission/plan/sources/claims/experiments/nulls/verification/decision)
-- [ ] Failure cases from the mission recorded (ENV/tool/verification/honesty)
-- [ ] Minimal Global OS fixes only if the mission blocked; then replay
+- [x] **Y17-1:** confirmatory Fisher replication (H-B2-1n lineage) on seeds 400–459 → **SUPPORTED**
+- [x] Artifacts under `artifacts/y17/Y17-1-HB2-1n-confirmatory/` (provider IV = BLOCKED_ENVIRONMENT)
+- [x] Failure cases Y17-FC-001..003 recorded
+- [ ] Next Y17 mission (new unfinished hypothesis; or local-keys IV replay of Y17-1)
+- [ ] Minimal Global OS fixes only if a later mission is blocked
 
 ## Paused — M1.5 durability (do not start 48h now)
 

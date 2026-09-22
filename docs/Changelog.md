@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.38 — 2026-09-22
+
+### Dogfood
+
+- Y17-1 complete: independent Fisher confirmatory replication for ω(A)–M1 (seeds 400–459) → SUPPORTED
+- Artifacts in `artifacts/y17/Y17-1-HB2-1n-confirmatory/`; Y-17 untouched; provider IV BLOCKED_ENVIRONMENT
+
 ## 0.1.37 — 2026-09-22
 
 ### Mode
