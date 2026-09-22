@@ -1,0 +1,8 @@
+[
+  {
+    "id": "Y17-4-FC-IV",
+    "class": "ENVIRONMENT_GAP",
+    "title": "provider independent verification blocked",
+    "detail": "no OPENROUTER/GROQ/GEMINI keys — deterministic verification only"
+  }
+]

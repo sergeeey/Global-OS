@@ -17,7 +17,12 @@
 - [x] **Y17-3:** causal Boolean H-B7-2 permanent-clamp independent recompute → **SUPPORTED**
 - [x] Org A/B datapoint (sample=1) → INCONCLUSIVE_REAL_SAMPLE_TOO_SMALL
 - [x] Docs drift consistency tests
-- [ ] Optional: local-keys IV replay; more org samples
+- [x] Provider-IV replay harness + verification_delta (cloud still BLOCKED)
+- [x] **Y17-4:** cross-domain RMT GOE-spacing on B2 spectra → **SUPPORTED**
+- [x] Org A/B dataset N=2 → still INCONCLUSIVE
+- [ ] Local (≥2 free keys) live provider-IV replay of Y17-1/Y17-2/Y17-4
+- [ ] Y17-5 other class; grow org sample toward ≥5 before H-ORG claims
+- [ ] 48h persistent research program (not synthetic-only) — later
 
 ## Paused — M1.5 durability (do not start 48h now)
 

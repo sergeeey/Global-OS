@@ -1,0 +1,35 @@
+{
+  "mission_id": "Y17-4",
+  "preregistered_before_data": true,
+  "hypothesis": "Nearest-neighbor spacing ratios ⟨r⟩ of eigenvalues of the symmetric part (A+Aᵀ)/2 for the B2 Chernoff/Neural-ODE matrix family (N_DIM=32, seeds 500-519) are GOE-like: within TOL=0.05 of the GOE surmise and closer to GOE than Poisson.",
+  "primary_outcome": "mean ⟨r⟩ across 20 matrices vs GOE/Poisson/GUE surmises",
+  "test": "eigvalsh((A+A.T)/2) → r-stat; synthetic GOE/Poisson controls",
+  "null": "⟨r⟩ outside GOE band OR closer to Poisson OR controls fail",
+  "alpha": "deterministic band TOL=0.05 (not p-value)",
+  "threshold": {
+    "tol": 0.05,
+    "target": "GOE_surmise_0.535898"
+  },
+  "kill_criterion": "SUPPORTED iff GOE+Poisson controls OK AND |⟨r⟩-R_GOE|<0.05 AND dist(GOE)<dist(Poisson). Else REJECTED.",
+  "seed_data_policy": "Fresh seeds 500-519; disjoint from Y17-1 (400-459). Read-only Y-17 multin builder. No Odlyzko download required.",
+  "stopping_rule": "Single locked sweep; no post-hoc TOL or seed changes.",
+  "prohibited_post_hoc_changes": [
+    "Do not widen TOL after seeing r_bar",
+    "Do not switch primary target to GUE after data",
+    "Do not claim P-RIEMANN-RMT resolved",
+    "Do not write into Y-17"
+  ],
+  "primary_criterion": {
+    "statistic": "r_bar_vs_GOE_band",
+    "tol": 0.05,
+    "decision_rule": {
+      "SUPPORTED": "controls OK AND in_goe_band AND closer_to_goe_than_poisson",
+      "REJECTED": "otherwise"
+    }
+  },
+  "secondary_descriptive_only": [
+    "distance to GUE",
+    "per-seed r",
+    "control means"
+  ]
+}

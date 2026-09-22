@@ -1,0 +1,29 @@
+{
+  "mission_id": "Y17-4",
+  "mission_root": "artifacts/y17/Y17-4-B2-GOE-spacing",
+  "recorded_at": "2026-09-22T13:23:03.922844+00:00",
+  "before": {
+    "provider_status": "BLOCKED_ENVIRONMENT"
+  },
+  "after": {
+    "status": "BLOCKED_ENVIRONMENT",
+    "detail": "no OPENROUTER/GROQ/GEMINI keys — provider IV not simulated",
+    "live_keys": {
+      "openai": false,
+      "anthropic": false,
+      "openrouter": false,
+      "groq": false,
+      "gemini": false
+    },
+    "diversity": "no diversity factors",
+    "stack_result": null
+  },
+  "delta": {
+    "status_changed": false,
+    "unblocked": false,
+    "still_blocked": true,
+    "scientific_decision_recomputed": false,
+    "note": "Provider IV replay does not alter scientific decision artifacts"
+  },
+  "claim_preview": "Mission decision SUPPORTED is consistent with preregistered criterion for: Nearest-neighbor spacing ratios ⟨r⟩ of eigenvalues of the symmetric part (A+Aᵀ)/2 for the B2 Chernoff/Neural-ODE matrix family (N_DIM=32, seeds 500-519) are GOE-like"
+}

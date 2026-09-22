@@ -1,0 +1,8 @@
+{
+  "steps": [
+    "Lock prereg for cross-domain GOE-spacing probe",
+    "Run synthetic GOE/Poisson controls",
+    "Build 20 B2 matrices (seeds 500-519), compute ⟨r⟩ on symmetric-part spectra",
+    "Decide vs locked band; provider IV degraded if blocked"
+  ]
+}

@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.41 — 2026-09-22
+
+### Dogfood
+
+- Provider-IV replay harness for Y17-1/Y17-2: honest `verification_delta.json` (cloud still BLOCKED_ENVIRONMENT)
+- Y17-4 complete: cross-domain RMT GOE-spacing on B2 symmetric-part spectra → **SUPPORTED** (⟨r⟩≈0.517, |ΔGOE|≈0.019)
+- Org A/B dataset expanded to N=2 tasks → still `INCONCLUSIVE_REAL_SAMPLE_TOO_SMALL`
+- Failure taxonomy machine-readable: `artifacts/hardening/failure_taxonomy.json`
+- No 48h; no new architectural subsystems; H-ORG not claimed
+
 ## 0.1.40 — 2026-09-22
 
 ### Dogfood

@@ -1,0 +1,59 @@
+{
+  "taxonomy_version": "0.2.0",
+  "updated_at": "2026-09-22T13:30:00Z",
+  "rule": "classify every mission failure; fix only recurring/high-impact/generalizable/testable",
+  "cases": [
+    {
+      "id": "Y17-FC-001",
+      "class": "ENVIRONMENT_GAP",
+      "title": "provider independent verification unavailable in cloud",
+      "recurring": true,
+      "missions": ["Y17-1", "Y17-2", "Y17-3", "Y17-4"],
+      "fix": "degraded BLOCKED_ENVIRONMENT path + provider_iv_replay harness (live when ≥2 free keys)"
+    },
+    {
+      "id": "Y17-FC-002",
+      "class": "ARCHITECTURE_GAP",
+      "title": "no reusable research mission orchestrator (thin scripts)",
+      "recurring": false,
+      "missions": ["Y17-1"],
+      "fix": "evals.research.mission_runner"
+    },
+    {
+      "id": "Y17-FC-003",
+      "class": "RESEARCH_METHOD_GAP",
+      "title": "prior confirmatory work requires explicit semantic reframe",
+      "recurring": true,
+      "missions": ["Y17-1", "Y17-2", "Y17-3", "Y17-4"],
+      "fix": "PriorWorkReframe artifact"
+    },
+    {
+      "id": "Y17-2-FC-PRIOR-CLOSED",
+      "class": "RESEARCH_METHOD_GAP",
+      "title": "intended H-B7-2/3 already CLOSED",
+      "recurring": true,
+      "missions": ["Y17-2"],
+      "fix": "reframe to unfinished named next step (H-CAT31-4 V3)"
+    },
+    {
+      "id": "Y17-3-FC-DATA",
+      "class": "ENVIRONMENT_GAP",
+      "title": "Y-17 clone missing data/*.bnet",
+      "recurring": false,
+      "missions": ["Y17-3"],
+      "fix": "fetch public pyboolnet .bnet into Global OS artifacts only"
+    },
+    {
+      "id": "Y17-IV-REPLAY-CLOUD",
+      "class": "ENVIRONMENT_GAP",
+      "title": "provider IV replay still blocked in cloud (no keys)",
+      "recurring": true,
+      "missions": ["Y17-1", "Y17-2"],
+      "fix": "verification_delta.json recorded; operator local replay with ≥2 free keys"
+    }
+  ],
+  "not_bugs": [
+    "Y17-2 scientific REJECTED (null preserved)",
+    "org A/B INCONCLUSIVE_REAL_SAMPLE_TOO_SMALL at N<5"
+  ]
+}

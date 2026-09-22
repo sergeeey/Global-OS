@@ -1,0 +1,7 @@
+{
+  "goal_id": "goal_22b573322d4346ec",
+  "hypothesis_id": "hyp_9f75d6f2ac884a6c",
+  "statement": "Nearest-neighbor spacing ratios ⟨r⟩ of eigenvalues of the symmetric part (A+Aᵀ)/2 for the B2 Chernoff/Neural-ODE matrix family (N_DIM=32, seeds 500-519) are GOE-like: within TOL=0.05 of the GOE surmise and closer to GOE than Poisson.",
+  "decision": "SUPPORTED",
+  "scientific_claim_accepted": false
+}

@@ -1,0 +1,29 @@
+{
+  "mission_id": "Y17-2",
+  "mission_root": "/workspace/artifacts/y17/Y17-2-HCAT31-V3-variance-models",
+  "recorded_at": "2026-09-22T13:23:03.924159+00:00",
+  "before": {
+    "provider_status": "BLOCKED_ENVIRONMENT"
+  },
+  "after": {
+    "status": "BLOCKED_ENVIRONMENT",
+    "detail": "no OPENROUTER/GROQ/GEMINI keys — provider IV not simulated",
+    "live_keys": {
+      "openai": false,
+      "anthropic": false,
+      "openrouter": false,
+      "groq": false,
+      "gemini": false
+    },
+    "diversity": "no diversity factors",
+    "stack_result": null
+  },
+  "delta": {
+    "status_changed": false,
+    "unblocked": false,
+    "still_blocked": true,
+    "scientific_decision_recomputed": false,
+    "note": "Provider IV replay does not alter scientific decision artifacts"
+  },
+  "claim_preview": "Mission decision REJECTED is consistent with preregistered criterion for: On H-CAT31-3 committed composite rows, nested weighted F-test prefers Var(n)=C/n+D/n² over Var(n)=C/n at α=0.05 with D>0 (H-CAT31-4 Relaxation Map V3)."
+}

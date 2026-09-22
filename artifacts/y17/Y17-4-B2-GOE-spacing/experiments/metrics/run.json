@@ -1,0 +1,125 @@
+{
+  "config": {
+    "class": "cross_domain_rmt",
+    "n_dim": 32,
+    "seed_range": [
+      500,
+      520
+    ],
+    "n_matrices": 20,
+    "spectrum": "eigvalsh((A+A.T)/2)",
+    "statistic": "mean nearest-neighbor spacing ratio ⟨r⟩",
+    "targets": {
+      "poisson": 0.3862943611198906,
+      "goe": 0.5358983848622456,
+      "gue": 0.6026577908435842
+    },
+    "tol": 0.05,
+    "primary_rule": "SUPPORTED iff controls OK AND |⟨r⟩-R_GOE|<TOL AND closer to GOE than Poisson",
+    "y17_writes": false
+  },
+  "controls": {
+    "goe_mean_r": 0.5340421411631399,
+    "poisson_mean_r": 0.3865506237518864,
+    "goe_control_ok": true,
+    "poisson_control_ok": true,
+    "n_control_draws": 40
+  },
+  "primary": {
+    "r_bar": 0.5172967108654539,
+    "r_std": 0.0606568084384317,
+    "dist_goe": 0.01860167399679169,
+    "dist_gue": 0.08536107997813025,
+    "dist_poisson": 0.13100234974556335,
+    "in_goe_band": true,
+    "closer_to_goe_than_poisson": true,
+    "per_seed": {
+      "500": {
+        "r_mean": 0.533427242716428,
+        "n_dim": 32
+      },
+      "501": {
+        "r_mean": 0.523880213199907,
+        "n_dim": 32
+      },
+      "502": {
+        "r_mean": 0.49123779117506144,
+        "n_dim": 32
+      },
+      "503": {
+        "r_mean": 0.4556865077539011,
+        "n_dim": 32
+      },
+      "504": {
+        "r_mean": 0.551431528541627,
+        "n_dim": 32
+      },
+      "505": {
+        "r_mean": 0.5609418039078146,
+        "n_dim": 32
+      },
+      "506": {
+        "r_mean": 0.6007353114811116,
+        "n_dim": 32
+      },
+      "507": {
+        "r_mean": 0.6031486239709908,
+        "n_dim": 32
+      },
+      "508": {
+        "r_mean": 0.6173232546433358,
+        "n_dim": 32
+      },
+      "509": {
+        "r_mean": 0.5851901651767818,
+        "n_dim": 32
+      },
+      "510": {
+        "r_mean": 0.5711897318368104,
+        "n_dim": 32
+      },
+      "511": {
+        "r_mean": 0.5348212346382687,
+        "n_dim": 32
+      },
+      "512": {
+        "r_mean": 0.5152497634104601,
+        "n_dim": 32
+      },
+      "513": {
+        "r_mean": 0.47300513977178843,
+        "n_dim": 32
+      },
+      "514": {
+        "r_mean": 0.4706356385753595,
+        "n_dim": 32
+      },
+      "515": {
+        "r_mean": 0.48249092420487216,
+        "n_dim": 32
+      },
+      "516": {
+        "r_mean": 0.4096963860493897,
+        "n_dim": 32
+      },
+      "517": {
+        "r_mean": 0.45155276478351364,
+        "n_dim": 32
+      },
+      "518": {
+        "r_mean": 0.4306204947564289,
+        "n_dim": 32
+      },
+      "519": {
+        "r_mean": 0.4836696967152286,
+        "n_dim": 32
+      }
+    }
+  },
+  "decision": "SUPPORTED",
+  "nulls": [],
+  "contradictory_evidence": [],
+  "scope": {
+    "qualification": "SUPPORTED means local spacing ratios of this structured B2 family are GOE-like under the locked band; does NOT prove universal spectral universality for all non-number-theoretic spectra (P-RIEMANN-RMT remains open)."
+  }
+}

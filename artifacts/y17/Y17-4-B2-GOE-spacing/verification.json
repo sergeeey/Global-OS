@@ -1,0 +1,18 @@
+{
+  "deterministic_status": "PASS",
+  "deterministic_checks": [
+    "r_bar in (0,1)",
+    "decision matches prereg rule",
+    "seeds outside Y17-1 confirmatory range",
+    "no Y-17 writes"
+  ],
+  "provider_status": "BLOCKED_ENVIRONMENT",
+  "provider_detail": "no OPENROUTER/GROQ/GEMINI keys — deterministic verification only",
+  "live_keys": {
+    "openai": false,
+    "anthropic": false,
+    "openrouter": false,
+    "groq": false,
+    "gemini": false
+  }
+}

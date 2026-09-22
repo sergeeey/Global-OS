@@ -1,0 +1,97 @@
+{
+  "n_tasks": 2,
+  "tasks": [
+    {
+      "task": "Y17-3 permanent-clamp Boolean recompute",
+      "A": {
+        "mode": "A_single_solver",
+        "wall_s": 0.5994413129956229,
+        "completion": true,
+        "decision": "SUPPORTED",
+        "escaped_errors": 0,
+        "duplicate_work": 0,
+        "information_loss": false,
+        "human_intervention": 0,
+        "evidence_integrity": true,
+        "tokens_cost": null
+      },
+      "B": {
+        "mode": "B_manager_specialized_workers",
+        "wall_s": 0.5942593620056869,
+        "completion": true,
+        "decision": "SUPPORTED",
+        "escaped_errors": 0,
+        "duplicate_work": 1,
+        "information_loss": true,
+        "human_intervention": 0,
+        "evidence_integrity": true,
+        "tokens_cost": null,
+        "handoffs": 4,
+        "parse_summary": {
+          "node_names": [
+            "CycD",
+            "Cdc20",
+            "CycA",
+            "CycB",
+            "CycE",
+            "E2F",
+            "Rb",
+            "UbcH10",
+            "cdh1",
+            "p27"
+          ],
+          "n_rules": 10
+        },
+        "rb_periods_visible_to_manager": false,
+        "n_attractors_rb": 2
+      },
+      "comparison": {
+        "same_decision": true,
+        "wall_ratio_B_over_A": 0.9913553656086199,
+        "B_more_duplicate_work": true,
+        "B_information_loss_flag": true
+      }
+    },
+    {
+      "task": "Y17-4 B2 GOE-spacing",
+      "A": {
+        "mode": "A_single_solver",
+        "wall_s": 0.46844757800135994,
+        "completion": true,
+        "decision": "SUPPORTED",
+        "escaped_errors": 0,
+        "duplicate_work": 0,
+        "information_loss": false,
+        "human_intervention": 0,
+        "evidence_integrity": true,
+        "tokens_cost": null
+      },
+      "B": {
+        "mode": "B_manager_specialized_workers",
+        "wall_s": 0.005557591000979301,
+        "completion": true,
+        "decision": "SUPPORTED",
+        "escaped_errors": 0,
+        "duplicate_work": 1,
+        "information_loss": true,
+        "human_intervention": 0,
+        "evidence_integrity": true,
+        "tokens_cost": null,
+        "note": "manager saw only aggregate r_bar / control flags, not per-seed spectra"
+      },
+      "comparison": {
+        "same_decision": true,
+        "wall_ratio_B_over_A": 0.011863848298012049
+      }
+    }
+  ],
+  "aggregate": {
+    "same_decision_rate": 1.0,
+    "mean_wall_ratio_B_over_A": 0.501609606953316,
+    "B_information_loss_rate": 1.0,
+    "B_duplicate_work_rate": 1.0
+  },
+  "verdict": "INCONCLUSIVE_REAL_SAMPLE_TOO_SMALL",
+  "scientific_claim_accepted": false,
+  "note": "N=2 tasks only; do not claim H-ORG supported. Target \u22655-6 missions."
+}

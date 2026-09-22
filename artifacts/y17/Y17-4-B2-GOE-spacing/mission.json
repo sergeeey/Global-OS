@@ -1,0 +1,15 @@
+{
+  "mission_id": "Y17-4",
+  "goal_id": "goal_22b573322d4346ec",
+  "hypothesis_id": "hyp_9f75d6f2ac884a6c",
+  "status": "COMPLETED",
+  "reframe": {
+    "discovered_prior_id": "P-RIEMANN-RMT",
+    "original_intent": "resolve spectral universality for non-number-theoretic spectra",
+    "reframed_intent": "bounded probe: GOE-likeness of one structured engineering matrix family (B2), not full universality claim",
+    "rationale": "P-RIEMANN-RMT is open and broad. Y17-4 tests research-runner generality on a cross-domain RMT class with local compute and null-capable band criterion."
+  },
+  "created_at": "2026-09-22T13:21:53.883905+00:00",
+  "decision": "SUPPORTED",
+  "completed_at": "2026-09-22T13:21:54.417180+00:00"
+}
