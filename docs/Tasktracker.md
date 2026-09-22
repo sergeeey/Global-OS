@@ -11,10 +11,9 @@
 - [x] `run_hrsn_measured` + scheduled 48h soak runner
 - [x] ENV-REAL-001 recorded (Cloud Agent ≠ local secrets; route via My Machines)
 - [x] 3-provider live smoke PASS (OpenRouter + Groq + Gemini, cost=0; keys stay local)
-- [ ] Persist OpenRouter `sk-or-v1-` in `secret\.env` + `C:\Users\serge\.env` (survive PS restart)
-- [ ] Live H-ENV JSON → `artifacts/live-evals/` (Reality Contact; not scientific confirmation)
-- [ ] Live `run_hrsn_measured` on pinned free models
-- [ ] Wall-clock 48h schedule (`GOS_REQUIRE_48H=1`) after live paths stable
+- [x] Live H-ENV + measured H-RSN JSON in `artifacts/live-evals/` (claim=false; Reality Contact)
+- [ ] Persist OpenRouter `sk-or-v1-` in `secret\.env` + profile `.env` (survive PS restart)
+- [ ] Wall-clock 48h schedule (`GOS_REQUIRE_48H=1`) after confirming keys survive restart
 
 ## After M1.5
 

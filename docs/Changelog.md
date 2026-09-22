@@ -5,6 +5,7 @@
 ### Progress
 
 - Operator live smoke: OpenRouter + Groq + Gemini PASS at cost=0 (local Windows; not claimed as M1.5)
+- Operator live H-ENV + measured H-RSN JSON for all three free providers (`scientific_claim_accepted=false`)
 
 ## 0.1.35 — 2026-09-22
 
