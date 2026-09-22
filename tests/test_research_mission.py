@@ -66,3 +66,37 @@ def test_research_mission_degraded_iv_still_completes(tmp_path: Path, monkeypatc
     assert (tmp_path / "m1" / "null_results.json").exists()
     assert (tmp_path / "m1" / "reframe.json").exists()
     assert any(fc["class"] == "ENVIRONMENT_GAP" for fc in report.failure_cases)
+
+
+def test_research_mission_persists_contradictory_evidence(tmp_path: Path, monkeypatch):
+    monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
+    monkeypatch.delenv("GROQ_API_KEY", raising=False)
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+    monkeypatch.delenv("GOOGLE_API_KEY", raising=False)
+
+    contra = [{"note": "secondary disagrees", "rule": "walled"}]
+
+    def experiment() -> dict:
+        return {"score": 0.9, "contradictory_evidence": contra}
+
+    report = run_research_mission(
+        mission_id="TEST-RM-2",
+        artifact_root=tmp_path / "m2",
+        objective_text="Persist contradictory evidence",
+        hypothesis_statement="score high",
+        preregistration={"primary_criterion": {"statistic": "score", "alpha": 0.5}},
+        plan={"steps": ["compute"]},
+        experiment_fn=experiment,
+        decide_fn=lambda raw: ("SUPPORTED", []),
+        deterministic_verify_fn=lambda raw: ("PASS", ["ok"]),
+        kill_criteria=["none"],
+        alternative_explanations=["noise"],
+        reopen_conditions=["new data"],
+        request_provider_iv=False,
+    )
+    assert report.decision == "SUPPORTED"
+    path = tmp_path / "m2" / "contradictory_evidence.json"
+    assert path.exists()
+    import json
+
+    assert json.loads(path.read_text(encoding="utf-8")) == contra

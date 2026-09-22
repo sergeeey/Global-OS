@@ -1,0 +1,7 @@
+{
+  "goal_id": "goal_f83e6aa7d8034916",
+  "hypothesis_id": "hyp_c6a114685d794244",
+  "statement": "On H-CAT31-3 committed composite rows, nested weighted F-test prefers Var(n)=C/n+D/n² over Var(n)=C/n at α=0.05 with D>0 (H-CAT31-4 Relaxation Map V3).",
+  "decision": "REJECTED",
+  "scientific_claim_accepted": false
+}

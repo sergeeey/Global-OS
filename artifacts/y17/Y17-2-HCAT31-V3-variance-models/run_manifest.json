@@ -1,0 +1,26 @@
+{
+  "mission_id": "Y17-2",
+  "decision": "REJECTED",
+  "files": [
+    "claims.json",
+    "contradictory_evidence.json",
+    "decision.md",
+    "execute_mission.py",
+    "experiments/__pycache__/run_mission.cpython-312.pyc",
+    "experiments/metrics/run.json",
+    "experiments/run_mission.py",
+    "failure_cases.json",
+    "failure_cases.md",
+    "mission.json",
+    "null_results.json",
+    "plan.json",
+    "postmortem.json",
+    "preregistration.json",
+    "reframe.json",
+    "run_manifest.json",
+    "sources.json",
+    "verification.json"
+  ],
+  "recorded_at": "2026-09-22T09:48:36.633096+00:00",
+  "report_id": "rmr_1197312d47be44fb"
+}

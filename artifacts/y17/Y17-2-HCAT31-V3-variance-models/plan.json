@@ -1,0 +1,10 @@
+{
+  "steps": [
+    "PriorWorkReframe: abandon closed H-B7-2/3 transient Rb",
+    "Lock preregistration for H-CAT31 V3 nested models",
+    "Load committed composite + prime Var rows (read-only)",
+    "Fit M0 and M1 with inverse-variance weights",
+    "Nested F-test → decision",
+    "Deterministic verification; provider IV if available else BLOCKED_ENVIRONMENT"
+  ]
+}

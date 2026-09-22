@@ -1,0 +1,11 @@
+{
+  "preserved_nulls": [
+    {
+      "id": "nested_F_not_significant",
+      "p": 0.13957081400408256,
+      "alpha": 0.05,
+      "interpretation": "extra D/n² term not justified at α=0.05 — C/n sufficient under this test"
+    }
+  ],
+  "rule": "GOS-I11"
+}

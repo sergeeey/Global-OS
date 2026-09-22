@@ -1,0 +1,131 @@
+{
+  "config": {
+    "primary_population": "H-CAT31-3 composite committed Var(log(theta/sqrt(n))) rows",
+    "secondary_population": "H-CAT31-4 prime rows (descriptive wall-off)",
+    "models": {
+      "M0": "Var = C/n",
+      "M1": "Var = C/n + D/n^2"
+    },
+    "primary_test": "nested weighted F-test M1 vs M0",
+    "alpha": 0.05,
+    "weights": "inverse variance of Var_hat (composite: se_rel*var; primes: se_log_var*var)",
+    "sources_read_only": [
+      "/workspace/Y-17-100-gipotez/experiments/20260910-lovasz-theta-variance-scaling-cat31-3/metrics/run.json",
+      "/workspace/Y-17-100-gipotez/experiments/20260919-lovasz-prime-n-variance-cat31-4/metrics/analysis.json"
+    ]
+  },
+  "primary": {
+    "label": "H-CAT31-3_composite",
+    "n_points": 9,
+    "n_values": [
+      32.0,
+      64.0,
+      128.0,
+      256.0,
+      512.0,
+      1024.0,
+      1536.0,
+      2048.0,
+      3000.0
+    ],
+    "vars": [
+      0.11704858018447684,
+      0.054779822923404345,
+      0.03158465860128919,
+      0.015031970955191484,
+      0.00885399609348373,
+      0.005133987284969137,
+      0.0038884078502951815,
+      0.0019364135673114887,
+      0.001808726951667312
+    ],
+    "fit_M0_C_over_n": {
+      "C": 3.9992552715250667,
+      "rss": 16.2565263261911,
+      "r2": 0.9704637666294677,
+      "aic": 7.321428837965639,
+      "bic": 7.518653415301859
+    },
+    "fit_M1_C_over_n_plus_D_over_n2": {
+      "C": 4.3321030284033295,
+      "D": -27.213046580271623,
+      "rss": 11.639199767813196,
+      "r2": 0.9788529164416563,
+      "aic": 6.314387027207182,
+      "bic": 6.7088361818796205
+    },
+    "nested_f": {
+      "F": 2.776933685598038,
+      "p": 0.13957081400408256,
+      "df1": 1,
+      "df2": 7,
+      "delta_rss": 4.617326558377904
+    },
+    "delta_aic_M0_minus_M1": 1.007041810758457
+  },
+  "secondary_walled": {
+    "label": "H-CAT31-4_primes_walled",
+    "n_points": 8,
+    "n_values": [
+      67.0,
+      127.0,
+      251.0,
+      509.0,
+      1021.0,
+      2053.0,
+      3001.0,
+      4093.0
+    ],
+    "vars": [
+      0.05520778108184656,
+      0.03504864718606647,
+      0.018853220608547012,
+      0.009428815640860844,
+      0.00516580725435629,
+      0.003273684647316313,
+      0.0014754209612550019,
+      0.001303670724812707
+    ],
+    "fit_M0_C_over_n": {
+      "C": 4.56548369725595,
+      "rss": 21.07121656913737,
+      "r2": 0.9621565269690536,
+      "aic": 9.747731390947422,
+      "bic": 9.827172932627256
+    },
+    "fit_M1_C_over_n_plus_D_over_n2": {
+      "C": 5.1306130532502365,
+      "D": -94.58408423205482,
+      "rss": 8.534351709735782,
+      "r2": 0.9846724792702741,
+      "aic": 4.517262840013315,
+      "bic": 4.676145923372986
+    },
+    "nested_f": {
+      "F": 8.813931241033693,
+      "p": 0.02499547159457849,
+      "df1": 1,
+      "df2": 6,
+      "delta_rss": 12.536864859401588
+    },
+    "delta_aic_M0_minus_M1": 5.230468550934107
+  },
+  "secondary_agrees_with_primary_direction": true,
+  "decision": "REJECTED",
+  "nulls": [
+    {
+      "id": "nested_F_not_significant",
+      "p": 0.13957081400408256,
+      "alpha": 0.05,
+      "interpretation": "extra D/n² term not justified at α=0.05 — C/n sufficient under this test"
+    }
+  ],
+  "contradictory_evidence": [
+    {
+      "note": "primes: nested F significant but D≤0 (wrong-sign correction)",
+      "secondary_p": 0.02499547159457849,
+      "secondary_D": -94.58408423205482,
+      "rule": "walled descriptive — reinforces REJECTED for positive D/n² claim"
+    }
+  ]
+}

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.39 — 2026-09-22
+
+### Dogfood
+
+- Y17-2 complete: H-CAT31-4 Relaxation Map V3 nested Var models (`C/n` vs `C/n+D/n²`) → **REJECTED**
+  (composite nested F p≈0.140; D̂<0; primes wrong-sign D walled). PriorWorkReframe from closed H-B7-3.
+- Research mission runner: persist `contradictory_evidence.json` from experiment raw output.
+- Artifacts: `artifacts/y17/Y17-2-HCAT31-V3-variance-models/`; Y-17 untouched; provider IV BLOCKED_ENVIRONMENT
+
 ## 0.1.38 — 2026-09-22
 
 ### Dogfood

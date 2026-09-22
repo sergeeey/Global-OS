@@ -1,17 +1,33 @@
 {
   "sprint": "GLOBAL_OS_AUTONOMOUS_HARDENING",
-  "updated_at": "2026-09-22T00:00:00Z",
-  "current_goal": "PHASE_1_AUDIT",
-  "completed": ["Y17-1"],
-  "running": "PHASE_1_AUDIT",
-  "blocked": [],
-  "failures_discovered": [
-    "Y17-FC-001 provider IV BLOCKED_ENVIRONMENT",
-    "Y17-FC-002 no research mission orchestrator",
-    "Y17-FC-003 prior confirmatory required semantic reframe"
+  "updated_at": "2026-09-22T09:50:00Z",
+  "current_goal": "PHASE_5_Y17_3",
+  "completed": [
+    "PHASE_1_AUDIT",
+    "PHASE_2_RESEARCH_ORCHESTRATOR",
+    "Y17-1",
+    "Y17-2",
+    "PHASE_4_Y17_2_FIXES"
   ],
-  "fixes_applied": [],
-  "tests_status": "unknown",
-  "commits": ["20d433a"],
-  "next_exact_action": "Write artifacts/hardening/current_state.json; run make lint test"
+  "running": "Y17-3_causal_boolean",
+  "blocked": ["cloud_provider_keys"],
+  "failures_discovered": [
+    "Y17-FC-001",
+    "Y17-FC-002",
+    "Y17-FC-003",
+    "Y17-2-FC-PRIOR-CLOSED",
+    "Y17-2-FC-IV"
+  ],
+  "fixes_applied": [
+    "research.mission_runner with BLOCKED_ENVIRONMENT provider IV",
+    "PriorWorkReframe artifact support",
+    "persist contradictory_evidence.json from experiment raw"
+  ],
+  "tests_status": "research_mission+y17_2_6_passed; full_suite_pending",
+  "commits_pending": ["dogfood: complete Y17-2", "fix: persist contradictory evidence"],
+  "scientific": {
+    "Y17-1": "SUPPORTED",
+    "Y17-2": "REJECTED (nested F p=0.140; D_hat<0; primes wrong-sign D walled)"
+  },
+  "next_exact_action": "Y17-3 causal Boolean independent recompute of H-B7-2 do(Rb=0) via research runner (generality; PriorWorkReframe=independent verification)"
 }

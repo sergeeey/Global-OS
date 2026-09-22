@@ -12,8 +12,10 @@
 - [x] **Y17-1:** confirmatory Fisher replication (H-B2-1n lineage) on seeds 400–459 → **SUPPORTED**
 - [x] Artifacts under `artifacts/y17/Y17-1-HB2-1n-confirmatory/` (provider IV = BLOCKED_ENVIRONMENT)
 - [x] Failure cases Y17-FC-001..003 recorded
-- [ ] Next Y17 mission (new unfinished hypothesis; or local-keys IV replay of Y17-1)
-- [ ] Minimal Global OS fixes only if a later mission is blocked
+- [x] **Y17-2:** H-CAT31-V3 nested Var models → **REJECTED**; PriorWorkReframe from closed H-B7-3
+- [x] Orchestrator: persist contradictory_evidence.json (regression tests)
+- [ ] Y17-3 different class (prefer causal Boolean) + org A/B datapoint
+- [ ] Docs drift consistency gate if warranted
 
 ## Paused — M1.5 durability (do not start 48h now)
 

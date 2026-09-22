@@ -1,0 +1,15 @@
+{
+  "mission_id": "Y17-2",
+  "goal_id": "goal_f83e6aa7d8034916",
+  "hypothesis_id": "hyp_c6a114685d794244",
+  "status": "COMPLETED",
+  "reframe": {
+    "discovered_prior_id": "H-B7-3",
+    "original_intent": "Y17-2 transient Rb after permanent clamp (H-B7-2 Relaxation Map)",
+    "reframed_intent": "H-CAT31-4 Relaxation Map V3 nested Var model comparison",
+    "rationale": "H-B7-2 permanent clamp and H-B7-3 transient Rb already CLOSED in Y-17 (H-B7-3 TASK_INFEASIBLE for strict Kauffman test in Fauré model). Per mission criteria: choose another unfinished hypothesis, different class from Y17-1 Fisher confirmatory. V3 is named unfinished next step with local committed materials and null-capable nested F-test."
+  },
+  "created_at": "2026-09-22T09:48:36.629832+00:00",
+  "decision": "REJECTED",
+  "completed_at": "2026-09-22T09:48:36.632363+00:00"
+}

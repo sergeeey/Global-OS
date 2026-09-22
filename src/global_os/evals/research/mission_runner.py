@@ -187,6 +187,14 @@ def run_research_mission(
 
     decision, nulls = decide_fn(raw)
     _write(root / "null_results.json", {"preserved_nulls": nulls, "rule": "GOS-I11"})
+    # Promote optional experiment fields to top-level artifacts (Y17-2 lesson).
+    if isinstance(raw, dict) and raw.get("contradictory_evidence") is not None:
+        _write(root / "contradictory_evidence.json", raw["contradictory_evidence"])
+    if isinstance(raw, dict) and raw.get("independent_verification_status") is not None:
+        _write(
+            root / "independent_verification_status.json",
+            raw["independent_verification_status"],
+        )
 
     det_status, det_checks = deterministic_verify_fn(raw)
     prov_status, prov_detail, keys = ("NOT_REQUESTED", "", live_keys_present())
@@ -252,6 +260,11 @@ def run_research_mission(
         "null_results_preserved": True,
         "provider_iv": prov_status,
         "reframe_applied": reframe is not None,
+        "decision": decision,
+        "deterministic_verification": det_status,
+        "contradictory_evidence_recorded": bool(
+            isinstance(raw, dict) and raw.get("contradictory_evidence")
+        ),
         "recorded_at": _now(),
     }
     _write(root / "postmortem.json", postmortem)

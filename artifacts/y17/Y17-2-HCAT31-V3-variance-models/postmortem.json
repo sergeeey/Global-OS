@@ -1,0 +1,11 @@
+{
+  "real_evidence_found": true,
+  "sources_invented": false,
+  "null_results_preserved": true,
+  "provider_iv": "BLOCKED_ENVIRONMENT",
+  "reframe_applied": true,
+  "decision": "REJECTED",
+  "deterministic_verification": "PASS",
+  "contradictory_evidence_recorded": true,
+  "recorded_at": "2026-09-22T09:48:36.632230+00:00"
+}

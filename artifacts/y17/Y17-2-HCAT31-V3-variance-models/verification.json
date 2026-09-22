@@ -1,0 +1,18 @@
+{
+  "deterministic_status": "PASS",
+  "deterministic_checks": [
+    "nested F p in [0,1]",
+    "M1 RSS <= M0 RSS",
+    "decision matches prereg rule",
+    "M0 C positive finite"
+  ],
+  "provider_status": "BLOCKED_ENVIRONMENT",
+  "provider_detail": "no OPENROUTER/GROQ/GEMINI keys — deterministic verification only",
+  "live_keys": {
+    "openai": false,
+    "anthropic": false,
+    "openrouter": false,
+    "groq": false,
+    "gemini": false
+  }
+}

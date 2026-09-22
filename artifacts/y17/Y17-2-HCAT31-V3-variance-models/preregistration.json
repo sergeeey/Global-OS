@@ -1,0 +1,35 @@
+{
+  "mission_id": "Y17-2",
+  "preregistered_before_data": true,
+  "hypothesis": "On H-CAT31-3 committed composite rows, nested weighted F-test prefers Var(n)=C/n+D/n² over Var(n)=C/n at α=0.05 with D>0 (H-CAT31-4 Relaxation Map V3).",
+  "primary_outcome": "nested_F p-value and sign of D_hat",
+  "test": "weighted nested F-test (M1 vs M0), α=0.05",
+  "null": "M0 Var=C/n is adequate (extra D/n² not justified)",
+  "alpha": 0.05,
+  "threshold": {
+    "p_F": 0.05,
+    "D_sign": "positive"
+  },
+  "kill_criterion": "REJECTED if nested F p>=0.05 OR (p<0.05 and D_hat<=0). Do not upgrade using prime secondary rows.",
+  "seed_data_policy": "READ-ONLY reuse of committed Y-17 metrics (no fresh LP seeds). Primary=H-CAT31-3 composite; secondary=H-CAT31-4 primes walled off.",
+  "stopping_rule": "Single locked analysis on pre-declared rows; no iterative model shopping.",
+  "prohibited_post_hoc_changes": [
+    "Do not change α after seeing p",
+    "Do not switch primary population to primes after composite fails",
+    "Do not replace nested F with R² beauty contest",
+    "Do not claim asymptotic proof of C/n+D/n² law"
+  ],
+  "primary_criterion": {
+    "statistic": "nested_F_p_and_D_sign",
+    "alpha": 0.05,
+    "decision_rule": {
+      "SUPPORTED": "p_F < 0.05 AND D_hat > 0",
+      "REJECTED": "otherwise"
+    }
+  },
+  "secondary_descriptive_only": [
+    "prime nested F",
+    "delta AIC",
+    "secondary agreement flag"
+  ]
+}
