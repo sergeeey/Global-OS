@@ -10,9 +10,9 @@
 - [x] Free model pins updated (Nemotron 550b / gpt-oss-120b / gemini-3.6-flash)
 - [x] `run_hrsn_measured` + scheduled 48h soak runner
 - [x] ENV-REAL-001 recorded (Cloud Agent ≠ local secrets; route via My Machines)
-- [ ] Set free keys locally (see `.env.example`; Windows: keep under `secret\.env`, never commit)
-- [ ] Prefer Cursor **My Machines** worker for live smoke (Cloud VM cannot see `E:\`)
-- [ ] 3-provider live smoke + live H-ENV JSON artifacts
+- [x] 3-provider live smoke PASS (OpenRouter + Groq + Gemini, cost=0; keys stay local)
+- [ ] Persist OpenRouter `sk-or-v1-` in `secret\.env` + `C:\Users\serge\.env` (survive PS restart)
+- [ ] Live H-ENV JSON → `artifacts/live-evals/` (Reality Contact; not scientific confirmation)
 - [ ] Live `run_hrsn_measured` on pinned free models
 - [ ] Wall-clock 48h schedule (`GOS_REQUIRE_48H=1`) after live paths stable
 
