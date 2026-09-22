@@ -1,6 +1,6 @@
 {
-  "taxonomy_version": "0.3.0",
-  "updated_at": "2026-09-22T13:45:00Z",
+  "taxonomy_version": "0.3.1",
+  "updated_at": "2026-09-22T14:20:00Z",
   "rule": "classify every mission failure; fix only recurring/high-impact/generalizable/testable",
   "subsystem_gate": "artifacts/hardening/DEVELOPMENT_RULES_DOGFOOD.md",
   "cases": [
@@ -55,8 +55,9 @@
   ],
   "not_bugs": [
     "Y17-2 scientific REJECTED (null preserved)",
-    "org A/B INCONCLUSIVE_REAL_SAMPLE_TOO_SMALL at N<5",
-    "Y17-5 SUPPORTED is holdout skill vs baseline — not proof of general forecasting"
+    "org A/B N=5 PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED (same_decision=1, B info_loss=1 — not org superiority)",
+    "Y17-5 SUPPORTED is holdout skill vs baseline — not proof of general forecasting",
+    "provider IV still BLOCKED_ENVIRONMENT in cloud (honest, not fabricated)"
   ],
   "continual_improvement_question": {
     "status": "NOT_MEASURED",

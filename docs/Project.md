@@ -30,9 +30,10 @@ Goal Contract · Epistemic Kernel · Durable Runtime · Authority Kernel · Dyna
 - **Active mode:** dogfood — `Y17 mission → GlobalOS → failure → fix → replay` (M1.5 = IN PROGRESS; 48h paused)
 - **Y17-1..Y17-5** done across Fisher / model-selection / causal / RMT / **forecasting-holdout**
 - **Provider IV:** cloud BLOCKED; local ≥2 free keys still required for `unblocked: true`
-- **Org A/B** N=3: INCONCLUSIVE_REAL_SAMPLE_TOO_SMALL (H-ORG not claimed)
+- **Stage:** Empirical Hardening / Real-World Dogfood Phase
+- **Org A/B** N=5: PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED (decomposability HIGH/MED/LOW; H-ORG not claimed)
 - **Subsystem gate** + continual-improvement question: NOT_MEASURED
-- **Next:** local IV → grow org N≥5–6 → 48h as persistent research program
+- **Next:** local IV (`unblocked: true`) → optional org N=6+ → 48h persistent research program
 - DoD V2 / M1.5 closed / PRODUCTION_PROVEN **не заявлены**
 
 ## Документы

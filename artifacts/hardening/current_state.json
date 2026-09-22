@@ -1,6 +1,7 @@
 {
   "audit_at": "2026-09-22",
   "rule": "claim ≠ implementation ≠ test ≠ runtime evidence",
+  "stage": "Empirical Hardening / Real-World Dogfood Phase",
   "VERIFIED": [
     "goal_contract_immutable",
     "event_ledger_append_only",
@@ -9,14 +10,20 @@
     "hypothesis_lifecycle",
     "environment_compiler_deterministic",
     "operator_live_smoke_3_providers_local_windows",
-    "Y17-1_deterministic_fisher_replication_SUPPORTED"
+    "Y17-1_deterministic_fisher_replication_SUPPORTED",
+    "Y17-2_nested_var_REJECTED_null_preserved",
+    "Y17-3_causal_boolean_SUPPORTED",
+    "Y17-4_rmt_goe_SUPPORTED",
+    "Y17-5_forecast_holdout_SUPPORTED",
+    "org_ab_N5_patterns_observable_H_ORG_not_claimed"
   ],
   "PARTIAL": [
     "DoD_V2_closed=false_5_PARTIAL_items",
     "H-ENV_ladder_live_artifacts_but_levels_B_E_prompt_conditioned",
     "H-RSN_measured_micro_tasks_not_long_horizon",
     "multi_provider_verification_harness_ok_cloud_keys_absent",
-    "goal_integrity_soak_accelerated_not_wall_48h"
+    "goal_integrity_soak_accelerated_not_wall_48h",
+    "org_ab_decomposability_patterns_only_N5"
   ],
   "SYNTHETIC": [
     "summarize_h_env_001_default_harness",
@@ -26,17 +33,20 @@
   "BLOCKED": [
     "cloud_VM_live_provider_keys_absent",
     "wall_clock_48h_paused_by_policy",
-    "independent_provider_IV_on_Y17-1_BLOCKED_ENVIRONMENT",
+    "independent_provider_IV_unblocked_false",
     "Windows_local_path_access_from_cloud_agent"
   ],
   "STALE": [
-    "docs/IMPLEMENTATION_STATUS.md_pytest_count_143_may_lag",
+    "docs/IMPLEMENTATION_STATUS.md_pytest_count_may_lag",
     "README_may_understate_dogfood_mode_switch"
   ],
-  "y17_1_failure_cases": [
-    {"id": "Y17-FC-001", "class": "ENVIRONMENT_GAP", "title": "provider IV blocked without keys"},
-    {"id": "Y17-FC-002", "class": "ARCHITECTURE_GAP", "title": "no research mission orchestrator"},
-    {"id": "Y17-FC-003", "class": "RESEARCH_METHOD_GAP", "title": "prior confirmatory required reframe"}
-  ],
-  "not_claimed": ["M1.5_complete", "DoD_V2_complete", "PRODUCTION_PROVEN", "H-ENV_confirmed", "H-ORG_supported"]
+  "continual_improvement": "NOT_MEASURED",
+  "not_claimed": [
+    "M1.5_complete",
+    "DoD_V2_complete",
+    "PRODUCTION_PROVEN",
+    "H-ENV_confirmed",
+    "H-ORG_supported",
+    "continual_self_improvement"
+  ]
 }

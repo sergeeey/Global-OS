@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.43 — 2026-09-22
+
+### Dogfood
+
+- Provider IV rechecked again: cloud still `BLOCKED_ENVIRONMENT` (`unblocked: false`)
+- Org A/B expanded to **N=5** across Y17-1..Y17-5 with decomposability tags
+  (HIGH: Y17-1/3/5; MEDIUM: Y17-4; LOW: Y17-2) → `PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED`
+  (same_decision=1.0, B information_loss=1.0 — org does not beat single solver yet; H-ORG not claimed)
+- Acceptance: `tests/test_org_ab_dogfood.py`
+- Stage named: Empirical Hardening / Real-World Dogfood; continual-improvement still NOT_MEASURED
+- No 48h; no new architectural subsystems
+
 ## 0.1.42 — 2026-09-22
 
 ### Dogfood

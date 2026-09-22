@@ -1,7 +1,7 @@
 {
   "sprint": "GLOBAL_OS_AUTONOMOUS_HARDENING",
-  "updated_at": "2026-09-22T13:50:00Z",
-  "current_goal": "AWAIT_LOCAL_IV_THEN_GROW_ORG",
+  "updated_at": "2026-09-22T14:20:00Z",
+  "current_goal": "AWAIT_LOCAL_IV_THEN_EXPAND_ORG_OR_48H",
   "completed": [
     "PHASE_1_AUDIT",
     "PHASE_2_RESEARCH_ORCHESTRATOR",
@@ -11,7 +11,7 @@
     "Y17-4",
     "Y17-5",
     "PROVIDER_IV_REPLAY_SCAFFOLD",
-    "ORG_AB_DATASET_N3",
+    "ORG_AB_DATASET_N5",
     "SUBSYSTEM_GATE_RULE",
     "FAILURE_TAXONOMY_V3"
   ],
@@ -32,7 +32,8 @@
     "contradictory_evidence persistence",
     "provider_iv_replay harness",
     "subsystem creation gate (dogfood rules)",
-    "forecasting holdout protocol for predictive missions"
+    "forecasting holdout protocol for predictive missions",
+    "org A/B decomposability stratification N=5"
   ],
   "scientific": {
     "Y17-1": "SUPPORTED",
@@ -43,13 +44,22 @@
   },
   "provider_iv_replay": {
     "cloud_status": "all_still_blocked",
+    "any_live_iv": false,
+    "unblocked": false,
     "operator_action": "PYTHONPATH=src python3 -m global_os.evals.research.provider_iv_replay with ≥2 free keys"
   },
   "org_ab": {
-    "n_tasks": 3,
-    "verdict": "INCONCLUSIVE_REAL_SAMPLE_TOO_SMALL",
-    "artifact": "artifacts/hardening/org_ab_dataset.json"
+    "n_tasks": 5,
+    "verdict": "PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED",
+    "decomposability": {
+      "HIGH": ["Y17-1", "Y17-3", "Y17-5"],
+      "MEDIUM": ["Y17-4"],
+      "LOW": ["Y17-2"]
+    },
+    "artifact": "artifacts/hardening/org_ab_dataset.json",
+    "scientific_claim_accepted": false
   },
+  "stage": "Empirical Hardening / Real-World Dogfood Phase",
   "continual_improvement": "NOT_MEASURED",
-  "next_exact_action": "Local live provider-IV (≥2 keys). Then grow org A/B to N≥5–6 across decomposable vs non-decomposable tasks. Do NOT start 48h yet. Do NOT claim continual self-improvement."
+  "next_exact_action": "Local live provider-IV (≥2 free keys) → unblocked:true. Optionally grow org A/B to N=6+ with token costs. Do NOT start 48h yet. Do NOT claim continual self-improvement or H-ORG."
 }

@@ -23,9 +23,10 @@
 - [x] Subsystem gate rule (dogfood development rules)
 - [x] **Y17-5:** forecasting holdout ω→M1 vs mean baseline → **SUPPORTED** (ratio≈0.819)
 - [x] Org A/B N=3 → still INCONCLUSIVE; continual-improvement NOT_MEASURED
-- [ ] Local (≥2 free keys) live provider-IV replay
-- [ ] Grow org sample to ≥5–6 before any H-ORG claim
-- [ ] 48h persistent research program (later)
+- [x] Org A/B N=5 + decomposability stratification → PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED
+- [ ] Local (≥2 free keys) live provider-IV replay → `unblocked: true`
+- [ ] Optionally grow org sample to N=6+ with token costs (H-ORG still not claimed)
+- [ ] 48h persistent research program (later; after local IV)
 
 ## Paused — M1.5 durability (do not start 48h now)
 

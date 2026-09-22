@@ -1,8 +1,88 @@
 {
-  "n_tasks": 3,
+  "n_tasks": 5,
   "tasks": [
     {
+      "task": "Y17-1 Fisher confirmatory slices",
+      "class": "statistics_fisher",
+      "decomposability": "HIGH",
+      "A": {
+        "mode": "A_single_solver",
+        "wall_s": 0.0004347359936218709,
+        "completion": true,
+        "decision": "SUPPORTED",
+        "escaped_errors": 0,
+        "duplicate_work": 0,
+        "information_loss": false,
+        "human_intervention": 0,
+        "evidence_integrity": true,
+        "tokens_cost": null,
+        "fisher_p": 8.074518405962517e-10,
+        "source": "locked_metrics_recompute"
+      },
+      "B": {
+        "mode": "B_manager_specialized_workers",
+        "wall_s": 0.00019518599583534524,
+        "completion": true,
+        "decision": "SUPPORTED",
+        "escaped_errors": 0,
+        "duplicate_work": 0,
+        "information_loss": true,
+        "human_intervention": 0,
+        "evidence_integrity": true,
+        "tokens_cost": null,
+        "handoffs": 6,
+        "n_workers": 5,
+        "fisher_p": 8.074518405962517e-10,
+        "note": "per-n_dim workers \u2192 manager Fisher; manager lacks rho/per_seed"
+      },
+      "comparison": {
+        "same_decision": true,
+        "wall_ratio_B_over_A": 0.4489759272270336,
+        "B_more_duplicate_work": false,
+        "B_information_loss_flag": true
+      }
+    },
+    {
+      "task": "Y17-2 nested Var model selection",
+      "class": "model_selection",
+      "decomposability": "LOW",
+      "A": {
+        "mode": "A_single_solver",
+        "wall_s": 0.0010641269982443191,
+        "completion": true,
+        "decision": "REJECTED",
+        "escaped_errors": 0,
+        "duplicate_work": 0,
+        "information_loss": false,
+        "human_intervention": 0,
+        "evidence_integrity": true,
+        "tokens_cost": null
+      },
+      "B": {
+        "mode": "B_manager_specialized_workers",
+        "wall_s": 0.0002467200029059313,
+        "completion": true,
+        "decision": "REJECTED",
+        "escaped_errors": 0,
+        "duplicate_work": 1,
+        "information_loss": true,
+        "human_intervention": 0,
+        "evidence_integrity": true,
+        "tokens_cost": null,
+        "handoffs": 5,
+        "note": "sequential M0\u2192M1\u2192F via staged WLS; low decomposability"
+      },
+      "comparison": {
+        "same_decision": true,
+        "wall_ratio_B_over_A": 0.2318520282945452,
+        "B_more_duplicate_work": true,
+        "B_information_loss_flag": true
+      }
+    },
+    {
       "task": "Y17-3 permanent-clamp Boolean recompute",
+      "class": "causal_boolean",
+      "decomposability": "HIGH",
       "A": {
         "mode": "A_single_solver",
         "wall_s": 0.5994413129956229,
@@ -54,9 +134,11 @@
     },
     {
       "task": "Y17-4 B2 GOE-spacing",
+      "class": "cross_domain_rmt",
+      "decomposability": "MEDIUM",
       "A": {
         "mode": "A_single_solver",
-        "wall_s": 0.46150654400116764,
+        "wall_s": 0.006138696997368243,
         "completion": true,
         "decision": "SUPPORTED",
         "escaped_errors": 0,
@@ -68,27 +150,32 @@
       },
       "B": {
         "mode": "B_manager_specialized_workers",
-        "wall_s": 0.0057213649997720495,
+        "wall_s": 0.005757418999564834,
         "completion": true,
         "decision": "SUPPORTED",
         "escaped_errors": 0,
-        "duplicate_work": 1,
+        "duplicate_work": 0,
         "information_loss": true,
         "human_intervention": 0,
         "evidence_integrity": true,
         "tokens_cost": null,
-        "note": "worker stages duplicate full compute; manager compares decisions only"
+        "handoffs": 4,
+        "note": "controls \u2225 spectra workers; manager decides from summaries"
       },
       "comparison": {
         "same_decision": true,
-        "wall_ratio_B_over_A": 0.012397148153456246
+        "wall_ratio_B_over_A": 0.9378894253997438,
+        "B_more_duplicate_work": false,
+        "B_information_loss_flag": true
       }
     },
     {
       "task": "Y17-5 omega forecast holdout",
+      "class": "forecasting_holdout",
+      "decomposability": "HIGH",
       "A": {
         "mode": "A_single_solver",
-        "wall_s": 1.5264176450000377,
+        "wall_s": 1.5632464329974027,
         "completion": true,
         "decision": "SUPPORTED",
         "escaped_errors": 0,
@@ -100,48 +187,89 @@
       },
       "B": {
         "mode": "B_manager_specialized_workers",
-        "wall_s": 1.4931670580044738,
+        "wall_s": 1.591130182001507,
         "completion": true,
         "decision": "SUPPORTED",
         "escaped_errors": 0,
-        "duplicate_work": 1,
+        "duplicate_work": 0,
         "information_loss": true,
         "human_intervention": 0,
         "evidence_integrity": true,
         "tokens_cost": null,
-        "note": "worker stages duplicate full compute; manager compares decisions only"
+        "handoffs": 4,
+        "hold_ratio": 0.8194796098435013,
+        "note": "train\u2192fit\u2192hold\u2192eval handoffs; natural pipeline decomposition"
       },
       "comparison": {
         "same_decision": true,
-        "wall_ratio_B_over_A": 0.9782165863291216
+        "wall_ratio_B_over_A": 1.0178370782849888,
+        "B_more_duplicate_work": false,
+        "B_information_loss_flag": true
       }
     }
   ],
   "by_task": {
+    "Y17-1 Fisher confirmatory slices": {
+      "same_decision": true,
+      "B_info_loss": true,
+      "wall_ratio": 0.4489759272270336,
+      "decomposability": "HIGH",
+      "class": "statistics_fisher"
+    },
+    "Y17-2 nested Var model selection": {
+      "same_decision": true,
+      "B_info_loss": true,
+      "wall_ratio": 0.2318520282945452,
+      "decomposability": "LOW",
+      "class": "model_selection"
+    },
     "Y17-3 permanent-clamp Boolean recompute": {
       "same_decision": true,
       "B_info_loss": true,
-      "wall_ratio": 0.9913553656086199
+      "wall_ratio": 0.9913553656086199,
+      "decomposability": "HIGH",
+      "class": "causal_boolean"
     },
     "Y17-4 B2 GOE-spacing": {
       "same_decision": true,
       "B_info_loss": true,
-      "wall_ratio": 0.012397148153456246
+      "wall_ratio": 0.9378894253997438,
+      "decomposability": "MEDIUM",
+      "class": "cross_domain_rmt"
     },
     "Y17-5 omega forecast holdout": {
       "same_decision": true,
       "B_info_loss": true,
-      "wall_ratio": 0.9782165863291216
+      "wall_ratio": 1.0178370782849888,
+      "decomposability": "HIGH",
+      "class": "forecasting_holdout"
     }
+  },
+  "by_decomposability": {
+    "HIGH": [
+      "Y17-1 Fisher confirmatory slices",
+      "Y17-3 permanent-clamp Boolean recompute",
+      "Y17-5 omega forecast holdout"
+    ],
+    "LOW": [
+      "Y17-2 nested Var model selection"
+    ],
+    "MEDIUM": [
+      "Y17-4 B2 GOE-spacing"
+    ]
   },
   "aggregate": {
     "same_decision_rate": 1.0,
-    "mean_wall_ratio_B_over_A": 0.6606563666970658,
+    "mean_wall_ratio_B_over_A": 0.7255819649629862,
     "B_information_loss_rate": 1.0,
-    "B_duplicate_work_rate": 1.0
+    "B_duplicate_work_rate": 0.4
   },
-  "verdict": "INCONCLUSIVE_REAL_SAMPLE_TOO_SMALL",
+  "pattern_notes": [
+    "HIGH n=3: same_decision=3/3; B still shows information_loss on summary handoffs",
+    "LOW n=1: specialization does not remove sequential fit dependence; same_decision=1/1"
+  ],
+  "verdict": "PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED",
   "scientific_claim_accepted": false,
-  "note": "N=3 (<5). Do not claim H-ORG. Look for decomposability patterns only after N\u22655\u20136.",
-  "decomposability_hypothesis": "Manager+workers may help only when stages are independently verifiable; not testable at current N."
+  "note": "N=5 (\u22655). Decomposability patterns inspectable; do NOT claim H-ORG supported. Need larger multi-class sample + token costs before any org superiority claim.",
+  "decomposability_hypothesis": "Manager+workers may help only when stages are independently verifiable (HIGH). On LOW (sequential nested fit), B adds handoff/info-loss cost without decision gain. Current sample shows same_decision\u22481 with B information_loss\u22481 \u2014 org does not yet beat single solver on these deterministic research pipelines."
 }
