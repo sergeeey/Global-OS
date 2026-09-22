@@ -1,0 +1,6 @@
+{
+  "discovered_prior_id": "catalog:network-phase-transition",
+  "original_intent": "Rigorous Markov-switching nonlinear network theory",
+  "reframed_intent": "Finite-n ER giant-component p50 vs 1/n band check",
+  "rationale": "Full nonlinear switching theory is open; ER threshold is a clean network dogfood probe"
+}

@@ -1,0 +1,8 @@
+{
+  "steps": [
+    "Lock RPS payoff, T, seeds, MCID, pure baseline",
+    "Run FP vs PURE exploitability ensemble",
+    "Decide vs MCID; persist null/contradictory",
+    "Deterministic verify"
+  ]
+}

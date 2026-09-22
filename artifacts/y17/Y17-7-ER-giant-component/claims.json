@@ -1,0 +1,7 @@
+{
+  "goal_id": "goal_e3a23b196e424490",
+  "hypothesis_id": "hyp_6dc3b972095844a8",
+  "statement": "For Erdős–Rényi G(n=200,p), the empirical p50 where Prob(|LCC|/n≥0.5)=0.5 lies within relative error 0.35 of the theoretical threshold p_c=1/n.",
+  "decision": "REJECTED",
+  "scientific_claim_accepted": false
+}

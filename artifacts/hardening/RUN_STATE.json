@@ -1,50 +1,60 @@
 {
   "sprint": "EMPIRICAL_HARDENING_POST_LIVE_IV",
-  "updated_at": "2026-09-22T16:05:00Z",
-  "current_goal": "Y17_6_7_AND_ORG_N7",
+  "updated_at": "2026-09-22T16:40:00Z",
+  "current_goal": "PREPARE_48H_PERSISTENT_PROGRAM_LATER",
   "completed": [
     "M14_TRUST_BOUNDARY",
     "CI_GREEN_MAIN",
+    "LIVE_PROVIDER_IV_LOCAL_UNBLOCKED",
     "Y17-1",
     "Y17-2",
     "Y17-3",
     "Y17-4",
     "Y17-5",
-    "ORG_AB_DATASET_N5",
-    "LIVE_PROVIDER_IV_LOCAL_UNBLOCKED"
+    "Y17-6",
+    "Y17-7",
+    "ORG_AB_DATASET_N7",
+    "ARTIFACT_FIRST_HANDOFF_FIX"
   ],
-  "running": "Y17-6_Y17-7_ORG_EXPAND",
+  "running": null,
   "blocked": [],
-  "stage": "Empirical Hardening — live IV closed; new mission classes",
+  "stage": "Empirical Hardening — 7 missions; live IV closed; next=48h prep",
   "continual_improvement": "NOT_MEASURED",
   "provider_iv_replay": {
-    "cloud_status": "not_required",
     "any_live_iv": true,
     "all_still_blocked": false,
     "unblocked": true,
     "provenance": "operator_local_windows_confirmed",
     "missions": ["Y17-1", "Y17-2"]
   },
-  "org_ab": {
-    "n_tasks": 5,
-    "verdict": "PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED",
-    "scientific_claim_accepted": false
-  },
   "scientific": {
     "Y17-1": "SUPPORTED",
     "Y17-2": "REJECTED",
     "Y17-3": "SUPPORTED",
     "Y17-4": "SUPPORTED",
-    "Y17-5": "SUPPORTED"
+    "Y17-5": "SUPPORTED",
+    "Y17-6": "SUPPORTED (FP exploit ratio≈0.046 ≤ 0.25 vs pure Rock)",
+    "Y17-7": "REJECTED (ER p50 rel_err≈0.418 > 0.35 finite-n)"
   },
-  "next_exact_action": "Y17-6 + Y17-7 distinct classes → Org N≥7 → classify recurring handoff info_loss. No keys. No 48h. H-ORG NOT_CLAIMED. Continual SI NOT_MEASURED.",
+  "org_ab": {
+    "n_tasks": 7,
+    "verdict": "PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED",
+    "B_information_loss_rate": 0.714,
+    "artifact_first_handoff": ["Y17-6", "Y17-7"],
+    "scientific_claim_accepted": false
+  },
+  "failures_recurring": [
+    {
+      "id": "ORG-FC-HANDOFF-INFOLOSS",
+      "fix": "artifact_handoff on Y17-6/7; legacy summary loss remains on earlier tasks"
+    }
+  ],
+  "next_exact_action": "Do NOT re-touch keys. Prepare (not start) 48h persistent research program. H-ORG NOT_CLAIMED. Continual SI NOT_MEASURED. M1.5 not claimed.",
   "forbidden_now": [
-    "48h_run",
+    "48h_run_now",
     "re_run_provider_keys",
     "H_ORG_claim",
     "continual_SI_claim",
-    "M1.5_claim",
-    "Preference_Ledger",
-    "VOI"
+    "M1.5_claim"
   ]
 }

@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.45 — 2026-09-22
+
+### Dogfood (post live Provider IV)
+
+- **Live Provider IV** recorded: `any_live_iv=true`, Y17-1/Y17-2 `LIVE_PROVIDER_IV`,
+  `delta.unblocked=true` (operator Windows; no cloud API re-calls)
+- **Y17-6** game-theoretic RPS fictitious play vs pure-Rock → **SUPPORTED** (ratio≈0.046 ≤ 0.25)
+- **Y17-7** ER giant-component p50 vs 1/n → **REJECTED** (rel_err≈0.418 > 0.35; finite-n shift preserved)
+- Org A/B **N=7**; artifact-first handoff fix for recurring `information_loss` on Y17-6/7
+  (`evals.organization.artifact_handoff`); B info_loss rate 1.0 → ≈0.71
+- Wall times recorded; token/provider costs null (deterministic missions)
+- H-ORG still NOT_CLAIMED; continual SI NOT_MEASURED; no 48h; keys not re-touched
+
 ## 0.1.44 — 2026-09-22
 
 ### M1.4 Trust Boundary Hardening (ADR-0010)

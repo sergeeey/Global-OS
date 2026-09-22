@@ -1,0 +1,15 @@
+{
+  "mission_id": "Y17-6",
+  "goal_id": "goal_5c60e0fd394146c7",
+  "hypothesis_id": "hyp_6e4d2c1dbef4422a",
+  "status": "COMPLETED",
+  "reframe": {
+    "discovered_prior_id": "catalog:#13-nash-zero-sum",
+    "original_intent": "Instance-dependent Nash sample complexity (full open problem)",
+    "reframed_intent": "Finite-T FP vs pure baseline exploitability on RPS",
+    "rationale": "Full #13 is open; this is a computable dogfood probe of learning dynamics"
+  },
+  "created_at": "2026-09-22T16:11:59.442024+00:00",
+  "decision": "SUPPORTED",
+  "completed_at": "2026-09-22T16:11:59.738928+00:00"
+}

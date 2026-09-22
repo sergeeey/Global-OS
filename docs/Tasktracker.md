@@ -6,25 +6,21 @@
 - [x] Incident system + DoD V2 evidence gate + dogfooding mission (no auto-merge)
 - [x] Free pins + measured H-RSN + scheduled soak runner
 - [x] Operator live smoke + live H-ENV/H-RSN JSON (claim=false; M1.5 stays IN PROGRESS)
+- [x] M1.4 Trust Boundary Hardening + CI green
+- [x] Local live Provider IV ≥2 → `unblocked: true` (operator Windows evidence)
+- [x] Y17-1..Y17-7 real dogfood missions
+- [x] Org A/B N=7 + artifact-first handoff fix for recurring info_loss
 
-## Active mode — M1.4 Trust Boundary Hardening (before more dogfood/48h)
+## Active mode — Empirical Hardening (post live IV)
 
-- [x] CI: remove `/workspace` abs paths; numpy/scipy `[research]`; lockfile; Temporal CLI pin
-- [x] Proposal-bound ExecutionToken + Gateway verify
-- [x] Ledger: no raw bearer (token_id/hash only)
-- [x] ApprovalService.verify_and_consume on Authority path
-- [x] Immutable claims/evidence + cold-restart epistemic restore
-- [x] Effect reconciliation statuses (GOS-I13)
-- [x] ADR-0010 + ROADMAP M1.4
-- [x] CI green on `main` (evidence: 4ebd062)
-- [ ] Local (≥2 free keys) live provider-IV → `unblocked: true`
-- [ ] Y17-6/7 + Org N↑ with token/cost (H-ORG still not claimed)
-- [ ] 48h persistent research program (only after M1.4 + local IV)
+- [ ] Prepare 48h persistent research program (not started)
+- [ ] Continual SI holdout measurement (still NOT_MEASURED)
+- [ ] H-ORG claim only after larger multi-class + token costs
 
 ## Paused — M1.5 durability (do not start 48h now)
 
 - [ ] Persist OpenRouter `sk-or-v1-` across PS restart
-- [ ] Wall-clock 48h (`GOS_REQUIRE_48H=1`) later — durability proof, not blocking dogfood
+- [ ] Wall-clock 48h (`GOS_REQUIRE_48H=1`) later — durability proof
 
 ## After usable Y-17 missions
 

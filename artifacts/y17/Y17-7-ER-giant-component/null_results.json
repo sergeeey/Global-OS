@@ -1,0 +1,12 @@
+{
+  "preserved_nulls": [
+    {
+      "id": "p50_far_from_theory",
+      "p50": 0.0070875,
+      "p_c": 0.005,
+      "rel_err": 0.4175,
+      "rel_tol": 0.35
+    }
+  ],
+  "rule": "GOS-I11"
+}

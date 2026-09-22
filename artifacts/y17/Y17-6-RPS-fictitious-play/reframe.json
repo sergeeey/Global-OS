@@ -1,0 +1,6 @@
+{
+  "discovered_prior_id": "catalog:#13-nash-zero-sum",
+  "original_intent": "Instance-dependent Nash sample complexity (full open problem)",
+  "reframed_intent": "Finite-T FP vs pure baseline exploitability on RPS",
+  "rationale": "Full #13 is open; this is a computable dogfood probe of learning dynamics"
+}

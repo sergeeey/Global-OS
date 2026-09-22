@@ -12,7 +12,7 @@ DATASET = ROOT / "artifacts" / "hardening" / "org_ab_dataset.json"
 def test_org_ab_dataset_n_at_least_5_with_decomposability():
     assert DATASET.exists(), "org_ab_dataset.json missing — run artifacts/hardening/run_org_ab_dataset.py"
     report = json.loads(DATASET.read_text(encoding="utf-8"))
-    assert report["n_tasks"] >= 5, f"need N≥5, got {report['n_tasks']}"
+    assert report["n_tasks"] >= 7, f"need N≥7 after Y17-6/7, got {report['n_tasks']}"
     assert report["scientific_claim_accepted"] is False
     assert "H_ORG" not in report["verdict"] or "NOT_CLAIMED" in report["verdict"]
     assert report["verdict"] != "SUPPORTED"

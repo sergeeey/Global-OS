@@ -1,0 +1,7 @@
+{
+  "goal_id": "goal_5c60e0fd394146c7",
+  "hypothesis_id": "hyp_6e4d2c1dbef4422a",
+  "statement": "On rock-paper-scissors zero-sum, fictitious play (T=400, 40 seeds) achieves mean exploitability ≤ 0.25× an always-Rock pure baseline.",
+  "decision": "SUPPORTED",
+  "scientific_claim_accepted": false
+}

@@ -1,0 +1,8 @@
+{
+  "artifact_id": "haf_4c61352373e5465e",
+  "stage": "pure_baseline",
+  "payload": {
+    "mean_exploit_pure": 1.9851116625310172
+  },
+  "content_hash": "sha256:0c9ff2ed6adf9be7ddd821539ae7bd3cccb7f5ddcc24062392305e1f4101a804"
+}

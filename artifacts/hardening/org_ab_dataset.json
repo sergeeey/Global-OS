@@ -1,5 +1,5 @@
 {
-  "n_tasks": 5,
+  "n_tasks": 7,
   "tasks": [
     {
       "task": "Y17-1 Fisher confirmatory slices",
@@ -7,7 +7,7 @@
       "decomposability": "HIGH",
       "A": {
         "mode": "A_single_solver",
-        "wall_s": 0.0004347359936218709,
+        "wall_s": 0.0018703459936659783,
         "completion": true,
         "decision": "SUPPORTED",
         "escaped_errors": 0,
@@ -21,7 +21,7 @@
       },
       "B": {
         "mode": "B_manager_specialized_workers",
-        "wall_s": 0.00019518599583534524,
+        "wall_s": 0.00024443300208076835,
         "completion": true,
         "decision": "SUPPORTED",
         "escaped_errors": 0,
@@ -37,7 +37,7 @@
       },
       "comparison": {
         "same_decision": true,
-        "wall_ratio_B_over_A": 0.4489759272270336,
+        "wall_ratio_B_over_A": 0.13068865488447223,
         "B_more_duplicate_work": false,
         "B_information_loss_flag": true
       }
@@ -48,7 +48,7 @@
       "decomposability": "LOW",
       "A": {
         "mode": "A_single_solver",
-        "wall_s": 0.0010641269982443191,
+        "wall_s": 0.0009795869991648942,
         "completion": true,
         "decision": "REJECTED",
         "escaped_errors": 0,
@@ -60,7 +60,7 @@
       },
       "B": {
         "mode": "B_manager_specialized_workers",
-        "wall_s": 0.0002467200029059313,
+        "wall_s": 0.0002377339988015592,
         "completion": true,
         "decision": "REJECTED",
         "escaped_errors": 0,
@@ -74,7 +74,7 @@
       },
       "comparison": {
         "same_decision": true,
-        "wall_ratio_B_over_A": 0.2318520282945452,
+        "wall_ratio_B_over_A": 0.2426879889220961,
         "B_more_duplicate_work": true,
         "B_information_loss_flag": true
       }
@@ -138,7 +138,7 @@
       "decomposability": "MEDIUM",
       "A": {
         "mode": "A_single_solver",
-        "wall_s": 0.006138696997368243,
+        "wall_s": 0.0062588630098616704,
         "completion": true,
         "decision": "SUPPORTED",
         "escaped_errors": 0,
@@ -150,7 +150,7 @@
       },
       "B": {
         "mode": "B_manager_specialized_workers",
-        "wall_s": 0.005757418999564834,
+        "wall_s": 0.005677819994161837,
         "completion": true,
         "decision": "SUPPORTED",
         "escaped_errors": 0,
@@ -164,7 +164,7 @@
       },
       "comparison": {
         "same_decision": true,
-        "wall_ratio_B_over_A": 0.9378894253997438,
+        "wall_ratio_B_over_A": 0.9071647654239559,
         "B_more_duplicate_work": false,
         "B_information_loss_flag": true
       }
@@ -175,7 +175,7 @@
       "decomposability": "HIGH",
       "A": {
         "mode": "A_single_solver",
-        "wall_s": 1.5632464329974027,
+        "wall_s": 1.5697118829993997,
         "completion": true,
         "decision": "SUPPORTED",
         "escaped_errors": 0,
@@ -187,7 +187,7 @@
       },
       "B": {
         "mode": "B_manager_specialized_workers",
-        "wall_s": 1.591130182001507,
+        "wall_s": 1.5828074040036881,
         "completion": true,
         "decision": "SUPPORTED",
         "escaped_errors": 0,
@@ -202,9 +202,94 @@
       },
       "comparison": {
         "same_decision": true,
-        "wall_ratio_B_over_A": 1.0178370782849888,
+        "wall_ratio_B_over_A": 1.0083426271700675,
         "B_more_duplicate_work": false,
         "B_information_loss_flag": true
+      }
+    },
+    {
+      "task": "Y17-6 RPS fictitious play",
+      "class": "game_theoretic_zero_sum",
+      "decomposability": "HIGH",
+      "A": {
+        "mode": "A_single_solver",
+        "wall_s": 0.26939853600924835,
+        "completion": true,
+        "decision": "SUPPORTED",
+        "escaped_errors": 0,
+        "duplicate_work": 0,
+        "information_loss": false,
+        "human_intervention": 0,
+        "evidence_integrity": true,
+        "tokens_cost": null,
+        "provider_calls": 0
+      },
+      "B": {
+        "mode": "B_manager_specialized_workers",
+        "wall_s": 0.0037627309939125553,
+        "completion": true,
+        "decision": "SUPPORTED",
+        "escaped_errors": 0,
+        "duplicate_work": 0,
+        "information_loss": false,
+        "human_intervention": 0,
+        "evidence_integrity": true,
+        "tokens_cost": null,
+        "provider_calls": 0,
+        "handoffs": 3,
+        "artifact_refs": [
+          "/workspace/artifacts/hardening/org_handoffs/Y17-6/fp_ensemble_haf_56ffdee18a0e408d.json",
+          "/workspace/artifacts/hardening/org_handoffs/Y17-6/pure_baseline_haf_4c61352373e5465e.json"
+        ],
+        "note": "artifact-first handoff; manager reloads full stage payloads"
+      },
+      "comparison": {
+        "same_decision": true,
+        "wall_ratio_B_over_A": 0.013967154572003251,
+        "B_more_duplicate_work": false,
+        "B_information_loss_flag": false
+      }
+    },
+    {
+      "task": "Y17-7 ER giant component",
+      "class": "network_random_graph",
+      "decomposability": "MEDIUM",
+      "A": {
+        "mode": "A_single_solver",
+        "wall_s": 0.25808517599944025,
+        "completion": true,
+        "decision": "REJECTED",
+        "escaped_errors": 0,
+        "duplicate_work": 0,
+        "information_loss": false,
+        "human_intervention": 0,
+        "evidence_integrity": true,
+        "tokens_cost": null,
+        "provider_calls": 0
+      },
+      "B": {
+        "mode": "B_manager_specialized_workers",
+        "wall_s": 0.00044186299783177674,
+        "completion": true,
+        "decision": "REJECTED",
+        "escaped_errors": 0,
+        "duplicate_work": 0,
+        "information_loss": false,
+        "human_intervention": 0,
+        "evidence_integrity": true,
+        "tokens_cost": null,
+        "provider_calls": 0,
+        "handoffs": 2,
+        "artifact_refs": [
+          "/workspace/artifacts/hardening/org_handoffs/Y17-7/giant_rates_haf_2c9a782028f54b4e.json"
+        ],
+        "note": "artifact-first handoff; manager recomputes p50 from full rates artifact"
+      },
+      "comparison": {
+        "same_decision": true,
+        "wall_ratio_B_over_A": 0.0017120820524489755,
+        "B_more_duplicate_work": false,
+        "B_information_loss_flag": false
       }
     }
   ],
@@ -212,14 +297,14 @@
     "Y17-1 Fisher confirmatory slices": {
       "same_decision": true,
       "B_info_loss": true,
-      "wall_ratio": 0.4489759272270336,
+      "wall_ratio": 0.13068865488447223,
       "decomposability": "HIGH",
       "class": "statistics_fisher"
     },
     "Y17-2 nested Var model selection": {
       "same_decision": true,
       "B_info_loss": true,
-      "wall_ratio": 0.2318520282945452,
+      "wall_ratio": 0.2426879889220961,
       "decomposability": "LOW",
       "class": "model_selection"
     },
@@ -233,43 +318,59 @@
     "Y17-4 B2 GOE-spacing": {
       "same_decision": true,
       "B_info_loss": true,
-      "wall_ratio": 0.9378894253997438,
+      "wall_ratio": 0.9071647654239559,
       "decomposability": "MEDIUM",
       "class": "cross_domain_rmt"
     },
     "Y17-5 omega forecast holdout": {
       "same_decision": true,
       "B_info_loss": true,
-      "wall_ratio": 1.0178370782849888,
+      "wall_ratio": 1.0083426271700675,
       "decomposability": "HIGH",
       "class": "forecasting_holdout"
+    },
+    "Y17-6 RPS fictitious play": {
+      "same_decision": true,
+      "B_info_loss": false,
+      "wall_ratio": 0.013967154572003251,
+      "decomposability": "HIGH",
+      "class": "game_theoretic_zero_sum"
+    },
+    "Y17-7 ER giant component": {
+      "same_decision": true,
+      "B_info_loss": false,
+      "wall_ratio": 0.0017120820524489755,
+      "decomposability": "MEDIUM",
+      "class": "network_random_graph"
     }
   },
   "by_decomposability": {
     "HIGH": [
       "Y17-1 Fisher confirmatory slices",
       "Y17-3 permanent-clamp Boolean recompute",
-      "Y17-5 omega forecast holdout"
+      "Y17-5 omega forecast holdout",
+      "Y17-6 RPS fictitious play"
     ],
     "LOW": [
       "Y17-2 nested Var model selection"
     ],
     "MEDIUM": [
-      "Y17-4 B2 GOE-spacing"
+      "Y17-4 B2 GOE-spacing",
+      "Y17-7 ER giant component"
     ]
   },
   "aggregate": {
     "same_decision_rate": 1.0,
-    "mean_wall_ratio_B_over_A": 0.7255819649629862,
-    "B_information_loss_rate": 1.0,
-    "B_duplicate_work_rate": 0.4
+    "mean_wall_ratio_B_over_A": 0.4708455198048091,
+    "B_information_loss_rate": 0.7142857142857143,
+    "B_duplicate_work_rate": 0.2857142857142857
   },
   "pattern_notes": [
-    "HIGH n=3: same_decision=3/3; B still shows information_loss on summary handoffs",
+    "HIGH n=4: same_decision=4/4; artifact-first handoff applied on Y17-6/7; legacy summary loss may remain on earlier tasks",
     "LOW n=1: specialization does not remove sequential fit dependence; same_decision=1/1"
   ],
   "verdict": "PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED",
   "scientific_claim_accepted": false,
-  "note": "N=5 (\u22655). Decomposability patterns inspectable; do NOT claim H-ORG supported. Need larger multi-class sample + token costs before any org superiority claim.",
-  "decomposability_hypothesis": "Manager+workers may help only when stages are independently verifiable (HIGH). On LOW (sequential nested fit), B adds handoff/info-loss cost without decision gain. Current sample shows same_decision\u22481 with B information_loss\u22481 \u2014 org does not yet beat single solver on these deterministic research pipelines."
+  "note": "N=7 (\u22655). Decomposability patterns inspectable; do NOT claim H-ORG supported. Need larger multi-class sample + token costs before any org superiority claim.",
+  "decomposability_hypothesis": "Manager+workers may help only when stages are independently verifiable (HIGH). On LOW (sequential nested fit), B adds handoff/info-loss cost without decision gain. same_decision\u22481; artifact-first reduces info_loss on new missions; org still beat single solver on these deterministic research pipelines."
 }

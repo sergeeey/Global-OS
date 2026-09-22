@@ -1,0 +1,114 @@
+{
+  "config": {
+    "class": "network_random_graph_phase_transition",
+    "model": "erdos_renyi_Gnp",
+    "n_nodes": 200,
+    "p_c_theory": 0.005,
+    "factors": [
+      0.4,
+      0.6,
+      0.8,
+      1.0,
+      1.2,
+      1.5,
+      2.0,
+      3.0
+    ],
+    "n_graph_per_p": 60,
+    "seed_start": 800,
+    "giant_frac_threshold": 0.5,
+    "rel_tol": 0.35,
+    "y17_writes": false,
+    "catalog_bridge": "network phase transition / motif stability probes"
+  },
+  "primary": {
+    "p50": 0.0070875,
+    "p_c": 0.005,
+    "rel_err": 0.4175,
+    "in_band": false,
+    "rates": {
+      "0.4": {
+        "factor": 0.4,
+        "p": 0.002,
+        "giant_rate": 0.0,
+        "mean_lcc_frac": 0.028916666666666663
+      },
+      "0.6": {
+        "factor": 0.6,
+        "p": 0.003,
+        "giant_rate": 0.0,
+        "mean_lcc_frac": 0.047833333333333346
+      },
+      "0.8": {
+        "factor": 0.8,
+        "p": 0.004,
+        "giant_rate": 0.0,
+        "mean_lcc_frac": 0.08975000000000001
+      },
+      "1.0": {
+        "factor": 1.0,
+        "p": 0.005,
+        "giant_rate": 0.016666666666666666,
+        "mean_lcc_frac": 0.14883333333333332
+      },
+      "1.2": {
+        "factor": 1.2,
+        "p": 0.006,
+        "giant_rate": 0.016666666666666666,
+        "mean_lcc_frac": 0.27291666666666664
+      },
+      "1.5": {
+        "factor": 1.5,
+        "p": 0.0075,
+        "giant_rate": 0.6833333333333333,
+        "mean_lcc_frac": 0.5270833333333332
+      },
+      "2.0": {
+        "factor": 2.0,
+        "p": 0.01,
+        "giant_rate": 1.0,
+        "mean_lcc_frac": 0.78725
+      },
+      "3.0": {
+        "factor": 3.0,
+        "p": 0.015,
+        "giant_rate": 1.0,
+        "mean_lcc_frac": 0.9425833333333333
+      }
+    },
+    "giant_rates": [
+      0.0,
+      0.0,
+      0.0,
+      0.016666666666666666,
+      0.016666666666666666,
+      0.6833333333333333,
+      1.0,
+      1.0
+    ],
+    "ps": [
+      0.002,
+      0.003,
+      0.004,
+      0.005,
+      0.006,
+      0.0075,
+      0.01,
+      0.015
+    ]
+  },
+  "decision": "REJECTED",
+  "nulls": [
+    {
+      "id": "p50_far_from_theory",
+      "p50": 0.0070875,
+      "p_c": 0.005,
+      "rel_err": 0.4175,
+      "rel_tol": 0.35
+    }
+  ],
+  "contradictory_evidence": [],
+  "scope": {
+    "qualification": "SUPPORTED means empirical p50 for |LCC|/n≥0.5 is within 35% of 1/n for N=200 — not a proof of ER continuum limit theorems."
+  }
+}

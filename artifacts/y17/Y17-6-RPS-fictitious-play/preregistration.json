@@ -1,0 +1,32 @@
+{
+  "mission_id": "Y17-6",
+  "preregistered_before_data": true,
+  "hypothesis": "On rock-paper-scissors zero-sum, fictitious play (T=400, 40 seeds) achieves mean exploitability ≤ 0.25× an always-Rock pure baseline.",
+  "primary_outcome": "mean_exploit_fp / mean_exploit_pure",
+  "test": "fictitious play vs pure-strategy baseline",
+  "null": "FP fails MCID (ratio > 0.25)",
+  "alpha": "MCID_RATIO=0.25",
+  "threshold": {
+    "mcid_ratio": 0.25
+  },
+  "kill_criterion": "SUPPORTED iff mean_exploit(FP) ≤ 0.25·mean_exploit(PURE_ROCK); else REJECTED.",
+  "seed_data_policy": "Seeds 700-739; no Y-17 writes.",
+  "stopping_rule": "Single locked ensemble; no post-hoc MCID change.",
+  "prohibited_post_hoc_changes": [
+    "Do not switch baseline to uniform-Nash after seeing results",
+    "Do not claim open-problem #13 solved",
+    "Do not write into Y-17"
+  ],
+  "primary_criterion": {
+    "statistic": "exploit_ratio_fp_over_pure",
+    "mcid_ratio": 0.25,
+    "decision_rule": {
+      "SUPPORTED": "ratio <= 0.25",
+      "REJECTED": "ratio > 0.25"
+    }
+  },
+  "secondary_descriptive_only": [
+    "distance to Nash",
+    "per-seed mixes"
+  ]
+}

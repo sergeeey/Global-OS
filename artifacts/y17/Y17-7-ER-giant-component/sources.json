@@ -1,0 +1,4 @@
+{
+  "model": "Erdős–Rényi G(n,p)",
+  "theory": "p_c = 1/n giant-component threshold"
+}

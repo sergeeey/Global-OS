@@ -30,14 +30,12 @@ Goal Contract · Epistemic Kernel · Durable Runtime · Authority Kernel · Dyna
 - **Active mode:** dogfood — `Y17 mission → GlobalOS → failure → fix → replay` (M1.5 = IN PROGRESS; 48h paused)
 - **Y17-1..Y17-5** done across Fisher / model-selection / causal / RMT / **forecasting-holdout**
 - **Provider IV:** cloud BLOCKED; local ≥2 free keys still required for `unblocked: true`
-- **Active mode:** M1.4 Trust Boundary Hardening (ADR-0010) before further dogfood/48h
-- **Y17-1..Y17-5** done across Fisher / model-selection / causal / RMT / forecasting-holdout
-- **Provider IV:** cloud BLOCKED; local ≥2 free keys still required for `unblocked: true`
-- **Org A/B** N=5: PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED (H-ORG not claimed)
-- **M1.4 in progress:** proposal-bound ExecutionToken, approval hard-bind, immutable epistemic,
-  cold-restart restore, effect reconciliation; CI paths/lockfile/Temporal pin
-- **Next:** CI green → local IV → Y17-6/7 + Org N↑ → 48h persistent research → only then M1.5
-- DoD V2 / M1.4 closed / M1.5 closed / PRODUCTION_PROVEN **не заявлены**
+- **Active mode:** Empirical Hardening after live Provider IV
+- **Y17-1..Y17-7** across Fisher / model-selection / causal / RMT / forecasting / **game** / **network**
+- **Provider IV:** local `LIVE_PROVIDER_IV` / `unblocked: true` (operator-confirmed; keys not re-touched)
+- **Org A/B** N=7: PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED; artifact-first handoff on Y17-6/7
+- **Next:** prepare 48h persistent research program (not start yet)
+- Continual SI: NOT_MEASURED · H-ORG: not claimed · DoD V2 / M1.5 / PRODUCTION_PROVEN **не заявлены**
 
 
 ## Документы

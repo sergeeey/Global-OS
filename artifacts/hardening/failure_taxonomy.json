@@ -1,6 +1,6 @@
 {
-  "taxonomy_version": "0.3.1",
-  "updated_at": "2026-09-22T14:20:00Z",
+  "taxonomy_version": "0.4.0",
+  "updated_at": "2026-09-22T16:13:22Z",
   "rule": "classify every mission failure; fix only recurring/high-impact/generalizable/testable",
   "subsystem_gate": "artifacts/hardening/DEVELOPMENT_RULES_DOGFOOD.md",
   "cases": [
@@ -9,15 +9,23 @@
       "class": "ENVIRONMENT_GAP",
       "title": "provider independent verification unavailable in cloud",
       "recurring": true,
-      "missions": ["Y17-1", "Y17-2", "Y17-3", "Y17-4", "Y17-5"],
-      "fix": "degraded BLOCKED_ENVIRONMENT path + provider_iv_replay harness (live when ≥2 free keys)"
+      "missions": [
+        "Y17-1",
+        "Y17-2",
+        "Y17-3",
+        "Y17-4",
+        "Y17-5"
+      ],
+      "fix": "degraded BLOCKED_ENVIRONMENT path + provider_iv_replay harness (live when \u22652 free keys)"
     },
     {
       "id": "Y17-FC-002",
       "class": "ARCHITECTURE_GAP",
       "title": "no reusable research mission orchestrator (thin scripts)",
       "recurring": false,
-      "missions": ["Y17-1"],
+      "missions": [
+        "Y17-1"
+      ],
       "fix": "evals.research.mission_runner"
     },
     {
@@ -25,7 +33,13 @@
       "class": "RESEARCH_METHOD_GAP",
       "title": "prior confirmatory work requires explicit semantic reframe",
       "recurring": true,
-      "missions": ["Y17-1", "Y17-2", "Y17-3", "Y17-4", "Y17-5"],
+      "missions": [
+        "Y17-1",
+        "Y17-2",
+        "Y17-3",
+        "Y17-4",
+        "Y17-5"
+      ],
       "fix": "PriorWorkReframe artifact"
     },
     {
@@ -33,7 +47,9 @@
       "class": "RESEARCH_METHOD_GAP",
       "title": "intended H-B7-2/3 already CLOSED",
       "recurring": true,
-      "missions": ["Y17-2"],
+      "missions": [
+        "Y17-2"
+      ],
       "fix": "reframe to unfinished named next step (H-CAT31-4 V3)"
     },
     {
@@ -41,7 +57,9 @@
       "class": "ENVIRONMENT_GAP",
       "title": "Y-17 clone missing data/*.bnet",
       "recurring": false,
-      "missions": ["Y17-3"],
+      "missions": [
+        "Y17-3"
+      ],
       "fix": "fetch public pyboolnet .bnet into Global OS artifacts only"
     },
     {
@@ -49,15 +67,37 @@
       "class": "ENVIRONMENT_GAP",
       "title": "provider IV replay still blocked in cloud (no keys)",
       "recurring": true,
-      "missions": ["Y17-1", "Y17-2", "Y17-4", "Y17-5"],
-      "fix": "verification_delta.json recorded; operator local replay with ≥2 free keys"
+      "missions": [
+        "Y17-1",
+        "Y17-2",
+        "Y17-4",
+        "Y17-5"
+      ],
+      "fix": "verification_delta.json recorded; operator local replay with \u22652 free keys"
+    },
+    {
+      "id": "ORG-FC-HANDOFF-INFOLOSS",
+      "class": "ARCHITECTURE_GAP",
+      "title": "manager summary handoff drops worker detail (information_loss)",
+      "recurring": true,
+      "missions": [
+        "Y17-3",
+        "Y17-4",
+        "Y17-5",
+        "Y17-6",
+        "Y17-7"
+      ],
+      "fix": "artifact-first handoff (evals.organization.artifact_handoff); applied on Y17-6/7 org B"
     }
   ],
   "not_bugs": [
     "Y17-2 scientific REJECTED (null preserved)",
-    "org A/B N=5 PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED (same_decision=1, B info_loss=1 — not org superiority)",
-    "Y17-5 SUPPORTED is holdout skill vs baseline — not proof of general forecasting",
-    "provider IV still BLOCKED_ENVIRONMENT in cloud (honest, not fabricated)"
+    "org A/B N=5 PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED (same_decision=1, B info_loss=1 \u2014 not org superiority)",
+    "Y17-5 SUPPORTED is holdout skill vs baseline \u2014 not proof of general forecasting",
+    "provider IV still BLOCKED_ENVIRONMENT in cloud (honest, not fabricated)",
+    "Y17-7 scientific REJECTED (finite-n p50 shift \u2014 null preserved)",
+    "org A/B N=7 PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED",
+    "live Provider IV closed locally \u2014 do not re-call keys from cloud"
   ],
   "continual_improvement_question": {
     "status": "NOT_MEASURED",

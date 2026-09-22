@@ -1,0 +1,8 @@
+{
+  "steps": [
+    "Lock N, p-grid factors, giant frac, REL_TOL",
+    "Sweep ER graphs; estimate p50 by interpolation",
+    "Decide vs band; persist null/contradictory",
+    "Deterministic verify monotonicity soft check"
+  ]
+}

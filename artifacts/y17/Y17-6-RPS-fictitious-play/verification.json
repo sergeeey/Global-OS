@@ -1,0 +1,18 @@
+{
+  "deterministic_status": "PASS",
+  "deterministic_checks": [
+    "no Y-17 writes",
+    "decision matches prereg MCID rule",
+    "fp exploit finite",
+    "pure baseline more exploitable than FP"
+  ],
+  "provider_status": "NOT_REQUESTED",
+  "provider_detail": "",
+  "live_keys": {
+    "openai": false,
+    "anthropic": false,
+    "openrouter": false,
+    "groq": false,
+    "gemini": false
+  }
+}
