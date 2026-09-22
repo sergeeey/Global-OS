@@ -31,12 +31,24 @@ class OpenRouterProvider(OpenAICompatProvider):
         allow = not scientific
         if allow_model_substitution is not None:
             allow = allow_model_substitution
+        # Resolve key early for format check (also loaded again in parent).
+        raw = api_key if api_key is not None else os.environ.get("OPENROUTER_API_KEY", "")
+        from global_os.adapters.models.http_json import sanitize_api_key
+
+        cleaned = sanitize_api_key(raw)
+        if cleaned and not cleaned.startswith("sk-or-"):
+            raise ModelProviderError(
+                "openrouter: OPENROUTER_API_KEY must start with 'sk-or-' "
+                f"(got prefix={cleaned[:7]!r}… len={len(cleaned)}) — "
+                "re-copy full key from openrouter.ai/settings/keys"
+            )
         extra = {
             "HTTP-Referer": os.environ.get("OPENROUTER_HTTP_REFERER", "https://global-os.dev"),
             "X-Title": os.environ.get("OPENROUTER_APP_TITLE", "Global-OS"),
+            "X-OpenRouter-Title": os.environ.get("OPENROUTER_APP_TITLE", "Global-OS"),
         }
         super().__init__(
-            api_key=api_key,
+            api_key=cleaned or api_key,
             model=model,
             base_url=base_url or os.environ.get("OPENROUTER_BASE_URL") or OPENROUTER_BASE,
             timeout_seconds=timeout_seconds,

@@ -23,9 +23,10 @@ from global_os.runtime.events.ledger import EventLedger
 from tests.support.model_http_sink import model_http_sink
 
 
-def test_openrouter_scientific_rejects_smoke_router():
-    with pytest.raises(ModelProviderError, match="forbidden for scientific"):
-        OpenRouterProvider(api_key="sk-or-test", model="openrouter/free", scientific=True)
+def test_openrouter_rejects_key_without_sk_or_prefix(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setenv("OPENROUTER_API_KEY", "-or-v1-truncateddeadbeef")
+    with pytest.raises(ModelProviderError, match="must start with 'sk-or-'"):
+        OpenRouterProvider(scientific=True)
 
 
 def test_openrouter_smoke_allowed_when_not_scientific():
