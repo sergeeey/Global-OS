@@ -1,0 +1,6 @@
+{
+  "y17_multin": "/workspace/Y-17-100-gipotez/experiments/20260907-chernoff-neuralode-nd-multiseed-multin/run.py",
+  "y17_dim": "/workspace/Y-17-100-gipotez/experiments/20260907-chernoff-neuralode-nd-dimension-sweep/run.py",
+  "y17_abs": "/workspace/Y-17-100-gipotez/experiments/20260907-chernoff-neuralode-nd-numerical-abscissa/run.py",
+  "protocol_note": "training information ≠ future information"
+}

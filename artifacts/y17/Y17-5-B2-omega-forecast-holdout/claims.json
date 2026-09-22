@@ -1,0 +1,7 @@
+{
+  "goal_id": "goal_19cc6fc0ae904da1",
+  "hypothesis_id": "hyp_203c318083184e80",
+  "statement": "An OLS forecast log(M1)~a+b·ω(A), fit only on TRAIN seeds 550-564 (N_DIM=24), achieves holdout RMSE ≤ 0.90× the TRAIN-mean baseline on HOLD seeds 650-664.",
+  "decision": "SUPPORTED",
+  "scientific_claim_accepted": false
+}

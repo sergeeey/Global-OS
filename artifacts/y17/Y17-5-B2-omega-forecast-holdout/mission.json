@@ -1,0 +1,15 @@
+{
+  "mission_id": "Y17-5",
+  "goal_id": "goal_19cc6fc0ae904da1",
+  "hypothesis_id": "hyp_203c318083184e80",
+  "status": "COMPLETED",
+  "reframe": {
+    "discovered_prior_id": "H-B2-1n/Y17-1",
+    "original_intent": "confirmatory correlation of ω(A) with M1 (Fisher)",
+    "reframed_intent": "predictive holdout test: does fitted ω→M1 beat mean baseline?",
+    "rationale": "Correlation support ≠ forecasting skill. Y17-5 asks the predictive question with locked holdout and competing baseline — different class from Y17-1."
+  },
+  "created_at": "2026-09-22T13:27:56.730946+00:00",
+  "decision": "SUPPORTED",
+  "completed_at": "2026-09-22T13:27:58.830302+00:00"
+}

@@ -1,0 +1,8 @@
+{
+  "steps": [
+    "Lock train/hold seeds and MCID before any holdout compute",
+    "Collect TRAIN (ω, M1); fit OLS; record baseline mean(log M1)",
+    "Collect HOLD; evaluate RMSEs; decide",
+    "Deterministic verify leak checks; provider IV degraded if blocked"
+  ]
+}

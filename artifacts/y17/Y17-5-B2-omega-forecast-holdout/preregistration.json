@@ -1,0 +1,35 @@
+{
+  "mission_id": "Y17-5",
+  "preregistered_before_data": true,
+  "hypothesis": "An OLS forecast log(M1)~a+b·ω(A), fit only on TRAIN seeds 550-564 (N_DIM=24), achieves holdout RMSE ≤ 0.90× the TRAIN-mean baseline on HOLD seeds 650-664.",
+  "primary_outcome": "holdout RMSE_model / RMSE_baseline",
+  "test": "seed holdout forecasting; competing mean baseline",
+  "null": "model fails MCID (ratio > 0.90) on holdout",
+  "alpha": "MCID_RATIO=0.90 (not a p-value)",
+  "threshold": {
+    "mcid_ratio": 0.9
+  },
+  "kill_criterion": "SUPPORTED iff holdout RMSE_model ≤ 0.90·RMSE_baseline; else REJECTED. No refit on holdout; no post-hoc MCID change.",
+  "seed_data_policy": "TRAIN 550-564; HOLD 650-664; disjoint from each other and from Y17-1/Y17-4 ranges.",
+  "stopping_rule": "Single locked split; one fit; one holdout evaluation.",
+  "prohibited_post_hoc_changes": [
+    "Do not peek holdout before locking model",
+    "Do not change MCID after seeing ratio",
+    "Do not switch feature from ω to κ/K after holdout",
+    "Do not merge train+hold for final fit",
+    "training information ≠ future/holdout information"
+  ],
+  "primary_criterion": {
+    "statistic": "holdout_rmse_ratio",
+    "mcid_ratio": 0.9,
+    "decision_rule": {
+      "SUPPORTED": "ratio <= 0.90",
+      "REJECTED": "ratio > 0.90"
+    }
+  },
+  "secondary_descriptive_only": [
+    "train RMSE",
+    "slope/intercept",
+    "in-sample vs holdout gap"
+  ]
+}
