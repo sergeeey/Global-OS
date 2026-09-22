@@ -37,7 +37,7 @@
   },
   "long_horizon": {
     "program": "persistent_research_48h",
-    "frozen_at_commit": "dcdea6974ee96565463a005d13ca1c4baf4ff3cb",
+    "frozen_at_commit": "7d0fc4a",
     "contract": "artifacts/hardening/long_horizon_48h/preflight/program_contract.json",
     "pass_criteria_frozen": true,
     "preflight_compressed": "PASS",
@@ -46,7 +46,10 @@
     "m15_claimed": false,
     "start_gate": "GOS_REQUIRE_48H=1 AND GOS_START_RESEARCH_48H=1",
     "evaluation_rule": "only_frozen_PASS_criteria_no_impression",
-    "during_run_rule": "no_manual_help_except_contract_allowed_actions"
+    "during_run_rule": "no_manual_help_except_contract_allowed_actions",
+    "program_code_freeze_commit": "7d0fc4a",
+    "phase_lock_docs_commit": "cfbd17f",
+    "note": "No code changes after 7d0fc4a unless Windows wall preflight finds structural bug"
   },
   "scientific": {
     "Y17-1": "SUPPORTED",
