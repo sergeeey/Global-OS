@@ -26,7 +26,8 @@ Goal Contract · Epistemic Kernel · Durable Runtime · Authority Kernel · Dyna
 - **ADR-0009:** architecture freeze → Empirical Science until M1.5
 - Goal Integrity Score + eval contracts; incidents + DoD V2 gate + dogfood (no auto-merge)
 - Free pins: OpenRouter Nemotron 550b / Groq gpt-oss-120b / Gemini 3.6-flash; `run_hrsn_measured` + scheduled 48h soak
-- **P0 open:** user keys → live smoke + H-ENV JSON + measured H-RSN → then wall-clock 48h
+- **Operator Reality Contact:** 3-provider smoke + live H-ENV/H-RSN JSON (claim=false; winner often A — ladder B–E still prompt-conditioned)
+- **P0 open:** persist keys across PS restart → wall-clock 48h (`GOS_REQUIRE_48H=1`)
 - DoD V2 / M1.5 / PRODUCTION_PROVEN **не заявлены**
 
 ## Документы
