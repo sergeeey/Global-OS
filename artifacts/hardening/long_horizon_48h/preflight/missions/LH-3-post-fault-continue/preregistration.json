@@ -1,0 +1,4 @@
+{
+  "primary_criterion": "sum(1..20)==210 and even",
+  "locked_before_experiment": true
+}

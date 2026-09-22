@@ -16,5 +16,5 @@
     }
   ],
   "provenance": "operator_local_windows_confirmed — ≥2 free providers; cloud agent did not re-call APIs",
-  "operator_note": "Live Provider IV closed locally (Y17-1/Y17-2 LIVE_PROVIDER_IV ×2). Keys retired. Y17-6/7 + Org N=7 completed on main; next=prepare (not start) 48h program."
+  "operator_note": "Live Provider IV closed. Keys retired. 48h program prepared + compressed preflight PASS; wall 48h NOT started; M1.5 not claimed."
 }

@@ -1,0 +1,7 @@
+{
+  "goal_id": "goal_c2188ab4e96f43bf",
+  "hypothesis_id": "hyp_49b902be5aa2496c",
+  "statement": "sum(1..20) is 210 and even",
+  "decision": "SUPPORTED",
+  "scientific_claim_accepted": false
+}

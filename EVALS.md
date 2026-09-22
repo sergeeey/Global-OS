@@ -33,6 +33,23 @@ Wall-clock 48h schedule (release/nightly/RC — **not every PR**): see
 `global_os.evals.survival.wall_clock_schedule` (T+2h…T+42h injections).  
 Accelerated soak ≠ wall-clock proof.
 
+## Persistent research 48h program (M1.5 prep)
+
+Assembles existing Goal / Epistemic / DurableRunner / survival injections /
+research mission runner into one preregistered scenario
+(`global_os.evals.survival.research_program`).
+
+```text
+T0 Goal → research missions → checkpoints → kill/restart → schedule faults
+→ contradiction/invalidation → cold restore → constraint change → continue
+→ stop → Goal/Epistemic/Authority integrity audit
+```
+
+PASS criteria are **frozen before run** (no post-hoc rationalization).  
+Modes: `preflight` (compressed; `make preflight-48h`) · `wall_48h`
+(requires `GOS_REQUIRE_48H=1` **and** `GOS_START_RESEARCH_48H=1`).  
+Preflight PASS ≠ M1.5 claim. H-ORG / continual SI remain separate.
+
 ## H-ENV-001 (ladder)
 
 Same tasks · same model family · same monetary budget:

@@ -1,0 +1,20 @@
+{
+  "mission_id": "LH-1-parity-supported",
+  "decision": "SUPPORTED",
+  "files": [
+    "claims.json",
+    "decision.md",
+    "experiments/metrics/run.json",
+    "failure_cases.json",
+    "mission.json",
+    "null_results.json",
+    "plan.json",
+    "postmortem.json",
+    "preregistration.json",
+    "reframe.json",
+    "run_manifest.json",
+    "verification.json"
+  ],
+  "recorded_at": "2026-09-22T16:33:18.743123+00:00",
+  "report_id": "rmr_02313c7f4b704e96"
+}

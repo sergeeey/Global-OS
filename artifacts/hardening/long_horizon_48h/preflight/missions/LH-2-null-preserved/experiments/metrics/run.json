@@ -1,0 +1,11 @@
+{
+  "n": 20,
+  "sum": 210,
+  "sum_even": true,
+  "expected_even": true,
+  "null_probe": null,
+  "contradictory_evidence": {
+    "probe": "null_preserved",
+    "status": "NULL_RETAINED"
+  }
+}

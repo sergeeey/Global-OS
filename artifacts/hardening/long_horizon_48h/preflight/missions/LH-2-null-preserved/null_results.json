@@ -1,0 +1,10 @@
+{
+  "preserved_nulls": [
+    {
+      "id": "LH-2-null-preserved-null",
+      "value": null,
+      "reason": "forced_null_probe"
+    }
+  ],
+  "rule": "GOS-I11"
+}

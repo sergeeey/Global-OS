@@ -34,8 +34,9 @@ Goal Contract · Epistemic Kernel · Durable Runtime · Authority Kernel · Dyna
 - **Y17-1..Y17-7** across Fisher / model-selection / causal / RMT / forecasting / **game** / **network**
 - **Provider IV:** local `LIVE_PROVIDER_IV` / `unblocked: true` (operator-confirmed; keys not re-touched)
 - **Org A/B** N=7: PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED; artifact-first handoff on Y17-6/7
-- **Next:** prepare 48h persistent research program (not start yet)
-- Continual SI: NOT_MEASURED · H-ORG: not claimed · DoD V2 / M1.5 / PRODUCTION_PROVEN **не заявлены**
+- **Stage:** Long-Horizon Validation prep — 48h program contract + compressed preflight PASS
+- **Wall 48h:** NOT started (double gate); M1.5 **не заявлен**
+- Continual SI: NOT_MEASURED · H-ORG: not claimed · DoD V2 / PRODUCTION_PROVEN **не заявлены**
 
 
 ## Документы

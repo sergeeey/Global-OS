@@ -90,7 +90,10 @@ Acceptance: `tests/test_m14_trust_boundary.py`.
 ✓ cold epistemic restore under load
 ```
 
-Still **≠** PRODUCTION_PROVEN. Do **not** start 48h until M1.4 acceptance is green on main.
+Still **≠** PRODUCTION_PROVEN. M1.4 is green on main.  
+**48h program prepared** (`research_program` + compressed preflight).  
+Wall-clock start requires `GOS_REQUIRE_48H=1` **and** `GOS_START_RESEARCH_48H=1`.  
+Preflight PASS ≠ M1.5 claim.
 
 ## DoD V2
 

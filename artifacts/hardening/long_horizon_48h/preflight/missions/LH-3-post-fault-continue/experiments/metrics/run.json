@@ -1,0 +1,6 @@
+{
+  "n": 20,
+  "sum": 210,
+  "sum_even": true,
+  "expected_even": true
+}

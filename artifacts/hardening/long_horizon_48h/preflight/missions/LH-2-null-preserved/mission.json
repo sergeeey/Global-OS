@@ -1,0 +1,15 @@
+{
+  "mission_id": "LH-2-null-preserved",
+  "goal_id": "goal_e8feac8d00fc4949",
+  "hypothesis_id": "hyp_eb11ae5cf7df4be7",
+  "status": "COMPLETED",
+  "reframe": {
+    "discovered_prior_id": "LH-PROGRAM-SCAFFOLD",
+    "original_intent": "prove new science",
+    "reframed_intent": "exercise durable research loop under faults",
+    "rationale": "48h program is durability, not novel science claim"
+  },
+  "created_at": "2026-09-22T16:33:18.743908+00:00",
+  "decision": "SUPPORTED",
+  "completed_at": "2026-09-22T16:33:18.745056+00:00"
+}

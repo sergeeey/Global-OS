@@ -1,7 +1,7 @@
 {
-  "sprint": "EMPIRICAL_HARDENING_POST_LIVE_IV",
-  "updated_at": "2026-09-22T16:40:00Z",
-  "current_goal": "PREPARE_48H_PERSISTENT_PROGRAM_LATER",
+  "sprint": "LONG_HORIZON_PREFLIGHT",
+  "updated_at": "2026-09-22T16:50:00Z",
+  "current_goal": "PREFLIGHT_DONE_WALL_48H_NOT_STARTED",
   "completed": [
     "M14_TRUST_BOUNDARY",
     "CI_GREEN_MAIN",
@@ -14,11 +14,13 @@
     "Y17-6",
     "Y17-7",
     "ORG_AB_DATASET_N7",
-    "ARTIFACT_FIRST_HANDOFF_FIX"
+    "ARTIFACT_FIRST_HANDOFF_FIX",
+    "LH48_PROGRAM_CONTRACT",
+    "LH48_PREFLIGHT_COMPRESSED"
   ],
   "running": null,
   "blocked": [],
-  "stage": "Empirical Hardening — 7 missions; live IV closed; next=48h prep",
+  "stage": "Long-Horizon Validation — program prepared; compressed preflight PASS; wall 48h NOT started",
   "continual_improvement": "NOT_MEASURED",
   "provider_iv_replay": {
     "any_live_iv": true,
@@ -26,6 +28,15 @@
     "unblocked": true,
     "provenance": "operator_local_windows_confirmed",
     "missions": ["Y17-1", "Y17-2"]
+  },
+  "long_horizon": {
+    "program": "persistent_research_48h",
+    "contract": "artifacts/hardening/long_horizon_48h/preflight/program_contract.json",
+    "preflight": "PASS_COMPRESSED",
+    "wall_48h": "NOT_STARTED",
+    "m15_claimed": false,
+    "start_gate": "GOS_REQUIRE_48H=1 AND GOS_START_RESEARCH_48H=1",
+    "pass_criteria_frozen": true
   },
   "scientific": {
     "Y17-1": "SUPPORTED",
@@ -49,12 +60,12 @@
       "fix": "artifact_handoff on Y17-6/7; legacy summary loss remains on earlier tasks"
     }
   ],
-  "next_exact_action": "Do NOT re-touch keys. Prepare (not start) 48h persistent research program. H-ORG NOT_CLAIMED. Continual SI NOT_MEASURED. M1.5 not claimed.",
+  "next_exact_action": "Optional wall preflight 60–120min on operator machine, then start wall-clock 48h only with double gate. Do NOT claim M1.5 until wall PASS. Keys retired. H-ORG NOT_CLAIMED. Continual SI NOT_MEASURED.",
   "forbidden_now": [
-    "48h_run_now",
+    "claim_M1.5_without_wall_48h",
     "re_run_provider_keys",
     "H_ORG_claim",
     "continual_SI_claim",
-    "M1.5_claim"
+    "auto_start_wall_48h"
   ]
 }

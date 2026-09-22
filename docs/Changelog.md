@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.46 — 2026-09-22
+
+### Long-Horizon Validation — program prep + preflight
+
+- Frozen **persistent research 48h** contract (`evals.survival.research_program`):
+  scenario T0→missions→kill/restart→schedule faults→invalidation→restore→continue;
+  PASS criteria locked before run; stop conditions explicit
+- Compressed **preflight** (`make preflight-48h`) exercises real Goal/Epistemic/
+  DurableRunner + existing WALL_CLOCK_48H_SCHEDULE injections + LH-1..3 missions
+- Wall start double-gated: `GOS_REQUIRE_48H=1` **and** `GOS_START_RESEARCH_48H=1`
+- Artifacts: `artifacts/hardening/long_horizon_48h/preflight/`
+- M1.5 / H-ORG / continual SI / PRODUCTION_PROVEN **not claimed**; keys not touched
+
 ## 0.1.45 — 2026-09-22
 
 ### Dogfood (post live Provider IV)

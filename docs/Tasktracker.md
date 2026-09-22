@@ -11,16 +11,19 @@
 - [x] Y17-1..Y17-7 real dogfood missions
 - [x] Org A/B N=7 + artifact-first handoff fix for recurring info_loss
 
-## Active mode — Empirical Hardening (post live IV)
+## Active mode — Long-Horizon Validation (prep)
 
-- [ ] Prepare 48h persistent research program (not started)
+- [x] Freeze 48h program contract + PASS criteria
+- [x] Compressed preflight (`make preflight-48h` / `research_program`)
+- [ ] Optional operator wall preflight 60–120min
+- [ ] Wall-clock 48h only with `GOS_REQUIRE_48H=1` + `GOS_START_RESEARCH_48H=1`
 - [ ] Continual SI holdout measurement (still NOT_MEASURED)
 - [ ] H-ORG claim only after larger multi-class + token costs
 
-## Paused — M1.5 durability (do not start 48h now)
+## Gate — M1.5 durability (do not claim yet)
 
-- [ ] Persist OpenRouter `sk-or-v1-` across PS restart
-- [ ] Wall-clock 48h (`GOS_REQUIRE_48H=1`) later — durability proof
+- [ ] Wall-clock 48h research program PASS (not synthetic-only soak)
+- [ ] M1.5 claim only after wall evidence + Goal Integrity PASS
 
 ## After usable Y-17 missions
 

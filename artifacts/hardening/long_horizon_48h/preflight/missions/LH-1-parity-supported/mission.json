@@ -1,0 +1,15 @@
+{
+  "mission_id": "LH-1-parity-supported",
+  "goal_id": "goal_c2188ab4e96f43bf",
+  "hypothesis_id": "hyp_49b902be5aa2496c",
+  "status": "COMPLETED",
+  "reframe": {
+    "discovered_prior_id": "LH-PROGRAM-SCAFFOLD",
+    "original_intent": "prove new science",
+    "reframed_intent": "exercise durable research loop under faults",
+    "rationale": "48h program is durability, not novel science claim"
+  },
+  "created_at": "2026-09-22T16:33:18.741379+00:00",
+  "decision": "SUPPORTED",
+  "completed_at": "2026-09-22T16:33:18.742475+00:00"
+}

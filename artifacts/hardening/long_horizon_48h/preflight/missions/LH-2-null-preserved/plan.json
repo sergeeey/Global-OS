@@ -1,0 +1,7 @@
+{
+  "steps": [
+    "compute_sum",
+    "parity_check",
+    "decide"
+  ]
+}
