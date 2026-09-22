@@ -32,24 +32,16 @@
     "docs drift guards",
     "Y17-3 public bnet into Global OS artifacts when Y-17 data/ missing"
   ],
-  "tests_status": "152_passed_5_skipped; ruff_ok; mypy_ok; schemas_ok; rust_authority_pending_in_this_file",
-  "scientific": {
-    "Y17-1": "SUPPORTED",
-    "Y17-2": "REJECTED",
-    "Y17-3": "SUPPORTED"
-  },
-  "org_ab": {
-    "verdict": "INCONCLUSIVE_REAL_SAMPLE_TOO_SMALL",
-    "artifact": "artifacts/hardening/org_ab_y17_3.json"
-  },
+  "tests_status": "152_passed_5_skipped; ruff_ok; mypy_ok; schemas_ok; rust_authority_5_passed",
   "quality_gates": {
     "pytest": "152 passed, 5 skipped",
     "ruff": "ok",
     "mypy": "ok",
     "schemas": "ok",
+    "rust_authority_kernel": "5 passed",
     "y17_modifications": false,
     "secret_leak_scan_artifacts": "clean"
   },
   "commits": ["b875731", "d65e307"],
-  "next_exact_action": "Y17-4: prefer unfinished open catalog item with local compute OR local-keys provider IV replay of Y17-1; expand org A/B sample"
+  "next_exact_action": "Y17-4: unfinished open catalog item with local compute OR local-keys provider IV replay of Y17-1; expand org A/B sample"
 }
