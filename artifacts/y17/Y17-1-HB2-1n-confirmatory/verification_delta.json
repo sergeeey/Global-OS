@@ -1,7 +1,7 @@
 {
   "mission_id": "Y17-1",
   "mission_root": "/workspace/artifacts/y17/Y17-1-HB2-1n-confirmatory",
-  "recorded_at": "2026-09-22T13:23:03.923689+00:00",
+  "recorded_at": "2026-09-22T13:27:31.087319+00:00",
   "before": {
     "provider_status": "BLOCKED_ENVIRONMENT"
   },

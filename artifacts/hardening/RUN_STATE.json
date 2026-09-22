@@ -1,21 +1,19 @@
 {
   "sprint": "GLOBAL_OS_AUTONOMOUS_HARDENING",
-  "updated_at": "2026-09-22T13:35:00Z",
-  "current_goal": "CONTINUE_DOGFOOD_AFTER_Y17_4",
+  "updated_at": "2026-09-22T13:50:00Z",
+  "current_goal": "AWAIT_LOCAL_IV_THEN_GROW_ORG",
   "completed": [
     "PHASE_1_AUDIT",
     "PHASE_2_RESEARCH_ORCHESTRATOR",
     "Y17-1",
     "Y17-2",
-    "PHASE_4_Y17_2_FIXES",
     "Y17-3",
-    "PHASE_6_ORG_AB_DATAPOINT",
-    "PHASE_7_DOCS_DRIFT_GUARDS",
-    "PHASE_8_QUALITY_GATES",
-    "PROVIDER_IV_REPLAY_SCAFFOLD",
     "Y17-4",
-    "ORG_AB_DATASET_N2",
-    "FAILURE_TAXONOMY_V2"
+    "Y17-5",
+    "PROVIDER_IV_REPLAY_SCAFFOLD",
+    "ORG_AB_DATASET_N3",
+    "SUBSYSTEM_GATE_RULE",
+    "FAILURE_TAXONOMY_V3"
   ],
   "running": null,
   "blocked": ["cloud_provider_keys"],
@@ -24,39 +22,34 @@
     "Y17-FC-002",
     "Y17-FC-003",
     "Y17-2-FC-PRIOR-CLOSED",
-    "Y17-2-FC-IV",
-    "Y17-3-FC-IV",
     "Y17-3-FC-DATA",
-    "Y17-4-FC-IV",
-    "Y17-IV-REPLAY-CLOUD"
+    "Y17-IV-REPLAY-CLOUD",
+    "Y17-5-FC-IV"
   ],
   "fixes_applied": [
     "research.mission_runner BLOCKED_ENVIRONMENT provider IV",
-    "PriorWorkReframe artifact support",
-    "persist contradictory_evidence.json",
-    "merge failure_cases_extra from experiment",
-    "docs drift guards",
-    "Y17-3 public bnet into Global OS artifacts when Y-17 data/ missing",
-    "provider_iv_replay harness + verification_delta.json (honest BLOCKED in cloud)"
+    "PriorWorkReframe",
+    "contradictory_evidence persistence",
+    "provider_iv_replay harness",
+    "subsystem creation gate (dogfood rules)",
+    "forecasting holdout protocol for predictive missions"
   ],
-  "tests_status": "targeted_provider_iv+y17_4_passed; full_suite_pending_commit",
   "scientific": {
     "Y17-1": "SUPPORTED",
     "Y17-2": "REJECTED",
     "Y17-3": "SUPPORTED",
-    "Y17-4": "SUPPORTED (r_bar≈0.517; |ΔGOE|≈0.019; controls OK)"
+    "Y17-4": "SUPPORTED",
+    "Y17-5": "SUPPORTED (holdout RMSE ratio≈0.819 ≤ 0.90)"
   },
   "provider_iv_replay": {
-    "artifact": "artifacts/hardening/provider_iv_replay_summary.json",
     "cloud_status": "all_still_blocked",
-    "operator_action": "run with ≥2 of OPENROUTER/GROQ/GEMINI keys locally"
+    "operator_action": "PYTHONPATH=src python3 -m global_os.evals.research.provider_iv_replay with ≥2 free keys"
   },
   "org_ab": {
+    "n_tasks": 3,
     "verdict": "INCONCLUSIVE_REAL_SAMPLE_TOO_SMALL",
-    "n_tasks": 2,
     "artifact": "artifacts/hardening/org_ab_dataset.json"
   },
-  "failure_taxonomy": "artifacts/hardening/failure_taxonomy.json",
-  "commits": ["0a59421"],
-  "next_exact_action": "Local live provider-IV replay (≥2 free keys) for Y17-1/2/4; then Y17-5 forecasting/game-theoretic class; grow org N; do NOT start 48h yet"
+  "continual_improvement": "NOT_MEASURED",
+  "next_exact_action": "Local live provider-IV (≥2 keys). Then grow org A/B to N≥5–6 across decomposable vs non-decomposable tasks. Do NOT start 48h yet. Do NOT claim continual self-improvement."
 }

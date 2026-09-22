@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.42 — 2026-09-22
+
+### Dogfood
+
+- Subsystem-creation gate written (`artifacts/hardening/DEVELOPMENT_RULES_DOGFOOD.md`)
+- Provider IV rechecked: cloud still BLOCKED (honest deltas)
+- **Y17-5** forecasting holdout: ω→M1 OLS vs mean baseline (TRAIN 550–564 / HOLD 650–664) → **SUPPORTED**
+  (holdout RMSE ratio ≈0.819 ≤ 0.90 MCID). Tests training≠future protocol.
+- Org A/B dataset N=3 → still `INCONCLUSIVE_REAL_SAMPLE_TOO_SMALL`
+- Continual-improvement holdout question recorded as NOT_MEASURED
+- No 48h; no new architectural subsystems
+
 ## 0.1.41 — 2026-09-22
 
 ### Dogfood

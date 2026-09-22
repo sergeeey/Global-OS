@@ -1,14 +1,15 @@
 {
-  "taxonomy_version": "0.2.0",
-  "updated_at": "2026-09-22T13:30:00Z",
+  "taxonomy_version": "0.3.0",
+  "updated_at": "2026-09-22T13:45:00Z",
   "rule": "classify every mission failure; fix only recurring/high-impact/generalizable/testable",
+  "subsystem_gate": "artifacts/hardening/DEVELOPMENT_RULES_DOGFOOD.md",
   "cases": [
     {
       "id": "Y17-FC-001",
       "class": "ENVIRONMENT_GAP",
       "title": "provider independent verification unavailable in cloud",
       "recurring": true,
-      "missions": ["Y17-1", "Y17-2", "Y17-3", "Y17-4"],
+      "missions": ["Y17-1", "Y17-2", "Y17-3", "Y17-4", "Y17-5"],
       "fix": "degraded BLOCKED_ENVIRONMENT path + provider_iv_replay harness (live when ≥2 free keys)"
     },
     {
@@ -24,7 +25,7 @@
       "class": "RESEARCH_METHOD_GAP",
       "title": "prior confirmatory work requires explicit semantic reframe",
       "recurring": true,
-      "missions": ["Y17-1", "Y17-2", "Y17-3", "Y17-4"],
+      "missions": ["Y17-1", "Y17-2", "Y17-3", "Y17-4", "Y17-5"],
       "fix": "PriorWorkReframe artifact"
     },
     {
@@ -48,12 +49,18 @@
       "class": "ENVIRONMENT_GAP",
       "title": "provider IV replay still blocked in cloud (no keys)",
       "recurring": true,
-      "missions": ["Y17-1", "Y17-2"],
+      "missions": ["Y17-1", "Y17-2", "Y17-4", "Y17-5"],
       "fix": "verification_delta.json recorded; operator local replay with ≥2 free keys"
     }
   ],
   "not_bugs": [
     "Y17-2 scientific REJECTED (null preserved)",
-    "org A/B INCONCLUSIVE_REAL_SAMPLE_TOO_SMALL at N<5"
-  ]
+    "org A/B INCONCLUSIVE_REAL_SAMPLE_TOO_SMALL at N<5",
+    "Y17-5 SUPPORTED is holdout skill vs baseline — not proof of general forecasting"
+  ],
+  "continual_improvement_question": {
+    "status": "NOT_MEASURED",
+    "question": "Does Global OS improve future success/escaped-error rate after learning from past failures?",
+    "requirement": "holdout missions after failure-driven fixes; do not claim from engineering process alone"
+  }
 }

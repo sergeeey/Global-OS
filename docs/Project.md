@@ -28,10 +28,11 @@ Goal Contract · Epistemic Kernel · Durable Runtime · Authority Kernel · Dyna
 - Free pins: OpenRouter Nemotron 550b / Groq gpt-oss-120b / Gemini 3.6-flash; `run_hrsn_measured` + scheduled 48h soak
 - **Operator Reality Contact:** 3-provider smoke + live H-ENV/H-RSN JSON (claim=false; winner often A — ladder B–E still prompt-conditioned)
 - **Active mode:** dogfood — `Y17 mission → GlobalOS → failure → fix → replay` (M1.5 = IN PROGRESS; 48h paused)
-- **Y17-1** SUPPORTED; **Y17-2** REJECTED; **Y17-3** SUPPORTED; **Y17-4** SUPPORTED (cross-domain RMT GOE-spacing)
-- **Provider IV:** replay harness ready; cloud still BLOCKED_ENVIRONMENT — local ≥2 free keys needed
-- **Org A/B** N=2: INCONCLUSIVE_REAL_SAMPLE_TOO_SMALL (H-ORG not claimed)
-- **Next:** local IV replay → Y17-5 other class → grow org sample; 48h later as persistent research program
+- **Y17-1..Y17-5** done across Fisher / model-selection / causal / RMT / **forecasting-holdout**
+- **Provider IV:** cloud BLOCKED; local ≥2 free keys still required for `unblocked: true`
+- **Org A/B** N=3: INCONCLUSIVE_REAL_SAMPLE_TOO_SMALL (H-ORG not claimed)
+- **Subsystem gate** + continual-improvement question: NOT_MEASURED
+- **Next:** local IV → grow org N≥5–6 → 48h as persistent research program
 - DoD V2 / M1.5 closed / PRODUCTION_PROVEN **не заявлены**
 
 ## Документы
