@@ -77,6 +77,18 @@ def test_hrsn_vuw_per_cost_and_gos_i23():
     assert all(t["verification_tier"] == 2 for t in d["trials"])
 
 
+def test_env_real_001_records_cloud_vs_local_secret_failure():
+    from global_os.evals.environment.env_real_001 import summarize_env_real_001
+
+    d = summarize_env_real_001().as_dict()
+    assert d["case_id"] == "ENV-REAL-001"
+    assert d["scientific_claim_accepted"] is False
+    assert d["hypothesis_link"] == "H-ENV-001"
+    assert "secret_locality" in d["required_capabilities"]
+    assert "self-hosted" in d["expected_correction"].lower()
+    assert d["verdict"] == "FAILURE_CASE_RECORDED_NOT_FIXED"
+
+
 def test_hrsn_measured_uses_real_provider_calls():
     from global_os.evals.environment.hrsn_experiment import run_hrsn_measured
     from tests.support.scripted_hetero_provider import ScriptedHeterogeneousProvider

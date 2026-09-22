@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.34 — 2026-09-22
+
+### Added
+
+- ENV-REAL-001: observed Cloud Agent vs local-secret locality failure (H-ENV datapoint; claim false)
+
 ## 0.1.33 — 2026-09-21
 
 ### Added

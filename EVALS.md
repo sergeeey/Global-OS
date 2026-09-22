@@ -50,6 +50,14 @@ human_interventions, cost, latency, tool_calls, recovery_events.
 
 **E is not required to win.** Module: `global_os.evals.environment.ladder`.
 
+## ENV-REAL-001 (observed failure)
+
+Operator datapoint: Cloud Agent VM had a git clone but **no machine-local secrets**
+(Windows `secret\.env` / `E:\…` absent; `.env` gitignored).  
+Environment Compiler must reason about resource/secret/filesystem locality and
+route to self-hosted / My Machines when required.  
+`scientific_claim_accepted=false`. Module: `global_os.evals.environment.env_real_001`.
+
 ## H-RSN-001
 
 Policies: fixed-low · fixed-medium · fixed-high · adaptive  
