@@ -16,10 +16,10 @@
 - [x] Immutable claims/evidence + cold-restart epistemic restore
 - [x] Effect reconciliation statuses (GOS-I13)
 - [x] ADR-0010 + ROADMAP M1.4
-- [ ] CI green on `main` (evidence)
+- [x] CI green on `main` (evidence: 4ebd062)
 - [ ] Local (≥2 free keys) live provider-IV → `unblocked: true`
 - [ ] Y17-6/7 + Org N↑ with token/cost (H-ORG still not claimed)
-- [ ] 48h persistent research program (only after M1.4 green)
+- [ ] 48h persistent research program (only after M1.4 + local IV)
 
 ## Paused — M1.5 durability (do not start 48h now)
 
