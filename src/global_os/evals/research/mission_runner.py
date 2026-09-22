@@ -210,6 +210,10 @@ def run_research_mission(
                     "detail": prov_detail,
                 }
             )
+    if isinstance(raw, dict):
+        extra_fc = raw.get("failure_cases_extra") or []
+        if isinstance(extra_fc, list):
+            failure_cases.extend(extra_fc)
 
     verification = VerificationBundle(
         deterministic_status=det_status,

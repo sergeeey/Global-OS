@@ -14,8 +14,10 @@
 - [x] Failure cases Y17-FC-001..003 recorded
 - [x] **Y17-2:** H-CAT31-V3 nested Var models → **REJECTED**; PriorWorkReframe from closed H-B7-3
 - [x] Orchestrator: persist contradictory_evidence.json (regression tests)
-- [ ] Y17-3 different class (prefer causal Boolean) + org A/B datapoint
-- [ ] Docs drift consistency gate if warranted
+- [x] **Y17-3:** causal Boolean H-B7-2 permanent-clamp independent recompute → **SUPPORTED**
+- [x] Org A/B datapoint (sample=1) → INCONCLUSIVE_REAL_SAMPLE_TOO_SMALL
+- [x] Docs drift consistency tests
+- [ ] Optional: local-keys IV replay; more org samples
 
 ## Paused — M1.5 durability (do not start 48h now)
 

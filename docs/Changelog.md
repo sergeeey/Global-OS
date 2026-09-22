@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.40 — 2026-09-22
+
+### Dogfood
+
+- Y17-3 complete: independent causal recompute of H-B7-2 permanent clamps → **SUPPORTED**
+  (do(Rb=0) period-8 complex; do(p27=0) point; matches prior metrics). Y-17 data/*.bnet missing
+  in clone → fetched public pyboolnet .bnet into Global OS artifacts only.
+- Org A/B datapoint on Y17-3 → `INCONCLUSIVE_REAL_SAMPLE_TOO_SMALL` (`artifacts/hardening/org_ab_y17_3.json`)
+- Docs drift guards: no capability may be PRODUCTION_PROVEN; forbid M1.5/DoD V2 complete phrases
+
 ## 0.1.39 — 2026-09-22
 
 ### Dogfood

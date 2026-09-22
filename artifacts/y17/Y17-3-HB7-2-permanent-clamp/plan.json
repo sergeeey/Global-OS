@@ -1,0 +1,9 @@
+{
+  "steps": [
+    "PriorWorkReframe: independent verification of H-B7-2 (not first discovery)",
+    "Lock preregistration for permanent-clamp Rb primary",
+    "Import H-B7-1/2 helpers read-only",
+    "Exhaustive do(Rb=0) and do(p27=0)",
+    "Decide + deterministic verify; provider IV degraded if blocked"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "discovered_prior_id": "H-B7-2",
+  "original_intent": "first discovery of permanent-clamp Rb effect",
+  "reframed_intent": "independent Global-OS recompute / verification of H-B7-2 Rb arm",
+  "rationale": "H-B7-2 already CONFIRMED[WEAKENED] in Y-17. Y17-3 tests research-runner generality on a causal Boolean class distinct from Y17-1/Y17-2, with explicit independent-verification framing (not silent rediscovery)."
+}

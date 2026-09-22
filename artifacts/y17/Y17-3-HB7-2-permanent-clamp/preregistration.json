@@ -1,0 +1,33 @@
+{
+  "mission_id": "Y17-3",
+  "preregistered_before_data": true,
+  "hypothesis": "Permanent do(Rb=0) on the Fauré 2006 network makes the CycD=0 region reach a complex attractor (operationalized Kauffman permanent-clamp claim).",
+  "primary_outcome": "cycd0_reaches_complex_attractor under do(Rb=0)",
+  "test": "exhaustive synchronous attractor membership under clamped Boolean rules",
+  "null": "all CycD=0 states still reach only point attractor(s) under do(Rb=0)",
+  "alpha": "deterministic exhaustive (no α); binary complex-vs-point",
+  "threshold": {
+    "complex_in_cycd0": true
+  },
+  "kill_criterion": "SUPPORTED if do(Rb=0) yields complex attractor from CycD=0; REJECTED otherwise. do(p27=0) is secondary differential only.",
+  "seed_data_policy": "Deterministic exhaustive enumeration; no RNG. Read-only import of Y-17 H-B7-1/2 helpers.",
+  "stopping_rule": "Single exhaustive run; no post-hoc node/clamp changes.",
+  "prohibited_post_hoc_changes": [
+    "Do not switch to transient clamp after seeing permanent result",
+    "Do not rewrite Y-17 metrics",
+    "Do not claim pre-existing wild-type attractor without separate test",
+    "Do not upgrade p27 secondary into primary"
+  ],
+  "primary_criterion": {
+    "statistic": "cycd0_reaches_complex_attractor",
+    "decision_rule": {
+      "SUPPORTED": "True under do(Rb=0)",
+      "REJECTED": "False under do(Rb=0)"
+    }
+  },
+  "secondary_descriptive_only": [
+    "do(p27=0) types",
+    "match to H-B7-2 committed metrics",
+    "complex period"
+  ]
+}

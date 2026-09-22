@@ -1,0 +1,18 @@
+{
+  "deterministic_status": "PASS",
+  "deterministic_checks": [
+    "512 CycD=0 states under do(Rb=0)",
+    "decision matches kill criterion",
+    "p27 types=['point']",
+    "no Y-17 writes declared"
+  ],
+  "provider_status": "BLOCKED_ENVIRONMENT",
+  "provider_detail": "no OPENROUTER/GROQ/GEMINI keys — deterministic verification only",
+  "live_keys": {
+    "openai": false,
+    "anthropic": false,
+    "openrouter": false,
+    "groq": false,
+    "gemini": false
+  }
+}

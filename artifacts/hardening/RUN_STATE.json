@@ -1,33 +1,55 @@
 {
   "sprint": "GLOBAL_OS_AUTONOMOUS_HARDENING",
-  "updated_at": "2026-09-22T09:50:00Z",
-  "current_goal": "PHASE_5_Y17_3",
+  "updated_at": "2026-09-22T10:20:00Z",
+  "current_goal": "SPRINT_CHECKPOINT_COMPLETE",
   "completed": [
     "PHASE_1_AUDIT",
     "PHASE_2_RESEARCH_ORCHESTRATOR",
     "Y17-1",
     "Y17-2",
-    "PHASE_4_Y17_2_FIXES"
+    "PHASE_4_Y17_2_FIXES",
+    "Y17-3",
+    "PHASE_6_ORG_AB_DATAPOINT",
+    "PHASE_7_DOCS_DRIFT_GUARDS",
+    "PHASE_8_QUALITY_GATES"
   ],
-  "running": "Y17-3_causal_boolean",
+  "running": null,
   "blocked": ["cloud_provider_keys"],
   "failures_discovered": [
     "Y17-FC-001",
     "Y17-FC-002",
     "Y17-FC-003",
     "Y17-2-FC-PRIOR-CLOSED",
-    "Y17-2-FC-IV"
+    "Y17-2-FC-IV",
+    "Y17-3-FC-IV",
+    "Y17-3-FC-DATA"
   ],
   "fixes_applied": [
-    "research.mission_runner with BLOCKED_ENVIRONMENT provider IV",
+    "research.mission_runner BLOCKED_ENVIRONMENT provider IV",
     "PriorWorkReframe artifact support",
-    "persist contradictory_evidence.json from experiment raw"
+    "persist contradictory_evidence.json",
+    "merge failure_cases_extra from experiment",
+    "docs drift guards",
+    "Y17-3 public bnet into Global OS artifacts when Y-17 data/ missing"
   ],
-  "tests_status": "research_mission+y17_2_6_passed; full_suite_pending",
-  "commits_pending": ["dogfood: complete Y17-2", "fix: persist contradictory evidence"],
+  "tests_status": "152_passed_5_skipped; ruff_ok; mypy_ok; schemas_ok; rust_authority_pending_in_this_file",
   "scientific": {
     "Y17-1": "SUPPORTED",
-    "Y17-2": "REJECTED (nested F p=0.140; D_hat<0; primes wrong-sign D walled)"
+    "Y17-2": "REJECTED",
+    "Y17-3": "SUPPORTED"
   },
-  "next_exact_action": "Y17-3 causal Boolean independent recompute of H-B7-2 do(Rb=0) via research runner (generality; PriorWorkReframe=independent verification)"
+  "org_ab": {
+    "verdict": "INCONCLUSIVE_REAL_SAMPLE_TOO_SMALL",
+    "artifact": "artifacts/hardening/org_ab_y17_3.json"
+  },
+  "quality_gates": {
+    "pytest": "152 passed, 5 skipped",
+    "ruff": "ok",
+    "mypy": "ok",
+    "schemas": "ok",
+    "y17_modifications": false,
+    "secret_leak_scan_artifacts": "clean"
+  },
+  "commits": ["b875731", "d65e307"],
+  "next_exact_action": "Y17-4: prefer unfinished open catalog item with local compute OR local-keys provider IV replay of Y17-1; expand org A/B sample"
 }

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "Y17-3-FC-IV",
+    "class": "ENVIRONMENT_GAP",
+    "title": "provider independent verification blocked",
+    "detail": "no OPENROUTER/GROQ/GEMINI keys — deterministic verification only"
+  },
+  {
+    "id": "Y17-3-FC-DATA",
+    "class": "ENVIRONMENT_GAP",
+    "title": "Y-17 clone missing data/*.bnet",
+    "detail": "Fetched public pyboolnet faure_cellcycle.bnet into Global OS artifacts only"
+  }
+]

@@ -1,0 +1,129 @@
+{
+  "config": {
+    "network": "Fauré et al. 2006 via public pyboolnet .bnet",
+    "bnet_path": "/workspace/artifacts/y17/Y17-3-HB7-2-permanent-clamp/data/faure_cellcycle.bnet",
+    "bnet_public_url": "https://raw.githubusercontent.com/hklarner/pyboolnet/master/pyboolnet/repository/faure_cellcycle/faure_cellcycle.bnet",
+    "y17_data_dir_missing": true,
+    "interventions": [
+      "do(Rb=0)",
+      "do(p27=0)"
+    ],
+    "primary_arm": "do(Rb=0)",
+    "update_scheme": "synchronous",
+    "y17_writes": false
+  },
+  "node_order": [
+    "CycD",
+    "Cdc20",
+    "CycA",
+    "CycB",
+    "CycE",
+    "E2F",
+    "Rb",
+    "UbcH10",
+    "cdh1",
+    "p27"
+  ],
+  "interventions": {
+    "do(Rb=0)": {
+      "n_attractors_total": 2,
+      "attractors": [
+        {
+          "period": 8,
+          "type": "complex",
+          "states": [
+            "0000110011",
+            "0010110011",
+            "0010110010",
+            "0010100000",
+            "0011000100",
+            "0111000100",
+            "0100000110",
+            "0000010111"
+          ]
+        },
+        {
+          "period": 7,
+          "type": "complex",
+          "states": [
+            "1000010110",
+            "1000110010",
+            "1010110010",
+            "1010100000",
+            "1011000100",
+            "1111000100",
+            "1100000110"
+          ]
+        }
+      ],
+      "cycd0_reaches_attractor_types": [
+        "complex"
+      ],
+      "cycd0_reaches_complex_attractor": true,
+      "cycd0_attractor_periods": [
+        8
+      ],
+      "n_cycd0_states": 512
+    },
+    "do(p27=0)": {
+      "n_attractors_total": 2,
+      "attractors": [
+        {
+          "period": 1,
+          "type": "point",
+          "states": [
+            "0000001010"
+          ]
+        },
+        {
+          "period": 7,
+          "type": "complex",
+          "states": [
+            "1000010110",
+            "1000110010",
+            "1010110010",
+            "1010100000",
+            "1011000100",
+            "1111000100",
+            "1100000110"
+          ]
+        }
+      ],
+      "cycd0_reaches_attractor_types": [
+        "point"
+      ],
+      "cycd0_reaches_complex_attractor": false,
+      "cycd0_attractor_periods": [
+        1
+      ],
+      "n_cycd0_states": 512
+    }
+  },
+  "scope": {
+    "rb_complex_periods": [
+      8,
+      7
+    ],
+    "qualification": "SUPPORTED means permanent do(Rb=0) yields complex attractor in CycD=0; does NOT claim the attractor pre-existed in the unperturbed network (H-B7-2 CONFIRMED-WEAKENED scope)."
+  },
+  "prior_match": {
+    "rb_complex_prior": true,
+    "rb_complex_now": true,
+    "p27_complex_prior": false,
+    "p27_complex_now": false,
+    "types_rb_match": true,
+    "types_p27_match": true
+  },
+  "decision": "SUPPORTED",
+  "nulls": [],
+  "contradictory_evidence": [],
+  "p27_secondary_point_preserved": true,
+  "failure_cases_extra": [
+    {
+      "id": "Y17-3-FC-DATA",
+      "class": "ENVIRONMENT_GAP",
+      "title": "Y-17 clone missing data/*.bnet",
+      "detail": "Fetched public pyboolnet faure_cellcycle.bnet into Global OS artifacts only"
+    }
+  ]
+}

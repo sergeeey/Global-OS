@@ -1,0 +1,25 @@
+{
+  "mission_id": "Y17-3",
+  "decision": "SUPPORTED",
+  "files": [
+    "claims.json",
+    "contradictory_evidence.json",
+    "data/faure_cellcycle.bnet",
+    "decision.md",
+    "execute_mission.py",
+    "experiments/__pycache__/run_mission.cpython-312.pyc",
+    "experiments/metrics/run.json",
+    "experiments/run_mission.py",
+    "failure_cases.json",
+    "mission.json",
+    "null_results.json",
+    "plan.json",
+    "postmortem.json",
+    "preregistration.json",
+    "reframe.json",
+    "sources.json",
+    "verification.json"
+  ],
+  "recorded_at": "2026-09-22T09:51:13.771044+00:00",
+  "report_id": "rmr_521cce75039e4f16"
+}
