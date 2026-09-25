@@ -1,8 +1,8 @@
 {
-  "sprint": "Y21_PLAN_AGREED",
-  "updated_at": "2026-09-25T12:25:00Z",
-  "current_goal": "Y21_PREREG_AUTHORSHIP_ISOLATED",
-  "phase_statement": "Y20 NULL on sealed science accepted. Y21 plan agreed: algorithmic reverse-engineering; generator authorship isolated from arm runners; primary=sealed performance; secondary=process/cost. No Y20 retune. No LH/M1.5.",
+  "sprint": "Y21_PREREG_LOCKED",
+  "updated_at": "2026-09-25T12:35:00Z",
+  "current_goal": "Y21_ARM_A",
+  "phase_statement": "Y21 prereg locked @7136808. Next Arm A only. Sealed unseen. No arch changes.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y19_frozen": true,
@@ -15,20 +15,12 @@
     "comparison_report": "artifacts/y20/COMPARISON_REPORT.md"
   },
   "y21": {
-    "status": "PLAN_AGREED_PREREG_NOT_LOCKED",
-    "task_class": "algorithmic_reverse_engineering",
-    "not_chosen": ["y20_style_causal", "document_evidence_synthesis_first"],
-    "why_not_document_first": "would specially favor epistemic/provenance; Y21 targets general transfer",
-    "win_primary": "sealed_task_performance",
-    "win_secondary": [
-      "human_interventions",
-      "unsupported_claims",
-      "recovery_state_loss",
-      "process_trace_completeness",
-      "cost_wall_time"
-    ],
-    "draft": "artifacts/y21/Y21-RESEARCH-PROGRAM.DRAFT.md",
-    "requirement_generator_author_ne_arm_runner": true
+    "status": "PREREG_LOCKED",
+    "prereg_boundary_sha": "7136808",
+    "arms_started": false,
+    "sealed_unseen": true,
+    "win_primary": "sealed_exact_match_rate",
+    "primary_mcid": 0.05
   },
   "honest_status": {
     "gos_process_discipline": true,
@@ -44,7 +36,7 @@
     "literal_48h": "DEFERRED",
     "m15_claimed": false
   },
-  "next_exact_action": "Isolate Y21 generator authorship (separate from arm runners); lock Y21-PREREG.md + scorer + public hash; only then execute A→B→unseal.",
+  "next_exact_action": "Run Y21 Arm A on public pack; freeze; do not unseal; do not start B.",
   "forbidden_now": [
     "retune_y20_to_win",
     "change_y20_scorer_after_result",

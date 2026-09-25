@@ -4,7 +4,7 @@
   "prereg": "artifacts/y21/Y21-PREREG.md",
   "protocol_version": "Y21-AB-v1",
   "plan_agree_sha": "59e0be5",
-  "prereg_boundary_sha": null,
+  "prereg_boundary_sha": "7136808",
   "updated_at": "2026-09-25T12:30:00Z",
   "phase": "PREREG_LOCKED",
   "prereg_locked": true,
@@ -35,8 +35,16 @@
     "python_subprocess_max": 200
   },
   "arms": {
-    "A": {"status": "NOT_STARTED", "role": "strong_agent_baseline", "dir": "artifacts/y21/arms/A"},
-    "B": {"status": "NOT_STARTED", "role": "strong_agent_plus_global_os", "dir": "artifacts/y21/arms/B"}
+    "A": {
+      "status": "NOT_STARTED",
+      "role": "strong_agent_baseline",
+      "dir": "artifacts/y21/arms/A"
+    },
+    "B": {
+      "status": "NOT_STARTED",
+      "role": "strong_agent_plus_global_os",
+      "dir": "artifacts/y21/arms/B"
+    }
   },
   "gos_advantage_claimed": false,
   "y20_sealed_science_gain": false,
@@ -50,5 +58,6 @@
     "claim_M1.5",
     "literal_48h"
   ],
-  "next_step": "Execute Arm A on public pack only; freeze; do not unseal."
+  "next_step": "Execute Arm A on public pack only; freeze; do not unseal.",
+  "prereg_boundary_full": "71368083594fde455cdea770d4b36e2e0184ef20"
 }
