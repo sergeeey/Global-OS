@@ -1,8 +1,8 @@
 {
-  "sprint": "R2_REPLICATION_COMPLETE",
-  "updated_at": "2026-09-25T17:20:00Z",
-  "current_goal": "POST_R2_MAP",
-  "phase_statement": "R2 external scientific replication/audit PARTIAL (Attention is not Explanation). Independent review scientifically_useful=true. Thesis: GOS as OS for checkable long work, not raw IQ amp. Next R3 other class. Ops/Docker separate. No Y23/M1.5.",
+  "sprint": "R3_FORENSICS_STARTED",
+  "updated_at": "2026-09-25T17:15:00Z",
+  "current_goal": "R3_DATA_FORENSICS",
+  "phase_statement": "Map locked post-R2. Thesis: GOS as OS for checkable long work. R3 data-forensics started (\u2260 paper replication). Independent rubric locked. Ops separate.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y20": {
@@ -34,7 +34,7 @@
     "literal_48h": "DEFERRED",
     "m15_claimed": false
   },
-  "next_exact_action": "Choose R3 different real-use class OR pause. Do not mix CRM/Docker. Do not start Y23.",
+  "next_exact_action": "Execute R3 Track A+B forensics \u2192 FORENSIC_REPORT \u2192 independent review. Then failure-class summary after R3.",
   "forbidden_now": [
     "y23_synthetic_ab",
     "retune_y20_y21_y22_scorers_post_hoc",
@@ -65,5 +65,22 @@
     "interventions": 0
   },
   "thesis": "gos_as_os_for_checkable_long_work_not_raw_iq_amplifier",
-  "ops_backlog_separate": "artifacts/ops/SEPARATE_BACKLOG.md"
+  "ops_backlog_separate": "artifacts/ops/SEPARATE_BACKLOG.md",
+  "evidence_map": {
+    "Y19": "loop_shown_bundle",
+    "Y20": "sealed_null",
+    "Y21": "sealed_null",
+    "Y22": "reliability_not_confirmed",
+    "R1": "real_mission_0_int",
+    "R2": "external_audit_independent_review_0_int",
+    "raw_iq": "NOT_SHOWN",
+    "universal": "NOT_SHOWN",
+    "continual_si": "NOT_MEASURED",
+    "m15": "NOT_CLAIMED"
+  },
+  "r3": {
+    "mission": "R3-DATA-FORENSICS-v1",
+    "status": "CONTRACT_LOCKED",
+    "rubric_locked_at": "2026-09-25T17:15:00Z"
+  }
 }
