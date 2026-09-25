@@ -1,0 +1,6 @@
+{
+  "mealy_train_exact": 0.37727272727272726,
+  "markov_train_exact": 0.41363636363636364,
+  "selected": "markov3",
+  "n_states_claimed": 180
+}

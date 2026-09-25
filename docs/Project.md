@@ -14,7 +14,7 @@
 
 ## Текущий baseline
 
-**Y20 scored (science NULL for GOS). Y21 plan agreed — prereg not locked.**
+**Y21 prereg @7136808. Arm A FROZEN. Sealed UNSEEN. Arm B next.**
 
 ```text
 Y19  → first autonomous research-loop example

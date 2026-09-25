@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.66 — 2026-09-25
+
+### Y21 prereg locked + Arm A frozen
+
+- Prereg boundary **`7136808`**: Mealy RE; primary `sealed_exact_match_rate` MCID 0.05
+- Secondary metrics cannot override primary
+- Arm A frozen (strong baseline, public pack only); sealed UNSEEN; Arm B not started
+- No LH/M1.5; no Y20 retune
+
 ## 0.1.65 — 2026-09-25
 
 ### Y21 plan agreed (prereg not locked)

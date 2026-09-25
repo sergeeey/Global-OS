@@ -40,12 +40,12 @@
 - [x] COMPARISON_REPORT: science A≥B; process trace B richer; GOS advantage NOT shown
 - [x] Integrity caveat recorded (generator authorship)
 
-## Next — Y21 transfer / cleaner attribution
+## Active — Y21 Mealy A/B
 
-- [x] Agree plan: algorithmic reverse-engineering; primary=sealed perf; secondary=process/cost
-- [ ] Isolate generator authorship (≠ arm runners)
-- [ ] Lock `Y21-PREREG.md` + scorer + public hash (`prereg_boundary_sha`)
-- [ ] Execute A→freeze→B→freeze→unseal→COMPARISON_REPORT
+- [x] Prereg locked @ `7136808` (primary exact-match MCID 0.05)
+- [x] Public/generator hashes frozen; secondary cannot override primary
+- [x] Arm A frozen (baseline; sealed unseen)
+- [ ] Arm B (GOS loop) → freeze → unseal → COMPARISON_REPORT
 - [ ] Re-pin freeze SHA before any LH 96m/48h
 
 ## Deferred — True 48h / M1.5 (after new freeze)
