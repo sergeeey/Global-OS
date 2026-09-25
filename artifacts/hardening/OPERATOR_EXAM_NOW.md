@@ -20,24 +20,50 @@
 
 ## Step 0 — clean exam environment
 
+### 0a — identity gate (REQUIRED; fail closed)
+
+You must be **inside the Global-OS clone**, not `$HOME` / Claude vault / another repo.
+
+Observed trap (2026-09-25): commands run from `C:\Users\serge` (branch `fix/quality-v13`,
+HEAD `92e93bd…`) → `fatal: unable to read tree (5d15600…)` — **env block, not exam SHA defect**.
+Same freeze SHA remains valid after correcting cwd.
+
 ```powershell
-cd C:\dev\Global-OS   # your clone
+# Pick the actual clone (try both; use the one that exists):
+if (Test-Path C:\dev\Global-OS\.git) { Set-Location C:\dev\Global-OS }
+elseif (Test-Path $env:USERPROFILE\Global-OS\.git) { Set-Location $env:USERPROFILE\Global-OS }
+else { throw "Global-OS clone not found — clone https://github.com/sergeeey/Global-OS first" }
+
+# Identity assertions — STOP if any fails:
+pwd
+git rev-parse --show-toplevel
+git remote get-url origin
+# Expect URL containing: sergeeey/Global-OS  (NOT a home-dir vault / Claude-cod repo)
+
+if (-not (Test-Path .\src\global_os)) { throw "Not Global-OS: missing src\global_os" }
+if (-not (Test-Path .\artifacts\hardening\M15_EXAM_KICKOFF.md)) { throw "Not Global-OS exam tree" }
+```
+
+### 0b — detach freeze SHA
+
+```powershell
 git fetch origin
+git cat-file -t 5d15600256a7afc7839f190ed3d889b33bc3217b
+# Expect: commit   (if missing → fetch failed / wrong remote; still env, not code defect)
+
 git checkout --detach 5d15600256a7afc7839f190ed3d889b33bc3217b
 git status
 git rev-parse HEAD
 ```
 
-**Expect:** clean tree (or only allowed untracked exam dirs) and HEAD = `5d15600256a7afc7839f190ed3d889b33bc3217b`.
+**Expect:** HEAD = `5d15600256a7afc7839f190ed3d889b33bc3217b`  
+clean tree (or only allowed untracked exam dirs).
 
 If leftover `wall_48h` / untracked files block checkout → **move to backup**, do not delete LH-v1 evidence.
-
-Set:
 
 ```powershell
 $env:PYTHONPATH = "$PWD\src"
 ```
-
 ---
 
 ## Step 1 — Windows os_kill smoke (NOW)

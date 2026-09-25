@@ -1,8 +1,8 @@
 {
   "sprint": "M15_EXAM_IN_PROGRESS_OPERATOR",
-  "updated_at": "2026-09-25T17:50:37Z",
-  "current_goal": "WINDOWS_SMOKE_ON_5d15600",
-  "phase_statement": "Honesty map locked: raw amplification NOT SHOWN (\u2260 zero-effect proof); R1\u2013R3 EARLY YES bundle / causal GOS NOT MEASURED; M1.5 TO TEST @5d15600; H_TRUST is post-M1.5 core. Exam kickoff unchanged.",
+  "updated_at": "2026-09-25T17:52:04Z",
+  "current_goal": "WINDOWS_IDENTITY_GATE_THEN_SMOKE_ON_5d15600",
+  "phase_statement": "Operator attempted detach from wrong git (C:\\Users\\serge / fix/quality-v13). Classed ENV_BLOCK \u2014 same freeze SHA. Re-run from Global-OS clone with identity gate.",
   "operator_action_required": true,
   "operator_dispatch_required": true,
   "y20": {
@@ -31,12 +31,12 @@
   "long_horizon": {
     "linux_compressed_preflight": "PASS",
     "linux_os_kill_smoke": "PASS",
-    "windows_os_kill_smoke": "NOT_RUN",
+    "windows_os_kill_smoke": "BLOCKED_WRONG_REPO_THEN_RETRY",
     "windows_preflight": "READY_FOR_OPERATOR",
     "literal_48h": "NOT_STARTED",
     "m15_claimed": false
   },
-  "next_exact_action": "OPERATOR Windows: git checkout --detach 5d15600\u2026 ; git status; git rev-parse HEAD; then smoke from M15_EXAM_KICKOFF.md",
+  "next_exact_action": "OPERATOR: cd Global-OS clone \u2192 Step 0a identity gate \u2192 detach 5d15600 \u2192 smoke",
   "forbidden_now": [
     "r4_during_exam",
     "harden_exam_sha",
@@ -110,5 +110,6 @@
   "working_bets": {
     "raw_capability_amplification": "NOT_SHOWN_retired_as_working_bet",
     "trust_long_horizon_amplification": "TO_TEST"
-  }
+  },
+  "env_incident": "artifacts/hardening/ENV_WRONG_REPO_2026-09-25.md"
 }

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.80 — 2026-09-25
+
+### Env: wrong-repo trap before Windows smoke
+
+- Documented `ENV_WRONG_REPO_2026-09-25.md` (home dir git ≠ Global-OS)
+- Operator kickoff Step 0a identity gate; freeze `5d15600` unchanged
+
 ## 0.1.79 — 2026-09-25
 
 ### Scientific honesty map + H_TRUST draft (exam SHA untouched)
