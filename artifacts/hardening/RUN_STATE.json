@@ -1,8 +1,8 @@
 {
-  "sprint": "LONG_HORIZON_VALIDATION_ENTRY",
-  "updated_at": "2026-09-22T18:55:00Z",
-  "current_goal": "OPERATOR_WINDOWS_WALL_PREFLIGHT_RETRY_AFTER_PORTABILITY_FIX",
-  "phase_statement": "Empirical Hardening COMPLETE — Long-Horizon Validation ENTRY. Wall proof NOT started. Portability fix applied after wall preflight failure.",
+  "sprint": "LONG_HORIZON_WALL_48H_PASS",
+  "updated_at": "2026-09-25T04:45:00Z",
+  "current_goal": "M15_CLOSURE_REVIEW_AFTER_WALL_48H_PASS",
+  "phase_statement": "Empirical Hardening COMPLETE. Wall-clock 48h research program PASS on operator Windows (WALL_CLOCK_48H). M1.5 is CANDIDATE for closure review — not auto-claimed. H-ORG / Continual SI / PRODUCTION_PROVEN still not claimed.",
   "completed": [
     "M14_TRUST_BOUNDARY",
     "CI_GREEN_MAIN",
@@ -19,44 +19,41 @@
     "LH48_PROGRAM_CONTRACT",
     "LH48_PREFLIGHT_COMPRESSED",
     "EMPIRICAL_HARDENING_COMPLETE",
-    "LH_FC_PORTABILITY_SLEEP_FIX"
+    "LH_FC_PORTABILITY_SLEEP_FIX",
+    "LH48_WALL_CLOCK_PASS"
   ],
   "running": null,
   "blocked": [],
-  "stage": "Empirical Hardening COMPLETE → Long-Horizon Validation ENTRY (wall proof NOT started; re-preflight required)",
+  "stage": "Long-Horizon Validation — wall_48h PASS; M1.5 candidate (review)",
   "continual_improvement": "NOT_MEASURED",
-  "code_freeze_until": "windows_wall_preflight_PASS_on_post_fix_SHA",
   "provider_iv_replay": {
     "any_live_iv": true,
     "all_still_blocked": false,
     "unblocked": true,
     "provenance": "operator_local_windows_confirmed",
-    "missions": [
-      "Y17-1",
-      "Y17-2"
-    ]
+    "missions": ["Y17-1", "Y17-2"]
   },
   "long_horizon": {
     "program": "persistent_research_48h",
     "pass_criteria_frozen": true,
-    "pass_criteria_unchanged_by_portability_fix": true,
     "preflight_compressed": "PASS",
-    "preflight_wall_60_120min": "FAILED_THEN_FIXED_RETRY_PENDING",
-    "wall_preflight_failure": {
-      "id": "LH-FC-PORTABILITY-SLEEP",
-      "class": "PORTABILITY_ENVIRONMENT",
-      "detail": "sb.execute(['sleep','2']) FileNotFoundError WinError 2",
-      "prior_freeze_candidate": "7d0fc4a"
-    },
-    "wall_48h": "NOT_STARTED",
+    "preflight_wall_60_120min": "PASS_AFTER_PORTABILITY_FIX",
+    "wall_48h": "PASS",
+    "fidelity": "WALL_CLOCK_48H",
+    "wall_seconds": 151200.19032550004,
+    "wall_hours_elapsed": 42.0001,
+    "schedule_covered_through_offset_hours": 42.0,
+    "goal_id": "goal_8769d52869954470",
+    "goal_integrity_survival": "PASS",
+    "all_11_pass_criteria": true,
+    "all_9_injections_passed": true,
     "m15_claimed": false,
-    "start_gate": "GOS_REQUIRE_48H=1 AND GOS_START_RESEARCH_48H=1",
-    "evaluation_rule": "only_frozen_PASS_criteria_no_impression",
-    "during_run_rule": "no_manual_help_except_contract_allowed_actions",
-    "contract": "artifacts/hardening/long_horizon_48h/preflight/program_contract.json",
-    "note": "Minimal portability fix only; re-run Windows wall preflight before new freeze",
-    "fix_commit": "16fca1fff0b90b30bacb552e0b05d5ec9dc9ef26",
-    "freeze_candidate_after_preflight_retry": "16fca1fff0b90b30bacb552e0b05d5ec9dc9ef26"
+    "m15_status": "CANDIDATE_FOR_CLOSURE_REVIEW",
+    "report": "artifacts/hardening/long_horizon_48h/wall_48h/program_report.json",
+    "attestation": "artifacts/hardening/long_horizon_48h/wall_48h/operator_attestation.json",
+    "implementation_sha_note": "operator ran after portability fix 16fca1f; confirm SHA on Windows checkout during closure review",
+    "hidden_intervention": "operator_confirm_required",
+    "evaluation_rule": "only_frozen_PASS_criteria_no_impression"
   },
   "scientific": {
     "Y17-1": "SUPPORTED",
@@ -71,10 +68,7 @@
     "n_tasks": 7,
     "verdict": "PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED",
     "B_information_loss_rate": 0.714,
-    "artifact_first_handoff": [
-      "Y17-6",
-      "Y17-7"
-    ],
+    "artifact_first_handoff": ["Y17-6", "Y17-7"],
     "scientific_claim_accepted": false
   },
   "failures_recurring": [
@@ -90,19 +84,17 @@
       "fix": "cross_platform_sleep_argv via sys.executable"
     }
   ],
-  "next_exact_action": "Operator Windows: re-run 60–120min wall preflight on post-fix SHA. If PASS → freeze that SHA → then wall 48h with double gate. 48h NOT started. M1.5 not claimed. PASS criteria unchanged.",
+  "next_exact_action": "M1.5 closure review: audit wall_48h artifacts, confirm no hidden intervention, confirm remaining ROADMAP M1.5 checklist items, then decide claim. Do NOT claim H-ORG / Continual SI / PRODUCTION_PROVEN.",
   "fork_after_48h": {
-    "PASS": "review artifacts → confirm no hidden intervention → M1.5 candidate",
-    "FAIL": "classify → minimal fix → regression → compressed replay → new 48h attempt"
+    "PASS": "IN_PROGRESS — wall PASS recorded; closure review next",
+    "FAIL": "n/a this run"
   },
   "forbidden_now": [
-    "cosmetic_fixes_before_freeze",
-    "claim_M1.5_without_wall_48h",
-    "re_run_provider_keys",
+    "auto_claim_M1.5_without_review",
     "H_ORG_claim",
     "continual_SI_claim",
-    "auto_start_wall_48h",
-    "manual_help_during_48h_outside_contract",
-    "change_frozen_PASS_criteria"
+    "PRODUCTION_PROVEN_claim",
+    "re_run_provider_keys",
+    "change_frozen_PASS_criteria_retroactively"
   ]
 }

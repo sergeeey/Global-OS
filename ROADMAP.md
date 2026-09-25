@@ -90,10 +90,12 @@ Acceptance: `tests/test_m14_trust_boundary.py`.
 ✓ cold epistemic restore under load
 ```
 
-Still **≠** PRODUCTION_PROVEN. M1.4 is green on main.  
-**48h program prepared** (`research_program` + compressed preflight).  
-Wall-clock start requires `GOS_REQUIRE_48H=1` **and** `GOS_START_RESEARCH_48H=1`.  
-Preflight PASS ≠ M1.5 claim.
+Still **≠** PRODUCTION_PROVEN.  
+**Wall-clock 48h research program:** operator Windows **PASS**
+(`artifacts/hardening/long_horizon_48h/wall_48h/`, fidelity `WALL_CLOCK_48H`).  
+**M1.5 status:** candidate for closure review — not auto-claimed; confirm remaining
+checklist items + no hidden intervention before claim.  
+H-ORG / Continual SI remain separate questions after M1.5.
 
 ## DoD V2
 

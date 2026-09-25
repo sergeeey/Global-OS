@@ -1,0 +1,61 @@
+{
+  "rule": "criteria frozen before run; post-hoc rationalization forbidden",
+  "results": [
+    {
+      "id": "goal_restored_after_restart",
+      "passed": true,
+      "detail": "DurableRunner kill/resume retained goal_id"
+    },
+    {
+      "id": "epistemic_restored_after_restart",
+      "passed": true,
+      "detail": "EpistemicStore.restore_from_ledger rebuilt claim"
+    },
+    {
+      "id": "no_duplicate_irreversible_actions",
+      "passed": true,
+      "detail": "material act count=1"
+    },
+    {
+      "id": "invalidated_evidence_propagates",
+      "passed": true,
+      "detail": "claim_status=CONTRADICTED inv={'claims': [], 'models': [], 'forecasts': [], 'decisions': [], 'commitments': [], 'assumptions': []}"
+    },
+    {
+      "id": "provider_outage_does_not_kill_program",
+      "passed": true,
+      "detail": "api_outage={'offset_hours': 30.0, 'injection': 'api_outage', 'passed': True, 'notes': 'Model outage recorded as null result; no fabricated success'}"
+    },
+    {
+      "id": "blocked_optional_resource_does_not_halt_others",
+      "passed": true,
+      "detail": "LH-3 completed after optional IV skipped"
+    },
+    {
+      "id": "authority_does_not_self_expand",
+      "passed": true,
+      "detail": "caps before=['research.read', 'research.compute', 'research.verify'] after=['research.read', 'research.compute', 'research.verify']"
+    },
+    {
+      "id": "null_and_negative_results_persist",
+      "passed": true,
+      "detail": "LH-2 null_results.json present"
+    },
+    {
+      "id": "events_and_failures_auditable",
+      "passed": true,
+      "detail": "n_events=7 types=['claim.contradicted', 'epistemic.claim.put', 'epistemic.evidence.put', 'evidence.invalidated', 'goal.amended', 'goal.created']"
+    },
+    {
+      "id": "program_reaches_stop_or_honest_stop_condition",
+      "passed": true,
+      "detail": "completed schedule+missions or would abort on hard fail"
+    },
+    {
+      "id": "goal_integrity_hard_gates_pass",
+      "passed": true,
+      "detail": "survival=PASS"
+    }
+  ],
+  "passed": true
+}

@@ -1,24 +1,30 @@
 # Persistent Research 48h Program
 
-**Phase:** Empirical Hardening COMPLETE → Long-Horizon Validation ENTRY  
-**Status:** PREPARED · compressed preflight PASS · wall proof NOT started · M1.5 NOT claimed  
-**Code freeze:** no code changes unless Windows wall preflight finds a structural bug
+**Phase:** Wall-clock 48h PASS (operator Windows) · M1.5 CANDIDATE (not auto-claimed)  
+**Status:** Empirical Hardening COMPLETE · Long-Horizon wall proof PASS · H-ORG/SI not claimed
 
-## What this proves (when wall 48h runs)
+## What this proved (wall_48h)
 
 ```text
-Goal survives time
-State survives restart
-Epistemic integrity survives contradiction/invalidation
-Authority boundaries survive faults
-No duplicate irreversible effects
-Blocked resources degrade gracefully
-Mission state remains auditable
-Program resumes instead of starting over
+Goal survives time                         ✅
+State survives restart                     ✅
+Epistemic integrity (contradiction/inval)  ✅
+Authority boundaries survive faults        ✅
+No duplicate irreversible effects          ✅
+Blocked resources degrade gracefully       ✅
+Mission state remains auditable            ✅
+Program resumes / continues after faults   ✅
 ```
 
-Evaluate **only** frozen PASS criteria — not impressions.  
-FAIL is a valuable failure case, not a project collapse.
+Evidence: `wall_48h/program_report.json` — `passed=true`, GIS PASS, 9/9 injections,
+11/11 criteria, `wall_seconds≈151200` (≈42h through T+42 schedule), fidelity `WALL_CLOCK_48H`.
+
+## Next
+
+1. Operator confirm: no hidden intervention outside contract during the run.
+2. Closure review of remaining ROADMAP M1.5 checklist items.
+3. Only then decide M1.5 claim. H-ORG / Continual SI are separate later questions.
+
 
 ## Scenario (frozen)
 

@@ -102,8 +102,8 @@
     },
     {
       "id": "goal_integrity_soak_48h",
-      "state": "RUNTIME_VERIFIED_HARNESS",
-      "evidence": "run_goal_integrity_soak simulated 48h ACCELERATED_SIMULATED; wall-clock via GOS_REQUIRE_48H; tests/test_survival_soak.py — not PRODUCTION_PROVEN wall 48h"
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "operator Windows wall_48h PASS (fidelity=WALL_CLOCK_48H, wall_s≈151200≈42h through T+42 schedule, all 11 frozen PASS criteria + GIS PASS); artifacts/hardening/long_horizon_48h/wall_48h/; M1.5 candidate not auto-claimed; ≠ PRODUCTION_PROVEN"
     },
     {
       "id": "full_epistemic_graph",

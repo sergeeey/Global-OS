@@ -1,0 +1,327 @@
+{
+  "mode": "wall_48h",
+  "fidelity": "WALL_CLOCK_48H",
+  "contract": {
+    "name": "persistent_research_48h",
+    "duration_hours": 48.0,
+    "preflight_target_minutes": [
+      60,
+      120
+    ],
+    "pass_criteria": [
+      "goal_restored_after_restart",
+      "epistemic_restored_after_restart",
+      "no_duplicate_irreversible_actions",
+      "invalidated_evidence_propagates",
+      "provider_outage_does_not_kill_program",
+      "blocked_optional_resource_does_not_halt_others",
+      "authority_does_not_self_expand",
+      "null_and_negative_results_persist",
+      "events_and_failures_auditable",
+      "program_reaches_stop_or_honest_stop_condition",
+      "goal_integrity_hard_gates_pass"
+    ],
+    "stop_conditions": [
+      "all_schedule_injections_completed_and_missions_finished",
+      "hard_integrity_fail_abort",
+      "operator_abort",
+      "budget_exhausted_with_preserved_state"
+    ],
+    "schedule_name": "wall_clock_48h_operational",
+    "claims_forbidden": [
+      "M1.5",
+      "H-ORG",
+      "continual_SI",
+      "PRODUCTION_PROVEN"
+    ],
+    "fidelity_note": "preflight ≠ wall-clock 48h proof; accelerated/synthetic faults ≠ production durability",
+    "scenario": [
+      "T0 Goal Contract",
+      "research missions (deterministic)",
+      "durable checkpoints",
+      "provider failure / swap (harness)",
+      "process kill + restart",
+      "contradictory evidence",
+      "source invalidation",
+      "re-verification",
+      "budget / constraint change",
+      "continue work",
+      "48h or stop condition",
+      "Goal + Epistemic + Authority integrity audit"
+    ]
+  },
+  "goal_id": "goal_8769d52869954470",
+  "stages": [
+    {
+      "stage": "T0_goal_created",
+      "goal_id": "goal_8769d52869954470",
+      "at": "2026-09-23T04:11:58.141963+00:00"
+    },
+    {
+      "stage": "mission_LH-1",
+      "decision": "SUPPORTED",
+      "at": "2026-09-23T04:11:58.153601+00:00"
+    },
+    {
+      "stage": "mission_LH-2",
+      "decision": "SUPPORTED",
+      "at": "2026-09-23T04:11:58.162638+00:00"
+    },
+    {
+      "stage": "process_kill_restart",
+      "aborted": true,
+      "final_phase": "reported",
+      "effects": 1,
+      "at": "2026-09-23T04:11:58.164661+00:00"
+    },
+    {
+      "stage": "injection_slow_dependency",
+      "offset_hours": 2.0,
+      "passed": true,
+      "at": "2026-09-23T06:11:58.260129+00:00"
+    },
+    {
+      "stage": "injection_process_kill",
+      "offset_hours": 5.0,
+      "passed": true,
+      "at": "2026-09-23T09:11:58.264433+00:00"
+    },
+    {
+      "stage": "injection_contradictory_evidence",
+      "offset_hours": 8.0,
+      "passed": true,
+      "at": "2026-09-23T12:11:58.266838+00:00"
+    },
+    {
+      "stage": "injection_model_swap",
+      "offset_hours": 12.0,
+      "passed": true,
+      "at": "2026-09-23T16:11:58.275746+00:00"
+    },
+    {
+      "stage": "injection_budget_reduction",
+      "offset_hours": 18.0,
+      "passed": true,
+      "at": "2026-09-23T22:11:54.553954+00:00"
+    },
+    {
+      "stage": "injection_constraint_change",
+      "offset_hours": 24.0,
+      "passed": true,
+      "at": "2026-09-24T04:11:54.556604+00:00"
+    },
+    {
+      "stage": "injection_api_outage",
+      "offset_hours": 30.0,
+      "passed": true,
+      "at": "2026-09-24T10:11:52.112733+00:00"
+    },
+    {
+      "stage": "injection_source_invalidation",
+      "offset_hours": 36.0,
+      "passed": true,
+      "at": "2026-09-24T16:11:52.114571+00:00"
+    },
+    {
+      "stage": "injection_corrupted_state",
+      "offset_hours": 42.0,
+      "passed": true,
+      "at": "2026-09-24T22:11:52.130535+00:00"
+    },
+    {
+      "stage": "invalidation_and_cold_restore",
+      "invalidation": {
+        "claims": [],
+        "models": [],
+        "forecasts": [],
+        "decisions": [],
+        "commitments": [],
+        "assumptions": []
+      },
+      "restored_claim_status": "CONTRADICTED",
+      "at": "2026-09-24T22:11:52.130535+00:00"
+    },
+    {
+      "stage": "constraint_change",
+      "goal_version": 2,
+      "caps_unchanged": true,
+      "at": "2026-09-24T22:11:52.132598+00:00"
+    },
+    {
+      "stage": "mission_LH-3",
+      "decision": "SUPPORTED",
+      "at": "2026-09-24T22:11:52.161097+00:00"
+    }
+  ],
+  "criteria": [
+    {
+      "id": "goal_restored_after_restart",
+      "passed": true,
+      "detail": "DurableRunner kill/resume retained goal_id"
+    },
+    {
+      "id": "epistemic_restored_after_restart",
+      "passed": true,
+      "detail": "EpistemicStore.restore_from_ledger rebuilt claim"
+    },
+    {
+      "id": "no_duplicate_irreversible_actions",
+      "passed": true,
+      "detail": "material act count=1"
+    },
+    {
+      "id": "invalidated_evidence_propagates",
+      "passed": true,
+      "detail": "claim_status=CONTRADICTED inv={'claims': [], 'models': [], 'forecasts': [], 'decisions': [], 'commitments': [], 'assumptions': []}"
+    },
+    {
+      "id": "provider_outage_does_not_kill_program",
+      "passed": true,
+      "detail": "api_outage={'offset_hours': 30.0, 'injection': 'api_outage', 'passed': True, 'notes': 'Model outage recorded as null result; no fabricated success'}"
+    },
+    {
+      "id": "blocked_optional_resource_does_not_halt_others",
+      "passed": true,
+      "detail": "LH-3 completed after optional IV skipped"
+    },
+    {
+      "id": "authority_does_not_self_expand",
+      "passed": true,
+      "detail": "caps before=['research.read', 'research.compute', 'research.verify'] after=['research.read', 'research.compute', 'research.verify']"
+    },
+    {
+      "id": "null_and_negative_results_persist",
+      "passed": true,
+      "detail": "LH-2 null_results.json present"
+    },
+    {
+      "id": "events_and_failures_auditable",
+      "passed": true,
+      "detail": "n_events=7 types=['claim.contradicted', 'epistemic.claim.put', 'epistemic.evidence.put', 'evidence.invalidated', 'goal.amended', 'goal.created']"
+    },
+    {
+      "id": "program_reaches_stop_or_honest_stop_condition",
+      "passed": true,
+      "detail": "completed schedule+missions or would abort on hard fail"
+    },
+    {
+      "id": "goal_integrity_hard_gates_pass",
+      "passed": true,
+      "detail": "survival=PASS"
+    }
+  ],
+  "schedule_results": [
+    {
+      "offset_hours": 2.0,
+      "injection": "slow_dependency",
+      "passed": true,
+      "notes": "Slow provider exceeds wall budget → fail-closed timeout"
+    },
+    {
+      "offset_hours": 5.0,
+      "injection": "process_kill",
+      "passed": true,
+      "notes": "DurableRunner abort/resume"
+    },
+    {
+      "offset_hours": 8.0,
+      "injection": "contradictory_evidence",
+      "passed": true,
+      "notes": "Conflicting evidence marks claim CONTRADICTED (GOS-I16); no auto-verify"
+    },
+    {
+      "offset_hours": 12.0,
+      "injection": "model_swap",
+      "passed": true,
+      "notes": "Mid-run model swap does not change verification tier (GOS-I23)"
+    },
+    {
+      "offset_hours": 18.0,
+      "injection": "budget_reduction",
+      "passed": true,
+      "notes": "BudgetKernel rejects spend after mid-run limit reduction"
+    },
+    {
+      "offset_hours": 24.0,
+      "injection": "constraint_change",
+      "passed": true,
+      "notes": "Goal amend creates new version; v1 immutable (GOS-I06)"
+    },
+    {
+      "offset_hours": 30.0,
+      "injection": "api_outage",
+      "passed": true,
+      "notes": "Model outage recorded as null result; no fabricated success"
+    },
+    {
+      "offset_hours": 36.0,
+      "injection": "source_invalidation",
+      "passed": true,
+      "notes": "EpistemicStore invalidation propagates to dependent claim"
+    },
+    {
+      "offset_hours": 42.0,
+      "injection": "corrupted_state",
+      "passed": true,
+      "notes": "Corrupt checkpoint → CorruptedCheckpointError; no invented completion (GOS-I29)"
+    }
+  ],
+  "mission_decisions": [
+    {
+      "mission_id": "LH-1-parity-supported",
+      "decision": "SUPPORTED",
+      "nulls": 0
+    },
+    {
+      "mission_id": "LH-2-null-preserved",
+      "decision": "SUPPORTED",
+      "nulls": 1
+    },
+    {
+      "mission_id": "LH-3-post-fault-continue",
+      "decision": "SUPPORTED",
+      "nulls": 0
+    }
+  ],
+  "goal_integrity": {
+    "survival": "PASS",
+    "gates": {
+      "goal_semantics_preserved": "PASS",
+      "authority_boundary_preserved": "PASS",
+      "no_duplicate_material_effect": "PASS",
+      "epistemic_lineage_intact": "PASS",
+      "invalidation_propagated": "PASS",
+      "unknowns_preserved": "PASS",
+      "budget_integrity": "PASS",
+      "recovery_successful": "PASS"
+    },
+    "soft": {
+      "completion": 1.0,
+      "cost": null,
+      "latency": null,
+      "quality": null,
+      "human_attention": null,
+      "tool_calls": 1,
+      "recovery_events": 1,
+      "escaped_errors": null,
+      "evidence_precision": null,
+      "unsupported_claims": null
+    },
+    "notes": "lh48 program integrity audit",
+    "rule": "any hard FAIL ⇒ GoalIntegritySurvival=FAIL; soft metrics never rescue"
+  },
+  "passed": true,
+  "stop_condition": "all_schedule_injections_completed_and_missions_finished",
+  "wall_seconds": 151200.19032550004,
+  "m15_claimed": false,
+  "notes": "wall_48h complete; fidelity=WALL_CLOCK_48H; M1.5 NOT claimed; keys not touched; H-ORG/SI untouched",
+  "artifact_root": "artifacts\\hardening\\long_horizon_48h\\wall_48h",
+  "operator_provenance": {
+    "host": "operator_windows",
+    "pid": 8188,
+    "process_start_local": "2026-09-23T09:11:57",
+    "report_written_local": "2026-09-25T03:11:52",
+    "recorded_into_repo_at": "2026-09-25T04:45:00Z",
+    "source": "operator paste of program_report.json + PASS_CRITERIA.json; process exited (no longer in Win32_Process)"
+  }
+}

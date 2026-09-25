@@ -13,21 +13,22 @@
 - [x] Freeze 48h program contract + PASS criteria + double gate
 - [x] Compressed preflight (`make preflight-48h`)
 - [x] LH-FC-PORTABILITY-SLEEP fix (Unix sleep → sys.executable; from Windows wall preflight)
+- [x] Operator Windows wall preflight retry after portability fix
+- [x] Wall-clock 48h research program PASS (`WALL_CLOCK_48H`, frozen criteria)
 
-## Active — Long-Horizon Validation ENTRY (proof not started)
+## Active — M1.5 closure review
 
-- [ ] **Operator Windows wall preflight 60–120min RETRY** on post-portability-fix SHA
-- [ ] Freeze commit/config after wall preflight PASS (no cosmetics)
-- [ ] Wall-clock 48h with `GOS_REQUIRE_48H=1` + `GOS_START_RESEARCH_48H=1`
-- [ ] Score only frozen PASS criteria; no manual help outside contract
+- [ ] Audit `wall_48h` artifacts + confirm no hidden intervention
+- [ ] Confirm remaining ROADMAP M1.5 checklist items against evidence
+- [ ] Decide M1.5 claim (candidate only until review)
 - [ ] Continual SI holdout measurement (still NOT_MEASURED)
 - [ ] H-ORG claim only after larger multi-class + token costs
 
-## Gate — M1.5 durability (do not claim yet)
+## Gate — M1.5 durability
 
-- [ ] Wall-clock 48h research program PASS (not synthetic-only / not compressed preflight)
-- [ ] Review artifacts + confirm no hidden intervention → M1.5 candidate
-- [ ] On FAIL: classify → minimal fix → regression → compressed replay → new 48h
+- [x] Wall-clock 48h research program PASS (operator Windows evidence)
+- [ ] Review artifacts + confirm no hidden intervention → M1.5 claim decision
+- [ ] On future FAIL: classify → minimal fix → regression → compressed replay → new 48h
 
 ## After usable Y-17 missions
 

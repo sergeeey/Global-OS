@@ -18,10 +18,7 @@ Goal Contract · Epistemic Kernel · Durable Runtime · Authority Kernel · Dyna
 
 ## Текущий baseline
 
-**Global OS завершила Empirical Hardening и стоит у входа в Long-Horizon Validation.**
-
-Больше не проверяем «может ли она выполнить задачу» (Y17-1..7 уже показали, что может).  
-Следующий вопрос: **может ли она оставаться той же системой спустя двое суток, сбои, рестарты и изменения среды.**
+**Empirical Hardening CLOSED. Wall-clock long-horizon program PASS. M1.5 = candidate for closure review (not auto-claimed).**
 
 ```text
 короткие реальные миссии        ✅
@@ -29,20 +26,18 @@ trust boundaries M1.4           ✅
 live provider IV (local)        ✅
 dogfood Y17-1..7                ✅
 Org A/B N=7 patterns            ✅ (H-ORG not claimed)
-compressed failure injections   ✅
-compressed long-horizon logic   ✅
+compressed LH + portability fix ✅
 PASS criteria frozen            ✅
-двойной gate 48h                ✅
-настоящие 48 часов              ❌
-M1.5                            ❌
+wall_48h WALL_CLOCK_48H         ✅ PASS (operator Windows)
+M1.5                            ⏳ CANDIDATE (review)
 Continual SI                    ❌ NOT_MEASURED
+H-ORG                           ❌ not claimed
+PRODUCTION_PROVEN               ❌ not claimed
 ```
 
-- **Code freeze** до результата Windows wall preflight 60–120 мин (менять код только при structural bug).
-- **Next:** operator wall preflight → freeze commit/config → `GOS_REQUIRE_48H=1` + `GOS_START_RESEARCH_48H=1`.
-- Оценка 48h — только по frozen PASS criteria; FAIL = ценный failure case.
-- DoD V2 / PRODUCTION_PROVEN **не заявлены**
-- Операторский порядок: `artifacts/hardening/long_horizon_48h/PROGRAM.md`
+- Wall evidence: `artifacts/hardening/long_horizon_48h/wall_48h/` (`passed=true`, GIS PASS, 9/9 injections, 11/11 criteria; elapsed ≈42.0h through T+42 schedule).
+- Next: audit artifacts + confirm no hidden intervention → decide M1.5 closure.
+- H-ORG and Continual SI remain **separate** post-M1.5 research questions.
 
 ## Документы
 

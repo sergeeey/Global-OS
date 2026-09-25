@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.49 — 2026-09-25
+
+### Wall-clock 48h research program PASS (operator Windows)
+
+- Operator run: `mode=wall_48h`, `fidelity=WALL_CLOCK_48H`, `passed=true`
+- `wall_seconds≈151200` (≈42.0h through T+42 schedule); 9/9 injections PASS; 11/11 frozen criteria PASS; GIS survival=PASS
+- Artifacts recorded: `artifacts/hardening/long_horizon_48h/wall_48h/`
+- `m15_claimed=false` — **M1.5 CANDIDATE for closure review** (not auto-closed)
+- H-ORG / Continual SI / PRODUCTION_PROVEN still not claimed
+- Next: artifact audit + confirm no hidden intervention
+
 ## 0.1.48 — 2026-09-22
 
 ### Portability fix from Windows wall preflight

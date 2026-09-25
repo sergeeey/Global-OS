@@ -1,56 +1,37 @@
 {
-  "audit_at": "2026-09-22",
+  "audit_at": "2026-09-25",
   "rule": "claim ≠ implementation ≠ test ≠ runtime evidence",
-  "stage": "Long-Horizon Validation — program prepared; wall not started",
+  "stage": "Long-Horizon Validation — wall_48h PASS; M1.5 candidate",
   "VERIFIED": [
     "goal_contract_immutable",
     "event_ledger_append_only",
     "authority_default_deny",
     "tool_gateway_token_gate",
-    "hypothesis_lifecycle",
-    "environment_compiler_deterministic",
-    "operator_live_smoke_3_providers_local_windows",
-    "Y17-1_deterministic_fisher_replication_SUPPORTED",
-    "Y17-2_nested_var_REJECTED_null_preserved",
-    "Y17-3_causal_boolean_SUPPORTED",
-    "Y17-4_rmt_goe_SUPPORTED",
-    "Y17-5_forecast_holdout_SUPPORTED",
-    "Y17-6_rps_fictitious_play_SUPPORTED",
-    "Y17-7_er_giant_component_REJECTED",
+    "Y17-1_through_Y17-7_dogfood",
     "org_ab_N7_patterns_observable_H_ORG_not_claimed",
     "live_provider_IV_local_unblocked_ge2",
     "lh48_program_contract_frozen",
-    "lh48_preflight_compressed_PASS"
+    "lh48_preflight_compressed_PASS",
+    "lh_fc_portability_sleep_fixed",
+    "lh48_wall_clock_PASS_operator_windows"
   ],
   "PARTIAL": [
     "DoD_V2_closed=false_PARTIAL_items",
-    "H-ENV_ladder_live_artifacts_but_levels_B_E_prompt_conditioned",
-    "H-RSN_measured_micro_tasks_not_long_horizon",
-    "goal_integrity_soak_accelerated_not_wall_48h",
-    "org_ab_decomposability_patterns_only_N7",
-    "lh48_wall_clock_not_started"
+    "M1.5_candidate_pending_closure_review",
+    "hidden_intervention_operator_confirm",
+    "org_ab_decomposability_patterns_only_N7"
   ],
   "SYNTHETIC": [
-    "summarize_h_env_001_default_harness",
-    "summarize_h_rsn_001_synthetic_EFFORT_proxies",
-    "H-ORG_family_claims_not_accepted",
-    "lh48_preflight_compressed_not_wall_proof"
+    "H-ORG_family_claims_not_accepted"
   ],
-  "BLOCKED": [
-    "wall_clock_48h_requires_operator_double_gate",
-    "Windows_local_path_access_from_cloud_agent"
-  ],
-  "STALE": [
-    "docs/IMPLEMENTATION_STATUS.md_pytest_count_may_lag"
-  ],
+  "BLOCKED": [],
+  "STALE": [],
   "continual_improvement": "NOT_MEASURED",
   "not_claimed": [
     "M1.5_complete",
     "DoD_V2_complete",
     "PRODUCTION_PROVEN",
-    "H-ENV_confirmed",
     "H-ORG_supported",
-    "continual_self_improvement",
-    "wall_clock_48h_PASS"
+    "continual_self_improvement"
   ]
 }
