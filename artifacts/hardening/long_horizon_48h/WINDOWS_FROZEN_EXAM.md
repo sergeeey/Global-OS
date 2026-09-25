@@ -1,16 +1,18 @@
 # Frozen validation exam — SHA `bfa58a0`
 
-**Exam SHA (immutable for this attempt):** `bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee`  
+**Exam SHA (intermediate stable point):** `bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee`  
 **Protocol:** LH-v2.1  
+**Current policy (2026-09-25):** run **§1 Windows os_kill smoke only**.  
+§2 (96m preflight) and §3 (literal 48h) are **DEFERRED** while Y19 scientific dogfood runs.  
 **Not claimed:** M1.5 / H-ORG / Continual SI / PRODUCTION_PROVEN  
-**Y18-4-FC-IV:** leave as `BLOCKED_ENVIRONMENT` — do not invent PASS or treat as system failure
+**Y18-4-FC-IV:** leave as `BLOCKED_ENVIRONMENT`
 
 ## Hard rules
 
-1. Checkout **exactly** `bfa58a0`. Do **not** `git pull` / do **not** move to newer `main` before or during smoke/preflight/48h.
-2. If Windows smoke or preflight finds a defect → **stop**. Fix on a branch → **new SHA** → new freeze candidate. Do not “patch the freeze”.
-3. Do **not** start literal 48h until Windows wall preflight PASS on this SHA.
-4. Do **not** set provider keys to force Y18-4 IV during this exam.
+1. Checkout **exactly** `bfa58a0`. Do **not** `git pull` under the smoke checkout.
+2. If local untracked `wall_48h/*.json` block checkout → **move to backup**, do not delete LH-v1 evidence.
+3. Smoke FAIL ⇒ record failure case; fix → new SHA (do not pretend bfa58a0 still passes).
+4. Do **not** start 96m / 48h until a later explicit freeze re-pin after science dogfood.
 
 ## Sequence
 

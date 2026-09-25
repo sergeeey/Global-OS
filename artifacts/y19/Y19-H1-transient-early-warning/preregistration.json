@@ -1,0 +1,22 @@
+{
+  "mission_id": "Y19-H1",
+  "protocol_version": "Y19-H1-v1",
+  "preregistered_before_data": true,
+  "hypothesis": "Local spectral and sensitivity features of the early window contain holdout-predictive information about long-transient onset beyond baseline activity/entropy/size features (Y19-H1).",
+  "competing_hypotheses": [
+    "H_spectral",
+    "H_baseline_sufficient",
+    "H_size_spurious"
+  ],
+  "mcid_brier_ratio": 0.9,
+  "primary_criterion": {
+    "statistic": "holdout_brier_ratio",
+    "mcid_ratio": 0.9,
+    "decision_rule": {
+      "SUPPORTED": "ratio <= 0.90 AND ablated_ratio <= 0.90 AND holdout balance OK",
+      "REJECTED": "ratio > 0.90",
+      "INCONCLUSIVE": "balance fail OR MCID pass but ablation fail"
+    }
+  },
+  "kill_criterion": "SUPPORTED iff holdout Brier_candidate ≤ 0.90·baseline AND ablation OK; else REJECTED or INCONCLUSIVE per TZ"
+}

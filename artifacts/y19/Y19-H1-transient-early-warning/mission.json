@@ -1,0 +1,15 @@
+{
+  "mission_id": "Y19-H1",
+  "goal_id": "goal_93c2e6394aa542eb",
+  "hypothesis_id": "hyp_8bfebe5ddd294754",
+  "status": "COMPLETED",
+  "reframe": {
+    "discovered_prior_id": "Y17-3+Y17-5",
+    "original_intent": "Repeat Boolean clamp or RMT ω-forecast",
+    "reframed_intent": "New early-warning question on generated NK nets with sealed holdout",
+    "rationale": "Dogfood unknown-answer science; not confirmatory replay"
+  },
+  "created_at": "2026-09-25T06:52:51.763590+00:00",
+  "decision": "REJECTED",
+  "completed_at": "2026-09-25T06:52:51.855916+00:00"
+}

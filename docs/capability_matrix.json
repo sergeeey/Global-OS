@@ -288,7 +288,7 @@
     {
       "id": "dogfood_mission",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "DogfoodMission ordered stages; autonomous merge forbidden; tests/test_path_lock_m15.py; Y18 failure-mode suite artifacts/hardening/dogfood_fm/ (4 classes SUPPORTED) + tests/test_y18_failure_mode_dogfood.py"
+      "evidence": "DogfoodMission ordered stages; autonomous merge forbidden; tests/test_path_lock_m15.py; Y18 failure-mode suite; Y19-H1 sealed-holdout science dogfood artifacts/y19/Y19-H1-transient-early-warning/ + tests/test_y19_transient_early_warning.py"
     },
     {
       "id": "free_model_providers",

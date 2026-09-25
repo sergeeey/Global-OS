@@ -1,0 +1,9 @@
+{
+  "steps": [
+    "Lock competing hypotheses + train/hold seeds + MCID before holdout decision",
+    "Generate NK Boolean networks; extract early-window baseline vs candidate features",
+    "Fit ridge linear probability on TRAIN only",
+    "Evaluate sealed HOLD Brier + size ablation",
+    "Decide SUPPORTED|REJECTED|INCONCLUSIVE; preserve nulls"
+  ]
+}

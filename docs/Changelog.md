@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.56 — 2026-09-25
+
+### Pivot — Y19 science dogfood; LH exam deferred
+
+- Policy: Windows `os_kill` smoke (seconds) yes; **96m preflight / literal 48h deferred**
+- `bfa58a0` = intermediate stable point (not formal M1.5 exam while science dogfood runs)
+- **Y19-H1** full TZ + eval harness (`y19_transient_early_warning`): NK Boolean early-warning
+  vs baseline; 3 competing hypotheses; sealed holdout; size ablation
+- Pilot mission decision: **REJECTED** (holdout Brier ratio ≈0.997 > MCID 0.90) —
+  wins `H_baseline_sufficient`; honest unknown-answer outcome, not infra failure
+- Tests: `tests/test_y19_transient_early_warning.py` (5 passed)
+- M1.5 / H-ORG / Continual SI still not claimed
+
 ## 0.1.55 — 2026-09-25
 
 ### Frozen validation — Windows exam runbook

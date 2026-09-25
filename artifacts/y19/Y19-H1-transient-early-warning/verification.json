@@ -1,0 +1,20 @@
+{
+  "deterministic_status": "PASS",
+  "deterministic_checks": [
+    "protocol=Y19-H1-v1",
+    "train_hold_disjoint=True",
+    "peek=False",
+    "brier_ratio=0.9973399706501923",
+    "decision=REJECTED",
+    "a_priori_unknown=True"
+  ],
+  "provider_status": "NOT_REQUESTED",
+  "provider_detail": "",
+  "live_keys": {
+    "openai": false,
+    "anthropic": false,
+    "openrouter": false,
+    "groq": false,
+    "gemini": false
+  }
+}

@@ -21,15 +21,23 @@
 - [x] Phase lock: LH validation deferred; return to real-world hardening
 - [x] Y18 failure-mode dogfood (4 classes) + freeze diversity gate
 
-## Active — Frozen validation (`bfa58a0`)
+## Active — Scientific dogfood (Y19); LH deferred
 
 - [x] Y18 failure-mode dogfood (4 classes SUPPORTED)
-- [x] Pin freeze candidate SHA (`bfa58a0`)
-- [x] Linux `os_process_kill` smoke PASS
-- [x] Windows frozen-exam runbook (`WINDOWS_FROZEN_EXAM.md`)
-- [ ] Windows `os_process_kill` smoke on **exact** `bfa58a0` (REQUIRED)
-- [ ] Windows 60–120m wall preflight on **exact** `bfa58a0`
-- [ ] Literal 48h only after Windows preflight PASS
+- [x] Intermediate stable point `bfa58a0` + Linux os_kill smoke
+- [x] Y19-H1 TZ + harness + acceptance tests
+- [x] Y19-H1 pilot mission executed (`REJECTED` — honest MCID miss; not infra failure)
+- [ ] Windows `os_process_kill` smoke on exact `bfa58a0` (seconds)
+- [ ] Continue Y19 / further science dogfood → fixes → regressions
+- [ ] Re-pin freeze SHA only after science path stabilizes
+
+## Deferred — True 48h / M1.5 (after new freeze)
+
+- [ ] Windows 60–120m wall preflight on **new frozen** SHA
+- [ ] Literal 48h wall on real persistent research workload (`wall_seconds >= 172800`)
+- [ ] Audit → M1.5 candidate decision
+- [ ] Continual SI holdout measurement (still NOT_MEASURED)
+- [ ] H-ORG claim only after larger multi-class + token costs
 
 ## Deferred — True 48h / M1.5 (after freeze)
 

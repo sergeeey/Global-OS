@@ -1,0 +1,60 @@
+{
+  "protocol_version": "Y19-H1-v1",
+  "protocol_hash": "2928d9576a47d9e2",
+  "competing_hypotheses": [
+    {
+      "id": "H_spectral",
+      "statement": "Local spectral and sensitivity features of the early window contain holdout-predictive information about long-transient onset beyond baseline activity/entropy/size features (Y19-H1)."
+    },
+    {
+      "id": "H_baseline_sufficient",
+      "statement": "All predictable signal is already in simple features; adding spectral/sensitivity features does not improve sealed-holdout Brier by MCID."
+    },
+    {
+      "id": "H_size_spurious",
+      "statement": "Any apparent candidate gain is spurious size/K confounding; after ablating N/K from the candidate, holdout MCID fails."
+    }
+  ],
+  "winning_hypothesis_id": "H_baseline_sufficient",
+  "decision": "REJECTED",
+  "train_n": 180,
+  "hold_n": 120,
+  "hold_positives": 43,
+  "hold_negatives": 77,
+  "baseline": {
+    "brier": 0.17487132697350075,
+    "auc": 0.8178797946239806
+  },
+  "candidate": {
+    "brier": 0.1744061641113114,
+    "auc": 0.8082150407731803
+  },
+  "ablated_no_size": {
+    "brier": 0.2233397687849386,
+    "auc": 0.6861975234068257
+  },
+  "brier_ratio": 0.9973399706501923,
+  "ablated_brier_ratio": 1.2771663179452086,
+  "mcid_brier_ratio": 0.9,
+  "long_transient_tau": 10,
+  "early_window": 6,
+  "seed_policy": {
+    "train": "1000-1179",
+    "hold": "5000-5119",
+    "disjoint_from_y17": true
+  },
+  "leak_checks": {
+    "train_hold_disjoint": true,
+    "peek_holdout_labels_in_train": false
+  },
+  "null_results": [
+    {
+      "id": "y19_holdout_mcid_fail",
+      "brier_ratio": 0.9973399706501923,
+      "mcid": 0.9,
+      "interpretation": "candidate failed sealed-holdout MCID vs baseline"
+    }
+  ],
+  "scientific_claim_accepted": false,
+  "answer_known_a_priori": false
+}

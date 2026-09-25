@@ -1,0 +1,6 @@
+{
+  "discovered_prior_id": "Y17-3+Y17-5",
+  "original_intent": "Repeat Boolean clamp or RMT ω-forecast",
+  "reframed_intent": "New early-warning question on generated NK nets with sealed holdout",
+  "rationale": "Dogfood unknown-answer science; not confirmatory replay"
+}

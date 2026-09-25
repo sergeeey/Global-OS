@@ -14,27 +14,25 @@
 
 ## Текущий baseline
 
-**Frozen validation of `bfa58a0`. Next: Windows os_kill smoke → Windows wall preflight. Literal 48h only after PASS.**
+**Scientific dogfood (Y19) active. LH 96m/48h deferred. `bfa58a0` = intermediate stable point.**
 
 ```text
-Y18 failure-mode dogfood (4)     ✅ SUPPORTED; diversity MET
-Freeze candidate                 ✅ bfa58a0 (under exam — do not mutate)
+Y18 failure-mode diversity       ✅ MET
+bfa58a0                          ✅ intermediate stable (not formal M1.5 exam)
 Linux OS kill smoke              ✅ PASS
-Windows OS kill smoke            → REQUIRED next
-Windows 60–120m wall preflight   → after Windows smoke PASS
-Literal 48h / M1.5               ❌ gated on Windows preflight PASS
+Windows OS kill smoke            → seconds only (operator)
+Windows 96m / literal 48h        ⏸ deferred
+Y19-H1 transient early-warning   → active science dogfood (pilot REJECTED — honest)
+M1.5                             ❌ not claimed
 ```
 
 ### Plan
 
-1. **Done:** Y18 + freeze pin `bfa58a0` + Linux os_kill smoke.
-2. **Now (operator Windows):** checkout **exactly** `bfa58a0` (no `git pull`) → Windows os_kill smoke → Windows wall preflight 60–120m.  
-   Runbook: `artifacts/hardening/long_horizon_48h/WINDOWS_FROZEN_EXAM.md`.  
-   Windows FAIL ⇒ new SHA / new freeze (do not patch this freeze).
-3. **Then:** literal 48h as integration exam of `bfa58a0` → audit → M1.5 candidate.  
-   Keep `Y18-4-FC-IV` as `BLOCKED_ENVIRONMENT`.
+1. **Now:** Windows `os_kill` smoke on exact `bfa58a0` (seconds). Parallel: Y19 scientific dogfood.  
+2. **Not now:** 96m preflight, literal 48h, M1.5 claim.  
+3. **Later:** after science dogfood stabilizes → new freeze SHA → Windows preflight → 48h exam.
 
-Claim strength must not exceed evidence strength.
+Claim strength must not exceed evidence strength. Honest `REJECTED` on Y19 is valuable.
 
 ## Документы
 

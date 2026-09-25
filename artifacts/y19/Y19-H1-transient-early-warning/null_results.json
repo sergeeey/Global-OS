@@ -1,0 +1,11 @@
+{
+  "preserved_nulls": [
+    {
+      "id": "y19_holdout_mcid_fail",
+      "brier_ratio": 0.9973399706501923,
+      "mcid": 0.9,
+      "interpretation": "candidate failed sealed-holdout MCID vs baseline"
+    }
+  ],
+  "rule": "GOS-I11"
+}

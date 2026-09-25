@@ -1,34 +1,42 @@
 # Persistent Research Long-Horizon Program
 
-**Phase:** **Frozen validation** of SHA `bfa58a0` — Windows smoke → Windows wall preflight → (only if PASS) literal 48h.  
+**Phase:** Scientific dogfood (**Y19**) active. LH Windows 96m / literal 48h **deferred**.  
 **LH-v1 (immutable):** 42h scheduled harness PASS — `wall_48h/LH_V1_AUDIT.json`  
-**LH-v2.1:** T+48 + duration gate + real OS kill — compressed preflight PASS  
-**Y18:** 4 failure-mode classes all SUPPORTED — `artifacts/hardening/dogfood_fm/`  
-**Freeze exam SHA:** `bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee`  
+**LH-v2.1:** protocol ready; not under formal exam right now  
+**Y18:** failure-mode diversity MET  
+**Stable point:** `bfa58a0` (intermediate — may be superseded if Y19 finds bugs)  
 **M1.5:** NOT claimed
 
 ## Plan (locked)
 
 ```text
-FROZEN SHA = bfa58a0
-  do not git pull / do not move main under the exam checkout
+NOW
+  Windows os_kill smoke on exact bfa58a0 (seconds) — still useful
+  Y19-H1 scientific dogfood (unknown-answer research)
+  failures → minimal fix → regression → possibly new SHA
 
-NOW (operator Windows)
-  1) Windows os_kill smoke (seconds) — REQUIRED before 60–120m
-  2) Windows wall preflight 60–120m (PREFLIGHT_WALL)
-  FAIL ⇒ fix → new SHA → new freeze (do not patch this freeze)
+DEFERRED
+  Windows 96m wall preflight
+  literal 48h / M1.5 exam
 
-THEN (only if preflight PASS)
-  literal 48h on real persistent workload (exam of bfa58a0)
-  → artifact audit → M1.5 candidate conversation
+LATER
+  new freeze SHA after science dogfood stabilizes
+  → Windows preflight → literal 48h as integration exam
 ```
 
-## Exact runbook
+## Windows smoke only (seconds)
 
-See **`WINDOWS_FROZEN_EXAM.md`** (checkout rules, PowerShell, PASS criteria).
+See `WINDOWS_FROZEN_EXAM.md` §0–§1. Skip §2 (96m) and §3 (48h) for now.
 
-## Rules
+```powershell
+# backup untracked wall_48h if checkout blocks, then:
+git checkout --detach bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee
+$env:PYTHONPATH = "$PWD\src"
+python -m global_os.evals.survival.os_process_kill controller `
+  --goal-id goal_smoke_win `
+  --work-dir artifacts\hardening\long_horizon_48h\os_kill_smoke_windows
+```
 
-- Linux `os_kill` smoke PASS ≠ Windows portability proof
-- `Y18-4-FC-IV` stays `BLOCKED_ENVIRONMENT` (honest; not PASS; not system failure)
-- Do not set `GOS_START_RESEARCH_48H=1` until Windows wall preflight PASS
+## Y19
+
+Full TZ: `artifacts/y19/Y19-H1-transient-early-warning/TZ.md`
