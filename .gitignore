@@ -32,3 +32,7 @@ Y-17-100-gipotez/
 # Y20 sealed ground truth (scorer only; never feed to arm prompts)
 artifacts/y20/sealed/**
 !artifacts/y20/sealed/README.md
+
+# Y21 sealed ground truth (scorer only; never feed to arm prompts)
+artifacts/y21/sealed/**
+!artifacts/y21/sealed/README.md

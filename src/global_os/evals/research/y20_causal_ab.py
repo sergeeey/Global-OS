@@ -501,9 +501,12 @@ def validate_process_log(log: dict[str, Any]) -> dict[str, Any]:
     errors: list[str] = []
     if missing:
         errors.append(f"missing:{','.join(missing)}")
-    if log.get("prereg_boundary_sha") not in (None, "278c10d"):
-        if "prereg_boundary_sha" in log and log["prereg_boundary_sha"] != "278c10d":
-            errors.append("prereg_boundary_sha_mismatch")
+    if (
+        "prereg_boundary_sha" in log
+        and log.get("prereg_boundary_sha") not in (None, "278c10d")
+        and log["prereg_boundary_sha"] != "278c10d"
+    ):
+        errors.append("prereg_boundary_sha_mismatch")
     if "evidence_trace_completeness" in log:
         try:
             v = float(log["evidence_trace_completeness"])
