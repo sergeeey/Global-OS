@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.55 — 2026-09-25
+
+### Frozen validation — Windows exam runbook
+
+- Phase: hardcoded exam of freeze SHA `bfa58a0` (no in-place patch on Windows fail)
+- Runbook: `artifacts/hardening/long_horizon_48h/WINDOWS_FROZEN_EXAM.md`
+  - checkout `--detach bfa58a0` (forbid `git pull` under exam)
+  - Windows os_kill smoke REQUIRED before 60–120m preflight
+  - `PREFLIGHT_WALL` via `GOS_PREFLIGHT_HOUR_SECONDS=120` (~96 min)
+  - literal 48h only after Windows preflight PASS; separate double gate
+- `Y18-4-FC-IV` remains `BLOCKED_ENVIRONMENT`
+- Cloud agent: no Windows self-hosted worker — blocked on operator machine
+
 ## 0.1.54 — 2026-09-25
 
 ### Freeze candidate SHA pinned
