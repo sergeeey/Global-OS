@@ -1,0 +1,17 @@
+{
+  "kind": "os_process_kill_cold_resume",
+  "passed": true,
+  "initial_pid": 3791,
+  "restart_pid": 3790,
+  "child_returncode": -9,
+  "child_gone": true,
+  "marker": {
+    "pid": 3791,
+    "phase": "planned"
+  },
+  "final_phase": "reported",
+  "goal_id": "goal_5d88a8b7247a4255",
+  "effects": 1,
+  "act_pid": 3790,
+  "db_path": "/workspace/artifacts/hardening/long_horizon_48h/preflight/os_kill/lh48_durable.sqlite"
+}

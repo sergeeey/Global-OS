@@ -1,11 +1,11 @@
 {
   "rule": "criteria locked for this protocol version; post-hoc rationalization forbidden",
-  "protocol_version": "LH-v2",
+  "protocol_version": "LH-v2.1",
   "results": [
     {
       "id": "goal_restored_after_restart",
       "passed": true,
-      "detail": "DurableRunner logical kill/resume retained goal_id (not OS process death)"
+      "detail": "OS kill cold resume phase=reported pids=3791→3790"
     },
     {
       "id": "epistemic_restored_after_restart",
@@ -20,7 +20,7 @@
     {
       "id": "invalidated_evidence_propagates",
       "passed": true,
-      "detail": "claim_status=STALE inv={'claims': ['clm_78eade8b689643fc'], 'models': ['mdl_e539d7c19bfd4ecf'], 'forecasts': ['fc_6171aceb03c44e79'], 'decisions': ['edn_1742f8149ea4413f'], 'commitments': ['com_2d7279601f4b49c0'], 'assumptions': []}"
+      "detail": "claim_status=STALE inv={'claims': ['clm_48d0fe41a51b4800'], 'models': ['mdl_6152a9ea7c0b4a57'], 'forecasts': ['fc_9aa55002bf564d7c'], 'decisions': ['edn_9df79a6ddc844c28'], 'commitments': ['com_0a243a9c00094558'], 'assumptions': []}"
     },
     {
       "id": "provider_outage_does_not_kill_program",

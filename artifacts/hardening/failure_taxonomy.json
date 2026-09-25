@@ -122,8 +122,9 @@
       "missions": ["LH-v1-wall_48h"],
       "found_by": "operator PID 8188 continuous until natural exit",
       "detail": "WorkflowAborted + :memory: SQLite resume; same PID throughout",
-      "fix": "deferred — real TerminateProcess + cold restart + distinct PID in provenance (REQUIRES_RUNTIME_PROOF)",
-      "status": "OPEN"
+      "fix": "LH-v2.1: os_process_kill — child process + disk SQLite + kill + cold resume; distinct PIDs in provenance",
+      "status": "FIXED",
+      "note": "Schedule injection PROCESS_KILL remains harness probe; program stage process_kill_restart is real OS kill"
     },
     {
       "id": "LH-FC-INVALIDATION-FALSE-POSITIVE",

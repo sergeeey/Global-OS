@@ -49,5 +49,5 @@
     "Goal + Epistemic + Authority integrity audit"
   ],
   "required_wall_seconds": 172800,
-  "protocol_version": "LH-v2"
+  "protocol_version": "LH-v2.1"
 }

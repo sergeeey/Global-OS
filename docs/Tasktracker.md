@@ -17,13 +17,13 @@
 - [x] Wall-clock LH-v1 run completed (~42h scheduled harness PASS)
 - [x] LH-v1 protocol audit (EARLY-STOP-42H + related gaps); M1.5 not closed
 - [x] LH-v2 acceptance harness: T+48 barrier + duration hard gate + criteria tighten
+- [x] LH-v2.1 real OS process kill + disk cold resume (`os_process_kill`)
 
-## Active — True 48h proof (LH-v2)
+## Active — True 48h proof (LH-v2.1)
 
-- [ ] Compressed preflight LH-v2 evidence on main
-- [ ] Windows 60–120m wall preflight (LH-v2)
+- [x] Compressed preflight LH-v2.1
+- [ ] Windows 60–120m wall preflight (LH-v2.1)
 - [ ] Full wall run with `wall_seconds >= 172800` required for `WALL_CLOCK_48H`
-- [ ] (Open) Real OS process kill + cold restart + distinct PID
 - [ ] Continual SI holdout measurement (still NOT_MEASURED)
 - [ ] H-ORG claim only after larger multi-class + token costs
 

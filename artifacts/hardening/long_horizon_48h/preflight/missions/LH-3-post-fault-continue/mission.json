@@ -1,7 +1,7 @@
 {
   "mission_id": "LH-3-post-fault-continue",
-  "goal_id": "goal_f577ad97876c4dbb",
-  "hypothesis_id": "hyp_43b76ec0d3274627",
+  "goal_id": "goal_9cc660964b684e1d",
+  "hypothesis_id": "hyp_b5fd19a87e024ad9",
   "status": "COMPLETED",
   "reframe": {
     "discovered_prior_id": "LH-PROGRAM-SCAFFOLD",
@@ -9,7 +9,7 @@
     "reframed_intent": "exercise durable research loop under faults",
     "rationale": "48h program is durability, not novel science claim"
   },
-  "created_at": "2026-09-25T04:57:11.203622+00:00",
+  "created_at": "2026-09-25T05:07:01.653096+00:00",
   "decision": "SUPPORTED",
-  "completed_at": "2026-09-25T04:57:11.204534+00:00"
+  "completed_at": "2026-09-25T05:07:01.654271+00:00"
 }

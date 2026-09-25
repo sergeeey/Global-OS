@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.51 — 2026-09-25
+
+### LH-v2.1 — real OS process kill + cold resume
+
+- Close **LH-FC-LOGICAL-PROCESS-KILL**: `os_process_kill` spawns child, waits for
+  disk checkpoint, hard-kills child, resumes from SQLite file in new PID
+- Provenance records `initial_pid_os_kill` ≠ `restart_pid`; material effect count=1
+- Compressed preflight PASS; M1.5 still not claimed; LH-v1 report immutable
+- Next: Windows 60–120m preflight → true 48h wall run
+
 ## 0.1.50 — 2026-09-25
 
 ### LH-v1 audit + LH-v2 acceptance protocol fix

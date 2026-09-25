@@ -23,7 +23,7 @@ def test_program_contract_frozen_pass_criteria():
     d = PROGRAM_CONTRACT.as_dict()
     assert d["duration_hours"] == 48.0
     assert d["required_wall_seconds"] == REQUIRED_WALL_SECONDS_48H
-    assert d["protocol_version"] == "LH-v2"
+    assert d["protocol_version"] == "LH-v2.1"
     assert "M1.5" in d["claims_forbidden"]
     assert d["scenario"][0].startswith("T0")
 
@@ -79,7 +79,11 @@ def test_preflight_persistent_research_program(tmp_path):
     assert decisions["LH-2-null-preserved"] == "SUPPORTED"
     assert decisions["LH-3-post-fault-continue"] == "SUPPORTED"
     assert any(m["nulls"] > 0 for m in report.mission_decisions)
-    assert report.provenance.get("protocol_version") == "LH-v2"
+    assert report.provenance.get("protocol_version") == "LH-v2.1"
+    assert report.provenance.get("os_kill", {}).get("passed") is True
+    assert report.provenance.get("initial_pid_os_kill") != report.provenance.get("restart_pid")
+    kill_stage = next(s for s in report.stages if s.get("stage") == "process_kill_restart")
+    assert kill_stage.get("kind") == "os_process_kill_cold_resume"
 
 
 def test_wall_48h_refuses_without_double_gate(monkeypatch: pytest.MonkeyPatch, tmp_path):

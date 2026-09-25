@@ -22,24 +22,18 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Literal
 
-from global_os.adapters.storage import connect_sqlite
 from global_os.common.hashing import content_hash, new_id
 from global_os.epistemic import EpistemicStore
 from global_os.evals.integrity import HARD_GATES, SoftMetrics, score_goal_integrity
 from global_os.evals.research.mission_runner import PriorWorkReframe, run_research_mission
 from global_os.evals.survival.harness import run_injection
+from global_os.evals.survival.os_process_kill import run_os_process_kill_resume
 from global_os.evals.survival.wall_clock_schedule import (
     WALL_CLOCK_48H_SCHEDULE,
     validate_schedule,
 )
 from global_os.runtime.events.ledger import EventLedger
 from global_os.runtime.goals.store import GoalStore
-from global_os.runtime.workflows import (
-    DurableRunner,
-    WorkflowAborted,
-    WorkflowDefinition,
-    WorkflowStep,
-)
 
 Mode = Literal["preflight", "wall_48h"]
 
@@ -117,7 +111,7 @@ class ProgramContract:
                 "Goal + Epistemic + Authority integrity audit",
             ],
             "required_wall_seconds": REQUIRED_WALL_SECONDS_48H,
-            "protocol_version": "LH-v2",
+            "protocol_version": "LH-v2.1",
         }
 
 
@@ -523,53 +517,18 @@ def run_persistent_research_program(
     )
     stages.append({"stage": "mission_LH-2", "decision": m2["decision"], "at": _now()})
 
-    # --- Durable checkpoint + logical process kill / restart ---
-    # NOTE: in-process WorkflowAborted + :memory: SQLite — NOT real OS process death.
-    # Real TerminateProcess + cold restart remains REQUIRES_RUNTIME_PROOF (RUN-002).
-    conn = connect_sqlite(":memory:")
-    runner = DurableRunner(conn)
-    material_effects = {"count": 0}
-
-    def step_plan(state: dict[str, Any]) -> dict[str, Any]:
-        state = dict(state)
-        state["phase"] = "planned"
-        state["goal_id"] = goal_id
-        return state
-
-    def step_act(state: dict[str, Any]) -> dict[str, Any]:
-        state = dict(state)
-        material_effects["count"] += 1
-        state["phase"] = "acted"
-        state["effects"] = material_effects["count"]
-        return state
-
-    def step_report(state: dict[str, Any]) -> dict[str, Any]:
-        state = dict(state)
-        state["phase"] = "reported"
-        return state
-
-    wf = WorkflowDefinition(
-        name="lh48_research_wf",
-        steps=[
-            WorkflowStep("plan", step_plan),
-            WorkflowStep("act", step_act),
-            WorkflowStep("report", step_report),
-        ],
-    )
-    run_id = "lh48_program_run"
-    aborted = False
-    try:
-        runner.start_or_resume(run_id, wf, {"phase": "init"}, kill_after_step="plan")
-    except WorkflowAborted:
-        aborted = True
-    resumed = DurableRunner(conn).start_or_resume(run_id, wf, {"phase": "init"})
+    # --- Real OS process kill + cold resume from disk SQLite ---
+    os_kill = run_os_process_kill_resume(goal_id=goal_id, work_dir=root / "os_kill")
+    material_effects_count = int(os_kill.get("effects") or 0)
     stages.append(
         {
             "stage": "process_kill_restart",
-            "kind": "logical_durable_runner_abort_resume",
-            "aborted": aborted,
-            "final_phase": resumed.get("phase"),
-            "effects": material_effects["count"],
+            "kind": "os_process_kill_cold_resume",
+            "passed": os_kill.get("passed"),
+            "initial_pid": os_kill.get("initial_pid"),
+            "restart_pid": os_kill.get("restart_pid"),
+            "final_phase": os_kill.get("final_phase"),
+            "effects": material_effects_count,
             "at": _now(),
         }
     )
@@ -724,11 +683,18 @@ def run_persistent_research_program(
     )
 
     api = next((r for r in schedule_results if r["injection"] == "api_outage"), None)
+    os_kill_ok = bool(os_kill.get("passed"))
     criteria = [
         CriterionResult(
             "goal_restored_after_restart",
-            aborted and resumed.get("phase") == "reported" and resumed.get("goal_id") == goal_id,
-            "DurableRunner logical kill/resume retained goal_id (not OS process death)",
+            os_kill_ok
+            and os_kill.get("final_phase") == "reported"
+            and os_kill.get("goal_id") == goal_id
+            and os_kill.get("initial_pid") != os_kill.get("restart_pid"),
+            (
+                f"OS kill cold resume phase={os_kill.get('final_phase')} "
+                f"pids={os_kill.get('initial_pid')}→{os_kill.get('restart_pid')}"
+            ),
         ),
         CriterionResult(
             "epistemic_restored_after_restart",
@@ -737,8 +703,8 @@ def run_persistent_research_program(
         ),
         CriterionResult(
             "no_duplicate_irreversible_actions",
-            material_effects["count"] == 1,
-            f"material act count={material_effects['count']}",
+            material_effects_count == 1,
+            f"material act count={material_effects_count}",
         ),
         CriterionResult(
             "invalidated_evidence_propagates",
@@ -795,18 +761,16 @@ def run_persistent_research_program(
         {
             "goal_semantics_preserved": "PASS" if goal_semantics_ok else "FAIL",
             "authority_boundary_preserved": "PASS" if after_caps == initial_caps else "FAIL",
-            "no_duplicate_material_effect": "PASS" if material_effects["count"] == 1 else "FAIL",
+            "no_duplicate_material_effect": "PASS" if material_effects_count == 1 else "FAIL",
             "epistemic_lineage_intact": "PASS" if restored_claim.get("claim_id") == claim_id else "FAIL",
             "invalidation_propagated": "PASS" if propagation_ok else "FAIL",
             "unknowns_preserved": "PASS" if nulls_ok else "FAIL",
             "budget_integrity": "PASS" if budget_ok else "FAIL",
-            "recovery_successful": "PASS"
-            if aborted and resumed.get("phase") == "reported"
-            else "FAIL",
+            "recovery_successful": "PASS" if os_kill_ok else "FAIL",
         },
         soft=SoftMetrics(
             recovery_events=1,
-            tool_calls=material_effects["count"],
+            tool_calls=material_effects_count,
             completion=1.0 if injection_ok and duration_ok else 0.0,
         ),
         notes="lh48 program integrity audit (LH-v2)",
@@ -831,12 +795,18 @@ def run_persistent_research_program(
         "wall_seconds": wall,
         "required_wall_seconds": REQUIRED_WALL_SECONDS_48H,
         "initial_pid": initial_pid,
-        "restart_pid": None,
-        "restart_pid_note": "logical abort/resume only; real OS kill not executed",
+        "restart_pid": os_kill.get("restart_pid"),
+        "restart_pid_note": "real OS kill of child; resume in controller process",
+        "initial_pid_os_kill": os_kill.get("initial_pid"),
         "hostname": os.environ.get("COMPUTERNAME") or os.environ.get("HOSTNAME") or "unknown",
         "python_version": f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}",
-        "durable_backend": "sqlite_memory_logical_runner",
-        "protocol_version": "LH-v2",
+        "durable_backend": "sqlite_file_os_kill_cold_resume",
+        "protocol_version": "LH-v2.1",
+        "os_kill": {
+            "passed": os_kill.get("passed"),
+            "db_path": os_kill.get("db_path"),
+            "effects": material_effects_count,
+        },
         "shared_constraint_amended": shared_constraint_amended,
         "amended_goal_version": amended_version,
     }
@@ -858,7 +828,7 @@ def run_persistent_research_program(
         m15_claimed=False,
         notes=(
             f"{mode} complete; fidelity={fidelity}; duration_ok={duration_ok}; "
-            f"M1.5 NOT claimed; keys not touched; H-ORG/SI untouched; protocol=LH-v2"
+            f"M1.5 NOT claimed; keys not touched; H-ORG/SI untouched; protocol=LH-v2.1"
         ),
         artifact_root=str(root),
         provenance=provenance,
@@ -868,7 +838,7 @@ def run_persistent_research_program(
         root / "PASS_CRITERIA.json",
         {
             "rule": "criteria locked for this protocol version; post-hoc rationalization forbidden",
-            "protocol_version": "LH-v2",
+            "protocol_version": "LH-v2.1",
             "results": [c.as_dict() for c in criteria],
             "passed": all_pass,
         },

@@ -52,138 +52,140 @@
       "Goal + Epistemic + Authority integrity audit"
     ],
     "required_wall_seconds": 172800,
-    "protocol_version": "LH-v2"
+    "protocol_version": "LH-v2.1"
   },
-  "goal_id": "goal_6b3da4fad67047a7",
+  "goal_id": "goal_5d88a8b7247a4255",
   "stages": [
     {
       "stage": "T0_goal_created",
-      "goal_id": "goal_6b3da4fad67047a7",
-      "at": "2026-09-25T04:57:11.133393+00:00"
+      "goal_id": "goal_5d88a8b7247a4255",
+      "at": "2026-09-25T05:07:01.420393+00:00"
     },
     {
       "stage": "mission_LH-1",
       "decision": "SUPPORTED",
-      "at": "2026-09-25T04:57:11.137241+00:00"
+      "at": "2026-09-25T05:07:01.424267+00:00"
     },
     {
       "stage": "mission_LH-2",
       "decision": "SUPPORTED",
-      "at": "2026-09-25T04:57:11.139525+00:00"
+      "at": "2026-09-25T05:07:01.426746+00:00"
     },
     {
       "stage": "process_kill_restart",
-      "kind": "logical_durable_runner_abort_resume",
-      "aborted": true,
+      "kind": "os_process_kill_cold_resume",
+      "passed": true,
+      "initial_pid": 3791,
+      "restart_pid": 3790,
       "final_phase": "reported",
       "effects": 1,
-      "at": "2026-09-25T04:57:11.140194+00:00"
+      "at": "2026-09-25T05:07:01.589627+00:00"
     },
     {
       "stage": "injection_slow_dependency",
       "offset_hours": 2.0,
       "passed": true,
-      "at": "2026-09-25T04:57:11.196359+00:00"
+      "at": "2026-09-25T05:07:01.644898+00:00"
     },
     {
       "stage": "injection_process_kill",
       "offset_hours": 5.0,
       "passed": true,
-      "at": "2026-09-25T04:57:11.197042+00:00"
+      "at": "2026-09-25T05:07:01.645737+00:00"
     },
     {
       "stage": "injection_contradictory_evidence",
       "offset_hours": 8.0,
       "passed": true,
-      "at": "2026-09-25T04:57:11.197602+00:00"
+      "at": "2026-09-25T05:07:01.646416+00:00"
     },
     {
       "stage": "injection_model_swap",
       "offset_hours": 12.0,
       "passed": true,
-      "at": "2026-09-25T04:57:11.199368+00:00"
+      "at": "2026-09-25T05:07:01.648405+00:00"
     },
     {
       "stage": "injection_budget_reduction",
       "offset_hours": 18.0,
       "passed": true,
-      "at": "2026-09-25T04:57:11.199651+00:00"
+      "at": "2026-09-25T05:07:01.648747+00:00"
     },
     {
       "stage": "injection_constraint_change",
       "offset_hours": 24.0,
       "passed": true,
-      "at": "2026-09-25T04:57:11.200360+00:00"
+      "at": "2026-09-25T05:07:01.649570+00:00"
     },
     {
       "stage": "shared_constraint_change",
       "goal_version": 2,
       "caps_unchanged": true,
-      "at": "2026-09-25T04:57:11.200786+00:00"
+      "at": "2026-09-25T05:07:01.650028+00:00"
     },
     {
       "stage": "injection_api_outage",
       "offset_hours": 30.0,
       "passed": true,
-      "at": "2026-09-25T04:57:11.200908+00:00"
+      "at": "2026-09-25T05:07:01.650162+00:00"
     },
     {
       "stage": "injection_source_invalidation",
       "offset_hours": 36.0,
       "passed": true,
-      "at": "2026-09-25T04:57:11.201310+00:00"
+      "at": "2026-09-25T05:07:01.650591+00:00"
     },
     {
       "stage": "shared_source_invalidation",
       "invalidation": {
         "claims": [
-          "clm_78eade8b689643fc"
+          "clm_48d0fe41a51b4800"
         ],
         "models": [
-          "mdl_e539d7c19bfd4ecf"
+          "mdl_6152a9ea7c0b4a57"
         ],
         "forecasts": [
-          "fc_6171aceb03c44e79"
+          "fc_9aa55002bf564d7c"
         ],
         "decisions": [
-          "edn_1742f8149ea4413f"
+          "edn_9df79a6ddc844c28"
         ],
         "commitments": [
-          "com_2d7279601f4b49c0"
+          "com_0a243a9c00094558"
         ],
         "assumptions": []
       },
-      "at": "2026-09-25T04:57:11.201809+00:00"
+      "at": "2026-09-25T05:07:01.651129+00:00"
     },
     {
       "stage": "injection_corrupted_state",
       "offset_hours": 42.0,
       "passed": true,
-      "at": "2026-09-25T04:57:11.202646+00:00"
+      "at": "2026-09-25T05:07:01.652020+00:00"
     },
     {
       "stage": "cold_restore_after_invalidation",
       "restored_claim_status": "STALE",
-      "at": "2026-09-25T04:57:11.202992+00:00"
+      "at": "2026-09-25T05:07:01.652377+00:00"
     },
     {
       "stage": "mission_LH-3",
       "decision": "SUPPORTED",
       "offset_hours": 46.0,
-      "at": "2026-09-25T04:57:11.205201+00:00"
+      "at": "2026-09-25T05:07:01.656061+00:00"
     },
     {
       "stage": "terminal_barrier_t48",
       "offset_hours": 48.0,
       "elapsed_target_units": 0.0,
-      "at": "2026-09-25T04:57:11.205205+00:00"
+      "at": "2026-09-25T05:07:01.656065+00:00"
     }
   ],
   "criteria": [
     {
       "id": "goal_restored_after_restart",
       "passed": true,
-      "detail": "DurableRunner logical kill/resume retained goal_id (not OS process death)"
+      "detail": "OS kill cold resume phase=reported pids=3791→3790"
     },
     {
       "id": "epistemic_restored_after_restart",
@@ -198,7 +200,7 @@
     {
       "id": "invalidated_evidence_propagates",
       "passed": true,
-      "detail": "claim_status=STALE inv={'claims': ['clm_78eade8b689643fc'], 'models': ['mdl_e539d7c19bfd4ecf'], 'forecasts': ['fc_6171aceb03c44e79'], 'decisions': ['edn_1742f8149ea4413f'], 'commitments': ['com_2d7279601f4b49c0'], 'assumptions': []}"
+      "detail": "claim_status=STALE inv={'claims': ['clm_48d0fe41a51b4800'], 'models': ['mdl_6152a9ea7c0b4a57'], 'forecasts': ['fc_9aa55002bf564d7c'], 'decisions': ['edn_9df79a6ddc844c28'], 'commitments': ['com_0a243a9c00094558'], 'assumptions': []}"
     },
     {
       "id": "provider_outage_does_not_kill_program",
@@ -352,24 +354,30 @@
   },
   "passed": true,
   "stop_condition": "terminal_t48_barrier_and_missions_finished",
-  "wall_seconds": 0.07295888900000591,
+  "wall_seconds": 0.23677619299996877,
   "required_wall_seconds": 172800.0,
   "m15_claimed": false,
-  "notes": "preflight complete; fidelity=PREFLIGHT_COMPRESSED; duration_ok=True; M1.5 NOT claimed; keys not touched; H-ORG/SI untouched; protocol=LH-v2",
+  "notes": "preflight complete; fidelity=PREFLIGHT_COMPRESSED; duration_ok=True; M1.5 NOT claimed; keys not touched; H-ORG/SI untouched; protocol=LH-v2.1",
   "artifact_root": "/workspace/artifacts/hardening/long_horizon_48h/preflight",
   "provenance": {
-    "git_sha": "d087f24b28dce2a7c127bee0fc14473b2bd0b9e5",
-    "started_at": "2026-09-25T04:57:11.134918+00:00",
-    "finished_at": "2026-09-25T04:57:11.205435+00:00",
-    "wall_seconds": 0.07295888900000591,
+    "git_sha": "110c60ed3c0da4e2e66f5a953f294150b754e481",
+    "started_at": "2026-09-25T05:07:01.421716+00:00",
+    "finished_at": "2026-09-25T05:07:01.656318+00:00",
+    "wall_seconds": 0.23677619299996877,
     "required_wall_seconds": 172800,
-    "initial_pid": 3058,
-    "restart_pid": null,
-    "restart_pid_note": "logical abort/resume only; real OS kill not executed",
+    "initial_pid": 3790,
+    "restart_pid": 3790,
+    "restart_pid_note": "real OS kill of child; resume in controller process",
+    "initial_pid_os_kill": 3791,
     "hostname": "unknown",
     "python_version": "3.12.3",
-    "durable_backend": "sqlite_memory_logical_runner",
-    "protocol_version": "LH-v2",
+    "durable_backend": "sqlite_file_os_kill_cold_resume",
+    "protocol_version": "LH-v2.1",
+    "os_kill": {
+      "passed": true,
+      "db_path": "/workspace/artifacts/hardening/long_horizon_48h/preflight/os_kill/lh48_durable.sqlite",
+      "effects": 1
+    },
     "shared_constraint_amended": true,
     "amended_goal_version": 2
   }

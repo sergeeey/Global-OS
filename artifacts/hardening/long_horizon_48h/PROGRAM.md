@@ -1,62 +1,54 @@
 # Persistent Research Long-Horizon Program
 
 **LH-v1 (immutable):** 42h scheduled harness PASS — see `wall_48h/LH_V1_AUDIT.json`  
-**LH-v2 (current protocol):** T+48 barrier + `wall_seconds >= 172800` for `WALL_CLOCK_48H`  
+**LH-v2.1 (current):** T+48 barrier + `wall_seconds >= 172800` + **real OS process kill**  
 **M1.5:** NOT claimed
 
 ## Honest status
 
 ```text
-Long-Horizon scheduled program (v1)   ✅ PASS (~42h)
-Literal 48h survival                  ❌ NOT PROVEN (v1)
-LH-v2 protocol                        ✅ patched in code
-True 48h wall re-run                  ❌ not started
+LH-v1 42h scheduled harness           ✅ PASS (immutable)
+LH-v2 protocol (duration + criteria)  ✅
+LH-v2.1 real OS kill + cold resume    ✅ (compressed preflight)
+Literal 48h wall re-run               ❌ not started
+M1.5                                  ❌ NOT CLAIMED
 ```
 
-## What LH-v1 actually proved
-
-High confidence: 42h wall scheduler, 9/9 harness injections executed, GIS under
-original criteria, null preserved, authority not expanded, LH-3 continued.
-
-Not proven: literal 48h, real OS process death, shared-state perturbations at
-scheduled offsets (v1), full GOS-I12 downstream invalidation chain (v1 criterion
-was a false positive).
-
-## LH-v2 gates
-
-```text
-schedule_completed
-AND missions_completed
-AND terminal_barrier_t48
-AND wall_seconds >= 172800   # for WALL_CLOCK_48H
-AND hard_integrity_gates_pass
-AND invalidated_evidence_propagates (non-empty downstream chain)
-```
-
-## Operator order
+## Operator — Windows preflight then true 48h
 
 ```powershell
 cd C:\dev\Global-OS
 git pull
-# compressed first
-python -c "from global_os.evals.survival.research_program import run_preflight; print(run_preflight().passed)"
+git rev-parse HEAD
 
-# then Windows wall preflight ~90min
+# smoke OS kill
+python -m global_os.evals.survival.os_process_kill controller --goal-id goal_smoke --work-dir artifacts\hardening\long_horizon_48h\os_kill_smoke
+
+# ~90 min wall preflight (same contour as 48h, compressed hours)
 $env:GOS_PREFLIGHT_HOUR_SECONDS = "112.5"
 python -c @"
 from pathlib import Path
 from global_os.evals.survival.research_program import run_persistent_research_program
-r = run_persistent_research_program(mode='preflight', artifact_root=Path('artifacts/hardening/long_horizon_48h/preflight_wall_windows_v2'), sleep=True)
-print(r.passed, r.fidelity, r.wall_seconds, r.provenance)
+r = run_persistent_research_program(
+    mode='preflight',
+    artifact_root=Path('artifacts/hardening/long_horizon_48h/preflight_wall_windows_v2'),
+    sleep=True,
+)
+print('passed', r.passed, 'fidelity', r.fidelity)
+print('os_kill', r.provenance.get('os_kill'))
+print('pids', r.provenance.get('initial_pid_os_kill'), '->', r.provenance.get('restart_pid'))
 "@
 
-# only after preflight PASS — full wall (will take full 48h)
+# ONLY after preflight PASS — full 48h (will sleep to T+48)
 $env:GOS_REQUIRE_48H = "1"
 $env:GOS_START_RESEARCH_48H = "1"
 python -c @"
 from pathlib import Path
 from global_os.evals.survival.research_program import run_persistent_research_program
-r = run_persistent_research_program(mode='wall_48h', artifact_root=Path('artifacts/hardening/long_horizon_48h/wall_48h_v2'))
+r = run_persistent_research_program(
+    mode='wall_48h',
+    artifact_root=Path('artifacts/hardening/long_horizon_48h/wall_48h_v2'),
+)
 print(r.passed, r.fidelity, r.wall_seconds, r.required_wall_seconds)
 "@
 ```
