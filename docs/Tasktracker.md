@@ -48,13 +48,15 @@
 - [x] Primary `TIE_WITHIN_MCID` (0.3444=0.3444); GOS sealed science gain NOT SHOWN
 - [x] Process trace richer under B; COMPARISON_REPORT + CLAIMS
 
-## Active — Y22 reliability mechanism probe
+## Done — Y22 reliability probe scored (`f408ed1`)
 
-- [x] Mechanism hypothesis locked (reliability/provenance vs raw reasoning)
-- [x] Composite primary weights frozen; Y20/Y21 scorers untouched
-- [x] Prereg locked @ `f408ed1`
-- [x] Arm A frozen (baseline; sealed unseen)
-- [ ] Arm B → freeze → unseal → COMPARISON_REPORT
+- [x] Arm A `e408a28` · Arm B `5f806d0` · unseal after both frozen
+- [x] Primary TIE_WITHIN_MCID (0.7146=0.7146); H_reliability_multiplier NOT CONFIRMED
+- [x] COMPARISON_REPORT + CLAIMS; scorers frozen
+
+## Next — optional real use / freeze discipline
+
+- [ ] R1 real mission (use track; not a toy rescue of Y20–Y22)
 - [ ] Re-pin freeze SHA before any LH 96m/48h
 
 ## Deferred — True 48h / M1.5 (after new freeze)

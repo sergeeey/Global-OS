@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.70 — 2026-09-25
+
+### Y22 A/B scored — reliability composite TIE; hypothesis NOT CONFIRMED
+
+- Sequence: A `e408a28` → B `5f806d0` → unseal → locked scorer @ `f408ed1`
+- Primary `reliability_composite`: **0.7146 = 0.7146** (`TIE_WITHIN_MCID`)
+- H_reliability_multiplier **NOT CONFIRMED**; process trace again richer under B
+- Map: Y20/Y21/Y22 primary advantages all NULL; scorers frozen; LH/M1.5 deferred
+
 ## 0.1.69 — 2026-09-25
 
 ### Y22 Arm A frozen (baseline evidence replay)

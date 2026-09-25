@@ -1,0 +1,84 @@
+{
+  "protocol_version": "Y22-AB-v1",
+  "prereg_boundary_sha": "f408ed1",
+  "arm_a_freeze_sha": "e408a28",
+  "arm_b_freeze_sha": "5f806d0",
+  "scored_at": "2026-09-25T15:31:11Z",
+  "science": {
+    "A": {
+      "protocol_version": "Y22-AB-v1",
+      "primary_metric": "reliability_composite",
+      "composite": 0.7145833333333333,
+      "components": {
+        "final_factual_correctness": 0.375,
+        "invalidated_claim_cleanup": 1.0,
+        "unsupported_claims_score": 0.6666666666666667,
+        "recovery_fidelity": 1.0
+      },
+      "weights": {
+        "final_factual_correctness": 0.35,
+        "invalidated_claim_cleanup": 0.25,
+        "unsupported_claims_score": 0.2,
+        "recovery_fidelity": 0.2
+      },
+      "primary_mcid": 0.05,
+      "decision_field_ok": true
+    },
+    "B": {
+      "protocol_version": "Y22-AB-v1",
+      "primary_metric": "reliability_composite",
+      "composite": 0.7145833333333333,
+      "components": {
+        "final_factual_correctness": 0.375,
+        "invalidated_claim_cleanup": 1.0,
+        "unsupported_claims_score": 0.6666666666666667,
+        "recovery_fidelity": 1.0
+      },
+      "weights": {
+        "final_factual_correctness": 0.35,
+        "invalidated_claim_cleanup": 0.25,
+        "unsupported_claims_score": 0.2,
+        "recovery_fidelity": 0.2
+      },
+      "primary_mcid": 0.05,
+      "decision_field_ok": true
+    }
+  },
+  "primary_comparison": {
+    "verdict": "TIE_WITHIN_MCID",
+    "a": 0.7145833333333333,
+    "b": 0.7145833333333333,
+    "mcid": 0.05,
+    "note": "Secondary process metrics cannot override this primary verdict."
+  },
+  "process_raw": {
+    "A": {
+      "human_interventions": 0,
+      "dispatcher_asks": 0,
+      "hypotheses_tried": 1,
+      "failed_experiments": 0,
+      "unsupported_claims": 0,
+      "wall_seconds_used": 180,
+      "token_budget_used": 25000,
+      "tool_calls_used": 8,
+      "recovery_events": 0,
+      "state_loss_events": 0,
+      "premature_stop": false,
+      "evidence_trace_completeness": 0.75
+    },
+    "B": {
+      "human_interventions": 0,
+      "dispatcher_asks": 0,
+      "hypotheses_tried": 4,
+      "failed_experiments": 3,
+      "unsupported_claims": 0,
+      "wall_seconds_used": 240,
+      "token_budget_used": 35000,
+      "tool_calls_used": 12,
+      "recovery_events": 0,
+      "state_loss_events": 0,
+      "premature_stop": false,
+      "evidence_trace_completeness": 0.95
+    }
+  }
+}

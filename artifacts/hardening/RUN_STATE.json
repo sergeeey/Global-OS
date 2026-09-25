@@ -1,33 +1,27 @@
 {
-  "sprint": "Y22_ARM_A_FROZEN",
-  "updated_at": "2026-09-25T15:27:52Z",
-  "current_goal": "Y22_ARM_B",
-  "phase_statement": "Y22 Arm A FROZEN. Sealed UNSEEN. Weights/MCID/scorer untouched. Next Arm B only.",
+  "sprint": "Y22_SCORED",
+  "updated_at": "2026-09-25T15:35:00Z",
+  "current_goal": "POST_Y22_MAP",
+  "phase_statement": "Y22 scored: reliability_composite TIE (0.7146=0.7146). H_reliability_multiplier NOT CONFIRMED. Y20+Y21+Y22 primary advantages NULL; process trace richer under GOS recurring. LH/M1.5 deferred. R1 real-use optional next.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
-  "y19_frozen": true,
-  "y20": {
-    "sealed_science_gain": false,
-    "process_discipline_evidence": true,
-    "comparison_report": "artifacts/y20/COMPARISON_REPORT.md"
-  },
-  "y21": {
+  "y20": {"sealed_science_gain": false},
+  "y21": {"sealed_science_gain": false, "primary_verdict": "TIE_WITHIN_MCID"},
+  "y22": {
     "status": "SCORED_COMPARISON_COMPLETE",
-    "prereg_boundary_sha": "7136808",
+    "prereg_boundary_sha": "f408ed1",
     "primary_verdict": "TIE_WITHIN_MCID",
-    "gos_primary_science_gain": false,
-    "process_trace_richer": "B",
-    "comparison_report": "artifacts/y21/COMPARISON_REPORT.md",
-    "claims": "artifacts/y21/CLAIMS.md"
+    "h_reliability_multiplier": "NOT_CONFIRMED",
+    "comparison_report": "artifacts/y22/COMPARISON_REPORT.md"
   },
   "honest_status": {
     "gos_process_discipline": true,
     "gos_sealed_science_gain_y20": false,
     "gos_sealed_science_gain_y21": false,
+    "gos_reliability_composite_gain_y22": false,
     "universal_advantage": false,
-    "cross_domain_transfer": false,
-    "continual_si": false,
-    "m15": false
+    "m15": false,
+    "continual_si": false
   },
   "long_horizon": {
     "windows_os_kill_smoke": "PASS",
@@ -35,24 +29,13 @@
     "literal_48h": "DEFERRED",
     "m15_claimed": false
   },
-  "next_exact_action": "Run Y22 Arm B (GOS loop) on same public pack; freeze B; only then unseal and score.",
+  "next_exact_action": "Y22 complete. Do not retune scorers. Next strategic choice: R1 real mission (use track) or pause. Not LH/M1.5.",
   "forbidden_now": [
-    "unseal_before_B_frozen",
-    "start_B_before_A_immutable",
-    "change_y22_weights_mcid_scorer",
-    "retune_y20_y21_scorers",
+    "retune_y20_y21_y22_scorers_post_hoc",
+    "claim_gos_advantage",
     "claim_M1.5",
+    "claim_continual_SI",
     "literal_48h",
-    "secondary_override_primary"
-  ],
-  "y22": {
-    "status": "ARM_A_FROZEN",
-    "prereg_boundary_sha": "f408ed1",
-    "arm_a": "FROZEN",
-    "arm_b": "NOT_STARTED",
-    "sealed_unseen": true,
-    "unseal_allowed": false,
-    "win_primary": "reliability_composite",
-    "primary_mcid": 0.05
-  }
+    "windows_96m_preflight"
+  ]
 }

@@ -14,26 +14,24 @@
 
 ## Текущий baseline
 
-**Y20+Y21: sealed science gain NULL. Y22 = mechanism probe (reliability), prereg locking.**
+**Y22 scored. Three controlled primaries = NULL for GOS advantage.**
 
 ```text
 Y19  → autonomous research-loop example
 Y20  → sealed science gain = NULL
 Y21  → sealed science gain = NULL
-Honest thesis now:
-  GOS improves process discipline / provenance
-  but has NOT shown raw sealed task gain vs strong agent
-
-Y22  → evidence invalidation/recovery mechanism test (not rescue)
-LH / M1.5 → deferred / NOT CLAIMED
-Y20/Y21 scorers → FROZEN FOREVER
+Y22  → reliability composite = NULL (tie 0.7146)
+GOS process-trace richness     recurring YES
+Universal advantage            NOT SHOWN
+LH / M1.5                      deferred / NOT CLAIMED
+Scorers Y20–Y22                FROZEN
 ```
 
 ### Plan
 
-1. **Frozen:** Y19/Y20/Y21 — no retune / no arm replay.  
-2. **Now:** Y22 prereg lock → A→B→unseal under reliability composite.  
-3. **Not now:** LH / M1.5 / Continual SI / universal advantage claims.
+1. **Frozen:** Y20–Y22 claims — no post-hoc retune.  
+2. **Optional next:** R1 real-use mission (separate from controlled eval).  
+3. **Not now:** LH / M1.5 / Continual SI / universal advantage.
 
 ## Документы
 
