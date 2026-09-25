@@ -12,25 +12,28 @@
 См. `SPEC-ADDENDUM-V2.md`.  
 **DCO contracts = P0; recursive hierarchy superiority = P1 experiment (GOS-I30).**
 
-## Несущие конструкции
-
-Goal Contract · Epistemic Kernel · Durable Runtime · Authority Kernel · Dynamic Cognitive Organization · **EnvironmentCompiler** · World Interaction · VerificationFabric · AdaptiveLearning
-
 ## Текущий baseline
 
-**LH-v1: 42h scheduled long-horizon harness PASS; evaluation protocol defect found; M1.5 not closed.**
+**Long-Horizon protocol repaired; validation deferred while real-world hardening continues.**
 
 ```text
-Empirical Hardening              ✅ CLOSED
-LH-v1 42h scheduled harness      ✅ PASS (immutable evidence)
-Literal 48h wall survival        ❌ NOT PROVEN (early stop @ T+42)
-LH-v2 protocol fix               ⏳ IN PROGRESS
-M1.5                             ❌ NOT CLAIMED
-H-ORG / Continual SI / PROD      ❌ not claimed
+LH-v1 42h scheduled survival     ✅ PASS (immutable; not literal 48h)
+LH-v2.1 protocol (T+48, gate,
+  OS kill, shared-state)         ✅ ready (compressed preflight PASS)
+Windows 90m preflight            ⏸ deferred until freeze
+Literal 48h / M1.5               ❌ not now
+Active work                      → real dogfood missions + fixes
 ```
 
-Claim strength must not exceed evidence strength.  
-Next: LH-v2 preflight → Windows preflight → true 48h wall run.
+### Plan
+
+1. **Now:** real dogfood (2–4 distinct mission classes) → failure cases → minimal fix → regression.  
+   Optional seconds-long Windows `os_process_kill` smoke only.  
+   No 90m preflight / no 48h while code is still moving.
+2. **Freeze when:** no open critical defects in state / recovery / authority / eval protocol.
+3. **Then:** freeze SHA → Windows wall preflight → literal 48h on a **real persistent research workload** (not synthetic-only) → audit → M1.5 candidate.
+
+Claim strength must not exceed evidence strength.
 
 ## Документы
 
