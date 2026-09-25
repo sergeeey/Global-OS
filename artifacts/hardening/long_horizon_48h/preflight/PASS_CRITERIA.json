@@ -5,7 +5,7 @@
     {
       "id": "goal_restored_after_restart",
       "passed": true,
-      "detail": "OS kill cold resume phase=reported pids=3791→3790"
+      "detail": "OS kill cold resume phase=reported pids=59475→59474"
     },
     {
       "id": "epistemic_restored_after_restart",
@@ -20,7 +20,7 @@
     {
       "id": "invalidated_evidence_propagates",
       "passed": true,
-      "detail": "claim_status=STALE inv={'claims': ['clm_48d0fe41a51b4800'], 'models': ['mdl_6152a9ea7c0b4a57'], 'forecasts': ['fc_9aa55002bf564d7c'], 'decisions': ['edn_9df79a6ddc844c28'], 'commitments': ['com_0a243a9c00094558'], 'assumptions': []}"
+      "detail": "claim_status=STALE inv={'claims': ['clm_63230cc401dd4060'], 'models': ['mdl_05d39d4fa7954534'], 'forecasts': ['fc_370cc980cae9490d'], 'decisions': ['edn_fcd65c1c0bb34efb'], 'commitments': ['com_e6e0316cb9cb4c6e'], 'assumptions': []}"
     },
     {
       "id": "provider_outage_does_not_kill_program",

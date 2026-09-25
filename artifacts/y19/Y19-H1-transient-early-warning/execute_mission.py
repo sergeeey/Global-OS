@@ -5,10 +5,15 @@ from __future__ import annotations
 import json
 import sys
 from pathlib import Path
+
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "src"))
+from global_os.evals.research.artifact_lock import (
+    assert_artifact_path_writable,
+    mission_artifact_dir,
+)
 
 from global_os.evals.research import PriorWorkReframe, run_research_mission
 from global_os.evals.research.y19_transient_early_warning import (
@@ -19,7 +24,8 @@ from global_os.evals.research.y19_transient_early_warning import (
     write_preregistration,
 )
 
-ART = Path(__file__).resolve().parent
+ART = mission_artifact_dir(__file__)
+assert_artifact_path_writable(ART / "mission.json")
 METRICS = ART / "experiments" / "metrics"
 PREREG_PATH = ART / "preregistration.json"
 write_preregistration(PREREG_PATH)

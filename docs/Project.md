@@ -43,8 +43,9 @@ Y23                         NOT NOW
 
 1. **Frozen:** Y20–Y22; no Y23; scorers frozen.  
 2. **Done:** R1; R2-HDE; R2 paper audit; **R3 data-forensics** (`artifacts/r3/`).  
-3. **Next:** recurring failure-class summary (R1–R3) → minimal hardening →
-   stable SHA → freeze → Windows preflight → ≥48h on **real** workload → audit → M1.5 candidate.  
+3. **Done:** failure-class summary + FC harden + compressed preflight/Linux smoke.
+   **Next (operator):** freeze SHA → Windows preflight → literal ≥48h real workload → audit → M1.5 candidate.
+   **M1.5:** NOT CLAIMED (`artifacts/hardening/AUDIT_POST_R1_R3.md`).  
 4. **Separate:** CRM/Docker/Reflexio/GeoScan → `artifacts/ops/SEPARATE_BACKLOG.md` (fresh observe first).  
 5. **Not now:** Continual SI / universal advantage claims.
 

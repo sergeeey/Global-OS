@@ -1,6 +1,6 @@
 {
-  "goal_id": "goal_9cc660964b684e1d",
-  "hypothesis_id": "hyp_b5fd19a87e024ad9",
+  "goal_id": "goal_0c6e1399825c4307",
+  "hypothesis_id": "hyp_ec662ee244504f2d",
   "statement": "program continues research after injected faults",
   "decision": "SUPPORTED",
   "scientific_claim_accepted": false

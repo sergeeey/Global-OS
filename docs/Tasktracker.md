@@ -79,11 +79,17 @@
 - [x] Dual track: campaign evidence forensics + NYC 311 sample anomalies
 - [x] Independent review; FINDINGS_DELIVERED; interventions=0
 
-## Next — failure classes → M1.5 path
+## Done — failure classes + harden (`FAILURE_CLASSES_R1_R3`)
 
-- [ ] Recurring failure-class summary across R1–R3
-- [ ] Minimal hardening for recurring defects only
-- [ ] Stable SHA → freeze → Windows preflight → ≥48h on real workload → audit → M1.5 candidate
+- [x] Recurring FC summary; FC-01/02/04 hardened
+- [x] Compressed preflight + Linux os_kill smoke
+- [x] Freeze doc + audit honesty (`FREEZE_R1_R3.md`, `AUDIT_POST_R1_R3.md`)
+
+## Next — operator Windows / literal 48h
+
+- [ ] Re-pin freeze SHA after harden commit
+- [ ] Windows 60–120m preflight on freeze SHA
+- [ ] Literal ≥48h real workload → independent audit → M1.5 candidate
 
 ## Later — after several real missions
 

@@ -73,11 +73,15 @@ class ResearchMissionError(Exception):
     pass
 
 
+from global_os.evals.research.artifact_lock import assert_artifact_path_writable
+
+
 def _now() -> str:
     return datetime.now(UTC).isoformat()
 
 
 def _write(path: Path, payload: Any) -> None:
+    assert_artifact_path_writable(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     if isinstance(payload, str):
         path.write_text(payload, encoding="utf-8")

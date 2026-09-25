@@ -1,8 +1,8 @@
 {
-  "sprint": "R3_COMPLETE",
-  "updated_at": "2026-09-25T17:25:00Z",
-  "current_goal": "FAILURE_CLASS_SUMMARY",
-  "phase_statement": "R1\u2013R3 real-use complete. Long-form autonomous work increasingly supported; raw-IQ advantage NOT SHOWN. Next: recurring failure-class summary \u2192 minimal hardening \u2192 freeze \u2192 48h on real workload \u2192 M1.5 candidate. Ops separate.",
+  "sprint": "POST_R1R3_HARDEN_FREEZE_PATH",
+  "updated_at": "2026-09-25T17:30:00Z",
+  "current_goal": "OPERATOR_WINDOWS_PREFLIGHT",
+  "phase_statement": "R1\u2013R3 done; FC harden done; compressed preflight PASS; Linux os_kill PASS; Windows/literal48h BLOCKED here; M1.5 NOT CLAIMED.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y20": {
@@ -34,7 +34,7 @@
     "literal_48h": "DEFERRED",
     "m15_claimed": false
   },
-  "next_exact_action": "Compile recurring failure classes from R1\u2013R3; harden only recurring. Not Y23.",
+  "next_exact_action": "Operator: checkout freeze SHA on Windows \u2192 60\u2013120m preflight \u2192 only then literal 48h. Do not claim M1.5 from compressed preflight.",
   "forbidden_now": [
     "y23_synthetic_ab",
     "retune_y20_y21_y22_scorers_post_hoc",
@@ -84,5 +84,8 @@
     "decision": "FINDINGS_DELIVERED",
     "independent_useful": true,
     "lock_sha": "65c2fb2"
-  }
+  },
+  "m15_claimed": false,
+  "windows_preflight": "BLOCKED_ENVIRONMENT",
+  "literal_48h": "NOT_STARTED"
 }

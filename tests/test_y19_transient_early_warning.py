@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 import json
-import subprocess
-import sys
 from pathlib import Path
 
+from global_os.evals.research.mission_isolation import run_mission_isolated
 from global_os.evals.research.y19_transient_early_warning import (
     HOLD_SEEDS,
     MCID_BRIER_RATIO,
@@ -60,22 +59,13 @@ def test_adversarial_leak_flag_recorded():
     assert raw["leak_checks"]["peek_holdout_labels_in_train"] is True
 
 
-def test_mission_script_pass():
-    env = {**dict(__import__("os").environ), "PYTHONPATH": str(ROOT / "src")}
-    proc = subprocess.run(
-        [sys.executable, str(ART / "execute_mission.py")],
-        cwd=str(ROOT),
-        env=env,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    assert proc.returncode == 0, proc.stderr
-    mission = json.loads((ART / "mission.json").read_text(encoding="utf-8"))
+def test_mission_script_pass(tmp_path: Path):
+    art = run_mission_isolated(ROOT, ART, tmp_path=tmp_path)
+    mission = json.loads((art / "mission.json").read_text(encoding="utf-8"))
     assert mission["decision"] in {"SUPPORTED", "REJECTED", "INCONCLUSIVE"}
-    ver = json.loads((ART / "verification.json").read_text(encoding="utf-8"))
+    ver = json.loads((art / "verification.json").read_text(encoding="utf-8"))
     assert ver["deterministic_status"] == "PASS"
-    metrics = json.loads((ART / "experiments" / "metrics" / "run.json").read_text(encoding="utf-8"))
+    metrics = json.loads((art / "experiments" / "metrics" / "run.json").read_text(encoding="utf-8"))
     assert metrics["answer_known_a_priori"] is False
 
 
@@ -105,18 +95,9 @@ def test_h2_decision_rule():
         assert raw["null_results"]
 
 
-def test_h2_mission_script():
-    art = ROOT / "artifacts" / "y19" / "Y19-H2-baseline-mechanism"
-    env = {**dict(__import__("os").environ), "PYTHONPATH": str(ROOT / "src")}
-    proc = subprocess.run(
-        [sys.executable, str(art / "execute_mission.py")],
-        cwd=str(ROOT),
-        env=env,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    assert proc.returncode == 0, proc.stderr
+def test_h2_mission_script(tmp_path: Path):
+    src = ROOT / "artifacts" / "y19" / "Y19-H2-baseline-mechanism"
+    art = run_mission_isolated(ROOT, src, tmp_path=tmp_path)
     mission = json.loads((art / "mission.json").read_text(encoding="utf-8"))
     assert mission["decision"] in {"SUPPORTED", "REJECTED", "INCONCLUSIVE"}
 
@@ -154,18 +135,9 @@ def test_h3_decision_matches_gates():
         assert all(gates[k]["passed"] for k in gates)
 
 
-def test_h3_mission_script():
-    art = ROOT / "artifacts" / "y19" / "Y19-H3-h2-robustness"
-    env = {**dict(__import__("os").environ), "PYTHONPATH": str(ROOT / "src")}
-    proc = subprocess.run(
-        [sys.executable, str(art / "execute_mission.py")],
-        cwd=str(ROOT),
-        env=env,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    assert proc.returncode == 0, proc.stderr[-2000:]
+def test_h3_mission_script(tmp_path: Path):
+    src = ROOT / "artifacts" / "y19" / "Y19-H3-h2-robustness"
+    art = run_mission_isolated(ROOT, src, tmp_path=tmp_path)
     mission = json.loads((art / "mission.json").read_text(encoding="utf-8"))
     assert mission["decision"] in {"SUPPORTED", "REJECTED", "INCONCLUSIVE"}
     ver = json.loads((art / "verification.json").read_text(encoding="utf-8"))
@@ -212,18 +184,9 @@ def test_h4_decision_matches_gates():
         assert raw["decision"] == "SUPPORTED"
 
 
-def test_h4_mission_script():
-    art = ROOT / "artifacts" / "y19" / "Y19-H4-size-entropy-decomp"
-    env = {**dict(__import__("os").environ), "PYTHONPATH": str(ROOT / "src")}
-    proc = subprocess.run(
-        [sys.executable, str(art / "execute_mission.py")],
-        cwd=str(ROOT),
-        env=env,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    assert proc.returncode == 0, proc.stderr[-2000:]
+def test_h4_mission_script(tmp_path: Path):
+    src = ROOT / "artifacts" / "y19" / "Y19-H4-size-entropy-decomp"
+    art = run_mission_isolated(ROOT, src, tmp_path=tmp_path)
     mission = json.loads((art / "mission.json").read_text(encoding="utf-8"))
     assert mission["decision"] in {"SUPPORTED", "REJECTED", "INCONCLUSIVE"}
 
@@ -271,23 +234,14 @@ def test_h5_no_label_leak_flag_and_valid_decision():
     }
 
 
-def test_h5_mission_script():
-    art = ROOT / "artifacts" / "y19" / "Y19-H5-why-n"
-    env = {**dict(__import__("os").environ), "PYTHONPATH": str(ROOT / "src")}
-    proc = subprocess.run(
-        [sys.executable, str(art / "execute_mission.py")],
-        cwd=str(ROOT),
-        env=env,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    assert proc.returncode == 0, proc.stderr[-2000:]
+def test_h5_mission_script(tmp_path: Path):
+    src = ROOT / "artifacts" / "y19" / "Y19-H5-why-n"
+    art = run_mission_isolated(ROOT, src, tmp_path=tmp_path)
     mission = json.loads((art / "mission.json").read_text(encoding="utf-8"))
     assert mission["decision"] in {"SUPPORTED", "REJECTED", "INCONCLUSIVE"}
 
 
-def test_h6_run_and_mission():
+def test_h6_run_and_mission(tmp_path: Path):
     from global_os.evals.research.y19_transient_early_warning import (
         HOLD_SEEDS_H5,
         HOLD_SEEDS_H6,
@@ -302,20 +256,11 @@ def test_h6_run_and_mission():
     raw = run_experiment_h6()
     assert raw["decision"] in {"SUPPORTED", "REJECTED", "INCONCLUSIVE"}
     assert raw["leak_checks"]["structural_uses_labeled_ic_outcome"] is False
-    art = ROOT / "artifacts" / "y19" / "Y19-H6-structural-ablation"
-    env = {**dict(__import__("os").environ), "PYTHONPATH": str(ROOT / "src")}
-    proc = subprocess.run(
-        [sys.executable, str(art / "execute_mission.py")],
-        cwd=str(ROOT),
-        env=env,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    assert proc.returncode == 0, proc.stderr[-2000:]
+    src = ROOT / "artifacts" / "y19" / "Y19-H6-structural-ablation"
+    run_mission_isolated(ROOT, src, tmp_path=tmp_path)
 
 
-def test_h7_loo_and_mission():
+def test_h7_loo_and_mission(tmp_path: Path):
     from global_os.evals.research.y19_transient_early_warning import (
         HOLD_SEEDS_H6,
         HOLD_SEEDS_H7,
@@ -329,17 +274,8 @@ def test_h7_loo_and_mission():
     assert not (set(HOLD_SEEDS_H7) & prior)
     raw = run_experiment_h7()
     assert raw["decision"] in {"SUPPORTED", "REJECTED", "INCONCLUSIVE"}
-    art = ROOT / "artifacts" / "y19" / "Y19-H7-period-loo-transfer"
-    env = {**dict(__import__("os").environ), "PYTHONPATH": str(ROOT / "src")}
-    proc = subprocess.run(
-        [sys.executable, str(art / "execute_mission.py")],
-        cwd=str(ROOT),
-        env=env,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    assert proc.returncode == 0, proc.stderr[-2000:]
+    src = ROOT / "artifacts" / "y19" / "Y19-H7-period-loo-transfer"
+    run_mission_isolated(ROOT, src, tmp_path=tmp_path)
 
 
 def test_research_program_contract_exists():

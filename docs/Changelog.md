@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.76 — 2026-09-25
+
+### Failure classes → minimal harden → freeze path (honest gates)
+
+- `FAILURE_CLASSES_R1_R3.md`: FC-01 rewrite noise HIGH; FC-02 SHA semantics; FC-04 independent review
+- Harden: `artifact_lock` + isolated Y17/Y18/Y19 mission tests; refuse historical rewrite by default
+- Compressed preflight PASS; Linux os_kill smoke PASS; Windows/literal 48h BLOCKED here
+- M1.5 **NOT CLAIMED** (`AUDIT_POST_R1_R3.md`)
+
 ## 0.1.75 — 2026-09-25
 
 ### R3 data-forensics / anomaly investigation — FINDINGS_DELIVERED

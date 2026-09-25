@@ -6,12 +6,18 @@ import importlib.util
 import sys
 from pathlib import Path
 
+
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "src"))
+from global_os.evals.research.artifact_lock import (
+    assert_artifact_path_writable,
+    mission_artifact_dir,
+)
 
 from global_os.evals.research import PriorWorkReframe, run_research_mission
 
-ART = Path(__file__).resolve().parent
+ART = mission_artifact_dir(__file__)
+assert_artifact_path_writable(ART / "mission.json")
 EXP = ART / "experiments"
 spec = importlib.util.spec_from_file_location("y17_5_run", EXP / "run_mission.py")
 mod = importlib.util.module_from_spec(spec)

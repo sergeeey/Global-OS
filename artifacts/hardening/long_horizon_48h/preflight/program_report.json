@@ -54,138 +54,138 @@
     "required_wall_seconds": 172800,
     "protocol_version": "LH-v2.1"
   },
-  "goal_id": "goal_5d88a8b7247a4255",
+  "goal_id": "goal_0646e508659a4b82",
   "stages": [
     {
       "stage": "T0_goal_created",
-      "goal_id": "goal_5d88a8b7247a4255",
-      "at": "2026-09-25T05:07:01.420393+00:00"
+      "goal_id": "goal_0646e508659a4b82",
+      "at": "2026-09-25T17:22:46.216865+00:00"
     },
     {
       "stage": "mission_LH-1",
       "decision": "SUPPORTED",
-      "at": "2026-09-25T05:07:01.424267+00:00"
+      "at": "2026-09-25T17:22:46.223236+00:00"
     },
     {
       "stage": "mission_LH-2",
       "decision": "SUPPORTED",
-      "at": "2026-09-25T05:07:01.426746+00:00"
+      "at": "2026-09-25T17:22:46.228516+00:00"
     },
     {
       "stage": "process_kill_restart",
       "kind": "os_process_kill_cold_resume",
       "passed": true,
-      "initial_pid": 3791,
-      "restart_pid": 3790,
+      "initial_pid": 59475,
+      "restart_pid": 59474,
       "final_phase": "reported",
       "effects": 1,
-      "at": "2026-09-25T05:07:01.589627+00:00"
+      "at": "2026-09-25T17:22:46.452370+00:00"
     },
     {
       "stage": "injection_slow_dependency",
       "offset_hours": 2.0,
       "passed": true,
-      "at": "2026-09-25T05:07:01.644898+00:00"
+      "at": "2026-09-25T17:22:46.507474+00:00"
     },
     {
       "stage": "injection_process_kill",
       "offset_hours": 5.0,
       "passed": true,
-      "at": "2026-09-25T05:07:01.645737+00:00"
+      "at": "2026-09-25T17:22:46.508176+00:00"
     },
     {
       "stage": "injection_contradictory_evidence",
       "offset_hours": 8.0,
       "passed": true,
-      "at": "2026-09-25T05:07:01.646416+00:00"
+      "at": "2026-09-25T17:22:46.508743+00:00"
     },
     {
       "stage": "injection_model_swap",
       "offset_hours": 12.0,
       "passed": true,
-      "at": "2026-09-25T05:07:01.648405+00:00"
+      "at": "2026-09-25T17:22:46.510403+00:00"
     },
     {
       "stage": "injection_budget_reduction",
       "offset_hours": 18.0,
       "passed": true,
-      "at": "2026-09-25T05:07:01.648747+00:00"
+      "at": "2026-09-25T17:22:46.510695+00:00"
     },
     {
       "stage": "injection_constraint_change",
       "offset_hours": 24.0,
       "passed": true,
-      "at": "2026-09-25T05:07:01.649570+00:00"
+      "at": "2026-09-25T17:22:46.511407+00:00"
     },
     {
       "stage": "shared_constraint_change",
       "goal_version": 2,
       "caps_unchanged": true,
-      "at": "2026-09-25T05:07:01.650028+00:00"
+      "at": "2026-09-25T17:22:46.511822+00:00"
     },
     {
       "stage": "injection_api_outage",
       "offset_hours": 30.0,
       "passed": true,
-      "at": "2026-09-25T05:07:01.650162+00:00"
+      "at": "2026-09-25T17:22:46.511943+00:00"
     },
     {
       "stage": "injection_source_invalidation",
       "offset_hours": 36.0,
       "passed": true,
-      "at": "2026-09-25T05:07:01.650591+00:00"
+      "at": "2026-09-25T17:22:46.512325+00:00"
     },
     {
       "stage": "shared_source_invalidation",
       "invalidation": {
         "claims": [
-          "clm_48d0fe41a51b4800"
+          "clm_63230cc401dd4060"
         ],
         "models": [
-          "mdl_6152a9ea7c0b4a57"
+          "mdl_05d39d4fa7954534"
         ],
         "forecasts": [
-          "fc_9aa55002bf564d7c"
+          "fc_370cc980cae9490d"
         ],
         "decisions": [
-          "edn_9df79a6ddc844c28"
+          "edn_fcd65c1c0bb34efb"
         ],
         "commitments": [
-          "com_0a243a9c00094558"
+          "com_e6e0316cb9cb4c6e"
         ],
         "assumptions": []
       },
-      "at": "2026-09-25T05:07:01.651129+00:00"
+      "at": "2026-09-25T17:22:46.512859+00:00"
     },
     {
       "stage": "injection_corrupted_state",
       "offset_hours": 42.0,
       "passed": true,
-      "at": "2026-09-25T05:07:01.652020+00:00"
+      "at": "2026-09-25T17:22:46.514268+00:00"
     },
     {
       "stage": "cold_restore_after_invalidation",
       "restored_claim_status": "STALE",
-      "at": "2026-09-25T05:07:01.652377+00:00"
+      "at": "2026-09-25T17:22:46.514649+00:00"
     },
     {
       "stage": "mission_LH-3",
       "decision": "SUPPORTED",
       "offset_hours": 46.0,
-      "at": "2026-09-25T05:07:01.656061+00:00"
+      "at": "2026-09-25T17:22:46.520578+00:00"
     },
     {
       "stage": "terminal_barrier_t48",
       "offset_hours": 48.0,
       "elapsed_target_units": 0.0,
-      "at": "2026-09-25T05:07:01.656065+00:00"
+      "at": "2026-09-25T17:22:46.520582+00:00"
     }
   ],
   "criteria": [
     {
       "id": "goal_restored_after_restart",
       "passed": true,
-      "detail": "OS kill cold resume phase=reported pids=3791→3790"
+      "detail": "OS kill cold resume phase=reported pids=59475→59474"
     },
     {
       "id": "epistemic_restored_after_restart",
@@ -200,7 +200,7 @@
     {
       "id": "invalidated_evidence_propagates",
       "passed": true,
-      "detail": "claim_status=STALE inv={'claims': ['clm_48d0fe41a51b4800'], 'models': ['mdl_6152a9ea7c0b4a57'], 'forecasts': ['fc_9aa55002bf564d7c'], 'decisions': ['edn_9df79a6ddc844c28'], 'commitments': ['com_0a243a9c00094558'], 'assumptions': []}"
+      "detail": "claim_status=STALE inv={'claims': ['clm_63230cc401dd4060'], 'models': ['mdl_05d39d4fa7954534'], 'forecasts': ['fc_370cc980cae9490d'], 'decisions': ['edn_fcd65c1c0bb34efb'], 'commitments': ['com_e6e0316cb9cb4c6e'], 'assumptions': []}"
     },
     {
       "id": "provider_outage_does_not_kill_program",
@@ -354,21 +354,21 @@
   },
   "passed": true,
   "stop_condition": "terminal_t48_barrier_and_missions_finished",
-  "wall_seconds": 0.23677619299996877,
+  "wall_seconds": 0.3048221640055999,
   "required_wall_seconds": 172800.0,
   "m15_claimed": false,
   "notes": "preflight complete; fidelity=PREFLIGHT_COMPRESSED; duration_ok=True; M1.5 NOT claimed; keys not touched; H-ORG/SI untouched; protocol=LH-v2.1",
   "artifact_root": "/workspace/artifacts/hardening/long_horizon_48h/preflight",
   "provenance": {
-    "git_sha": "110c60ed3c0da4e2e66f5a953f294150b754e481",
-    "started_at": "2026-09-25T05:07:01.421716+00:00",
-    "finished_at": "2026-09-25T05:07:01.656318+00:00",
-    "wall_seconds": 0.23677619299996877,
+    "git_sha": "4c2b402d09ed2b893770b45f2a438fc0fbc82611",
+    "started_at": "2026-09-25T17:22:46.218290+00:00",
+    "finished_at": "2026-09-25T17:22:46.520844+00:00",
+    "wall_seconds": 0.3048221640055999,
     "required_wall_seconds": 172800,
-    "initial_pid": 3790,
-    "restart_pid": 3790,
+    "initial_pid": 59474,
+    "restart_pid": 59474,
     "restart_pid_note": "real OS kill of child; resume in controller process",
-    "initial_pid_os_kill": 3791,
+    "initial_pid_os_kill": 59475,
     "hostname": "unknown",
     "python_version": "3.12.3",
     "durable_backend": "sqlite_file_os_kill_cold_resume",

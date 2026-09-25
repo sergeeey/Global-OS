@@ -9,17 +9,21 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+
 ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT / "src"))
+from global_os.evals.research.artifact_lock import (
+    assert_artifact_path_writable,
+    mission_artifact_dir,
+)
 
 from global_os.adapters.models import GenerateRequest, ModelProviderError, OutageModelProvider
 from global_os.evals.research import PriorWorkReframe, provider_iv_status, run_research_mission
 from global_os.memory import NullResultStore
 from global_os.runtime.events.ledger import EventLedger
 
-ART = Path(__file__).resolve().parent
-
-
+ART = mission_artifact_dir(__file__)
+assert_artifact_path_writable(ART / "mission.json")
 def run_experiment() -> dict:
     ledger = EventLedger()
     nulls = NullResultStore(ledger)

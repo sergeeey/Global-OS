@@ -1,6 +1,6 @@
 {
-  "goal_id": "goal_cac60dc3f1f04e2c",
-  "hypothesis_id": "hyp_c3518648ca8e415a",
+  "goal_id": "goal_01c6e6a27fef4c3d",
+  "hypothesis_id": "hyp_66c5c7fa1e3e48b2",
   "statement": "sum(1..20) is 210 and even",
   "decision": "SUPPORTED",
   "scientific_claim_accepted": false

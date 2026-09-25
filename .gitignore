@@ -43,3 +43,7 @@ artifacts/y22/sealed/**
 
 # R2 upstream clone (fetch locally; do not vendor)
 artifacts/r2/replication/work/AttentionExplanation/
+
+# local durable smoke DBs
+artifacts/hardening/long_horizon_48h/os_kill_smoke*/
+**/lh48_durable.sqlite
