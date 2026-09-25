@@ -27,11 +27,23 @@
 - [x] Y19-H1…H7 internal steps; H5→H7 without operator dispatch
 - [x] Terminal stop on `terminal_scientific_result`
 - [x] Split claims: Claim A science + Claim B GOS loop (`artifacts/y19/CLAIMS.md`)
+- [x] Claim B attribution honesty (bundle ≠ GOS-alone advantage)
+- [x] Y19 EVIDENCE_PACK.md
 - [x] Y19 FROZEN — no in-family H8 / feature-mining
 
-## Next — transfer of autonomy mode (not Y19 reopen)
+## Active — Y20 preregistered A/B (causal)
 
-- [ ] Y20+ other-class scientific campaign (stats/physics/algorithmic; unknown answer)
+- [x] Y20-RESEARCH-PROGRAM.md + Y20-PREREG.md + CURRENT_STATE `PREREG_LOCKED`
+- [x] Sealed causal generator + blind scorer + equal-budget schema
+- [x] Public pack hash locked; sealed gitignored
+- [ ] Execute Arm A (strong agent baseline) under budget caps
+- [ ] Execute Arm B (same model + Global OS) under same caps
+- [ ] Blind score + COMPARISON_REPORT (no GOS-advantage claim before report)
+
+## Later — transfer then LH
+
+- [ ] Y21 other class (e.g. physics-numeric)
+- [ ] Y22 other class (e.g. algorithmic)
 - [ ] Re-pin freeze SHA before any LH 96m/48h
 
 ## Deferred — True 48h / M1.5 (after new freeze)

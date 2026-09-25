@@ -14,34 +14,33 @@
 
 ## Текущий baseline
 
-**Y19 FROZEN at `4378005` — first autonomous research-loop milestone (≠ M1.5).**  
-Keep Claim A (science) and Claim B (GOS loop) separate — see `artifacts/y19/CLAIMS.md`.
+**Y19 FROZEN (`4378005`). Y20 A/B prereg LOCKED — arms not started.**  
+Claim B = bundle autonomy, **not** proven GOS architectural advantage.
 
 ```text
-Y19 campaign                      ✅ FROZEN (terminal_scientific_result)
-Claim A science                   ✅ period/long-fraction carrier (narrow)
-Claim B GOS loop PoC              ✅ H5→H7 autonomous, no dispatch
-autonomous continuation           ✅
-durable research state            ✅
-self-selection of next step       ✅
-falsification loop                ✅
-terminal stop condition           ✅
-general transfer                  ❌ NOT YET
-continual SI                      ❌ NOT YET
-production autonomy               ❌ NOT YET
-Windows smoke on bfa58a0          ✅ PASS
-Windows 96m / literal 48h         ⏸ deferred
-M1.5                              ❌ not claimed
+working research prototype                         YES
+multi-step autonomous research loop                YES
+dispatcher-ask reduction                           YES
+transfer across task classes                       NOT PROVEN
+Global OS advantage vs strong-agent baseline       NOT PROVEN
+literal 48h                                        NOT PROVEN
+continual SI                                       NOT MEASURED
+production autonomy                                NOT PROVEN
+M1.5                                               NOT CLAIMED
+
+Y19 science (period/long-fraction)                 FROZEN
+Y20 causal A/B prereg                              PREREG_LOCKED
+Y20 Arm A / Arm B                                  NOT STARTED
 ```
 
 ### Plan
 
-1. **Frozen:** do not reopen Y19 in-family (no H8 feature-mining).  
-2. **Next strong step (when started):** Y20+ other-class campaign to test transfer of the
-   autonomy *mode* (not Boolean dynamics).  
-3. **Not now:** 96m preflight; literal 48h; M1.5; Continual SI claim.
+1. **Frozen:** Y19 — no H8.  
+2. **Now:** Y20 prereg complete; next stage = execute equal-budget A/B (strong agent vs GOS).  
+3. **Later:** Y21/Y22 transfer → freeze SHA → LH → Continual-SI.  
+4. **Not now:** 96m / literal 48h / M1.5 / Ablation C.
 
-Claim strength must not exceed evidence strength.
+Claim strength must not exceed evidence strength. Need **truth about the system**, not a forced GOS win.
 
 ## Документы
 

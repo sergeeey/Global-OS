@@ -357,4 +357,6 @@ def test_research_program_contract_exists():
     text = claims.read_text(encoding="utf-8")
     assert "Claim A" in text and "Claim B" in text
     assert "Continual SI" in text or "continual SI" in text.lower()
-    assert "NOT YET" in text
+    assert "NOT PROVEN" in text or "NOT YET" in text
+    assert "NOT MEASURED" in text or "NOT YET" in text
+    assert "bundle" in text.lower() or "model + Global OS" in text

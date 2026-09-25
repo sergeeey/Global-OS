@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.62 — 2026-09-25
+
+### Y20 preregistered causal A/B (arms not started)
+
+- Honesty lock: Claim B = **bundle** autonomy; GOS vs strong-agent advantage **NOT PROVEN**
+- Y19 `EVIDENCE_PACK.md`; science still frozen at `4378005`
+- Y20 program + prereg + `CURRENT_STATE` phase `PREREG_LOCKED`
+- Harness: `y20_causal_ab.py` sealed generator, blind scorer, equal budgets
+- Public pack sha256 locked; sealed GT gitignored; Ablation C deferred
+- Does **not** start Arm A/B; does **not** claim M1.5 / LH / Continual SI
+
 ## 0.1.61 — 2026-09-25
 
 ### Y19 frozen — split claims + research-loop milestone

@@ -1,35 +1,32 @@
 {
-  "sprint": "Y19_FROZEN_RESEARCH_LOOP_MILESTONE",
-  "updated_at": "2026-09-25T10:05:00Z",
-  "current_goal": "Y19_FROZEN",
-  "phase_statement": "Y19 frozen at 4378005 as first autonomous research-loop milestone (not M1.5). Claims split: science (period/long-fraction) vs GOS (H5→H7 without dispatch). Continual SI / general transfer NOT claimed. Do not reopen Y19 in-family.",
+  "sprint": "Y20_PREREG_CAUSAL_AB",
+  "updated_at": "2026-09-25T11:00:00Z",
+  "current_goal": "Y20_PREREG",
+  "phase_statement": "Y20 preregistered A/B locked (causal synthetic). Arms not started. Y19 frozen at 4378005. GOS advantage vs strong-agent baseline NOT PROVEN. LH/M1.5 deferred.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
-  "research_program": "artifacts/y19/Y19-RESEARCH-PROGRAM.md",
-  "claims": "artifacts/y19/CLAIMS.md",
-  "durable_state": "artifacts/y19/CURRENT_STATE.json",
-  "y19_stop_reason": "terminal_scientific_result",
+  "research_program": "artifacts/y20/Y20-RESEARCH-PROGRAM.md",
+  "prereg": "artifacts/y20/Y20-PREREG.md",
+  "durable_state": "artifacts/y20/CURRENT_STATE.json",
   "y19_frozen": true,
-  "milestone_sha": "4378005",
-  "y19": {
-    "mode": "CAMPAIGN_FROZEN_TERMINAL",
-    "claim_a_science": "period_long_fraction_carrier",
-    "claim_b_gos": "autonomous_h5_to_h7_no_dispatch",
-    "h1": {"decision": "REJECTED"},
-    "h2": {"decision": "SUPPORTED"},
-    "h3": {"decision": "SUPPORTED"},
-    "h4": {"decision": "REJECTED", "winner": "H_effect_is_mostly_n"},
-    "h5": {"decision": "SUPPORTED", "winner": "H5b_basin_cycle_structure"},
-    "h6": {"decision": "SUPPORTED", "winner": "H6b_period_structure_beyond_propensity"},
-    "h7": {"decision": "SUPPORTED", "winner": "H7a_period_transfers_across_n"}
+  "y19_milestone_sha": "4378005",
+  "y19_claims": "artifacts/y19/CLAIMS.md",
+  "y19_evidence_pack": "artifacts/y19/EVIDENCE_PACK.md",
+  "y20": {
+    "phase": "PREREG_LOCKED",
+    "arms_started": false,
+    "protocol_version": "Y20-AB-v1",
+    "public_pack_sha256": "1a2344f9d1375f05abdffcc744b7995d7a8ac54ae0f676ab7313121cc4d6a6d8",
+    "sealed_pack_sha256": "d7c4fb79b8e04ad3bb951711fcd7aa6ef3c94727702b6f396ae17b6737fe8754",
+    "gos_advantage_claimed": false
   },
-  "proven_narrow": {
-    "autonomous_continuation": true,
-    "durable_research_state": true,
-    "self_selection_of_next_step": true,
-    "falsification_loop": true,
-    "terminal_stop_condition": true,
-    "general_transfer": false,
+  "honest_status": {
+    "working_research_prototype": true,
+    "multi_step_autonomous_research_loop": true,
+    "dispatcher_ask_reduction": true,
+    "transfer_across_task_classes": false,
+    "gos_advantage_vs_strong_agent_baseline": false,
+    "literal_48h": false,
     "continual_si": false,
     "production_autonomy": false,
     "m15": false
@@ -40,14 +37,16 @@
     "literal_48h": "DEFERRED",
     "m15_claimed": false
   },
-  "next_exact_action": "Y19 frozen. Prefer Y20+ other-class research campaign to test transfer of autonomy mode — or explicit LH permission. Do not reopen Y19 H8.",
+  "next_exact_action": "Y20 arms not started. Next stage: execute A/B under locked equal budgets. Do not reopen Y19. Do not start LH.",
   "forbidden_now": [
     "reopen_y19_in_family_feature_hunt",
-    "ask_operator_for_next_hypothesis",
+    "claim_gos_advantage_before_comparison",
     "claim_M1.5",
     "claim_continual_SI",
     "claim_general_transfer",
     "literal_48h",
-    "windows_96m_preflight"
+    "windows_96m_preflight",
+    "unequal_budget_topup",
+    "peek_sealed_gt_into_arm_prompts"
   ]
 }
