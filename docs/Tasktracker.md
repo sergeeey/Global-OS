@@ -85,11 +85,13 @@
 - [x] Compressed preflight + Linux os_kill smoke
 - [x] Freeze doc + audit honesty (`FREEZE_R1_R3.md`, `AUDIT_POST_R1_R3.md`)
 
-## Next — operator Windows / literal 48h
+## Next — operator Windows exam on `5d15600`
 
-- [ ] Re-pin freeze SHA after harden commit
-- [ ] Windows 60–120m preflight on freeze SHA
+- [x] Freeze candidate stamped (`FREEZE_R1_R3.md`, `OPERATOR_EXAM_NOW.md`)
+- [ ] Windows os_kill smoke on detached `5d15600`
+- [ ] Windows 60–120m preflight PASS (provenance sha starts with 5d15600)
 - [ ] Literal ≥48h real workload → independent audit → M1.5 candidate
+- [ ] On FAIL: new SHA freeze (do not patch 5d15600)
 
 ## Later — after several real missions
 

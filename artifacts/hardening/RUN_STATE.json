@@ -1,10 +1,10 @@
 {
-  "sprint": "POST_R1R3_HARDEN_FREEZE_PATH",
-  "updated_at": "2026-09-25T17:30:00Z",
-  "current_goal": "OPERATOR_WINDOWS_PREFLIGHT",
-  "phase_statement": "R1\u2013R3 done; FC harden done; compressed preflight PASS; Linux os_kill PASS; Windows/literal48h BLOCKED here; M1.5 NOT CLAIMED.",
-  "operator_action_required": false,
-  "operator_dispatch_required": false,
+  "sprint": "FREEZE_EXAM_READY",
+  "updated_at": "2026-09-25T17:27:05Z",
+  "current_goal": "WINDOWS_PREFLIGHT_ON_5d15600",
+  "phase_statement": "FREEZE-R1R3-v1 @ 5d15600 ready for formal Windows LH exam. No patch-in-place on exam SHA. Project not paused \u2014 only exam version frozen. M1.5 NOT CLAIMED.",
+  "operator_action_required": true,
+  "operator_dispatch_required": true,
   "y20": {
     "sealed_science_gain": false
   },
@@ -29,20 +29,22 @@
     "continual_si": false
   },
   "long_horizon": {
-    "windows_os_kill_smoke": "PASS",
-    "windows_preflight": "DEFERRED",
-    "literal_48h": "DEFERRED",
+    "linux_compressed_preflight": "PASS",
+    "linux_os_kill_smoke": "PASS",
+    "windows_os_kill_smoke": "NOT_RUN",
+    "windows_preflight": "READY_FOR_OPERATOR",
+    "literal_48h": "NOT_STARTED",
     "m15_claimed": false
   },
-  "next_exact_action": "Operator: checkout freeze SHA on Windows \u2192 60\u2013120m preflight \u2192 only then literal 48h. Do not claim M1.5 from compressed preflight.",
+  "next_exact_action": "Windows: checkout --detach 5d15600 \u2192 os_kill smoke \u2192 60\u2013120m preflight (WINDOWS_FROZEN_EXAM.md / OPERATOR_EXAM_NOW.md). Fail \u21d2 new freeze SHA.",
   "forbidden_now": [
-    "y23_synthetic_ab",
-    "retune_y20_y21_y22_scorers_post_hoc",
-    "claim_gos_advantage",
+    "patch_freeze_sha_5d15600_in_place",
     "claim_M1.5",
     "claim_continual_SI",
-    "literal_48h",
-    "windows_96m_preflight"
+    "claim_gos_advantage",
+    "literal_48h_before_windows_preflight_pass",
+    "retune_y20_y21_y22_scorers_post_hoc",
+    "y23_synthetic_ab"
   ],
   "r1": {
     "mission_id": "R1-EVIDENCE-INTEGRITY-v1",
@@ -87,5 +89,11 @@
   },
   "m15_claimed": false,
   "windows_preflight": "BLOCKED_ENVIRONMENT",
-  "literal_48h": "NOT_STARTED"
+  "literal_48h": "NOT_STARTED",
+  "freeze": {
+    "label": "FREEZE-R1R3-v1",
+    "sha_short": "5d15600",
+    "sha_full": "5d15600256a7afc7839f190ed3d889b33bc3217b",
+    "patch_in_place_forbidden": true
+  }
 }

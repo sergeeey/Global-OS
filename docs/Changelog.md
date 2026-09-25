@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.77 — 2026-09-25
+
+### Freeze exam ready — `5d15600` (no project pause)
+
+- Clarified: freeze = do not patch exam SHA; project may continue only with new freeze later
+- `WINDOWS_FROZEN_EXAM.md` retargeted to FREEZE-R1R3-v1; `OPERATOR_EXAM_NOW.md` one-pager
+- Next: operator Windows smoke → 60–120m preflight → only then literal 48h; M1.5 still NOT CLAIMED
+
 ## 0.1.76 — 2026-09-25
 
 ### Failure classes → minimal harden → freeze path (honest gates)

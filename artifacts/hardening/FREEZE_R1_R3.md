@@ -6,6 +6,14 @@
 **Includes:** R1–R3 real-use evidence · failure-class summary · FC-01/02/04 hardening  
 **Does not include:** Windows wall preflight · literal 48h · M1.5 claim
 
+## Freeze semantics
+
+> Freeze = do not change the **examined machine** (`5d15600`), not “pause the project.”
+
+- Mid-exam / mid-preflight patches on this SHA are **forbidden**.
+- Defect found ⇒ record → fix on newer commit → **new freeze candidate**.
+- Continuing R4/R5 on `main` is fine only if you re-freeze afterward.
+
 ## Gates at freeze
 
 | Gate | Status |
