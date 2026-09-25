@@ -1,0 +1,7 @@
+{
+  "goal_id": "goal_e54875e0f5c249ea",
+  "hypothesis_id": "hyp_9077c369a202427e",
+  "statement": "At fixed N / after residualizing entropy on N+activity / under leave-one-N-out, entropy retains sealed-holdout predictive value beyond activity (MCID).",
+  "decision": "REJECTED",
+  "scientific_claim_accepted": false
+}

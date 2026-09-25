@@ -1,0 +1,6 @@
+{
+  "discovered_prior_id": "Y19-H3",
+  "original_intent": "Treat size/entropy combo as entropy predicts transients",
+  "reframed_intent": "Decompose whether entropy survives N control",
+  "rationale": "H3 strengthens combo evidence; carrier identity still open"
+}

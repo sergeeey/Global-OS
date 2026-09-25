@@ -1,0 +1,15 @@
+{
+  "mission_id": "Y19-H4",
+  "goal_id": "goal_e54875e0f5c249ea",
+  "hypothesis_id": "hyp_9077c369a202427e",
+  "status": "COMPLETED",
+  "reframe": {
+    "discovered_prior_id": "Y19-H3",
+    "original_intent": "Treat size/entropy combo as entropy predicts transients",
+    "reframed_intent": "Decompose whether entropy survives N control",
+    "rationale": "H3 strengthens combo evidence; carrier identity still open"
+  },
+  "created_at": "2026-09-25T08:14:19.010005+00:00",
+  "decision": "REJECTED",
+  "completed_at": "2026-09-25T08:14:19.148583+00:00"
+}

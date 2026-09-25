@@ -1,0 +1,14 @@
+{
+  "preserved_nulls": [
+    {
+      "id": "y19_h4_entropy_dies_under_n_control",
+      "gates": {
+        "A_n_matched": "FAIL",
+        "B_residualized_entropy": "FAIL",
+        "C_leave_one_n_out": "FAIL"
+      },
+      "interpretation": "entropy did not retain MCID after N control / residualization / LOO"
+    }
+  ],
+  "rule": "GOS-I11"
+}

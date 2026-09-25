@@ -22,9 +22,10 @@ bfa58a0                          ✅ intermediate stable
 Linux OS kill smoke              ✅ PASS
 Windows OS kill smoke            ✅ PASS on bfa58a0 (PIDs distinct)
 Windows 96m / literal 48h        ⏸ deferred
-Y19-H1                           ✅ REJECTED (spectral < MCID) — honest
+Y19-H1                           ✅ REJECTED (spectral < MCID)
 Y19-H2                           ✅ SUPPORTED (size/entropy > activity-only)
-Y19-H3                           ✅ SUPPORTED (H2 robust: match + unseen-N + regimes)
+Y19-H3                           ✅ SUPPORTED (H2 robust under stress)
+Y19-H4                           ✅ REJECTED (entropy dies under N control → mostly size)
 M1.5                             ❌ not claimed
 ```
 

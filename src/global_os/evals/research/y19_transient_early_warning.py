@@ -985,3 +985,366 @@ def write_preregistration_h3(path: Path) -> None:
     }
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
+
+# --- Y19-H4: size vs entropy decomposition ---
+PROTOCOL_VERSION_H4 = "Y19-H4-v1"
+TRAIN_SEEDS_H4 = tuple(range(4000, 4300))  # 300
+HOLD_SEEDS_H4 = tuple(range(8000, 8150))  # 150 sealed
+N_PANEL_H4 = (16, 20, 24)
+ACTIVITY_KEYS_H4 = ACTIVITY_KEYS  # mean_activity, activity_std
+ENTROPY_KEY = "state_entropy"
+ACTIVITY_ENTROPY_KEYS = ACTIVITY_KEYS + (ENTROPY_KEY,)
+ACTIVITY_N_KEYS = ACTIVITY_KEYS + ("n",)
+ACTIVITY_N_ENTROPY_KEYS = ACTIVITY_KEYS + ("n", ENTROPY_KEY)
+
+COMPETING_H4: tuple[CompetingHypothesis, ...] = (
+    CompetingHypothesis(
+        id="H_entropy_survives_n_control",
+        statement=(
+            "At fixed N / after residualizing entropy on N+activity / under leave-one-N-out, "
+            "entropy retains sealed-holdout predictive value beyond activity (MCID)."
+        ),
+    ),
+    CompetingHypothesis(
+        id="H_effect_is_mostly_n",
+        statement=(
+            "After N control, entropy loses MCID gain; the H2/H3 size/entropy signal is "
+            "explained mainly by system size N."
+        ),
+    ),
+    CompetingHypothesis(
+        id="H_conditional_on_n",
+        statement=(
+            "Entropy effect is mixed across N (survives some sizes/LOO folds, fails others) "
+            "or underpowered — conditional, not global."
+        ),
+    ),
+)
+
+
+def _fit_predict_feature(
+    fit_cases: list[dict[str, Any]],
+    eval_cases: list[dict[str, Any]],
+    *,
+    target_key: str,
+    predictor_keys: tuple[str, ...],
+) -> list[float]:
+    """Linear predict target_key from predictor_keys; return predictions on eval."""
+    x_tr, y_tr = _design_matrix(fit_cases, predictor_keys)
+    # y is label in _design_matrix — override with feature target
+    y_tr = [float(c["features"][target_key]) for c in fit_cases]
+    beta = _fit_ridge(x_tr, y_tr)
+    x_te, _ = _design_matrix(eval_cases, predictor_keys)
+    return _predict(beta, x_te)
+
+
+def _with_residual_entropy(
+    fit_cases: list[dict[str, Any]], eval_cases: list[dict[str, Any]]
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Attach residual_entropy = entropy - E[entropy | N, activity] fit on train."""
+    preds_fit = _fit_predict_feature(
+        fit_cases,
+        fit_cases,
+        target_key=ENTROPY_KEY,
+        predictor_keys=ACTIVITY_N_KEYS,
+    )
+    preds_eval = _fit_predict_feature(
+        fit_cases,
+        eval_cases,
+        target_key=ENTROPY_KEY,
+        predictor_keys=ACTIVITY_N_KEYS,
+    )
+
+    def attach(cases: list[dict[str, Any]], preds: list[float]) -> list[dict[str, Any]]:
+        out: list[dict[str, Any]] = []
+        for c, p in zip(cases, preds, strict=True):
+            feats = dict(c["features"])
+            feats["residual_entropy"] = float(feats[ENTROPY_KEY]) - float(p)
+            out.append({**c, "features": feats})
+        return out
+
+    return attach(fit_cases, preds_fit), attach(eval_cases, preds_eval)
+
+
+def _eval_keys_vs(
+    fit_cases: list[dict[str, Any]],
+    eval_cases: list[dict[str, Any]],
+    *,
+    base_keys: tuple[str, ...],
+    full_keys: tuple[str, ...],
+) -> dict[str, Any]:
+    x_tr_b, y_tr = _design_matrix(fit_cases, base_keys)
+    beta_b = _fit_ridge(x_tr_b, y_tr)
+    x_tr_f, _ = _design_matrix(fit_cases, full_keys)
+    beta_f = _fit_ridge(x_tr_f, y_tr)
+    x_te_b, y_te = _design_matrix(eval_cases, base_keys)
+    x_te_f, _ = _design_matrix(eval_cases, full_keys)
+    pred_b = _predict(beta_b, x_te_b)
+    pred_f = _predict(beta_f, x_te_f)
+    brier_b = _brier(y_te, pred_b)
+    brier_f = _brier(y_te, pred_f)
+    ratio = brier_f / brier_b if brier_b > 1e-12 else float("inf")
+    return {
+        "brier_base": brier_b,
+        "brier_full": brier_f,
+        "brier_ratio": ratio,
+        "auc_base": _auc(y_te, pred_b),
+        "auc_full": _auc(y_te, pred_f),
+        "n_cases": len(eval_cases),
+        "n_pos": int(sum(y_te)),
+        "n_neg": int(len(y_te) - sum(y_te)),
+        "beats_mcid": ratio <= MCID_BRIER_RATIO,
+        "base_keys": list(base_keys),
+        "full_keys": list(full_keys),
+    }
+
+
+def run_experiment_h4(*, peek_holdout_labels_in_train: bool = False) -> dict[str, Any]:
+    """Y19-H4 — decompose size vs entropy with three locked gates."""
+    prior = (
+        set(TRAIN_SEEDS)
+        | set(HOLD_SEEDS)
+        | set(TRAIN_SEEDS_H2)
+        | set(HOLD_SEEDS_H2)
+        | set(TRAIN_SEEDS_H3)
+        | set(HOLD_SEEDS_H3_MATCH)
+        | set(HOLD_SEEDS_H3_UNSEEN)
+    )
+    if set(TRAIN_SEEDS_H4) & prior or set(HOLD_SEEDS_H4) & prior:
+        raise RuntimeError("H4 seeds overlap prior Y19 missions")
+    if set(TRAIN_SEEDS_H4) & set(HOLD_SEEDS_H4):
+        raise RuntimeError("H4 train/hold collide")
+
+    # Balanced N panel via chooser
+    def n_chooser(seed: int) -> int:
+        return N_PANEL_H4[seed % len(N_PANEL_H4)]
+
+    train = _collect_cases(TRAIN_SEEDS_H4, n_chooser=n_chooser)
+    hold = _collect_cases(HOLD_SEEDS_H4, n_chooser=n_chooser)
+    fit = train + hold if peek_holdout_labels_in_train else train
+
+    # --- Gate A: N-matched (within each N, activity+entropy vs activity) ---
+    n_rows: list[dict[str, Any]] = []
+    for nval in N_PANEL_H4:
+        fit_n = [c for c in fit if int(c["n"]) == nval]
+        hold_n = [c for c in hold if int(c["n"]) == nval]
+        if not fit_n or not hold_n:
+            n_rows.append({"n": nval, "status": "EMPTY", "powered": False, "passed": False})
+            continue
+        metrics = _eval_keys_vs(
+            fit_n, hold_n, base_keys=ACTIVITY_KEYS_H4, full_keys=ACTIVITY_ENTROPY_KEYS
+        )
+        powered = _stratum_ok(metrics["n_pos"], metrics["n_neg"], metrics["n_cases"])
+        n_rows.append(
+            {
+                "n": nval,
+                "status": "OK" if powered else "UNDERPOWERED",
+                "powered": powered,
+                "passed": bool(powered and metrics["beats_mcid"]),
+                **metrics,
+            }
+        )
+    powered_n = [r for r in n_rows if r.get("powered")]
+    if len(powered_n) < 2:
+        gate_a: dict[str, Any] = {
+            "name": "n_matched",
+            "status": "UNDERPOWERED",
+            "passed": False,
+            "by_n": n_rows,
+        }
+    else:
+        n_pass = sum(1 for r in powered_n if r["beats_mcid"])
+        gate_a = {
+            "name": "n_matched",
+            "status": "PASS" if n_pass >= 2 else "FAIL",
+            "passed": n_pass >= 2,
+            "powered_n": len(powered_n),
+            "mcid_pass_n": n_pass,
+            "by_n": n_rows,
+        }
+
+    # --- Gate B: residualized entropy ---
+    fit_r, hold_r = _with_residual_entropy(fit, hold)
+    residual_keys = ACTIVITY_KEYS_H4 + ("residual_entropy",)
+    gate_b_metrics = _eval_keys_vs(
+        fit_r, hold_r, base_keys=ACTIVITY_KEYS_H4, full_keys=residual_keys
+    )
+    # Also report activity+N vs activity+N+entropy (nested control)
+    nested = _eval_keys_vs(
+        fit, hold, base_keys=ACTIVITY_N_KEYS, full_keys=ACTIVITY_N_ENTROPY_KEYS
+    )
+    bal_b = (
+        gate_b_metrics["n_pos"] >= MIN_HOLD_POSITIVES
+        and gate_b_metrics["n_neg"] >= MIN_HOLD_NEGATIVES
+    )
+    if not bal_b:
+        gate_b = {
+            "name": "residualized_entropy",
+            "status": "UNDERPOWERED",
+            "passed": False,
+            **gate_b_metrics,
+            "nested_activity_n_vs_plus_entropy": nested,
+        }
+    else:
+        # Pass only if residual entropy beats activity AND nested entropy adds beyond N
+        passed_b = bool(gate_b_metrics["beats_mcid"] and nested["beats_mcid"])
+        gate_b = {
+            "name": "residualized_entropy",
+            "status": "PASS" if passed_b else "FAIL",
+            "passed": passed_b,
+            **gate_b_metrics,
+            "nested_activity_n_vs_plus_entropy": nested,
+        }
+
+    # --- Gate C: leave-one-N-out ---
+    loo_rows: list[dict[str, Any]] = []
+    for held_n in N_PANEL_H4:
+        fit_loo = [c for c in fit if int(c["n"]) != held_n]
+        hold_loo = [c for c in hold if int(c["n"]) == held_n]
+        if not fit_loo or not hold_loo:
+            loo_rows.append({"held_n": held_n, "status": "EMPTY", "powered": False, "passed": False})
+            continue
+        metrics = _eval_keys_vs(
+            fit_loo,
+            hold_loo,
+            base_keys=ACTIVITY_KEYS_H4,
+            full_keys=ACTIVITY_ENTROPY_KEYS,
+        )
+        powered = _stratum_ok(metrics["n_pos"], metrics["n_neg"], metrics["n_cases"])
+        loo_rows.append(
+            {
+                "held_n": held_n,
+                "status": "OK" if powered else "UNDERPOWERED",
+                "powered": powered,
+                "passed": bool(powered and metrics["beats_mcid"]),
+                **metrics,
+            }
+        )
+    powered_loo = [r for r in loo_rows if r.get("powered")]
+    if len(powered_loo) < 2:
+        gate_c: dict[str, Any] = {
+            "name": "leave_one_n_out",
+            "status": "UNDERPOWERED",
+            "passed": False,
+            "folds": loo_rows,
+        }
+    else:
+        n_pass = sum(1 for r in powered_loo if r["beats_mcid"])
+        # PASS if ≥2 folds keep entropy MCID (transferable entropy, not N lookup)
+        gate_c = {
+            "name": "leave_one_n_out",
+            "status": "PASS" if n_pass >= 2 else "FAIL",
+            "passed": n_pass >= 2,
+            "powered_folds": len(powered_loo),
+            "mcid_pass_folds": n_pass,
+            "folds": loo_rows,
+        }
+
+    gates = {
+        "A_n_matched": gate_a,
+        "B_residualized_entropy": gate_b,
+        "C_leave_one_n_out": gate_c,
+    }
+    statuses = [g["status"] for g in gates.values()]
+
+    if any(s == "FAIL" for s in statuses):
+        # Mixed: some pass some fail among powered gates
+        pass_flags = [g.get("passed") for g in gates.values() if g["status"] in {"PASS", "FAIL"}]
+        if pass_flags and any(pass_flags) and not all(pass_flags):
+            decision: Decision = "INCONCLUSIVE"
+            winning = "H_conditional_on_n"
+        elif gate_a["status"] == "FAIL" or gate_b["status"] == "FAIL":
+            decision = "REJECTED"
+            winning = "H_effect_is_mostly_n"
+        else:
+            decision = "REJECTED"
+            winning = "H_conditional_on_n"
+    elif any(s == "UNDERPOWERED" for s in statuses):
+        decision = "INCONCLUSIVE"
+        winning = "H_conditional_on_n"
+    elif all(g["passed"] for g in gates.values()):
+        decision = "SUPPORTED"
+        winning = "H_entropy_survives_n_control"
+    else:
+        decision = "INCONCLUSIVE"
+        winning = "H_conditional_on_n"
+
+    nulls: list[dict[str, Any]] = []
+    if decision == "REJECTED":
+        nulls.append(
+            {
+                "id": "y19_h4_entropy_dies_under_n_control",
+                "gates": {k: v["status"] for k, v in gates.items()},
+                "interpretation": "entropy did not retain MCID after N control / residualization / LOO",
+            }
+        )
+
+    return {
+        "protocol_version": PROTOCOL_VERSION_H4,
+        "prior_mission": "Y19-H3",
+        "prior_decision": "SUPPORTED",
+        "competing_hypotheses": [asdict(h) for h in COMPETING_H4],
+        "winning_hypothesis_id": winning,
+        "decision": decision,
+        "gates": gates,
+        "mcid_brier_ratio": MCID_BRIER_RATIO,
+        "claim_scope": (
+            "At most: entropy retains OOS signal beyond activity under N controls — "
+            "not a general transient theory"
+        ),
+        "seed_policy": {
+            "train": f"{TRAIN_SEEDS_H4[0]}-{TRAIN_SEEDS_H4[-1]}",
+            "hold": f"{HOLD_SEEDS_H4[0]}-{HOLD_SEEDS_H4[-1]}",
+            "n_panel": list(N_PANEL_H4),
+            "disjoint_from_h1_h2_h3": True,
+        },
+        "leak_checks": {
+            "train_hold_disjoint": True,
+            "peek_holdout_labels_in_train": peek_holdout_labels_in_train,
+        },
+        "null_results": nulls,
+        "scientific_claim_accepted": decision == "SUPPORTED",
+        "answer_known_a_priori": False,
+    }
+
+
+def write_preregistration_h4(path: Path) -> None:
+    payload = {
+        "mission_id": "Y19-H4",
+        "protocol_version": PROTOCOL_VERSION_H4,
+        "preregistered_before_data": True,
+        "follows": "Y19-H3 SUPPORTED → decompose size vs entropy",
+        "hypothesis": COMPETING_H4[0].statement,
+        "competing_hypotheses": [asdict(h) for h in COMPETING_H4],
+        "gates": {
+            "A_n_matched": "Within each N, activity+entropy vs activity; ≥2 powered N pass MCID",
+            "B_residualized_entropy": (
+                "residual_entropy = entropy - E[entropy|N,activity]; "
+                "activity+residual vs activity MCID AND nested activity+N+entropy vs activity+N MCID"
+            ),
+            "C_leave_one_n_out": "Train other N, hold one N; ≥2 folds keep entropy MCID",
+        },
+        "primary_criterion": {
+            "statistic": "all_three_decomposition_gates_pass",
+            "mcid_ratio": MCID_BRIER_RATIO,
+            "decision_rule": {
+                "SUPPORTED": "A and B and C PASS",
+                "REJECTED": "A or B FAIL (entropy dies under N control)",
+                "INCONCLUSIVE": "mixed PASS/FAIL or UNDERPOWERED",
+            },
+        },
+        "seed_data_policy": {
+            "train": list(TRAIN_SEEDS_H4),
+            "hold": list(HOLD_SEEDS_H4),
+            "n_panel": list(N_PANEL_H4),
+        },
+        "forbidden": [
+            "new spectral/sensitivity features",
+            "post-hoc MCID change",
+            "claiming entropy predicts transients without N-control survival",
+        ],
+        "answer_known_a_priori": False,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2), encoding="utf-8")

@@ -1,0 +1,9 @@
+{
+  "steps": [
+    "Lock H4 decomposition gates (no new feature families)",
+    "Gate A: N-matched activity+entropy vs activity",
+    "Gate B: residualized entropy + nested N control",
+    "Gate C: leave-one-N-out transfer of entropy effect",
+    "Decide; preserve nulls; do not overclaim"
+  ]
+}

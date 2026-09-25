@@ -1,0 +1,19 @@
+{
+  "deterministic_status": "PASS",
+  "deterministic_checks": [
+    "protocol=Y19-H4-v1",
+    "A=FAIL",
+    "B=FAIL",
+    "C=FAIL",
+    "decision=REJECTED"
+  ],
+  "provider_status": "NOT_REQUESTED",
+  "provider_detail": "",
+  "live_keys": {
+    "openai": false,
+    "anthropic": false,
+    "openrouter": false,
+    "groq": false,
+    "gemini": false
+  }
+}

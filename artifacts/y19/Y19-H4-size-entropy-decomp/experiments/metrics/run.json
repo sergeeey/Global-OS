@@ -1,0 +1,259 @@
+{
+  "protocol_version": "Y19-H4-v1",
+  "prior_mission": "Y19-H3",
+  "prior_decision": "SUPPORTED",
+  "competing_hypotheses": [
+    {
+      "id": "H_entropy_survives_n_control",
+      "statement": "At fixed N / after residualizing entropy on N+activity / under leave-one-N-out, entropy retains sealed-holdout predictive value beyond activity (MCID)."
+    },
+    {
+      "id": "H_effect_is_mostly_n",
+      "statement": "After N control, entropy loses MCID gain; the H2/H3 size/entropy signal is explained mainly by system size N."
+    },
+    {
+      "id": "H_conditional_on_n",
+      "statement": "Entropy effect is mixed across N (survives some sizes/LOO folds, fails others) or underpowered — conditional, not global."
+    }
+  ],
+  "winning_hypothesis_id": "H_effect_is_mostly_n",
+  "decision": "REJECTED",
+  "gates": {
+    "A_n_matched": {
+      "name": "n_matched",
+      "status": "FAIL",
+      "passed": false,
+      "powered_n": 3,
+      "mcid_pass_n": 0,
+      "by_n": [
+        {
+          "n": 16,
+          "status": "OK",
+          "powered": true,
+          "passed": false,
+          "brier_base": 0.19347671247139334,
+          "brier_full": 0.19482924002473123,
+          "brier_ratio": 1.0069906477945654,
+          "auc_base": 0.5769230769230769,
+          "auc_full": 0.5644490644490644,
+          "n_cases": 50,
+          "n_pos": 13,
+          "n_neg": 37,
+          "beats_mcid": false,
+          "base_keys": [
+            "mean_activity",
+            "activity_std"
+          ],
+          "full_keys": [
+            "mean_activity",
+            "activity_std",
+            "state_entropy"
+          ]
+        },
+        {
+          "n": 20,
+          "status": "OK",
+          "powered": true,
+          "passed": false,
+          "brier_base": 0.23405509673369315,
+          "brier_full": 0.23234002256071007,
+          "brier_ratio": 0.9926723485328137,
+          "auc_base": 0.39797794117647056,
+          "auc_full": 0.4016544117647059,
+          "n_cases": 50,
+          "n_pos": 16,
+          "n_neg": 34,
+          "beats_mcid": false,
+          "base_keys": [
+            "mean_activity",
+            "activity_std"
+          ],
+          "full_keys": [
+            "mean_activity",
+            "activity_std",
+            "state_entropy"
+          ]
+        },
+        {
+          "n": 24,
+          "status": "OK",
+          "powered": true,
+          "passed": false,
+          "brier_base": 0.25523095344025715,
+          "brier_full": 0.2554506769706886,
+          "brier_ratio": 1.000860881203748,
+          "auc_base": 0.4802955665024631,
+          "auc_full": 0.47372742200328405,
+          "n_cases": 50,
+          "n_pos": 21,
+          "n_neg": 29,
+          "beats_mcid": false,
+          "base_keys": [
+            "mean_activity",
+            "activity_std"
+          ],
+          "full_keys": [
+            "mean_activity",
+            "activity_std",
+            "state_entropy"
+          ]
+        }
+      ]
+    },
+    "B_residualized_entropy": {
+      "name": "residualized_entropy",
+      "status": "FAIL",
+      "passed": false,
+      "brier_base": 0.22105493644607946,
+      "brier_full": 0.22088696617343317,
+      "brier_ratio": 0.9992401424037538,
+      "auc_base": 0.5587,
+      "auc_full": 0.5495,
+      "n_cases": 150,
+      "n_pos": 50,
+      "n_neg": 100,
+      "beats_mcid": false,
+      "base_keys": [
+        "mean_activity",
+        "activity_std"
+      ],
+      "full_keys": [
+        "mean_activity",
+        "activity_std",
+        "residual_entropy"
+      ],
+      "nested_activity_n_vs_plus_entropy": {
+        "brier_base": 0.21569870738872404,
+        "brier_full": 0.21568928290847927,
+        "brier_ratio": 0.9999563072011007,
+        "auc_base": 0.6069,
+        "auc_full": 0.6051,
+        "n_cases": 150,
+        "n_pos": 50,
+        "n_neg": 100,
+        "beats_mcid": false,
+        "base_keys": [
+          "mean_activity",
+          "activity_std",
+          "n"
+        ],
+        "full_keys": [
+          "mean_activity",
+          "activity_std",
+          "n",
+          "state_entropy"
+        ]
+      }
+    },
+    "C_leave_one_n_out": {
+      "name": "leave_one_n_out",
+      "status": "FAIL",
+      "passed": false,
+      "powered_folds": 3,
+      "mcid_pass_folds": 0,
+      "folds": [
+        {
+          "held_n": 16,
+          "status": "OK",
+          "powered": true,
+          "passed": false,
+          "brier_base": 0.20431547699162464,
+          "brier_full": 0.20415723247310516,
+          "brier_ratio": 0.9992254893224464,
+          "auc_base": 0.6330561330561331,
+          "auc_full": 0.5977130977130977,
+          "n_cases": 50,
+          "n_pos": 13,
+          "n_neg": 37,
+          "beats_mcid": false,
+          "base_keys": [
+            "mean_activity",
+            "activity_std"
+          ],
+          "full_keys": [
+            "mean_activity",
+            "activity_std",
+            "state_entropy"
+          ]
+        },
+        {
+          "held_n": 20,
+          "status": "OK",
+          "powered": true,
+          "passed": false,
+          "brier_base": 0.2077015543291248,
+          "brier_full": 0.20489847878289016,
+          "brier_ratio": 0.9865043111724004,
+          "auc_base": 0.6534926470588235,
+          "auc_full": 0.6700367647058824,
+          "n_cases": 50,
+          "n_pos": 16,
+          "n_neg": 34,
+          "beats_mcid": false,
+          "base_keys": [
+            "mean_activity",
+            "activity_std"
+          ],
+          "full_keys": [
+            "mean_activity",
+            "activity_std",
+            "state_entropy"
+          ]
+        },
+        {
+          "held_n": 24,
+          "status": "OK",
+          "powered": true,
+          "passed": false,
+          "brier_base": 0.26435598394076437,
+          "brier_full": 0.26287226275314973,
+          "brier_ratio": 0.9943874121345893,
+          "auc_base": 0.5180623973727422,
+          "auc_full": 0.5164203612479474,
+          "n_cases": 50,
+          "n_pos": 21,
+          "n_neg": 29,
+          "beats_mcid": false,
+          "base_keys": [
+            "mean_activity",
+            "activity_std"
+          ],
+          "full_keys": [
+            "mean_activity",
+            "activity_std",
+            "state_entropy"
+          ]
+        }
+      ]
+    }
+  },
+  "mcid_brier_ratio": 0.9,
+  "claim_scope": "At most: entropy retains OOS signal beyond activity under N controls — not a general transient theory",
+  "seed_policy": {
+    "train": "4000-4299",
+    "hold": "8000-8149",
+    "n_panel": [
+      16,
+      20,
+      24
+    ],
+    "disjoint_from_h1_h2_h3": true
+  },
+  "leak_checks": {
+    "train_hold_disjoint": true,
+    "peek_holdout_labels_in_train": false
+  },
+  "null_results": [
+    {
+      "id": "y19_h4_entropy_dies_under_n_control",
+      "gates": {
+        "A_n_matched": "FAIL",
+        "B_residualized_entropy": "FAIL",
+        "C_leave_one_n_out": "FAIL"
+      },
+      "interpretation": "entropy did not retain MCID after N control / residualization / LOO"
+    }
+  ],
+  "scientific_claim_accepted": false,
+  "answer_known_a_priori": false
+}

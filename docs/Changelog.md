@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.59 — 2026-09-25
+
+### Y19-H4 — size vs entropy decomposition REJECTED
+
+- Gates all FAIL: N-matched; residualized entropy; leave-one-N-out (ratios ≈1.0)
+- Decision: **REJECTED** (`H_effect_is_mostly_n`)
+- Narrow reading: H2/H3 combo signal does **not** survive as entropy-beyond-N; mainly size
+- Does **not** claim “entropy predicts transients”; does not start LH exam
+- Operator: nothing to run
+
 ## 0.1.58 — 2026-09-25
 
 ### Y19-H3 — H2 robustness battery SUPPORTED

@@ -1,0 +1,16 @@
+{
+  "mission_id": "Y19-H4",
+  "protocol_version": "Y19-H4-v1",
+  "preregistered_before_data": true,
+  "hypothesis": "At fixed N / after residualizing entropy on N+activity / under leave-one-N-out, entropy retains sealed-holdout predictive value beyond activity (MCID).",
+  "mcid_brier_ratio": 0.9,
+  "primary_criterion": {
+    "statistic": "all_three_decomposition_gates_pass",
+    "mcid_ratio": 0.9,
+    "decision_rule": {
+      "SUPPORTED": "A and B and C PASS",
+      "REJECTED": "A or B FAIL",
+      "INCONCLUSIVE": "mixed or UNDERPOWERED"
+    }
+  }
+}

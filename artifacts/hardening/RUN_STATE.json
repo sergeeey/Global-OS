@@ -1,50 +1,41 @@
 {
   "sprint": "SCIENTIFIC_DOGFOOD_Y19_LH_DEFERRED",
-  "updated_at": "2026-09-25T07:50:00Z",
-  "current_goal": "CONTINUE_Y19_AFTER_H3_ROBUSTNESS",
-  "phase_statement": "Windows smoke PASS. Y19-H3 SUPPORTED (H2 size/entropy survives activity-matched + unseen-N + both K regimes). LH 96m/48h still deferred. M1.5 not claimed.",
+  "updated_at": "2026-09-25T08:20:00Z",
+  "current_goal": "Y19_AFTER_H4_SIZE_EXPLAINS",
+  "phase_statement": "Y19-H4 REJECTED (H_effect_is_mostly_n): entropy dies under N control. H2/H3 combo signal was largely size. Operator action: none required. LH 96m/48h still deferred.",
+  "operator_action_required": false,
   "freeze_candidate": {
     "sha": "bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee",
-    "short_sha": "bfa58a0",
     "status": "INTERMEDIATE_STABLE_POINT",
     "windows_os_kill_smoke": "PASS"
   },
-  "completed": [
-    "WINDOWS_OS_KILL_SMOKE_PASS_BFA58A0",
-    "Y19_H1_REJECTED",
-    "Y19_H2_SUPPORTED",
-    "Y19_H3_ROBUSTNESS_SUPPORTED"
-  ],
-  "running": "Y19_SCIENTIFIC_DOGFOOD",
-  "stage": "Y19 science — H2 robust under H3 gates; LH deferred",
-  "continual_improvement": "NOT_MEASURED",
   "y19": {
     "h1": {"decision": "REJECTED", "winner": "H_baseline_sufficient"},
     "h2": {"decision": "SUPPORTED", "winner": "H_size_entropy_add_signal"},
-    "h3": {
-      "decision": "SUPPORTED",
-      "winner": "H_h2_robust",
+    "h3": {"decision": "SUPPORTED", "winner": "H_h2_robust"},
+    "h4": {
+      "decision": "REJECTED",
+      "winner": "H_effect_is_mostly_n",
       "gates": {
-        "A_activity_matched": "PASS",
-        "B_unseen_size": "PASS",
-        "C_regime_k": "PASS"
+        "A_n_matched": "FAIL",
+        "B_residualized_entropy": "FAIL",
+        "C_leave_one_n_out": "FAIL"
       },
-      "tz": "artifacts/y19/Y19-H3-h2-robustness/TZ.md",
-      "note": "size/entropy gain survives matching, N=24 transfer, both K regimes"
+      "narrow_claim": "H2/H3 size/entropy gain does not survive as entropy-beyond-N; effect is mostly N",
+      "tz": "artifacts/y19/Y19-H4-size-entropy-decomp/TZ.md"
     }
   },
   "long_horizon": {
-    "lh_v2_1": {
-      "windows_os_kill_smoke": "PASS",
-      "windows_preflight": "DEFERRED",
-      "literal_48h": "DEFERRED"
-    },
+    "windows_os_kill_smoke": "PASS",
+    "windows_preflight": "DEFERRED",
+    "literal_48h": "DEFERRED",
     "m15_claimed": false
   },
   "plan": {
-    "now": ["continue_Y19_scientific_narrowing"],
-    "defer": ["windows_96m_preflight", "literal_48h"]
+    "now": ["optional_next_Y19_on_size_mechanism_or_stop_narrowing"],
+    "defer": ["windows_96m_preflight", "literal_48h"],
+    "operator": []
   },
-  "next_exact_action": "Continue Y19 narrowing (e.g. entropy-vs-N decomposition) without starting LH exam.",
-  "forbidden_now": ["claim_M1.5", "literal_48h", "windows_96m_preflight", "H_ORG_claim"]
+  "next_exact_action": "No operator launch required. Optional: continue Y19 on what about N predicts long transients, or pause science narrowing. Do not start 96m/48h.",
+  "forbidden_now": ["claim_M1.5", "literal_48h", "windows_96m_preflight", "claim_entropy_predicts_transients"]
 }

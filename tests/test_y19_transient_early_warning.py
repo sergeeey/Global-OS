@@ -170,3 +170,59 @@ def test_h3_mission_script():
     assert mission["decision"] in {"SUPPORTED", "REJECTED", "INCONCLUSIVE"}
     ver = json.loads((art / "verification.json").read_text(encoding="utf-8"))
     assert ver["deterministic_status"] == "PASS"
+
+
+def test_h4_seeds_disjoint():
+    from global_os.evals.research.y19_transient_early_warning import (
+        HOLD_SEEDS_H2,
+        HOLD_SEEDS_H3_MATCH,
+        HOLD_SEEDS_H3_UNSEEN,
+        HOLD_SEEDS_H4,
+        TRAIN_SEEDS_H2,
+        TRAIN_SEEDS_H3,
+        TRAIN_SEEDS_H4,
+    )
+
+    prior = (
+        set(TRAIN_SEEDS)
+        | set(HOLD_SEEDS)
+        | set(TRAIN_SEEDS_H2)
+        | set(HOLD_SEEDS_H2)
+        | set(TRAIN_SEEDS_H3)
+        | set(HOLD_SEEDS_H3_MATCH)
+        | set(HOLD_SEEDS_H3_UNSEEN)
+    )
+    assert not (set(TRAIN_SEEDS_H4) & prior)
+    assert not (set(HOLD_SEEDS_H4) & prior)
+
+
+def test_h4_decision_matches_gates():
+    from global_os.evals.research.y19_transient_early_warning import run_experiment_h4
+
+    raw = run_experiment_h4()
+    assert raw["answer_known_a_priori"] is False
+    gates = raw["gates"]
+    assert set(gates) >= {"A_n_matched", "B_residualized_entropy", "C_leave_one_n_out"}
+    statuses = [gates[k]["status"] for k in gates]
+    if any(s == "FAIL" for s in statuses):
+        assert raw["decision"] in {"REJECTED", "INCONCLUSIVE"}
+    elif any(s == "UNDERPOWERED" for s in statuses):
+        assert raw["decision"] == "INCONCLUSIVE"
+    else:
+        assert raw["decision"] == "SUPPORTED"
+
+
+def test_h4_mission_script():
+    art = ROOT / "artifacts" / "y19" / "Y19-H4-size-entropy-decomp"
+    env = {**dict(__import__("os").environ), "PYTHONPATH": str(ROOT / "src")}
+    proc = subprocess.run(
+        [sys.executable, str(art / "execute_mission.py")],
+        cwd=str(ROOT),
+        env=env,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr[-2000:]
+    mission = json.loads((art / "mission.json").read_text(encoding="utf-8"))
+    assert mission["decision"] in {"SUPPORTED", "REJECTED", "INCONCLUSIVE"}
