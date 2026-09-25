@@ -1,6 +1,6 @@
 {
   "sprint": "M15_EXAM_IN_PROGRESS_OPERATOR",
-  "updated_at": "2026-09-25T18:07:13Z",
+  "updated_at": "2026-09-25T18:11:02Z",
   "current_goal": "LH_COGNITIVE_V1_THEN_NEW_FREEZE",
   "phase_statement": "Claim fork B locked: 5d15600 is durability/sum harness. Do not start wall_48h on 5d15600 for cognitive-real M1.5. LH-COGNITIVE-v1 implemented on main; next freeze SHA then Windows cognitive preflight+48h. Running 5d15600 preflight = DURABILITY_ENV only.",
   "operator_action_required": true,
@@ -37,7 +37,7 @@
     "m15_claimed": false,
     "cognitive_program": "IMPLEMENTED_ON_MAIN_NOT_FROZEN"
   },
-  "next_exact_action": "If durability preflight running on 5d15600: let finish as ENV. Do not wall_48h. Dev: freeze LH-COGNITIVE after CI green \u2192 Windows cognitive path.",
+  "next_exact_action": "OPERATOR: if 5d15600 durability preflight running \u2192 let finish as ENV. Then detach cognitive freeze SHA \u2192 smoke \u2192 cognitive preflight \u2192 48h. Do not wall_48h on 5d15600.",
   "forbidden_now": [
     "r4_during_exam",
     "harden_exam_sha",
@@ -123,5 +123,11 @@
   "m15_claim_fork": "artifacts/hardening/M15_CLAIM_FORK.md",
   "lh_cognitive_contract": "artifacts/hardening/LH_COGNITIVE_V1_CONTRACT.md",
   "stop_before_48h_on_5d15600": "artifacts/hardening/STOP_BEFORE_48H_ON_5d15600.md",
-  "decision": "VARIANT_B_COGNITIVE_REAL_WORKLOAD"
+  "decision": "VARIANT_B_COGNITIVE_REAL_WORKLOAD",
+  "freeze_cognitive_candidate": {
+    "label": "FREEZE-LH-COGNITIVE-candidate",
+    "sha_full": "7ab345e5badb00a8c97ffdb7010ee4eb42dac4bb",
+    "doc": "artifacts/hardening/FREEZE_LH_COGNITIVE_CANDIDATE.md",
+    "replaces_exam_sha_for_cognitive": "5d15600"
+  }
 }
