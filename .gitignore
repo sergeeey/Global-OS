@@ -40,3 +40,6 @@ artifacts/y21/sealed/**
 # Y22 sealed ground truth (scorer only; never feed to arm prompts)
 artifacts/y22/sealed/**
 !artifacts/y22/sealed/README.md
+
+# R2 upstream clone (fetch locally; do not vendor)
+artifacts/r2/replication/work/AttentionExplanation/
