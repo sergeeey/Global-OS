@@ -126,8 +126,7 @@
   "decision": "VARIANT_B_COGNITIVE_REAL_WORKLOAD",
   "freeze_cognitive_candidate": {
     "label": "FREEZE-LH-COGNITIVE-candidate",
-    "sha_full": "7ab345e5badb00a8c97ffdb7010ee4eb42dac4bb",
-    "doc": "artifacts/hardening/FREEZE_LH_COGNITIVE_CANDIDATE.md",
-    "replaces_exam_sha_for_cognitive": "5d15600"
+    "note": "SHA finalized in following commit that only pins this file",
+    "doc": "artifacts/hardening/FREEZE_LH_COGNITIVE_CANDIDATE.md"
   }
 }

@@ -1,31 +1,23 @@
 # Freeze candidate — LH-COGNITIVE-v1
 
 **Label:** FREEZE-LH-COGNITIVE-candidate  
-**SHA full:** `7ab345e5badb00a8c97ffdb7010ee4eb42dac4bb`  
-**SHA short:** `7ab345e`  
+**SHA full:** `92f8bbcd6bec6a0d6139e4ec507ff99366b925aa`  
+**SHA short:** `92f8bbc`  
 **Base decision:** Variant B (`M15_CLAIM_FORK.md`)  
-**Not:** `5d15600` (durability/sum harness)
+**Supersedes for cognitive exam:** `5d15600` (keep as durability ENV evidence only)
 
 ## Includes
 
 - `cognitive_probes.py` / `cognitive_research_program.py`
 - Contract: `LH_COGNITIVE_V1_CONTRACT.md`
-- Tests: `tests/test_cognitive_research_program.py` (green on commit)
+- Tests: `tests/test_cognitive_research_program.py`
 
-## Exam sequence (after this pin accepted)
+## Exam sequence
 
 ```text
-detached THIS_SHA
+detached 92f8bbcd6bec6a0d6139e4ec507ff99366b925aa
 → Windows os_kill smoke
-→ cognitive_preflight (~96m, GOS_PREFLIGHT_HOUR_SECONDS=120)
+→ cognitive_preflight (~96m)
 → cognitive_wall_48h (wall_seconds ≥ 172800)
-→ freeze raw artifacts
-→ independent audit
-→ M1.5 decision (protocol scope)
+→ freeze raw artifacts → independent audit → M1.5 (scope-limited)
 ```
-
-## Still true
-
-- m15_claimed false during run
-- no patch-and-continue on exam SHA
-- env repair OK; code defect → new freeze
