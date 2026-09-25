@@ -11,7 +11,8 @@
     "LH_V2_1_OS_KILL",
     "LH_V2_1_COMPRESSED_PREFLIGHT_PASS",
     "Y18_FAILURE_MODE_DOGFOOD_4_CLASSES",
-    "FREEZE_CANDIDATE_SHA_PINNED"
+    "FREEZE_CANDIDATE_SHA_PINNED",
+    "LINUX_OS_KILL_SMOKE_PASS"
   ],
   "running": null,
   "stage": "Freeze candidate pinned — awaiting Windows preflight",
@@ -48,6 +49,12 @@
     "m15_claimed": false,
     "m15_status": "NOT_CLOSED"
   },
+  "linux_os_kill_smoke": {
+    "passed": true,
+    "platform": "linux",
+    "artifact": "artifacts/hardening/long_horizon_48h/os_kill_smoke/os_kill_result.json",
+    "note": "does not replace optional Windows os_kill smoke or Windows wall preflight"
+  },
   "plan": {
     "now": [
       "optional_windows_os_kill_smoke_only_seconds",
@@ -63,7 +70,7 @@
       "new_T0_T1_architecture_surfaces"
     ]
   },
-  "next_exact_action": "Operator: optional seconds-long Windows os_process_kill smoke, then Windows 60–120m wall preflight on freeze SHA bfa58a0. Do not start literal 48h before preflight PASS.",
+  "next_exact_action": "Operator Windows: optional seconds-long os_process_kill smoke, then 60–120m wall preflight on freeze SHA bfa58a0. Linux os_kill smoke already PASS. Do not start literal 48h before Windows preflight PASS.",
   "forbidden_now": [
     "claim_M1.5",
     "literal_48h_before_windows_preflight",

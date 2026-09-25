@@ -29,6 +29,7 @@
 - [x] Y18-4 provider/tool degradation dogfood (SUPPORTED; IV ENVIRONMENT_GAP honest)
 - [x] Failure-mode diversity gate for freeze (4 classes)
 - [x] Pin freeze candidate SHA (`bfa58a0`)
+- [x] Linux `os_process_kill` smoke PASS (seconds; not Windows substitute)
 - [ ] Optional Windows `os_process_kill` smoke (seconds only)
 - [ ] Windows 60–120m wall preflight on frozen SHA
 

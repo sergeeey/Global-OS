@@ -29,7 +29,8 @@ Literal 48h / M1.5               ❌ after preflight only
 ### Plan
 
 1. **Done:** Y18 dogfood (four failure classes) + freeze candidate pin `bfa58a0`.
-2. **Now:** optional seconds-long Windows `os_process_kill` smoke; then Windows wall preflight on `bfa58a0`.
+2. **Now:** optional seconds-long Windows `os_process_kill` smoke; then Windows wall preflight on `bfa58a0`.  
+   (Linux os_kill smoke already PASS — not a Windows substitute.)
 3. **Then:** literal 48h on a **real persistent research workload** as final exam of this frozen SHA → audit → M1.5 candidate.
 
 Claim strength must not exceed evidence strength.

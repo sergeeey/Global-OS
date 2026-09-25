@@ -1,0 +1,17 @@
+{
+  "kind": "os_process_kill_cold_resume",
+  "passed": true,
+  "initial_pid": 5057,
+  "restart_pid": 5056,
+  "child_returncode": -9,
+  "child_gone": true,
+  "marker": {
+    "pid": 5057,
+    "phase": "planned"
+  },
+  "final_phase": "reported",
+  "goal_id": "goal_smoke",
+  "effects": 1,
+  "act_pid": 5056,
+  "db_path": "artifacts/hardening/long_horizon_48h/os_kill_smoke/lh48_durable.sqlite"
+}

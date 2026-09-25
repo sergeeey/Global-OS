@@ -6,7 +6,8 @@
 
 - Freeze candidate: `bfa58a0` (`bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee`)
 - Basis: Y18 failure-mode diversity MET; no open critical defects in state/recovery/authority/eval
-- Next: optional Windows `os_kill` smoke (seconds) → Windows 60–120m preflight on this SHA → literal 48h exam
+- Linux `os_process_kill` smoke PASS (distinct PIDs, SIGKILL child); Windows smoke still optional
+- Next: optional Windows `os_kill` smoke → Windows 60–120m preflight on this SHA → literal 48h exam
 - **Not** M1.5 / H-ORG / Continual SI / PRODUCTION_PROVEN
 
 ## 0.1.53 — 2026-09-25

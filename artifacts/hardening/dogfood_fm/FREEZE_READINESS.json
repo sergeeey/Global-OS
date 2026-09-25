@@ -49,6 +49,10 @@
     "claim_H_ORG",
     "claim_continual_SI"
   ],
+  "linux_os_kill_smoke": {
+    "passed": true,
+    "note": "local confirmation only; Windows smoke remains optional"
+  },
   "next": [
     "optional Windows os_kill smoke (seconds)",
     "Windows wall preflight 60–120min on frozen SHA bfa58a0",
