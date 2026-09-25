@@ -2,14 +2,19 @@
   "program": "Y20_CAUSAL_AB",
   "contract": "artifacts/y20/Y20-RESEARCH-PROGRAM.md",
   "prereg": "artifacts/y20/Y20-PREREG.md",
+  "execution_protocol": "artifacts/y20/Y20-EXECUTION-PROTOCOL.md",
   "protocol_version": "Y20-AB-v1",
-  "updated_at": "2026-09-25T11:00:00Z",
+  "prereg_boundary_sha": "278c10d",
+  "updated_at": "2026-09-25T11:10:00Z",
   "phase": "PREREG_LOCKED",
   "prereg_locked": true,
+  "architecture_freeze_until_comparison": true,
   "arms_started": false,
+  "sealed_unseen": true,
+  "unseal_allowed": false,
   "arms": {
-    "A": {"status": "NOT_STARTED", "role": "strong_agent_baseline"},
-    "B": {"status": "NOT_STARTED", "role": "strong_agent_plus_global_os"},
+    "A": {"status": "NOT_STARTED", "role": "strong_agent_baseline", "dir": "artifacts/y20/arms/A"},
+    "B": {"status": "NOT_STARTED", "role": "strong_agent_plus_global_os", "dir": "artifacts/y20/arms/B"},
     "C": {"status": "DEFERRED", "role": "ablation_durable_checkpoint_only"}
   },
   "y19_frozen": true,
@@ -23,16 +28,22 @@
     "tool_calls_max": 400,
     "python_subprocess_max": 200
   },
+  "scorer_locked": true,
+  "generator_locked": true,
   "stop_reason": null,
   "forbidden": [
-    "start_arms_before_public_hash_lock",
+    "change_scorer_or_budgets_after_278c10d",
+    "unseal_before_both_arms_complete",
+    "start_B_before_A_immutable",
+    "improve_architecture_before_comparison",
     "peek_sealed_gt_into_arm_prompts",
     "unequal_budget_topup",
+    "cripple_arm_A",
     "reopen_y19_h8",
     "claim_gos_advantage_before_comparison",
     "literal_48h",
     "claim_M1.5",
     "claim_continual_SI"
   ],
-  "next_step": "Public+sealed hashes locked. Execute Arm A then Arm B under equal budgets in isolated dirs; blind-score; write COMPARISON_REPORT. Do not claim GOS advantage before report."
+  "next_step": "Execute Arm A only (strong baseline). Freeze arms/A artifacts. Then Arm B. Only then unseal + blind score + COMPARISON_REPORT."
 }

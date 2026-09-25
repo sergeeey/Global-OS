@@ -11,11 +11,13 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_y20_program_and_prereg_locked():
     prog = ROOT / "artifacts" / "y20" / "Y20-RESEARCH-PROGRAM.md"
     prereg = ROOT / "artifacts" / "y20" / "Y20-PREREG.md"
+    proto = ROOT / "artifacts" / "y20" / "Y20-EXECUTION-PROTOCOL.md"
     state = ROOT / "artifacts" / "y20" / "CURRENT_STATE.json"
     claims = ROOT / "artifacts" / "y19" / "CLAIMS.md"
     evidence = ROOT / "artifacts" / "y19" / "EVIDENCE_PACK.md"
     assert prog.is_file()
     assert prereg.is_file()
+    assert proto.is_file()
     assert state.is_file()
     assert claims.is_file()
     assert evidence.is_file()
@@ -23,12 +25,17 @@ def test_y20_program_and_prereg_locked():
     assert payload["phase"] == "PREREG_LOCKED"
     assert payload["arms_started"] is False
     assert payload["gos_advantage_claimed"] is False
+    assert payload.get("prereg_boundary_sha") == "278c10d"
+    assert payload.get("sealed_unseen") is True
+    assert payload.get("unseal_allowed") is False
     assert payload["arms"]["A"]["status"] == "NOT_STARTED"
     assert payload["arms"]["B"]["status"] == "NOT_STARTED"
     assert payload["arms"]["C"]["status"] == "DEFERRED"
     text = claims.read_text(encoding="utf-8")
     assert "NOT PROVEN" in text
     assert "bundle" in text.lower() or "связки" in text.lower() or "model + Global OS" in text
+    assert "278c10d" in proto.read_text(encoding="utf-8")
+    assert "unseal" in proto.read_text(encoding="utf-8").lower()
 
 
 def test_public_pack_hides_ground_truth(tmp_path: Path):
@@ -106,6 +113,11 @@ def test_public_pack_hides_ground_truth(tmp_path: Path):
     assert ok["ok"] is True
     over = validate_budget_usage({"wall_seconds_used": 999999, "token_budget_used": 1, "tool_calls_used": 1, "python_subprocess_used": 1})
     assert over["ok"] is False
+
+    from global_os.evals.research.y20_causal_ab import validate_process_log
+
+    incomplete = validate_process_log({"arm_id": "A"})
+    assert incomplete["ok"] is False
 
 
 def test_export_packs_deterministic(tmp_path: Path):

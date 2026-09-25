@@ -1,8 +1,9 @@
 # Y20 Preregistration — Locked Before Arm Execution
 
 **Protocol version:** `Y20-AB-v1`  
-**Locked at:** prereg package commit (see `CURRENT_STATE.json` → `prereg_locked`)  
-**Arms started:** **false** (do not change metrics after peek/start)
+**Preregistration boundary SHA:** `278c10d` (immutable)  
+**Locked at:** `278c10d`  
+**Arms started:** **false** (do not change metrics/scorer/generator/budgets after arm start)
 
 ## Competing process hypotheses (architecture)
 
@@ -46,18 +47,19 @@ Losing arm must **not** receive extra compute.
 2. **Interventional MAE** on sealed `do(X=x)` targets (mean abs error vs true E[Y|do])
 3. **Claimed-subgraph reproducibility** — claimed edges must be listed explicitly in submission
 
-### Process (operator log + arm artifacts)
+### Process (operator log + arm `process_log.json`)
 
 4. Human interventions count  
 5. Dispatcher-asks count  
-6. Unsupported conclusions count (rubric in scorer notes)  
-7. State-loss incidents / recovery success  
-8. Evidence-trace completeness (0–1 checklist)  
-9. Stop correctness (stopped when terminal/low-EVI; did not stop spuriously)
+6. Hypotheses tried  
+7. Failed experiments  
+8. Unsupported conclusions count  
+9. State-loss incidents / recovery events  
+10. Evidence-trace completeness (0–1 checklist)  
+11. Premature stop (bool) + stop correctness  
+12. Tool/compute cost + wall time (must be ≤ caps)
 
-### Cost
-
-10. Tokens used, tool calls, wall seconds (must be ≤ caps)
+Schema: `artifacts/y20/process_log.schema.json` · Sequence: `Y20-EXECUTION-PROTOCOL.md`
 
 ## Submission schema (both arms)
 

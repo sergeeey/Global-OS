@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.63 — 2026-09-25
+
+### Y20 execution protocol locked (still no arms)
+
+- Prereg boundary **`278c10d`**: no scorer/budget/generator mutation to improve outcomes
+- Sequence locked: Arm A → freeze → Arm B → freeze → unseal → blind score → COMPARISON_REPORT
+- Process log schema required (interventions, dispatcher asks, hypotheses, cost, recovery…)
+- Architecture freeze until comparison; Arm A must not be crippled
+- Arms still NOT RUN; sealed UNSEEN; GOS advantage NOT PROVEN
+
 ## 0.1.62 — 2026-09-25
 
 ### Y20 preregistered causal A/B (arms not started)

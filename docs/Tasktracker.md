@@ -36,7 +36,10 @@
 - [x] Y20-RESEARCH-PROGRAM.md + Y20-PREREG.md + CURRENT_STATE `PREREG_LOCKED`
 - [x] Sealed causal generator + blind scorer + equal-budget schema
 - [x] Public pack hash locked; sealed gitignored
+- [x] Execution protocol: A→freeze→B→freeze→unseal→score (`278c10d` boundary)
+- [x] Process log schema (interventions, dispatcher asks, cost, recovery…)
 - [ ] Execute Arm A (strong agent baseline) under budget caps
+- [ ] Freeze `arms/A` immutable before starting B
 - [ ] Execute Arm B (same model + Global OS) under same caps
 - [ ] Blind score + COMPARISON_REPORT (no GOS-advantage claim before report)
 

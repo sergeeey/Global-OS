@@ -14,31 +14,28 @@
 
 ## Текущий baseline
 
-**Y19 FROZEN (`4378005`). Y20 A/B prereg LOCKED — arms not started.**  
-Claim B = bundle autonomy, **not** proven GOS architectural advantage.
+**Y20 prereg frozen at `278c10d`. Ready to run Arm A only. Architecture freeze.**
 
 ```text
-working research prototype                         YES
-multi-step autonomous research loop                YES
-dispatcher-ask reduction                           YES
-transfer across task classes                       NOT PROVEN
-Global OS advantage vs strong-agent baseline       NOT PROVEN
-literal 48h                                        NOT PROVEN
-continual SI                                       NOT MEASURED
-production autonomy                                NOT PROVEN
-M1.5                                               NOT CLAIMED
-
-Y19 science (period/long-fraction)                 FROZEN
-Y20 causal A/B prereg                              PREREG_LOCKED
-Y20 Arm A / Arm B                                  NOT STARTED
+Y19                         CLOSED / evidence packed
+Y19 autonomy attribution    bundle-level only
+Y20 prereg                  LOCKED @ 278c10d
+Arm A                       NOT RUN
+Arm B                       NOT RUN
+sealed ground truth         UNSEEN
+blind scorer                LOCKED
+equal caps                  LOCKED
+Global OS advantage         NOT PROVEN
+cross-domain transfer       NOT PROVEN
+continual SI                NOT MEASURED
+M1.5                        NOT CLAIMED
 ```
 
 ### Plan
 
-1. **Frozen:** Y19 — no H8.  
-2. **Now:** Y20 prereg complete; next stage = execute equal-budget A/B (strong agent vs GOS).  
-3. **Later:** Y21/Y22 transfer → freeze SHA → LH → Continual-SI.  
-4. **Not now:** 96m / literal 48h / M1.5 / Ablation C.
+1. **Now:** execute Arm A (strong baseline) → freeze `arms/A` → then Arm B → then unseal/score.  
+2. **Forbidden until COMPARISON_REPORT:** architecture “improvements”, unseal early, cripple A, change scorer.  
+3. **Later:** Y21/Y22 → freeze SHA → LH. Not now.
 
 Claim strength must not exceed evidence strength. Need **truth about the system**, not a forced GOS win.
 

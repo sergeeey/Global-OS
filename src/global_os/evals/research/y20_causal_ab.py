@@ -468,3 +468,57 @@ def validate_budget_usage(usage: dict[str, Any], budgets: dict[str, int] | None 
 
 def budgets_schema() -> dict[str, int]:
     return dict(BUDGETS)
+
+
+PROCESS_LOG_REQUIRED: tuple[str, ...] = (
+    "arm_id",
+    "model_pin",
+    "prereg_boundary_sha",
+    "public_pack_sha256",
+    "started_at",
+    "ended_at",
+    "wall_seconds_used",
+    "token_budget_used",
+    "tool_calls_used",
+    "python_subprocess_used",
+    "human_interventions",
+    "dispatcher_asks",
+    "hypotheses_tried",
+    "failed_experiments",
+    "unsupported_claims",
+    "recovery_events",
+    "state_loss_events",
+    "premature_stop",
+    "evidence_trace_completeness",
+    "stop_reason",
+    "submission_path",
+)
+
+
+def validate_process_log(log: dict[str, Any]) -> dict[str, Any]:
+    """Validate arm process_log against prereg schema (does not touch science scorer)."""
+    missing = [k for k in PROCESS_LOG_REQUIRED if k not in log]
+    errors: list[str] = []
+    if missing:
+        errors.append(f"missing:{','.join(missing)}")
+    if log.get("prereg_boundary_sha") not in (None, "278c10d"):
+        if "prereg_boundary_sha" in log and log["prereg_boundary_sha"] != "278c10d":
+            errors.append("prereg_boundary_sha_mismatch")
+    if "evidence_trace_completeness" in log:
+        try:
+            v = float(log["evidence_trace_completeness"])
+            if v < 0.0 or v > 1.0:
+                errors.append("evidence_trace_completeness_range")
+        except (TypeError, ValueError):
+            errors.append("evidence_trace_completeness_type")
+    budget_check = validate_budget_usage(
+        {
+            "wall_seconds_used": log.get("wall_seconds_used", 0),
+            "token_budget_used": log.get("token_budget_used", 0),
+            "tool_calls_used": log.get("tool_calls_used", 0),
+            "python_subprocess_used": log.get("python_subprocess_used", 0),
+        }
+    )
+    if not budget_check["ok"]:
+        errors.extend(budget_check["violations"])
+    return {"ok": not errors, "errors": errors, "budget": budget_check}
