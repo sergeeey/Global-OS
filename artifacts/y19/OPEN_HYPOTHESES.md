@@ -1,12 +1,12 @@
-# OPEN_HYPOTHESES — after H7 terminal halt
+# OPEN_HYPOTHESES — Y19 FROZEN
 
-In-family feature discrimination is largely exhausted for EVI purposes.
+In-family discrimination exhausted. Campaign frozen at milestone `4378005`.
 
-Remaining (would require **new program** or operator-scoped expansion):
+Do **not** open H8 inside NK Boolean. Remaining questions belong to **new programs**:
 
 1. Analytic / theoretical derivation of period–transient link in NK maps
-2. Transfer to a **different** system family (not NK Boolean)
+2. Transfer to a **different** system family (Y20+ other-class campaign)
 3. Whether labeled-IC early-window observables can recover period-structure signal
-   without multi-IC probes (deployment constraint)
+   without multi-IC probes (deployment constraint) — only under a new scoped program
 
-No open H that is both high-EVI and in-protocol without expanding scope.
+See `CLAIMS.md` for separated Claim A / Claim B and the honesty matrix.
