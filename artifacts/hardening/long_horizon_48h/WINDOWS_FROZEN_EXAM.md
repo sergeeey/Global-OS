@@ -1,3 +1,5 @@
+> **Current freeze candidate:** see `../FREEZE_R1_R3.md` (supersedes bfa58a0 for new exams).
+
 # Frozen validation exam — SHA `bfa58a0`
 
 **Exam SHA (intermediate stable point):** `bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee`  

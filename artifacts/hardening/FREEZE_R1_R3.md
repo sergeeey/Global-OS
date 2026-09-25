@@ -1,7 +1,7 @@
 # Freeze pin — post R1–R3 real-use + FC hardening
 
 **Freeze label:** `FREEZE-R1R3-v1`  
-**Freeze SHA:** `PENDING_AFTER_COMMIT`  
+**Freeze SHA:** `5d15600` (full `5d15600256a7afc7839f190ed3d889b33bc3217b`)  
 **Date:** 2026-09-25  
 **Includes:** R1–R3 real-use evidence · failure-class summary · FC-01/02/04 hardening  
 **Does not include:** Windows wall preflight · literal 48h · M1.5 claim
