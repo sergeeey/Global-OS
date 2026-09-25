@@ -1,5 +1,6 @@
 {
   "assessed_at": "2026-09-25T05:35:00Z",
+  "pinned_at": "2026-09-25T05:40:00Z",
   "suite": "Y18_failure_mode_dogfood",
   "failure_mode_diversity": {
     "required": [
@@ -36,21 +37,21 @@
     }
   ],
   "freeze_candidate": {
-    "status": "PROPOSED_AFTER_COMMIT",
-    "sha": null,
-    "meaning": "candidate for Windows preflight + literal 48h exam — not M1.5, not PRODUCTION_PROVEN"
+    "status": "PINNED",
+    "sha": "bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee",
+    "short_sha": "bfa58a0",
+    "meaning": "frozen candidate for Windows preflight + literal 48h exam — not M1.5, not PRODUCTION_PROVEN",
+    "code_change_policy": "bugfix/eval/evidence/honesty only until exam complete; no new T0/T1 surfaces (ADR-0009)"
   },
   "do_not_now": [
-    "literal_48h",
-    "90min_preflight_while_moving",
+    "literal_48h_without_windows_preflight",
     "claim_M1.5",
     "claim_H_ORG",
     "claim_continual_SI"
   ],
   "next": [
-    "pin freeze candidate SHA on this commit",
     "optional Windows os_kill smoke (seconds)",
-    "Windows wall preflight 60–120min on frozen SHA",
+    "Windows wall preflight 60–120min on frozen SHA bfa58a0",
     "literal 48h on real persistent workload",
     "audit then M1.5 candidate conversation"
   ]

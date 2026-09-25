@@ -21,15 +21,16 @@
 - [x] Phase lock: LH validation deferred; return to real-world hardening
 - [x] Y18 failure-mode dogfood (4 classes) + freeze diversity gate
 
-## Active — Freeze candidate (after Y18)
+## Active — Freeze candidate pinned (`bfa58a0`)
 
 - [x] Y18-1 evidence invalidation dogfood (SUPPORTED)
 - [x] Y18-2 effect discrepancy / recovery dogfood (SUPPORTED)
 - [x] Y18-3 authority boundary dogfood (SUPPORTED)
 - [x] Y18-4 provider/tool degradation dogfood (SUPPORTED; IV ENVIRONMENT_GAP honest)
 - [x] Failure-mode diversity gate for freeze (4 classes)
-- [ ] Pin freeze candidate SHA
+- [x] Pin freeze candidate SHA (`bfa58a0`)
 - [ ] Optional Windows `os_process_kill` smoke (seconds only)
+- [ ] Windows 60–120m wall preflight on frozen SHA
 
 ## Deferred — True 48h / M1.5 (after freeze)
 

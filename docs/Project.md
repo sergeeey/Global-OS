@@ -14,24 +14,23 @@
 
 ## Текущий baseline
 
-**Y18 failure-mode dogfood complete; pin freeze candidate next. LH validation still deferred.**
+**Freeze candidate pinned (`bfa58a0`). Next: Windows preflight → literal 48h exam of this SHA.**
 
 ```text
 LH-v1 42h scheduled survival     ✅ PASS (immutable; not literal 48h)
 LH-v2.1 protocol (T+48, gate,
   OS kill, shared-state)         ✅ ready (compressed preflight PASS)
 Y18 failure-mode dogfood (4)     ✅ all SUPPORTED; diversity MET
-Windows 90m preflight            ⏸ deferred until freeze SHA pinned
-Literal 48h / M1.5               ❌ not now
-Active work                      → pin freeze candidate SHA
+Freeze candidate                 ✅ bfa58a0
+Windows 90m preflight            → next on frozen SHA
+Literal 48h / M1.5               ❌ after preflight only
 ```
 
 ### Plan
 
-1. **Done:** Y18 dogfood across four failure classes (evidence / effect-recovery / authority / provider degradation).  
-   No open critical defects in state / recovery / authority / eval from that suite.
-2. **Now:** pin freeze candidate SHA. Optional seconds-long Windows `os_process_kill` smoke only.
-3. **Then:** Windows wall preflight on frozen SHA → literal 48h on a **real persistent research workload** → audit → M1.5 candidate.
+1. **Done:** Y18 dogfood (four failure classes) + freeze candidate pin `bfa58a0`.
+2. **Now:** optional seconds-long Windows `os_process_kill` smoke; then Windows wall preflight on `bfa58a0`.
+3. **Then:** literal 48h on a **real persistent research workload** as final exam of this frozen SHA → audit → M1.5 candidate.
 
 Claim strength must not exceed evidence strength.
 

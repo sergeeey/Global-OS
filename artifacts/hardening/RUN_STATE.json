@@ -1,8 +1,8 @@
 {
-  "sprint": "REAL_WORLD_HARDENING_LH_VALIDATION_DEFERRED",
-  "updated_at": "2026-09-25T05:35:00Z",
-  "current_goal": "PIN_FREEZE_CANDIDATE_THEN_WINDOWS_PREFLIGHT",
-  "phase_statement": "Y18 failure-mode dogfood complete (4 classes SUPPORTED). No open critical defects in state/recovery/authority/eval from Y18. Freeze candidate next — do not start 90m/48h until SHA pinned.",
+  "sprint": "FREEZE_CANDIDATE_PINNED_LH_EXAM_PENDING",
+  "updated_at": "2026-09-25T05:40:00Z",
+  "current_goal": "WINDOWS_PREFLIGHT_THEN_LITERAL_48H_ON_FROZEN_SHA",
+  "phase_statement": "Freeze candidate SHA pinned after Y18. Optional os_kill smoke; then Windows 60–120m preflight; then literal 48h as final exam of this SHA. M1.5 not claimed.",
   "completed": [
     "EMPIRICAL_HARDENING_COMPLETE",
     "LH_V1_WALL_42H_SCHEDULED_HARNESS_PASS",
@@ -10,11 +10,18 @@
     "LH_V2_HARNESS_FIX",
     "LH_V2_1_OS_KILL",
     "LH_V2_1_COMPRESSED_PREFLIGHT_PASS",
-    "Y18_FAILURE_MODE_DOGFOOD_4_CLASSES"
+    "Y18_FAILURE_MODE_DOGFOOD_4_CLASSES",
+    "FREEZE_CANDIDATE_SHA_PINNED"
   ],
   "running": null,
-  "stage": "Freeze candidate pin after Y18 — LH validation still deferred",
+  "stage": "Freeze candidate pinned — awaiting Windows preflight",
   "continual_improvement": "NOT_MEASURED",
+  "freeze_candidate": {
+    "sha": "bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee",
+    "short_sha": "bfa58a0",
+    "status": "PINNED",
+    "evidence": "artifacts/hardening/dogfood_fm/FREEZE_READINESS.json"
+  },
   "y18": {
     "suite": "artifacts/hardening/dogfood_fm/",
     "all_supported": true,
@@ -33,36 +40,33 @@
       "literal_48h": false
     },
     "lh_v2_1": {
-      "status": "PROTOCOL_READY_VALIDATION_DEFERRED",
+      "status": "PROTOCOL_READY_AWAITING_WINDOWS_PREFLIGHT",
       "compressed_preflight": "PASS",
-      "windows_preflight": "DEFERRED_UNTIL_FREEZE",
-      "literal_48h": "DEFERRED_UNTIL_FREEZE"
+      "windows_preflight": "PENDING_ON_FROZEN_SHA",
+      "literal_48h": "PENDING_AFTER_WINDOWS_PREFLIGHT"
     },
     "m15_claimed": false,
     "m15_status": "NOT_CLOSED"
   },
   "plan": {
     "now": [
-      "pin_freeze_candidate_SHA",
-      "optional_windows_os_kill_smoke_only_seconds"
+      "optional_windows_os_kill_smoke_only_seconds",
+      "Windows_wall_preflight_60_120min_on_bfa58a0"
     ],
-    "freeze_when": "no open critical defects in state/recovery/authority/eval protocol on candidate SHA",
-    "freeze_readiness": "Y18 diversity MET; critical_open empty for freeze scope",
     "then": [
-      "Windows_wall_preflight_60_120min",
       "literal_48h_on_real_persistent_workload",
       "audit_then_M15_candidate"
     ],
     "do_not_now": [
-      "start_literal_48h",
-      "start_90min_preflight_before_freeze_pin",
-      "claim_M1.5"
+      "start_literal_48h_before_windows_preflight",
+      "claim_M1.5",
+      "new_T0_T1_architecture_surfaces"
     ]
   },
-  "next_exact_action": "Pin freeze candidate SHA for this Y18-complete tree. Optional: seconds-long Windows os_process_kill smoke. Then Windows 60–120m preflight on frozen SHA — not before.",
+  "next_exact_action": "Operator: optional seconds-long Windows os_process_kill smoke, then Windows 60–120m wall preflight on freeze SHA bfa58a0. Do not start literal 48h before preflight PASS.",
   "forbidden_now": [
     "claim_M1.5",
-    "literal_48h_now",
+    "literal_48h_before_windows_preflight",
     "rewrite_LH_v1_program_report",
     "H_ORG_claim",
     "continual_SI_claim",
