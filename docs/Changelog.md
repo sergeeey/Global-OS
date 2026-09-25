@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.61 — 2026-09-25
+
+### Y19 frozen — split claims + research-loop milestone
+
+- Milestone SHA: **`4378005`** (first convincing autonomous research-loop PoC; **≠ M1.5**)
+- `artifacts/y19/CLAIMS.md`: **Claim A** (science) kept separate from **Claim B** (GOS loop)
+- Proven narrow: continuation / durable state / next-step self-select / falsification /
+  terminal stop — **YES**; general transfer / continual SI / production autonomy — **NOT YET**
+- Y19 **FROZEN** — no in-family H8; next transfer test is Y20+ other-class campaign
+- Capability matrix: `autonomous_research_loop_poc` = RUNTIME_VERIFIED_LOCAL (narrow)
+
 ## 0.1.60 — 2026-09-25
 
 ### Y19 autonomous research campaign

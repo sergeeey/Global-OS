@@ -1,15 +1,20 @@
 {
-  "sprint": "Y19_AUTONOMOUS_RESEARCH_CAMPAIGN",
-  "updated_at": "2026-09-25T08:55:00Z",
-  "current_goal": "Y19_RESEARCH_PROGRAM",
-  "phase_statement": "Y19 autonomous campaign reached terminal scientific result (H1–H7). Period/long-fraction structure is the narrow carrier. LH 96m/48h still deferred. M1.5 not claimed. Operator dispatch not required.",
+  "sprint": "Y19_FROZEN_RESEARCH_LOOP_MILESTONE",
+  "updated_at": "2026-09-25T10:05:00Z",
+  "current_goal": "Y19_FROZEN",
+  "phase_statement": "Y19 frozen at 4378005 as first autonomous research-loop milestone (not M1.5). Claims split: science (period/long-fraction) vs GOS (H5→H7 without dispatch). Continual SI / general transfer NOT claimed. Do not reopen Y19 in-family.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "research_program": "artifacts/y19/Y19-RESEARCH-PROGRAM.md",
+  "claims": "artifacts/y19/CLAIMS.md",
   "durable_state": "artifacts/y19/CURRENT_STATE.json",
   "y19_stop_reason": "terminal_scientific_result",
+  "y19_frozen": true,
+  "milestone_sha": "4378005",
   "y19": {
-    "mode": "CAMPAIGN_HALTED_TERMINAL",
+    "mode": "CAMPAIGN_FROZEN_TERMINAL",
+    "claim_a_science": "period_long_fraction_carrier",
+    "claim_b_gos": "autonomous_h5_to_h7_no_dispatch",
     "h1": {"decision": "REJECTED"},
     "h2": {"decision": "SUPPORTED"},
     "h3": {"decision": "SUPPORTED"},
@@ -18,16 +23,30 @@
     "h6": {"decision": "SUPPORTED", "winner": "H6b_period_structure_beyond_propensity"},
     "h7": {"decision": "SUPPORTED", "winner": "H7a_period_transfers_across_n"}
   },
+  "proven_narrow": {
+    "autonomous_continuation": true,
+    "durable_research_state": true,
+    "self_selection_of_next_step": true,
+    "falsification_loop": true,
+    "terminal_stop_condition": true,
+    "general_transfer": false,
+    "continual_si": false,
+    "production_autonomy": false,
+    "m15": false
+  },
   "long_horizon": {
     "windows_os_kill_smoke": "PASS",
     "windows_preflight": "DEFERRED",
     "literal_48h": "DEFERRED",
     "m15_claimed": false
   },
-  "next_exact_action": "Y19 campaign halted on terminal claim. Resume only with new scope or explicit LH permission. Do not ask operator for H8 feature hunt.",
+  "next_exact_action": "Y19 frozen. Prefer Y20+ other-class research campaign to test transfer of autonomy mode — or explicit LH permission. Do not reopen Y19 H8.",
   "forbidden_now": [
+    "reopen_y19_in_family_feature_hunt",
     "ask_operator_for_next_hypothesis",
     "claim_M1.5",
+    "claim_continual_SI",
+    "claim_general_transfer",
     "literal_48h",
     "windows_96m_preflight"
   ]

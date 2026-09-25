@@ -345,8 +345,16 @@ def test_h7_loo_and_mission():
 def test_research_program_contract_exists():
     prog = ROOT / "artifacts" / "y19" / "Y19-RESEARCH-PROGRAM.md"
     state = ROOT / "artifacts" / "y19" / "CURRENT_STATE.json"
+    claims = ROOT / "artifacts" / "y19" / "CLAIMS.md"
     assert prog.is_file()
     assert state.is_file()
+    assert claims.is_file()
     payload = json.loads(state.read_text(encoding="utf-8"))
     assert payload.get("program") == "Y19_RESEARCH_PROGRAM"
     assert "stop_reason" in payload
+    assert payload.get("stop_reason") == "terminal_scientific_result"
+    assert payload.get("frozen") is True
+    text = claims.read_text(encoding="utf-8")
+    assert "Claim A" in text and "Claim B" in text
+    assert "Continual SI" in text or "continual SI" in text.lower()
+    assert "NOT YET" in text

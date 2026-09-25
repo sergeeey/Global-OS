@@ -291,6 +291,11 @@
       "evidence": "DogfoodMission ordered stages; autonomous merge forbidden; tests/test_path_lock_m15.py; Y18 failure-mode suite; Y19-H1 sealed-holdout science dogfood artifacts/y19/Y19-H1-transient-early-warning/ + tests/test_y19_transient_early_warning.py"
     },
     {
+      "id": "autonomous_research_loop_poc",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "Y19 H5→H7 without operator dispatch; terminal_scientific_result; durable state + CLAIMS.md split (science ≠ GOS loop); milestone 4378005; artifacts/y19/; tests/test_y19_transient_early_warning.py — NOT continual SI / general transfer / M1.5 / PRODUCTION_PROVEN"
+    },
+    {
       "id": "free_model_providers",
       "state": "RUNTIME_VERIFIED_HARNESS",
       "evidence": "OpenRouter/Groq/Gemini adapters; GOS_ZERO_COST_MODE; scientific pin; free catalog+privacy; tests/test_free_providers.py — live keys user-supplied"

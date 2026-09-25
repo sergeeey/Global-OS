@@ -21,12 +21,17 @@
 - [x] Phase lock: LH validation deferred; return to real-world hardening
 - [x] Y18 failure-mode dogfood (4 classes) + freeze diversity gate
 
-## Active — Y19 campaign (terminal halt)
+## Done — Y19 frozen research-loop milestone (`4378005`)
 
 - [x] Y19-RESEARCH-PROGRAM.md autonomous contract + durable resume state
-- [x] Y19-H1…H7 executed as internal campaign steps (no operator dispatch)
-- [x] Terminal narrow claim: period/long-fraction structure (see WHAT_WE_KNOW.md)
-- [ ] New scope only if operator expands (other family / analytic) 
+- [x] Y19-H1…H7 internal steps; H5→H7 without operator dispatch
+- [x] Terminal stop on `terminal_scientific_result`
+- [x] Split claims: Claim A science + Claim B GOS loop (`artifacts/y19/CLAIMS.md`)
+- [x] Y19 FROZEN — no in-family H8 / feature-mining
+
+## Next — transfer of autonomy mode (not Y19 reopen)
+
+- [ ] Y20+ other-class scientific campaign (stats/physics/algorithmic; unknown answer)
 - [ ] Re-pin freeze SHA before any LH 96m/48h
 
 ## Deferred — True 48h / M1.5 (after new freeze)
