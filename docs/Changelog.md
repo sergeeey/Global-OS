@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.69 — 2026-09-25
+
+### Y22 Arm A frozen (baseline evidence replay)
+
+- Prereg `f408ed1` unchanged (weights/MCID/scorer untouched)
+- Arm A: chronological CLAIM/RETRACT/INVALIDATE replay; sealed UNSEEN
+- Arm B not started; no unseal; R1/LH deferred
+
 ## 0.1.68 — 2026-09-25
 
 ### Y22 prereg — reliability/provenance mechanism probe (arms not started)

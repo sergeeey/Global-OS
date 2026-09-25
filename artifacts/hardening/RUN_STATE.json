@@ -1,8 +1,8 @@
 {
-  "sprint": "Y22_PREREG_LOCKED",
-  "updated_at": "2026-09-25T15:05:00Z",
-  "current_goal": "Y22_ARM_A",
-  "phase_statement": "Y22 prereg locked @f408ed1. Mechanism probe (reliability composite). Y20/Y21 frozen. Next Arm A only. No LH.",
+  "sprint": "Y22_ARM_A_FROZEN",
+  "updated_at": "2026-09-25T15:27:52Z",
+  "current_goal": "Y22_ARM_B",
+  "phase_statement": "Y22 Arm A FROZEN. Sealed UNSEEN. Weights/MCID/scorer untouched. Next Arm B only.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y19_frozen": true,
@@ -35,23 +35,24 @@
     "literal_48h": "DEFERRED",
     "m15_claimed": false
   },
-  "next_exact_action": "Run Y22 Arm A on public evidence stream; freeze; do not unseal; do not start B.",
+  "next_exact_action": "Run Y22 Arm B (GOS loop) on same public pack; freeze B; only then unseal and score.",
   "forbidden_now": [
-    "retune_y20_y21_scorers",
-    "change_y22_weights_after_start",
     "unseal_before_B_frozen",
+    "start_B_before_A_immutable",
+    "change_y22_weights_mcid_scorer",
+    "retune_y20_y21_scorers",
     "claim_M1.5",
     "literal_48h",
-    "claim_continual_SI",
-    "claim_universal_advantage"
+    "secondary_override_primary"
   ],
   "y22": {
-    "status": "PREREG_LOCKED",
+    "status": "ARM_A_FROZEN",
     "prereg_boundary_sha": "f408ed1",
-    "win_primary": "reliability_composite",
-    "primary_mcid": 0.05,
-    "arms_started": false,
+    "arm_a": "FROZEN",
+    "arm_b": "NOT_STARTED",
     "sealed_unseen": true,
-    "experiment_label": "mechanism_probe_reliability"
+    "unseal_allowed": false,
+    "win_primary": "reliability_composite",
+    "primary_mcid": 0.05
   }
 }

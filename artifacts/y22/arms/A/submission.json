@@ -1,0 +1,96 @@
+{
+  "arm_id": "A",
+  "final_answers": [
+    {
+      "question_id": "Q00",
+      "value": "retired"
+    },
+    {
+      "question_id": "Q01",
+      "value": "OrgB"
+    },
+    {
+      "question_id": "Q02",
+      "value": "UNKNOWN"
+    },
+    {
+      "question_id": "Q03",
+      "value": "UNKNOWN"
+    },
+    {
+      "question_id": "Q10",
+      "value": "active"
+    },
+    {
+      "question_id": "Q11",
+      "value": "OrgA"
+    },
+    {
+      "question_id": "Q12",
+      "value": "APAC"
+    },
+    {
+      "question_id": "Q13",
+      "value": "UNKNOWN"
+    },
+    {
+      "question_id": "Q20",
+      "value": "retired"
+    },
+    {
+      "question_id": "Q21",
+      "value": "UNKNOWN"
+    },
+    {
+      "question_id": "Q22",
+      "value": "UNKNOWN"
+    },
+    {
+      "question_id": "Q23",
+      "value": "T1"
+    },
+    {
+      "question_id": "Q30",
+      "value": "UNKNOWN"
+    },
+    {
+      "question_id": "Q31",
+      "value": "UNKNOWN"
+    },
+    {
+      "question_id": "Q32",
+      "value": "EU"
+    },
+    {
+      "question_id": "Q33",
+      "value": "T3"
+    }
+  ],
+  "active_claims": [
+    "F002",
+    "F003",
+    "F005",
+    "F009",
+    "F015",
+    "F016",
+    "F017",
+    "F019",
+    "F020"
+  ],
+  "invalidated_claims": [
+    "F008",
+    "F004",
+    "F014",
+    "F018",
+    "F012",
+    "F001",
+    "F021",
+    "F022",
+    "F023",
+    "F024"
+  ],
+  "dropped_interim": true,
+  "decision": "INCONCLUSIVE",
+  "stop_reason": "baseline_chronological_replay_completed",
+  "notes": "Strong baseline: chronological CLAIM/RETRACT/INVALIDATE replay; last-active claim wins per (subject,predicate). No GOS loop. No sealed peek."
+}

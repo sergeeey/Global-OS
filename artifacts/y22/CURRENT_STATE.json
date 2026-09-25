@@ -3,10 +3,10 @@
   "contract": "artifacts/y22/Y22-RESEARCH-PROGRAM.md",
   "prereg": "artifacts/y22/Y22-PREREG.md",
   "protocol_version": "Y22-AB-v1",
-  "updated_at": "2026-09-25T15:00:00Z",
-  "phase": "PREREG_LOCKED",
+  "updated_at": "2026-09-25T15:27:52Z",
+  "phase": "ARM_A_FROZEN",
   "prereg_locked": true,
-  "arms_started": false,
+  "arms_started": true,
   "sealed_unseen": true,
   "unseal_allowed": false,
   "task_class": "evidence_synthesis_invalidation_recovery",
@@ -33,9 +33,14 @@
   },
   "arms": {
     "A": {
-      "status": "NOT_STARTED",
+      "status": "FROZEN",
       "role": "strong_agent_baseline",
-      "dir": "artifacts/y22/arms/A"
+      "dir": "artifacts/y22/arms/A",
+      "started_at": "2026-09-25T15:27:28Z",
+      "ended_at": "2026-09-25T15:27:52Z",
+      "model_pin": "composer-cloud-agent-bundle",
+      "submission": "artifacts/y22/arms/A/submission.json",
+      "process_log": "artifacts/y22/arms/A/process_log.json"
     },
     "B": {
       "status": "NOT_STARTED",
@@ -54,6 +59,6 @@
     "literal_48h",
     "disguise_as_neutral_exact_match_rescue"
   ],
-  "next_step": "Execute Arm A on public evidence stream only; freeze; do not unseal.",
+  "next_step": "Execute Arm B under GOS reliability loop; do not unseal; do not read Arm A submission into B.",
   "prereg_boundary_full": "f408ed1d783ffba9591b2925246d69abbad9a4f1"
 }
