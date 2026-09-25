@@ -25,7 +25,7 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | survival_other_injections | RUNTIME_VERIFIED_HARNESS | run_survival_suite 13 RUNTIME_INJECTED incl. MALICIOUS_DOCUMENT/HUMAN_REJECTION/CONTRADICTORY_EVIDENCE/CORRUPTED_STATE; tests/test_survival_multi.py |
 | real_model_providers | RUNTIME_VERIFIED_HARNESS | OpenAICompat+Anthropic HTTP adapters (no vendor SDK); RecordingModelProvider model.invoked trail (model/version/cost/latency/output); fail-closed without keys; wire mock + optional live keys; tests/test_model_providers_live.py |
 | multi_provider_verification | RUNTIME_VERIFIED_HARNESS | multi_provider_verification_stack openai×anthropic distinct families (GOS-I10); wire HTTP judges + conflicted consensus; tests/test_multi_provider_verification.py |
-| goal_integrity_soak_48h | RUNTIME_VERIFIED_HARNESS | run_goal_integrity_soak simulated 48h ACCELERATED_SIMULATED; wall-clock via GOS_REQUIRE_48H; tests/test_survival_soak.py — not PRODUCTION_PROVEN wall 48h |
+| goal_integrity_soak_48h | RUNTIME_VERIFIED_LOCAL | operator Windows wall_48h PASS (WALL_CLOCK_48H, ≈42h through T+42, 11/11 criteria, GIS PASS); artifacts/hardening/long_horizon_48h/wall_48h/; M1.5 candidate ≠ claimed; ≠ PRODUCTION_PROVEN |
 | full_epistemic_graph | RUNTIME_VERIFIED_LOCAL | tests/test_epistemic.py; Observation→Belief→Claim→Model→Forecast→Decision→Commitment invalidation (GOS-I12) |
 | observation_belief_runtime | RUNTIME_VERIFIED_LOCAL | tests/test_observation_belief.py; GOS-I21 guard |
 | environment_compiler | RUNTIME_VERIFIED_LOCAL | tests/test_environment_compiler.py (deterministic compile; no model calls) |
