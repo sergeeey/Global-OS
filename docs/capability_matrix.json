@@ -98,12 +98,12 @@
     {
       "id": "multi_provider_verification",
       "state": "RUNTIME_VERIFIED_HARNESS",
-      "evidence": "multi_provider_verification_stack openai×anthropic distinct families (GOS-I10); wire HTTP judges + conflicted consensus; tests/test_multi_provider_verification.py"
+      "evidence": "multi_provider_verification_stack openai\u00d7anthropic distinct families (GOS-I10); wire HTTP judges + conflicted consensus; tests/test_multi_provider_verification.py"
     },
     {
       "id": "goal_integrity_soak_48h",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "LH-v1 operator Windows ~42h scheduled harness PASS (immutable wall_48h/); audited NOT literal 48h (LH-FC-EARLY-STOP-42H). LH-v2 adds T+48 barrier + wall_seconds>=172800 gate. M1.5 not claimed; ≠ PRODUCTION_PROVEN"
+      "evidence": "LH-v1 operator Windows ~42h scheduled harness PASS (immutable wall_48h/); audited NOT literal 48h (LH-FC-EARLY-STOP-42H). LH-v2 adds T+48 barrier + wall_seconds>=172800 gate. M1.5 not claimed; \u2260 PRODUCTION_PROVEN"
     },
     {
       "id": "full_epistemic_graph",
@@ -268,7 +268,7 @@
     {
       "id": "goal_drift_detector",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "GoalDriftDetector explore→execute + forbidden_outcome; tests/test_organization.py; GOS-I27"
+      "evidence": "GoalDriftDetector explore\u2192execute + forbidden_outcome; tests/test_organization.py; GOS-I27"
     },
     {
       "id": "empirical_science_freeze",
@@ -293,22 +293,27 @@
     {
       "id": "autonomous_research_loop_poc",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "Y19 H5→H7 without operator dispatch; terminal_scientific_result; durable state + CLAIMS.md split (science ≠ GOS loop); milestone 4378005; artifacts/y19/; tests/test_y19_transient_early_warning.py — bundle autonomy only; GOS vs strong-agent baseline NOT PROVEN (Y20 A/B pending); NOT continual SI / general transfer / M1.5 / PRODUCTION_PROVEN"
+      "evidence": "Y19 H5\u2192H7 without operator dispatch; terminal_scientific_result; durable state + CLAIMS.md split (science \u2260 GOS loop); milestone 4378005; artifacts/y19/; tests/test_y19_transient_early_warning.py \u2014 bundle autonomy only; GOS vs strong-agent baseline NOT PROVEN (Y20 A/B pending); NOT continual SI / general transfer / M1.5 / PRODUCTION_PROVEN"
     },
     {
       "id": "y20_causal_ab_prereg",
       "state": "RUNTIME_VERIFIED_HARNESS",
-      "evidence": "Y20-PREREG locked @278c10d; A/B executed and scored; COMPARISON_REPORT: baseline science ≥ GOS; process trace richer under GOS; gos_advantage_claimed=false; generator-authorship caveat; artifacts/y20/; tests/test_y20_causal_ab.py"
+      "evidence": "Y20 scored; baseline science\u2265GOS; process richer under GOS; gos_advantage_claimed=false; artifacts/y20/COMPARISON_REPORT.md"
     },
     {
       "id": "free_model_providers",
       "state": "RUNTIME_VERIFIED_HARNESS",
-      "evidence": "OpenRouter/Groq/Gemini adapters; GOS_ZERO_COST_MODE; scientific pin; free catalog+privacy; tests/test_free_providers.py — live keys user-supplied"
+      "evidence": "OpenRouter/Groq/Gemini adapters; GOS_ZERO_COST_MODE; scientific pin; free catalog+privacy; tests/test_free_providers.py \u2014 live keys user-supplied"
     },
     {
       "id": "org_compiler_multi_topology",
       "state": "RUNTIME_VERIFIED_LOCAL",
       "evidence": "single_solver + manager_workers + parallel_workers; recursive_hierarchy fail-closed; hypothesis_status=UNPROVEN; tests/test_organization.py; GOS-I30"
+    },
+    {
+      "id": "y21_mealy_ab",
+      "state": "RUNTIME_VERIFIED_HARNESS",
+      "evidence": "Y21-AB-v1 prereg 7136808; A/B scored; primary TIE_WITHIN_MCID; gos_primary_science_gain=false; artifacts/y21/COMPARISON_REPORT.md; tests/test_y21_mealy_ab.py"
     }
   ]
 }

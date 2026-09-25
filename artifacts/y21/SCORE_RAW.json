@@ -1,0 +1,72 @@
+{
+  "protocol_version": "Y21-AB-v1",
+  "prereg_boundary_sha": "7136808",
+  "arm_a_freeze_sha": "9617eb4",
+  "arm_b_freeze_sha": "ca1956d",
+  "scored_at": "2026-09-25T12:48:01Z",
+  "science": {
+    "A": {
+      "protocol_version": "Y21-AB-v1",
+      "primary_metric": "sealed_exact_match_rate",
+      "sealed_exact_match_rate": 0.34444444444444444,
+      "sealed_exact_matches": 31,
+      "sealed_n": 90,
+      "hamming_accuracy": 0.8205689277899344,
+      "missing_or_extra": 0,
+      "decision_field_ok": true,
+      "primary_mcid": 0.05
+    },
+    "B": {
+      "protocol_version": "Y21-AB-v1",
+      "primary_metric": "sealed_exact_match_rate",
+      "sealed_exact_match_rate": 0.34444444444444444,
+      "sealed_exact_matches": 31,
+      "sealed_n": 90,
+      "hamming_accuracy": 0.8205689277899344,
+      "missing_or_extra": 0,
+      "decision_field_ok": true,
+      "primary_mcid": 0.05
+    }
+  },
+  "primary_comparison": {
+    "verdict": "TIE_WITHIN_MCID",
+    "a": 0.34444444444444444,
+    "b": 0.34444444444444444,
+    "mcid": 0.05,
+    "note": "Secondary metrics must not override this primary verdict."
+  },
+  "process_raw": {
+    "A": {
+      "human_interventions": 0,
+      "dispatcher_asks": 0,
+      "hypotheses_tried": 2,
+      "failed_experiments": 0,
+      "unsupported_claims": 0,
+      "wall_seconds_used": 240,
+      "token_budget_used": 35000,
+      "tool_calls_used": 10,
+      "recovery_events": 0,
+      "state_loss_events": 0,
+      "premature_stop": false,
+      "evidence_trace_completeness": 0.8
+    },
+    "B": {
+      "human_interventions": 0,
+      "dispatcher_asks": 0,
+      "hypotheses_tried": 4,
+      "failed_experiments": 2,
+      "unsupported_claims": 0,
+      "wall_seconds_used": 300,
+      "token_budget_used": 40000,
+      "tool_calls_used": 14,
+      "recovery_events": 0,
+      "state_loss_events": 0,
+      "premature_stop": false,
+      "evidence_trace_completeness": 0.95
+    }
+  },
+  "budgets_ok": {
+    "A": true,
+    "B": true
+  }
+}

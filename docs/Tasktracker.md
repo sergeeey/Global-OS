@@ -40,12 +40,17 @@
 - [x] COMPARISON_REPORT: science A≥B; process trace B richer; GOS advantage NOT shown
 - [x] Integrity caveat recorded (generator authorship)
 
-## Active — Y21 Mealy A/B
+## Done — Y21 Mealy A/B scored (`7136808`)
 
-- [x] Prereg locked @ `7136808` (primary exact-match MCID 0.05)
-- [x] Public/generator hashes frozen; secondary cannot override primary
-- [x] Arm A frozen (baseline; sealed unseen)
-- [ ] Arm B (GOS loop) → freeze → unseal → COMPARISON_REPORT
+- [x] Prereg locked; primary exact-match MCID 0.05; secondary cannot override
+- [x] Arm A frozen `9617eb4` · Arm B frozen `ca1956d`
+- [x] Unseal only after both frozen; locked scorer
+- [x] Primary `TIE_WITHIN_MCID` (0.3444=0.3444); GOS sealed science gain NOT SHOWN
+- [x] Process trace richer under B; COMPARISON_REPORT + CLAIMS
+
+## Next — Y22 / clean attribution
+
+- [ ] Y22 third class **or** never-saw-generator replication
 - [ ] Re-pin freeze SHA before any LH 96m/48h
 
 ## Deferred — True 48h / M1.5 (after new freeze)

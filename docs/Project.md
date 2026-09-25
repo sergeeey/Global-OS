@@ -14,27 +14,25 @@
 
 ## Текущий baseline
 
-**Y21 prereg @7136808. Arm A FROZEN. Sealed UNSEEN. Arm B next.**
+**Y21 scored. Two-class sealed science gain for GOS = NOT SHOWN.**
 
 ```text
-Y19  → first autonomous research-loop example
-Y20  → controlled A/B; sealed science advantage = NULL
-Y21  → algorithmic reverse-engineering; attribution hygiene
-LH   → deferred
-M1.5 → NOT CLAIMED
-
-GOS process discipline        EVIDENCE YES
+Y19  → autonomous research-loop example
+Y20  → causal A/B; sealed science advantage = NULL
+Y21  → Mealy A/B; primary TIE_WITHIN_MCID (0.3444=0.3444)
+GOS process discipline        EVIDENCE YES (Y20+Y21)
 GOS sealed science gain       NOT SHOWN
 Universal advantage           NOT SHOWN
+LH / M1.5                     deferred / NOT CLAIMED
 ```
 
 ### Plan
 
-1. **Frozen:** Y19/Y20 claims — no retune.  
-2. **Now:** isolate Y21 generator authorship → lock prereg → A/B.  
-3. **Not now:** LH / M1.5 / Continual SI / document-first Y21.
+1. **Frozen:** Y19/Y20/Y21 claims — no scorer retune.  
+2. **Next:** Y22 third class or clean-attribution replication.  
+3. **Not now:** LH / M1.5 / Continual SI.
 
-Claim strength must not exceed evidence strength. Correct null > false win.
+Claim strength ≤ evidence. Correct null > false win.
 
 ## Документы
 

@@ -1,32 +1,29 @@
 {
-  "sprint": "Y21_PREREG_LOCKED",
-  "updated_at": "2026-09-25T12:47:50Z",
-  "current_goal": "Y21_UNSEAL_SCORE",
-  "phase_statement": "Y21 Arms A+B FROZEN. Unseal+score next. Primary MCID frozen. No arch changes.",
+  "sprint": "Y21_SCORED_NEXT_Y22",
+  "updated_at": "2026-09-25T12:50:00Z",
+  "current_goal": "Y22_OR_CLEAN_REPLICATION",
+  "phase_statement": "Y21 scored: primary TIE_WITHIN_MCID (0.3444=0.3444). GOS sealed science gain NOT SHOWN across Y20+Y21. Process trace richer under GOS. Next Y22/replication. No LH/M1.5.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y19_frozen": true,
   "y20": {
-    "phase": "SCORED_COMPARISON_COMPLETE",
-    "gos_advantage_claimed": false,
     "sealed_science_gain": false,
     "process_discipline_evidence": true,
-    "integrity": "DIRECTIONAL_WITH_GENERATOR_AUTHORSHIP_CAVEAT",
     "comparison_report": "artifacts/y20/COMPARISON_REPORT.md"
   },
   "y21": {
-    "status": "PREREG_LOCKED",
+    "status": "SCORED_COMPARISON_COMPLETE",
     "prereg_boundary_sha": "7136808",
-    "arms_started": true,
-    "sealed_unseen": true,
-    "win_primary": "sealed_exact_match_rate",
-    "primary_mcid": 0.05,
-    "arm_a": "FROZEN",
-    "arm_b": "FROZEN"
+    "primary_verdict": "TIE_WITHIN_MCID",
+    "gos_primary_science_gain": false,
+    "process_trace_richer": "B",
+    "comparison_report": "artifacts/y21/COMPARISON_REPORT.md",
+    "claims": "artifacts/y21/CLAIMS.md"
   },
   "honest_status": {
     "gos_process_discipline": true,
-    "gos_sealed_science_gain": false,
+    "gos_sealed_science_gain_y20": false,
+    "gos_sealed_science_gain_y21": false,
     "universal_advantage": false,
     "cross_domain_transfer": false,
     "continual_si": false,
@@ -38,14 +35,16 @@
     "literal_48h": "DEFERRED",
     "m15_claimed": false
   },
-  "next_exact_action": "Unseal sealed pack; score A/B; write COMPARISON_REPORT; update claims.",
+  "next_exact_action": "Plan Y22 third cognitive class or clean-attribution Y21 replication; do not retune scorers; do not start LH.",
   "forbidden_now": [
-    "unseal_before_B_frozen",
-    "change_y21_scorer_mcid_budgets",
-    "cripple_was_A",
+    "change_y21_scorer_mcid_after_result",
+    "secondary_override_primary",
     "retune_y20",
+    "claim_gos_advantage",
     "claim_M1.5",
+    "claim_continual_SI",
     "literal_48h",
-    "secondary_override_primary"
+    "windows_96m_preflight",
+    "reopen_y19_h8"
   ]
 }
