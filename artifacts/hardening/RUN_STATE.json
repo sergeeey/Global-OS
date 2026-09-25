@@ -1,8 +1,8 @@
 {
   "sprint": "M15_EXAM_IN_PROGRESS_OPERATOR",
-  "updated_at": "2026-09-25T17:52:04Z",
-  "current_goal": "WINDOWS_IDENTITY_GATE_THEN_SMOKE_ON_5d15600",
-  "phase_statement": "Operator attempted detach from wrong git (C:\\Users\\serge / fix/quality-v13). Classed ENV_BLOCK \u2014 same freeze SHA. Re-run from Global-OS clone with identity gate.",
+  "updated_at": "2026-09-25T17:53:50Z",
+  "current_goal": "WINDOWS_DETACH_5d15600_THEN_RE_SMOKE",
+  "phase_statement": "Windows os_kill smoke passed=true on wrong HEAD bfa58a0 (checkout blocked by untracked result). Env evidence only. Must backup, detach 5d15600, re-smoke for Gate A Step 1.",
   "operator_action_required": true,
   "operator_dispatch_required": true,
   "y20": {
@@ -31,12 +31,12 @@
   "long_horizon": {
     "linux_compressed_preflight": "PASS",
     "linux_os_kill_smoke": "PASS",
-    "windows_os_kill_smoke": "BLOCKED_WRONG_REPO_THEN_RETRY",
+    "windows_os_kill_smoke": "PASS_ON_WRONG_SHA_bfa58a0_REDO_REQUIRED",
     "windows_preflight": "READY_FOR_OPERATOR",
     "literal_48h": "NOT_STARTED",
     "m15_claimed": false
   },
-  "next_exact_action": "OPERATOR: cd Global-OS clone \u2192 Step 0a identity gate \u2192 detach 5d15600 \u2192 smoke",
+  "next_exact_action": "OPERATOR: Move-Item os_kill_smoke_windows to _bak_* \u2192 checkout --detach 5d15600 \u2192 rev-parse MUST match \u2192 re-run smoke",
   "forbidden_now": [
     "r4_during_exam",
     "harden_exam_sha",
@@ -88,7 +88,7 @@
     "lock_sha": "65c2fb2"
   },
   "m15_claimed": false,
-  "windows_preflight": "BLOCKED_ENVIRONMENT",
+  "windows_preflight": "BLOCKED_UNTIL_FREEZE_SMOKE",
   "literal_48h": "NOT_STARTED",
   "freeze": {
     "label": "FREEZE-R1R3-v1",
@@ -111,5 +111,6 @@
     "raw_capability_amplification": "NOT_SHOWN_retired_as_working_bet",
     "trust_long_horizon_amplification": "TO_TEST"
   },
-  "env_incident": "artifacts/hardening/ENV_WRONG_REPO_2026-09-25.md"
+  "env_incident": "artifacts/hardening/ENV_WRONG_REPO_2026-09-25.md",
+  "env_incident_smoke_wrong_sha": "artifacts/hardening/ENV_SMOKE_WRONG_SHA_2026-09-25.md"
 }

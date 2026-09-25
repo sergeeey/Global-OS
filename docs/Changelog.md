@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.81 — 2026-09-25
+
+### Env: Windows smoke on non-freeze SHA — redo on 5d15600
+
+- Documented sequencing trap; Gate A Step 1 requires HEAD == freeze
+- Kickoff: backup conflicting untracked smoke dir before detach
+
 ## 0.1.80 — 2026-09-25
 
 ### Env: wrong-repo trap before Windows smoke

@@ -187,7 +187,26 @@ Do **not** upgrade a PASS into distributed exactly-once, production security, or
 ## Immediate next keystrokes
 
 ```text
-Windows → detached 5d15600 → git status/rev-parse → smoke
+Windows → identity → detach 5d15600 (HEAD must match) → ONLY THEN smoke
+```
+
+**Do not run smoke until `git rev-parse HEAD` equals the freeze SHA.**  
+A green smoke on another SHA is env evidence only — it does **not** satisfy Step 1.
+
+### If checkout blocked by untracked smoke artifact
+
+```powershell
+# Backup prior Windows smoke (do not delete blindly — may be useful env evidence)
+$bak = "artifacts\hardening\long_horizon_48h\_bak_pre_detach_$(Get-Date -Format yyyyMMdd_HHmmss)"
+New-Item -ItemType Directory -Force -Path $bak | Out-Null
+Move-Item -Force `
+  artifacts\hardening\long_horizon_48h\os_kill_smoke_windows `
+  "$bak\os_kill_smoke_windows"
+
+git checkout --detach 5d15600256a7afc7839f190ed3d889b33bc3217b
+git rev-parse HEAD
+# MUST print: 5d15600256a7afc7839f190ed3d889b33bc3217b
+# If not — STOP. Do not smoke.
 ```
 
 If smoke green → preflight. Do not return to architecture debate.
