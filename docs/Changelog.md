@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.67 — 2026-09-25
+
+### Y21 A/B scored — primary TIE; GOS sealed science gain NOT SHOWN
+
+- Sequence: A `9617eb4` → B `ca1956d` → unseal → locked scorer @ prereg `7136808`
+- Primary `sealed_exact_match_rate`: **0.3444 = 0.3444** (`TIE_WITHIN_MCID`)
+- Secondary: B richer trace, slightly higher cost — cannot override primary
+- With Y20: two classes, sealed science advantage still NULL
+- Next: Y22 draft / clean-attribution replication; LH/M1.5 deferred
+
 ## 0.1.66 — 2026-09-25
 
 ### Y21 prereg locked + Arm A frozen
