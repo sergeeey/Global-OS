@@ -1,8 +1,14 @@
 {
-  "sprint": "FREEZE_CANDIDATE_PINNED_LH_EXAM_PENDING",
-  "updated_at": "2026-09-25T05:40:00Z",
-  "current_goal": "WINDOWS_PREFLIGHT_THEN_LITERAL_48H_ON_FROZEN_SHA",
-  "phase_statement": "Freeze candidate SHA pinned after Y18. Optional os_kill smoke; then Windows 60–120m preflight; then literal 48h as final exam of this SHA. M1.5 not claimed.",
+  "sprint": "FROZEN_VALIDATION_AWAITING_WINDOWS",
+  "updated_at": "2026-09-25T05:50:00Z",
+  "current_goal": "WINDOWS_OS_KILL_SMOKE_THEN_WALL_PREFLIGHT_ON_BFA58A0",
+  "phase_statement": "Frozen validation of bfa58a0. Cloud agent has no Windows worker — operator must run smoke + 60–120m preflight on that exact SHA. Do not pull main under the exam checkout. Literal 48h gated on Windows preflight PASS.",
+  "freeze_candidate": {
+    "sha": "bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee",
+    "short_sha": "bfa58a0",
+    "status": "PINNED_UNDER_EXAM",
+    "mutation_policy": "any Windows defect → new SHA / new freeze; do not patch bfa58a0 in place"
+  },
   "completed": [
     "EMPIRICAL_HARDENING_COMPLETE",
     "LH_V1_WALL_42H_SCHEDULED_HARNESS_PASS",
@@ -12,28 +18,18 @@
     "LH_V2_1_COMPRESSED_PREFLIGHT_PASS",
     "Y18_FAILURE_MODE_DOGFOOD_4_CLASSES",
     "FREEZE_CANDIDATE_SHA_PINNED",
-    "LINUX_OS_KILL_SMOKE_PASS"
+    "LINUX_OS_KILL_SMOKE_PASS",
+    "WINDOWS_FROZEN_EXAM_RUNBOOK"
   ],
   "running": null,
-  "stage": "Freeze candidate pinned — awaiting Windows preflight",
+  "blocked_on": "operator_windows_machine",
+  "stage": "Frozen validation — awaiting Windows os_kill smoke on bfa58a0",
   "continual_improvement": "NOT_MEASURED",
-  "freeze_candidate": {
-    "sha": "bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee",
-    "short_sha": "bfa58a0",
-    "status": "PINNED",
-    "evidence": "artifacts/hardening/dogfood_fm/FREEZE_READINESS.json"
-  },
   "y18": {
-    "suite": "artifacts/hardening/dogfood_fm/",
     "all_supported": true,
-    "failure_mode_classes": [
-      "evidence_change_invalidation",
-      "external_effect_recovery",
-      "authority_boundary",
-      "provider_tool_degradation"
-    ],
     "critical_open": [],
-    "non_critical": ["Y18-4-FC-IV ENVIRONMENT_GAP"]
+    "non_critical": ["Y18-4-FC-IV ENVIRONMENT_GAP"],
+    "y18_4_iv_policy": "leave BLOCKED_ENVIRONMENT — not PASS, not system failure"
   },
   "long_horizon": {
     "lh_v1": {
@@ -41,42 +37,43 @@
       "literal_48h": false
     },
     "lh_v2_1": {
-      "status": "PROTOCOL_READY_AWAITING_WINDOWS_PREFLIGHT",
+      "status": "FROZEN_SHA_AWAITING_WINDOWS_EXAM",
       "compressed_preflight": "PASS",
-      "windows_preflight": "PENDING_ON_FROZEN_SHA",
-      "literal_48h": "PENDING_AFTER_WINDOWS_PREFLIGHT"
+      "linux_os_kill_smoke": "PASS",
+      "windows_os_kill_smoke": "PENDING",
+      "windows_preflight": "PENDING_AFTER_WINDOWS_SMOKE",
+      "literal_48h": "GATED_ON_WINDOWS_PREFLIGHT_PASS"
     },
     "m15_claimed": false,
     "m15_status": "NOT_CLOSED"
   },
-  "linux_os_kill_smoke": {
-    "passed": true,
-    "platform": "linux",
-    "artifact": "artifacts/hardening/long_horizon_48h/os_kill_smoke/os_kill_result.json",
-    "note": "does not replace optional Windows os_kill smoke or Windows wall preflight"
-  },
   "plan": {
     "now": [
-      "optional_windows_os_kill_smoke_only_seconds",
+      "Windows_os_kill_smoke_on_bfa58a0",
       "Windows_wall_preflight_60_120min_on_bfa58a0"
     ],
     "then": [
-      "literal_48h_on_real_persistent_workload",
-      "audit_then_M15_candidate"
+      "literal_48h_on_bfa58a0",
+      "artifact_audit",
+      "M15_candidate_conversation"
     ],
     "do_not_now": [
-      "start_literal_48h_before_windows_preflight",
-      "claim_M1.5",
-      "new_T0_T1_architecture_surfaces"
+      "git_pull_under_exam_checkout",
+      "start_literal_48h_before_windows_preflight_pass",
+      "patch_bfa58a0_in_place_on_windows_fail",
+      "fabricate_Y18_4_IV_pass",
+      "claim_M1.5"
     ]
   },
-  "next_exact_action": "Operator Windows: optional seconds-long os_process_kill smoke, then 60–120m wall preflight on freeze SHA bfa58a0. Linux os_kill smoke already PASS. Do not start literal 48h before Windows preflight PASS.",
+  "runbook": "artifacts/hardening/long_horizon_48h/WINDOWS_FROZEN_EXAM.md",
+  "next_exact_action": "Operator Windows: git checkout --detach bfa58a0 (no pull); run os_kill smoke; on PASS run 60–120m PREFLIGHT_WALL; paste program_report.json. Cloud cannot execute Windows steps (no self-hosted worker).",
   "forbidden_now": [
     "claim_M1.5",
     "literal_48h_before_windows_preflight",
     "rewrite_LH_v1_program_report",
     "H_ORG_claim",
     "continual_SI_claim",
-    "PRODUCTION_PROVEN_claim"
+    "PRODUCTION_PROVEN_claim",
+    "mutate_Y18_4_FC_IV_to_PASS"
   ]
 }

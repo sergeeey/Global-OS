@@ -37,26 +37,33 @@
     }
   ],
   "freeze_candidate": {
-    "status": "PINNED",
+    "status": "PINNED_UNDER_EXAM",
     "sha": "bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee",
     "short_sha": "bfa58a0",
-    "meaning": "frozen candidate for Windows preflight + literal 48h exam — not M1.5, not PRODUCTION_PROVEN",
-    "code_change_policy": "bugfix/eval/evidence/honesty only until exam complete; no new T0/T1 surfaces (ADR-0009)"
+    "meaning": "frozen candidate under Windows exam — not M1.5, not PRODUCTION_PROVEN",
+    "code_change_policy": "Windows defect → new SHA / new freeze; do not patch bfa58a0 in place",
+    "exam_runbook": "artifacts/hardening/long_horizon_48h/WINDOWS_FROZEN_EXAM.md"
   },
   "do_not_now": [
+    "git_pull_under_exam_checkout",
     "literal_48h_without_windows_preflight",
     "claim_M1.5",
     "claim_H_ORG",
-    "claim_continual_SI"
+    "claim_continual_SI",
+    "mutate_Y18_4_FC_IV_to_PASS"
   ],
   "linux_os_kill_smoke": {
     "passed": true,
-    "note": "local confirmation only; Windows smoke remains optional"
+    "note": "does not prove Windows process semantics"
+  },
+  "windows_os_kill_smoke": {
+    "status": "PENDING_REQUIRED",
+    "note": "required before 60–120m wall preflight"
   },
   "next": [
-    "optional Windows os_kill smoke (seconds)",
-    "Windows wall preflight 60–120min on frozen SHA bfa58a0",
-    "literal 48h on real persistent workload",
+    "Windows os_kill smoke on exact bfa58a0",
+    "Windows wall preflight 60–120min on exact bfa58a0",
+    "literal 48h only after preflight PASS",
     "audit then M1.5 candidate conversation"
   ]
 }

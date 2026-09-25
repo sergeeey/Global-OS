@@ -1,38 +1,34 @@
 # Persistent Research Long-Horizon Program
 
-**Phase:** Freeze candidate **pinned** (`bfa58a0`). Windows preflight next; literal 48h is final exam of this SHA.  
+**Phase:** **Frozen validation** of SHA `bfa58a0` — Windows smoke → Windows wall preflight → (only if PASS) literal 48h.  
 **LH-v1 (immutable):** 42h scheduled harness PASS — `wall_48h/LH_V1_AUDIT.json`  
 **LH-v2.1:** T+48 + duration gate + real OS kill — compressed preflight PASS  
 **Y18:** 4 failure-mode classes all SUPPORTED — `artifacts/hardening/dogfood_fm/`  
-**Freeze:** `bfa58a0` — see `dogfood_fm/FREEZE_READINESS.json`  
-**M1.5 / literal 48h:** NOT until Windows preflight PASS
+**Freeze exam SHA:** `bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee`  
+**M1.5:** NOT claimed
 
 ## Plan (locked)
 
 ```text
-DONE
-  Y18 dogfood: evidence / effect-recovery / authority / provider-degradation
-  freeze candidate SHA pinned: bfa58a0
+FROZEN SHA = bfa58a0
+  do not git pull / do not move main under the exam checkout
 
-NOW
-  optional: Windows os_kill smoke (seconds)
-  Windows wall preflight 60–120min on bfa58a0
-  no literal 48h before preflight PASS
+NOW (operator Windows)
+  1) Windows os_kill smoke (seconds) — REQUIRED before 60–120m
+  2) Windows wall preflight 60–120m (PREFLIGHT_WALL)
+  FAIL ⇒ fix → new SHA → new freeze (do not patch this freeze)
 
-THEN
-  literal 48h on real persistent research workload (exam of frozen SHA)
-  → audit → M1.5 candidate
+THEN (only if preflight PASS)
+  literal 48h on real persistent workload (exam of bfa58a0)
+  → artifact audit → M1.5 candidate conversation
 ```
 
-## Optional smoke only (seconds)
+## Exact runbook
 
-```powershell
-cd C:\dev\Global-OS
-git pull
-python -m global_os.evals.survival.os_process_kill controller `
-  --goal-id goal_smoke `
-  --work-dir artifacts\hardening\long_horizon_48h\os_kill_smoke
-```
+See **`WINDOWS_FROZEN_EXAM.md`** (checkout rules, PowerShell, PASS criteria).
 
-If PASS — optional confirmation only; does not replace freeze pin.  
-Do **not** start 90m preflight until freeze candidate SHA is pinned.
+## Rules
+
+- Linux `os_kill` smoke PASS ≠ Windows portability proof
+- `Y18-4-FC-IV` stays `BLOCKED_ENVIRONMENT` (honest; not PASS; not system failure)
+- Do not set `GOS_START_RESEARCH_48H=1` until Windows wall preflight PASS

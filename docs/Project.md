@@ -14,24 +14,25 @@
 
 ## Текущий baseline
 
-**Freeze candidate pinned (`bfa58a0`). Next: Windows preflight → literal 48h exam of this SHA.**
+**Frozen validation of `bfa58a0`. Next: Windows os_kill smoke → Windows wall preflight. Literal 48h only after PASS.**
 
 ```text
-LH-v1 42h scheduled survival     ✅ PASS (immutable; not literal 48h)
-LH-v2.1 protocol (T+48, gate,
-  OS kill, shared-state)         ✅ ready (compressed preflight PASS)
-Y18 failure-mode dogfood (4)     ✅ all SUPPORTED; diversity MET
-Freeze candidate                 ✅ bfa58a0
-Windows 90m preflight            → next on frozen SHA
-Literal 48h / M1.5               ❌ after preflight only
+Y18 failure-mode dogfood (4)     ✅ SUPPORTED; diversity MET
+Freeze candidate                 ✅ bfa58a0 (under exam — do not mutate)
+Linux OS kill smoke              ✅ PASS
+Windows OS kill smoke            → REQUIRED next
+Windows 60–120m wall preflight   → after Windows smoke PASS
+Literal 48h / M1.5               ❌ gated on Windows preflight PASS
 ```
 
 ### Plan
 
-1. **Done:** Y18 dogfood (four failure classes) + freeze candidate pin `bfa58a0`.
-2. **Now:** optional seconds-long Windows `os_process_kill` smoke; then Windows wall preflight on `bfa58a0`.  
-   (Linux os_kill smoke already PASS — not a Windows substitute.)
-3. **Then:** literal 48h on a **real persistent research workload** as final exam of this frozen SHA → audit → M1.5 candidate.
+1. **Done:** Y18 + freeze pin `bfa58a0` + Linux os_kill smoke.
+2. **Now (operator Windows):** checkout **exactly** `bfa58a0` (no `git pull`) → Windows os_kill smoke → Windows wall preflight 60–120m.  
+   Runbook: `artifacts/hardening/long_horizon_48h/WINDOWS_FROZEN_EXAM.md`.  
+   Windows FAIL ⇒ new SHA / new freeze (do not patch this freeze).
+3. **Then:** literal 48h as integration exam of `bfa58a0` → audit → M1.5 candidate.  
+   Keep `Y18-4-FC-IV` as `BLOCKED_ENVIRONMENT`.
 
 Claim strength must not exceed evidence strength.
 
