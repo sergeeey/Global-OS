@@ -90,8 +90,9 @@ Still **≠** PRODUCTION_PROVEN.
 **LH-v1:** operator Windows ~42h scheduled harness PASS (immutable
 `wall_48h/`); audited **not** literal 48h (`LH-FC-EARLY-STOP-42H`).  
 **LH-v2:** T+48 barrier + `wall_seconds >= 172800` required for `WALL_CLOCK_48H`.  
-**M1.5:** not claimed until true 48h under LH-v2 (+ remaining checklist).  
-H-ORG / Continual SI remain separate questions after M1.5.
+**M1.5:** not claimed until true 48h under LH-v2 (+ remaining checklist),  
+**within protocol scope** on freeze `5d15600` (see `docs/SCIENTIFIC_HONESTY_MAP.md`).  
+H-ORG / Continual SI / H_TRUST remain separate questions after M1.5.
 
 ## DoD V2
 
