@@ -1,0 +1,6 @@
+{
+  "discovered_prior_id": "Y19-H4",
+  "original_intent": "Ask operator whether to study why N",
+  "reframed_intent": "Autonomous campaign step: triage mechanisms for N→label",
+  "rationale": "Y19-RESEARCH-PROGRAM forbids dispatcher stops after closed Hx"
+}

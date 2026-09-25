@@ -1,29 +1,22 @@
 {
-  "sprint": "SCIENTIFIC_DOGFOOD_Y19_LH_DEFERRED",
-  "updated_at": "2026-09-25T08:20:00Z",
-  "current_goal": "Y19_AFTER_H4_SIZE_EXPLAINS",
-  "phase_statement": "Y19-H4 REJECTED (H_effect_is_mostly_n): entropy dies under N control. H2/H3 combo signal was largely size. Operator action: none required. LH 96m/48h still deferred.",
+  "sprint": "Y19_AUTONOMOUS_RESEARCH_CAMPAIGN",
+  "updated_at": "2026-09-25T08:55:00Z",
+  "current_goal": "Y19_RESEARCH_PROGRAM",
+  "phase_statement": "Y19 autonomous campaign reached terminal scientific result (H1–H7). Period/long-fraction structure is the narrow carrier. LH 96m/48h still deferred. M1.5 not claimed. Operator dispatch not required.",
   "operator_action_required": false,
-  "freeze_candidate": {
-    "sha": "bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee",
-    "status": "INTERMEDIATE_STABLE_POINT",
-    "windows_os_kill_smoke": "PASS"
-  },
+  "operator_dispatch_required": false,
+  "research_program": "artifacts/y19/Y19-RESEARCH-PROGRAM.md",
+  "durable_state": "artifacts/y19/CURRENT_STATE.json",
+  "y19_stop_reason": "terminal_scientific_result",
   "y19": {
-    "h1": {"decision": "REJECTED", "winner": "H_baseline_sufficient"},
-    "h2": {"decision": "SUPPORTED", "winner": "H_size_entropy_add_signal"},
-    "h3": {"decision": "SUPPORTED", "winner": "H_h2_robust"},
-    "h4": {
-      "decision": "REJECTED",
-      "winner": "H_effect_is_mostly_n",
-      "gates": {
-        "A_n_matched": "FAIL",
-        "B_residualized_entropy": "FAIL",
-        "C_leave_one_n_out": "FAIL"
-      },
-      "narrow_claim": "H2/H3 size/entropy gain does not survive as entropy-beyond-N; effect is mostly N",
-      "tz": "artifacts/y19/Y19-H4-size-entropy-decomp/TZ.md"
-    }
+    "mode": "CAMPAIGN_HALTED_TERMINAL",
+    "h1": {"decision": "REJECTED"},
+    "h2": {"decision": "SUPPORTED"},
+    "h3": {"decision": "SUPPORTED"},
+    "h4": {"decision": "REJECTED", "winner": "H_effect_is_mostly_n"},
+    "h5": {"decision": "SUPPORTED", "winner": "H5b_basin_cycle_structure"},
+    "h6": {"decision": "SUPPORTED", "winner": "H6b_period_structure_beyond_propensity"},
+    "h7": {"decision": "SUPPORTED", "winner": "H7a_period_transfers_across_n"}
   },
   "long_horizon": {
     "windows_os_kill_smoke": "PASS",
@@ -31,11 +24,11 @@
     "literal_48h": "DEFERRED",
     "m15_claimed": false
   },
-  "plan": {
-    "now": ["optional_next_Y19_on_size_mechanism_or_stop_narrowing"],
-    "defer": ["windows_96m_preflight", "literal_48h"],
-    "operator": []
-  },
-  "next_exact_action": "No operator launch required. Optional: continue Y19 on what about N predicts long transients, or pause science narrowing. Do not start 96m/48h.",
-  "forbidden_now": ["claim_M1.5", "literal_48h", "windows_96m_preflight", "claim_entropy_predicts_transients"]
+  "next_exact_action": "Y19 campaign halted on terminal claim. Resume only with new scope or explicit LH permission. Do not ask operator for H8 feature hunt.",
+  "forbidden_now": [
+    "ask_operator_for_next_hypothesis",
+    "claim_M1.5",
+    "literal_48h",
+    "windows_96m_preflight"
+  ]
 }

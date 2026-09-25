@@ -1,0 +1,6 @@
+{
+  "discovered_prior_id": "Y19-H6",
+  "original_intent": "Stop after H6b",
+  "reframed_intent": "Test transfer of period structure across N",
+  "rationale": "Campaign continues until terminal claim or low EVI"
+}

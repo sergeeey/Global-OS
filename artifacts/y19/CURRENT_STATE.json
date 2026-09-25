@@ -1,0 +1,27 @@
+{
+  "program": "Y19_RESEARCH_PROGRAM",
+  "contract": "artifacts/y19/Y19-RESEARCH-PROGRAM.md",
+  "updated_at": "2026-09-25T08:55:00Z",
+  "terminal_goal_met": true,
+  "stop_reason": "terminal_scientific_result",
+  "stop_detail": "Narrow claim: multi-IC attractor period/long-fraction statistics predict long-transient labels better than raw N, transfer leave-one-N-out, and beat mean-probe-transient propensity (H5b+H6b+H7a). Entropy not carrier (H4). Spectral extras fail (H1). Further in-family feature hunting has low EVI; analytic theory or new system family would be a new program.",
+  "phase": "CAMPAIGN_HALTED_TERMINAL",
+  "active_question": null,
+  "closed": {
+    "H1": {"decision": "REJECTED", "winner": "H_baseline_sufficient"},
+    "H2": {"decision": "SUPPORTED", "winner": "H_size_entropy_add_signal"},
+    "H3": {"decision": "SUPPORTED", "winner": "H_h2_robust"},
+    "H4": {"decision": "REJECTED", "winner": "H_effect_is_mostly_n"},
+    "H5": {"decision": "SUPPORTED", "winner": "H5b_basin_cycle_structure"},
+    "H6": {"decision": "SUPPORTED", "winner": "H6b_period_structure_beyond_propensity"},
+    "H7": {"decision": "SUPPORTED", "winner": "H7a_period_transfers_across_n"}
+  },
+  "next_step_id": null,
+  "operator_dispatch_required": false,
+  "forbidden": [
+    "ask_operator_for_next_hypothesis_when_decidable",
+    "literal_48h",
+    "windows_96m_preflight",
+    "claim_M1.5"
+  ]
+}

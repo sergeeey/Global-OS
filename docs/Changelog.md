@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.60 — 2026-09-25
+
+### Y19 autonomous research campaign
+
+- Contract: `artifacts/y19/Y19-RESEARCH-PROGRAM.md` + durable handoff state
+- Rule: closed hypothesis = checkpoint, not dispatcher stop
+- Autonomously executed **H5→H6→H7** without asking operator for next ticket
+- Terminal claim: multi-IC period/long-fraction structure predicts long-transient labels
+  better than raw N / mean propensity; LOO transfer PASS; entropy/spectral not carriers
+- Stop: `terminal_scientific_result` (low in-family EVI). LH 96m/48h still deferred; M1.5 not claimed
+
 ## 0.1.59 — 2026-09-25
 
 ### Y19-H4 — size vs entropy decomposition REJECTED

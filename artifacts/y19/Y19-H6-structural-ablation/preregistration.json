@@ -1,0 +1,15 @@
+{
+  "mission_id": "Y19-H6",
+  "protocol_version": "Y19-H6-v1",
+  "preregistered_before_data": true,
+  "hypothesis": "Structural win is carried by mean_probe_transient (network long-transient propensity); period/fraction extras fail once mean transient is controlled.",
+  "mcid_brier_ratio": 0.9,
+  "primary_criterion": {
+    "statistic": "h6_structural_ablation",
+    "mcid_ratio": 0.9,
+    "decision_rule": {
+      "SUPPORTED": "triage H6a or H6b",
+      "INCONCLUSIVE": "mixed"
+    }
+  }
+}

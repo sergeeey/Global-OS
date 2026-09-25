@@ -1,0 +1,15 @@
+{
+  "mission_id": "Y19-H5",
+  "goal_id": "goal_5880a7623c14445f",
+  "hypothesis_id": "hyp_d77a627f89b64c73",
+  "status": "COMPLETED",
+  "reframe": {
+    "discovered_prior_id": "Y19-H4",
+    "original_intent": "Ask operator whether to study why N",
+    "reframed_intent": "Autonomous campaign step: triage mechanisms for N→label",
+    "rationale": "Y19-RESEARCH-PROGRAM forbids dispatcher stops after closed Hx"
+  },
+  "created_at": "2026-09-25T08:47:29.422381+00:00",
+  "decision": "SUPPORTED",
+  "completed_at": "2026-09-25T08:47:30.461508+00:00"
+}

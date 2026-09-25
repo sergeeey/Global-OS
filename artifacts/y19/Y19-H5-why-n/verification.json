@@ -1,0 +1,20 @@
+{
+  "deterministic_status": "PASS",
+  "deterministic_checks": [
+    "protocol=Y19-H5-v1",
+    "A=PASS",
+    "B=PASS",
+    "C=FAIL",
+    "winner=H5b_basin_cycle_structure",
+    "no_label_leak=True"
+  ],
+  "provider_status": "NOT_REQUESTED",
+  "provider_detail": "",
+  "live_keys": {
+    "openai": false,
+    "anthropic": false,
+    "openrouter": false,
+    "groq": false,
+    "gemini": false
+  }
+}

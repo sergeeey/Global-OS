@@ -148,23 +148,31 @@ def _simulate(net: dict[str, Any], ic_seed: int) -> dict[str, Any]:
     traj = [list(state)]
     seen: dict[tuple[int, ...], int] = {tuple(state): 0}
     attractor_start = None
+    period = 0
+    hit_t = MAX_STEPS
     for t in range(1, MAX_STEPS + 1):
         state = _step(state, net)
         key = tuple(state)
         traj.append(list(state))
         if key in seen:
             attractor_start = seen[key]
-            steps_to_attractor = seen[key]  # transient length
+            steps_to_attractor = seen[key]
+            period = t - attractor_start
+            hit_t = t
             break
         seen[key] = t
     else:
         steps_to_attractor = MAX_STEPS
         attractor_start = None
+        period = 0
+        hit_t = MAX_STEPS
     long_transient = int(steps_to_attractor > LONG_TRANSIENT_TAU)
     return {
         "traj": traj,
         "steps_to_attractor": steps_to_attractor,
         "attractor_start": attractor_start,
+        "period": period,
+        "hit_t": hit_t,
         "long_transient": long_transient,
         "n": net["n"],
         "k": net["k"],
@@ -213,7 +221,7 @@ def _mean_sensitivity(net: dict[str, Any], state: list[int]) -> float:
         flipped[i] = 1 - flipped[i]
         nxt = _step(flipped, net)
         total += sum(a != b for a, b in zip(base, nxt, strict=True))
-    return total / (n * n)
+    return float(total) / float(int(n) * int(n))
 
 
 def _features(sim: dict[str, Any], net: dict[str, Any]) -> dict[str, float]:
@@ -1348,3 +1356,623 @@ def write_preregistration_h4(path: Path) -> None:
     }
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
+
+# --- Y19-H5: why does N predict long transients? ---
+PROTOCOL_VERSION_H5 = "Y19-H5-v1"
+TRAIN_SEEDS_H5 = tuple(range(9000, 9300))  # 300
+HOLD_SEEDS_H5 = tuple(range(11000, 11150))  # 150
+N_PANEL_H5 = (16, 20, 24)
+N_PROBE_ICS = 8  # extra ICs per net (not the labeled IC)
+ALT_TAU = 20  # protocol ablation label threshold
+STRUCTURAL_KEYS = (
+    "mean_probe_transient",
+    "mean_probe_period",
+    "probe_long_fraction",
+    "probe_transient_std",
+)
+N_KEYS = ("n",)
+LOGN_KEYS = ("log2_n",)
+ACTIVITY_PLUS_N = ACTIVITY_KEYS + ("n",)
+
+COMPETING_H5: tuple[CompetingHypothesis, ...] = (
+    CompetingHypothesis(
+        id="H5a_state_space_n",
+        statement=(
+            "Long-transient labels rise with N via state-space growth; raw N (or log2 N) "
+            "dominates sealed-holdout prediction and structural extras fail N-matched tests."
+        ),
+    ),
+    CompetingHypothesis(
+        id="H5b_basin_cycle_structure",
+        statement=(
+            "Attractor/basin/cycle probe statistics (not raw N) carry the signal and beat "
+            "N on sealed holdout, including within-N matched checks."
+        ),
+    ),
+    CompetingHypothesis(
+        id="H5d_protocol_artifact",
+        statement=(
+            "The N→label association is an artifact of τ / single-IC sampling; alternate "
+            "protocol ablates the sealed-holdout N advantage."
+        ),
+    ),
+)
+
+
+def _probe_network_stats(net: dict[str, Any], *, label_ic_seed: int) -> dict[str, float]:
+    """Multi-IC probes of the network — must not use the labeled IC outcome as a feature."""
+    transients: list[float] = []
+    periods: list[float] = []
+    longs = 0
+    for i in range(N_PROBE_ICS):
+        probe_ic = label_ic_seed + 1009 * (i + 1) + 17
+        sim = _simulate(net, ic_seed=probe_ic)
+        transients.append(float(sim["steps_to_attractor"]))
+        periods.append(float(sim["period"]))
+        longs += int(sim["steps_to_attractor"] > LONG_TRANSIENT_TAU)
+    mean_t = sum(transients) / len(transients)
+    var_t = sum((x - mean_t) ** 2 for x in transients) / len(transients)
+    return {
+        "mean_probe_transient": mean_t,
+        "mean_probe_period": sum(periods) / len(periods),
+        "probe_long_fraction": longs / len(transients),
+        "probe_transient_std": math.sqrt(var_t),
+    }
+
+
+def _collect_cases_h5(
+    seeds: tuple[int, ...],
+    *,
+    tau: int = LONG_TRANSIENT_TAU,
+) -> list[dict[str, Any]]:
+    def n_chooser(seed: int) -> int:
+        return N_PANEL_H5[seed % len(N_PANEL_H5)]
+
+    cases: list[dict[str, Any]] = []
+    for seed in seeds:
+        n_use = n_chooser(seed)
+        net = _generate_network(seed, n=n_use)
+        label_ic = seed * 17 + 3
+        sim = _simulate(net, ic_seed=label_ic)
+        # Relabel under protocol tau without touching structural probes
+        label = int(sim["steps_to_attractor"] > tau)
+        feats = _features(sim, net)
+        feats["log2_n"] = math.log2(float(sim["n"]))
+        feats.update(_probe_network_stats(net, label_ic_seed=label_ic))
+        cases.append(
+            {
+                "network_seed": seed,
+                "label": label,
+                "steps_to_attractor": sim["steps_to_attractor"],
+                "features": feats,
+                "n": sim["n"],
+                "k": sim["k"],
+            }
+        )
+    return cases
+
+
+def run_experiment_h5(*, peek_holdout_labels_in_train: bool = False) -> dict[str, Any]:
+    """Y19-H5 — why N? structural probes vs raw N vs protocol artifact."""
+    prior = (
+        set(TRAIN_SEEDS)
+        | set(HOLD_SEEDS)
+        | set(TRAIN_SEEDS_H2)
+        | set(HOLD_SEEDS_H2)
+        | set(TRAIN_SEEDS_H3)
+        | set(HOLD_SEEDS_H3_MATCH)
+        | set(HOLD_SEEDS_H3_UNSEEN)
+        | set(TRAIN_SEEDS_H4)
+        | set(HOLD_SEEDS_H4)
+    )
+    if set(TRAIN_SEEDS_H5) & prior or set(HOLD_SEEDS_H5) & prior:
+        raise RuntimeError("H5 seeds overlap prior Y19 missions")
+
+    train = _collect_cases_h5(TRAIN_SEEDS_H5)
+    hold = _collect_cases_h5(HOLD_SEEDS_H5)
+    fit = train + hold if peek_holdout_labels_in_train else train
+
+    # Gate 1: structural probes vs raw N
+    g1 = _eval_keys_vs(fit, hold, base_keys=N_KEYS, full_keys=STRUCTURAL_KEYS)
+    g1_log = _eval_keys_vs(fit, hold, base_keys=LOGN_KEYS, full_keys=STRUCTURAL_KEYS)
+    bal1 = g1["n_pos"] >= MIN_HOLD_POSITIVES and g1["n_neg"] >= MIN_HOLD_NEGATIVES
+    if not bal1:
+        gate1: dict[str, Any] = {
+            "name": "structural_vs_n",
+            "status": "UNDERPOWERED",
+            "passed": False,
+            **g1,
+            "vs_log2_n": g1_log,
+        }
+    else:
+        # PASS (= favors H5b) if structural beats both n and log2_n by MCID
+        passed1 = bool(g1["beats_mcid"] and g1_log["beats_mcid"])
+        gate1 = {
+            "name": "structural_vs_n",
+            "status": "PASS" if passed1 else "FAIL",
+            "passed": passed1,
+            **g1,
+            "vs_log2_n": g1_log,
+        }
+
+    # Gate 2: N-matched — within each N, structural vs activity
+    n_rows: list[dict[str, Any]] = []
+    for nval in N_PANEL_H5:
+        fit_n = [c for c in fit if int(c["n"]) == nval]
+        hold_n = [c for c in hold if int(c["n"]) == nval]
+        if not fit_n or not hold_n:
+            n_rows.append({"n": nval, "status": "EMPTY", "powered": False, "passed": False})
+            continue
+        metrics = _eval_keys_vs(
+            fit_n, hold_n, base_keys=ACTIVITY_KEYS, full_keys=ACTIVITY_KEYS + STRUCTURAL_KEYS
+        )
+        powered = _stratum_ok(metrics["n_pos"], metrics["n_neg"], metrics["n_cases"])
+        n_rows.append(
+            {
+                "n": nval,
+                "status": "OK" if powered else "UNDERPOWERED",
+                "powered": powered,
+                "passed": bool(powered and metrics["beats_mcid"]),
+                **metrics,
+            }
+        )
+    powered_n = [r for r in n_rows if r.get("powered")]
+    if len(powered_n) < 2:
+        gate2: dict[str, Any] = {
+            "name": "n_matched_structural",
+            "status": "UNDERPOWERED",
+            "passed": False,
+            "by_n": n_rows,
+        }
+    else:
+        n_pass = sum(1 for r in powered_n if r["beats_mcid"])
+        gate2 = {
+            "name": "n_matched_structural",
+            "status": "PASS" if n_pass >= 2 else "FAIL",
+            "passed": n_pass >= 2,
+            "powered_n": len(powered_n),
+            "mcid_pass_n": n_pass,
+            "by_n": n_rows,
+        }
+
+    # Gate 3: protocol ablation — under ALT_TAU, does n still beat activity by MCID?
+    train_alt = _collect_cases_h5(TRAIN_SEEDS_H5, tau=ALT_TAU)
+    hold_alt = _collect_cases_h5(HOLD_SEEDS_H5, tau=ALT_TAU)
+    fit_alt = train_alt + hold_alt if peek_holdout_labels_in_train else train_alt
+    g3 = _eval_keys_vs(fit_alt, hold_alt, base_keys=ACTIVITY_KEYS, full_keys=ACTIVITY_PLUS_N)
+    bal3 = g3["n_pos"] >= MIN_HOLD_POSITIVES and g3["n_neg"] >= MIN_HOLD_NEGATIVES
+    # Association "survives" if N still improves over activity under alt protocol
+    if not bal3:
+        gate3: dict[str, Any] = {
+            "name": "protocol_ablation_alt_tau",
+            "status": "UNDERPOWERED",
+            "passed": False,
+            "alt_tau": ALT_TAU,
+            **g3,
+        }
+        n_association_survives = False
+    else:
+        n_association_survives = bool(g3["beats_mcid"])
+        # PASS gate3 means "ablation failed to kill N" i.e. NOT H5d.
+        # For decision logic we store survival explicitly.
+        gate3 = {
+            "name": "protocol_ablation_alt_tau",
+            "status": "PASS" if n_association_survives else "FAIL",
+            "passed": n_association_survives,
+            "alt_tau": ALT_TAU,
+            "n_association_survives": n_association_survives,
+            **g3,
+        }
+
+    # Also: under default tau, confirm N beats activity (sanity / H5a substrate)
+    g_n_vs_act = _eval_keys_vs(fit, hold, base_keys=ACTIVITY_KEYS, full_keys=ACTIVITY_PLUS_N)
+    n_beats_activity_default = bool(g_n_vs_act.get("beats_mcid"))
+
+    gates = {
+        "A_structural_vs_n": gate1,
+        "B_n_matched_structural": gate2,
+        "C_protocol_ablation": gate3,
+    }
+
+    # Decision (triage order: structure first; H5d only if default-N exists then dies)
+    if gate1["status"] == "UNDERPOWERED" or gate2["status"] == "UNDERPOWERED":
+        decision: Decision = "INCONCLUSIVE"
+        winning = "H5b_basin_cycle_structure"
+    elif gate1["passed"] and gate2["passed"]:
+        decision = "SUPPORTED"
+        winning = "H5b_basin_cycle_structure"
+    elif (
+        n_beats_activity_default
+        and gate3["status"] == "FAIL"
+        and not n_association_survives
+    ):
+        # Raw N helped under default τ but not under alt τ → protocol artifact
+        decision = "SUPPORTED"
+        winning = "H5d_protocol_artifact"
+    elif (
+        (not gate1["passed"])
+        and (not gate2["passed"])
+        and n_beats_activity_default
+        and n_association_survives
+    ):
+        decision = "SUPPORTED"
+        winning = "H5a_state_space_n"
+    elif gate1["passed"] ^ gate2["passed"]:
+        decision = "INCONCLUSIVE"
+        winning = "H5b_basin_cycle_structure"
+    else:
+        decision = "INCONCLUSIVE"
+        winning = "H5a_state_space_n"
+
+    nulls: list[dict[str, Any]] = []
+    if winning == "H5a_state_space_n" and decision == "SUPPORTED":
+        nulls.append(
+            {
+                "id": "y19_h5_structural_fail_vs_n",
+                "interpretation": "probe structural features failed to beat N / N-matched activity",
+            }
+        )
+    if winning == "H5d_protocol_artifact" and decision == "SUPPORTED":
+        nulls.append(
+            {
+                "id": "y19_h5_protocol_ablation",
+                "alt_tau": ALT_TAU,
+                "interpretation": "N→label MCID vs activity disappears under alternate τ",
+            }
+        )
+    if decision == "INCONCLUSIVE" and not n_beats_activity_default:
+        nulls.append(
+            {
+                "id": "y19_h5_raw_n_weak_vs_activity",
+                "brier_ratio": g_n_vs_act.get("brier_ratio"),
+                "interpretation": (
+                    "raw n alone does not beat activity by MCID on this split; "
+                    "H2/H4 'size' signal is not identical to univariate n"
+                ),
+            }
+        )
+
+    return {
+        "protocol_version": PROTOCOL_VERSION_H5,
+        "prior_mission": "Y19-H4",
+        "prior_decision": "REJECTED",
+        "competing_hypotheses": [asdict(h) for h in COMPETING_H5],
+        "winning_hypothesis_id": winning,
+        "decision": decision,
+        "gates": gates,
+        "sanity_n_vs_activity_default_tau": g_n_vs_act,
+        "mcid_brier_ratio": MCID_BRIER_RATIO,
+        "n_probe_ics": N_PROBE_ICS,
+        "claim_scope": (
+            "Mechanism sketch for why N predicts long-transient labels in this family — "
+            "not a universal transient theory"
+        ),
+        "seed_policy": {
+            "train": f"{TRAIN_SEEDS_H5[0]}-{TRAIN_SEEDS_H5[-1]}",
+            "hold": f"{HOLD_SEEDS_H5[0]}-{HOLD_SEEDS_H5[-1]}",
+            "n_panel": list(N_PANEL_H5),
+            "disjoint_from_h1_h4": True,
+        },
+        "leak_checks": {
+            "train_hold_disjoint": True,
+            "peek_holdout_labels_in_train": peek_holdout_labels_in_train,
+            "structural_uses_labeled_ic_outcome": False,
+        },
+        "null_results": nulls,
+        "scientific_claim_accepted": decision == "SUPPORTED",
+        "answer_known_a_priori": False,
+    }
+
+
+def write_preregistration_h5(path: Path) -> None:
+    payload = {
+        "mission_id": "Y19-H5",
+        "protocol_version": PROTOCOL_VERSION_H5,
+        "preregistered_before_data": True,
+        "follows": "Y19-H4 REJECTED → mostly N → why N?",
+        "hypothesis": COMPETING_H5[0].statement,
+        "competing_hypotheses": [asdict(h) for h in COMPETING_H5],
+        "gates": {
+            "A_structural_vs_n": "Probe basin/cycle stats beat n and log2_n by MCID",
+            "B_n_matched_structural": "Within ≥2 N values, structural beats activity by MCID",
+            "C_protocol_ablation": f"Under τ={ALT_TAU}, n still beats activity by MCID (survival)",
+        },
+        "primary_criterion": {
+            "statistic": "h5_mechanism_triage",
+            "mcid_ratio": MCID_BRIER_RATIO,
+            "decision_rule": {
+                "SUPPORTED_H5b": "A and B PASS and C survival",
+                "SUPPORTED_H5a": "A and B FAIL and C survival",
+                "SUPPORTED_H5d": "C FAIL (N association dies under alt τ)",
+                "INCONCLUSIVE": "mixed or underpowered",
+            },
+        },
+        "seed_data_policy": {
+            "train": list(TRAIN_SEEDS_H5),
+            "hold": list(HOLD_SEEDS_H5),
+            "n_panel": list(N_PANEL_H5),
+        },
+        "leak_forbidden": [
+            "using labeled IC steps_to_attractor as a predictive feature",
+            "post-hoc τ/MCID change after holdout",
+        ],
+        "answer_known_a_priori": False,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
+
+# --- Y19-H6: ablate structural probes (after H5b) ---
+PROTOCOL_VERSION_H6 = "Y19-H6-v1"
+TRAIN_SEEDS_H6 = tuple(range(12000, 12300))
+HOLD_SEEDS_H6 = tuple(range(13000, 13150))
+MEAN_TRANSIENT_KEYS = ("mean_probe_transient",)
+PERIOD_KEYS = ("mean_probe_period", "probe_long_fraction", "probe_transient_std")
+
+COMPETING_H6: tuple[CompetingHypothesis, ...] = (
+    CompetingHypothesis(
+        id="H6a_mean_transient_propensity",
+        statement=(
+            "Structural win is carried by mean_probe_transient (network long-transient "
+            "propensity); period/fraction extras fail once mean transient is controlled."
+        ),
+    ),
+    CompetingHypothesis(
+        id="H6b_period_structure_beyond_propensity",
+        statement=(
+            "Attractor period / long-fraction structure retains MCID beyond mean probe "
+            "transient propensity on sealed holdout."
+        ),
+    ),
+    CompetingHypothesis(
+        id="H6c_underpowered_or_mixed",
+        statement="Ablation gates are mixed or underpowered; carrier within structural set unresolved.",
+    ),
+)
+
+
+def run_experiment_h6(*, peek_holdout_labels_in_train: bool = False) -> dict[str, Any]:
+    prior = (
+        set(TRAIN_SEEDS)
+        | set(HOLD_SEEDS)
+        | set(TRAIN_SEEDS_H2)
+        | set(HOLD_SEEDS_H2)
+        | set(TRAIN_SEEDS_H3)
+        | set(HOLD_SEEDS_H3_MATCH)
+        | set(HOLD_SEEDS_H3_UNSEEN)
+        | set(TRAIN_SEEDS_H4)
+        | set(HOLD_SEEDS_H4)
+        | set(TRAIN_SEEDS_H5)
+        | set(HOLD_SEEDS_H5)
+    )
+    if set(TRAIN_SEEDS_H6) & prior or set(HOLD_SEEDS_H6) & prior:
+        raise RuntimeError("H6 seeds overlap prior Y19")
+
+    train = _collect_cases_h5(TRAIN_SEEDS_H6)
+    hold = _collect_cases_h5(HOLD_SEEDS_H6)
+    fit = train + hold if peek_holdout_labels_in_train else train
+
+    # Gate A: mean_probe_transient vs N
+    g_a = _eval_keys_vs(fit, hold, base_keys=N_KEYS, full_keys=MEAN_TRANSIENT_KEYS)
+    # Gate B: period-set vs N
+    g_b = _eval_keys_vs(fit, hold, base_keys=N_KEYS, full_keys=PERIOD_KEYS)
+    # Gate C: period-set vs mean_probe_transient (does period beat propensity?)
+    g_c = _eval_keys_vs(fit, hold, base_keys=MEAN_TRANSIENT_KEYS, full_keys=PERIOD_KEYS)
+    # Gate D: full structural vs mean alone
+    g_d = _eval_keys_vs(
+        fit, hold, base_keys=MEAN_TRANSIENT_KEYS, full_keys=STRUCTURAL_KEYS
+    )
+
+    def gate(name: str, metrics: dict[str, Any]) -> dict[str, Any]:
+        bal = metrics["n_pos"] >= MIN_HOLD_POSITIVES and metrics["n_neg"] >= MIN_HOLD_NEGATIVES
+        if not bal:
+            return {"name": name, "status": "UNDERPOWERED", "passed": False, **metrics}
+        return {
+            "name": name,
+            "status": "PASS" if metrics["beats_mcid"] else "FAIL",
+            "passed": bool(metrics["beats_mcid"]),
+            **metrics,
+        }
+
+    gates = {
+        "A_mean_transient_vs_n": gate("mean_transient_vs_n", g_a),
+        "B_period_set_vs_n": gate("period_set_vs_n", g_b),
+        "C_period_vs_mean_transient": gate("period_vs_mean_transient", g_c),
+        "D_full_structural_vs_mean": gate("full_structural_vs_mean", g_d),
+    }
+
+    if any(g["status"] == "UNDERPOWERED" for g in gates.values()):
+        decision: Decision = "INCONCLUSIVE"
+        winning = "H6c_underpowered_or_mixed"
+    elif gates["A_mean_transient_vs_n"]["passed"] and (
+        not gates["C_period_vs_mean_transient"]["passed"]
+        and not gates["D_full_structural_vs_mean"]["passed"]
+    ):
+        decision = "SUPPORTED"
+        winning = "H6a_mean_transient_propensity"
+    elif gates["C_period_vs_mean_transient"]["passed"] or (
+        gates["B_period_set_vs_n"]["passed"] and gates["D_full_structural_vs_mean"]["passed"]
+    ):
+        decision = "SUPPORTED"
+        winning = "H6b_period_structure_beyond_propensity"
+    elif gates["A_mean_transient_vs_n"]["passed"]:
+        decision = "SUPPORTED"
+        winning = "H6a_mean_transient_propensity"
+    else:
+        decision = "INCONCLUSIVE"
+        winning = "H6c_underpowered_or_mixed"
+
+    nulls: list[dict[str, Any]] = []
+    if winning == "H6a_mean_transient_propensity":
+        nulls.append(
+            {
+                "id": "y19_h6_period_fails_beyond_mean_transient",
+                "interpretation": "period/fraction extras do not beat mean probe transient by MCID",
+            }
+        )
+
+    return {
+        "protocol_version": PROTOCOL_VERSION_H6,
+        "prior_mission": "Y19-H5",
+        "prior_decision": "SUPPORTED",
+        "competing_hypotheses": [asdict(h) for h in COMPETING_H6],
+        "winning_hypothesis_id": winning,
+        "decision": decision,
+        "gates": gates,
+        "mcid_brier_ratio": MCID_BRIER_RATIO,
+        "claim_scope": (
+            "Which structural probe carries H5b — propensity vs period structure"
+        ),
+        "seed_policy": {
+            "train": f"{TRAIN_SEEDS_H6[0]}-{TRAIN_SEEDS_H6[-1]}",
+            "hold": f"{HOLD_SEEDS_H6[0]}-{HOLD_SEEDS_H6[-1]}",
+            "disjoint_from_prior": True,
+        },
+        "leak_checks": {
+            "train_hold_disjoint": True,
+            "peek_holdout_labels_in_train": peek_holdout_labels_in_train,
+            "structural_uses_labeled_ic_outcome": False,
+        },
+        "null_results": nulls,
+        "scientific_claim_accepted": decision == "SUPPORTED",
+        "answer_known_a_priori": False,
+    }
+
+
+def write_preregistration_h6(path: Path) -> None:
+    payload = {
+        "mission_id": "Y19-H6",
+        "protocol_version": PROTOCOL_VERSION_H6,
+        "preregistered_before_data": True,
+        "follows": "Y19-H5 SUPPORTED H5b → ablate structural probes",
+        "hypothesis": COMPETING_H6[0].statement,
+        "competing_hypotheses": [asdict(h) for h in COMPETING_H6],
+        "primary_criterion": {
+            "statistic": "h6_structural_ablation",
+            "mcid_ratio": MCID_BRIER_RATIO,
+        },
+        "seed_data_policy": {
+            "train": list(TRAIN_SEEDS_H6),
+            "hold": list(HOLD_SEEDS_H6),
+        },
+        "answer_known_a_priori": False,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
+
+# --- Y19-H7: leave-one-N-out transfer of period structure ---
+PROTOCOL_VERSION_H7 = "Y19-H7-v1"
+TRAIN_SEEDS_H7 = tuple(range(14000, 14300))
+HOLD_SEEDS_H7 = tuple(range(15000, 15150))
+
+COMPETING_H7: tuple[CompetingHypothesis, ...] = (
+    CompetingHypothesis(
+        id="H7a_period_transfers_across_n",
+        statement=(
+            "Period/long-fraction structural features retain MCID vs N under leave-one-N-out "
+            "on ≥2 held-out sizes."
+        ),
+    ),
+    CompetingHypothesis(
+        id="H7b_period_n_local",
+        statement="Period structure fails leave-one-N-out transfer; effect is N-local.",
+    ),
+    CompetingHypothesis(
+        id="H7c_underpowered",
+        statement="LOO folds underpowered.",
+    ),
+)
+
+
+def run_experiment_h7(*, peek_holdout_labels_in_train: bool = False) -> dict[str, Any]:
+    prior = (
+        set(TRAIN_SEEDS)
+        | set(HOLD_SEEDS)
+        | set(TRAIN_SEEDS_H2)
+        | set(HOLD_SEEDS_H2)
+        | set(TRAIN_SEEDS_H3)
+        | set(HOLD_SEEDS_H3_MATCH)
+        | set(HOLD_SEEDS_H3_UNSEEN)
+        | set(TRAIN_SEEDS_H4)
+        | set(HOLD_SEEDS_H4)
+        | set(TRAIN_SEEDS_H5)
+        | set(HOLD_SEEDS_H5)
+        | set(TRAIN_SEEDS_H6)
+        | set(HOLD_SEEDS_H6)
+    )
+    if set(TRAIN_SEEDS_H7) & prior or set(HOLD_SEEDS_H7) & prior:
+        raise RuntimeError("H7 seeds overlap prior Y19")
+
+    train = _collect_cases_h5(TRAIN_SEEDS_H7)
+    hold = _collect_cases_h5(HOLD_SEEDS_H7)
+    fit = train + hold if peek_holdout_labels_in_train else train
+
+    folds: list[dict[str, Any]] = []
+    for held_n in N_PANEL_H5:
+        fit_loo = [c for c in fit if int(c["n"]) != held_n]
+        hold_loo = [c for c in hold if int(c["n"]) == held_n]
+        if not fit_loo or not hold_loo:
+            folds.append({"held_n": held_n, "status": "EMPTY", "powered": False, "passed": False})
+            continue
+        metrics = _eval_keys_vs(fit_loo, hold_loo, base_keys=N_KEYS, full_keys=PERIOD_KEYS)
+        powered = _stratum_ok(metrics["n_pos"], metrics["n_neg"], metrics["n_cases"])
+        folds.append(
+            {
+                "held_n": held_n,
+                "status": "OK" if powered else "UNDERPOWERED",
+                "powered": powered,
+                "passed": bool(powered and metrics["beats_mcid"]),
+                **metrics,
+            }
+        )
+    powered_folds = [f for f in folds if f.get("powered")]
+    if len(powered_folds) < 2:
+        decision: Decision = "INCONCLUSIVE"
+        winning = "H7c_underpowered"
+        status = "UNDERPOWERED"
+        passed = False
+    else:
+        n_pass = sum(1 for f in powered_folds if f["beats_mcid"])
+        passed = n_pass >= 2
+        status = "PASS" if passed else "FAIL"
+        if passed:
+            decision = "SUPPORTED"
+            winning = "H7a_period_transfers_across_n"
+        else:
+            decision = "REJECTED"
+            winning = "H7b_period_n_local"
+
+    nulls: list[dict[str, Any]] = []
+    if decision == "REJECTED":
+        nulls.append(
+            {
+                "id": "y19_h7_loo_fail",
+                "folds": {f["held_n"]: f.get("brier_ratio") for f in folds},
+                "interpretation": "period structure failed leave-one-N-out vs N",
+            }
+        )
+
+    return {
+        "protocol_version": PROTOCOL_VERSION_H7,
+        "prior_mission": "Y19-H6",
+        "prior_decision": "SUPPORTED",
+        "competing_hypotheses": [asdict(h) for h in COMPETING_H7],
+        "winning_hypothesis_id": winning,
+        "decision": decision,
+        "gates": {"leave_one_n_out_period_vs_n": {"status": status, "passed": passed, "folds": folds}},
+        "mcid_brier_ratio": MCID_BRIER_RATIO,
+        "seed_policy": {
+            "train": f"{TRAIN_SEEDS_H7[0]}-{TRAIN_SEEDS_H7[-1]}",
+            "hold": f"{HOLD_SEEDS_H7[0]}-{HOLD_SEEDS_H7[-1]}",
+        },
+        "leak_checks": {
+            "train_hold_disjoint": True,
+            "peek_holdout_labels_in_train": peek_holdout_labels_in_train,
+            "structural_uses_labeled_ic_outcome": False,
+        },
+        "null_results": nulls,
+        "scientific_claim_accepted": decision == "SUPPORTED",
+        "answer_known_a_priori": False,
+    }

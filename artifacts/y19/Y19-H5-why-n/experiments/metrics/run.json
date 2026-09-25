@@ -1,0 +1,222 @@
+{
+  "protocol_version": "Y19-H5-v1",
+  "prior_mission": "Y19-H4",
+  "prior_decision": "REJECTED",
+  "competing_hypotheses": [
+    {
+      "id": "H5a_state_space_n",
+      "statement": "Long-transient labels rise with N via state-space growth; raw N (or log2 N) dominates sealed-holdout prediction and structural extras fail N-matched tests."
+    },
+    {
+      "id": "H5b_basin_cycle_structure",
+      "statement": "Attractor/basin/cycle probe statistics (not raw N) carry the signal and beat N on sealed holdout, including within-N matched checks."
+    },
+    {
+      "id": "H5d_protocol_artifact",
+      "statement": "The N→label association is an artifact of τ / single-IC sampling; alternate protocol ablates the sealed-holdout N advantage."
+    }
+  ],
+  "winning_hypothesis_id": "H5b_basin_cycle_structure",
+  "decision": "SUPPORTED",
+  "gates": {
+    "A_structural_vs_n": {
+      "name": "structural_vs_n",
+      "status": "PASS",
+      "passed": true,
+      "brier_base": 0.22481111111120483,
+      "brier_full": 0.1251864843269883,
+      "brier_ratio": 0.5568518553563115,
+      "auc_base": 0.6157407407407407,
+      "auc_full": 0.892554012345679,
+      "n_cases": 150,
+      "n_pos": 54,
+      "n_neg": 96,
+      "beats_mcid": true,
+      "base_keys": [
+        "n"
+      ],
+      "full_keys": [
+        "mean_probe_transient",
+        "mean_probe_period",
+        "probe_long_fraction",
+        "probe_transient_std"
+      ],
+      "vs_log2_n": {
+        "brier_base": 0.2245209808940082,
+        "brier_full": 0.1251864843269883,
+        "brier_ratio": 0.5575714297546487,
+        "auc_base": 0.6157407407407407,
+        "auc_full": 0.892554012345679,
+        "n_cases": 150,
+        "n_pos": 54,
+        "n_neg": 96,
+        "beats_mcid": true,
+        "base_keys": [
+          "log2_n"
+        ],
+        "full_keys": [
+          "mean_probe_transient",
+          "mean_probe_period",
+          "probe_long_fraction",
+          "probe_transient_std"
+        ]
+      }
+    },
+    "B_n_matched_structural": {
+      "name": "n_matched_structural",
+      "status": "PASS",
+      "passed": true,
+      "powered_n": 3,
+      "mcid_pass_n": 3,
+      "by_n": [
+        {
+          "n": 16,
+          "status": "OK",
+          "powered": true,
+          "passed": true,
+          "brier_base": 0.1731513604335891,
+          "brier_full": 0.14118476736690183,
+          "brier_ratio": 0.8153835292622617,
+          "auc_base": 0.493006993006993,
+          "auc_full": 0.7983682983682984,
+          "n_cases": 50,
+          "n_pos": 11,
+          "n_neg": 39,
+          "beats_mcid": true,
+          "base_keys": [
+            "mean_activity",
+            "activity_std"
+          ],
+          "full_keys": [
+            "mean_activity",
+            "activity_std",
+            "mean_probe_transient",
+            "mean_probe_period",
+            "probe_long_fraction",
+            "probe_transient_std"
+          ]
+        },
+        {
+          "n": 20,
+          "status": "OK",
+          "powered": true,
+          "passed": true,
+          "brier_base": 0.26037636936119946,
+          "brier_full": 0.15329482857650953,
+          "brier_ratio": 0.5887432448366917,
+          "auc_base": 0.40166666666666667,
+          "auc_full": 0.8883333333333333,
+          "n_cases": 50,
+          "n_pos": 20,
+          "n_neg": 30,
+          "beats_mcid": true,
+          "base_keys": [
+            "mean_activity",
+            "activity_std"
+          ],
+          "full_keys": [
+            "mean_activity",
+            "activity_std",
+            "mean_probe_transient",
+            "mean_probe_period",
+            "probe_long_fraction",
+            "probe_transient_std"
+          ]
+        },
+        {
+          "n": 24,
+          "status": "OK",
+          "powered": true,
+          "passed": true,
+          "brier_base": 0.24763628212160238,
+          "brier_full": 0.10196917458211625,
+          "brier_ratio": 0.41176993011082297,
+          "auc_base": 0.5362318840579711,
+          "auc_full": 0.92914653784219,
+          "n_cases": 50,
+          "n_pos": 23,
+          "n_neg": 27,
+          "beats_mcid": true,
+          "base_keys": [
+            "mean_activity",
+            "activity_std"
+          ],
+          "full_keys": [
+            "mean_activity",
+            "activity_std",
+            "mean_probe_transient",
+            "mean_probe_period",
+            "probe_long_fraction",
+            "probe_transient_std"
+          ]
+        }
+      ]
+    },
+    "C_protocol_ablation": {
+      "name": "protocol_ablation_alt_tau",
+      "status": "FAIL",
+      "passed": false,
+      "alt_tau": 20,
+      "n_association_survives": false,
+      "brier_base": 0.1497506216354954,
+      "brier_full": 0.14040657845627263,
+      "brier_ratio": 0.9376026417975953,
+      "auc_base": 0.3905086848635236,
+      "auc_full": 0.624379652605459,
+      "n_cases": 150,
+      "n_pos": 26,
+      "n_neg": 124,
+      "beats_mcid": false,
+      "base_keys": [
+        "mean_activity",
+        "activity_std"
+      ],
+      "full_keys": [
+        "mean_activity",
+        "activity_std",
+        "n"
+      ]
+    }
+  },
+  "sanity_n_vs_activity_default_tau": {
+    "brier_base": 0.23740176381010372,
+    "brier_full": 0.2270445345094801,
+    "brier_ratio": 0.9563725680281452,
+    "auc_base": 0.4557291666666667,
+    "auc_full": 0.5957754629629629,
+    "n_cases": 150,
+    "n_pos": 54,
+    "n_neg": 96,
+    "beats_mcid": false,
+    "base_keys": [
+      "mean_activity",
+      "activity_std"
+    ],
+    "full_keys": [
+      "mean_activity",
+      "activity_std",
+      "n"
+    ]
+  },
+  "mcid_brier_ratio": 0.9,
+  "n_probe_ics": 8,
+  "claim_scope": "Mechanism sketch for why N predicts long-transient labels in this family — not a universal transient theory",
+  "seed_policy": {
+    "train": "9000-9299",
+    "hold": "11000-11149",
+    "n_panel": [
+      16,
+      20,
+      24
+    ],
+    "disjoint_from_h1_h4": true
+  },
+  "leak_checks": {
+    "train_hold_disjoint": true,
+    "peek_holdout_labels_in_train": false,
+    "structural_uses_labeled_ic_outcome": false
+  },
+  "null_results": [],
+  "scientific_claim_accepted": true,
+  "answer_known_a_priori": false
+}

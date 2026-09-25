@@ -21,18 +21,13 @@
 - [x] Phase lock: LH validation deferred; return to real-world hardening
 - [x] Y18 failure-mode dogfood (4 classes) + freeze diversity gate
 
-## Active — Scientific dogfood (Y19); LH deferred
+## Active — Y19 campaign (terminal halt)
 
-- [x] Y18 failure-mode dogfood (4 classes SUPPORTED)
-- [x] Intermediate stable point `bfa58a0` + Linux os_kill smoke
-- [x] Y19-H1 TZ + harness + acceptance tests
-- [x] Y19-H1 pilot mission executed (`REJECTED` — honest MCID miss; not infra failure)
-- [x] Windows `os_process_kill` smoke on exact `bfa58a0` (PASS; PIDs distinct)
-- [x] Y19-H1 pilot (`REJECTED` — spectral MCID miss)
-- [x] Y19-H2 mechanistic (`SUPPORTED` — size/entropy beat activity-only)
-- [x] Y19-H3 robustness (`SUPPORTED` — activity-matched + unseen-N + both K)
-- [ ] Continue Y19 narrowing (e.g. entropy vs N decomposition) → fixes if any
-- [ ] Re-pin freeze SHA only after science path stabilizes
+- [x] Y19-RESEARCH-PROGRAM.md autonomous contract + durable resume state
+- [x] Y19-H1…H7 executed as internal campaign steps (no operator dispatch)
+- [x] Terminal narrow claim: period/long-fraction structure (see WHAT_WE_KNOW.md)
+- [ ] New scope only if operator expands (other family / analytic) 
+- [ ] Re-pin freeze SHA before any LH 96m/48h
 
 ## Deferred — True 48h / M1.5 (after new freeze)
 

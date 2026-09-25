@@ -1,0 +1,15 @@
+{
+  "mission_id": "Y19-H7",
+  "goal_id": "goal_4de8ec8d03d64768",
+  "hypothesis_id": "hyp_0710c51ac2424974",
+  "status": "COMPLETED",
+  "reframe": {
+    "discovered_prior_id": "Y19-H6",
+    "original_intent": "Stop after H6b",
+    "reframed_intent": "Test transfer of period structure across N",
+    "rationale": "Campaign continues until terminal claim or low EVI"
+  },
+  "created_at": "2026-09-25T08:47:32.233807+00:00",
+  "decision": "SUPPORTED",
+  "completed_at": "2026-09-25T08:47:32.742330+00:00"
+}

@@ -1,0 +1,125 @@
+{
+  "protocol_version": "Y19-H6-v1",
+  "prior_mission": "Y19-H5",
+  "prior_decision": "SUPPORTED",
+  "competing_hypotheses": [
+    {
+      "id": "H6a_mean_transient_propensity",
+      "statement": "Structural win is carried by mean_probe_transient (network long-transient propensity); period/fraction extras fail once mean transient is controlled."
+    },
+    {
+      "id": "H6b_period_structure_beyond_propensity",
+      "statement": "Attractor period / long-fraction structure retains MCID beyond mean probe transient propensity on sealed holdout."
+    },
+    {
+      "id": "H6c_underpowered_or_mixed",
+      "statement": "Ablation gates are mixed or underpowered; carrier within structural set unresolved."
+    }
+  ],
+  "winning_hypothesis_id": "H6b_period_structure_beyond_propensity",
+  "decision": "SUPPORTED",
+  "gates": {
+    "A_mean_transient_vs_n": {
+      "name": "mean_transient_vs_n",
+      "status": "PASS",
+      "passed": true,
+      "brier_base": 0.21688333177087485,
+      "brier_full": 0.16041539272777566,
+      "brier_ratio": 0.7396391018985524,
+      "auc_base": 0.5707213578500707,
+      "auc_full": 0.8661345726409375,
+      "n_cases": 150,
+      "n_pos": 49,
+      "n_neg": 101,
+      "beats_mcid": true,
+      "base_keys": [
+        "n"
+      ],
+      "full_keys": [
+        "mean_probe_transient"
+      ]
+    },
+    "B_period_set_vs_n": {
+      "name": "period_set_vs_n",
+      "status": "PASS",
+      "passed": true,
+      "brier_base": 0.21688333177087485,
+      "brier_full": 0.13688445371985247,
+      "brier_ratio": 0.6311432630722552,
+      "auc_base": 0.5707213578500707,
+      "auc_full": 0.8747221660941604,
+      "n_cases": 150,
+      "n_pos": 49,
+      "n_neg": 101,
+      "beats_mcid": true,
+      "base_keys": [
+        "n"
+      ],
+      "full_keys": [
+        "mean_probe_period",
+        "probe_long_fraction",
+        "probe_transient_std"
+      ]
+    },
+    "C_period_vs_mean_transient": {
+      "name": "period_vs_mean_transient",
+      "status": "PASS",
+      "passed": true,
+      "brier_base": 0.16041539272777566,
+      "brier_full": 0.13688445371985247,
+      "brier_ratio": 0.8533124620537188,
+      "auc_base": 0.8661345726409375,
+      "auc_full": 0.8747221660941604,
+      "n_cases": 150,
+      "n_pos": 49,
+      "n_neg": 101,
+      "beats_mcid": true,
+      "base_keys": [
+        "mean_probe_transient"
+      ],
+      "full_keys": [
+        "mean_probe_period",
+        "probe_long_fraction",
+        "probe_transient_std"
+      ]
+    },
+    "D_full_structural_vs_mean": {
+      "name": "full_structural_vs_mean",
+      "status": "PASS",
+      "passed": true,
+      "brier_base": 0.16041539272777566,
+      "brier_full": 0.13738702142460688,
+      "brier_ratio": 0.8564453765216419,
+      "auc_base": 0.8661345726409375,
+      "auc_full": 0.8749242271165892,
+      "n_cases": 150,
+      "n_pos": 49,
+      "n_neg": 101,
+      "beats_mcid": true,
+      "base_keys": [
+        "mean_probe_transient"
+      ],
+      "full_keys": [
+        "mean_probe_transient",
+        "mean_probe_period",
+        "probe_long_fraction",
+        "probe_transient_std"
+      ]
+    }
+  },
+  "mcid_brier_ratio": 0.9,
+  "claim_scope": "Which structural probe carries H5b — propensity vs period structure",
+  "seed_policy": {
+    "train": "12000-12299",
+    "hold": "13000-13149",
+    "disjoint_from_prior": true
+  },
+  "leak_checks": {
+    "train_hold_disjoint": true,
+    "peek_holdout_labels_in_train": false,
+    "structural_uses_labeled_ic_outcome": false
+  },
+  "null_results": [],
+  "scientific_claim_accepted": true,
+  "answer_known_a_priori": false
+}

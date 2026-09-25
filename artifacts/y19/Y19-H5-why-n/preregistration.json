@@ -1,0 +1,16 @@
+{
+  "mission_id": "Y19-H5",
+  "protocol_version": "Y19-H5-v1",
+  "preregistered_before_data": true,
+  "hypothesis": "Long-transient labels rise with N via state-space growth; raw N (or log2 N) dominates sealed-holdout prediction and structural extras fail N-matched tests.",
+  "mcid_brier_ratio": 0.9,
+  "primary_criterion": {
+    "statistic": "h5_mechanism_triage",
+    "mcid_ratio": 0.9,
+    "decision_rule": {
+      "SUPPORTED": "mechanism triage selects H5a or H5b or H5d with powered gates",
+      "INCONCLUSIVE": "mixed or underpowered",
+      "REJECTED": "unused for H5 triage (prefer INCONCLUSIVE over false REJECTED)"
+    }
+  }
+}

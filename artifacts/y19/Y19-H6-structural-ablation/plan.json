@@ -1,0 +1,7 @@
+{
+  "steps": [
+    "ablate mean transient vs period set",
+    "decide",
+    "update campaign state"
+  ]
+}

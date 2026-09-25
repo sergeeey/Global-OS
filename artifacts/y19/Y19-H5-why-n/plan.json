@@ -1,0 +1,9 @@
+{
+  "steps": [
+    "Lock H5a/H5b/H5d prereg; sealed seeds disjoint from H1–H4",
+    "Probe basin/cycle stats (non-labeled ICs) vs n / log2_n",
+    "N-matched structural vs activity",
+    "Protocol ablation under alt τ",
+    "Triage mechanism; update campaign durable state"
+  ]
+}

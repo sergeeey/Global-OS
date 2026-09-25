@@ -1,0 +1,15 @@
+{
+  "mission_id": "Y19-H6",
+  "goal_id": "goal_82602af105684474",
+  "hypothesis_id": "hyp_9636dda884114af1",
+  "status": "COMPLETED",
+  "reframe": {
+    "discovered_prior_id": "Y19-H5",
+    "original_intent": "Stop after H5b",
+    "reframed_intent": "Continue campaign: which structural feature carries the win",
+    "rationale": "Y19-RESEARCH-PROGRAM: closed H is checkpoint not halt"
+  },
+  "created_at": "2026-09-25T08:47:31.096274+00:00",
+  "decision": "SUPPORTED",
+  "completed_at": "2026-09-25T08:47:31.606515+00:00"
+}

@@ -1,0 +1,7 @@
+{
+  "goal_id": "goal_4de8ec8d03d64768",
+  "hypothesis_id": "hyp_0710c51ac2424974",
+  "statement": "Period/long-fraction structural features retain MCID vs N under leave-one-N-out on ≥2 held-out sizes.",
+  "decision": "SUPPORTED",
+  "scientific_claim_accepted": false
+}

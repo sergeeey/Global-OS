@@ -1,0 +1,14 @@
+{
+  "mission_id": "Y19-H7",
+  "protocol_version": "Y19-H7-v1",
+  "preregistered_before_data": true,
+  "hypothesis": "Period/long-fraction structural features retain MCID vs N under leave-one-N-out on \u22652 held-out sizes.",
+  "primary_criterion": {
+    "statistic": "loo_period_vs_n",
+    "mcid_ratio": 0.9,
+    "decision_rule": {
+      "SUPPORTED": "\u22652 LOO folds PASS",
+      "REJECTED": "powered folds fail MCID"
+    }
+  }
+}

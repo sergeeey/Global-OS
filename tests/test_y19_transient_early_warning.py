@@ -226,3 +226,127 @@ def test_h4_mission_script():
     assert proc.returncode == 0, proc.stderr[-2000:]
     mission = json.loads((art / "mission.json").read_text(encoding="utf-8"))
     assert mission["decision"] in {"SUPPORTED", "REJECTED", "INCONCLUSIVE"}
+
+
+def test_h5_seeds_disjoint():
+    from global_os.evals.research.y19_transient_early_warning import (
+        HOLD_SEEDS_H2,
+        HOLD_SEEDS_H3_MATCH,
+        HOLD_SEEDS_H3_UNSEEN,
+        HOLD_SEEDS_H4,
+        HOLD_SEEDS_H5,
+        TRAIN_SEEDS_H2,
+        TRAIN_SEEDS_H3,
+        TRAIN_SEEDS_H4,
+        TRAIN_SEEDS_H5,
+    )
+
+    prior = (
+        set(TRAIN_SEEDS)
+        | set(HOLD_SEEDS)
+        | set(TRAIN_SEEDS_H2)
+        | set(HOLD_SEEDS_H2)
+        | set(TRAIN_SEEDS_H3)
+        | set(HOLD_SEEDS_H3_MATCH)
+        | set(HOLD_SEEDS_H3_UNSEEN)
+        | set(TRAIN_SEEDS_H4)
+        | set(HOLD_SEEDS_H4)
+    )
+    assert not (set(TRAIN_SEEDS_H5) & prior)
+    assert not (set(HOLD_SEEDS_H5) & prior)
+
+
+def test_h5_no_label_leak_flag_and_valid_decision():
+    from global_os.evals.research.y19_transient_early_warning import run_experiment_h5
+
+    raw = run_experiment_h5()
+    assert raw["answer_known_a_priori"] is False
+    assert raw["leak_checks"]["structural_uses_labeled_ic_outcome"] is False
+    assert raw["decision"] in {"SUPPORTED", "REJECTED", "INCONCLUSIVE"}
+    assert "winning_hypothesis_id" in raw
+    assert set(raw["gates"]) >= {
+        "A_structural_vs_n",
+        "B_n_matched_structural",
+        "C_protocol_ablation",
+    }
+
+
+def test_h5_mission_script():
+    art = ROOT / "artifacts" / "y19" / "Y19-H5-why-n"
+    env = {**dict(__import__("os").environ), "PYTHONPATH": str(ROOT / "src")}
+    proc = subprocess.run(
+        [sys.executable, str(art / "execute_mission.py")],
+        cwd=str(ROOT),
+        env=env,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr[-2000:]
+    mission = json.loads((art / "mission.json").read_text(encoding="utf-8"))
+    assert mission["decision"] in {"SUPPORTED", "REJECTED", "INCONCLUSIVE"}
+
+
+def test_h6_run_and_mission():
+    from global_os.evals.research.y19_transient_early_warning import (
+        HOLD_SEEDS_H5,
+        HOLD_SEEDS_H6,
+        TRAIN_SEEDS_H5,
+        TRAIN_SEEDS_H6,
+        run_experiment_h6,
+    )
+
+    prior = set(TRAIN_SEEDS_H5) | set(HOLD_SEEDS_H5)
+    assert not (set(TRAIN_SEEDS_H6) & prior)
+    assert not (set(HOLD_SEEDS_H6) & prior)
+    raw = run_experiment_h6()
+    assert raw["decision"] in {"SUPPORTED", "REJECTED", "INCONCLUSIVE"}
+    assert raw["leak_checks"]["structural_uses_labeled_ic_outcome"] is False
+    art = ROOT / "artifacts" / "y19" / "Y19-H6-structural-ablation"
+    env = {**dict(__import__("os").environ), "PYTHONPATH": str(ROOT / "src")}
+    proc = subprocess.run(
+        [sys.executable, str(art / "execute_mission.py")],
+        cwd=str(ROOT),
+        env=env,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr[-2000:]
+
+
+def test_h7_loo_and_mission():
+    from global_os.evals.research.y19_transient_early_warning import (
+        HOLD_SEEDS_H6,
+        HOLD_SEEDS_H7,
+        TRAIN_SEEDS_H6,
+        TRAIN_SEEDS_H7,
+        run_experiment_h7,
+    )
+
+    prior = set(TRAIN_SEEDS_H6) | set(HOLD_SEEDS_H6)
+    assert not (set(TRAIN_SEEDS_H7) & prior)
+    assert not (set(HOLD_SEEDS_H7) & prior)
+    raw = run_experiment_h7()
+    assert raw["decision"] in {"SUPPORTED", "REJECTED", "INCONCLUSIVE"}
+    art = ROOT / "artifacts" / "y19" / "Y19-H7-period-loo-transfer"
+    env = {**dict(__import__("os").environ), "PYTHONPATH": str(ROOT / "src")}
+    proc = subprocess.run(
+        [sys.executable, str(art / "execute_mission.py")],
+        cwd=str(ROOT),
+        env=env,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr[-2000:]
+
+
+def test_research_program_contract_exists():
+    prog = ROOT / "artifacts" / "y19" / "Y19-RESEARCH-PROGRAM.md"
+    state = ROOT / "artifacts" / "y19" / "CURRENT_STATE.json"
+    assert prog.is_file()
+    assert state.is_file()
+    payload = json.loads(state.read_text(encoding="utf-8"))
+    assert payload.get("program") == "Y19_RESEARCH_PROGRAM"
+    assert "stop_reason" in payload

@@ -1,0 +1,7 @@
+{
+  "goal_id": "goal_5880a7623c14445f",
+  "hypothesis_id": "hyp_d77a627f89b64c73",
+  "statement": "Long-transient labels rise with N via state-space growth; raw N (or log2 N) dominates sealed-holdout prediction and structural extras fail N-matched tests.",
+  "decision": "SUPPORTED",
+  "scientific_claim_accepted": false
+}

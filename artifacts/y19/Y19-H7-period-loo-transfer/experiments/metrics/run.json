@@ -1,0 +1,111 @@
+{
+  "protocol_version": "Y19-H7-v1",
+  "prior_mission": "Y19-H6",
+  "prior_decision": "SUPPORTED",
+  "competing_hypotheses": [
+    {
+      "id": "H7a_period_transfers_across_n",
+      "statement": "Period/long-fraction structural features retain MCID vs N under leave-one-N-out on ≥2 held-out sizes."
+    },
+    {
+      "id": "H7b_period_n_local",
+      "statement": "Period structure fails leave-one-N-out transfer; effect is N-local."
+    },
+    {
+      "id": "H7c_underpowered",
+      "statement": "LOO folds underpowered."
+    }
+  ],
+  "winning_hypothesis_id": "H7a_period_transfers_across_n",
+  "decision": "SUPPORTED",
+  "gates": {
+    "leave_one_n_out_period_vs_n": {
+      "status": "PASS",
+      "passed": true,
+      "folds": [
+        {
+          "held_n": 16,
+          "status": "OK",
+          "powered": true,
+          "passed": true,
+          "brier_base": 0.19250003375242564,
+          "brier_full": 0.10235450476108011,
+          "brier_ratio": 0.5317116198157049,
+          "auc_base": 0.5,
+          "auc_full": 0.9313929313929314,
+          "n_cases": 50,
+          "n_pos": 13,
+          "n_neg": 37,
+          "beats_mcid": true,
+          "base_keys": [
+            "n"
+          ],
+          "full_keys": [
+            "mean_probe_period",
+            "probe_long_fraction",
+            "probe_transient_std"
+          ]
+        },
+        {
+          "held_n": 20,
+          "status": "OK",
+          "powered": true,
+          "passed": true,
+          "brier_base": 0.1993,
+          "brier_full": 0.10847169870644606,
+          "brier_ratio": 0.5442634154864328,
+          "auc_base": 0.5,
+          "auc_full": 0.9057017543859649,
+          "n_cases": 50,
+          "n_pos": 12,
+          "n_neg": 38,
+          "beats_mcid": true,
+          "base_keys": [
+            "n"
+          ],
+          "full_keys": [
+            "mean_probe_period",
+            "probe_long_fraction",
+            "probe_transient_std"
+          ]
+        },
+        {
+          "held_n": 24,
+          "status": "OK",
+          "powered": true,
+          "passed": true,
+          "brier_base": 0.24369997375205077,
+          "brier_full": 0.1236482629698018,
+          "brier_ratio": 0.5073790573962312,
+          "auc_base": 0.5,
+          "auc_full": 0.9129720853858785,
+          "n_cases": 50,
+          "n_pos": 21,
+          "n_neg": 29,
+          "beats_mcid": true,
+          "base_keys": [
+            "n"
+          ],
+          "full_keys": [
+            "mean_probe_period",
+            "probe_long_fraction",
+            "probe_transient_std"
+          ]
+        }
+      ]
+    }
+  },
+  "mcid_brier_ratio": 0.9,
+  "seed_policy": {
+    "train": "14000-14299",
+    "hold": "15000-15149"
+  },
+  "leak_checks": {
+    "train_hold_disjoint": true,
+    "peek_holdout_labels_in_train": false,
+    "structural_uses_labeled_ic_outcome": false
+  },
+  "null_results": [],
+  "scientific_claim_accepted": true,
+  "answer_known_a_priori": false
+}
