@@ -1,0 +1,25 @@
+{
+  "arm": "B",
+  "phase": "TERMINAL",
+  "method": "markov",
+  "decision": "INCONCLUSIVE",
+  "closed": {
+    "H_B1_mealy_merge": "candidate",
+    "H_B2_markov_2": "candidate",
+    "H_B2_markov_3": "candidate",
+    "H_B2_markov_4": "candidate",
+    "H_B2_markov_5": "candidate",
+    "H_B2_markov_select": "SUPPORTED",
+    "H_B3_hybrid": "REJECTED",
+    "H_B4_null": "REJECTED"
+  },
+  "gos_components_in_use": [
+    "goal_contract",
+    "competing_hypotheses",
+    "durable_research_state",
+    "falsification_internal_holdout",
+    "terminal_stop_rule"
+  ],
+  "sealed_unseen": true,
+  "arm_a_outputs_unread": true
+}

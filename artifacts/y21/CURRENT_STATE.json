@@ -5,12 +5,12 @@
   "protocol_version": "Y21-AB-v1",
   "plan_agree_sha": "59e0be5",
   "prereg_boundary_sha": "7136808",
-  "updated_at": "2026-09-25T12:28:08Z",
-  "phase": "ARM_A_FROZEN",
+  "updated_at": "2026-09-25T12:47:50Z",
+  "phase": "BOTH_ARMS_FROZEN",
   "prereg_locked": true,
   "arms_started": true,
   "sealed_unseen": true,
-  "unseal_allowed": false,
+  "unseal_allowed": true,
   "architecture_freeze_until_y21_comparison": true,
   "task_class": "algorithmic_reverse_engineering_mealy",
   "win_primary": "sealed_exact_match_rate",
@@ -45,9 +45,13 @@
       "process_log": "artifacts/y21/arms/A/process_log.json"
     },
     "B": {
-      "status": "NOT_STARTED",
+      "status": "FROZEN",
       "role": "strong_agent_plus_global_os",
-      "dir": "artifacts/y21/arms/B"
+      "dir": "artifacts/y21/arms/B",
+      "ended_at": "2026-09-25T12:47:50Z",
+      "model_pin": "composer-cloud-agent-bundle",
+      "submission": "artifacts/y21/arms/B/submission.json",
+      "process_log": "artifacts/y21/arms/B/process_log.json"
     }
   },
   "gos_advantage_claimed": false,
@@ -62,6 +66,6 @@
     "claim_M1.5",
     "literal_48h"
   ],
-  "next_step": "Execute Arm B under GOS loop with same public pack; do not unseal; do not read Arm A submission into B.",
+  "next_step": "Unseal + blind score + COMPARISON_REPORT",
   "prereg_boundary_full": "71368083594fde455cdea770d4b36e2e0184ef20"
 }

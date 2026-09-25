@@ -1,8 +1,8 @@
 {
   "sprint": "Y21_PREREG_LOCKED",
-  "updated_at": "2026-09-25T12:28:08Z",
-  "current_goal": "Y21_ARM_B",
-  "phase_statement": "Y21 Arm A FROZEN. Sealed still UNSEEN. Next Arm B only. Primary metric frozen. No arch changes.",
+  "updated_at": "2026-09-25T12:47:50Z",
+  "current_goal": "Y21_UNSEAL_SCORE",
+  "phase_statement": "Y21 Arms A+B FROZEN. Unseal+score next. Primary MCID frozen. No arch changes.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y19_frozen": true,
@@ -21,7 +21,8 @@
     "sealed_unseen": true,
     "win_primary": "sealed_exact_match_rate",
     "primary_mcid": 0.05,
-    "arm_a": "FROZEN"
+    "arm_a": "FROZEN",
+    "arm_b": "FROZEN"
   },
   "honest_status": {
     "gos_process_discipline": true,
@@ -37,7 +38,7 @@
     "literal_48h": "DEFERRED",
     "m15_claimed": false
   },
-  "next_exact_action": "Run Y21 Arm B (GOS structure); freeze B; only then unseal and score.",
+  "next_exact_action": "Unseal sealed pack; score A/B; write COMPARISON_REPORT; update claims.",
   "forbidden_now": [
     "unseal_before_B_frozen",
     "change_y21_scorer_mcid_budgets",

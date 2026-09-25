@@ -1,0 +1,48 @@
+[
+  {
+    "id": "H_B1_mealy_merge",
+    "hold_exact": 0.09090909090909091,
+    "n_states": 152,
+    "decision": "candidate"
+  },
+  {
+    "id": "H_B2_markov_2",
+    "hold_exact": 0.09090909090909091,
+    "decision": "candidate"
+  },
+  {
+    "id": "H_B2_markov_3",
+    "hold_exact": 0.3181818181818182,
+    "decision": "candidate"
+  },
+  {
+    "id": "H_B2_markov_4",
+    "hold_exact": 0.3181818181818182,
+    "decision": "candidate"
+  },
+  {
+    "id": "H_B2_markov_5",
+    "hold_exact": 0.18181818181818182,
+    "decision": "candidate"
+  },
+  {
+    "id": "H_B2_markov_select",
+    "best_order": 3,
+    "hold_exact": 0.3181818181818182,
+    "beats_mealy": true,
+    "decision": "SUPPORTED"
+  },
+  {
+    "id": "H_B3_hybrid",
+    "hold_exact": 0.09090909090909091,
+    "base": 0.3181818181818182,
+    "decision": "REJECTED"
+  },
+  {
+    "id": "H_B4_null",
+    "hold_exact": 0.0,
+    "best": 0.3181818181818182,
+    "beats_null": true,
+    "decision": "REJECTED"
+  }
+]
