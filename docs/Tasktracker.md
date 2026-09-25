@@ -1,3 +1,16 @@
+## Active — LH-COGNITIVE-v1 → new freeze (Variant B)
+
+- [x] Claim fork documented (`M15_CLAIM_FORK.md`)
+- [x] Cognitive harness + acceptance tests
+- [ ] Freeze new SHA (after CI)
+- [ ] Windows cognitive smoke/preflight/48h
+- [ ] Independent audit
+
+## Note — 5d15600 durability path
+
+- Step1 smoke PASS on freeze; preflight may run as DURABILITY_ENV only
+- wall_48h on 5d15600 forbidden for cognitive-real claim
+
 # Tasktracker
 
 ## Done — Empirical Hardening

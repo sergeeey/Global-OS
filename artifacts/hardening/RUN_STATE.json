@@ -1,8 +1,8 @@
 {
   "sprint": "M15_EXAM_IN_PROGRESS_OPERATOR",
-  "updated_at": "2026-09-25T17:55:44Z",
-  "current_goal": "WINDOWS_PREFLIGHT_ON_5d15600",
-  "phase_statement": "Gate A Step 1 PASS: Windows os_kill smoke on freeze HEAD 5d15600 (passed=true). Proceed to Step 2 wall preflight (~96m, hour_seconds=120). Stay detached; no pull/patch.",
+  "updated_at": "2026-09-25T18:07:13Z",
+  "current_goal": "LH_COGNITIVE_V1_THEN_NEW_FREEZE",
+  "phase_statement": "Claim fork B locked: 5d15600 is durability/sum harness. Do not start wall_48h on 5d15600 for cognitive-real M1.5. LH-COGNITIVE-v1 implemented on main; next freeze SHA then Windows cognitive preflight+48h. Running 5d15600 preflight = DURABILITY_ENV only.",
   "operator_action_required": true,
   "operator_dispatch_required": true,
   "y20": {
@@ -31,12 +31,13 @@
   "long_horizon": {
     "linux_compressed_preflight": "PASS",
     "linux_os_kill_smoke": "PASS",
-    "windows_os_kill_smoke": "PASS_ON_FREEZE_5d15600",
+    "windows_os_kill_smoke": "PASS_ON_FREEZE_5d15600_DURABILITY_ONLY",
     "windows_preflight": "READY_FOR_OPERATOR",
     "literal_48h": "NOT_STARTED",
-    "m15_claimed": false
+    "m15_claimed": false,
+    "cognitive_program": "IMPLEMENTED_ON_MAIN_NOT_FROZEN"
   },
-  "next_exact_action": "OPERATOR: write EXAM_START.json \u2192 GOS_PREFLIGHT_HOUR_SECONDS=120 \u2192 run_persistent_research_program mode=preflight sleep=True; expect PREFLIGHT_WALL + sha 5d15600",
+  "next_exact_action": "If durability preflight running on 5d15600: let finish as ENV. Do not wall_48h. Dev: freeze LH-COGNITIVE after CI green \u2192 Windows cognitive path.",
   "forbidden_now": [
     "r4_during_exam",
     "harden_exam_sha",
@@ -88,8 +89,8 @@
     "lock_sha": "65c2fb2"
   },
   "m15_claimed": false,
-  "windows_preflight": "READY_OPERATOR_NOW",
-  "literal_48h": "NOT_STARTED",
+  "windows_preflight": "DURABILITY_ENV_IF_RUNNING_NOT_COGNITIVE_CLAIM",
+  "literal_48h": "BLOCKED_UNTIL_COGNITIVE_FREEZE",
   "freeze": {
     "label": "FREEZE-R1R3-v1",
     "sha_short": "5d15600",
@@ -118,5 +119,9 @@
     "trust_long_horizon_amplification": "TO_TEST"
   },
   "env_incident": "artifacts/hardening/ENV_WRONG_REPO_2026-09-25.md",
-  "env_incident_smoke_wrong_sha": "artifacts/hardening/ENV_SMOKE_WRONG_SHA_2026-09-25.md"
+  "env_incident_smoke_wrong_sha": "artifacts/hardening/ENV_SMOKE_WRONG_SHA_2026-09-25.md",
+  "m15_claim_fork": "artifacts/hardening/M15_CLAIM_FORK.md",
+  "lh_cognitive_contract": "artifacts/hardening/LH_COGNITIVE_V1_CONTRACT.md",
+  "stop_before_48h_on_5d15600": "artifacts/hardening/STOP_BEFORE_48H_ON_5d15600.md",
+  "decision": "VARIANT_B_COGNITIVE_REAL_WORKLOAD"
 }

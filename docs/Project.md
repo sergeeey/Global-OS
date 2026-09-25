@@ -32,7 +32,8 @@ R1–R3: **EARLY YES** что конфигурация/bundle умеет дов�
 Y20–Y22  raw primary-outcome advantage vs strong baseline?  NOT SHOWN
 R1–R3    useful autonomous checkable real work (bundle)?     EARLY YES
          causal GOS advantage?                               NOT MEASURED
-M1.5     long-horizon integrity on frozen real workload?     TO TEST @ 5d15600
+M1.5     cognitive-real 48h?  TO TEST after LH-COGNITIVE freeze (not 5d15600 sum-harness)
+         5d15600 durability smoke/preflight = ENV evidence only
 Post     H_TRUST: fewer material integrity failures / cost?  CORE NEXT
 Continual SI / universal advantage / M1.5 claim              NOT MEASURED / NOT CLAIMED
 Y20–Y22 scorers                                              FROZEN
@@ -41,10 +42,11 @@ Y23                                                          NOT NOW
 
 ### Plan
 
-1. **Gate A (now):** Windows exam on freeze `5d15600` — `M15_EXAM_KICKOFF.md`. No patch-in-place.  
-2. **After M1.5 decision:** freeze H_TRUST + metrics (fixed-resource **and** cost-normalized) → Trust Kernel harden by failure mode → adversarial → external → interoperability.  
-3. **Separate ops:** `artifacts/ops/SEPARATE_BACKLOG.md` (fresh observe).  
-4. **Not now:** Y23; Continual SI claims; “GOS makes the model smarter” as project slogan.
+1. **M1.5 fork B (locked):** `5d15600` = durability harness only; cognitive-real 48h needs LH-COGNITIVE freeze (`M15_CLAIM_FORK.md`). Windows durability preflight may finish as ENV — **no wall_48h on 5d15600** for cognitive claim.  
+2. **Next:** freeze LH-COGNITIVE SHA → Windows cognitive preflight → ≥48h → audit.  
+3. **After M1.5 decision:** freeze H_TRUST + dual-mode metrics → Trust Kernel by failure mode → adversarial → external → interoperability.  
+4. **Separate ops:** `artifacts/ops/SEPARATE_BACKLOG.md`.  
+5. **Not now:** Y23; Continual SI; “GOS makes the model smarter” slogan.
 
 ## Документы
 

@@ -28,10 +28,10 @@ CURRENT
   Scorers Y20–Y22 FROZEN; no Y23 as IQ-rescue
         │
         ▼
-Gate A — M1.5 exam (operator Windows)   ← NOW
-  detached 5d15600 → smoke → preflight → literal wall_seconds≥172800
-  no mid-run code change; env-only retry OK; code defect ⇒ new freeze
-  freeze raw artifacts → independent audit → M1.5 decision (scope-limited)
+Claim fork B (locked) — durability vs cognitive
+  5d15600 smoke/preflight = DURABILITY_ENV only (sum harness ≠ real research 48h)
+  LH-COGNITIVE-v1 on main → NEW freeze → Windows cognitive preflight → ≥48h
+  do NOT wall_48h on 5d15600 for cognitive-real M1.5 claim
         │
         ▼
 Post-M1.5 — freeze H_TRUST + metrics FIRST

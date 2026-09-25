@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.83 — 2026-09-25
+
+### M1.5 claim fork B + LH-COGNITIVE-v1 harness
+
+- Honesty: `5d15600` embedded workload is durability/sum harness, not R2/R3-class research
+- Decision B: real external object (Jain & Wallace) → new freeze before cognitive 48h
+- Implemented `cognitive_probes` + `cognitive_research_program` + tests
+- Operator: finish durability preflight as ENV only; STOP before wall_48h on 5d15600
+
 ## 0.1.82 — 2026-09-25
 
 ### Gate A Step 1 PASS (operator Windows)
