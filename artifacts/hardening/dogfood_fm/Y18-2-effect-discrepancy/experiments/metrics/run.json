@@ -1,0 +1,12 @@
+{
+  "failure_mode": "effect_discrepancy_idempotency",
+  "tool_claimed_success": true,
+  "discrepancy": "expected=invoice_paid got=invoice_still_unpaid",
+  "reconciliation_status": "DISCREPANCY",
+  "handler_calls": 1,
+  "same_receipt": true,
+  "receipt_ids": [
+    "er_6ecfa72ea0504844",
+    "er_6ecfa72ea0504844"
+  ]
+}

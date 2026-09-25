@@ -1,0 +1,7 @@
+{
+  "steps": [
+    "seed chain",
+    "invalidate evidence",
+    "assert statuses"
+  ]
+}

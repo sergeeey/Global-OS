@@ -1,0 +1,18 @@
+{
+  "deterministic_status": "PASS",
+  "deterministic_checks": [
+    "outage=True",
+    "nulls=1",
+    "iv=BLOCKED_ENVIRONMENT",
+    "det=True"
+  ],
+  "provider_status": "BLOCKED_ENVIRONMENT",
+  "provider_detail": "no OPENROUTER/GROQ/GEMINI keys — deterministic verification only",
+  "live_keys": {
+    "openai": false,
+    "anthropic": false,
+    "openrouter": false,
+    "groq": false,
+    "gemini": false
+  }
+}

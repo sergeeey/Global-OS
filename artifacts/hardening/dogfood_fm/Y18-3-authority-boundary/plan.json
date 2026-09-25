@@ -1,0 +1,8 @@
+{
+  "steps": [
+    "grant parent",
+    "child subset",
+    "deny expand",
+    "decide"
+  ]
+}

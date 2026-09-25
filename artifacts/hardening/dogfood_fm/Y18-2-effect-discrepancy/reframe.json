@@ -1,0 +1,6 @@
+{
+  "discovered_prior_id": "GOS-I13",
+  "original_intent": "Payment automation",
+  "reframed_intent": "Dogfood effect receipt discrepancy",
+  "rationale": "Failure-mode diversity for freeze candidate"
+}

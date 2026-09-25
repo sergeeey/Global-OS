@@ -1,0 +1,7 @@
+{
+  "mission_id": "Y18-2",
+  "failure_mode_class": "external_effect_recovery",
+  "primary_criterion": "discrepancy surfaced + idempotent no double effect",
+  "hypothesis": "False tool success yields discrepancy; duplicate idempotency key does not re-invoke material handler.",
+  "kill_criterion": "REJECTED if handler_calls!=1 or discrepancy missing"
+}

@@ -1,0 +1,7 @@
+{
+  "goal_id": "goal_f0631aeeba3a4f5c",
+  "hypothesis_id": "hyp_3a1d9e364a13410e",
+  "statement": "Invalidating accepted evidence marks claim STALE and propagates to model/forecast/decision (NEEDS_REVIEW).",
+  "decision": "SUPPORTED",
+  "scientific_claim_accepted": false
+}

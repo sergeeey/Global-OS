@@ -19,13 +19,17 @@
 - [x] LH-v2 acceptance harness: T+48 barrier + duration hard gate + criteria tighten
 - [x] LH-v2.1 real OS process kill + disk cold resume (`os_process_kill`)
 - [x] Phase lock: LH validation deferred; return to real-world hardening
+- [x] Y18 failure-mode dogfood (4 classes) + freeze diversity gate
 
-## Active — Real-world hardening (LH deferred)
+## Active — Freeze candidate (after Y18)
 
+- [x] Y18-1 evidence invalidation dogfood (SUPPORTED)
+- [x] Y18-2 effect discrepancy / recovery dogfood (SUPPORTED)
+- [x] Y18-3 authority boundary dogfood (SUPPORTED)
+- [x] Y18-4 provider/tool degradation dogfood (SUPPORTED; IV ENVIRONMENT_GAP honest)
+- [x] Failure-mode diversity gate for freeze (4 classes)
+- [ ] Pin freeze candidate SHA
 - [ ] Optional Windows `os_process_kill` smoke (seconds only)
-- [ ] 2–4 new real dogfood missions (distinct classes; evidence chain / invalidation / IV / recovery)
-- [ ] Failure cases → minimal fix → regression
-- [ ] Freeze candidate SHA when no open critical defects
 
 ## Deferred — True 48h / M1.5 (after freeze)
 

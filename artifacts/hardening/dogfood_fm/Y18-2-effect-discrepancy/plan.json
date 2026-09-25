@@ -1,0 +1,7 @@
+{
+  "steps": [
+    "lying tool",
+    "observe unpaid",
+    "retry same idempotency"
+  ]
+}

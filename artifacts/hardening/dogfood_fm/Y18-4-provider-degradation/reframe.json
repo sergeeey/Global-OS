@@ -1,0 +1,6 @@
+{
+  "discovered_prior_id": "Y17-FC-001",
+  "original_intent": "Live multi-provider research",
+  "reframed_intent": "Dogfood degradation without fabricated IV",
+  "rationale": "Failure-mode diversity for freeze candidate"
+}

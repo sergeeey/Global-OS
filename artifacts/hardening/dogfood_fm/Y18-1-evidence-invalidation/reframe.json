@@ -1,0 +1,6 @@
+{
+  "discovered_prior_id": "GOS-I12",
+  "original_intent": "Scientific claim about lead times",
+  "reframed_intent": "Dogfood Global OS invalidation invariant",
+  "rationale": "Failure-mode diversity for freeze candidate"
+}

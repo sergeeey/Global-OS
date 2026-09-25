@@ -1,0 +1,11 @@
+{
+  "real_evidence_found": true,
+  "sources_invented": false,
+  "null_results_preserved": true,
+  "provider_iv": "NOT_REQUESTED",
+  "reframe_applied": true,
+  "decision": "SUPPORTED",
+  "deterministic_verification": "PASS",
+  "contradictory_evidence_recorded": false,
+  "recorded_at": "2026-09-25T05:32:09.544490+00:00"
+}

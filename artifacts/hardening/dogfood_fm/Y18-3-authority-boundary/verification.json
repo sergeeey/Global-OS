@@ -1,0 +1,17 @@
+{
+  "deterministic_status": "PASS",
+  "deterministic_checks": [
+    "deny=DENY",
+    "allow=ALLOW",
+    "expand_denied=True"
+  ],
+  "provider_status": "NOT_REQUESTED",
+  "provider_detail": "",
+  "live_keys": {
+    "openai": false,
+    "anthropic": false,
+    "openrouter": false,
+    "groq": false,
+    "gemini": false
+  }
+}

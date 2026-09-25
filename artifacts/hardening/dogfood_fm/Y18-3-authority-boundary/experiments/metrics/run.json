@@ -1,0 +1,9 @@
+{
+  "failure_mode": "authority_boundary",
+  "child_subset_ok": true,
+  "child_expand_denied": true,
+  "ungranted_decision": "DENY",
+  "granted_decision": "ALLOW",
+  "ungranted_has_token": false,
+  "granted_has_token": true
+}

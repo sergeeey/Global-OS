@@ -1,0 +1,8 @@
+{
+  "steps": [
+    "outage probe",
+    "null record",
+    "IV status",
+    "deterministic fallback"
+  ]
+}

@@ -1,19 +1,32 @@
 {
   "sprint": "REAL_WORLD_HARDENING_LH_VALIDATION_DEFERRED",
-  "updated_at": "2026-09-25T05:25:00Z",
-  "current_goal": "REAL_DOGFOOD_MISSIONS_UNTIL_STABLE_FREEZE_CANDIDATE",
-  "phase_statement": "Long-Horizon protocol repaired (LH-v2.1); validation deferred while real-world hardening continues. Do not start Windows 90m preflight or literal 48h until freeze candidate SHA.",
+  "updated_at": "2026-09-25T05:35:00Z",
+  "current_goal": "PIN_FREEZE_CANDIDATE_THEN_WINDOWS_PREFLIGHT",
+  "phase_statement": "Y18 failure-mode dogfood complete (4 classes SUPPORTED). No open critical defects in state/recovery/authority/eval from Y18. Freeze candidate next — do not start 90m/48h until SHA pinned.",
   "completed": [
     "EMPIRICAL_HARDENING_COMPLETE",
     "LH_V1_WALL_42H_SCHEDULED_HARNESS_PASS",
     "LH_V1_PROTOCOL_AUDIT",
     "LH_V2_HARNESS_FIX",
     "LH_V2_1_OS_KILL",
-    "LH_V2_1_COMPRESSED_PREFLIGHT_PASS"
+    "LH_V2_1_COMPRESSED_PREFLIGHT_PASS",
+    "Y18_FAILURE_MODE_DOGFOOD_4_CLASSES"
   ],
   "running": null,
-  "stage": "Real-world hardening — LH validation deferred",
+  "stage": "Freeze candidate pin after Y18 — LH validation still deferred",
   "continual_improvement": "NOT_MEASURED",
+  "y18": {
+    "suite": "artifacts/hardening/dogfood_fm/",
+    "all_supported": true,
+    "failure_mode_classes": [
+      "evidence_change_invalidation",
+      "external_effect_recovery",
+      "authority_boundary",
+      "provider_tool_degradation"
+    ],
+    "critical_open": [],
+    "non_critical": ["Y18-4-FC-IV ENVIRONMENT_GAP"]
+  },
   "long_horizon": {
     "lh_v1": {
       "audited_classification": "WALL_CLOCK_42H_SCHEDULED_HARNESS_VERIFIED",
@@ -30,25 +43,23 @@
   },
   "plan": {
     "now": [
-      "optional_windows_os_kill_smoke_only_seconds",
-      "real_dogfood_2_to_4_distinct_missions",
-      "failure_cases_minimal_fixes_regression",
-      "prefer_evidence_chain_invalidation_IV_recovery_classes"
+      "pin_freeze_candidate_SHA",
+      "optional_windows_os_kill_smoke_only_seconds"
     ],
     "freeze_when": "no open critical defects in state/recovery/authority/eval protocol on candidate SHA",
+    "freeze_readiness": "Y18 diversity MET; critical_open empty for freeze scope",
     "then": [
-      "freeze_candidate_SHA",
       "Windows_wall_preflight_60_120min",
       "literal_48h_on_real_persistent_workload",
       "audit_then_M15_candidate"
     ],
     "do_not_now": [
       "start_literal_48h",
-      "start_90min_preflight_if_code_still_changing",
+      "start_90min_preflight_before_freeze_pin",
       "claim_M1.5"
     ]
   },
-  "next_exact_action": "Resume real dogfood (new distinct mission classes). Optional: seconds-long Windows os_process_kill smoke. Defer 90m preflight and 48h until freeze.",
+  "next_exact_action": "Pin freeze candidate SHA for this Y18-complete tree. Optional: seconds-long Windows os_process_kill smoke. Then Windows 60–120m preflight on frozen SHA — not before.",
   "forbidden_now": [
     "claim_M1.5",
     "literal_48h_now",

@@ -1,0 +1,7 @@
+{
+  "goal_id": "goal_b2b77082039f4afb",
+  "hypothesis_id": "hyp_e344785f44704586",
+  "statement": "False tool success yields discrepancy; duplicate idempotency key does not re-invoke material handler.",
+  "decision": "SUPPORTED",
+  "scientific_claim_accepted": false
+}

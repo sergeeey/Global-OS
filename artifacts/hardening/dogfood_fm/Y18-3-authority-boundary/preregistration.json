@@ -1,0 +1,7 @@
+{
+  "mission_id": "Y18-3",
+  "failure_mode_class": "authority_boundary",
+  "primary_criterion": "default-deny + child ⊆ parent",
+  "hypothesis": "AuthorityKernel denies ungranted capabilities, refuses child expansion beyond parent, and mints tokens only on ALLOW.",
+  "kill_criterion": "REJECTED if DENY missing or child expansion allowed"
+}

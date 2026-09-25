@@ -1,0 +1,7 @@
+{
+  "goal_id": "goal_732eafb55be443f3",
+  "hypothesis_id": "hyp_a34b807ec247421a",
+  "statement": "Provider outage is recorded as null; provider IV does not fabricate LIVE; deterministic work continues.",
+  "decision": "SUPPORTED",
+  "scientific_claim_accepted": false
+}

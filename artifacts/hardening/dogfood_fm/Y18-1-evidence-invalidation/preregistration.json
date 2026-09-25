@@ -1,0 +1,7 @@
+{
+  "mission_id": "Y18-1",
+  "failure_mode_class": "evidence_change_invalidation",
+  "primary_criterion": "GOS-I12 full chain after invalidate_evidence",
+  "hypothesis": "Invalidating accepted evidence marks claim STALE and propagates to model/forecast/decision (NEEDS_REVIEW).",
+  "kill_criterion": "REJECTED if any downstream node stays ACTIVE after invalidation"
+}

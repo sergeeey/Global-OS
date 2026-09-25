@@ -1,0 +1,16 @@
+{
+  "failure_mode": "provider_tool_degradation",
+  "outage_raised": true,
+  "null_count": 1,
+  "deterministic_fallback_ok": true,
+  "provider_iv_status": "BLOCKED_ENVIRONMENT",
+  "provider_iv_detail": "no OPENROUTER/GROQ/GEMINI keys — deterministic verification only",
+  "keys_present": {
+    "openai": false,
+    "anthropic": false,
+    "openrouter": false,
+    "groq": false,
+    "gemini": false
+  },
+  "fabricated_live_iv": false
+}

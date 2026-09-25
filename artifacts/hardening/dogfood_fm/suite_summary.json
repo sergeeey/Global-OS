@@ -1,0 +1,42 @@
+{
+  "suite": "Y18_failure_mode_dogfood",
+  "n": 4,
+  "results": [
+    {
+      "mission": "Y18-1-evidence-invalidation",
+      "exit_code": 0,
+      "decision": "SUPPORTED",
+      "stdout": "SUPPORTED {'deterministic_status': 'PASS', 'deterministic_checks': ['evidence=INVALIDATED', 'claim=STALE', 'model=STALE', 'forecast=STALE', 'decision=NEEDS_REVIEW'], 'provider_status': 'NOT_REQUESTED', 'provider_detail': '', 'live_keys': {'openai': False, 'anthropic': False, 'openrouter': False, 'groq': False, 'gemini': False}}",
+      "stderr": ""
+    },
+    {
+      "mission": "Y18-2-effect-discrepancy",
+      "exit_code": 0,
+      "decision": "SUPPORTED",
+      "stdout": "SUPPORTED {'deterministic_status': 'PASS', 'deterministic_checks': ['calls=1', 'discrepancy=expected=invoice_paid got=invoice_still_unpaid', 'same_receipt=True'], 'provider_status': 'NOT_REQUESTED', 'provider_detail': '', 'live_keys': {'openai': False, 'anthropic': False, 'openrouter': False, 'groq': False, 'gemini': False}}",
+      "stderr": ""
+    },
+    {
+      "mission": "Y18-3-authority-boundary",
+      "exit_code": 0,
+      "decision": "SUPPORTED",
+      "stdout": "SUPPORTED",
+      "stderr": ""
+    },
+    {
+      "mission": "Y18-4-provider-degradation",
+      "exit_code": 0,
+      "decision": "SUPPORTED",
+      "stdout": "SUPPORTED BLOCKED_ENVIRONMENT",
+      "stderr": ""
+    }
+  ],
+  "all_supported": true,
+  "failure_mode_classes": [
+    "evidence_change_invalidation",
+    "external_effect_recovery",
+    "authority_boundary",
+    "provider_tool_degradation"
+  ],
+  "freeze_relevance": "Diversity of failure modes for freeze candidate \u2014 not M1.5 claim"
+}

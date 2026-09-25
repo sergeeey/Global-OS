@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.53 — 2026-09-25
+
+### Y18 failure-mode dogfood (freeze diversity gate)
+
+- Four missions, **distinct failure classes** (not just topic diversity):
+  - Y18-1 evidence invalidation (GOS-I12) → SUPPORTED
+  - Y18-2 effect discrepancy / idempotent recovery (GOS-I13/I22) → SUPPORTED
+  - Y18-3 authority boundary (GOS-I01/I03/I04) → SUPPORTED
+  - Y18-4 provider/tool degradation → SUPPORTED (IV = honest `BLOCKED_ENVIRONMENT`)
+- Artifacts: `artifacts/hardening/dogfood_fm/`; regression `tests/test_y18_failure_mode_dogfood.py`
+- No new critical defects in state / recovery / authority / eval; only non-critical `Y18-4-FC-IV`
+- Freeze readiness: diversity MET → next pin freeze candidate SHA (not M1.5; no 48h yet)
+
 ## 0.1.52 — 2026-09-25
 
 ### Phase lock — LH validation deferred

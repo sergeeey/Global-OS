@@ -1,0 +1,7 @@
+{
+  "mission_id": "Y18-4",
+  "failure_mode_class": "provider_tool_degradation",
+  "primary_criterion": "outage→null + honest IV status + deterministic continue",
+  "hypothesis": "Provider outage is recorded as null; provider IV does not fabricate LIVE; deterministic work continues.",
+  "kill_criterion": "REJECTED if outage swallowed or LIVE_PROVIDER_IV fabricated"
+}

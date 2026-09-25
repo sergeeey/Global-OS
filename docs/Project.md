@@ -14,24 +14,24 @@
 
 ## Текущий baseline
 
-**Long-Horizon protocol repaired; validation deferred while real-world hardening continues.**
+**Y18 failure-mode dogfood complete; pin freeze candidate next. LH validation still deferred.**
 
 ```text
 LH-v1 42h scheduled survival     ✅ PASS (immutable; not literal 48h)
 LH-v2.1 protocol (T+48, gate,
   OS kill, shared-state)         ✅ ready (compressed preflight PASS)
-Windows 90m preflight            ⏸ deferred until freeze
+Y18 failure-mode dogfood (4)     ✅ all SUPPORTED; diversity MET
+Windows 90m preflight            ⏸ deferred until freeze SHA pinned
 Literal 48h / M1.5               ❌ not now
-Active work                      → real dogfood missions + fixes
+Active work                      → pin freeze candidate SHA
 ```
 
 ### Plan
 
-1. **Now:** real dogfood (2–4 distinct mission classes) → failure cases → minimal fix → regression.  
-   Optional seconds-long Windows `os_process_kill` smoke only.  
-   No 90m preflight / no 48h while code is still moving.
-2. **Freeze when:** no open critical defects in state / recovery / authority / eval protocol.
-3. **Then:** freeze SHA → Windows wall preflight → literal 48h on a **real persistent research workload** (not synthetic-only) → audit → M1.5 candidate.
+1. **Done:** Y18 dogfood across four failure classes (evidence / effect-recovery / authority / provider degradation).  
+   No open critical defects in state / recovery / authority / eval from that suite.
+2. **Now:** pin freeze candidate SHA. Optional seconds-long Windows `os_process_kill` smoke only.
+3. **Then:** Windows wall preflight on frozen SHA → literal 48h on a **real persistent research workload** → audit → M1.5 candidate.
 
 Claim strength must not exceed evidence strength.
 

@@ -1,0 +1,6 @@
+{
+  "discovered_prior_id": "GOS-I01/I04",
+  "original_intent": "Delegate email to worker",
+  "reframed_intent": "Dogfood authority boundary invariants",
+  "rationale": "Failure-mode diversity for freeze candidate"
+}

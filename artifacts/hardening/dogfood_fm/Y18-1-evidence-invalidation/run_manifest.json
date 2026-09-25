@@ -1,0 +1,21 @@
+{
+  "mission_id": "Y18-1",
+  "decision": "SUPPORTED",
+  "files": [
+    "claims.json",
+    "decision.md",
+    "execute_mission.py",
+    "experiments/metrics/run.json",
+    "failure_cases.json",
+    "mission.json",
+    "null_results.json",
+    "plan.json",
+    "postmortem.json",
+    "preregistration.json",
+    "reframe.json",
+    "run_manifest.json",
+    "verification.json"
+  ],
+  "recorded_at": "2026-09-25T05:32:09.545209+00:00",
+  "report_id": "rmr_768612595e664b5d"
+}

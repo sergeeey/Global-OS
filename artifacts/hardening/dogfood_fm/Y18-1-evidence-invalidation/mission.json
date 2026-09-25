@@ -1,0 +1,15 @@
+{
+  "mission_id": "Y18-1",
+  "goal_id": "goal_f0631aeeba3a4f5c",
+  "hypothesis_id": "hyp_3a1d9e364a13410e",
+  "status": "COMPLETED",
+  "reframe": {
+    "discovered_prior_id": "GOS-I12",
+    "original_intent": "Scientific claim about lead times",
+    "reframed_intent": "Dogfood Global OS invalidation invariant",
+    "rationale": "Failure-mode diversity for freeze candidate"
+  },
+  "created_at": "2026-09-25T05:32:09.541628+00:00",
+  "decision": "SUPPORTED",
+  "completed_at": "2026-09-25T05:32:09.544610+00:00"
+}

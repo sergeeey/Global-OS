@@ -1,0 +1,15 @@
+{
+  "mission_id": "Y18-2",
+  "goal_id": "goal_b2b77082039f4afb",
+  "hypothesis_id": "hyp_e344785f44704586",
+  "status": "COMPLETED",
+  "reframe": {
+    "discovered_prior_id": "GOS-I13",
+    "original_intent": "Payment automation",
+    "reframed_intent": "Dogfood effect receipt discrepancy",
+    "rationale": "Failure-mode diversity for freeze candidate"
+  },
+  "created_at": "2026-09-25T05:32:09.670677+00:00",
+  "decision": "SUPPORTED",
+  "completed_at": "2026-09-25T05:32:09.672852+00:00"
+}

@@ -1,0 +1,9 @@
+{
+  "preserved_nulls": [
+    {
+      "id": "provider_outage_null",
+      "why": "ModelProviderError"
+    }
+  ],
+  "rule": "GOS-I11"
+}

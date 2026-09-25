@@ -1,0 +1,19 @@
+{
+  "deterministic_status": "PASS",
+  "deterministic_checks": [
+    "evidence=INVALIDATED",
+    "claim=STALE",
+    "model=STALE",
+    "forecast=STALE",
+    "decision=NEEDS_REVIEW"
+  ],
+  "provider_status": "NOT_REQUESTED",
+  "provider_detail": "",
+  "live_keys": {
+    "openai": false,
+    "anthropic": false,
+    "openrouter": false,
+    "groq": false,
+    "gemini": false
+  }
+}

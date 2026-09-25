@@ -1,0 +1,36 @@
+{
+  "failure_mode": "evidence_invalidation",
+  "invalidation": {
+    "claims": [
+      "cl_4dd49de1c6024bee"
+    ],
+    "models": [
+      "mdl_fa183930c7fe474a"
+    ],
+    "forecasts": [
+      "fc_fa323f01099348f2"
+    ],
+    "decisions": [
+      "edn_707788c83ce74965"
+    ],
+    "commitments": [],
+    "assumptions": []
+  },
+  "claim_status": "STALE",
+  "model_status": "STALE",
+  "forecast_status": "STALE",
+  "decision_status": "NEEDS_REVIEW",
+  "evidence_status": "INVALIDATED",
+  "event_types": [
+    "claim.staled",
+    "decision.needs_review",
+    "epistemic.claim.put",
+    "epistemic.decision.put",
+    "epistemic.evidence.put",
+    "epistemic.forecast.put",
+    "epistemic.model.put",
+    "evidence.invalidated",
+    "forecast.staled",
+    "model.staled"
+  ]
+}

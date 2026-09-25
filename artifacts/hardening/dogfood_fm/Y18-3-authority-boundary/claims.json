@@ -1,0 +1,7 @@
+{
+  "goal_id": "goal_5c698202db3341cc",
+  "hypothesis_id": "hyp_9607ea58ddc94fa3",
+  "statement": "AuthorityKernel denies ungranted capabilities, refuses child expansion beyond parent, and mints tokens only on ALLOW.",
+  "decision": "SUPPORTED",
+  "scientific_claim_accepted": false
+}
