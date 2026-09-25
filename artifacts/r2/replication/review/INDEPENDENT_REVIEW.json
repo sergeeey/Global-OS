@@ -1,0 +1,30 @@
+{
+  "reviewer_contour": "independent_r2_reviewer_v1",
+  "read": [
+    "R2-GOAL-CONTRACT.md",
+    "R2-REVIEW-RUBRIC.md",
+    "TARGET.md",
+    "SUBMISSION.json",
+    "REPORT.md",
+    "work/corrstats_summary.csv",
+    "work/extension_probe.json"
+  ],
+  "did_not_read": [
+    "OPEN_HYPOTHESES.md"
+  ],
+  "scores": {
+    "primary_scientific": 1,
+    "external_object_integrity": 2,
+    "reproducibility_of_audit": 2,
+    "honesty_about_blocks": 2,
+    "extension_substance": 2,
+    "decision_calibration": 2,
+    "trail_quality": 2
+  },
+  "gates": {
+    "scientifically_useful": true,
+    "gos_advantage_claimed": false,
+    "gos_advantage_allowed_by_rubric": false
+  },
+  "verdict": "PARTIAL replication/audit is appropriately calibrated. Released CorrStats support weak attention\u2013gradient alignment; official retrain blocked and disclosed; extension probe is mechanism-relevant but not a full dataset replication. Mission is scientifically useful under locked gates. No GOS comparative advantage may be claimed."
+}

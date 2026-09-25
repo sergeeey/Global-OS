@@ -67,10 +67,18 @@
 - [x] REPORT + GRAPH + SEARCH_LOG under `artifacts/r2/hde/`
 - [x] Y23 not recommended; discriminating test specified
 
-## Next — R2 discriminating experiment
+## Done — R2 scientific replication (`R2-ATTN-EXPLAIN-REPLICATION-v1`)
 
-- [ ] Paired real-mission A/B; primary=`keep/(1+interventions)`
-- [ ] Optional Halt2 fixed-pipeline arm
+- [x] External paper+code (Jain & Wallace 2019); contract+independent rubric locked first
+- [x] CorrStats audit + extension probe; official retrain BLOCKED disclosed
+- [x] Independent review scientifically_useful; decision PARTIAL; interventions=0
+- [x] Ops/Docker/CRM quarantined (`artifacts/ops/SEPARATE_BACKLOG.md`)
+
+## Next — R3 / path to M1.5
+
+- [ ] R3 different real-use class
+- [ ] Collect recurring failure classes → minimal hardening
+- [ ] Stable SHA → freeze → Windows preflight → ≥48h on real workload → audit → M1.5 candidate
 
 ## Later — after several real missions
 

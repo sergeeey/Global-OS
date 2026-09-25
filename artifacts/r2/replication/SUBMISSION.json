@@ -1,0 +1,51 @@
+{
+  "mission_id": "R2-ATTN-EXPLAIN-REPLICATION-v1",
+  "target": "arXiv:1902.10186",
+  "decision": "PARTIAL",
+  "rationale": "Released CorrStats support weak attn\u2013gradient alignment across many configs; trained tiny-model probe shows non-trivial prediction-preserving attention changes. Full official retrain blocked.",
+  "claims_tested": [
+    "C1_attention_not_explanation",
+    "C2_cross_config_pattern"
+  ],
+  "audit_corrstats": {
+    "status": "OK",
+    "n_configs": 88,
+    "ag_median": 0.3140004837394424,
+    "ag_mean": 0.3447440057275548,
+    "gl_median": 0.4987949153308441,
+    "frac_ag_lt_0_5": 0.735632183908046,
+    "frac_ag_lt_gl": 0.6666666666666666,
+    "interpretation": "Released CorrStats show median attention\u2013gradient Kendall \u03c4 (ag) well below strong correlation; often below gradient self-consistency (gl)."
+  },
+  "extension_counterfactual_probe": {
+    "status": "OK",
+    "n": 64,
+    "seq_len": 20,
+    "train_steps": 200,
+    "train_acc_last": 1.0,
+    "eval_acc": 1.0,
+    "pred_hist": [
+      37,
+      27
+    ],
+    "frac_pred_same_under_permuted_attn": 0.625,
+    "frac_pred_same_under_random_attn": 0.578125,
+    "mean_tv_attn_vs_permuted": 0.6950022578239441,
+    "mean_logit_l2_under_perm": 7.525895595550537,
+    "degenerate_pred_collapse": false,
+    "note": "Trained tiny BiGRU+attention on synthetic token-presence task; tests whether alternate attention can preserve argmax. NOT a full SST/IMDB replication of Jain & Wallace."
+  },
+  "blocks": {
+    "official_full_retrain": {
+      "status": "BLOCKED_ENVIRONMENT",
+      "reason": "Upstream requires pytorch-nightly/source + torchtext 0.4 from source + dataset preprocess; not executed end-to-end in this environment."
+    }
+  },
+  "artifacts": [
+    "artifacts/r2/replication/work/corrstats_summary.csv",
+    "artifacts/r2/replication/work/extension_probe.json",
+    "artifacts/r2/replication/REPORT.md"
+  ],
+  "gos_advantage_claimed": false,
+  "executor_note": "Scores for usefulness are for independent reviewer only."
+}

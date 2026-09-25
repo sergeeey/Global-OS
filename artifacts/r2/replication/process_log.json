@@ -1,0 +1,13 @@
+{
+  "mission_id": "R2-ATTN-EXPLAIN-REPLICATION-v1",
+  "started_at": "2026-09-25T17:05:00Z",
+  "ended_at": "2026-09-25T17:20:00Z",
+  "human_interventions": 0,
+  "dispatcher_asks": 0,
+  "hypotheses_tried": 5,
+  "failed_experiments": 1,
+  "failure_fix": "untrained_probe_degeneracy\u2192trained_probe",
+  "decision": "PARTIAL",
+  "independent_review": "artifacts/r2/replication/review/INDEPENDENT_REVIEW.md",
+  "gos_advantage_claimed": false
+}

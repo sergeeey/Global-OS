@@ -1,8 +1,8 @@
 {
-  "sprint": "R2_HDE_COMPLETE",
-  "updated_at": "2026-09-25T16:45:00Z",
-  "current_goal": "H_R2_DISCRIMINATING_TEST",
-  "phase_statement": "R2-HDE complete on H_R2 (usefulness under null science). Confidence 0.38. Y23 not recommended. Next: paired real-mission A/B primary=keep/(1+interventions).",
+  "sprint": "R2_REPLICATION_COMPLETE",
+  "updated_at": "2026-09-25T17:20:00Z",
+  "current_goal": "POST_R2_MAP",
+  "phase_statement": "R2 external scientific replication/audit PARTIAL (Attention is not Explanation). Independent review scientifically_useful=true. Thesis: GOS as OS for checkable long work, not raw IQ amp. Next R3 other class. Ops/Docker separate. No Y23/M1.5.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y20": {
@@ -34,7 +34,7 @@
     "literal_48h": "DEFERRED",
     "m15_claimed": false
   },
-  "next_exact_action": "Design/run R2 paired real-mission discriminating test; do not start Y23; scorers remain frozen.",
+  "next_exact_action": "Choose R3 different real-use class OR pause. Do not mix CRM/Docker. Do not start Y23.",
   "forbidden_now": [
     "y23_synthetic_ab",
     "retune_y20_y21_y22_scorers_post_hoc",
@@ -57,5 +57,13 @@
     "report": "artifacts/r2/hde/REPORT.md",
     "confidence": 0.38,
     "recommend_y23": false
-  }
+  },
+  "r2_replication": {
+    "mission": "R2-ATTN-EXPLAIN-REPLICATION-v1",
+    "decision": "PARTIAL",
+    "independent_review": "artifacts/r2/replication/review/INDEPENDENT_REVIEW.json",
+    "interventions": 0
+  },
+  "thesis": "gos_as_os_for_checkable_long_work_not_raw_iq_amplifier",
+  "ops_backlog_separate": "artifacts/ops/SEPARATE_BACKLOG.md"
 }

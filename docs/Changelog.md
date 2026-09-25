@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.74 — 2026-09-25
+
+### R2 real scientific replication/audit — PARTIAL + independent review
+
+- Target: Jain & Wallace 2019 *Attention is not Explanation* (arXiv:1902.10186) — external
+- Contract+rubric locked @ `9bd0df5` before terminal; independent reviewer did not read OPEN_HYPOTHESES
+- Audit of released CorrStats (median attn–grad Kendall τ ≈ 0.31); official retrain BLOCKED_ENVIRONMENT
+- Extension: trained tiny attention counterfactual probe; failure→fix on degenerate untrained probe
+- Executor decision PARTIAL; independent review scientifically_useful=true; **no GOS advantage claim**
+- Thesis locked: GOS as OS for checkable long work, not raw IQ amp; ops/Docker backlog separated
+
 ## 0.1.73 — 2026-09-25
 
 ### R2-HDE — hypothesis discovery on usefulness-under-null-science

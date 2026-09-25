@@ -1,0 +1,18 @@
+{
+  "status": "OK",
+  "n": 64,
+  "seq_len": 20,
+  "train_steps": 200,
+  "train_acc_last": 1.0,
+  "eval_acc": 1.0,
+  "pred_hist": [
+    37,
+    27
+  ],
+  "frac_pred_same_under_permuted_attn": 0.625,
+  "frac_pred_same_under_random_attn": 0.578125,
+  "mean_tv_attn_vs_permuted": 0.6950022578239441,
+  "mean_logit_l2_under_perm": 7.525895595550537,
+  "degenerate_pred_collapse": false,
+  "note": "Trained tiny BiGRU+attention on synthetic token-presence task; tests whether alternate attention can preserve argmax. NOT a full SST/IMDB replication of Jain & Wallace."
+}
