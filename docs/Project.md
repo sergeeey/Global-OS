@@ -28,6 +28,7 @@ Y21  → sealed cross-domain advantage = NULL
 Y22  → reliability multiplier = NOT CONFIRMED
 R1   → real mission done; useful fix; interventions=0; no comparative arm
 R2   → external scientific replication/audit PARTIAL (independent review)
+R3   → data-forensics / anomaly investigation, independent review
 Process discipline / trail: YES
 Raw IQ amplification: NOT SHOWN
 Comparative GOS advantage: NOT MEASURED (R1/R2)
@@ -39,8 +40,8 @@ Y23: NOT NOW
 ### Plan
 
 1. **Frozen:** Y20–Y22; no Y23; scorers frozen.  
-2. **Done:** R1 honesty mission; R2-HDE; R2 Attention-is-not-Explanation replication/audit.  
-3. **Next:** R3 different real-use class → recurring failure classes → minimal hardening →
+2. **Done:** R1; R2-HDE; R2 paper audit; **R3 data-forensics** (`artifacts/r3/`).  
+3. **Next:** recurring failure-class summary (R1–R3) → minimal hardening →
    stable SHA → freeze → Windows preflight → ≥48h on **real** workload → audit → M1.5 candidate.  
 4. **Separate:** CRM/Docker/Reflexio/GeoScan → `artifacts/ops/SEPARATE_BACKLOG.md` (fresh observe first).  
 5. **Not now:** Continual SI / universal advantage claims.

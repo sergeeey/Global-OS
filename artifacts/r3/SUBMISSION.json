@@ -1,0 +1,25 @@
+{
+  "mission_id": "R3-DATA-FORENSICS-v1",
+  "decision": "FINDINGS_DELIVERED",
+  "track_a_status": "COMPLETE",
+  "track_b_status": "COMPLETE",
+  "n_findings_a": 5,
+  "n_findings_b": 6,
+  "high_severity": [
+    "A-F5"
+  ],
+  "remediation": {
+    "applied": true,
+    "path": "artifacts/r3/work/SHA_BINDING_NOTE.md",
+    "touches_t0_t1": false
+  },
+  "data_pin_sha256": "4c6912dca4a3ca5b4d42fba8b6fb594112388fd28b12db58d03ddc0d3583af7e",
+  "gos_advantage_claimed": false,
+  "artifacts": [
+    "artifacts/r3/FORENSIC_REPORT.md",
+    "artifacts/r3/findings/track_a.json",
+    "artifacts/r3/findings/track_b.json",
+    "artifacts/r3/work/SHA_BINDING_NOTE.md"
+  ],
+  "executor_note": "Usefulness scored only by independent reviewer."
+}

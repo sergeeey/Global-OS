@@ -1,0 +1,101 @@
+[
+  {
+    "id": "A-F1",
+    "severity": "MEDIUM",
+    "title": "public_pack_sha256 is directory merkle, not file hash",
+    "status": "CONFIRMED",
+    "evidence": [
+      {
+        "process_log": "artifacts/y20/arms/B/process_log.json",
+        "recorded": "1a2344f9d1375f05abdffcc744b7995d7a8ac54ae0f676ab7313121cc4d6a6d8",
+        "dir_match": true,
+        "file_match": false
+      },
+      {
+        "process_log": "artifacts/y20/arms/A/process_log.json",
+        "recorded": "1a2344f9d1375f05abdffcc744b7995d7a8ac54ae0f676ab7313121cc4d6a6d8",
+        "dir_match": true,
+        "file_match": false
+      },
+      {
+        "process_log": "artifacts/y21/arms/B/process_log.json",
+        "recorded": "967b8ccfd3c3088fbeb05d4bc23cfa7621ee1725f20fc9563289b8b687e8e933",
+        "dir_match": true,
+        "file_match": false
+      },
+      {
+        "process_log": "artifacts/y21/arms/A/process_log.json",
+        "recorded": "967b8ccfd3c3088fbeb05d4bc23cfa7621ee1725f20fc9563289b8b687e8e933",
+        "dir_match": true,
+        "file_match": false
+      },
+      {
+        "process_log": "artifacts/y22/arms/B/process_log.json",
+        "recorded": "6cf5ed7880cadfe39fc07e3603473c71dca0fadef0e7061689cc17c1787db6bb",
+        "dir_match": true,
+        "file_match": false
+      },
+      {
+        "process_log": "artifacts/y22/arms/A/process_log.json",
+        "recorded": "6cf5ed7880cadfe39fc07e3603473c71dca0fadef0e7061689cc17c1787db6bb",
+        "dir_match": true,
+        "file_match": false
+      }
+    ],
+    "impact": "Operators comparing file SHA to process_log will false-alarm integrity failure.",
+    "remediation": "Document binding; optional field rename public_dir_sha256 in future missions (no Y20-22 rewrite)."
+  },
+  {
+    "id": "A-F2",
+    "severity": "LOW",
+    "title": "Sealed packs exist on disk but are gitignored (scorer-local)",
+    "status": "CONFIRMED",
+    "evidence": [
+      {
+        "path": "artifacts/y21/sealed/sealed_pack.json",
+        "ignored": true,
+        "rule": ".gitignore:37:artifacts/y21/sealed/**\t/workspace/artifacts/y21/sealed/sealed_pack.json"
+      },
+      {
+        "path": "artifacts/y22/sealed/sealed_pack.json",
+        "ignored": true,
+        "rule": ".gitignore:41:artifacts/y22/sealed/**\t/workspace/artifacts/y22/sealed/sealed_pack.json"
+      }
+    ],
+    "impact": "Repro machines without local sealed cannot rescore; intentional for anti-leak, must be documented in ops.",
+    "remediation": "Keep gitignore; ensure README WARNING remains (already present)."
+  },
+  {
+    "id": "A-F3",
+    "severity": "MEDIUM",
+    "title": "R1 evaluation was executor-contour; R2 introduced independent review",
+    "status": "CONFIRMED",
+    "evidence": {
+      "r1_EVALUATION": true,
+      "r2_INDEPENDENT_REVIEW": true
+    },
+    "impact": "R1 usefulness is weaker external validity than R2.",
+    "remediation": "Require independent review for R3+ (this mission)."
+  },
+  {
+    "id": "A-F4",
+    "severity": "INFO",
+    "title": "Y22 freeze SHAs present in Tasktracker",
+    "status": "SUPPORTED",
+    "evidence": {
+      "has_e408a28": true,
+      "has_5f806d0": true
+    },
+    "impact": "None if supported; else doc drift.",
+    "remediation": "None if supported."
+  },
+  {
+    "id": "A-F5",
+    "severity": "HIGH",
+    "title": "Tests can regenerate historical mission artifacts (provenance noise)",
+    "status": "NOT_FOUND",
+    "evidence": [],
+    "impact": "git dirty / false history during make test; contaminates forensic timestamps.",
+    "remediation": "Prefer read-only assertions on frozen artifacts; regenerate only under explicit flag (deferred if invasive)."
+  }
+]

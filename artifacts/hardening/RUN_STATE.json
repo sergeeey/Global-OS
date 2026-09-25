@@ -1,8 +1,8 @@
 {
-  "sprint": "R3_FORENSICS_STARTED",
-  "updated_at": "2026-09-25T17:15:00Z",
-  "current_goal": "R3_DATA_FORENSICS",
-  "phase_statement": "Map locked post-R2. Thesis: GOS as OS for checkable long work. R3 data-forensics started (\u2260 paper replication). Independent rubric locked. Ops separate.",
+  "sprint": "R3_COMPLETE",
+  "updated_at": "2026-09-25T17:25:00Z",
+  "current_goal": "FAILURE_CLASS_SUMMARY",
+  "phase_statement": "R1\u2013R3 real-use complete. Long-form autonomous work increasingly supported; raw-IQ advantage NOT SHOWN. Next: recurring failure-class summary \u2192 minimal hardening \u2192 freeze \u2192 48h on real workload \u2192 M1.5 candidate. Ops separate.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y20": {
@@ -34,7 +34,7 @@
     "literal_48h": "DEFERRED",
     "m15_claimed": false
   },
-  "next_exact_action": "Execute R3 Track A+B forensics \u2192 FORENSIC_REPORT \u2192 independent review. Then failure-class summary after R3.",
+  "next_exact_action": "Compile recurring failure classes from R1\u2013R3; harden only recurring. Not Y23.",
   "forbidden_now": [
     "y23_synthetic_ab",
     "retune_y20_y21_y22_scorers_post_hoc",
@@ -80,7 +80,9 @@
   },
   "r3": {
     "mission": "R3-DATA-FORENSICS-v1",
-    "status": "CONTRACT_LOCKED",
-    "rubric_locked_at": "2026-09-25T17:15:00Z"
+    "status": "TERMINAL_REVIEWED",
+    "decision": "FINDINGS_DELIVERED",
+    "independent_useful": true,
+    "lock_sha": "65c2fb2"
   }
 }

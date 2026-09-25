@@ -74,10 +74,15 @@
 - [x] Independent review scientifically_useful; decision PARTIAL; interventions=0
 - [x] Ops/Docker/CRM quarantined (`artifacts/ops/SEPARATE_BACKLOG.md`)
 
-## Next — R3 / path to M1.5
+## Done — R3 data-forensics (`R3-DATA-FORENSICS-v1`)
 
-- [ ] R3 different real-use class
-- [ ] Collect recurring failure classes → minimal hardening
+- [x] Dual track: campaign evidence forensics + NYC 311 sample anomalies
+- [x] Independent review; FINDINGS_DELIVERED; interventions=0
+
+## Next — failure classes → M1.5 path
+
+- [ ] Recurring failure-class summary across R1–R3
+- [ ] Minimal hardening for recurring defects only
 - [ ] Stable SHA → freeze → Windows preflight → ≥48h on real workload → audit → M1.5 candidate
 
 ## Later — after several real missions

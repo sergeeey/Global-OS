@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.75 — 2026-09-25
+
+### R3 data-forensics / anomaly investigation — FINDINGS_DELIVERED
+
+- Class ≠ paper replication: campaign evidence trail + pinned NYC 311 sample
+- Contract/rubric locked @ `65c2fb2`; independent review forensically_useful
+- HIGH: tests can regenerate historical mission artifacts; MEDIUM: SHA dir-merkle semantics
+- Minimal docs remediation `SHA_BINDING_NOTE.md`; interventions=0; no GOS advantage
+- Next: R1–R3 recurring failure-class summary → hardening (not Y23)
+
 ## 0.1.74 — 2026-09-25
 
 ### R2 real scientific replication/audit — PARTIAL + independent review

@@ -1,0 +1,11 @@
+{
+  "mission_id": "R3-DATA-FORENSICS-v1",
+  "contract_lock_sha": "65c2fb2",
+  "human_interventions": 0,
+  "dispatcher_asks": 0,
+  "hypotheses_tried": 8,
+  "failed_wrong_turns": 2,
+  "decision": "FINDINGS_DELIVERED",
+  "independent_review": "artifacts/r3/review/INDEPENDENT_REVIEW.md",
+  "gos_advantage_claimed": false
+}
