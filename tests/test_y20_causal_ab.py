@@ -22,14 +22,20 @@ def test_y20_program_and_prereg_locked():
     assert claims.is_file()
     assert evidence.is_file()
     payload = json.loads(state.read_text(encoding="utf-8"))
-    assert payload["phase"] == "PREREG_LOCKED"
-    assert payload["arms_started"] is False
+    assert payload["prereg_locked"] is True
     assert payload["gos_advantage_claimed"] is False
     assert payload.get("prereg_boundary_sha") == "278c10d"
-    assert payload.get("sealed_unseen") is True
-    assert payload.get("unseal_allowed") is False
-    assert payload["arms"]["A"]["status"] == "NOT_STARTED"
-    assert payload["arms"]["B"]["status"] == "NOT_STARTED"
+    assert payload["phase"] in {"PREREG_LOCKED", "SCORED_COMPARISON_COMPLETE"}
+    if payload["phase"] == "PREREG_LOCKED":
+        assert payload["arms_started"] is False
+        assert payload.get("sealed_unseen") is True
+        assert payload.get("unseal_allowed") is False
+        assert payload["arms"]["A"]["status"] == "NOT_STARTED"
+        assert payload["arms"]["B"]["status"] == "NOT_STARTED"
+    else:
+        assert payload["arms_started"] is True
+        assert payload["arms"]["A"]["status"] == "FROZEN_SCORED"
+        assert payload["arms"]["B"]["status"] == "FROZEN_SCORED"
     assert payload["arms"]["C"]["status"] == "DEFERRED"
     text = claims.read_text(encoding="utf-8")
     assert "NOT PROVEN" in text

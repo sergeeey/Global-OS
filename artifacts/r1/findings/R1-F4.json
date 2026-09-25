@@ -1,0 +1,140 @@
+{
+  "finding_id": "R1-F4",
+  "hypothesis": "H4",
+  "decision": "REJECTED",
+  "summary": "All unparseable-evidence capabilities have >=1 related automated test; downgrade not required.",
+  "rows": [
+    {
+      "id": "survival_process_kill",
+      "n_tests": 4,
+      "tests": [
+        "tests/test_long_horizon_program.py",
+        "tests/test_capability_matrix.py",
+        "tests/test_baseline_and_survival.py",
+        "tests/test_os_process_kill.py"
+      ]
+    },
+    {
+      "id": "goal_integrity_soak_48h",
+      "n_tests": 6,
+      "tests": [
+        "tests/test_long_horizon_program.py",
+        "tests/test_survival_scaffold.py",
+        "tests/test_survival_soak.py",
+        "tests/test_survival_multi.py",
+        "tests/test_empirical_science.py"
+      ]
+    },
+    {
+      "id": "event_replay_engine",
+      "n_tests": 2,
+      "tests": [
+        "tests/test_capability_matrix.py",
+        "tests/test_epistemic_graph_env_replay.py"
+      ]
+    },
+    {
+      "id": "clarification_assumption_recording",
+      "n_tests": 3,
+      "tests": [
+        "tests/test_environment_and_epistemic_contracts.py",
+        "tests/test_materiality_clarification_budget.py",
+        "tests/test_assumption_and_workflow_port.py"
+      ]
+    },
+    {
+      "id": "reasoning_budget_controller",
+      "n_tests": 6,
+      "tests": [
+        "tests/test_henv_hrsn_durable_port.py",
+        "tests/test_environment_compiler.py",
+        "tests/conftest.py",
+        "tests/test_epistemic_graph_env_replay.py",
+        "tests/test_materiality_clarification_budget.py"
+      ]
+    },
+    {
+      "id": "context_assembler",
+      "n_tests": 1,
+      "tests": [
+        "tests/test_env_extensions.py"
+      ]
+    },
+    {
+      "id": "retrieval_router",
+      "n_tests": 1,
+      "tests": [
+        "tests/test_env_extensions.py"
+      ]
+    },
+    {
+      "id": "evaluator_registry",
+      "n_tests": 1,
+      "tests": [
+        "tests/test_env_extensions.py"
+      ]
+    },
+    {
+      "id": "environment_lifecycle",
+      "n_tests": 2,
+      "tests": [
+        "tests/test_epistemic_graph_env_replay.py",
+        "tests/test_env_extensions.py"
+      ]
+    },
+    {
+      "id": "h_env_001_benchmark",
+      "n_tests": 2,
+      "tests": [
+        "tests/test_capability_matrix.py",
+        "tests/test_henv_hrsn_durable_port.py"
+      ]
+    },
+    {
+      "id": "workflow_runner_port",
+      "n_tests": 1,
+      "tests": [
+        "tests/test_assumption_and_workflow_port.py"
+      ]
+    },
+    {
+      "id": "h_rsn_001_benchmark",
+      "n_tests": 1,
+      "tests": [
+        "tests/test_henv_hrsn_durable_port.py"
+      ]
+    },
+    {
+      "id": "postgres_connection_port",
+      "n_tests": 2,
+      "tests": [
+        "tests/test_henv_hrsn_durable_port.py",
+        "tests/test_postgres_acceptance.py"
+      ]
+    },
+    {
+      "id": "temporal_fail_closed_probe",
+      "n_tests": 1,
+      "tests": [
+        "tests/test_assumption_and_workflow_port.py"
+      ]
+    },
+    {
+      "id": "postgres_fail_closed_connect",
+      "n_tests": 2,
+      "tests": [
+        "tests/test_henv_hrsn_durable_port.py",
+        "tests/test_postgres_acceptance.py"
+      ]
+    },
+    {
+      "id": "spec_addendum_v2",
+      "n_tests": 1,
+      "tests": [
+        "tests/test_organization.py"
+      ]
+    }
+  ],
+  "n_untreated": 0,
+  "recorded_at": "2026-09-25T16:18:25.988806+00:00"
+}

@@ -8,7 +8,7 @@
     "RUNTIME_VERIFIED_LOCAL",
     "PRODUCTION_PROVEN"
   ],
-  "rule": "implemented approximation \u2260 fulfilled contract",
+  "rule": "implemented approximation ≠ fulfilled contract",
   "capabilities": [
     {
       "id": "goal_contract_immutable",
@@ -48,7 +48,7 @@
     {
       "id": "temporal_durability",
       "state": "RUNTIME_VERIFIED_HARNESS",
-      "evidence": "TemporalBridge + time-skipping env; kill/retry without duplicate material effects; tests/test_temporal_bridge.py (\u2260 LocalDurable)"
+      "evidence": "TemporalBridge + time-skipping env; kill/retry without duplicate material effects; tests/test_temporal_bridge.py (≠ LocalDurable)"
     },
     {
       "id": "postgres_durable_state",
@@ -83,7 +83,7 @@
     {
       "id": "survival_process_kill",
       "state": "RUNTIME_VERIFIED_HARNESS",
-      "evidence": "Injection.PROCESS_KILL real abort/resume"
+      "evidence": "Injection.PROCESS_KILL real abort/resume; tests/test_os_process_kill.py; tests/test_baseline_and_survival.py"
     },
     {
       "id": "survival_other_injections",
@@ -98,17 +98,17 @@
     {
       "id": "multi_provider_verification",
       "state": "RUNTIME_VERIFIED_HARNESS",
-      "evidence": "multi_provider_verification_stack openai\u00d7anthropic distinct families (GOS-I10); wire HTTP judges + conflicted consensus; tests/test_multi_provider_verification.py"
+      "evidence": "multi_provider_verification_stack openai×anthropic distinct families (GOS-I10); wire HTTP judges + conflicted consensus; tests/test_multi_provider_verification.py"
     },
     {
       "id": "goal_integrity_soak_48h",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "LH-v1 operator Windows ~42h scheduled harness PASS (immutable wall_48h/); audited NOT literal 48h (LH-FC-EARLY-STOP-42H). LH-v2 adds T+48 barrier + wall_seconds>=172800 gate. M1.5 not claimed; \u2260 PRODUCTION_PROVEN"
+      "evidence": "LH-v1 operator Windows ~42h scheduled harness PASS (immutable artifacts/hardening/long_horizon_48h/wall_48h/); audited NOT literal 48h (LH-FC-EARLY-STOP-42H). LH-v2 adds T+48 barrier + wall_seconds>=172800 gate. M1.5 not claimed; ≠ PRODUCTION_PROVEN; tests/test_long_horizon_program.py; tests/test_survival_soak.py"
     },
     {
       "id": "full_epistemic_graph",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "tests/test_epistemic.py; Observation\u2192Belief\u2192Claim\u2192Model\u2192Forecast\u2192Decision\u2192Commitment invalidation (GOS-I12)"
+      "evidence": "tests/test_epistemic.py; Observation→Belief→Claim→Model→Forecast→Decision→Commitment invalidation (GOS-I12)"
     },
     {
       "id": "observation_belief_runtime",
@@ -123,7 +123,7 @@
     {
       "id": "environment_compiler_dynamic",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "EnvironmentChangeGate PROPOSED\u2192\u2026\u2192ACTIVE with authority gate; no silent rewrite (GOS-I20); tests/test_epistemic_graph_env_replay.py"
+      "evidence": "EnvironmentChangeGate PROPOSED→…→ACTIVE with authority gate; no silent rewrite (GOS-I20); tests/test_epistemic_graph_env_replay.py"
     },
     {
       "id": "sandbox_mvp",
@@ -168,7 +168,7 @@
     {
       "id": "event_replay_engine",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "EventReplayEngine status projection rebuild from ledger; not full entity-body snapshot restore"
+      "evidence": "EventReplayEngine status projection rebuild from ledger; not full entity-body snapshot restore; tests/test_epistemic_graph_env_replay.py"
     },
     {
       "id": "mission_outcome_contract",
@@ -183,12 +183,12 @@
     {
       "id": "clarification_assumption_recording",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "ClarificationEngine \u2192 EpistemicStore + assumption STALE on claim/evidence invalidation"
+      "evidence": "ClarificationEngine → EpistemicStore + assumption STALE on claim/evidence invalidation; tests/test_materiality_clarification_budget.py; tests/test_assumption_and_workflow_port.py"
     },
     {
       "id": "reasoning_budget_controller",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "GOS-I23: effort changes; verification_tier unchanged"
+      "evidence": "GOS-I23: effort changes; verification_tier unchanged; tests/test_materiality_clarification_budget.py; tests/test_empirical_science.py"
     },
     {
       "id": "capability_registry",
@@ -198,57 +198,57 @@
     {
       "id": "context_assembler",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "ContextItem provenance + token budget"
+      "evidence": "ContextItem provenance + token budget; tests/test_env_extensions.py"
     },
     {
       "id": "retrieval_router",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "intent\u2192strategy; GraphRAG not default"
+      "evidence": "intent→strategy; GraphRAG not default; tests/test_env_extensions.py"
     },
     {
       "id": "evaluator_registry",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "GOS-I24 self-judge rejected; calibration fields contracted for production use"
+      "evidence": "GOS-I24 self-judge rejected; calibration fields contracted for production use; tests/test_env_extensions.py"
     },
     {
       "id": "environment_lifecycle",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "PROPOSED\u2192\u2026\u2192REVOKED transitions"
+      "evidence": "PROPOSED→…→REVOKED transitions; tests/test_env_extensions.py; tests/test_epistemic_graph_env_replay.py"
     },
     {
       "id": "h_env_001_benchmark",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "Synthetic harness summarize_h_env_001; verdict INCONCLUSIVE_NEEDS_REAL_MODEL (not scientific confirmation)"
+      "evidence": "Synthetic harness summarize_h_env_001; verdict INCONCLUSIVE_NEEDS_REAL_MODEL (not scientific confirmation); tests/test_henv_hrsn_durable_port.py"
     },
     {
       "id": "workflow_runner_port",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "LocalDurableAdapter wraps DurableRunner; TemporalWorkflowAdapter fails closed (\u2260 Temporal DoD)"
+      "evidence": "LocalDurableAdapter wraps DurableRunner; TemporalWorkflowAdapter fails closed (≠ Temporal DoD); tests/test_assumption_and_workflow_port.py"
     },
     {
       "id": "h_rsn_001_benchmark",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "Synthetic harness summarize_h_rsn_001 + GOS-I23; INCONCLUSIVE_NEEDS_REAL_MODEL"
+      "evidence": "Synthetic harness summarize_h_rsn_001 + GOS-I23; INCONCLUSIVE_NEEDS_REAL_MODEL; tests/test_henv_hrsn_durable_port.py"
     },
     {
       "id": "postgres_connection_port",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "connect_durable_store fails closed on postgres URL without psycopg; no silent SQLite fallback"
+      "evidence": "connect_durable_store fails closed on postgres URL without psycopg; no silent SQLite fallback; tests/test_postgres_acceptance.py; tests/test_henv_hrsn_durable_port.py"
     },
     {
       "id": "evidence_candidate_pipeline",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "GOS-I22 EvidenceCandidatePipeline; tool_result\u219bSYSTEM_TRUSTED; tests/test_evidence_candidate.py"
+      "evidence": "GOS-I22 EvidenceCandidatePipeline; tool_result↛SYSTEM_TRUSTED; tests/test_evidence_candidate.py"
     },
     {
       "id": "temporal_fail_closed_probe",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "TemporalWorkflowAdapter.probe_server fails closed; \u2260 Temporal DoD"
+      "evidence": "TemporalWorkflowAdapter.probe_server fails closed; ≠ Temporal DoD; tests/test_assumption_and_workflow_port.py"
     },
     {
       "id": "postgres_fail_closed_connect",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "connect_durable_store unreachable/missing-psycopg \u2192 PostgresUnavailable; no SQLite fallback"
+      "evidence": "connect_durable_store unreachable/missing-psycopg → PostgresUnavailable; no SQLite fallback; tests/test_postgres_acceptance.py; tests/test_henv_hrsn_durable_port.py"
     },
     {
       "id": "h_org_001_benchmark",
@@ -263,12 +263,12 @@
     {
       "id": "spec_addendum_v2",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "SPEC-ADDENDUM-V2.md normative; CONSTITUTION GOS-I26..I30; DCO P0 vs H-ORG P1 (GOS-I30)"
+      "evidence": "SPEC-ADDENDUM-V2.md normative; CONSTITUTION.md GOS-I26..I30; DCO P0 vs H-ORG P1 (GOS-I30); tests/test_organization.py"
     },
     {
       "id": "goal_drift_detector",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "GoalDriftDetector explore\u2192execute + forbidden_outcome; tests/test_organization.py; GOS-I27"
+      "evidence": "GoalDriftDetector explore→execute + forbidden_outcome; tests/test_organization.py; GOS-I27"
     },
     {
       "id": "empirical_science_freeze",
@@ -293,17 +293,17 @@
     {
       "id": "autonomous_research_loop_poc",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "Y19 H5\u2192H7 without operator dispatch; terminal_scientific_result; durable state + CLAIMS.md split (science \u2260 GOS loop); milestone 4378005; artifacts/y19/; tests/test_y19_transient_early_warning.py \u2014 bundle autonomy only; GOS vs strong-agent baseline NOT PROVEN (Y20 A/B pending); NOT continual SI / general transfer / M1.5 / PRODUCTION_PROVEN"
+      "evidence": "Y19 H5→H7 without operator dispatch; terminal_scientific_result; durable state + CLAIMS.md split (science ≠ GOS loop); milestone 4378005; artifacts/y19/; tests/test_y19_transient_early_warning.py — bundle autonomy only; GOS vs strong-agent baseline NOT PROVEN (Y20 A/B pending); NOT continual SI / general transfer / M1.5 / PRODUCTION_PROVEN"
     },
     {
       "id": "y20_causal_ab_prereg",
       "state": "RUNTIME_VERIFIED_HARNESS",
-      "evidence": "Y20 scored; baseline science\u2265GOS; process richer under GOS; gos_advantage_claimed=false; artifacts/y20/COMPARISON_REPORT.md"
+      "evidence": "Y20 scored; baseline science≥GOS; process richer under GOS; gos_advantage_claimed=false; artifacts/y20/COMPARISON_REPORT.md"
     },
     {
       "id": "free_model_providers",
       "state": "RUNTIME_VERIFIED_HARNESS",
-      "evidence": "OpenRouter/Groq/Gemini adapters; GOS_ZERO_COST_MODE; scientific pin; free catalog+privacy; tests/test_free_providers.py \u2014 live keys user-supplied"
+      "evidence": "OpenRouter/Groq/Gemini adapters; GOS_ZERO_COST_MODE; scientific pin; free catalog+privacy; tests/test_free_providers.py — live keys user-supplied"
     },
     {
       "id": "org_compiler_multi_topology",
@@ -319,6 +319,11 @@
       "id": "y22_evidence_ab",
       "state": "RUNTIME_VERIFIED_HARNESS",
       "evidence": "Y22 scored; reliability_composite TIE_WITHIN_MCID; h_reliability_multiplier NOT_CONFIRMED; artifacts/y22/COMPARISON_REPORT.md"
+    },
+    {
+      "id": "r1_real_use_evidence_integrity",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "R1 real-use evidence-integrity mission terminal; artifacts/r1/decision.md; artifacts/r1/EVALUATION.md; artifacts/r1/CLAIMS.md; tests/test_capability_matrix.py::test_capability_evidence_paths_exist"
     }
   ]
 }

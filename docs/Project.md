@@ -33,10 +33,10 @@ Y23: NOT NOW
 ### Plan
 
 1. **Frozen:** Y20–Y22 claims — no post-hoc retune; no Y23.
-2. **Active:** R1 real-use (`artifacts/r1/`) — useful mission, unknown outcome,
-   independent eval of usefulness / reproducibility / trail / autonomy / cost.
-3. **Later:** R2+ of other classes → mature SHA → freeze → Windows preflight →
-   ≥48h real workload → audit → M1.5 candidate.
+2. **Done:** R1 real-use evidence-integrity (`artifacts/r1/`) — SUPPORTED;
+   useful remediation + regression; advantage still NOT SHOWN.
+3. **Optional next:** R2 different class → … → freeze → Windows preflight →
+   ≥48h → audit → M1.5 candidate.
 4. **Not now:** LH / M1.5 / Continual SI / universal advantage.
 
 ## Документы

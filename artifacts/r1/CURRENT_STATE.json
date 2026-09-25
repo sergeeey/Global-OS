@@ -1,13 +1,19 @@
 {
   "mission_id": "R1-EVIDENCE-INTEGRITY-v1",
-  "phase": "OBSERVE_COMPLETE_HYPOTHESES_OPEN",
-  "updated_at": "2026-09-25T16:17:08Z",
+  "phase": "TERMINAL_SCORED",
+  "updated_at": "2026-09-25T16:22:00Z",
   "goal_contract": "artifacts/r1/R1-GOAL-CONTRACT.md",
   "eval_rubric": "artifacts/r1/R1-EVAL-RUBRIC.md",
   "eval_rubric_locked_at": "2026-09-25T16:17:08Z",
+  "eval_rubric_lock_sha": "d71a17f",
+  "decision": "SUPPORTED",
+  "decision_path": "artifacts/r1/decision.md",
+  "evaluation_path": "artifacts/r1/EVALUATION.md",
+  "claims_path": "artifacts/r1/CLAIMS.md",
   "y20_y21_y22_scorers_frozen": true,
   "y23_forbidden": true,
   "lh_m15_deferred": true,
   "operator_interventions": 0,
-  "next_step": "falsify H1–H4; if H2+H5 hold, apply path-binding remediation + regression"
+  "gos_universal_advantage_claimed": false,
+  "next_step": "Optional R2 different class. Not Y23/LH/M1.5."
 }

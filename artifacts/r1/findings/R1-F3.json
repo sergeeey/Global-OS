@@ -1,0 +1,19 @@
+{
+  "finding_id": "R1-F3",
+  "hypothesis": "H3",
+  "decision": "REJECTED",
+  "summary": "Recorded public_pack_sha256 matches harness directory merkle (_dir_sha256), not raw file hash. Apparent mismatch was measurement error.",
+  "y22": {
+    "recorded": "6cf5ed7880cadfe39fc07e3603473c71dca0fadef0e7061689cc17c1787db6bb",
+    "dir_sha": "6cf5ed7880cadfe39fc07e3603473c71dca0fadef0e7061689cc17c1787db6bb",
+    "file_sha": "c9a86fdedea7341ceb413a50366af263da00ba56eb6c6da7fcc00c3522a6d2bd",
+    "dir_match": true
+  },
+  "y21": {
+    "recorded": "967b8ccfd3c3088fbeb05d4bc23cfa7621ee1725f20fc9563289b8b687e8e933",
+    "dir_sha": "967b8ccfd3c3088fbeb05d4bc23cfa7621ee1725f20fc9563289b8b687e8e933",
+    "dir_match": true
+  },
+  "secondary_note": "Arm workdir copies may omit README; operators must not compare file SHA to process_log field without reading exporter.",
+  "recorded_at": "2026-09-25T16:18:25.988806+00:00"
+}

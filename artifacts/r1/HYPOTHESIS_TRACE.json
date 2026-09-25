@@ -1,0 +1,27 @@
+[
+  {
+    "id": "H1",
+    "decision": "REJECTED",
+    "ref": "findings/R1-F1.json"
+  },
+  {
+    "id": "H2",
+    "decision": "SUPPORTED",
+    "ref": "findings/R1-F2.json"
+  },
+  {
+    "id": "H3",
+    "decision": "REJECTED",
+    "ref": "findings/R1-F3.json"
+  },
+  {
+    "id": "H4",
+    "decision": "REJECTED",
+    "ref": "findings/R1-F4.json"
+  },
+  {
+    "id": "H5",
+    "decision": "SUPPORTED",
+    "ref": "findings/R1-F5.json"
+  }
+]

@@ -18,6 +18,7 @@ def test_y21_prereg_files_and_state():
         "NOT_STARTED",
         "RUNNING",
         "FROZEN",
+        "FROZEN_SCORED",
     }
     assert state["win_primary"] == "sealed_exact_match_rate"
     assert state["primary_mcid"] == 0.05

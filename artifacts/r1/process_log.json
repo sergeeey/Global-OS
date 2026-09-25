@@ -1,0 +1,33 @@
+{
+  "mission_id": "R1-EVIDENCE-INTEGRITY-v1",
+  "started_at": "2026-09-25T16:17:08Z",
+  "ended_at": "2026-09-25T16:22:00Z",
+  "human_interventions": 0,
+  "dispatcher_asks": 0,
+  "hypotheses_tried": 5,
+  "failed_experiments": 3,
+  "supported_hypotheses": 2,
+  "wall_seconds_used": 300,
+  "stop_reason": "terminal_decision_and_evaluation_complete",
+  "attribution": {
+    "agent_saw": [
+      "docs/capability_matrix.json",
+      "tests/",
+      "artifacts/y21|y22 public+process_log",
+      "harness _dir_sha256"
+    ],
+    "agent_did_not": [
+      "retune Y20-Y22 scorers",
+      "mutate frozen arm freeze SHAs",
+      "start Y23"
+    ],
+    "gos_components_used": [
+      "goal_contract",
+      "competing_hypotheses",
+      "falsification",
+      "durable_findings",
+      "terminal_stop",
+      "independent_eval_rubric"
+    ]
+  }
+}

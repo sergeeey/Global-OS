@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.72 — 2026-09-25
+
+### R1 terminal — evidence-integrity real-use SUPPORTED
+
+- Rubric locked first @ `d71a17f` / 2026-09-25T16:17:08Z
+- H2 audit gap SUPPORTED (16 unparseable evidence rows); H1/H3/H4 REJECTED
+- Minimal fix: bind existing test/artifact paths + `test_capability_evidence_paths_exist`
+- Collateral: Y20/Y21/Y22 acceptance tests now accept `FROZEN_SCORED` terminals
+- EVALUATION gates PASS; operator interventions 0; no Y20–Y22 retune; no T0/T1
+- Universal GOS advantage still NOT SHOWN; next optional R2 other class
+
 ## 0.1.71 — 2026-09-25
 
 ### R1 real-use started — synthetic A/B phase closed

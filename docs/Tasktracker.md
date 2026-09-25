@@ -57,9 +57,9 @@
 ## Active — R1 real-use (`R1-EVIDENCE-INTEGRITY-v1`)
 
 - [x] Synthetic Y19–Y22 phase closed; **no Y23**; scorers FROZEN
-- [x] R1 Goal Contract + eval rubric locked (`artifacts/r1/`)
-- [ ] Observe → hypotheses → falsify → minimal remediations → EVALUATION
-- [ ] Terminal decision + CLAIMS (no universal advantage)
+- [x] R1 Goal Contract + eval rubric locked (`artifacts/r1/`, sha `d71a17f`)
+- [x] Observe → hypotheses → falsify → path-binding remediations → EVALUATION
+- [x] Terminal SUPPORTED; universal advantage NOT CLAIMED
 
 ## Later — after several real missions
 

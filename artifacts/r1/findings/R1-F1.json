@@ -1,0 +1,9 @@
+{
+  "finding_id": "R1-F1",
+  "hypothesis": "H1",
+  "decision": "REJECTED",
+  "summary": "0 missing parseable evidence paths among capabilities that cite paths.",
+  "n_missing": 0,
+  "missing": [],
+  "recorded_at": "2026-09-25T16:18:25.988806+00:00"
+}

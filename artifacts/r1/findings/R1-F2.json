@@ -1,0 +1,27 @@
+{
+  "finding_id": "R1-F2",
+  "hypothesis": "H2",
+  "decision": "SUPPORTED",
+  "summary": "16 capabilities have evidence prose with no parseable path \u2014 audit gap.",
+  "n_unparseable": 16,
+  "ids": [
+    "survival_process_kill",
+    "goal_integrity_soak_48h",
+    "event_replay_engine",
+    "clarification_assumption_recording",
+    "reasoning_budget_controller",
+    "context_assembler",
+    "retrieval_router",
+    "evaluator_registry",
+    "environment_lifecycle",
+    "h_env_001_benchmark",
+    "workflow_runner_port",
+    "h_rsn_001_benchmark",
+    "postgres_connection_port",
+    "temporal_fail_closed_probe",
+    "postgres_fail_closed_connect",
+    "spec_addendum_v2"
+  ],
+  "threshold_note": "SUPPORTED because n>=5 and not docs-only CONTRACTED cohort",
+  "recorded_at": "2026-09-25T16:18:25.988806+00:00"
+}

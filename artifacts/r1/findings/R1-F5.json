@@ -1,0 +1,26 @@
+{
+  "finding_id": "R1-F5",
+  "hypothesis": "H5",
+  "decision": "SUPPORTED",
+  "summary": "Bound parseable evidence paths on 16 previously unparseable RUNTIME_* rows; added tests/test_capability_matrix.py::test_capability_evidence_paths_exist. No maturity downgrades; no T0/T1 surfaces.",
+  "changed_capability_ids": [
+    "survival_process_kill",
+    "goal_integrity_soak_48h",
+    "event_replay_engine",
+    "clarification_assumption_recording",
+    "reasoning_budget_controller",
+    "context_assembler",
+    "retrieval_router",
+    "evaluator_registry",
+    "environment_lifecycle",
+    "h_env_001_benchmark",
+    "workflow_runner_port",
+    "h_rsn_001_benchmark",
+    "postgres_connection_port",
+    "temporal_fail_closed_probe",
+    "postgres_fail_closed_connect",
+    "spec_addendum_v2"
+  ],
+  "regression": "tests/test_capability_matrix.py::test_capability_evidence_paths_exist",
+  "recorded_at": "2026-09-25T16:20:00Z"
+}
