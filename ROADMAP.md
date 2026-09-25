@@ -17,40 +17,36 @@ Architecture V2: `SPEC-ADDENDUM-V2.md`.
 
 ## Path (locked)
 
-```text
-CURRENT — REAL-USE (R1+)
-  Y19–Y22 synthetic A/B closed (primary GOS gain NOT SHOWN; scorers FROZEN)
-  No Y23. Use Global OS on real missions; failure → minimal fix → regression.
-        │
-        ▼
-R1 / R2 … real missions (usefulness, autonomy, trail — unknown outcomes)
-        │
-        ▼
-mature SHA → freeze → Windows preflight → ≥48h real workload → audit
-        │
-        ▼
-M1.5 LONG-HORIZON REALITY VALIDATION (candidate only after above)
-  live provider IV (≥2)
-  persistent 48h research workload (not synthetic-only)
-  scheduled failures + Goal Integrity PASS
-        │
-        ▼
-DoD V2
-  every Architecture V2 invariant has integration+adversarial path
-        │
-        ▼
-M2 COGNITIVE ORGANIZATION
-  H-ORG-1..4; topology conditional on task class
-        │
-        ▼
-M3 ADAPTIVE GLOBAL OS
-  self-improve under governance (no T0/T1 self-promote)
-        │
-        ▼
-PRODUCTION_PROVEN (per capability; expensive)
-```
+Binding claim language: `docs/SCIENTIFIC_HONESTY_MAP.md`.  
+**NULL ≠ zero effect.** Raw-capability amplification is **NOT SHOWN** (not “proven impossible”).
 
-M1.4 Trust Boundary Hardening remains **done** (see below); it is not reopened by R1.
+```text
+CURRENT
+  Y20–Y22: primary-outcome advantage vs strong baseline NOT SHOWN (tested classes)
+  R1–R3: useful autonomous checkable real work EARLY YES (bundle); causal GOS NOT MEASURED
+  Freeze exam candidate: 5d15600 (FREEZE-R1R3-v1)
+  Scorers Y20–Y22 FROZEN; no Y23 as IQ-rescue
+        │
+        ▼
+Gate A — M1.5 exam (operator Windows)   ← NOW
+  detached 5d15600 → smoke → preflight → literal wall_seconds≥172800
+  no mid-run code change; env-only retry OK; code defect ⇒ new freeze
+  freeze raw artifacts → independent audit → M1.5 decision (scope-limited)
+        │
+        ▼
+Post-M1.5 — freeze H_TRUST + metrics FIRST
+  Fixed-resource (A) + cost-normalized frontier (B)
+  material integrity failure taxonomy locked
+        │
+        ▼
+Trust Kernel hardening (failure-mode-tied only)
+  → adversarial evaluation
+  → external benchmarks
+  → interoperability
+        │
+        ▼
+DoD V2 / M2 / M3 / PRODUCTION_PROVEN (unchanged honesty: per-capability evidence)
+```
 
 ## M0 — Trustworthy Skeleton — done
 

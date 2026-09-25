@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.79 — 2026-09-25
+
+### Scientific honesty map + H_TRUST draft (exam SHA untouched)
+
+- `docs/SCIENTIFIC_HONESTY_MAP.md`: NULL ≠ zero effect; R1–R3 EARLY YES ≠ causal GOS
+- Dual Trustworthiness Benchmark modes A/B; material failure taxonomy; post-M1.5 order
+- `H_TRUST_DRAFT.md`; Project/ROADMAP claim language corrected; M1.5 scope phrase locked
+- No change to freeze `5d15600` / no R4 / no mid-exam harden
+
 ## 0.1.78 — 2026-09-25
 
 ### M1.5 exam kickoff protocol locked (operator Windows)

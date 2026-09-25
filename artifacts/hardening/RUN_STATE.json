@@ -1,8 +1,8 @@
 {
   "sprint": "M15_EXAM_IN_PROGRESS_OPERATOR",
-  "updated_at": "2026-09-25T17:46:49Z",
+  "updated_at": "2026-09-25T17:50:37Z",
   "current_goal": "WINDOWS_SMOKE_ON_5d15600",
-  "phase_statement": "M1.5 formal exam started as process: operator Windows detached 5d15600 \u2192 smoke \u2192 preflight \u2192 literal 48h. Cloud/Linux side idle for exam. No R4/harden/main work on exam SHA. M1.5 NOT CLAIMED until audit.",
+  "phase_statement": "Honesty map locked: raw amplification NOT SHOWN (\u2260 zero-effect proof); R1\u2013R3 EARLY YES bundle / causal GOS NOT MEASURED; M1.5 TO TEST @5d15600; H_TRUST is post-M1.5 core. Exam kickoff unchanged.",
   "operator_action_required": true,
   "operator_dispatch_required": true,
   "y20": {
@@ -104,5 +104,11 @@
     "wall_seconds_hard_gate": 172800,
     "m15_claimed": false,
     "next_keystrokes": "Windows detached checkout 5d15600 \u2192 smoke"
+  },
+  "scientific_honesty_map": "docs/SCIENTIFIC_HONESTY_MAP.md",
+  "h_trust_draft": "artifacts/hardening/H_TRUST_DRAFT.md",
+  "working_bets": {
+    "raw_capability_amplification": "NOT_SHOWN_retired_as_working_bet",
+    "trust_long_horizon_amplification": "TO_TEST"
   }
 }

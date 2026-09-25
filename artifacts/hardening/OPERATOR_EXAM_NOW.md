@@ -146,13 +146,15 @@ During 48h: **zero code changes** to exam tree. Journal every infra intervention
    - `windows_wall_preflight/program_report.json` (+ PASS_CRITERIA)
    - `wall_48h_lh_v2_1/program_report.json` (+ PASS_CRITERIA)
    - intervention journal
-2. Independent audit (separate contour) against locked gates.
-3. Only then:
+2. Independent audit (separate contour) against locked gates **within protocol scope**.
+3. Only then (narrow claim template — `docs/SCIENTIFIC_HONESTY_MAP.md`):
 
 ```text
-PASS all locked gates → M1.5 candidate / claim discussion
+PASS all locked gates → M1.5 candidate / claim discussion (scope-limited)
 anything materially missing → M1.5 NOT CLAIMED
 ```
+
+Do **not** upgrade a PASS into distributed exactly-once, production security, or universal reliability.
 
 ---
 

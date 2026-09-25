@@ -85,6 +85,10 @@
 - [x] Compressed preflight + Linux os_kill smoke
 - [x] Freeze doc + audit honesty (`FREEZE_R1_R3.md`, `AUDIT_POST_R1_R3.md`)
 
+## Done — scientific honesty corrections
+
+- [x] `docs/SCIENTIFIC_HONESTY_MAP.md` + `H_TRUST_DRAFT.md` (metrics before Trust Kernel)
+
 ## Active — M1.5 formal exam (`M15_EXAM_KICKOFF.md`)
 
 - [x] Kickoff protocol locked; exam SHA `5d15600`

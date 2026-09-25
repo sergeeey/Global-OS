@@ -12,42 +12,40 @@
 См. `SPEC-ADDENDUM-V2.md`.  
 **DCO contracts = P0; recursive hierarchy superiority = P1 experiment (GOS-I30).**
 
-## Thesis (working — not proven superiority)
+## Thesis (working stance — see `docs/SCIENTIFIC_HONESTY_MAP.md`)
 
-> Global OS пока **не** выглядит усилителем «сырого интеллекта».  
-> Он начинает выглядеть как **ОС для длительной, проверяемой работы** сильного интеллекта:
-> durable goals, state, negative-result retention, provenance, failure→continue,
-> terminal without human dispatcher.
+**Не говорим:** «GOS не усиливает интеллект.»  
+**Говорим:** на протестированных классах задач **не показано** измеримое улучшение primary outcome vs сильный baseline (`NULL ≠ zero effect`).
+
+```text
+Raw-capability amplification:        NOT SHOWN   (больше не рабочая ставка проекта)
+Trust / long-horizon amplification:  TO TEST     (M1.5 → затем H_TRUST)
+```
+
+Рабочая ставка смещается к: **ОС для длительной, проверяемой работы** (goals, state, negatives, provenance, recovery, terminal) — это гипотеза для проверки, не доказанная теорема.
+
+R1–R3: **EARLY YES** что конфигурация/bundle умеет доводить реальное дело до checkable результата; **causal GOS-alone advantage NOT MEASURED**.
 
 ## Evidence map
 
 ```text
-Y19  → multi-step autonomous research loop shown for bundle
-Y20  → sealed science gain NULL
-Y21  → cross-domain sealed gain NULL
-Y22  → reliability multiplier NOT CONFIRMED
-R1   → real engineering/research mission, terminal, 0 interventions
-R2   → external paper audit, terminal + independent review, 0 interventions
-R3   → data-forensics / anomaly investigation, independent review, 0 interventions
-GOS raw-IQ advantage        NOT SHOWN
-GOS universal advantage     NOT SHOWN
-Long-form autonomous work   increasingly supported
-Independent usefulness      external-style evidence (R2/R3)
-Continual SI                NOT MEASURED
-M1.5                        NOT CLAIMED
-Y20–Y22 scorers             FROZEN
-Y23                         NOT NOW
+Y20–Y22  raw primary-outcome advantage vs strong baseline?  NOT SHOWN
+R1–R3    useful autonomous checkable real work (bundle)?     EARLY YES
+         causal GOS advantage?                               NOT MEASURED
+M1.5     long-horizon integrity on frozen real workload?     TO TEST @ 5d15600
+Post     H_TRUST: fewer material integrity failures / cost?  CORE NEXT
+Continual SI / universal advantage / M1.5 claim              NOT MEASURED / NOT CLAIMED
+Y20–Y22 scorers                                              FROZEN
+Y23                                                          NOT NOW
 ```
 
 ### Plan
 
-1. **Frozen:** Y20–Y22; no Y23; scorers frozen.  
-2. **Done:** R1; R2-HDE; R2 paper audit; **R3 data-forensics** (`artifacts/r3/`).  
-3. **M1.5 exam in progress (operator):** `M15_EXAM_KICKOFF.md` — Windows detached `5d15600` → smoke → preflight → ≥48h.
-   Cloud idle for exam. **M1.5:** NOT CLAIMED until independent audit.  
-4. **Separate:** CRM/Docker/Reflexio/GeoScan → `artifacts/ops/SEPARATE_BACKLOG.md` (fresh observe first).  
-5. **Not now:** Continual SI / universal advantage claims.
+1. **Gate A (now):** Windows exam on freeze `5d15600` — `M15_EXAM_KICKOFF.md`. No patch-in-place.  
+2. **After M1.5 decision:** freeze H_TRUST + metrics (fixed-resource **and** cost-normalized) → Trust Kernel harden by failure mode → adversarial → external → interoperability.  
+3. **Separate ops:** `artifacts/ops/SEPARATE_BACKLOG.md` (fresh observe).  
+4. **Not now:** Y23; Continual SI claims; “GOS makes the model smarter” as project slogan.
 
 ## Документы
 
-CONSTITUTION · SPEC · **SPEC-ADDENDUM-V2** · ARCHITECTURE · AUTHORITY_MODEL · EPISTEMIC_MODEL · ORGANIZATION_MODEL · THREAT_MODEL · EVALS · ROADMAP · AGENTS · NON_GOALS
+CONSTITUTION · SPEC · **SPEC-ADDENDUM-V2** · **SCIENTIFIC_HONESTY_MAP** · ARCHITECTURE · AUTHORITY_MODEL · EPISTEMIC_MODEL · ORGANIZATION_MODEL · THREAT_MODEL · EVALS · ROADMAP · AGENTS · NON_GOALS
