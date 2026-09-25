@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.58 — 2026-09-25
+
+### Y19-H3 — H2 robustness battery SUPPORTED
+
+- Gates (all PASS): activity-matched tertiles; unseen size train N∈{16,20}→hold N=24;
+  regime K=2 and K=3
+- Decision: **SUPPORTED** (`H_h2_robust`) — size/entropy gain over activity survives stress
+- Does **not** reopen H1 spectral claim; does **not** start 96m/48h; M1.5 not claimed
+- Artifacts: `artifacts/y19/Y19-H3-h2-robustness/`; tests extended (11 passed)
+
 ## 0.1.57 — 2026-09-25
 
 ### Windows os_kill smoke PASS + Y19-H2
