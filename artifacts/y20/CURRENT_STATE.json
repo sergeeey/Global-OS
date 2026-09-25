@@ -3,68 +3,52 @@
   "contract": "artifacts/y20/Y20-RESEARCH-PROGRAM.md",
   "prereg": "artifacts/y20/Y20-PREREG.md",
   "execution_protocol": "artifacts/y20/Y20-EXECUTION-PROTOCOL.md",
+  "comparison_report": "artifacts/y20/COMPARISON_REPORT.md",
+  "claims": "artifacts/y20/CLAIMS.md",
   "protocol_version": "Y20-AB-v1",
   "prereg_boundary_sha": "278c10d",
-  "updated_at": "2026-09-25T12:08:57Z",
-  "phase": "BOTH_ARMS_FROZEN",
+  "updated_at": "2026-09-25T12:20:00Z",
+  "phase": "SCORED_COMPARISON_COMPLETE",
   "prereg_locked": true,
-  "architecture_freeze_until_comparison": true,
+  "architecture_freeze_until_comparison": false,
   "arms_started": true,
-  "sealed_unseen": true,
+  "sealed_unseen": false,
   "unseal_allowed": true,
+  "unsealed_at": "2026-09-25T12:20:00Z",
   "arms": {
     "A": {
-      "status": "FROZEN",
+      "status": "FROZEN_SCORED",
       "role": "strong_agent_baseline",
       "dir": "artifacts/y20/arms/A",
-      "started_at": "2026-09-25T12:06:04Z",
-      "ended_at": "2026-09-25T12:07:24Z",
-      "model_pin": "composer-cloud-agent-bundle",
-      "submission": "artifacts/y20/arms/A/submission.json",
-      "process_log": "artifacts/y20/arms/A/process_log.json",
-      "contamination_note": "Same agent lineage authored generator in prior turn; Arm A constrained to public CSV only; sealed/ and generator DAG source not opened during arm."
+      "freeze_sha": "d6ab951"
     },
     "B": {
-      "status": "FROZEN",
+      "status": "FROZEN_SCORED",
       "role": "strong_agent_plus_global_os",
       "dir": "artifacts/y20/arms/B",
-      "ended_at": "2026-09-25T12:08:57Z",
-      "model_pin": "composer-cloud-agent-bundle",
-      "submission": "artifacts/y20/arms/B/submission.json",
-      "process_log": "artifacts/y20/arms/B/process_log.json"
+      "freeze_sha": "67c682c"
     },
-    "C": {
-      "status": "DEFERRED",
-      "role": "ablation_durable_checkpoint_only"
-    }
+    "C": {"status": "DEFERRED", "role": "ablation_durable_checkpoint_only"}
   },
-  "y19_frozen": true,
-  "y19_milestone_sha": "4378005",
   "gos_advantage_claimed": false,
+  "y20_outcome": {
+    "science_winner": "A_or_tie",
+    "process_trace_richer": "B",
+    "architecture_hypothesis": "H_model_alone_or_inconclusive",
+    "integrity": "DIRECTIONAL_WITH_GENERATOR_AUTHORSHIP_CAVEAT"
+  },
   "public_pack_sha256": "1a2344f9d1375f05abdffcc744b7995d7a8ac54ae0f676ab7313121cc4d6a6d8",
   "sealed_pack_sha256": "d7c4fb79b8e04ad3bb951711fcd7aa6ef3c94727702b6f396ae17b6737fe8754",
-  "budgets_locked": {
-    "wall_seconds_max": 14400,
-    "token_budget_max": 800000,
-    "tool_calls_max": 400,
-    "python_subprocess_max": 200
-  },
-  "scorer_locked": true,
-  "generator_locked": true,
-  "stop_reason": null,
+  "y19_frozen": true,
+  "y19_milestone_sha": "4378005",
+  "stop_reason": "y20_terminal_comparison_complete",
   "forbidden": [
     "change_scorer_or_budgets_after_278c10d",
-    "unseal_before_both_arms_complete",
-    "start_B_before_A_immutable",
-    "improve_architecture_before_comparison",
-    "peek_sealed_gt_into_arm_prompts",
-    "unequal_budget_topup",
-    "cripple_arm_A",
-    "reopen_y19_h8",
-    "claim_gos_advantage_before_comparison",
-    "literal_48h",
+    "post_hoc_weaken_arm_A",
+    "claim_universal_gos_advantage",
     "claim_M1.5",
-    "claim_continual_SI"
+    "claim_continual_SI",
+    "literal_48h_from_y20_alone"
   ],
-  "next_step": "Unseal + blind score + COMPARISON_REPORT"
+  "next_step": "Preregister Y21 other cognitive class with never-saw-generator baseline arm; do not start LH."
 }

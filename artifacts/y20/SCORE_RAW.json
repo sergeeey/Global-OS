@@ -1,0 +1,127 @@
+{
+  "protocol_version": "Y20-AB-v1",
+  "prereg_boundary_sha": "278c10d",
+  "scored_at": "2026-09-25T12:09:31Z",
+  "science": {
+    "A": {
+      "protocol_version": "Y20-AB-v1",
+      "edge_precision": 0.7222222222222222,
+      "edge_recall": 0.6842105263157895,
+      "edge_tp": 13,
+      "edge_fp": 5,
+      "edge_fn": 6,
+      "intervention_mae": 0.4918953392947373,
+      "intervention_n_scored": 5,
+      "intervention_missing": 0,
+      "decision_field_ok": true,
+      "claimed_edge_count": 18,
+      "truth_edge_count": 19
+    },
+    "B": {
+      "protocol_version": "Y20-AB-v1",
+      "edge_precision": 0.5,
+      "edge_recall": 0.631578947368421,
+      "edge_tp": 12,
+      "edge_fp": 12,
+      "edge_fn": 7,
+      "intervention_mae": 0.49319395557410084,
+      "intervention_n_scored": 5,
+      "intervention_missing": 0,
+      "decision_field_ok": true,
+      "claimed_edge_count": 24,
+      "truth_edge_count": 19
+    }
+  },
+  "process_log_validation": {
+    "A": {
+      "ok": true,
+      "errors": [],
+      "budget": {
+        "ok": true,
+        "violations": [],
+        "checked": {
+          "wall_seconds_max": {
+            "cap": 14400,
+            "used": 120.0,
+            "ok": true
+          },
+          "token_budget_max": {
+            "cap": 800000,
+            "used": 40000.0,
+            "ok": true
+          },
+          "tool_calls_max": {
+            "cap": 400,
+            "used": 12.0,
+            "ok": true
+          },
+          "python_subprocess_max": {
+            "cap": 200,
+            "used": 3.0,
+            "ok": true
+          }
+        }
+      }
+    },
+    "B": {
+      "ok": true,
+      "errors": [],
+      "budget": {
+        "ok": true,
+        "violations": [],
+        "checked": {
+          "wall_seconds_max": {
+            "cap": 14400,
+            "used": 180.0,
+            "ok": true
+          },
+          "token_budget_max": {
+            "cap": 800000,
+            "used": 45000.0,
+            "ok": true
+          },
+          "tool_calls_max": {
+            "cap": 400,
+            "used": 15.0,
+            "ok": true
+          },
+          "python_subprocess_max": {
+            "cap": 200,
+            "used": 2.0,
+            "ok": true
+          }
+        }
+      }
+    }
+  },
+  "process_raw": {
+    "A": {
+      "human_interventions": 0,
+      "dispatcher_asks": 0,
+      "hypotheses_tried": 3,
+      "failed_experiments": 1,
+      "unsupported_claims": 0,
+      "wall_seconds_used": 120,
+      "token_budget_used": 40000,
+      "tool_calls_used": 12,
+      "recovery_events": 0,
+      "state_loss_events": 0,
+      "premature_stop": false,
+      "evidence_trace_completeness": 0.85
+    },
+    "B": {
+      "human_interventions": 0,
+      "dispatcher_asks": 0,
+      "hypotheses_tried": 4,
+      "failed_experiments": 2,
+      "unsupported_claims": 0,
+      "wall_seconds_used": 180,
+      "token_budget_used": 45000,
+      "tool_calls_used": 15,
+      "recovery_events": 0,
+      "state_loss_events": 0,
+      "premature_stop": false,
+      "evidence_trace_completeness": 0.95
+    }
+  }
+}

@@ -14,30 +14,30 @@
 
 ## Текущий baseline
 
-**Y20 prereg frozen at `278c10d`. Ready to run Arm A only. Architecture freeze.**
+**Y20 scored. GOS sealed-accuracy advantage NOT shown. Y21 next.**
 
 ```text
 Y19                         CLOSED / evidence packed
-Y19 autonomy attribution    bundle-level only
 Y20 prereg                  LOCKED @ 278c10d
-Arm A                       NOT RUN
-Arm B                       NOT RUN
-sealed ground truth         UNSEEN
-blind scorer                LOCKED
-equal caps                  LOCKED
-Global OS advantage         NOT PROVEN
+Y20 Arm A / B               FROZEN + SCORED
+science (edges / do-MAE)    A ≥ B / ≈ tie
+process trace               B richer
+Global OS advantage         NOT SHOWN on Y20 science
+integrity                   DIRECTIONAL (generator-authorship caveat)
 cross-domain transfer       NOT PROVEN
 continual SI                NOT MEASURED
 M1.5                        NOT CLAIMED
 ```
 
+See `artifacts/y20/COMPARISON_REPORT.md` and `artifacts/y20/CLAIMS.md`.
+
 ### Plan
 
-1. **Now:** execute Arm A (strong baseline) → freeze `arms/A` → then Arm B → then unseal/score.  
-2. **Forbidden until COMPARISON_REPORT:** architecture “improvements”, unseal early, cripple A, change scorer.  
-3. **Later:** Y21/Y22 → freeze SHA → LH. Not now.
+1. **Done:** Y20 A/B under equal caps; honest null/baseline-leaning science result.  
+2. **Next:** Y21 other cognitive class + never-saw-generator baseline arm.  
+3. **Not now:** LH 96m/48h, M1.5, Continual SI, post-hoc weakening of Arm A.
 
-Claim strength must not exceed evidence strength. Need **truth about the system**, not a forced GOS win.
+Claim strength must not exceed evidence strength. Correct null > false win.
 
 ## Документы
 
