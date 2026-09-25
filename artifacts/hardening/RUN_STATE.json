@@ -1,8 +1,8 @@
 {
   "sprint": "M15_EXAM_IN_PROGRESS_OPERATOR",
-  "updated_at": "2026-09-25T17:53:50Z",
-  "current_goal": "WINDOWS_DETACH_5d15600_THEN_RE_SMOKE",
-  "phase_statement": "Windows os_kill smoke passed=true on wrong HEAD bfa58a0 (checkout blocked by untracked result). Env evidence only. Must backup, detach 5d15600, re-smoke for Gate A Step 1.",
+  "updated_at": "2026-09-25T17:55:44Z",
+  "current_goal": "WINDOWS_PREFLIGHT_ON_5d15600",
+  "phase_statement": "Gate A Step 1 PASS: Windows os_kill smoke on freeze HEAD 5d15600 (passed=true). Proceed to Step 2 wall preflight (~96m, hour_seconds=120). Stay detached; no pull/patch.",
   "operator_action_required": true,
   "operator_dispatch_required": true,
   "y20": {
@@ -31,12 +31,12 @@
   "long_horizon": {
     "linux_compressed_preflight": "PASS",
     "linux_os_kill_smoke": "PASS",
-    "windows_os_kill_smoke": "PASS_ON_WRONG_SHA_bfa58a0_REDO_REQUIRED",
+    "windows_os_kill_smoke": "PASS_ON_FREEZE_5d15600",
     "windows_preflight": "READY_FOR_OPERATOR",
     "literal_48h": "NOT_STARTED",
     "m15_claimed": false
   },
-  "next_exact_action": "OPERATOR: Move-Item os_kill_smoke_windows to _bak_* \u2192 checkout --detach 5d15600 \u2192 rev-parse MUST match \u2192 re-run smoke",
+  "next_exact_action": "OPERATOR: write EXAM_START.json \u2192 GOS_PREFLIGHT_HOUR_SECONDS=120 \u2192 run_persistent_research_program mode=preflight sleep=True; expect PREFLIGHT_WALL + sha 5d15600",
   "forbidden_now": [
     "r4_during_exam",
     "harden_exam_sha",
@@ -88,7 +88,7 @@
     "lock_sha": "65c2fb2"
   },
   "m15_claimed": false,
-  "windows_preflight": "BLOCKED_UNTIL_FREEZE_SMOKE",
+  "windows_preflight": "READY_OPERATOR_NOW",
   "literal_48h": "NOT_STARTED",
   "freeze": {
     "label": "FREEZE-R1R3-v1",
@@ -103,7 +103,13 @@
     "patch_in_place_forbidden": true,
     "wall_seconds_hard_gate": 172800,
     "m15_claimed": false,
-    "next_keystrokes": "Windows detached checkout 5d15600 \u2192 smoke"
+    "next_keystrokes": "Windows detached checkout 5d15600 \u2192 smoke",
+    "step1_smoke": {
+      "status": "PASS",
+      "sha": "5d15600256a7afc7839f190ed3d889b33bc3217b",
+      "goal_id": "goal_smoke_win_m15",
+      "result": "artifacts/hardening/long_horizon_48h/os_kill_smoke_windows/os_kill_result.json"
+    }
   },
   "scientific_honesty_map": "docs/SCIENTIFIC_HONESTY_MAP.md",
   "h_trust_draft": "artifacts/hardening/H_TRUST_DRAFT.md",

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.82 — 2026-09-25
+
+### Gate A Step 1 PASS (operator Windows)
+
+- Detached `5d15600`; `os_process_kill` smoke `passed=true` on freeze SHA
+- Next: Windows wall preflight Step 2 (~96m)
+
 ## 0.1.81 — 2026-09-25
 
 ### Env: Windows smoke on non-freeze SHA — redo on 5d15600
