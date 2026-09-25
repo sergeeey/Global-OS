@@ -44,7 +44,7 @@
     }
   },
   "gos_advantage_claimed": false,
-  "prereg_boundary_sha": null,
+  "prereg_boundary_sha": "f408ed1",
   "forbidden": [
     "retune_y20_y21_scorers",
     "change_y22_weights_mcid_after_arm_start",
@@ -54,5 +54,6 @@
     "literal_48h",
     "disguise_as_neutral_exact_match_rescue"
   ],
-  "next_step": "Execute Arm A on public evidence stream only; freeze; do not unseal."
+  "next_step": "Execute Arm A on public evidence stream only; freeze; do not unseal.",
+  "prereg_boundary_full": "f408ed1d783ffba9591b2925246d69abbad9a4f1"
 }

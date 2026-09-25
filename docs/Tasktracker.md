@@ -52,7 +52,8 @@
 
 - [x] Mechanism hypothesis locked (reliability/provenance vs raw reasoning)
 - [x] Composite primary weights frozen; Y20/Y21 scorers untouched
-- [ ] Prereg boundary commit + Arm A → B → unseal → COMPARISON_REPORT
+- [x] Prereg locked @ 
+- [ ] Arm A → freeze → B → freeze → unseal → COMPARISON_REPORT
 - [ ] Re-pin freeze SHA before any LH 96m/48h
 
 ## Deferred — True 48h / M1.5 (after new freeze)

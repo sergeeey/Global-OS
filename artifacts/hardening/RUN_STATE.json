@@ -1,8 +1,8 @@
 {
-  "sprint": "Y21_SCORED_NEXT_Y22",
-  "updated_at": "2026-09-25T12:50:00Z",
-  "current_goal": "Y22_OR_CLEAN_REPLICATION",
-  "phase_statement": "Y21 scored: primary TIE_WITHIN_MCID (0.3444=0.3444). GOS sealed science gain NOT SHOWN across Y20+Y21. Process trace richer under GOS. Next Y22/replication. No LH/M1.5.",
+  "sprint": "Y22_PREREG_LOCKED",
+  "updated_at": "2026-09-25T15:05:00Z",
+  "current_goal": "Y22_ARM_A",
+  "phase_statement": "Y22 prereg locked @f408ed1. Mechanism probe (reliability composite). Y20/Y21 frozen. Next Arm A only. No LH.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y19_frozen": true,
@@ -35,16 +35,23 @@
     "literal_48h": "DEFERRED",
     "m15_claimed": false
   },
-  "next_exact_action": "Plan Y22 third cognitive class or clean-attribution Y21 replication; do not retune scorers; do not start LH.",
+  "next_exact_action": "Run Y22 Arm A on public evidence stream; freeze; do not unseal; do not start B.",
   "forbidden_now": [
-    "change_y21_scorer_mcid_after_result",
-    "secondary_override_primary",
-    "retune_y20",
-    "claim_gos_advantage",
+    "retune_y20_y21_scorers",
+    "change_y22_weights_after_start",
+    "unseal_before_B_frozen",
     "claim_M1.5",
-    "claim_continual_SI",
     "literal_48h",
-    "windows_96m_preflight",
-    "reopen_y19_h8"
-  ]
+    "claim_continual_SI",
+    "claim_universal_advantage"
+  ],
+  "y22": {
+    "status": "PREREG_LOCKED",
+    "prereg_boundary_sha": "f408ed1",
+    "win_primary": "reliability_composite",
+    "primary_mcid": 0.05,
+    "arms_started": false,
+    "sealed_unseen": true,
+    "experiment_label": "mechanism_probe_reliability"
+  }
 }
