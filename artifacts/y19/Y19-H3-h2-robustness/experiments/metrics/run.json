@@ -1,0 +1,148 @@
+{
+  "protocol_version": "Y19-H3-v1",
+  "prior_mission": "Y19-H2",
+  "prior_decision": "SUPPORTED",
+  "competing_hypotheses": [
+    {
+      "id": "H_h2_robust",
+      "statement": "Size/entropy extras retain sealed-holdout MCID gain over activity after activity-matched stratification, on unseen system size N, and in both K regimes."
+    },
+    {
+      "id": "H_size_proxy_or_fragile",
+      "statement": "Apparent H2 gain is a size proxy and/or fails activity-matched / unseen-N transfer (collapses under robustness gates)."
+    },
+    {
+      "id": "H_regime_local",
+      "statement": "Gain is local to one connectivity regime (K) or underpowered outside the training distribution."
+    }
+  ],
+  "winning_hypothesis_id": "H_h2_robust",
+  "decision": "SUPPORTED",
+  "gates": {
+    "A_activity_matched": {
+      "name": "activity_matched",
+      "status": "PASS",
+      "passed": true,
+      "powered_tertiles": 3,
+      "mcid_pass_tertiles": 3,
+      "tertiles": [
+        {
+          "tertile": 0,
+          "status": "OK",
+          "powered": true,
+          "brier_activity": 0.2017616441076938,
+          "brier_full": 0.1804528743266577,
+          "brier_ratio": 0.8943864188098003,
+          "auc_activity": 0.6352357320099256,
+          "auc_full": 0.7295285359801489,
+          "n": 44,
+          "n_pos": 13,
+          "n_neg": 31,
+          "beats_mcid": true
+        },
+        {
+          "tertile": 1,
+          "status": "OK",
+          "powered": true,
+          "brier_activity": 0.25409633770691226,
+          "brier_full": 0.1671095933580885,
+          "brier_ratio": 0.6576623451804381,
+          "auc_activity": 0.5,
+          "auc_full": 0.8287037037037037,
+          "n": 30,
+          "n_pos": 12,
+          "n_neg": 18,
+          "beats_mcid": true
+        },
+        {
+          "tertile": 2,
+          "status": "OK",
+          "powered": true,
+          "brier_activity": 0.24653685931584154,
+          "brier_full": 0.20815745252720405,
+          "brier_ratio": 0.844325887434669,
+          "auc_activity": 0.3661257606490872,
+          "auc_full": 0.6805273833671399,
+          "n": 46,
+          "n_pos": 17,
+          "n_neg": 29,
+          "beats_mcid": true
+        }
+      ],
+      "cuts": [
+        0.47222222222222227,
+        0.5208333333333334
+      ]
+    },
+    "B_unseen_size": {
+      "name": "unseen_size",
+      "status": "PASS",
+      "passed": true,
+      "train_n_values": [
+        16,
+        20
+      ],
+      "hold_n": 24,
+      "brier_activity": 0.25864027261610945,
+      "brier_full": 0.17075066184385307,
+      "brier_ratio": 0.6601859026698916,
+      "auc_activity": 0.6385995370370371,
+      "auc_full": 0.796875,
+      "n": 120,
+      "n_pos": 48,
+      "n_neg": 72,
+      "beats_mcid": true
+    },
+    "C_regime_k": {
+      "name": "regime_k",
+      "status": "PASS",
+      "passed": true,
+      "regimes": [
+        {
+          "k": 2,
+          "status": "OK",
+          "powered": true,
+          "passed": true,
+          "brier_activity": 0.15023971847291379,
+          "brier_full": 0.1271665879461634,
+          "brier_ratio": 0.8464245622843725,
+          "auc_activity": 0.4542483660130719,
+          "auc_full": 0.6285403050108932,
+          "n": 60,
+          "n_pos": 9,
+          "n_neg": 51,
+          "beats_mcid": true
+        },
+        {
+          "k": 3,
+          "status": "OK",
+          "powered": true,
+          "passed": true,
+          "brier_activity": 0.3137785815349963,
+          "brier_full": 0.2483076968432862,
+          "brier_ratio": 0.7913468651320038,
+          "auc_activity": 0.44332210998877664,
+          "auc_full": 0.531986531986532,
+          "n": 60,
+          "n_pos": 33,
+          "n_neg": 27,
+          "beats_mcid": true
+        }
+      ]
+    }
+  },
+  "mcid_brier_ratio": 0.9,
+  "seed_policy": {
+    "train": "3000-3239",
+    "hold_match": "7200-7319",
+    "hold_unseen_n": "7000-7119",
+    "disjoint_from_h1_h2_y17": true
+  },
+  "leak_checks": {
+    "train_hold_disjoint": true,
+    "peek_holdout_labels_in_train": false
+  },
+  "null_results": [],
+  "scientific_claim_accepted": true,
+  "answer_known_a_priori": false
+}

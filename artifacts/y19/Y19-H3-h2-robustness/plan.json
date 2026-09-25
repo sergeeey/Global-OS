@@ -1,0 +1,9 @@
+{
+  "steps": [
+    "Lock three robustness gates before holdout scoring",
+    "Gate A: activity-tertile matched full vs activity",
+    "Gate B: unseen N=24 hold after train N∈{16,20}",
+    "Gate C: K=2 and K=3 regime slices",
+    "Aggregate SUPPORTED|REJECTED|INCONCLUSIVE; preserve nulls"
+  ]
+}

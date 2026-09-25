@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.57 — 2026-09-25
+
+### Windows os_kill smoke PASS + Y19-H2
+
+- Operator Windows smoke on exact `bfa58a0`: `passed=true`, PIDs 33436→39344, `child_gone=true`
+  (`child_returncode=1` = Windows kill semantics ≠ POSIX −9)
+- Artifact: `artifacts/hardening/long_horizon_48h/os_kill_smoke_windows/os_kill_result.json`
+- **Y19-H2** mechanistic follow-up: full baseline vs activity-only → **SUPPORTED**
+  (`H_size_entropy_add_signal`; size/entropy add holdout signal beyond activity)
+- Story so far: H1 spectral REJECTED; H2 shows baseline is not activity-only
+- 96m preflight / literal 48h still deferred; M1.5 not claimed
+
 ## 0.1.56 — 2026-09-25
 
 ### Pivot — Y19 science dogfood; LH exam deferred

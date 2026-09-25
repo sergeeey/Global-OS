@@ -1,8 +1,8 @@
 {
   "sprint": "SCIENTIFIC_DOGFOOD_Y19_LH_DEFERRED",
-  "updated_at": "2026-09-25T07:20:00Z",
-  "current_goal": "CONTINUE_Y19_SCIENCE_AFTER_WINDOWS_SMOKE",
-  "phase_statement": "Windows os_kill smoke PASS on exact bfa58a0. LH 96m/48h still deferred. Y19 science dogfood continues (H1 REJECTED → H2 mechanistic).",
+  "updated_at": "2026-09-25T07:50:00Z",
+  "current_goal": "CONTINUE_Y19_AFTER_H3_ROBUSTNESS",
+  "phase_statement": "Windows smoke PASS. Y19-H3 SUPPORTED (H2 size/entropy survives activity-matched + unseen-N + both K regimes). LH 96m/48h still deferred. M1.5 not claimed.",
   "freeze_candidate": {
     "sha": "bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee",
     "short_sha": "bfa58a0",
@@ -10,68 +10,41 @@
     "windows_os_kill_smoke": "PASS"
   },
   "completed": [
-    "EMPIRICAL_HARDENING_COMPLETE",
-    "LH_V1_WALL_42H_SCHEDULED_HARNESS_PASS",
-    "LH_V1_PROTOCOL_AUDIT",
-    "LH_V2_HARNESS_FIX",
-    "LH_V2_1_OS_KILL",
-    "LH_V2_1_COMPRESSED_PREFLIGHT_PASS",
-    "Y18_FAILURE_MODE_DOGFOOD_4_CLASSES",
-    "FREEZE_CANDIDATE_SHA_PINNED",
-    "LINUX_OS_KILL_SMOKE_PASS",
     "WINDOWS_OS_KILL_SMOKE_PASS_BFA58A0",
-    "Y19_H1_PILOT_REJECTED",
-    "Y19_H2_MECHANISTIC_EXECUTED"
+    "Y19_H1_REJECTED",
+    "Y19_H2_SUPPORTED",
+    "Y19_H3_ROBUSTNESS_SUPPORTED"
   ],
   "running": "Y19_SCIENTIFIC_DOGFOOD",
-  "operator_pending": [],
-  "stage": "Y19 science after Windows smoke PASS — LH exam deferred",
+  "stage": "Y19 science — H2 robust under H3 gates; LH deferred",
   "continual_improvement": "NOT_MEASURED",
-  "windows_os_kill_smoke": {
-    "passed": true,
-    "sha": "bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee",
-    "initial_pid": 33436,
-    "restart_pid": 39344,
-    "child_returncode": 1,
-    "child_returncode_note": "Windows kill ≠ POSIX -9; child_gone=true",
-    "artifact": "artifacts/hardening/long_horizon_48h/os_kill_smoke_windows/os_kill_result.json"
-  },
   "y19": {
-    "h1": {
-      "decision": "REJECTED",
-      "winner": "H_baseline_sufficient",
-      "note": "spectral extras failed sealed-holdout MCID"
-    },
-    "h2": {
+    "h1": {"decision": "REJECTED", "winner": "H_baseline_sufficient"},
+    "h2": {"decision": "SUPPORTED", "winner": "H_size_entropy_add_signal"},
+    "h3": {
       "decision": "SUPPORTED",
-      "winner": "H_size_entropy_add_signal",
-      "note": "full baseline beats activity-only by MCID on new sealed holdout",
-      "tz": "artifacts/y19/Y19-H2-baseline-mechanism/TZ.md"
+      "winner": "H_h2_robust",
+      "gates": {
+        "A_activity_matched": "PASS",
+        "B_unseen_size": "PASS",
+        "C_regime_k": "PASS"
+      },
+      "tz": "artifacts/y19/Y19-H3-h2-robustness/TZ.md",
+      "note": "size/entropy gain survives matching, N=24 transfer, both K regimes"
     }
   },
   "long_horizon": {
     "lh_v2_1": {
-      "status": "DEFERRED_FOR_SCIENTIFIC_DOGFOOD",
-      "linux_os_kill_smoke": "PASS",
       "windows_os_kill_smoke": "PASS",
       "windows_preflight": "DEFERRED",
       "literal_48h": "DEFERRED"
     },
-    "m15_claimed": false,
-    "m15_status": "NOT_CLOSED"
+    "m15_claimed": false
   },
   "plan": {
-    "now": ["continue_Y19_scientific_dogfood"],
-    "defer": ["windows_96m_preflight", "literal_48h"],
-    "do_not_now": ["claim_M1.5", "start_literal_48h", "start_96m_preflight"]
+    "now": ["continue_Y19_scientific_narrowing"],
+    "defer": ["windows_96m_preflight", "literal_48h"]
   },
-  "next_exact_action": "Continue Y19 science dogfood from H2 result. Do not start 96m/48h.",
-  "forbidden_now": [
-    "claim_M1.5",
-    "literal_48h",
-    "windows_96m_preflight",
-    "H_ORG_claim",
-    "continual_SI_claim",
-    "PRODUCTION_PROVEN_claim"
-  ]
+  "next_exact_action": "Continue Y19 narrowing (e.g. entropy-vs-N decomposition) without starting LH exam.",
+  "forbidden_now": ["claim_M1.5", "literal_48h", "windows_96m_preflight", "H_ORG_claim"]
 }

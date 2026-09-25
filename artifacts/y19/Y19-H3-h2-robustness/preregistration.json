@@ -1,0 +1,16 @@
+{
+  "mission_id": "Y19-H3",
+  "protocol_version": "Y19-H3-v1",
+  "preregistered_before_data": true,
+  "hypothesis": "Size/entropy extras retain sealed-holdout MCID gain over activity after activity-matched stratification, on unseen system size N, and in both K regimes.",
+  "mcid_brier_ratio": 0.9,
+  "primary_criterion": {
+    "statistic": "all_three_gates_pass",
+    "mcid_ratio": 0.9,
+    "decision_rule": {
+      "SUPPORTED": "A and B and C PASS",
+      "REJECTED": "any gate FAIL",
+      "INCONCLUSIVE": "any UNDERPOWERED and none FAIL"
+    }
+  }
+}

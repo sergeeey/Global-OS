@@ -119,3 +119,54 @@ def test_h2_mission_script():
     assert proc.returncode == 0, proc.stderr
     mission = json.loads((art / "mission.json").read_text(encoding="utf-8"))
     assert mission["decision"] in {"SUPPORTED", "REJECTED", "INCONCLUSIVE"}
+
+
+def test_h3_seeds_disjoint():
+    from global_os.evals.research.y19_transient_early_warning import (
+        HOLD_SEEDS_H2,
+        HOLD_SEEDS_H3_MATCH,
+        HOLD_SEEDS_H3_UNSEEN,
+        TRAIN_SEEDS_H2,
+        TRAIN_SEEDS_H3,
+    )
+
+    prior = set(TRAIN_SEEDS) | set(HOLD_SEEDS) | set(TRAIN_SEEDS_H2) | set(HOLD_SEEDS_H2)
+    assert not (set(TRAIN_SEEDS_H3) & prior)
+    assert not (set(HOLD_SEEDS_H3_MATCH) & prior)
+    assert not (set(HOLD_SEEDS_H3_UNSEEN) & prior)
+    assert not (set(HOLD_SEEDS_H3_MATCH) & set(HOLD_SEEDS_H3_UNSEEN))
+
+
+def test_h3_decision_matches_gates():
+    from global_os.evals.research.y19_transient_early_warning import run_experiment_h3
+
+    raw = run_experiment_h3()
+    assert raw["answer_known_a_priori"] is False
+    gates = raw["gates"]
+    statuses = [gates[k]["status"] for k in ("A_activity_matched", "B_unseen_size", "C_regime_k")]
+    if any(s == "FAIL" for s in statuses):
+        assert raw["decision"] == "REJECTED"
+        assert raw["null_results"]
+    elif any(s == "UNDERPOWERED" for s in statuses):
+        assert raw["decision"] == "INCONCLUSIVE"
+    else:
+        assert raw["decision"] == "SUPPORTED"
+        assert all(gates[k]["passed"] for k in gates)
+
+
+def test_h3_mission_script():
+    art = ROOT / "artifacts" / "y19" / "Y19-H3-h2-robustness"
+    env = {**dict(__import__("os").environ), "PYTHONPATH": str(ROOT / "src")}
+    proc = subprocess.run(
+        [sys.executable, str(art / "execute_mission.py")],
+        cwd=str(ROOT),
+        env=env,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr[-2000:]
+    mission = json.loads((art / "mission.json").read_text(encoding="utf-8"))
+    assert mission["decision"] in {"SUPPORTED", "REJECTED", "INCONCLUSIVE"}
+    ver = json.loads((art / "verification.json").read_text(encoding="utf-8"))
+    assert ver["deterministic_status"] == "PASS"

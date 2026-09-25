@@ -1,0 +1,21 @@
+{
+  "mission_id": "Y19-H3",
+  "decision": "SUPPORTED",
+  "files": [
+    "TZ.md",
+    "claims.json",
+    "decision.md",
+    "execute_mission.py",
+    "experiments/metrics/run.json",
+    "failure_cases.json",
+    "mission.json",
+    "null_results.json",
+    "plan.json",
+    "postmortem.json",
+    "preregistration.json",
+    "reframe.json",
+    "verification.json"
+  ],
+  "recorded_at": "2026-09-25T07:50:21.274419+00:00",
+  "report_id": "rmr_6a404c40c4994c34"
+}

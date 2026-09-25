@@ -30,7 +30,8 @@
 - [x] Windows `os_process_kill` smoke on exact `bfa58a0` (PASS; PIDs distinct)
 - [x] Y19-H1 pilot (`REJECTED` — spectral MCID miss)
 - [x] Y19-H2 mechanistic (`SUPPORTED` — size/entropy beat activity-only)
-- [ ] Continue Y19 / further science dogfood → fixes → regressions
+- [x] Y19-H3 robustness (`SUPPORTED` — activity-matched + unseen-N + both K)
+- [ ] Continue Y19 narrowing (e.g. entropy vs N decomposition) → fixes if any
 - [ ] Re-pin freeze SHA only after science path stabilizes
 
 ## Deferred — True 48h / M1.5 (after new freeze)

@@ -107,26 +107,28 @@ def _bool_fn_table(k: int, rng: Any) -> list[int]:
     return [1 if rng.random() < 0.5 else 0 for _ in range(1 << k)]
 
 
-def _generate_network(seed: int) -> dict[str, Any]:
+def _generate_network(
+    seed: int, *, n: int | None = None, k: int | None = None
+) -> dict[str, Any]:
     rng = _rng(seed)
-    n = rng.choice(N_CHOICES)
-    k = rng.choice(K_CHOICES)
+    n_eff = int(n) if n is not None else int(rng.choice(N_CHOICES))
+    k_eff = int(k) if k is not None else int(rng.choice(K_CHOICES))
+    k_eff = min(k_eff, n_eff)
     wiring: list[list[int]] = []
     tables: list[list[int]] = []
-    for i in range(n):
-        # Prefer distinct inputs when possible
+    for _i in range(n_eff):
         inputs: list[int] = []
-        while len(inputs) < k:
-            j = rng.randint(0, n - 1)
-            if j not in inputs or n < k:
+        while len(inputs) < k_eff:
+            j = rng.randint(0, n_eff - 1)
+            if j not in inputs or n_eff < k_eff:
                 inputs.append(j)
-            if n < k and len(inputs) >= k:
+            if n_eff < k_eff and len(inputs) >= k_eff:
                 break
-        while len(inputs) < k:
-            inputs.append(rng.randint(0, n - 1))
-        wiring.append(inputs[:k])
-        tables.append(_bool_fn_table(k, rng))
-    return {"seed": seed, "n": n, "k": k, "wiring": wiring, "tables": tables}
+        while len(inputs) < k_eff:
+            inputs.append(rng.randint(0, n_eff - 1))
+        wiring.append(inputs[:k_eff])
+        tables.append(_bool_fn_table(k_eff, rng))
+    return {"seed": seed, "n": n_eff, "k": k_eff, "wiring": wiring, "tables": tables}
 
 
 def _step(state: list[int], net: dict[str, Any]) -> list[int]:
@@ -250,11 +252,17 @@ ABLATED_KEYS = (
 )  # N/K removed
 
 
-def _collect_cases(seeds: tuple[int, ...]) -> list[dict[str, Any]]:
+def _collect_cases(
+    seeds: tuple[int, ...],
+    *,
+    n: int | None = None,
+    k: int | None = None,
+    n_chooser: Any | None = None,
+) -> list[dict[str, Any]]:
     cases: list[dict[str, Any]] = []
     for seed in seeds:
-        net = _generate_network(seed)
-        # One IC per network seed (ic derived); keeps N manageable
+        n_use = n_chooser(seed) if n_chooser is not None else n
+        net = _generate_network(seed, n=n_use, k=k)
         sim = _simulate(net, ic_seed=seed * 17 + 3)
         feats = _features(sim, net)
         cases.append(
@@ -263,6 +271,8 @@ def _collect_cases(seeds: tuple[int, ...]) -> list[dict[str, Any]]:
                 "label": sim["long_transient"],
                 "steps_to_attractor": sim["steps_to_attractor"],
                 "features": feats,
+                "n": sim["n"],
+                "k": sim["k"],
             }
         )
     return cases
@@ -661,6 +671,316 @@ def write_preregistration_h2(path: Path) -> None:
         "activity_features": list(ACTIVITY_KEYS),
         "full_baseline_features": list(FULL_BASELINE_KEYS),
         "system_same_as_h1": True,
+        "answer_known_a_priori": False,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
+
+# --- Y19-H3: robustness of H2 (activity-matched + unseen-size + regime) ---
+PROTOCOL_VERSION_H3 = "Y19-H3-v1"
+TRAIN_SEEDS_H3 = tuple(range(3000, 3240))  # 240 mixed-N train
+HOLD_SEEDS_H3_MATCH = tuple(range(7200, 7320))  # 120 in-family hold (gates A, C)
+HOLD_SEEDS_H3_UNSEEN = tuple(range(7000, 7120))  # 120 unseen-size hold (gate B)
+TRAIN_N_SEEN = (16, 20)
+HOLD_N_UNSEEN = 24
+MIN_STRATUM = 15  # min cases per activity tertile / regime slice
+MIN_STRATUM_POS = 4
+MIN_STRATUM_NEG = 4
+
+COMPETING_H3: tuple[CompetingHypothesis, ...] = (
+    CompetingHypothesis(
+        id="H_h2_robust",
+        statement=(
+            "Size/entropy extras retain sealed-holdout MCID gain over activity after "
+            "activity-matched stratification, on unseen system size N, and in both K regimes."
+        ),
+    ),
+    CompetingHypothesis(
+        id="H_size_proxy_or_fragile",
+        statement=(
+            "Apparent H2 gain is a size proxy and/or fails activity-matched / unseen-N "
+            "transfer (collapses under robustness gates)."
+        ),
+    ),
+    CompetingHypothesis(
+        id="H_regime_local",
+        statement=(
+            "Gain is local to one connectivity regime (K) or underpowered outside the "
+            "training distribution."
+        ),
+    ),
+)
+
+
+def _tertile_cuts(values: list[float]) -> tuple[float, float]:
+    xs = sorted(values)
+    n = len(xs)
+    if n < 3:
+        return (xs[0], xs[-1]) if xs else (0.0, 1.0)
+    return xs[n // 3], xs[(2 * n) // 3]
+
+
+def _assign_tertile(v: float, c1: float, c2: float) -> int:
+    if v <= c1:
+        return 0
+    if v <= c2:
+        return 1
+    return 2
+
+
+def _eval_full_vs_activity(
+    fit_cases: list[dict[str, Any]], eval_cases: list[dict[str, Any]]
+) -> dict[str, Any]:
+    x_tr_a, y_tr = _design_matrix(fit_cases, ACTIVITY_KEYS)
+    beta_a = _fit_ridge(x_tr_a, y_tr)
+    x_tr_f, _ = _design_matrix(fit_cases, FULL_BASELINE_KEYS)
+    beta_f = _fit_ridge(x_tr_f, y_tr)
+    x_te_a, y_te = _design_matrix(eval_cases, ACTIVITY_KEYS)
+    x_te_f, _ = _design_matrix(eval_cases, FULL_BASELINE_KEYS)
+    pred_a = _predict(beta_a, x_te_a)
+    pred_f = _predict(beta_f, x_te_f)
+    brier_a = _brier(y_te, pred_a)
+    brier_f = _brier(y_te, pred_f)
+    ratio = brier_f / brier_a if brier_a > 1e-12 else float("inf")
+    return {
+        "brier_activity": brier_a,
+        "brier_full": brier_f,
+        "brier_ratio": ratio,
+        "auc_activity": _auc(y_te, pred_a),
+        "auc_full": _auc(y_te, pred_f),
+        "n": len(eval_cases),
+        "n_pos": int(sum(y_te)),
+        "n_neg": int(len(y_te) - sum(y_te)),
+        "beats_mcid": ratio <= MCID_BRIER_RATIO,
+    }
+
+
+def _stratum_ok(n_pos: int, n_neg: int, n_tot: int) -> bool:
+    return n_tot >= MIN_STRATUM and n_pos >= MIN_STRATUM_POS and n_neg >= MIN_STRATUM_NEG
+
+
+def run_experiment_h3(*, peek_holdout_labels_in_train: bool = False) -> dict[str, Any]:
+    """Y19-H3 robustness of H2 — three preregistered gates."""
+    prior = set(TRAIN_SEEDS) | set(HOLD_SEEDS) | set(TRAIN_SEEDS_H2) | set(HOLD_SEEDS_H2)
+    for label, seeds in (
+        ("train_h3", TRAIN_SEEDS_H3),
+        ("hold_match", HOLD_SEEDS_H3_MATCH),
+        ("hold_unseen", HOLD_SEEDS_H3_UNSEEN),
+    ):
+        if set(seeds) & prior:
+            raise RuntimeError(f"H3 {label} overlaps prior Y19 seeds")
+    if set(HOLD_SEEDS_H3_MATCH) & set(HOLD_SEEDS_H3_UNSEEN):
+        raise RuntimeError("H3 hold sets collide")
+
+    train_mixed = _collect_cases(TRAIN_SEEDS_H3)
+    hold_match = _collect_cases(HOLD_SEEDS_H3_MATCH)
+
+    def n_seen_chooser(seed: int) -> int:
+        return TRAIN_N_SEEN[seed % len(TRAIN_N_SEEN)]
+
+    train_seen_n = _collect_cases(TRAIN_SEEDS_H3, n_chooser=n_seen_chooser)
+    hold_unseen_n = _collect_cases(HOLD_SEEDS_H3_UNSEEN, n=HOLD_N_UNSEEN)
+
+    fit_mixed = train_mixed + hold_match if peek_holdout_labels_in_train else train_mixed
+    fit_seen = train_seen_n + hold_unseen_n if peek_holdout_labels_in_train else train_seen_n
+
+    # Gate A: activity-matched tertiles
+    acts_train = [float(c["features"]["mean_activity"]) for c in train_mixed]
+    c1, c2 = _tertile_cuts(acts_train)
+    tertile_rows: list[dict[str, Any]] = []
+    for t in range(3):
+        subset = [
+            c
+            for c in hold_match
+            if _assign_tertile(float(c["features"]["mean_activity"]), c1, c2) == t
+        ]
+        if not subset:
+            tertile_rows.append(
+                {"tertile": t, "status": "EMPTY", "beats_mcid": False, "powered": False}
+            )
+            continue
+        metrics = _eval_full_vs_activity(fit_mixed, subset)
+        powered = _stratum_ok(metrics["n_pos"], metrics["n_neg"], metrics["n"])
+        tertile_rows.append(
+            {
+                "tertile": t,
+                "status": "OK" if powered else "UNDERPOWERED",
+                "powered": powered,
+                **metrics,
+            }
+        )
+    powered_tert = [r for r in tertile_rows if r.get("powered")]
+    if len(powered_tert) < 2:
+        gate_a: dict[str, Any] = {
+            "name": "activity_matched",
+            "status": "UNDERPOWERED",
+            "passed": False,
+            "tertiles": tertile_rows,
+        }
+    else:
+        n_pass = sum(1 for r in powered_tert if r["beats_mcid"])
+        gate_a = {
+            "name": "activity_matched",
+            "status": "PASS" if n_pass >= 2 else "FAIL",
+            "passed": n_pass >= 2,
+            "powered_tertiles": len(powered_tert),
+            "mcid_pass_tertiles": n_pass,
+            "tertiles": tertile_rows,
+            "cuts": [c1, c2],
+        }
+
+    # Gate B: unseen size
+    gate_b_metrics = _eval_full_vs_activity(fit_seen, hold_unseen_n)
+    bal_b = (
+        gate_b_metrics["n_pos"] >= MIN_HOLD_POSITIVES
+        and gate_b_metrics["n_neg"] >= MIN_HOLD_NEGATIVES
+    )
+    if not bal_b:
+        gate_b: dict[str, Any] = {
+            "name": "unseen_size",
+            "status": "UNDERPOWERED",
+            "passed": False,
+            **gate_b_metrics,
+        }
+    else:
+        gate_b = {
+            "name": "unseen_size",
+            "status": "PASS" if gate_b_metrics["beats_mcid"] else "FAIL",
+            "passed": bool(gate_b_metrics["beats_mcid"]),
+            "train_n_values": list(TRAIN_N_SEEN),
+            "hold_n": HOLD_N_UNSEEN,
+            **gate_b_metrics,
+        }
+
+    # Gate C: regime K
+    regime_rows: list[dict[str, Any]] = []
+    for kval in (2, 3):
+        subset = [c for c in hold_match if int(c["k"]) == kval]
+        if not subset:
+            regime_rows.append({"k": kval, "status": "EMPTY", "passed": False, "powered": False})
+            continue
+        metrics = _eval_full_vs_activity(fit_mixed, subset)
+        powered = _stratum_ok(metrics["n_pos"], metrics["n_neg"], metrics["n"])
+        regime_rows.append(
+            {
+                "k": kval,
+                "status": ("OK" if powered else "UNDERPOWERED"),
+                "powered": powered,
+                "passed": bool(powered and metrics["beats_mcid"]),
+                **metrics,
+            }
+        )
+    powered_reg = [r for r in regime_rows if r.get("powered")]
+    failed_reg = [r for r in powered_reg if not r["beats_mcid"]]
+    if len(powered_reg) < 2:
+        gate_c: dict[str, Any] = {
+            "name": "regime_k",
+            "status": "UNDERPOWERED",
+            "passed": False,
+            "regimes": regime_rows,
+        }
+    elif failed_reg:
+        gate_c = {
+            "name": "regime_k",
+            "status": "FAIL",
+            "passed": False,
+            "regimes": regime_rows,
+        }
+    else:
+        gate_c = {
+            "name": "regime_k",
+            "status": "PASS",
+            "passed": True,
+            "regimes": regime_rows,
+        }
+
+    gates = {"A_activity_matched": gate_a, "B_unseen_size": gate_b, "C_regime_k": gate_c}
+    statuses = [g["status"] for g in gates.values()]
+    if any(s == "FAIL" for s in statuses):
+        if gate_c["status"] == "FAIL" and gate_a["status"] != "FAIL" and gate_b["status"] != "FAIL":
+            decision: Decision = "REJECTED"
+            winning = "H_regime_local"
+        else:
+            decision = "REJECTED"
+            winning = "H_size_proxy_or_fragile"
+    elif any(s == "UNDERPOWERED" for s in statuses):
+        decision = "INCONCLUSIVE"
+        winning = "H_regime_local"
+    elif all(g["passed"] for g in gates.values()):
+        decision = "SUPPORTED"
+        winning = "H_h2_robust"
+    else:
+        decision = "INCONCLUSIVE"
+        winning = "H_regime_local"
+
+    nulls: list[dict[str, Any]] = []
+    if decision == "REJECTED":
+        nulls.append(
+            {
+                "id": "y19_h3_robustness_fail",
+                "gates": {k: v["status"] for k, v in gates.items()},
+                "interpretation": "H2 size/entropy gain did not survive robustness battery",
+            }
+        )
+
+    return {
+        "protocol_version": PROTOCOL_VERSION_H3,
+        "prior_mission": "Y19-H2",
+        "prior_decision": "SUPPORTED",
+        "competing_hypotheses": [asdict(h) for h in COMPETING_H3],
+        "winning_hypothesis_id": winning,
+        "decision": decision,
+        "gates": gates,
+        "mcid_brier_ratio": MCID_BRIER_RATIO,
+        "seed_policy": {
+            "train": f"{TRAIN_SEEDS_H3[0]}-{TRAIN_SEEDS_H3[-1]}",
+            "hold_match": f"{HOLD_SEEDS_H3_MATCH[0]}-{HOLD_SEEDS_H3_MATCH[-1]}",
+            "hold_unseen_n": f"{HOLD_SEEDS_H3_UNSEEN[0]}-{HOLD_SEEDS_H3_UNSEEN[-1]}",
+            "disjoint_from_h1_h2_y17": True,
+        },
+        "leak_checks": {
+            "train_hold_disjoint": True,
+            "peek_holdout_labels_in_train": peek_holdout_labels_in_train,
+        },
+        "null_results": nulls,
+        "scientific_claim_accepted": decision == "SUPPORTED",
+        "answer_known_a_priori": False,
+    }
+
+
+def write_preregistration_h3(path: Path) -> None:
+    payload = {
+        "mission_id": "Y19-H3",
+        "protocol_version": PROTOCOL_VERSION_H3,
+        "preregistered_before_data": True,
+        "follows": "Y19-H2 SUPPORTED → test robustness of size/entropy signal",
+        "hypothesis": COMPETING_H3[0].statement,
+        "competing_hypotheses": [asdict(h) for h in COMPETING_H3],
+        "gates": {
+            "A_activity_matched": (
+                "On in-family hold, ≥2 activity tertiles (train cuts) must show "
+                f"Brier_full/Brier_activity ≤ {MCID_BRIER_RATIO}"
+            ),
+            "B_unseen_size": (
+                f"Train N∈{list(TRAIN_N_SEEN)}; hold N={HOLD_N_UNSEEN}; MCID vs activity"
+            ),
+            "C_regime_k": "Both powered K=2 and K=3 hold slices must meet MCID",
+        },
+        "primary_criterion": {
+            "statistic": "all_three_gates_pass",
+            "mcid_ratio": MCID_BRIER_RATIO,
+            "decision_rule": {
+                "SUPPORTED": "A and B and C PASS",
+                "REJECTED": "any gate FAIL",
+                "INCONCLUSIVE": "any gate UNDERPOWERED and none FAIL",
+            },
+        },
+        "seed_data_policy": {
+            "train": list(TRAIN_SEEDS_H3),
+            "hold_match": list(HOLD_SEEDS_H3_MATCH),
+            "hold_unseen": list(HOLD_SEEDS_H3_UNSEEN),
+        },
         "answer_known_a_priori": False,
     }
     path.parent.mkdir(parents=True, exist_ok=True)

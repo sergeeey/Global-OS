@@ -24,14 +24,16 @@ Windows OS kill smoke            ✅ PASS on bfa58a0 (PIDs distinct)
 Windows 96m / literal 48h        ⏸ deferred
 Y19-H1                           ✅ REJECTED (spectral < MCID) — honest
 Y19-H2                           ✅ SUPPORTED (size/entropy > activity-only)
+Y19-H3                           ✅ SUPPORTED (H2 robust: match + unseen-N + regimes)
 M1.5                             ❌ not claimed
 ```
 
 ### Plan
 
-1. **Now:** Windows `os_kill` smoke on exact `bfa58a0` (seconds). Parallel: Y19 scientific dogfood.  
-2. **Not now:** 96m preflight, literal 48h, M1.5 claim.  
-3. **Later:** after science dogfood stabilizes → new freeze SHA → Windows preflight → 48h exam.
+1. **Done:** Windows `os_kill` smoke on exact `bfa58a0` PASS. Y19-H1/H2 science running.  
+2. **Now:** continue Y19 scientific dogfood (unknown-answer; honest REJECTED valued).  
+3. **Not now:** 96m preflight, literal 48h, M1.5 claim.  
+4. **Later:** after science dogfood stabilizes → new freeze SHA → Windows preflight → 48h exam.
 
 Claim strength must not exceed evidence strength. Honest `REJECTED` on Y19 is valuable.
 

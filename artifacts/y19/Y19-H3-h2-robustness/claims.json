@@ -1,0 +1,7 @@
+{
+  "goal_id": "goal_01789f240f0c4f55",
+  "hypothesis_id": "hyp_0eb9d13a6dcb4a17",
+  "statement": "Size/entropy extras retain sealed-holdout MCID gain over activity after activity-matched stratification, on unseen system size N, and in both K regimes.",
+  "decision": "SUPPORTED",
+  "scientific_claim_accepted": false
+}

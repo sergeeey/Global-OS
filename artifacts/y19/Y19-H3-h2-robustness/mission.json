@@ -1,0 +1,15 @@
+{
+  "mission_id": "Y19-H3",
+  "goal_id": "goal_01789f240f0c4f55",
+  "hypothesis_id": "hyp_0eb9d13a6dcb4a17",
+  "status": "COMPLETED",
+  "reframe": {
+    "discovered_prior_id": "Y19-H2",
+    "original_intent": "Treat H2 size/entropy gain as settled",
+    "reframed_intent": "Stress-test H2 under matching, transfer, and regime splits",
+    "rationale": "H2 SUPPORTED is necessary but not sufficient for structural claim"
+  },
+  "created_at": "2026-09-25T07:50:21.055536+00:00",
+  "decision": "SUPPORTED",
+  "completed_at": "2026-09-25T07:50:21.273820+00:00"
+}
