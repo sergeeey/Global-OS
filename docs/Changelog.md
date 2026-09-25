@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.52 — 2026-09-25
+
+### Phase lock — LH validation deferred
+
+- Protocol LH-v2.1 ready; **do not** run 90m preflight or literal 48h while dogfood continues
+- Active mode: real-world hardening (new missions → failures → fixes)
+- Later: freeze SHA → Windows preflight → true 48h on real persistent workload → M1.5 candidate
+
 ## 0.1.51 — 2026-09-25
 
 ### LH-v2.1 — real OS process kill + cold resume

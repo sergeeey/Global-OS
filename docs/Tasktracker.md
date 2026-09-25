@@ -18,21 +18,22 @@
 - [x] LH-v1 protocol audit (EARLY-STOP-42H + related gaps); M1.5 not closed
 - [x] LH-v2 acceptance harness: T+48 barrier + duration hard gate + criteria tighten
 - [x] LH-v2.1 real OS process kill + disk cold resume (`os_process_kill`)
+- [x] Phase lock: LH validation deferred; return to real-world hardening
 
-## Active — True 48h proof (LH-v2.1)
+## Active — Real-world hardening (LH deferred)
 
-- [x] Compressed preflight LH-v2.1
-- [ ] Windows 60–120m wall preflight (LH-v2.1)
-- [ ] Full wall run with `wall_seconds >= 172800` required for `WALL_CLOCK_48H`
+- [ ] Optional Windows `os_process_kill` smoke (seconds only)
+- [ ] 2–4 new real dogfood missions (distinct classes; evidence chain / invalidation / IV / recovery)
+- [ ] Failure cases → minimal fix → regression
+- [ ] Freeze candidate SHA when no open critical defects
+
+## Deferred — True 48h / M1.5 (after freeze)
+
+- [ ] Windows 60–120m wall preflight on **frozen** SHA
+- [ ] Literal 48h wall on real persistent research workload (`wall_seconds >= 172800`)
+- [ ] Audit → M1.5 candidate decision
 - [ ] Continual SI holdout measurement (still NOT_MEASURED)
 - [ ] H-ORG claim only after larger multi-class + token costs
-
-## Gate — M1.5 durability
-
-- [x] LH-v1 scheduled harness evidence recorded (not literal 48h)
-- [ ] Literal 48h wall PASS under LH-v2 protocol
-- [ ] Closure review only after true 48h + remaining checklist
-- [ ] On FAIL: classify → minimal fix → regression → compressed replay → new 48h
 
 ## After usable Y-17 missions
 

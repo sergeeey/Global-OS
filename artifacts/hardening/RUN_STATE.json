@@ -1,39 +1,58 @@
 {
-  "sprint": "LH_V2_1_OS_KILL_THEN_WINDOWS_PREFLIGHT",
-  "updated_at": "2026-09-25T05:20:00Z",
-  "current_goal": "OPERATOR_WINDOWS_PREFLIGHT_LH_V2_1_THEN_TRUE_48H",
-  "phase_statement": "LH-v1 audited (42h). LH-v2.1: T+48 barrier + duration gate + real OS process kill/cold resume. Compressed preflight PASS. M1.5 NOT claimed. Literal 48h wall NOT started.",
+  "sprint": "REAL_WORLD_HARDENING_LH_VALIDATION_DEFERRED",
+  "updated_at": "2026-09-25T05:25:00Z",
+  "current_goal": "REAL_DOGFOOD_MISSIONS_UNTIL_STABLE_FREEZE_CANDIDATE",
+  "phase_statement": "Long-Horizon protocol repaired (LH-v2.1); validation deferred while real-world hardening continues. Do not start Windows 90m preflight or literal 48h until freeze candidate SHA.",
   "completed": [
     "EMPIRICAL_HARDENING_COMPLETE",
     "LH_V1_WALL_42H_SCHEDULED_HARNESS_PASS",
     "LH_V1_PROTOCOL_AUDIT",
     "LH_V2_HARNESS_FIX",
-    "LH_V2_COMPRESSED_PREFLIGHT_PASS",
-    "LH_FC_LOGICAL_PROCESS_KILL_FIXED",
+    "LH_V2_1_OS_KILL",
     "LH_V2_1_COMPRESSED_PREFLIGHT_PASS"
   ],
   "running": null,
-  "stage": "Long-Horizon Validation — LH-v2.1 ready for Windows preflight; literal 48h NOT proven; M1.5 not claimed",
+  "stage": "Real-world hardening — LH validation deferred",
   "continual_improvement": "NOT_MEASURED",
   "long_horizon": {
     "lh_v1": {
       "audited_classification": "WALL_CLOCK_42H_SCHEDULED_HARNESS_VERIFIED",
-      "literal_48h": false,
-      "audit": "artifacts/hardening/long_horizon_48h/wall_48h/LH_V1_AUDIT.json"
+      "literal_48h": false
     },
     "lh_v2_1": {
-      "protocol": "T+48 + wall_seconds>=172800 + shared-state hooks + OS process kill cold resume",
-      "status": "COMPRESSED_PREFLIGHT_PASS",
-      "next": "Windows 60–120m preflight then wall_48h_v2"
+      "status": "PROTOCOL_READY_VALIDATION_DEFERRED",
+      "compressed_preflight": "PASS",
+      "windows_preflight": "DEFERRED_UNTIL_FREEZE",
+      "literal_48h": "DEFERRED_UNTIL_FREEZE"
     },
     "m15_claimed": false,
     "m15_status": "NOT_CLOSED"
   },
-  "next_exact_action": "Operator: git pull; Windows 60–120m preflight (PROGRAM.md); if PASS → full wall_48h_v2 with double gate. Do not claim M1.5 from LH-v1.",
+  "plan": {
+    "now": [
+      "optional_windows_os_kill_smoke_only_seconds",
+      "real_dogfood_2_to_4_distinct_missions",
+      "failure_cases_minimal_fixes_regression",
+      "prefer_evidence_chain_invalidation_IV_recovery_classes"
+    ],
+    "freeze_when": "no open critical defects in state/recovery/authority/eval protocol on candidate SHA",
+    "then": [
+      "freeze_candidate_SHA",
+      "Windows_wall_preflight_60_120min",
+      "literal_48h_on_real_persistent_workload",
+      "audit_then_M15_candidate"
+    ],
+    "do_not_now": [
+      "start_literal_48h",
+      "start_90min_preflight_if_code_still_changing",
+      "claim_M1.5"
+    ]
+  },
+  "next_exact_action": "Resume real dogfood (new distinct mission classes). Optional: seconds-long Windows os_process_kill smoke. Defer 90m preflight and 48h until freeze.",
   "forbidden_now": [
     "claim_M1.5",
+    "literal_48h_now",
     "rewrite_LH_v1_program_report",
-    "claim_literal_48h_from_v1",
     "H_ORG_claim",
     "continual_SI_claim",
     "PRODUCTION_PROVEN_claim"
