@@ -1,12 +1,17 @@
 {
-  "sprint": "Y22_SCORED",
-  "updated_at": "2026-09-25T15:35:00Z",
-  "current_goal": "POST_Y22_MAP",
-  "phase_statement": "Y22 scored: reliability_composite TIE (0.7146=0.7146). H_reliability_multiplier NOT CONFIRMED. Y20+Y21+Y22 primary advantages NULL; process trace richer under GOS recurring. LH/M1.5 deferred. R1 real-use optional next.",
+  "sprint": "R1_REAL_USE",
+  "updated_at": "2026-09-25T16:17:08Z",
+  "current_goal": "R1_EVIDENCE_INTEGRITY",
+  "phase_statement": "Synthetic Y19\u2013Y22 phase closed. No Y23. Scorers FROZEN. R1 real-use started: evidence-integrity honesty mission under locked eval rubric.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
-  "y20": {"sealed_science_gain": false},
-  "y21": {"sealed_science_gain": false, "primary_verdict": "TIE_WITHIN_MCID"},
+  "y20": {
+    "sealed_science_gain": false
+  },
+  "y21": {
+    "sealed_science_gain": false,
+    "primary_verdict": "TIE_WITHIN_MCID"
+  },
   "y22": {
     "status": "SCORED_COMPARISON_COMPLETE",
     "prereg_boundary_sha": "f408ed1",
@@ -29,13 +34,20 @@
     "literal_48h": "DEFERRED",
     "m15_claimed": false
   },
-  "next_exact_action": "Y22 complete. Do not retune scorers. Next strategic choice: R1 real mission (use track) or pause. Not LH/M1.5.",
+  "next_exact_action": "R1: falsify H1\u2013H4; remediate audit gaps minimally; fill EVALUATION.md. Not Y23/LH/M1.5.",
   "forbidden_now": [
+    "y23_synthetic_ab",
     "retune_y20_y21_y22_scorers_post_hoc",
     "claim_gos_advantage",
     "claim_M1.5",
     "claim_continual_SI",
     "literal_48h",
     "windows_96m_preflight"
-  ]
+  ],
+  "r1": {
+    "mission_id": "R1-EVIDENCE-INTEGRITY-v1",
+    "status": "STARTED",
+    "goal_contract": "artifacts/r1/R1-GOAL-CONTRACT.md",
+    "eval_rubric_locked_at": "2026-09-25T16:17:08Z"
+  }
 }

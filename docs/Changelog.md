@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.71 — 2026-09-25
+
+### R1 real-use started — synthetic A/B phase closed
+
+- Map locked: Y20/Y21/Y22 primary advantages NULL; process YES; scorers FROZEN
+- **No Y23**; LH/M1.5 remain deferred until after real missions + freeze
+- R1 mission: evidence-integrity honesty (`artifacts/r1/R1-GOAL-CONTRACT.md`)
+- Eval rubric locked before remediations (`R1-EVAL-RUBRIC.md` @ 2026-09-25T16:17:08Z)
+- Practical question: autonomy / reproducibility / usefulness — not sealed win
+
 ## 0.1.70 — 2026-09-25
 
 ### Y22 A/B scored — reliability composite TIE; hypothesis NOT CONFIRMED

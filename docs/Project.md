@@ -14,24 +14,30 @@
 
 ## Текущий baseline
 
-**Y22 scored. Three controlled primaries = NULL for GOS advantage.**
+**Synthetic A/B phase closed. R1 real-use active.**
 
 ```text
-Y19  → autonomous research-loop example
-Y20  → sealed science gain = NULL
-Y21  → sealed science gain = NULL
-Y22  → reliability composite = NULL (tie 0.7146)
-GOS process-trace richness     recurring YES
-Universal advantage            NOT SHOWN
-LH / M1.5                      deferred / NOT CLAIMED
-Scorers Y20–Y22                FROZEN
+Y19  → autonomous multi-step research loop: SHOWN for bundle
+Y20  → sealed science gain: NULL
+Y21  → cross-domain sealed gain: NULL
+Y22  → reliability multiplier: NOT CONFIRMED
+Process discipline / trace richness: YES
+Primary outcome advantage: NOT SHOWN
+Extra cost: YES
+Universal GOS advantage: NOT SHOWN
+LH / M1.5: DEFERRED
+Y20–Y22 scorers: FROZEN
+Y23: NOT NOW
 ```
 
 ### Plan
 
-1. **Frozen:** Y20–Y22 claims — no post-hoc retune.  
-2. **Optional next:** R1 real-use mission (separate from controlled eval).  
-3. **Not now:** LH / M1.5 / Continual SI / universal advantage.
+1. **Frozen:** Y20–Y22 claims — no post-hoc retune; no Y23.
+2. **Active:** R1 real-use (`artifacts/r1/`) — useful mission, unknown outcome,
+   independent eval of usefulness / reproducibility / trail / autonomy / cost.
+3. **Later:** R2+ of other classes → mature SHA → freeze → Windows preflight →
+   ≥48h real workload → audit → M1.5 candidate.
+4. **Not now:** LH / M1.5 / Continual SI / universal advantage.
 
 ## Документы
 

@@ -18,20 +18,18 @@ Architecture V2: `SPEC-ADDENDUM-V2.md`.
 ## Path (locked)
 
 ```text
-CURRENT
-  architecture + dogfood Y17-1..5; trust boundaries incomplete
+CURRENT — REAL-USE (R1+)
+  Y19–Y22 synthetic A/B closed (primary GOS gain NOT SHOWN; scorers FROZEN)
+  No Y23. Use Global OS on real missions; failure → minimal fix → regression.
         │
         ▼
-M1.4 TRUST BOUNDARY HARDENING   ← P0 now
-  CI green
-  proposal-bound ExecutionToken
-  approval verify_and_consume
-  immutable/versioned claims/evidence
-  cold-restart epistemic reconstruction
-  effect reconciliation (ToolSuccess ≠ WorldSuccess)
+R1 / R2 … real missions (usefulness, autonomy, trail — unknown outcomes)
         │
         ▼
-M1.5 LONG-HORIZON REALITY VALIDATION
+mature SHA → freeze → Windows preflight → ≥48h real workload → audit
+        │
+        ▼
+M1.5 LONG-HORIZON REALITY VALIDATION (candidate only after above)
   live provider IV (≥2)
   persistent 48h research workload (not synthetic-only)
   scheduled failures + Goal Integrity PASS
@@ -51,6 +49,8 @@ M3 ADAPTIVE GLOBAL OS
         ▼
 PRODUCTION_PROVEN (per capability; expensive)
 ```
+
+M1.4 Trust Boundary Hardening remains **done** (see below); it is not reopened by R1.
 
 ## M0 — Trustworthy Skeleton — done
 

@@ -54,9 +54,16 @@
 - [x] Primary TIE_WITHIN_MCID (0.7146=0.7146); H_reliability_multiplier NOT CONFIRMED
 - [x] COMPARISON_REPORT + CLAIMS; scorers frozen
 
-## Next — optional real use / freeze discipline
+## Active — R1 real-use (`R1-EVIDENCE-INTEGRITY-v1`)
 
-- [ ] R1 real mission (use track; not a toy rescue of Y20–Y22)
+- [x] Synthetic Y19–Y22 phase closed; **no Y23**; scorers FROZEN
+- [x] R1 Goal Contract + eval rubric locked (`artifacts/r1/`)
+- [ ] Observe → hypotheses → falsify → minimal remediations → EVALUATION
+- [ ] Terminal decision + CLAIMS (no universal advantage)
+
+## Later — after several real missions
+
+- [ ] R2 (different class)
 - [ ] Re-pin freeze SHA before any LH 96m/48h
 
 ## Deferred — True 48h / M1.5 (after new freeze)
