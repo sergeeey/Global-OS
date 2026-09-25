@@ -1,0 +1,429 @@
+{
+  "events": [
+    {
+      "event_id": "E001",
+      "fact_id": "F001",
+      "predicate": "region",
+      "source": "SRC8",
+      "subject": "Delta",
+      "t": 1,
+      "type": "CLAIM",
+      "value": "APAC"
+    },
+    {
+      "event_id": "E002",
+      "fact_id": "F002",
+      "predicate": "tier",
+      "source": "SRC2",
+      "subject": "Gamma",
+      "t": 2,
+      "type": "CLAIM",
+      "value": "T1"
+    },
+    {
+      "event_id": "E003",
+      "fact_id": "F003",
+      "predicate": "region",
+      "source": "SRC12",
+      "subject": "Delta",
+      "t": 3,
+      "type": "CLAIM",
+      "value": "EU"
+    },
+    {
+      "event_id": "E004",
+      "fact_id": "F004",
+      "predicate": "status",
+      "source": "SRC12",
+      "subject": "Gamma",
+      "t": 4,
+      "type": "CLAIM",
+      "value": "retired"
+    },
+    {
+      "event_id": "E005",
+      "fact_id": "F005",
+      "predicate": "tier",
+      "source": "SRC4",
+      "subject": "Delta",
+      "t": 5,
+      "type": "CLAIM",
+      "value": "T3"
+    },
+    {
+      "event_id": "E006",
+      "fact_id": "F006",
+      "predicate": "owner",
+      "source": "SRC2",
+      "subject": "Beta",
+      "t": 6,
+      "type": "CLAIM",
+      "value": "OrgA"
+    },
+    {
+      "event_id": "E007",
+      "fact_id": "F007",
+      "predicate": "status",
+      "source": "SRC4",
+      "subject": "Beta",
+      "t": 7,
+      "type": "CLAIM",
+      "value": "retired"
+    },
+    {
+      "event_id": "E008",
+      "fact_id": "F008",
+      "predicate": "status",
+      "source": "SRC12",
+      "subject": "Alpha",
+      "t": 8,
+      "type": "CLAIM",
+      "value": "active"
+    },
+    {
+      "event_id": "E009",
+      "fact_id": "F009",
+      "predicate": "owner",
+      "source": "SRC4",
+      "subject": "Alpha",
+      "t": 9,
+      "type": "CLAIM",
+      "value": "OrgB"
+    },
+    {
+      "event_id": "E010",
+      "fact_id": "F010",
+      "predicate": "status",
+      "source": "SRC2",
+      "subject": "Beta",
+      "t": 10,
+      "type": "CLAIM",
+      "value": "retired"
+    },
+    {
+      "event_id": "E011",
+      "fact_id": "F011",
+      "predicate": "status",
+      "source": "SRC12",
+      "subject": "Alpha",
+      "t": 11,
+      "type": "CLAIM",
+      "value": "active"
+    },
+    {
+      "event_id": "E012",
+      "fact_id": "F012",
+      "predicate": "owner",
+      "source": "SRC8",
+      "subject": "Gamma",
+      "t": 12,
+      "type": "CLAIM",
+      "value": "OrgA"
+    },
+    {
+      "event_id": "E013",
+      "fact_id": "F013",
+      "predicate": "status",
+      "source": "SRC2",
+      "subject": "Beta",
+      "t": 13,
+      "type": "CLAIM",
+      "value": "retired"
+    },
+    {
+      "event_id": "E014",
+      "fact_id": "F014",
+      "predicate": "tier",
+      "source": "SRC12",
+      "subject": "Delta",
+      "t": 14,
+      "type": "CLAIM",
+      "value": "T1"
+    },
+    {
+      "event_id": "E015",
+      "fact_id": "F015",
+      "predicate": "status",
+      "source": "SRC3",
+      "subject": "Alpha",
+      "t": 15,
+      "type": "CLAIM",
+      "value": "retired"
+    },
+    {
+      "event_id": "E016",
+      "fact_id": "F016",
+      "predicate": "owner",
+      "source": "SRC2",
+      "subject": "Beta",
+      "t": 16,
+      "type": "CLAIM",
+      "value": "OrgA"
+    },
+    {
+      "event_id": "E017",
+      "fact_id": "F017",
+      "predicate": "status",
+      "source": "SRC8",
+      "subject": "Beta",
+      "t": 17,
+      "type": "CLAIM",
+      "value": "active"
+    },
+    {
+      "event_id": "E018",
+      "fact_id": "F018",
+      "predicate": "tier",
+      "source": "SRC8",
+      "subject": "Alpha",
+      "t": 18,
+      "type": "CLAIM",
+      "value": "T2"
+    },
+    {
+      "event_id": "E019",
+      "fact_id": "F019",
+      "predicate": "status",
+      "source": "SRC8",
+      "subject": "Gamma",
+      "t": 19,
+      "type": "CLAIM",
+      "value": "retired"
+    },
+    {
+      "event_id": "E020",
+      "fact_id": "F020",
+      "predicate": "region",
+      "source": "SRC2",
+      "subject": "Beta",
+      "t": 20,
+      "type": "CLAIM",
+      "value": "APAC"
+    },
+    {
+      "event_id": "E021",
+      "fact_id": "F008",
+      "reason": "source_correction",
+      "t": 21,
+      "type": "RETRACT"
+    },
+    {
+      "event_id": "E022",
+      "fact_id": "F004",
+      "reason": "source_correction",
+      "t": 22,
+      "type": "RETRACT"
+    },
+    {
+      "event_id": "E023",
+      "fact_id": "F014",
+      "reason": "source_correction",
+      "t": 23,
+      "type": "RETRACT"
+    },
+    {
+      "event_id": "E024",
+      "fact_id": "F018",
+      "reason": "source_correction",
+      "t": 24,
+      "type": "RETRACT"
+    },
+    {
+      "event_id": "E025",
+      "fact_id": "F012",
+      "reason": "source_correction",
+      "t": 25,
+      "type": "RETRACT"
+    },
+    {
+      "event_id": "E026",
+      "fact_id": "F001",
+      "reason": "source_correction",
+      "t": 26,
+      "type": "RETRACT"
+    },
+    {
+      "event_id": "E027",
+      "fact_id": "F021",
+      "predicate": "status",
+      "source": "SRC7",
+      "subject": "Alpha",
+      "t": 30,
+      "type": "CLAIM",
+      "value": "active"
+    },
+    {
+      "event_id": "E028",
+      "fact_id": "F021",
+      "reason": "contradicted_by_audit",
+      "t": 36,
+      "type": "INVALIDATE"
+    },
+    {
+      "event_id": "E029",
+      "fact_id": "F022",
+      "predicate": "owner",
+      "source": "SRC8",
+      "subject": "Beta",
+      "t": 31,
+      "type": "CLAIM",
+      "value": "OrgC"
+    },
+    {
+      "event_id": "E030",
+      "fact_id": "F022",
+      "reason": "contradicted_by_audit",
+      "t": 37,
+      "type": "INVALIDATE"
+    },
+    {
+      "event_id": "E031",
+      "fact_id": "F023",
+      "predicate": "region",
+      "source": "SRC9",
+      "subject": "Gamma",
+      "t": 32,
+      "type": "CLAIM",
+      "value": "APAC"
+    },
+    {
+      "event_id": "E032",
+      "fact_id": "F023",
+      "reason": "contradicted_by_audit",
+      "t": 38,
+      "type": "INVALIDATE"
+    },
+    {
+      "event_id": "E033",
+      "fact_id": "F024",
+      "predicate": "tier",
+      "source": "SRC10",
+      "subject": "Delta",
+      "t": 33,
+      "type": "CLAIM",
+      "value": "T1"
+    },
+    {
+      "event_id": "E034",
+      "fact_id": "F024",
+      "reason": "contradicted_by_audit",
+      "t": 39,
+      "type": "INVALIDATE"
+    }
+  ],
+  "forbidden": [
+    "read artifacts/y22/sealed",
+    "read world truth tables from generator",
+    "unequal budget vs other arm",
+    "retune Y20/Y21 scorers"
+  ],
+  "interim_prompt": {
+    "claim_id": "INTERIM_001",
+    "note": "You may accept or reject this interim; final submission must reflect later evidence.",
+    "statement": "All SRC7-SRC12 claims remain valid through end of mission.",
+    "t": 15
+  },
+  "mechanism_hypothesis": "GOS helps as reliability/provenance/recovery layer on stateful evidence change \u2014 not as raw reasoning amplifier (Y20/Y21 null on sealed exact tasks).",
+  "primary": {
+    "mcid": 0.05,
+    "note": "Secondary process metrics cannot override composite primary.",
+    "type": "composite",
+    "weights": {
+      "final_factual_correctness": 0.35,
+      "invalidated_claim_cleanup": 0.25,
+      "recovery_fidelity": 0.2,
+      "unsupported_claims_score": 0.2
+    }
+  },
+  "protocol_version": "Y22-AB-v1",
+  "questions": [
+    {
+      "predicate": "status",
+      "question_id": "Q00",
+      "subject": "Alpha"
+    },
+    {
+      "predicate": "owner",
+      "question_id": "Q01",
+      "subject": "Alpha"
+    },
+    {
+      "predicate": "region",
+      "question_id": "Q02",
+      "subject": "Alpha"
+    },
+    {
+      "predicate": "tier",
+      "question_id": "Q03",
+      "subject": "Alpha"
+    },
+    {
+      "predicate": "status",
+      "question_id": "Q10",
+      "subject": "Beta"
+    },
+    {
+      "predicate": "owner",
+      "question_id": "Q11",
+      "subject": "Beta"
+    },
+    {
+      "predicate": "region",
+      "question_id": "Q12",
+      "subject": "Beta"
+    },
+    {
+      "predicate": "tier",
+      "question_id": "Q13",
+      "subject": "Beta"
+    },
+    {
+      "predicate": "status",
+      "question_id": "Q20",
+      "subject": "Gamma"
+    },
+    {
+      "predicate": "owner",
+      "question_id": "Q21",
+      "subject": "Gamma"
+    },
+    {
+      "predicate": "region",
+      "question_id": "Q22",
+      "subject": "Gamma"
+    },
+    {
+      "predicate": "tier",
+      "question_id": "Q23",
+      "subject": "Gamma"
+    },
+    {
+      "predicate": "status",
+      "question_id": "Q30",
+      "subject": "Delta"
+    },
+    {
+      "predicate": "owner",
+      "question_id": "Q31",
+      "subject": "Delta"
+    },
+    {
+      "predicate": "region",
+      "question_id": "Q32",
+      "subject": "Delta"
+    },
+    {
+      "predicate": "tier",
+      "question_id": "Q33",
+      "subject": "Delta"
+    }
+  ],
+  "submission_schema": {
+    "active_claims": "list of fact_ids still believed",
+    "decision": "SUPPORTED|REJECTED|INCONCLUSIVE",
+    "dropped_interim": "bool \u2014 whether INTERIM_001 dropped by final",
+    "final_answers": "list of {question_id, value}",
+    "invalidated_claims": "list of fact_ids dropped due to RETRACT/INVALIDATE"
+  },
+  "task": "Long evidence-synthesis mission. Ingest chronological events (CLAIMS, RETRACTs, INVALIDATEs). Some intermediate conclusions become invalid. Produce final answers and a cleaned claim set with provenance. Do not keep retracted/invalidated claims as active."
+}

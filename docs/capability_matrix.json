@@ -314,6 +314,11 @@
       "id": "y21_mealy_ab",
       "state": "RUNTIME_VERIFIED_HARNESS",
       "evidence": "Y21-AB-v1 prereg 7136808; A/B scored; primary TIE_WITHIN_MCID; gos_primary_science_gain=false; artifacts/y21/COMPARISON_REPORT.md; tests/test_y21_mealy_ab.py"
+    },
+    {
+      "id": "y22_evidence_ab_prereg",
+      "state": "RUNTIME_VERIFIED_HARNESS",
+      "evidence": "Y22-AB-v1 prereg; reliability composite weights frozen; mechanism probe not rescue; artifacts/y22/; src/global_os/evals/research/y22_evidence_ab.py; tests/test_y22_evidence_ab.py \u2014 arms NOT started"
     }
   ]
 }

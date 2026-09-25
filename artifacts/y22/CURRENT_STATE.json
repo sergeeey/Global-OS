@@ -1,0 +1,58 @@
+{
+  "program": "Y22_EVIDENCE_AB",
+  "contract": "artifacts/y22/Y22-RESEARCH-PROGRAM.md",
+  "prereg": "artifacts/y22/Y22-PREREG.md",
+  "protocol_version": "Y22-AB-v1",
+  "updated_at": "2026-09-25T15:00:00Z",
+  "phase": "PREREG_LOCKED",
+  "prereg_locked": true,
+  "arms_started": false,
+  "sealed_unseen": true,
+  "unseal_allowed": false,
+  "task_class": "evidence_synthesis_invalidation_recovery",
+  "experiment_label": "mechanism_probe_reliability_not_neutral_third_exact_match",
+  "mechanism_hypothesis": "GOS helps as reliability/provenance/recovery layer on stateful evidence change \u2014 not as raw reasoning amplifier (Y20/Y21 null).",
+  "win_primary": "reliability_composite",
+  "primary_mcid": 0.05,
+  "weights": {
+    "final_factual_correctness": 0.35,
+    "invalidated_claim_cleanup": 0.25,
+    "unsupported_claims_score": 0.2,
+    "recovery_fidelity": 0.2
+  },
+  "secondary_cannot_override_primary": true,
+  "y20_y21_scorers_frozen": true,
+  "public_pack_sha256": "6cf5ed7880cadfe39fc07e3603473c71dca0fadef0e7061689cc17c1787db6bb",
+  "sealed_pack_sha256": "fad83a88232c7d6d5f426c385c3a9a92503985006f590fa1470014ffd43ebec4",
+  "generator_module_sha256": "a02832cb8749b28695cb67b487c6cb8a44755e4c6f8ff0a09d932ec53aa21090",
+  "budgets_locked": {
+    "wall_seconds_max": 14400,
+    "token_budget_max": 800000,
+    "tool_calls_max": 400,
+    "python_subprocess_max": 200
+  },
+  "arms": {
+    "A": {
+      "status": "NOT_STARTED",
+      "role": "strong_agent_baseline",
+      "dir": "artifacts/y22/arms/A"
+    },
+    "B": {
+      "status": "NOT_STARTED",
+      "role": "strong_agent_plus_global_os",
+      "dir": "artifacts/y22/arms/B"
+    }
+  },
+  "gos_advantage_claimed": false,
+  "prereg_boundary_sha": null,
+  "forbidden": [
+    "retune_y20_y21_scorers",
+    "change_y22_weights_mcid_after_arm_start",
+    "unseal_before_both_arms_frozen",
+    "secondary_override_primary",
+    "claim_M1.5",
+    "literal_48h",
+    "disguise_as_neutral_exact_match_rescue"
+  ],
+  "next_step": "Execute Arm A on public evidence stream only; freeze; do not unseal."
+}

@@ -14,25 +14,26 @@
 
 ## Текущий baseline
 
-**Y21 scored. Two-class sealed science gain for GOS = NOT SHOWN.**
+**Y20+Y21: sealed science gain NULL. Y22 = mechanism probe (reliability), prereg locking.**
 
 ```text
 Y19  → autonomous research-loop example
-Y20  → causal A/B; sealed science advantage = NULL
-Y21  → Mealy A/B; primary TIE_WITHIN_MCID (0.3444=0.3444)
-GOS process discipline        EVIDENCE YES (Y20+Y21)
-GOS sealed science gain       NOT SHOWN
-Universal advantage           NOT SHOWN
-LH / M1.5                     deferred / NOT CLAIMED
+Y20  → sealed science gain = NULL
+Y21  → sealed science gain = NULL
+Honest thesis now:
+  GOS improves process discipline / provenance
+  but has NOT shown raw sealed task gain vs strong agent
+
+Y22  → evidence invalidation/recovery mechanism test (not rescue)
+LH / M1.5 → deferred / NOT CLAIMED
+Y20/Y21 scorers → FROZEN FOREVER
 ```
 
 ### Plan
 
-1. **Frozen:** Y19/Y20/Y21 claims — no scorer retune.  
-2. **Next:** Y22 third class or clean-attribution replication.  
-3. **Not now:** LH / M1.5 / Continual SI.
-
-Claim strength ≤ evidence. Correct null > false win.
+1. **Frozen:** Y19/Y20/Y21 — no retune / no arm replay.  
+2. **Now:** Y22 prereg lock → A→B→unseal under reliability composite.  
+3. **Not now:** LH / M1.5 / Continual SI / universal advantage claims.
 
 ## Документы
 

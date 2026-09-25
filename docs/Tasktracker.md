@@ -48,9 +48,11 @@
 - [x] Primary `TIE_WITHIN_MCID` (0.3444=0.3444); GOS sealed science gain NOT SHOWN
 - [x] Process trace richer under B; COMPARISON_REPORT + CLAIMS
 
-## Next — Y22 / clean attribution
+## Active — Y22 reliability mechanism probe
 
-- [ ] Y22 third class **or** never-saw-generator replication
+- [x] Mechanism hypothesis locked (reliability/provenance vs raw reasoning)
+- [x] Composite primary weights frozen; Y20/Y21 scorers untouched
+- [ ] Prereg boundary commit + Arm A → B → unseal → COMPARISON_REPORT
 - [ ] Re-pin freeze SHA before any LH 96m/48h
 
 ## Deferred — True 48h / M1.5 (after new freeze)

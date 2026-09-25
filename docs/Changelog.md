@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.68 — 2026-09-25
+
+### Y22 prereg — reliability/provenance mechanism probe (arms not started)
+
+- Honest frame after Y20+Y21: process discipline YES; sealed science gain NULL
+- Y22 is **not** a neutral exact-match rescue; tests reliability composite under
+  retractions/invalidations/recovery
+- Primary: weighted composite (factual 0.35, cleanup 0.25, unsupported 0.20, recovery 0.20);
+  MCID 0.05; secondary cannot override
+- Y20/Y21 scorers frozen forever; LH/M1.5 still deferred
+
 ## 0.1.67 — 2026-09-25
 
 ### Y21 A/B scored — primary TIE; GOS sealed science gain NOT SHOWN
