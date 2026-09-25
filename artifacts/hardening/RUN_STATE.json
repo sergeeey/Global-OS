@@ -98,19 +98,14 @@
     "patch_in_place_forbidden": true
   },
   "exam": {
-    "name": "M15_LH_EXAM",
-    "sha_full": "5d15600256a7afc7839f190ed3d889b33bc3217b",
-    "kickoff": "artifacts/hardening/M15_EXAM_KICKOFF.md",
+    "name": "M15_LH_COGNITIVE_EXAM",
+    "sha_full": "7ab345e5badb00a8c97ffdb7010ee4eb42dac4bb",
+    "protocol": "LH-COGNITIVE-v1",
+    "kickoff": "artifacts/hardening/STOP_BEFORE_48H_ON_5d15600.md",
     "patch_in_place_forbidden": true,
     "wall_seconds_hard_gate": 172800,
     "m15_claimed": false,
-    "next_keystrokes": "Windows detached checkout 5d15600 \u2192 smoke",
-    "step1_smoke": {
-      "status": "PASS",
-      "sha": "5d15600256a7afc7839f190ed3d889b33bc3217b",
-      "goal_id": "goal_smoke_win_m15",
-      "result": "artifacts/hardening/long_horizon_48h/os_kill_smoke_windows/os_kill_result.json"
-    }
+    "next_keystrokes": "Windows detach 7ab345e \u2192 smoke \u2192 cognitive preflight"
   },
   "scientific_honesty_map": "docs/SCIENTIFIC_HONESTY_MAP.md",
   "h_trust_draft": "artifacts/hardening/H_TRUST_DRAFT.md",
@@ -126,7 +121,9 @@
   "decision": "VARIANT_B_COGNITIVE_REAL_WORKLOAD",
   "freeze_cognitive_candidate": {
     "label": "FREEZE-LH-COGNITIVE-candidate",
-    "note": "SHA finalized in following commit that only pins this file",
-    "doc": "artifacts/hardening/FREEZE_LH_COGNITIVE_CANDIDATE.md"
+    "sha_full": "7ab345e5badb00a8c97ffdb7010ee4eb42dac4bb",
+    "sha_short": "7ab345e",
+    "doc": "artifacts/hardening/FREEZE_LH_COGNITIVE_CANDIDATE.md",
+    "replaces_exam_sha_for_cognitive": "5d15600"
   }
 }
