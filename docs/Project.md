@@ -14,28 +14,25 @@
 
 ## Текущий baseline
 
-**Y20 scored. GOS sealed-accuracy advantage NOT shown. Y21 next.**
+**Y20 scored (science NULL for GOS). Y21 plan agreed — prereg not locked.**
 
 ```text
-Y19                         CLOSED / evidence packed
-Y20 prereg                  LOCKED @ 278c10d
-Y20 Arm A / B               FROZEN + SCORED
-science (edges / do-MAE)    A ≥ B / ≈ tie
-process trace               B richer
-Global OS advantage         NOT SHOWN on Y20 science
-integrity                   DIRECTIONAL (generator-authorship caveat)
-cross-domain transfer       NOT PROVEN
-continual SI                NOT MEASURED
-M1.5                        NOT CLAIMED
-```
+Y19  → first autonomous research-loop example
+Y20  → controlled A/B; sealed science advantage = NULL
+Y21  → algorithmic reverse-engineering; attribution hygiene
+LH   → deferred
+M1.5 → NOT CLAIMED
 
-See `artifacts/y20/COMPARISON_REPORT.md` and `artifacts/y20/CLAIMS.md`.
+GOS process discipline        EVIDENCE YES
+GOS sealed science gain       NOT SHOWN
+Universal advantage           NOT SHOWN
+```
 
 ### Plan
 
-1. **Done:** Y20 A/B under equal caps; honest null/baseline-leaning science result.  
-2. **Next:** Y21 other cognitive class + never-saw-generator baseline arm.  
-3. **Not now:** LH 96m/48h, M1.5, Continual SI, post-hoc weakening of Arm A.
+1. **Frozen:** Y19/Y20 claims — no retune.  
+2. **Now:** isolate Y21 generator authorship → lock prereg → A/B.  
+3. **Not now:** LH / M1.5 / Continual SI / document-first Y21.
 
 Claim strength must not exceed evidence strength. Correct null > false win.
 

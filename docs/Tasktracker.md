@@ -42,8 +42,10 @@
 
 ## Next — Y21 transfer / cleaner attribution
 
-- [ ] Lock Y21 prereg (algorithmic or physical/numerical; not causal)
-- [ ] Baseline arm by process that never authored the generator
+- [x] Agree plan: algorithmic reverse-engineering; primary=sealed perf; secondary=process/cost
+- [ ] Isolate generator authorship (≠ arm runners)
+- [ ] Lock `Y21-PREREG.md` + scorer + public hash (`prereg_boundary_sha`)
+- [ ] Execute A→freeze→B→freeze→unseal→COMPARISON_REPORT
 - [ ] Re-pin freeze SHA before any LH 96m/48h
 
 ## Deferred — True 48h / M1.5 (after new freeze)

@@ -1,30 +1,39 @@
 {
-  "sprint": "Y20_SCORED_NEXT_Y21",
-  "updated_at": "2026-09-25T12:20:00Z",
-  "current_goal": "Y21_PREREG_NEXT",
-  "phase_statement": "Y20 scored: baseline >= GOS on sealed science; B richer process trace; GOS advantage NOT shown. Integrity caveat: generator authorship. Next: Y21 other class. No LH/M1.5.",
+  "sprint": "Y21_PLAN_AGREED",
+  "updated_at": "2026-09-25T12:25:00Z",
+  "current_goal": "Y21_PREREG_AUTHORSHIP_ISOLATED",
+  "phase_statement": "Y20 NULL on sealed science accepted. Y21 plan agreed: algorithmic reverse-engineering; generator authorship isolated from arm runners; primary=sealed performance; secondary=process/cost. No Y20 retune. No LH/M1.5.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
-  "prereg_boundary_sha": "278c10d",
-  "research_program": "artifacts/y20/Y20-RESEARCH-PROGRAM.md",
-  "comparison_report": "artifacts/y20/COMPARISON_REPORT.md",
-  "durable_state": "artifacts/y20/CURRENT_STATE.json",
   "y19_frozen": true,
   "y20": {
     "phase": "SCORED_COMPARISON_COMPLETE",
     "gos_advantage_claimed": false,
-    "science_winner": "A_or_tie",
-    "process_trace_richer": "B",
-    "integrity": "DIRECTIONAL_WITH_GENERATOR_AUTHORSHIP_CAVEAT"
+    "sealed_science_gain": false,
+    "process_discipline_evidence": true,
+    "integrity": "DIRECTIONAL_WITH_GENERATOR_AUTHORSHIP_CAVEAT",
+    "comparison_report": "artifacts/y20/COMPARISON_REPORT.md"
+  },
+  "y21": {
+    "status": "PLAN_AGREED_PREREG_NOT_LOCKED",
+    "task_class": "algorithmic_reverse_engineering",
+    "not_chosen": ["y20_style_causal", "document_evidence_synthesis_first"],
+    "why_not_document_first": "would specially favor epistemic/provenance; Y21 targets general transfer",
+    "win_primary": "sealed_task_performance",
+    "win_secondary": [
+      "human_interventions",
+      "unsupported_claims",
+      "recovery_state_loss",
+      "process_trace_completeness",
+      "cost_wall_time"
+    ],
+    "draft": "artifacts/y21/Y21-RESEARCH-PROGRAM.DRAFT.md",
+    "requirement_generator_author_ne_arm_runner": true
   },
   "honest_status": {
-    "y19_closed_evidence_packed": true,
-    "y19_attribution_bundle_only": true,
-    "y20_prereg_locked_at_278c10d": true,
-    "arm_a_run": true,
-    "arm_b_run": true,
-    "sealed_scored": true,
-    "gos_advantage": false,
+    "gos_process_discipline": true,
+    "gos_sealed_science_gain": false,
+    "universal_advantage": false,
     "cross_domain_transfer": false,
     "continual_si": false,
     "m15": false
@@ -35,15 +44,17 @@
     "literal_48h": "DEFERRED",
     "m15_claimed": false
   },
-  "next_exact_action": "Draft Y21 prereg on different cognitive class with never-saw-generator baseline; do not mutate Y20 scorer; do not start LH.",
+  "next_exact_action": "Isolate Y21 generator authorship (separate from arm runners); lock Y21-PREREG.md + scorer + public hash; only then execute A→B→unseal.",
   "forbidden_now": [
-    "post_hoc_weaken_arm_A",
+    "retune_y20_to_win",
     "change_y20_scorer_after_result",
+    "post_hoc_weaken_arm_A",
     "claim_gos_advantage",
     "claim_M1.5",
     "claim_continual_SI",
     "literal_48h",
     "windows_96m_preflight",
-    "reopen_y19_h8"
+    "reopen_y19_h8",
+    "run_y21_arms_before_prereg_lock"
   ]
 }

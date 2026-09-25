@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.65 — 2026-09-25
+
+### Y21 plan agreed (prereg not locked)
+
+- Accept Y20: sealed science gain NULL; process discipline evidence only
+- Y21 class: **algorithmic reverse-engineering** (not causal; not document-first)
+- Win rubric: primary=sealed performance; secondary=interventions/unsupported/cost/trace
+- Hard rule: generator author ≠ arm runners; no Y20 retune; LH/M1.5 still deferred
+
 ## 0.1.64 — 2026-09-25
 
 ### Y20 A/B scored — GOS accuracy advantage NOT shown
