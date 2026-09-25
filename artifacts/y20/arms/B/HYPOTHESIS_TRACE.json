@@ -1,0 +1,28 @@
+[
+  {
+    "id": "H_B1_dense",
+    "n_edges": 24,
+    "soft_mae": 0.30230905616088644,
+    "decision": "candidate"
+  },
+  {
+    "id": "H_B2_sparse",
+    "n_edges": 18,
+    "soft_mae": 0.38325330574586813,
+    "beats_dense": false,
+    "decision": "REJECTED"
+  },
+  {
+    "id": "H_B3_path_aware",
+    "soft_mae": 0.30230905616088644,
+    "base_mae": 0.30230905616088644,
+    "decision": "REJECTED"
+  },
+  {
+    "id": "H_B4_null_mean",
+    "soft_mae": 0.347794754960223,
+    "best_method_mae": 0.30230905616088644,
+    "method_beats_null": true,
+    "decision": "REJECTED"
+  }
+]

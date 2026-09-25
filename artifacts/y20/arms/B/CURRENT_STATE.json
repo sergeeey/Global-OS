@@ -1,0 +1,24 @@
+{
+  "arm": "B",
+  "goal": "Y20-ARM-B-CAUSAL",
+  "phase": "TERMINAL",
+  "active_question": null,
+  "closed": {
+    "H_B1_dense": "candidate",
+    "H_B2_sparse": "REJECTED",
+    "H_B3_path_aware": "REJECTED",
+    "H_B4_null_mean": "REJECTED"
+  },
+  "winning_structure": "H_B1_dense",
+  "path_aware": false,
+  "decision": "INCONCLUSIVE",
+  "gos_components_in_use": [
+    "goal_contract",
+    "competing_hypotheses",
+    "durable_research_state",
+    "falsification_internal_folds",
+    "terminal_stop_rule"
+  ],
+  "sealed_unseen": true,
+  "arm_a_outputs_unread": true
+}

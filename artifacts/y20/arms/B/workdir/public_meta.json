@@ -1,0 +1,69 @@
+{
+  "forbidden": [
+    "read artifacts/y20/sealed",
+    "read generator master seed for answers",
+    "unequal budget vs other arm"
+  ],
+  "intervention_targets": [
+    {
+      "do_value": 1.5,
+      "do_var": "X0",
+      "intervention_id": "I1",
+      "target": "X12"
+    },
+    {
+      "do_value": -1.0,
+      "do_var": "X3",
+      "intervention_id": "I2",
+      "target": "X16"
+    },
+    {
+      "do_value": 2.0,
+      "do_var": "X8",
+      "intervention_id": "I3",
+      "target": "X18"
+    },
+    {
+      "do_value": 0.0,
+      "do_var": "X5",
+      "intervention_id": "I4",
+      "target": "X12"
+    },
+    {
+      "do_value": 1.0,
+      "do_var": "X16",
+      "intervention_id": "I5",
+      "target": "X19"
+    }
+  ],
+  "n_obs": 2500,
+  "protocol_version": "Y20-AB-v1",
+  "submission_schema": {
+    "claimed_edges": "list of [src,dst]",
+    "decision": "SUPPORTED|REJECTED|INCONCLUSIVE",
+    "intervention_predictions": "list of {intervention_id,target,predicted_mean}"
+  },
+  "task": "Recover a limited causal structure and predict E[target | do(do_var=do_value)] for each intervention_id. Ground truth is sealed.",
+  "variables": [
+    "X0",
+    "X1",
+    "X2",
+    "X3",
+    "X4",
+    "X5",
+    "X6",
+    "X7",
+    "X8",
+    "X9",
+    "X10",
+    "X11",
+    "X12",
+    "X13",
+    "X14",
+    "X15",
+    "X16",
+    "X17",
+    "X18",
+    "X19"
+  ]
+}

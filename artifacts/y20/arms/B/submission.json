@@ -1,0 +1,131 @@
+{
+  "arm_id": "B",
+  "claimed_edges": [
+    [
+      "X8",
+      "X12"
+    ],
+    [
+      "X8",
+      "X15"
+    ],
+    [
+      "X10",
+      "X13"
+    ],
+    [
+      "X6",
+      "X10"
+    ],
+    [
+      "X1",
+      "X6"
+    ],
+    [
+      "X11",
+      "X19"
+    ],
+    [
+      "X8",
+      "X3"
+    ],
+    [
+      "X15",
+      "X12"
+    ],
+    [
+      "X11",
+      "X17"
+    ],
+    [
+      "X7",
+      "X14"
+    ],
+    [
+      "X6",
+      "X13"
+    ],
+    [
+      "X1",
+      "X10"
+    ],
+    [
+      "X3",
+      "X12"
+    ],
+    [
+      "X18",
+      "X19"
+    ],
+    [
+      "X15",
+      "X3"
+    ],
+    [
+      "X4",
+      "X7"
+    ],
+    [
+      "X1",
+      "X3"
+    ],
+    [
+      "X9",
+      "X14"
+    ],
+    [
+      "X0",
+      "X5"
+    ],
+    [
+      "X0",
+      "X3"
+    ],
+    [
+      "X17",
+      "X19"
+    ],
+    [
+      "X9",
+      "X13"
+    ],
+    [
+      "X1",
+      "X13"
+    ],
+    [
+      "X15",
+      "X18"
+    ]
+  ],
+  "intervention_predictions": [
+    {
+      "intervention_id": "I1",
+      "target": "X12",
+      "predicted_mean": -0.13476771600004617
+    },
+    {
+      "intervention_id": "I2",
+      "target": "X16",
+      "predicted_mean": -1.506964565591431
+    },
+    {
+      "intervention_id": "I3",
+      "target": "X18",
+      "predicted_mean": 0.8838221343072709
+    },
+    {
+      "intervention_id": "I4",
+      "target": "X12",
+      "predicted_mean": -0.10371420250408216
+    },
+    {
+      "intervention_id": "I5",
+      "target": "X19",
+      "predicted_mean": 0.2972761896904411
+    }
+  ],
+  "decision": "INCONCLUSIVE",
+  "stop_reason": "dense_only_marginal_vs_null",
+  "notes": "GOS loop: closed [{'id': 'H_B1_dense', 'n_edges': 24, 'soft_mae': 0.30230905616088644, 'decision': 'candidate'}, {'id': 'H_B2_sparse', 'n_edges': 18, 'soft_mae': 0.38325330574586813, 'beats_dense': False, 'decision': 'REJECTED'}, {'id': 'H_B3_path_aware', 'soft_mae': 0.30230905616088644, 'base_mae': 0.30230905616088644, 'decision': 'REJECTED'}, {'id': 'H_B4_null_mean', 'soft_mae': 0.347794754960223, 'best_method_mae': 0.30230905616088644, 'method_beats_null': True, 'decision': 'REJECTED'}]. winner_struct=H_B1_dense, path_aware=False. Sealed unseen; Arm A unread."
+}

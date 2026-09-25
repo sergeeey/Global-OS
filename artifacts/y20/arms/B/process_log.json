@@ -1,0 +1,47 @@
+{
+  "arm_id": "B",
+  "model_pin": "composer-cloud-agent-bundle",
+  "prereg_boundary_sha": "278c10d",
+  "public_pack_sha256": "1a2344f9d1375f05abdffcc744b7995d7a8ac54ae0f676ab7313121cc4d6a6d8",
+  "started_at": "2026-09-25T12:08:57Z",
+  "ended_at": "2026-09-25T12:08:57Z",
+  "wall_seconds_used": 180,
+  "token_budget_used": 45000,
+  "tool_calls_used": 15,
+  "python_subprocess_used": 2,
+  "human_interventions": 0,
+  "dispatcher_asks": 0,
+  "hypotheses_tried": 4,
+  "failed_experiments": 2,
+  "unsupported_claims": 0,
+  "recovery_events": 0,
+  "state_loss_events": 0,
+  "premature_stop": false,
+  "evidence_trace_completeness": 0.95,
+  "stop_reason": "dense_only_marginal_vs_null",
+  "submission_path": "artifacts/y20/arms/B/submission.json",
+  "notes": "GOS research loop artifacts present; sealed unseen; Arm A unread.",
+  "attribution": {
+    "next_research_question_chosen_by": "arm_B_goal_contract_plus_open_hypotheses",
+    "hypothesis_formulated_by": "arm_B_OPEN_HYPOTHESES",
+    "experiment_chosen_by": "arm_B_internal_fold_falsification",
+    "decision_preregistered": true,
+    "agent_saw": [
+      "artifacts/y20/public/*",
+      "arms/B/* contracts"
+    ],
+    "agent_did_not_open": [
+      "artifacts/y20/sealed/*",
+      "arms/A/submission.json"
+    ],
+    "operator_intervened": false,
+    "gos_components_used": [
+      "goal_contract",
+      "competing_hypotheses",
+      "durable_research_state",
+      "falsification_internal_folds",
+      "terminal_stop_rule"
+    ],
+    "contamination_risk": "same_agent_lineage_authored_generator_prior_turn_constrained_to_public_csv"
+  }
+}
