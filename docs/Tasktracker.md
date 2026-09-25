@@ -14,21 +14,25 @@
 - [x] Compressed preflight (`make preflight-48h`)
 - [x] LH-FC-PORTABILITY-SLEEP fix (Unix sleep → sys.executable; from Windows wall preflight)
 - [x] Operator Windows wall preflight retry after portability fix
-- [x] Wall-clock 48h research program PASS (`WALL_CLOCK_48H`, frozen criteria)
+- [x] Wall-clock LH-v1 run completed (~42h scheduled harness PASS)
+- [x] LH-v1 protocol audit (EARLY-STOP-42H + related gaps); M1.5 not closed
+- [x] LH-v2 acceptance harness: T+48 barrier + duration hard gate + criteria tighten
 
-## Active — M1.5 closure review
+## Active — True 48h proof (LH-v2)
 
-- [ ] Audit `wall_48h` artifacts + confirm no hidden intervention
-- [ ] Confirm remaining ROADMAP M1.5 checklist items against evidence
-- [ ] Decide M1.5 claim (candidate only until review)
+- [ ] Compressed preflight LH-v2 evidence on main
+- [ ] Windows 60–120m wall preflight (LH-v2)
+- [ ] Full wall run with `wall_seconds >= 172800` required for `WALL_CLOCK_48H`
+- [ ] (Open) Real OS process kill + cold restart + distinct PID
 - [ ] Continual SI holdout measurement (still NOT_MEASURED)
 - [ ] H-ORG claim only after larger multi-class + token costs
 
 ## Gate — M1.5 durability
 
-- [x] Wall-clock 48h research program PASS (operator Windows evidence)
-- [ ] Review artifacts + confirm no hidden intervention → M1.5 claim decision
-- [ ] On future FAIL: classify → minimal fix → regression → compressed replay → new 48h
+- [x] LH-v1 scheduled harness evidence recorded (not literal 48h)
+- [ ] Literal 48h wall PASS under LH-v2 protocol
+- [ ] Closure review only after true 48h + remaining checklist
+- [ ] On FAIL: classify → minimal fix → regression → compressed replay → new 48h
 
 ## After usable Y-17 missions
 

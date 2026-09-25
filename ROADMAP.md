@@ -91,10 +91,10 @@ Acceptance: `tests/test_m14_trust_boundary.py`.
 ```
 
 Still **≠** PRODUCTION_PROVEN.  
-**Wall-clock 48h research program:** operator Windows **PASS**
-(`artifacts/hardening/long_horizon_48h/wall_48h/`, fidelity `WALL_CLOCK_48H`).  
-**M1.5 status:** candidate for closure review — not auto-claimed; confirm remaining
-checklist items + no hidden intervention before claim.  
+**LH-v1:** operator Windows ~42h scheduled harness PASS (immutable
+`wall_48h/`); audited **not** literal 48h (`LH-FC-EARLY-STOP-42H`).  
+**LH-v2:** T+48 barrier + `wall_seconds >= 172800` required for `WALL_CLOCK_48H`.  
+**M1.5:** not claimed until true 48h under LH-v2 (+ remaining checklist).  
 H-ORG / Continual SI remain separate questions after M1.5.
 
 ## DoD V2

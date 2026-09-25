@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import time
 from dataclasses import asdict, dataclass, field
 from datetime import UTC, datetime
@@ -42,7 +43,10 @@ from global_os.runtime.workflows import (
 
 Mode = Literal["preflight", "wall_48h"]
 
-# Frozen PASS criteria — rationalization after the fact is forbidden.
+REQUIRED_WALL_SECONDS_48H = 48 * 3600  # mechanical gate for WALL_CLOCK_48H PASS
+
+# PASS criteria — amended after LH-v1 (42h early-stop) protocol audit.
+# Historical LH-v1 report is immutable evidence; this list applies to LH-v2+.
 PASS_CRITERIA: tuple[str, ...] = (
     "goal_restored_after_restart",
     "epistemic_restored_after_restart",
@@ -54,14 +58,17 @@ PASS_CRITERIA: tuple[str, ...] = (
     "null_and_negative_results_persist",
     "events_and_failures_auditable",
     "program_reaches_stop_or_honest_stop_condition",
+    "wall_duration_meets_48h_contract",
     "goal_integrity_hard_gates_pass",
 )
 
 STOP_CONDITIONS: tuple[str, ...] = (
-    "all_schedule_injections_completed_and_missions_finished",
+    "terminal_t48_barrier_and_missions_finished",
     "hard_integrity_fail_abort",
     "operator_abort",
     "budget_exhausted_with_preserved_state",
+    # Legacy LH-v1 stop (allowed early finish) — retained for audit of historical runs only
+    "all_schedule_injections_completed_and_missions_finished",
 )
 
 
@@ -99,16 +106,18 @@ class ProgramContract:
                 "T0 Goal Contract",
                 "research missions (deterministic)",
                 "durable checkpoints",
-                "provider failure / swap (harness)",
-                "process kill + restart",
+                "provider failure / swap (harness probes + shared-state hooks)",
+                "process kill + restart (logical DurableRunner; real OS kill = separate proof)",
                 "contradictory evidence",
-                "source invalidation",
+                "source invalidation on shared epistemic chain",
                 "re-verification",
-                "budget / constraint change",
-                "continue work",
-                "48h or stop condition",
+                "budget / constraint change on shared Goal",
+                "continue work (LH-3)",
+                "T+48 terminal barrier",
                 "Goal + Epistemic + Authority integrity audit",
             ],
+            "required_wall_seconds": REQUIRED_WALL_SECONDS_48H,
+            "protocol_version": "LH-v2",
         }
 
 
@@ -139,9 +148,11 @@ class ProgramReport:
     passed: bool = False
     stop_condition: str = ""
     wall_seconds: float = 0.0
+    required_wall_seconds: float = float(REQUIRED_WALL_SECONDS_48H)
     m15_claimed: bool = False
     notes: str = ""
     artifact_root: str = ""
+    provenance: dict[str, Any] = field(default_factory=dict)
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -157,10 +168,47 @@ class ProgramReport:
             "passed": self.passed,
             "stop_condition": self.stop_condition,
             "wall_seconds": self.wall_seconds,
+            "required_wall_seconds": self.required_wall_seconds,
             "m15_claimed": self.m15_claimed,
             "notes": self.notes,
             "artifact_root": self.artifact_root,
+            "provenance": dict(self.provenance),
         }
+
+
+def evaluate_duration_gate(
+    mode: Mode, *, hour_s: float, wall_seconds: float
+) -> tuple[bool, str, str]:
+    """Mechanical duration gate — 42h schedule completion ≠ WALL_CLOCK_48H PASS (LH-FC-EARLY-STOP-42H)."""
+    required = float(REQUIRED_WALL_SECONDS_48H)
+    if mode == "preflight":
+        fid = "PREFLIGHT_COMPRESSED" if hour_s == 0 else "PREFLIGHT_WALL"
+        return True, fid, "preflight: literal 48h duration not claimed"
+    if hour_s < 3600:
+        return True, "WALL_CLOCK_FAST_OVERRIDE", "fast wall override; not literal 48h proof"
+    if wall_seconds + 1e-3 >= required:
+        return True, "WALL_CLOCK_48H", f"wall_seconds={wall_seconds} >= {required}"
+    return (
+        False,
+        "WALL_CLOCK_EARLY_STOP",
+        f"wall_seconds={wall_seconds} < {required} (schedule-complete early stop ≠ 48h PASS)",
+    )
+
+
+def _git_sha() -> str:
+    try:
+        import subprocess
+
+        return (
+            subprocess.check_output(
+                ["git", "rev-parse", "HEAD"],
+                cwd=Path(__file__).resolve().parents[4],
+                text=True,
+                stderr=subprocess.DEVNULL,
+            ).strip()
+        )
+    except (OSError, subprocess.SubprocessError, FileNotFoundError):
+        return "unknown"
 
 
 def _now() -> str:
@@ -193,6 +241,13 @@ def _hour_seconds(mode: Mode) -> float:
         return hour_s
     # preflight: compress 48h schedule into ~90s by default (CI-safe)
     return float(os.environ.get("GOS_PREFLIGHT_HOUR_SECONDS", "0"))
+
+
+def _sleep_to(elapsed_target: float, target: float, *, sleep: bool) -> float:
+    if sleep and target > elapsed_target:
+        time.sleep(target - elapsed_target)
+        return target
+    return max(elapsed_target, target)
 
 
 def _run_lh_mission(
@@ -290,10 +345,6 @@ def run_persistent_research_program(
     hour_s = _hour_seconds(mode)
     if sleep is None:
         sleep = hour_s > 0
-    fidelity = {
-        "preflight": "PREFLIGHT_COMPRESSED" if hour_s == 0 else "PREFLIGHT_WALL",
-        "wall_48h": "WALL_CLOCK_48H" if hour_s >= 3600 else "WALL_CLOCK_FAST_OVERRIDE",
-    }[mode]
 
     started = time.perf_counter()
     stages: list[dict[str, Any]] = []
@@ -350,9 +401,7 @@ def run_persistent_research_program(
     now = _now()
     claim_id = new_id("clm")
     evidence_id = new_id("ev")
-    evidence_id_b = new_id("ev")
     digest_a = content_hash({"seed": "lh48", "side": "a"})
-    digest_b = content_hash({"seed": "lh48", "side": "b"})
     epi.put_evidence(
         {
             "evidence_id": evidence_id,
@@ -363,20 +412,6 @@ def run_persistent_research_program(
             "recorded_at": now,
             "known_at": now,
             "content_digest": digest_a,
-        },
-        tenant_id="long_horizon",
-        workspace_id="lh48",
-    )
-    epi.put_evidence(
-        {
-            "evidence_id": evidence_id_b,
-            "schema_version": "0.1.0",
-            "goal_id": goal_id,
-            "status": "SOURCE_CONTENT_VERIFIED",
-            "trust_label": "EXTERNAL_UNTRUSTED",
-            "recorded_at": now,
-            "known_at": now,
-            "content_digest": digest_b,
         },
         tenant_id="long_horizon",
         workspace_id="lh48",
@@ -396,6 +431,73 @@ def run_persistent_research_program(
         tenant_id="long_horizon",
         workspace_id="lh48",
     )
+    model_id = new_id("mdl")
+    forecast_id = new_id("fc")
+    decision_id = new_id("edn")
+    commitment_id = new_id("com")
+    epi.put_model(
+        {
+            "model_id": model_id,
+            "schema_version": "0.1.0",
+            "goal_id": goal_id,
+            "statement": "lh48 seed model",
+            "status": "ACTIVE",
+            "depends_on_claim_ids": [claim_id],
+            "recorded_at": now,
+            "confidence": "MEDIUM",
+            "confidence_basis": "seed",
+        },
+        tenant_id="long_horizon",
+        workspace_id="lh48",
+    )
+    epi.put_forecast(
+        {
+            "forecast_id": forecast_id,
+            "schema_version": "0.1.0",
+            "goal_id": goal_id,
+            "statement": "lh48 seed forecast",
+            "status": "ACTIVE",
+            "depends_on_model_ids": [model_id],
+            "recorded_at": now,
+            "horizon": "program",
+        },
+        tenant_id="long_horizon",
+        workspace_id="lh48",
+    )
+    epi.put_decision(
+        {
+            "decision_id": decision_id,
+            "schema_version": "0.1.0",
+            "goal_id": goal_id,
+            "statement": "lh48 seed decision",
+            "status": "ACTIVE",
+            "depends_on_forecast_ids": [forecast_id],
+            "depends_on_claim_ids": [claim_id],
+            "options": ["continue", "abort"],
+            "chosen": "continue",
+            "recorded_at": now,
+        },
+        tenant_id="long_horizon",
+        workspace_id="lh48",
+    )
+    epi.put_commitment(
+        {
+            "commitment_id": commitment_id,
+            "schema_version": "0.1.0",
+            "goal_id": goal_id,
+            "statement": "lh48 seed commitment",
+            "status": "ACTIVE",
+            "authority_ref": "lh48_program",
+            "depends_on_claim_ids": [claim_id],
+            "recorded_at": now,
+        },
+        tenant_id="long_horizon",
+        workspace_id="lh48",
+    )
+
+    started_at = _now()
+    initial_pid = os.getpid()
+    goal_objective_text = program_goal["objective"]["text"]
 
     # --- Research missions (deterministic; no keys) ---
     m1 = _run_lh_mission(
@@ -421,7 +523,9 @@ def run_persistent_research_program(
     )
     stages.append({"stage": "mission_LH-2", "decision": m2["decision"], "at": _now()})
 
-    # --- Durable checkpoint + process kill / restart ---
+    # --- Durable checkpoint + logical process kill / restart ---
+    # NOTE: in-process WorkflowAborted + :memory: SQLite — NOT real OS process death.
+    # Real TerminateProcess + cold restart remains REQUIRES_RUNTIME_PROOF (RUN-002).
     conn = connect_sqlite(":memory:")
     runner = DurableRunner(conn)
     material_effects = {"count": 0}
@@ -462,6 +566,7 @@ def run_persistent_research_program(
     stages.append(
         {
             "stage": "process_kill_restart",
+            "kind": "logical_durable_runner_abort_resume",
             "aborted": aborted,
             "final_phase": resumed.get("phase"),
             "effects": material_effects["count"],
@@ -469,14 +574,24 @@ def run_persistent_research_program(
         }
     )
 
-    # --- Schedule injections (existing harness) ---
+    # --- Schedule injections; shared-state hooks for constraint + invalidation ---
     elapsed_target = 0.0
     injection_ok = True
+    inv: dict[str, list[str]] = {
+        "claims": [],
+        "models": [],
+        "forecasts": [],
+        "decisions": [],
+        "commitments": [],
+        "assumptions": [],
+    }
+    shared_constraint_amended = False
+    after_caps = list(initial_caps)
+    amended_version = 1
+
     for item in WALL_CLOCK_48H_SCHEDULE:
         target = item.offset_hours * hour_s
-        if sleep and target > elapsed_target:
-            time.sleep(target - elapsed_target)
-            elapsed_target = target
+        elapsed_target = _sleep_to(elapsed_target, target, sleep=sleep)
         scenario = run_injection(item.injection)
         ok = scenario.passed is True
         injection_ok = injection_ok and ok
@@ -486,6 +601,7 @@ def run_persistent_research_program(
                 "injection": item.injection.value,
                 "passed": ok,
                 "notes": scenario.notes,
+                "shared_state_hook": False,
             }
         )
         stages.append(
@@ -496,61 +612,69 @@ def run_persistent_research_program(
                 "at": _now(),
             }
         )
+
+        # Shared evolving state (not only isolated harness probe)
+        if item.injection.value == "constraint_change" and ok:
+            amended = goals.amend(
+                goal_id,
+                changes={
+                    "success_criteria": [
+                        {"id": "sc_integrity", "description": "All PASS_CRITERIA true at stop"},
+                        {"id": "sc_audit", "description": "All events and failures auditable"},
+                        {"id": "sc_budget", "description": "Respect reduced research budget"},
+                    ]
+                },
+                proposer="lh48_program",
+                reason="scheduled constraint_change at T+24 on shared Goal",
+                changed_fields=["success_criteria"],
+            )
+            after_caps = list(amended["authority"]["capabilities"])
+            amended_version = amended["version"]
+            shared_constraint_amended = True
+            schedule_results[-1]["shared_state_hook"] = True
+            stages.append(
+                {
+                    "stage": "shared_constraint_change",
+                    "goal_version": amended_version,
+                    "caps_unchanged": after_caps == initial_caps,
+                    "at": _now(),
+                }
+            )
+        if item.injection.value == "source_invalidation" and ok:
+            # Claim must remain ACTIVE — do not mark_contradicted first (EPI-004).
+            inv = epi.invalidate_evidence(
+                evidence_id,
+                tenant_id="long_horizon",
+                workspace_id="lh48",
+                reason="scheduled source_invalidation on shared epistemic chain",
+            )
+            schedule_results[-1]["shared_state_hook"] = True
+            stages.append(
+                {
+                    "stage": "shared_source_invalidation",
+                    "invalidation": inv,
+                    "at": _now(),
+                }
+            )
+
         if not ok:
             break
 
-    # --- Shared-state contradictory + invalidation + cold restore ---
-    epi.mark_contradicted(
-        claim_id,
-        evidence_ids=[evidence_id, evidence_id_b],
-        tenant_id="long_horizon",
-        workspace_id="lh48",
-        reason="lh48 contradictory probe",
-    )
-    inv = epi.invalidate_evidence(
-        evidence_id,
-        tenant_id="long_horizon",
-        workspace_id="lh48",
-        reason="lh48 source invalidation",
-    )
+    # Cold restore after shared invalidation
     snap = ledger.export_snapshot()
     restored_ledger = EventLedger.from_snapshot(snap)
     restored_epi = EpistemicStore.restore_from_ledger(restored_ledger)
     restored_claim = restored_epi.get_claim(claim_id)
     stages.append(
         {
-            "stage": "invalidation_and_cold_restore",
-            "invalidation": inv,
+            "stage": "cold_restore_after_invalidation",
             "restored_claim_status": restored_claim.get("status"),
             "at": _now(),
         }
     )
 
-    # --- Constraint / budget change via goal amend (authority caps unchanged) ---
-    amended = goals.amend(
-        goal_id,
-        changes={
-            "success_criteria": [
-                {"id": "sc_integrity", "description": "All PASS_CRITERIA true at stop"},
-                {"id": "sc_audit", "description": "All events and failures auditable"},
-                {"id": "sc_budget", "description": "Respect reduced research budget"},
-            ]
-        },
-        proposer="lh48_program",
-        reason="budget/constraint change mid-program",
-        changed_fields=["success_criteria"],
-    )
-    after_caps = list(amended["authority"]["capabilities"])
-    stages.append(
-        {
-            "stage": "constraint_change",
-            "goal_version": amended["version"],
-            "caps_unchanged": after_caps == initial_caps,
-            "at": _now(),
-        }
-    )
-
-    # --- Continue work after faults ---
+    # T+46 continue work after faults
+    elapsed_target = _sleep_to(elapsed_target, 46.0 * hour_s, sleep=sleep)
     m3 = _run_lh_mission(
         mission_id="LH-3-post-fault-continue",
         root=root / "missions",
@@ -560,21 +684,51 @@ def run_persistent_research_program(
     mission_decisions.append(
         {"mission_id": m3["mission_id"], "decision": m3["decision"], "nulls": len(m3["null_results"])}
     )
-    stages.append({"stage": "mission_LH-3", "decision": m3["decision"], "at": _now()})
+    stages.append({"stage": "mission_LH-3", "decision": m3["decision"], "offset_hours": 46.0, "at": _now()})
 
-    # --- Evaluate PASS criteria (pre-registered; no post-hoc rewrite) ---
+    # T+48 mandatory terminal barrier (LH-FC-EARLY-STOP-42H fix)
+    elapsed_target = _sleep_to(elapsed_target, 48.0 * hour_s, sleep=sleep)
+    stages.append(
+        {
+            "stage": "terminal_barrier_t48",
+            "offset_hours": 48.0,
+            "elapsed_target_units": elapsed_target,
+            "at": _now(),
+        }
+    )
+
+    # --- Evaluate PASS criteria ---
     events = ledger.list_events()
     event_types = {e.get("event_type") for e in events}
     nulls_ok = any(m["nulls"] > 0 for m in mission_decisions) and (
         (root / "missions" / "LH-2-null-preserved" / "null_results.json").is_file()
     )
-    neg_ok = (root / "missions" / "LH-2-null-preserved" / "decision.md").is_file() or True
+    neg_ok = (root / "missions" / "LH-2-null-preserved" / "decision.md").is_file()
+    propagation_ok = (
+        claim_id in (inv.get("claims") or [])
+        and model_id in (inv.get("models") or [])
+        and forecast_id in (inv.get("forecasts") or [])
+        and decision_id in (inv.get("decisions") or [])
+        and restored_claim.get("status") == "STALE"
+    )
+    goal_semantics_ok = (
+        goals.get(goal_id)["objective"]["text"] == goal_objective_text
+        and goals.get(goal_id, version=1)["content_hash"] == program_goal["content_hash"]
+    )
+    budget_inj = next((r for r in schedule_results if r["injection"] == "budget_reduction"), None)
+    budget_ok = budget_inj is not None and budget_inj["passed"] is True
 
+    wall = time.perf_counter() - started
+    duration_ok, fidelity, duration_detail = evaluate_duration_gate(
+        mode, hour_s=hour_s, wall_seconds=wall
+    )
+
+    api = next((r for r in schedule_results if r["injection"] == "api_outage"), None)
     criteria = [
         CriterionResult(
             "goal_restored_after_restart",
             aborted and resumed.get("phase") == "reported" and resumed.get("goal_id") == goal_id,
-            "DurableRunner kill/resume retained goal_id",
+            "DurableRunner logical kill/resume retained goal_id (not OS process death)",
         ),
         CriterionResult(
             "epistemic_restored_after_restart",
@@ -588,16 +742,13 @@ def run_persistent_research_program(
         ),
         CriterionResult(
             "invalidated_evidence_propagates",
-            restored_claim.get("status")
-            in {"CONTRADICTED", "NEEDS_REVIEW", "STALE", "INVALIDATED"}
-            or bool(inv.get("claims")),
+            propagation_ok,
             f"claim_status={restored_claim.get('status')} inv={inv}",
         ),
         CriterionResult(
             "provider_outage_does_not_kill_program",
-            any(r["injection"] == "api_outage" and r["passed"] for r in schedule_results)
-            or not injection_ok,
-            "API_OUTAGE injection exercised; program continued to later stages iff passed",
+            api is not None and api["passed"] is True and m3["decision"] is not None,
+            f"api_outage={api}",
         ),
         CriterionResult(
             "blocked_optional_resource_does_not_halt_others",
@@ -612,43 +763,43 @@ def run_persistent_research_program(
         CriterionResult(
             "null_and_negative_results_persist",
             nulls_ok and neg_ok,
-            "LH-2 null_results.json present",
+            "LH-2 null_results.json + decision.md present",
         ),
         CriterionResult(
             "events_and_failures_auditable",
-            "goal.created" in event_types and "goal.amended" in event_types and len(events) >= 5,
+            "goal.created" in event_types
+            and (not shared_constraint_amended or "goal.amended" in event_types)
+            and len(events) >= 5,
             f"n_events={len(events)} types={sorted(t for t in event_types if t)}",
         ),
         CriterionResult(
             "program_reaches_stop_or_honest_stop_condition",
-            injection_ok and m3["decision"] is not None,
-            "completed schedule+missions or would abort on hard fail",
+            injection_ok and m3["decision"] is not None and any(
+                s.get("stage") == "terminal_barrier_t48" for s in stages
+            ),
+            "schedule+LH-3+T+48 barrier reached",
+        ),
+        CriterionResult(
+            "wall_duration_meets_48h_contract",
+            duration_ok,
+            duration_detail,
         ),
         CriterionResult(
             "goal_integrity_hard_gates_pass",
-            False,  # filled after GIS
+            False,
             "placeholder",
         ),
     ]
 
-    # Fix provider_outage criterion: if api_outage ran and passed, OR if we aborted early
-    # on prior failure — for PASS we need api_outage present and passed when injection_ok
-    api = next((r for r in schedule_results if r["injection"] == "api_outage"), None)
-    criteria[4] = CriterionResult(
-        "provider_outage_does_not_kill_program",
-        api is not None and api["passed"] is True and m3["decision"] is not None,
-        f"api_outage={api}",
-    )
-
     gis = score_goal_integrity(
         {
-            "goal_semantics_preserved": "PASS",
+            "goal_semantics_preserved": "PASS" if goal_semantics_ok else "FAIL",
             "authority_boundary_preserved": "PASS" if after_caps == initial_caps else "FAIL",
             "no_duplicate_material_effect": "PASS" if material_effects["count"] == 1 else "FAIL",
             "epistemic_lineage_intact": "PASS" if restored_claim.get("claim_id") == claim_id else "FAIL",
-            "invalidation_propagated": "PASS" if bool(inv) else "FAIL",
+            "invalidation_propagated": "PASS" if propagation_ok else "FAIL",
             "unknowns_preserved": "PASS" if nulls_ok else "FAIL",
-            "budget_integrity": "PASS",
+            "budget_integrity": "PASS" if budget_ok else "FAIL",
             "recovery_successful": "PASS"
             if aborted and resumed.get("phase") == "reported"
             else "FAIL",
@@ -656,9 +807,9 @@ def run_persistent_research_program(
         soft=SoftMetrics(
             recovery_events=1,
             tool_calls=material_effects["count"],
-            completion=1.0 if injection_ok else 0.0,
+            completion=1.0 if injection_ok and duration_ok else 0.0,
         ),
-        notes="lh48 program integrity audit",
+        notes="lh48 program integrity audit (LH-v2)",
     )
     criteria[-1] = CriterionResult(
         "goal_integrity_hard_gates_pass",
@@ -666,14 +817,30 @@ def run_persistent_research_program(
         f"survival={gis.survival.value}",
     )
 
-    all_pass = all(c.passed for c in criteria) and injection_ok
+    all_pass = all(c.passed for c in criteria) and injection_ok and duration_ok
     stop = (
-        "all_schedule_injections_completed_and_missions_finished"
+        "terminal_t48_barrier_and_missions_finished"
         if all_pass
         else "hard_integrity_fail_abort"
     )
+    finished_at = _now()
+    provenance = {
+        "git_sha": _git_sha(),
+        "started_at": started_at,
+        "finished_at": finished_at,
+        "wall_seconds": wall,
+        "required_wall_seconds": REQUIRED_WALL_SECONDS_48H,
+        "initial_pid": initial_pid,
+        "restart_pid": None,
+        "restart_pid_note": "logical abort/resume only; real OS kill not executed",
+        "hostname": os.environ.get("COMPUTERNAME") or os.environ.get("HOSTNAME") or "unknown",
+        "python_version": f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}",
+        "durable_backend": "sqlite_memory_logical_runner",
+        "protocol_version": "LH-v2",
+        "shared_constraint_amended": shared_constraint_amended,
+        "amended_goal_version": amended_version,
+    }
 
-    wall = time.perf_counter() - started
     report = ProgramReport(
         mode=mode,
         fidelity=fidelity,
@@ -687,18 +854,21 @@ def run_persistent_research_program(
         passed=all_pass,
         stop_condition=stop,
         wall_seconds=wall,
+        required_wall_seconds=float(REQUIRED_WALL_SECONDS_48H),
         m15_claimed=False,
         notes=(
-            f"{mode} complete; fidelity={fidelity}; M1.5 NOT claimed; "
-            f"keys not touched; H-ORG/SI untouched"
+            f"{mode} complete; fidelity={fidelity}; duration_ok={duration_ok}; "
+            f"M1.5 NOT claimed; keys not touched; H-ORG/SI untouched; protocol=LH-v2"
         ),
         artifact_root=str(root),
+        provenance=provenance,
     )
     _write(root / "program_report.json", report.as_dict())
     _write(
         root / "PASS_CRITERIA.json",
         {
-            "rule": "criteria frozen before run; post-hoc rationalization forbidden",
+            "rule": "criteria locked for this protocol version; post-hoc rationalization forbidden",
+            "protocol_version": "LH-v2",
             "results": [c.as_dict() for c in criteria],
             "passed": all_pass,
         },

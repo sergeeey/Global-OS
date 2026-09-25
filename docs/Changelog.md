@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.50 — 2026-09-25
+
+### LH-v1 audit + LH-v2 acceptance protocol fix
+
+- **LH-v1** (immutable): 42h scheduled harness PASS; `fidelity` claimed `WALL_CLOCK_48H` but
+  `wall_seconds≈151200` → audited as `WALL_CLOCK_42H_SCHEDULED_HARNESS_VERIFIED`
+- Failure cases: `LH-FC-EARLY-STOP-42H`, `LH-FC-LOGICAL-PROCESS-KILL` (open),
+  `LH-FC-INVALIDATION-FALSE-POSITIVE`
+- **LH-v2 harness:** T+48 terminal barrier; `wall_seconds >= 172800` hard gate;
+  shared Goal amend @ constraint_change; shared epistemic chain invalidation;
+  remove `or True` / empty-inv false positives; provenance fields
+- M1.5 **not closed**; historical report not rewritten
+- Next: compressed + Windows preflight → true 48h wall run
+
 ## 0.1.49 — 2026-09-25
 
 ### Wall-clock 48h research program PASS (operator Windows)

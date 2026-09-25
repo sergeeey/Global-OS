@@ -1,119 +1,64 @@
-# Persistent Research 48h Program
+# Persistent Research Long-Horizon Program
 
-**Phase:** Wall-clock 48h PASS (operator Windows) · M1.5 CANDIDATE (not auto-claimed)  
-**Status:** Empirical Hardening COMPLETE · Long-Horizon wall proof PASS · H-ORG/SI not claimed
+**LH-v1 (immutable):** 42h scheduled harness PASS — see `wall_48h/LH_V1_AUDIT.json`  
+**LH-v2 (current protocol):** T+48 barrier + `wall_seconds >= 172800` for `WALL_CLOCK_48H`  
+**M1.5:** NOT claimed
 
-## What this proved (wall_48h)
-
-```text
-Goal survives time                         ✅
-State survives restart                     ✅
-Epistemic integrity (contradiction/inval)  ✅
-Authority boundaries survive faults        ✅
-No duplicate irreversible effects          ✅
-Blocked resources degrade gracefully       ✅
-Mission state remains auditable            ✅
-Program resumes / continues after faults   ✅
-```
-
-Evidence: `wall_48h/program_report.json` — `passed=true`, GIS PASS, 9/9 injections,
-11/11 criteria, `wall_seconds≈151200` (≈42h through T+42 schedule), fidelity `WALL_CLOCK_48H`.
-
-## Next
-
-1. Operator confirm: no hidden intervention outside contract during the run.
-2. Closure review of remaining ROADMAP M1.5 checklist items.
-3. Only then decide M1.5 claim. H-ORG / Continual SI are separate later questions.
-
-
-## Scenario (frozen)
+## Honest status
 
 ```text
-T0 Goal Contract
-→ research missions (LH-1..3 deterministic)
-→ durable checkpoints
-→ provider failure / swap (harness)
-→ process kill + restart
-→ contradictory evidence
-→ source invalidation
-→ cold epistemic restore
-→ budget / constraint change
-→ continue work
-→ stop condition
-→ Goal + Epistemic + Authority integrity audit
+Long-Horizon scheduled program (v1)   ✅ PASS (~42h)
+Literal 48h survival                  ❌ NOT PROVEN (v1)
+LH-v2 protocol                        ✅ patched in code
+True 48h wall re-run                  ❌ not started
 ```
 
-## Operator order (Windows)
+## What LH-v1 actually proved
 
-### 1. Wall preflight 60–120 min (same contour as 48h)
+High confidence: 42h wall scheduler, 9/9 harness injections executed, GIS under
+original criteria, null preserved, authority not expanded, LH-3 continued.
 
-**Retry after LH-FC-PORTABILITY-SLEEP** (Unix `sleep` → `sys.executable`).  
-Pull latest main before running. Not an M1.5 proof.
+Not proven: literal 48h, real OS process death, shared-state perturbations at
+scheduled offsets (v1), full GOS-I12 downstream invalidation chain (v1 criterion
+was a false positive).
+
+## LH-v2 gates
+
+```text
+schedule_completed
+AND missions_completed
+AND terminal_barrier_t48
+AND wall_seconds >= 172800   # for WALL_CLOCK_48H
+AND hard_integrity_gates_pass
+AND invalidated_evidence_propagates (non-empty downstream chain)
+```
+
+## Operator order
 
 ```powershell
 cd C:\dev\Global-OS
 git pull
-git rev-parse HEAD
-# Confirm harness no longer uses bare "sleep":
-Select-String -Path src\global_os\evals\survival\harness.py -Pattern 'execute\(\["sleep"'
-# (should find nothing)
+# compressed first
+python -c "from global_os.evals.survival.research_program import run_preflight; print(run_preflight().passed)"
 
-# Compress 48h schedule into ~90 minutes wall time:
-# hour_seconds = 90*60/48 = 112.5
+# then Windows wall preflight ~90min
 $env:GOS_PREFLIGHT_HOUR_SECONDS = "112.5"
 python -c @"
 from pathlib import Path
 from global_os.evals.survival.research_program import run_persistent_research_program
-r = run_persistent_research_program(
-    mode='preflight',
-    artifact_root=Path('artifacts/hardening/long_horizon_48h/preflight_wall_windows'),
-    sleep=True,
-)
-print('passed', r.passed, 'fidelity', r.fidelity, 'wall_s', r.wall_seconds)
-print('m15_claimed', r.m15_claimed)
+r = run_persistent_research_program(mode='preflight', artifact_root=Path('artifacts/hardening/long_horizon_48h/preflight_wall_windows_v2'), sleep=True)
+print(r.passed, r.fidelity, r.wall_seconds, r.provenance)
 "@
-```
 
-If structural failure → classify, minimal fix, stop.  
-If PASS → **freeze that commit/config**; no cosmetics.
-
-### 2. Full wall 48h (only after freeze)
-
-```powershell
+# only after preflight PASS — full wall (will take full 48h)
 $env:GOS_REQUIRE_48H = "1"
 $env:GOS_START_RESEARCH_48H = "1"
-# real hours (default); do not set GOS_SOAK_ALLOW_FAST_WALL
 python -c @"
 from pathlib import Path
 from global_os.evals.survival.research_program import run_persistent_research_program
-r = run_persistent_research_program(
-    mode='wall_48h',
-    artifact_root=Path('artifacts/hardening/long_horizon_48h/wall_48h'),
-)
-print(r.as_dict())
+r = run_persistent_research_program(mode='wall_48h', artifact_root=Path('artifacts/hardening/long_horizon_48h/wall_48h_v2'))
+print(r.passed, r.fidelity, r.wall_seconds, r.required_wall_seconds)
 "@
 ```
 
-During the run: no manual help except actions allowed by contract.
-
-### 3. After result
-
-```text
-48h PASS → review artifacts → confirm no hidden intervention → M1.5 candidate
-48h FAIL → classify → minimal fix → regression → compressed replay → new attempt
-```
-
-## Compressed CI preflight (already done)
-
-```bash
-make preflight-48h
-```
-
-≠ wall proof.
-
-## Out of scope
-
-- H-ORG proof
-- Continual self-improvement measurement
-- Re-touching provider keys
-- Claiming M1.5 from any preflight alone
+Do not rewrite `wall_48h/program_report.json` (LH-v1 historical evidence).

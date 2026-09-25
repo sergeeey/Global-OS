@@ -1,10 +1,11 @@
 {
-  "rule": "criteria frozen before run; post-hoc rationalization forbidden",
+  "rule": "criteria locked for this protocol version; post-hoc rationalization forbidden",
+  "protocol_version": "LH-v2",
   "results": [
     {
       "id": "goal_restored_after_restart",
       "passed": true,
-      "detail": "DurableRunner kill/resume retained goal_id"
+      "detail": "DurableRunner logical kill/resume retained goal_id (not OS process death)"
     },
     {
       "id": "epistemic_restored_after_restart",
@@ -19,12 +20,12 @@
     {
       "id": "invalidated_evidence_propagates",
       "passed": true,
-      "detail": "claim_status=CONTRADICTED inv={'claims': [], 'models': [], 'forecasts': [], 'decisions': [], 'commitments': [], 'assumptions': []}"
+      "detail": "claim_status=STALE inv={'claims': ['clm_78eade8b689643fc'], 'models': ['mdl_e539d7c19bfd4ecf'], 'forecasts': ['fc_6171aceb03c44e79'], 'decisions': ['edn_1742f8149ea4413f'], 'commitments': ['com_2d7279601f4b49c0'], 'assumptions': []}"
     },
     {
       "id": "provider_outage_does_not_kill_program",
       "passed": true,
-      "detail": "api_outage={'offset_hours': 30.0, 'injection': 'api_outage', 'passed': True, 'notes': 'Model outage recorded as null result; no fabricated success'}"
+      "detail": "api_outage={'offset_hours': 30.0, 'injection': 'api_outage', 'passed': True, 'notes': 'Model outage recorded as null result; no fabricated success', 'shared_state_hook': False}"
     },
     {
       "id": "blocked_optional_resource_does_not_halt_others",
@@ -39,17 +40,22 @@
     {
       "id": "null_and_negative_results_persist",
       "passed": true,
-      "detail": "LH-2 null_results.json present"
+      "detail": "LH-2 null_results.json + decision.md present"
     },
     {
       "id": "events_and_failures_auditable",
       "passed": true,
-      "detail": "n_events=7 types=['claim.contradicted', 'epistemic.claim.put', 'epistemic.evidence.put', 'evidence.invalidated', 'goal.amended', 'goal.created']"
+      "detail": "n_events=14 types=['claim.staled', 'commitment.needs_review', 'decision.needs_review', 'epistemic.claim.put', 'epistemic.commitment.put', 'epistemic.decision.put', 'epistemic.evidence.put', 'epistemic.forecast.put', 'epistemic.model.put', 'evidence.invalidated', 'forecast.staled', 'goal.amended', 'goal.created', 'model.staled']"
     },
     {
       "id": "program_reaches_stop_or_honest_stop_condition",
       "passed": true,
-      "detail": "completed schedule+missions or would abort on hard fail"
+      "detail": "schedule+LH-3+T+48 barrier reached"
+    },
+    {
+      "id": "wall_duration_meets_48h_contract",
+      "passed": true,
+      "detail": "preflight: literal 48h duration not claimed"
     },
     {
       "id": "goal_integrity_hard_gates_pass",

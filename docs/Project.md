@@ -18,26 +18,19 @@ Goal Contract · Epistemic Kernel · Durable Runtime · Authority Kernel · Dyna
 
 ## Текущий baseline
 
-**Empirical Hardening CLOSED. Wall-clock long-horizon program PASS. M1.5 = candidate for closure review (not auto-claimed).**
+**LH-v1: 42h scheduled long-horizon harness PASS; evaluation protocol defect found; M1.5 not closed.**
 
 ```text
-короткие реальные миссии        ✅
-trust boundaries M1.4           ✅
-live provider IV (local)        ✅
-dogfood Y17-1..7                ✅
-Org A/B N=7 patterns            ✅ (H-ORG not claimed)
-compressed LH + portability fix ✅
-PASS criteria frozen            ✅
-wall_48h WALL_CLOCK_48H         ✅ PASS (operator Windows)
-M1.5                            ⏳ CANDIDATE (review)
-Continual SI                    ❌ NOT_MEASURED
-H-ORG                           ❌ not claimed
-PRODUCTION_PROVEN               ❌ not claimed
+Empirical Hardening              ✅ CLOSED
+LH-v1 42h scheduled harness      ✅ PASS (immutable evidence)
+Literal 48h wall survival        ❌ NOT PROVEN (early stop @ T+42)
+LH-v2 protocol fix               ⏳ IN PROGRESS
+M1.5                             ❌ NOT CLAIMED
+H-ORG / Continual SI / PROD      ❌ not claimed
 ```
 
-- Wall evidence: `artifacts/hardening/long_horizon_48h/wall_48h/` (`passed=true`, GIS PASS, 9/9 injections, 11/11 criteria; elapsed ≈42.0h through T+42 schedule).
-- Next: audit artifacts + confirm no hidden intervention → decide M1.5 closure.
-- H-ORG and Continual SI remain **separate** post-M1.5 research questions.
+Claim strength must not exceed evidence strength.  
+Next: LH-v2 preflight → Windows preflight → true 48h wall run.
 
 ## Документы
 

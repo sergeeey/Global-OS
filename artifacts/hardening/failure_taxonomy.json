@@ -1,6 +1,6 @@
 {
-  "taxonomy_version": "0.4.1",
-  "updated_at": "2026-09-22T18:55:00Z",
+  "taxonomy_version": "0.5.0",
+  "updated_at": "2026-09-25T05:00:00Z",
   "rule": "classify every mission failure; fix only recurring/high-impact/generalizable/testable",
   "subsystem_gate": "artifacts/hardening/DEVELOPMENT_RULES_DOGFOOD.md",
   "cases": [
@@ -101,6 +101,39 @@
       "detail": "harness._run_slow_dependency sb.execute(['sleep','2']) → FileNotFoundError on Windows",
       "fix": "cross_platform_sleep_argv via sys.executable -c time.sleep; timeout semantics unchanged",
       "pass_criteria_changed": false
+    },
+    {
+      "id": "LH-FC-EARLY-STOP-42H",
+      "class": "EVAL_PROTOCOL_GAP",
+      "title": "48h-named program stopped at ~42h after last scheduled injection",
+      "recurring": false,
+      "missions": ["LH-v1-wall_48h"],
+      "found_by": "operator wall run audit (wall_seconds=151200)",
+      "detail": "stop_condition allowed finish when schedule+missions done; last injection T+42; fidelity WALL_CLOCK_48H overstated",
+      "fix": "LH-v2: T+48 terminal barrier + wall_seconds>=172800 hard gate; 42h cannot PASS as WALL_CLOCK_48H",
+      "pass_criteria_changed": true,
+      "historical_artifact": "artifacts/hardening/long_horizon_48h/wall_48h/ (immutable)"
+    },
+    {
+      "id": "LH-FC-LOGICAL-PROCESS-KILL",
+      "class": "EVAL_PROTOCOL_GAP",
+      "title": "process_kill tested logical DurableRunner abort, not OS process death",
+      "recurring": false,
+      "missions": ["LH-v1-wall_48h"],
+      "found_by": "operator PID 8188 continuous until natural exit",
+      "detail": "WorkflowAborted + :memory: SQLite resume; same PID throughout",
+      "fix": "deferred — real TerminateProcess + cold restart + distinct PID in provenance (REQUIRES_RUNTIME_PROOF)",
+      "status": "OPEN"
+    },
+    {
+      "id": "LH-FC-INVALIDATION-FALSE-POSITIVE",
+      "class": "EVAL_PROTOCOL_GAP",
+      "title": "invalidation criterion accepted CONTRADICTED + empty downstream inv",
+      "recurring": false,
+      "missions": ["LH-v1-wall_48h"],
+      "detail": "mark_contradicted then invalidate on non-ACTIVE claim; bool(inv) always true for dict with empty lists",
+      "fix": "LH-v2: ACTIVE claim→model→forecast→decision chain; require non-empty inv claims/models/forecasts/decisions + STALE",
+      "pass_criteria_changed": true
     }
   ],
   "not_bugs": [
@@ -111,7 +144,8 @@
     "Y17-7 scientific REJECTED (finite-n p50 shift \u2014 null preserved)",
     "org A/B N=7 PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED",
     "live Provider IV closed locally \u2014 do not re-call keys from cloud",
-    "LH48 compressed preflight PASS on Linux did not surface Windows sleep portability"
+    "LH48 compressed preflight PASS on Linux did not surface Windows sleep portability",
+    "LH-v1 42h scheduled harness PASS is real engineering evidence — not a Global OS runtime crash; protocol naming overstated duration"
   ],
   "continual_improvement_question": {
     "status": "NOT_MEASURED",

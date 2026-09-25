@@ -103,7 +103,7 @@
     {
       "id": "goal_integrity_soak_48h",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "operator Windows wall_48h PASS (fidelity=WALL_CLOCK_48H, wall_s≈151200≈42h through T+42 schedule, all 11 frozen PASS criteria + GIS PASS); artifacts/hardening/long_horizon_48h/wall_48h/; M1.5 candidate not auto-claimed; ≠ PRODUCTION_PROVEN"
+      "evidence": "LH-v1 operator Windows ~42h scheduled harness PASS (immutable wall_48h/); audited NOT literal 48h (LH-FC-EARLY-STOP-42H). LH-v2 adds T+48 barrier + wall_seconds>=172800 gate. M1.5 not claimed; ≠ PRODUCTION_PROVEN"
     },
     {
       "id": "full_epistemic_graph",

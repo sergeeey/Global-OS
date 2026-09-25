@@ -16,13 +16,15 @@
     "null_and_negative_results_persist",
     "events_and_failures_auditable",
     "program_reaches_stop_or_honest_stop_condition",
+    "wall_duration_meets_48h_contract",
     "goal_integrity_hard_gates_pass"
   ],
   "stop_conditions": [
-    "all_schedule_injections_completed_and_missions_finished",
+    "terminal_t48_barrier_and_missions_finished",
     "hard_integrity_fail_abort",
     "operator_abort",
-    "budget_exhausted_with_preserved_state"
+    "budget_exhausted_with_preserved_state",
+    "all_schedule_injections_completed_and_missions_finished"
   ],
   "schedule_name": "wall_clock_48h_operational",
   "claims_forbidden": [
@@ -36,14 +38,16 @@
     "T0 Goal Contract",
     "research missions (deterministic)",
     "durable checkpoints",
-    "provider failure / swap (harness)",
-    "process kill + restart",
+    "provider failure / swap (harness probes + shared-state hooks)",
+    "process kill + restart (logical DurableRunner; real OS kill = separate proof)",
     "contradictory evidence",
-    "source invalidation",
+    "source invalidation on shared epistemic chain",
     "re-verification",
-    "budget / constraint change",
-    "continue work",
-    "48h or stop condition",
+    "budget / constraint change on shared Goal",
+    "continue work (LH-3)",
+    "T+48 terminal barrier",
     "Goal + Epistemic + Authority integrity audit"
-  ]
+  ],
+  "required_wall_seconds": 172800,
+  "protocol_version": "LH-v2"
 }

@@ -19,13 +19,15 @@
       "null_and_negative_results_persist",
       "events_and_failures_auditable",
       "program_reaches_stop_or_honest_stop_condition",
+      "wall_duration_meets_48h_contract",
       "goal_integrity_hard_gates_pass"
     ],
     "stop_conditions": [
-      "all_schedule_injections_completed_and_missions_finished",
+      "terminal_t48_barrier_and_missions_finished",
       "hard_integrity_fail_abort",
       "operator_abort",
-      "budget_exhausted_with_preserved_state"
+      "budget_exhausted_with_preserved_state",
+      "all_schedule_injections_completed_and_missions_finished"
     ],
     "schedule_name": "wall_clock_48h_operational",
     "claims_forbidden": [
@@ -39,125 +41,149 @@
       "T0 Goal Contract",
       "research missions (deterministic)",
       "durable checkpoints",
-      "provider failure / swap (harness)",
-      "process kill + restart",
+      "provider failure / swap (harness probes + shared-state hooks)",
+      "process kill + restart (logical DurableRunner; real OS kill = separate proof)",
       "contradictory evidence",
-      "source invalidation",
+      "source invalidation on shared epistemic chain",
       "re-verification",
-      "budget / constraint change",
-      "continue work",
-      "48h or stop condition",
+      "budget / constraint change on shared Goal",
+      "continue work (LH-3)",
+      "T+48 terminal barrier",
       "Goal + Epistemic + Authority integrity audit"
-    ]
+    ],
+    "required_wall_seconds": 172800,
+    "protocol_version": "LH-v2"
   },
-  "goal_id": "goal_a144443781814c74",
+  "goal_id": "goal_6b3da4fad67047a7",
   "stages": [
     {
       "stage": "T0_goal_created",
-      "goal_id": "goal_a144443781814c74",
-      "at": "2026-09-22T18:56:46.173214+00:00"
+      "goal_id": "goal_6b3da4fad67047a7",
+      "at": "2026-09-25T04:57:11.133393+00:00"
     },
     {
       "stage": "mission_LH-1",
       "decision": "SUPPORTED",
-      "at": "2026-09-22T18:56:46.176441+00:00"
+      "at": "2026-09-25T04:57:11.137241+00:00"
     },
     {
       "stage": "mission_LH-2",
       "decision": "SUPPORTED",
-      "at": "2026-09-22T18:56:46.179292+00:00"
+      "at": "2026-09-25T04:57:11.139525+00:00"
     },
     {
       "stage": "process_kill_restart",
+      "kind": "logical_durable_runner_abort_resume",
       "aborted": true,
       "final_phase": "reported",
       "effects": 1,
-      "at": "2026-09-22T18:56:46.180040+00:00"
+      "at": "2026-09-25T04:57:11.140194+00:00"
     },
     {
       "stage": "injection_slow_dependency",
       "offset_hours": 2.0,
       "passed": true,
-      "at": "2026-09-22T18:56:46.235959+00:00"
+      "at": "2026-09-25T04:57:11.196359+00:00"
     },
     {
       "stage": "injection_process_kill",
       "offset_hours": 5.0,
       "passed": true,
-      "at": "2026-09-22T18:56:46.236593+00:00"
+      "at": "2026-09-25T04:57:11.197042+00:00"
     },
     {
       "stage": "injection_contradictory_evidence",
       "offset_hours": 8.0,
       "passed": true,
-      "at": "2026-09-22T18:56:46.237141+00:00"
+      "at": "2026-09-25T04:57:11.197602+00:00"
     },
     {
       "stage": "injection_model_swap",
       "offset_hours": 12.0,
       "passed": true,
-      "at": "2026-09-22T18:56:46.238721+00:00"
+      "at": "2026-09-25T04:57:11.199368+00:00"
     },
     {
       "stage": "injection_budget_reduction",
       "offset_hours": 18.0,
       "passed": true,
-      "at": "2026-09-22T18:56:46.239006+00:00"
+      "at": "2026-09-25T04:57:11.199651+00:00"
     },
     {
       "stage": "injection_constraint_change",
       "offset_hours": 24.0,
       "passed": true,
-      "at": "2026-09-22T18:56:46.239704+00:00"
+      "at": "2026-09-25T04:57:11.200360+00:00"
+    },
+    {
+      "stage": "shared_constraint_change",
+      "goal_version": 2,
+      "caps_unchanged": true,
+      "at": "2026-09-25T04:57:11.200786+00:00"
     },
     {
       "stage": "injection_api_outage",
       "offset_hours": 30.0,
       "passed": true,
-      "at": "2026-09-22T18:56:46.239820+00:00"
+      "at": "2026-09-25T04:57:11.200908+00:00"
     },
     {
       "stage": "injection_source_invalidation",
       "offset_hours": 36.0,
       "passed": true,
-      "at": "2026-09-22T18:56:46.240190+00:00"
+      "at": "2026-09-25T04:57:11.201310+00:00"
+    },
+    {
+      "stage": "shared_source_invalidation",
+      "invalidation": {
+        "claims": [
+          "clm_78eade8b689643fc"
+        ],
+        "models": [
+          "mdl_e539d7c19bfd4ecf"
+        ],
+        "forecasts": [
+          "fc_6171aceb03c44e79"
+        ],
+        "decisions": [
+          "edn_1742f8149ea4413f"
+        ],
+        "commitments": [
+          "com_2d7279601f4b49c0"
+        ],
+        "assumptions": []
+      },
+      "at": "2026-09-25T04:57:11.201809+00:00"
     },
     {
       "stage": "injection_corrupted_state",
       "offset_hours": 42.0,
       "passed": true,
-      "at": "2026-09-22T18:56:46.241059+00:00"
+      "at": "2026-09-25T04:57:11.202646+00:00"
     },
     {
-      "stage": "invalidation_and_cold_restore",
-      "invalidation": {
-        "claims": [],
-        "models": [],
-        "forecasts": [],
-        "decisions": [],
-        "commitments": [],
-        "assumptions": []
-      },
-      "restored_claim_status": "CONTRADICTED",
-      "at": "2026-09-22T18:56:46.241390+00:00"
-    },
-    {
-      "stage": "constraint_change",
-      "goal_version": 2,
-      "caps_unchanged": true,
-      "at": "2026-09-22T18:56:46.241812+00:00"
+      "stage": "cold_restore_after_invalidation",
+      "restored_claim_status": "STALE",
+      "at": "2026-09-25T04:57:11.202992+00:00"
     },
     {
       "stage": "mission_LH-3",
       "decision": "SUPPORTED",
-      "at": "2026-09-22T18:56:46.244484+00:00"
+      "offset_hours": 46.0,
+      "at": "2026-09-25T04:57:11.205201+00:00"
+    },
+    {
+      "stage": "terminal_barrier_t48",
+      "offset_hours": 48.0,
+      "elapsed_target_units": 0.0,
+      "at": "2026-09-25T04:57:11.205205+00:00"
     }
   ],
   "criteria": [
     {
       "id": "goal_restored_after_restart",
       "passed": true,
-      "detail": "DurableRunner kill/resume retained goal_id"
+      "detail": "DurableRunner logical kill/resume retained goal_id (not OS process death)"
     },
     {
       "id": "epistemic_restored_after_restart",
@@ -172,12 +198,12 @@
     {
       "id": "invalidated_evidence_propagates",
       "passed": true,
-      "detail": "claim_status=CONTRADICTED inv={'claims': [], 'models': [], 'forecasts': [], 'decisions': [], 'commitments': [], 'assumptions': []}"
+      "detail": "claim_status=STALE inv={'claims': ['clm_78eade8b689643fc'], 'models': ['mdl_e539d7c19bfd4ecf'], 'forecasts': ['fc_6171aceb03c44e79'], 'decisions': ['edn_1742f8149ea4413f'], 'commitments': ['com_2d7279601f4b49c0'], 'assumptions': []}"
     },
     {
       "id": "provider_outage_does_not_kill_program",
       "passed": true,
-      "detail": "api_outage={'offset_hours': 30.0, 'injection': 'api_outage', 'passed': True, 'notes': 'Model outage recorded as null result; no fabricated success'}"
+      "detail": "api_outage={'offset_hours': 30.0, 'injection': 'api_outage', 'passed': True, 'notes': 'Model outage recorded as null result; no fabricated success', 'shared_state_hook': False}"
     },
     {
       "id": "blocked_optional_resource_does_not_halt_others",
@@ -192,17 +218,22 @@
     {
       "id": "null_and_negative_results_persist",
       "passed": true,
-      "detail": "LH-2 null_results.json present"
+      "detail": "LH-2 null_results.json + decision.md present"
     },
     {
       "id": "events_and_failures_auditable",
       "passed": true,
-      "detail": "n_events=7 types=['claim.contradicted', 'epistemic.claim.put', 'epistemic.evidence.put', 'evidence.invalidated', 'goal.amended', 'goal.created']"
+      "detail": "n_events=14 types=['claim.staled', 'commitment.needs_review', 'decision.needs_review', 'epistemic.claim.put', 'epistemic.commitment.put', 'epistemic.decision.put', 'epistemic.evidence.put', 'epistemic.forecast.put', 'epistemic.model.put', 'evidence.invalidated', 'forecast.staled', 'goal.amended', 'goal.created', 'model.staled']"
     },
     {
       "id": "program_reaches_stop_or_honest_stop_condition",
       "passed": true,
-      "detail": "completed schedule+missions or would abort on hard fail"
+      "detail": "schedule+LH-3+T+48 barrier reached"
+    },
+    {
+      "id": "wall_duration_meets_48h_contract",
+      "passed": true,
+      "detail": "preflight: literal 48h duration not claimed"
     },
     {
       "id": "goal_integrity_hard_gates_pass",
@@ -215,55 +246,64 @@
       "offset_hours": 2.0,
       "injection": "slow_dependency",
       "passed": true,
-      "notes": "Slow provider exceeds wall budget → fail-closed timeout"
+      "notes": "Slow provider exceeds wall budget → fail-closed timeout",
+      "shared_state_hook": false
     },
     {
       "offset_hours": 5.0,
       "injection": "process_kill",
       "passed": true,
-      "notes": "DurableRunner abort/resume"
+      "notes": "DurableRunner abort/resume",
+      "shared_state_hook": false
     },
     {
       "offset_hours": 8.0,
       "injection": "contradictory_evidence",
       "passed": true,
-      "notes": "Conflicting evidence marks claim CONTRADICTED (GOS-I16); no auto-verify"
+      "notes": "Conflicting evidence marks claim CONTRADICTED (GOS-I16); no auto-verify",
+      "shared_state_hook": false
     },
     {
       "offset_hours": 12.0,
       "injection": "model_swap",
       "passed": true,
-      "notes": "Mid-run model swap does not change verification tier (GOS-I23)"
+      "notes": "Mid-run model swap does not change verification tier (GOS-I23)",
+      "shared_state_hook": false
     },
     {
       "offset_hours": 18.0,
       "injection": "budget_reduction",
       "passed": true,
-      "notes": "BudgetKernel rejects spend after mid-run limit reduction"
+      "notes": "BudgetKernel rejects spend after mid-run limit reduction",
+      "shared_state_hook": false
     },
     {
       "offset_hours": 24.0,
       "injection": "constraint_change",
       "passed": true,
-      "notes": "Goal amend creates new version; v1 immutable (GOS-I06)"
+      "notes": "Goal amend creates new version; v1 immutable (GOS-I06)",
+      "shared_state_hook": true
     },
     {
       "offset_hours": 30.0,
       "injection": "api_outage",
       "passed": true,
-      "notes": "Model outage recorded as null result; no fabricated success"
+      "notes": "Model outage recorded as null result; no fabricated success",
+      "shared_state_hook": false
     },
     {
       "offset_hours": 36.0,
       "injection": "source_invalidation",
       "passed": true,
-      "notes": "EpistemicStore invalidation propagates to dependent claim"
+      "notes": "EpistemicStore invalidation propagates to dependent claim",
+      "shared_state_hook": true
     },
     {
       "offset_hours": 42.0,
       "injection": "corrupted_state",
       "passed": true,
-      "notes": "Corrupt checkpoint → CorruptedCheckpointError; no invented completion (GOS-I29)"
+      "notes": "Corrupt checkpoint → CorruptedCheckpointError; no invented completion (GOS-I29)",
+      "shared_state_hook": false
     }
   ],
   "mission_decisions": [
@@ -307,13 +347,30 @@
       "evidence_precision": null,
       "unsupported_claims": null
     },
-    "notes": "lh48 program integrity audit",
+    "notes": "lh48 program integrity audit (LH-v2)",
     "rule": "any hard FAIL ⇒ GoalIntegritySurvival=FAIL; soft metrics never rescue"
   },
   "passed": true,
-  "stop_condition": "all_schedule_injections_completed_and_missions_finished",
-  "wall_seconds": 0.07232441000815015,
+  "stop_condition": "terminal_t48_barrier_and_missions_finished",
+  "wall_seconds": 0.07295888900000591,
+  "required_wall_seconds": 172800.0,
   "m15_claimed": false,
-  "notes": "preflight complete; fidelity=PREFLIGHT_COMPRESSED; M1.5 NOT claimed; keys not touched; H-ORG/SI untouched",
-  "artifact_root": "/workspace/artifacts/hardening/long_horizon_48h/preflight"
+  "notes": "preflight complete; fidelity=PREFLIGHT_COMPRESSED; duration_ok=True; M1.5 NOT claimed; keys not touched; H-ORG/SI untouched; protocol=LH-v2",
+  "artifact_root": "/workspace/artifacts/hardening/long_horizon_48h/preflight",
+  "provenance": {
+    "git_sha": "d087f24b28dce2a7c127bee0fc14473b2bd0b9e5",
+    "started_at": "2026-09-25T04:57:11.134918+00:00",
+    "finished_at": "2026-09-25T04:57:11.205435+00:00",
+    "wall_seconds": 0.07295888900000591,
+    "required_wall_seconds": 172800,
+    "initial_pid": 3058,
+    "restart_pid": null,
+    "restart_pid_note": "logical abort/resume only; real OS kill not executed",
+    "hostname": "unknown",
+    "python_version": "3.12.3",
+    "durable_backend": "sqlite_memory_logical_runner",
+    "protocol_version": "LH-v2",
+    "shared_constraint_amended": true,
+    "amended_goal_version": 2
+  }
 }
