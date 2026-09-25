@@ -85,13 +85,15 @@
 - [x] Compressed preflight + Linux os_kill smoke
 - [x] Freeze doc + audit honesty (`FREEZE_R1_R3.md`, `AUDIT_POST_R1_R3.md`)
 
-## Next — operator Windows exam on `5d15600`
+## Active — M1.5 formal exam (`M15_EXAM_KICKOFF.md`)
 
-- [x] Freeze candidate stamped (`FREEZE_R1_R3.md`, `OPERATOR_EXAM_NOW.md`)
-- [ ] Windows os_kill smoke on detached `5d15600`
-- [ ] Windows 60–120m preflight PASS (provenance sha starts with 5d15600)
-- [ ] Literal ≥48h real workload → independent audit → M1.5 candidate
-- [ ] On FAIL: new SHA freeze (do not patch 5d15600)
+- [x] Kickoff protocol locked; exam SHA `5d15600`
+- [ ] Windows: detached checkout + clean status
+- [ ] Windows os_kill smoke PASS
+- [ ] EXAM_START.json + 60–120m preflight PASS
+- [ ] Literal wall_seconds>=172800 + real workload → freeze raw artifacts
+- [ ] Independent audit → M1.5 candidate only if all gates PASS
+- [ ] Code FAIL ⇒ new freeze (never patch 5d15600)
 
 ## Later — after several real missions
 

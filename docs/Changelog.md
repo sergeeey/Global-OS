@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.78 — 2026-09-25
+
+### M1.5 exam kickoff protocol locked (operator Windows)
+
+- Binding runbook: `artifacts/hardening/M15_EXAM_KICKOFF.md` (= OPERATOR_EXAM_NOW)
+- Sequence: detached `5d15600` → smoke → preflight (with EXAM_START.json) → literal ≥172800s → freeze artifacts → independent audit
+- No R4/harden/main on exam SHA; FAIL code ⇒ new freeze; T+42 ≠ PASS; M1.5 only after audit
+
 ## 0.1.77 — 2026-09-25
 
 ### Freeze exam ready — `5d15600` (no project pause)

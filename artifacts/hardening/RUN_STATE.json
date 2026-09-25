@@ -1,8 +1,8 @@
 {
-  "sprint": "FREEZE_EXAM_READY",
-  "updated_at": "2026-09-25T17:27:05Z",
-  "current_goal": "WINDOWS_PREFLIGHT_ON_5d15600",
-  "phase_statement": "FREEZE-R1R3-v1 @ 5d15600 ready for formal Windows LH exam. No patch-in-place on exam SHA. Project not paused \u2014 only exam version frozen. M1.5 NOT CLAIMED.",
+  "sprint": "M15_EXAM_IN_PROGRESS_OPERATOR",
+  "updated_at": "2026-09-25T17:46:49Z",
+  "current_goal": "WINDOWS_SMOKE_ON_5d15600",
+  "phase_statement": "M1.5 formal exam started as process: operator Windows detached 5d15600 \u2192 smoke \u2192 preflight \u2192 literal 48h. Cloud/Linux side idle for exam. No R4/harden/main work on exam SHA. M1.5 NOT CLAIMED until audit.",
   "operator_action_required": true,
   "operator_dispatch_required": true,
   "y20": {
@@ -36,15 +36,15 @@
     "literal_48h": "NOT_STARTED",
     "m15_claimed": false
   },
-  "next_exact_action": "Windows: checkout --detach 5d15600 \u2192 os_kill smoke \u2192 60\u2013120m preflight (WINDOWS_FROZEN_EXAM.md / OPERATOR_EXAM_NOW.md). Fail \u21d2 new freeze SHA.",
+  "next_exact_action": "OPERATOR Windows: git checkout --detach 5d15600\u2026 ; git status; git rev-parse HEAD; then smoke from M15_EXAM_KICKOFF.md",
   "forbidden_now": [
+    "r4_during_exam",
+    "harden_exam_sha",
     "patch_freeze_sha_5d15600_in_place",
-    "claim_M1.5",
-    "claim_continual_SI",
-    "claim_gos_advantage",
+    "claim_M1.5_before_audit",
     "literal_48h_before_windows_preflight_pass",
-    "retune_y20_y21_y22_scorers_post_hoc",
-    "y23_synthetic_ab"
+    "accept_t42_as_48h_pass",
+    "intellectual_coaching_mid_run"
   ],
   "r1": {
     "mission_id": "R1-EVIDENCE-INTEGRITY-v1",
@@ -95,5 +95,14 @@
     "sha_short": "5d15600",
     "sha_full": "5d15600256a7afc7839f190ed3d889b33bc3217b",
     "patch_in_place_forbidden": true
+  },
+  "exam": {
+    "name": "M15_LH_EXAM",
+    "sha_full": "5d15600256a7afc7839f190ed3d889b33bc3217b",
+    "kickoff": "artifacts/hardening/M15_EXAM_KICKOFF.md",
+    "patch_in_place_forbidden": true,
+    "wall_seconds_hard_gate": 172800,
+    "m15_claimed": false,
+    "next_keystrokes": "Windows detached checkout 5d15600 \u2192 smoke"
   }
 }

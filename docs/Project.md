@@ -43,8 +43,8 @@ Y23                         NOT NOW
 
 1. **Frozen:** Y20–Y22; no Y23; scorers frozen.  
 2. **Done:** R1; R2-HDE; R2 paper audit; **R3 data-forensics** (`artifacts/r3/`).  
-3. **Freeze exam ready:** `5d15600` / `OPERATOR_EXAM_NOW.md` — Windows preflight today if closing M1.5 path.
-   Do not patch exam SHA in place; fail ⇒ new freeze. **M1.5:** NOT CLAIMED.  
+3. **M1.5 exam in progress (operator):** `M15_EXAM_KICKOFF.md` — Windows detached `5d15600` → smoke → preflight → ≥48h.
+   Cloud idle for exam. **M1.5:** NOT CLAIMED until independent audit.  
 4. **Separate:** CRM/Docker/Reflexio/GeoScan → `artifacts/ops/SEPARATE_BACKLOG.md` (fresh observe first).  
 5. **Not now:** Continual SI / universal advantage claims.
 
