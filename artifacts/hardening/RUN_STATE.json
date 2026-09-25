@@ -1,14 +1,8 @@
 {
   "sprint": "LH_V2_PROTOCOL_FIX_AFTER_V1_AUDIT",
-  "updated_at": "2026-09-25T05:05:00Z",
-  "current_goal": "LH_V2_COMPRESSED_PREFLIGHT_THEN_WINDOWS_PREFLIGHT_THEN_TRUE_48H",
-  "phase_statement": "LH-v1: 42h scheduled long-horizon harness PASS; evaluation protocol defects found; M1.5 NOT closed. LH-v2 harness fix in progress.",
-  "completed": [
-    "EMPIRICAL_HARDENING_COMPLETE",
-    "LH_V1_WALL_42H_SCHEDULED_HARNESS_PASS",
-    "LH_V1_PROTOCOL_AUDIT"
-  ],
-  "running": null,
+  "updated_at": "2026-09-25T05:10:00Z",
+  "current_goal": "OPERATOR_WINDOWS_PREFLIGHT_LH_V2_THEN_TRUE_48H",
+  "phase_statement": "LH-v1: 42h scheduled harness PASS; protocol defects found; M1.5 NOT closed. LH-v2 harness fixed; compressed preflight PASS.",
   "completed": [
     "EMPIRICAL_HARDENING_COMPLETE",
     "LH_V1_WALL_42H_SCHEDULED_HARNESS_PASS",
@@ -16,6 +10,9 @@
     "LH_V2_HARNESS_FIX",
     "LH_V2_COMPRESSED_PREFLIGHT_PASS"
   ],
+  "running": null,
+  "stage": "Long-Horizon Validation — LH-v1 audited; LH-v2 ready; literal 48h NOT proven; M1.5 not claimed",
+  "continual_improvement": "NOT_MEASURED",
   "long_horizon": {
     "lh_v1": {
       "label": "LH-v1",
@@ -30,6 +27,7 @@
     "lh_v2": {
       "protocol": "T+48 barrier + wall_seconds>=172800 + tightened criteria + shared-state hooks",
       "status": "COMPRESSED_PREFLIGHT_PASS",
+      "fix_commit": "5e23442",
       "next": "Windows 60–120m preflight then full wall_48h_v2"
     },
     "m15_claimed": false,
