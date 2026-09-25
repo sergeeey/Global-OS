@@ -61,6 +61,17 @@
 - [x] Observe → hypotheses → falsify → path-binding remediations → EVALUATION
 - [x] Terminal SUPPORTED; universal advantage NOT CLAIMED
 
+## Done — R2-HDE (`H_R2`)
+
+- [x] Hypothesis Discovery Engine on usefulness-under-null-science
+- [x] REPORT + GRAPH + SEARCH_LOG under `artifacts/r2/hde/`
+- [x] Y23 not recommended; discriminating test specified
+
+## Next — R2 discriminating experiment
+
+- [ ] Paired real-mission A/B; primary=`keep/(1+interventions)`
+- [ ] Optional Halt2 fixed-pipeline arm
+
 ## Later — after several real missions
 
 - [ ] R2 (different class)

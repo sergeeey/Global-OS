@@ -1,0 +1,22 @@
+{
+  "y20_primary": "science A\u2265B; GOS sealed gain NOT shown",
+  "y21_primary": {
+    "primary_verdict": "TIE_WITHIN_MCID",
+    "sealed_exact_match_rate_A": 0.34444444444444444,
+    "sealed_exact_match_rate_B": 0.34444444444444444,
+    "process_trace_richer": "B",
+    "gos_primary_science_gain": false,
+    "integrity": "DIRECTIONAL_WITH_GENERATOR_AUTHORSHIP_CAVEAT"
+  },
+  "y22": {
+    "primary_verdict": "TIE_WITHIN_MCID",
+    "composite_A": 0.7145833333333333,
+    "composite_B": 0.7145833333333333,
+    "h_reliability_multiplier": "NOT_CONFIRMED",
+    "process_trace_richer": "B"
+  },
+  "r1": {
+    "decision": "SUPPORTED",
+    "interventions": 0
+  }
+}

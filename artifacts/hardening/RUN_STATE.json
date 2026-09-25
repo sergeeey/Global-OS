@@ -1,8 +1,8 @@
 {
-  "sprint": "R1_COMPLETE",
-  "updated_at": "2026-09-25T16:22:00Z",
-  "current_goal": "POST_R1_MAP",
-  "phase_statement": "R1 complete: evidence-integrity real-use SUPPORTED. 16 matrix paths bound + regression. Universal advantage still NOT SHOWN. Next: R2 different class or pause. Not Y23/LH/M1.5.",
+  "sprint": "R2_HDE_COMPLETE",
+  "updated_at": "2026-09-25T16:45:00Z",
+  "current_goal": "H_R2_DISCRIMINATING_TEST",
+  "phase_statement": "R2-HDE complete on H_R2 (usefulness under null science). Confidence 0.38. Y23 not recommended. Next: paired real-mission A/B primary=keep/(1+interventions).",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y20": {
@@ -34,7 +34,7 @@
     "literal_48h": "DEFERRED",
     "m15_claimed": false
   },
-  "next_exact_action": "R1 done. Choose R2 (different class) or pause. Do not start Y23 or LH.",
+  "next_exact_action": "Design/run R2 paired real-mission discriminating test; do not start Y23; scorers remain frozen.",
   "forbidden_now": [
     "y23_synthetic_ab",
     "retune_y20_y21_y22_scorers_post_hoc",
@@ -52,5 +52,10 @@
     "operator_interventions": 0,
     "decision": "artifacts/r1/decision.md",
     "evaluation": "artifacts/r1/EVALUATION.md"
+  },
+  "r2_hde": {
+    "report": "artifacts/r2/hde/REPORT.md",
+    "confidence": 0.38,
+    "recommend_y23": false
   }
 }

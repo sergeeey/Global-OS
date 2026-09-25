@@ -1,0 +1,27 @@
+{
+  "nodes": [
+    {"id": "H_R2", "type": "hypothesis", "text": "GOS raises keep/(1+interventions) on real missions despite null sealed primary"},
+    {"id": "A1", "type": "fact_campaign", "text": "Y20-Y22 primary GOS gain NOT SHOWN"},
+    {"id": "R1_KEEP", "type": "fact_campaign", "text": "R1 keepable remediation; interventions=0"},
+    {"id": "AGENTLESS", "type": "fact_external", "text": "Simple pipeline > complex agents on SWE-bench Lite"},
+    {"id": "CCI", "type": "fact_external", "text": "All-in scaffolding often worse than subset"},
+    {"id": "CHECKLIST", "type": "analogy", "text": "WHO surgical checklist process discipline"},
+    {"id": "HALT1", "type": "alt_hypothesis", "text": "Model capacity explains outcomes"},
+    {"id": "HALT2", "type": "alt_hypothesis", "text": "Fixed pipeline matches GOS keep cheaper"},
+    {"id": "GAP1", "type": "gap", "text": "No paired real-mission A/B on keep metric"}
+  ],
+  "edges": [
+    {"from": "A1", "rel": "supports", "to": "pivot_real_use"},
+    {"from": "A1", "rel": "contradicts", "to": "Y23"},
+    {"from": "R1_KEEP", "rel": "supports", "to": "H_R2", "strength": "weak_n1"},
+    {"from": "AGENTLESS", "rel": "contradicts", "to": "more_agent_better_task_success"},
+    {"from": "AGENTLESS", "rel": "analogous_to", "to": "HALT2"},
+    {"from": "CCI", "rel": "constrains", "to": "scaffold_stacking"},
+    {"from": "CHECKLIST", "rel": "analogous_to", "to": "H_R2", "transfer_limit": "confounding; domain mismatch"},
+    {"from": "HALT1", "rel": "alt_explains", "to": "A1"},
+    {"from": "HALT2", "rel": "alt_explains", "to": "R1_KEEP"},
+    {"from": "GAP1", "rel": "blocks_confirmation_of", "to": "H_R2"}
+  ],
+  "scoring_weights_note": "working settings not scientific constants",
+  "top_gap_score": 0.78
+}

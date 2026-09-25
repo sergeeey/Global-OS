@@ -1,0 +1,15 @@
+{
+  "mission_id": "R2-HDE-v1",
+  "class": "hypothesis_discovery_engine",
+  "phase": "REPORT_COMPLETE",
+  "updated_at": "2026-09-25T16:45:00Z",
+  "input": "artifacts/r2/hde/INPUT.md",
+  "report": "artifacts/r2/hde/REPORT.md",
+  "hypothesis_id": "H_R2_usefulness_under_null_science",
+  "confidence": 0.38,
+  "recommend_y23": false,
+  "recommend_next": "R2 paired real-mission A/B with primary=keep/(1+interventions)",
+  "operator_interventions": 0,
+  "search_exhaustive": false,
+  "y20_y21_y22_scorers_frozen": true
+}

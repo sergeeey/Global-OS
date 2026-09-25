@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.73 — 2026-09-25
+
+### R2-HDE — hypothesis discovery on usefulness-under-null-science
+
+- Target hypothesis: GOS raises keep/(1+interventions) on real missions despite Y20–Y22 null primary
+- External pressure: Agentless/DirectSolve/CCI against scaffolding-as-universal-win
+- Campaign facts: Y20–Y22 null primary; R1 keep n=1 weak support
+- Confidence 0.38; **Y23 not recommended**; next = paired real-mission discriminating A/B
+- Report: `artifacts/r2/hde/REPORT.md` (search not exhaustive)
+
 ## 0.1.72 — 2026-09-25
 
 ### R1 terminal — evidence-integrity real-use SUPPORTED

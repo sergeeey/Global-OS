@@ -35,7 +35,7 @@ Y23: NOT NOW
 1. **Frozen:** Y20–Y22 claims — no post-hoc retune; no Y23.
 2. **Done:** R1 real-use evidence-integrity (`artifacts/r1/`) — SUPPORTED;
    useful remediation + regression; advantage still NOT SHOWN.
-3. **Optional next:** R2 different class → … → freeze → Windows preflight →
+3. **Active next:** R2 discriminating A/B (keep/intervention); HDE report done → … → freeze → Windows preflight →
    ≥48h → audit → M1.5 candidate.
 4. **Not now:** LH / M1.5 / Continual SI / universal advantage.
 
