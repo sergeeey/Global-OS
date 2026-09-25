@@ -1,8 +1,8 @@
 {
   "sprint": "Y20_AB_READY_TO_RUN",
-  "updated_at": "2026-09-25T11:10:00Z",
-  "current_goal": "Y20_ARM_A",
-  "phase_statement": "Y20 prereg frozen at 278c10d. Architecture freeze until COMPARISON_REPORT. Next: run Arm A only; do not unseal; do not start B until A immutable.",
+  "updated_at": "2026-09-25T12:07:24Z",
+  "current_goal": "Y20_ARM_B",
+  "phase_statement": "Arm A FROZEN. Next Arm B under Global OS loop. Sealed still UNSEEN. Do not change scorer.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "prereg_boundary_sha": "278c10d",
@@ -14,20 +14,21 @@
   "y19_milestone_sha": "4378005",
   "y20": {
     "phase": "PREREG_LOCKED",
-    "arms_started": false,
+    "arms_started": true,
     "sealed_unseen": true,
     "unseal_allowed": false,
     "architecture_freeze_until_comparison": true,
     "protocol_version": "Y20-AB-v1",
     "public_pack_sha256": "1a2344f9d1375f05abdffcc744b7995d7a8ac54ae0f676ab7313121cc4d6a6d8",
     "sealed_pack_sha256": "d7c4fb79b8e04ad3bb951711fcd7aa6ef3c94727702b6f396ae17b6737fe8754",
-    "gos_advantage_claimed": false
+    "gos_advantage_claimed": false,
+    "arm_a": "FROZEN"
   },
   "honest_status": {
     "y19_closed_evidence_packed": true,
     "y19_attribution_bundle_only": true,
     "y20_prereg_locked_at_278c10d": true,
-    "arm_a_run": false,
+    "arm_a_run": true,
     "arm_b_run": false,
     "sealed_ground_truth_unseen": true,
     "blind_scorer_locked": true,
@@ -43,7 +44,7 @@
     "literal_48h": "DEFERRED",
     "m15_claimed": false
   },
-  "next_exact_action": "Run Arm A (strong agent baseline) under locked caps; write arms/A/submission.json + process_log.json; freeze. Do not unseal. Do not start Arm B yet. Do not change scorer/generator/budgets.",
+  "next_exact_action": "Run Arm B (GOS structure) with same public pack and budgets; freeze B; only then unseal.",
   "forbidden_now": [
     "change_scorer_or_budgets_after_278c10d",
     "unseal_before_both_arms_complete",

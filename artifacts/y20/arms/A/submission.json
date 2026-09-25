@@ -1,0 +1,107 @@
+{
+  "arm_id": "A",
+  "claimed_edges": [
+    [
+      "X8",
+      "X12"
+    ],
+    [
+      "X8",
+      "X15"
+    ],
+    [
+      "X10",
+      "X13"
+    ],
+    [
+      "X6",
+      "X10"
+    ],
+    [
+      "X1",
+      "X6"
+    ],
+    [
+      "X11",
+      "X19"
+    ],
+    [
+      "X8",
+      "X3"
+    ],
+    [
+      "X11",
+      "X17"
+    ],
+    [
+      "X7",
+      "X14"
+    ],
+    [
+      "X18",
+      "X19"
+    ],
+    [
+      "X4",
+      "X7"
+    ],
+    [
+      "X1",
+      "X3"
+    ],
+    [
+      "X9",
+      "X14"
+    ],
+    [
+      "X0",
+      "X5"
+    ],
+    [
+      "X0",
+      "X3"
+    ],
+    [
+      "X9",
+      "X13"
+    ],
+    [
+      "X15",
+      "X18"
+    ],
+    [
+      "X2",
+      "X7"
+    ]
+  ],
+  "intervention_predictions": [
+    {
+      "intervention_id": "I1",
+      "target": "X12",
+      "predicted_mean": -0.1284074525513557
+    },
+    {
+      "intervention_id": "I2",
+      "target": "X16",
+      "predicted_mean": -1.506964565591431
+    },
+    {
+      "intervention_id": "I3",
+      "target": "X18",
+      "predicted_mean": 0.8838221343072709
+    },
+    {
+      "intervention_id": "I4",
+      "target": "X12",
+      "predicted_mean": -0.10371863412331117
+    },
+    {
+      "intervention_id": "I5",
+      "target": "X19",
+      "predicted_mean": 0.2971389401230847
+    }
+  ],
+  "decision": "INCONCLUSIVE",
+  "stop_reason": "completed_baseline_discovery_under_budget",
+  "notes": "Strong-agent baseline: partial-correlation skeleton + regression orientation; intervention forecasts via observational regression with claimed parents as adjustors. No sealed peek. No GOS durable loop."
+}

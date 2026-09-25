@@ -5,17 +5,34 @@
   "execution_protocol": "artifacts/y20/Y20-EXECUTION-PROTOCOL.md",
   "protocol_version": "Y20-AB-v1",
   "prereg_boundary_sha": "278c10d",
-  "updated_at": "2026-09-25T11:10:00Z",
-  "phase": "PREREG_LOCKED",
+  "updated_at": "2026-09-25T12:07:24Z",
+  "phase": "ARM_A_FROZEN",
   "prereg_locked": true,
   "architecture_freeze_until_comparison": true,
-  "arms_started": false,
+  "arms_started": true,
   "sealed_unseen": true,
   "unseal_allowed": false,
   "arms": {
-    "A": {"status": "NOT_STARTED", "role": "strong_agent_baseline", "dir": "artifacts/y20/arms/A"},
-    "B": {"status": "NOT_STARTED", "role": "strong_agent_plus_global_os", "dir": "artifacts/y20/arms/B"},
-    "C": {"status": "DEFERRED", "role": "ablation_durable_checkpoint_only"}
+    "A": {
+      "status": "FROZEN",
+      "role": "strong_agent_baseline",
+      "dir": "artifacts/y20/arms/A",
+      "started_at": "2026-09-25T12:06:04Z",
+      "ended_at": "2026-09-25T12:07:24Z",
+      "model_pin": "composer-cloud-agent-bundle",
+      "submission": "artifacts/y20/arms/A/submission.json",
+      "process_log": "artifacts/y20/arms/A/process_log.json",
+      "contamination_note": "Same agent lineage authored generator in prior turn; Arm A constrained to public CSV only; sealed/ and generator DAG source not opened during arm."
+    },
+    "B": {
+      "status": "NOT_STARTED",
+      "role": "strong_agent_plus_global_os",
+      "dir": "artifacts/y20/arms/B"
+    },
+    "C": {
+      "status": "DEFERRED",
+      "role": "ablation_durable_checkpoint_only"
+    }
   },
   "y19_frozen": true,
   "y19_milestone_sha": "4378005",
@@ -45,5 +62,5 @@
     "claim_M1.5",
     "claim_continual_SI"
   ],
-  "next_step": "Execute Arm A only (strong baseline). Freeze arms/A artifacts. Then Arm B. Only then unseal + blind score + COMPARISON_REPORT."
+  "next_step": "Execute Arm B with Global OS loop under equal caps; do not unseal; do not read Arm A results into B prompts beyond shared public pack."
 }
