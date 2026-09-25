@@ -159,6 +159,8 @@
     "org A/B N=7 PATTERNS_OBSERVABLE_H_ORG_NOT_CLAIMED",
     "live Provider IV closed locally \u2014 do not re-call keys from cloud",
     "LH48 compressed preflight PASS on Linux did not surface Windows sleep portability",
+    "Windows os_kill smoke PASS with child_returncode=1 (Windows kill ≠ POSIX SIGKILL -9)",
+    "Y19-H1 REJECTED / Y19-H2 SUPPORTED — scientific outcomes, not infra failures",
     "LH-v1 42h scheduled harness PASS is real engineering evidence — not a Global OS runtime crash; protocol naming overstated duration"
   ],
   "continual_improvement_question": {

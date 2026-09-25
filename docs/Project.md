@@ -18,11 +18,12 @@
 
 ```text
 Y18 failure-mode diversity       ✅ MET
-bfa58a0                          ✅ intermediate stable (not formal M1.5 exam)
+bfa58a0                          ✅ intermediate stable
 Linux OS kill smoke              ✅ PASS
-Windows OS kill smoke            → seconds only (operator)
+Windows OS kill smoke            ✅ PASS on bfa58a0 (PIDs distinct)
 Windows 96m / literal 48h        ⏸ deferred
-Y19-H1 transient early-warning   → active science dogfood (pilot REJECTED — honest)
+Y19-H1                           ✅ REJECTED (spectral < MCID) — honest
+Y19-H2                           ✅ SUPPORTED (size/entropy > activity-only)
 M1.5                             ❌ not claimed
 ```
 

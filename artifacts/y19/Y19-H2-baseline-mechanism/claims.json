@@ -1,0 +1,7 @@
+{
+  "goal_id": "goal_e842e47e577f4bd9",
+  "hypothesis_id": "hyp_f84888656ec04d2e",
+  "statement": "Adding {n, k, state_entropy} to activity dynamics improves sealed-holdout Brier by MCID versus activity-only (mean_activity, activity_std).",
+  "decision": "SUPPORTED",
+  "scientific_claim_accepted": false
+}

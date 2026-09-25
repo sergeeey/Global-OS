@@ -1,0 +1,8 @@
+{
+  "steps": [
+    "Lock H2 prereg on new sealed seeds (disjoint from H1)",
+    "Fit activity-only vs full baseline on TRAIN",
+    "Compare sealed HOLD Brier ratio to MCID",
+    "Decide; preserve nulls"
+  ]
+}

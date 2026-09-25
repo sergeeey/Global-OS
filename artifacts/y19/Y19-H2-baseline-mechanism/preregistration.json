@@ -1,0 +1,16 @@
+{
+  "mission_id": "Y19-H2",
+  "protocol_version": "Y19-H2-v1",
+  "preregistered_before_data": true,
+  "hypothesis": "Adding {n, k, state_entropy} to activity dynamics improves sealed-holdout Brier by MCID versus activity-only (mean_activity, activity_std).",
+  "mcid_brier_ratio": 0.9,
+  "primary_criterion": {
+    "statistic": "holdout_brier_ratio_full_over_activity",
+    "mcid_ratio": 0.9,
+    "decision_rule": {
+      "SUPPORTED": "ratio <= 0.90",
+      "REJECTED": "ratio > 0.90",
+      "INCONCLUSIVE": "balance fail"
+    }
+  }
+}

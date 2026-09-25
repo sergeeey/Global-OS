@@ -1,13 +1,13 @@
 {
   "sprint": "SCIENTIFIC_DOGFOOD_Y19_LH_DEFERRED",
-  "updated_at": "2026-09-25T06:55:00Z",
-  "current_goal": "WINDOWS_OS_KILL_SMOKE_THEN_Y19_SCIENCE",
-  "phase_statement": "Pivot: Windows os_kill smoke on bfa58a0 (seconds) still useful; 96m preflight and literal 48h DEFERRED. Y19-H1 scientific dogfood is the active path. bfa58a0 = intermediate stable point — Y19 bugs → new SHA → new freeze later. M1.5 not claimed.",
+  "updated_at": "2026-09-25T07:20:00Z",
+  "current_goal": "CONTINUE_Y19_SCIENCE_AFTER_WINDOWS_SMOKE",
+  "phase_statement": "Windows os_kill smoke PASS on exact bfa58a0. LH 96m/48h still deferred. Y19 science dogfood continues (H1 REJECTED → H2 mechanistic).",
   "freeze_candidate": {
     "sha": "bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee",
     "short_sha": "bfa58a0",
     "status": "INTERMEDIATE_STABLE_POINT",
-    "note": "Not under formal M1.5 exam while Y19 dogfood runs; Windows smoke still welcome"
+    "windows_os_kill_smoke": "PASS"
   },
   "completed": [
     "EMPIRICAL_HARDENING_COMPLETE",
@@ -19,28 +19,41 @@
     "Y18_FAILURE_MODE_DOGFOOD_4_CLASSES",
     "FREEZE_CANDIDATE_SHA_PINNED",
     "LINUX_OS_KILL_SMOKE_PASS",
-    "Y19_H1_TZ_AND_HARNESS",
-    "Y19_H1_PILOT_MISSION_EXECUTED"
+    "WINDOWS_OS_KILL_SMOKE_PASS_BFA58A0",
+    "Y19_H1_PILOT_REJECTED",
+    "Y19_H2_MECHANISTIC_EXECUTED"
   ],
-  "running": "Y19_H1_SCIENTIFIC_DOGFOOD",
-  "blocked_on": null,
-  "operator_pending": [
-    "windows_os_kill_smoke_on_bfa58a0_seconds_only"
-  ],
-  "stage": "Scientific dogfood Y19 — LH preflight/48h deferred",
+  "running": "Y19_SCIENTIFIC_DOGFOOD",
+  "operator_pending": [],
+  "stage": "Y19 science after Windows smoke PASS — LH exam deferred",
   "continual_improvement": "NOT_MEASURED",
+  "windows_os_kill_smoke": {
+    "passed": true,
+    "sha": "bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee",
+    "initial_pid": 33436,
+    "restart_pid": 39344,
+    "child_returncode": 1,
+    "child_returncode_note": "Windows kill ≠ POSIX -9; child_gone=true",
+    "artifact": "artifacts/hardening/long_horizon_48h/os_kill_smoke_windows/os_kill_result.json"
+  },
   "y19": {
-    "mission": "Y19-H1",
-    "tz": "artifacts/y19/Y19-H1-transient-early-warning/TZ.md",
-    "protocol": "Y19-H1-v1",
-    "pilot_decision": "REJECTED",
-    "pilot_note": "honest holdout MCID fail — baseline_sufficient; answer was not known a priori",
-    "m15_relevance": "not an M1.5 gate"
+    "h1": {
+      "decision": "REJECTED",
+      "winner": "H_baseline_sufficient",
+      "note": "spectral extras failed sealed-holdout MCID"
+    },
+    "h2": {
+      "decision": "SUPPORTED",
+      "winner": "H_size_entropy_add_signal",
+      "note": "full baseline beats activity-only by MCID on new sealed holdout",
+      "tz": "artifacts/y19/Y19-H2-baseline-mechanism/TZ.md"
+    }
   },
   "long_horizon": {
     "lh_v2_1": {
       "status": "DEFERRED_FOR_SCIENTIFIC_DOGFOOD",
-      "windows_os_kill_smoke": "PENDING_OPERATOR",
+      "linux_os_kill_smoke": "PASS",
+      "windows_os_kill_smoke": "PASS",
       "windows_preflight": "DEFERRED",
       "literal_48h": "DEFERRED"
     },
@@ -48,29 +61,17 @@
     "m15_status": "NOT_CLOSED"
   },
   "plan": {
-    "now": [
-      "operator_windows_os_kill_smoke_seconds_on_bfa58a0",
-      "continue_Y19_scientific_dogfood_failures_fixes"
-    ],
-    "defer": [
-      "windows_96m_preflight",
-      "literal_48h"
-    ],
-    "do_not_now": [
-      "claim_M1.5",
-      "start_literal_48h",
-      "start_96m_preflight",
-      "treat_Y19_REJECTED_as_infra_failure"
-    ]
+    "now": ["continue_Y19_scientific_dogfood"],
+    "defer": ["windows_96m_preflight", "literal_48h"],
+    "do_not_now": ["claim_M1.5", "start_literal_48h", "start_96m_preflight"]
   },
-  "next_exact_action": "Operator: finish Windows os_kill smoke on detached bfa58a0 (backup local wall_48h first). Cloud continues Y19 science dogfood. Do not start 96m/48h.",
+  "next_exact_action": "Continue Y19 science dogfood from H2 result. Do not start 96m/48h.",
   "forbidden_now": [
     "claim_M1.5",
     "literal_48h",
     "windows_96m_preflight",
     "H_ORG_claim",
     "continual_SI_claim",
-    "PRODUCTION_PROVEN_claim",
-    "mutate_Y18_4_FC_IV_to_PASS"
+    "PRODUCTION_PROVEN_claim"
   ]
 }

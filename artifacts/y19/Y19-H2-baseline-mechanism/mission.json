@@ -1,0 +1,15 @@
+{
+  "mission_id": "Y19-H2",
+  "goal_id": "goal_e842e47e577f4bd9",
+  "hypothesis_id": "hyp_f84888656ec04d2e",
+  "status": "COMPLETED",
+  "reframe": {
+    "discovered_prior_id": "Y19-H1",
+    "original_intent": "Claim spectral early-warning",
+    "reframed_intent": "Mechanistic decomposition of the winning baseline",
+    "rationale": "H1 REJECTED honestly; next ask what the baseline actually uses"
+  },
+  "created_at": "2026-09-25T07:17:50.160028+00:00",
+  "decision": "SUPPORTED",
+  "completed_at": "2026-09-25T07:17:50.255714+00:00"
+}

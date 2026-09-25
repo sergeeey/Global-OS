@@ -1,0 +1,58 @@
+{
+  "protocol_version": "Y19-H2-v1",
+  "prior_mission": "Y19-H1",
+  "prior_decision": "REJECTED",
+  "competing_hypotheses": [
+    {
+      "id": "H_size_entropy_add_signal",
+      "statement": "Adding {n, k, state_entropy} to activity dynamics improves sealed-holdout Brier by MCID versus activity-only (mean_activity, activity_std)."
+    },
+    {
+      "id": "H_activity_core_sufficient",
+      "statement": "Holdout signal of the Y19 baseline is carried by early activity dynamics alone; size/entropy extras fail MCID against activity-only."
+    },
+    {
+      "id": "H_underpowered",
+      "statement": "Holdout class balance too weak to decide between activity-core and full baseline."
+    }
+  ],
+  "winning_hypothesis_id": "H_size_entropy_add_signal",
+  "decision": "SUPPORTED",
+  "train_n": 180,
+  "hold_n": 120,
+  "hold_positives": 41,
+  "hold_negatives": 79,
+  "activity_only": {
+    "brier": 0.22307615856640017,
+    "auc": 0.5555727076258105,
+    "keys": [
+      "mean_activity",
+      "activity_std"
+    ]
+  },
+  "full_baseline": {
+    "brier": 0.1732227798505686,
+    "auc": 0.8059586292065453,
+    "keys": [
+      "n",
+      "k",
+      "mean_activity",
+      "activity_std",
+      "state_entropy"
+    ]
+  },
+  "brier_ratio_full_over_activity": 0.7765185708942879,
+  "mcid_brier_ratio": 0.9,
+  "seed_policy": {
+    "train": "2000-2179",
+    "hold": "6000-6119",
+    "disjoint_from_h1_and_y17": true
+  },
+  "leak_checks": {
+    "train_hold_disjoint": true,
+    "peek_holdout_labels_in_train": false
+  },
+  "null_results": [],
+  "scientific_claim_accepted": true,
+  "answer_known_a_priori": false
+}

@@ -524,3 +524,144 @@ def write_preregistration(path: Path) -> None:
     }
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
+
+# --- Y19-H2: mechanistic follow-up after H1 REJECTED (new sealed seeds) ---
+PROTOCOL_VERSION_H2 = "Y19-H2-v1"
+TRAIN_SEEDS_H2 = tuple(range(2000, 2180))  # 180 — disjoint from H1/Y17
+HOLD_SEEDS_H2 = tuple(range(6000, 6120))  # 120 sealed
+ACTIVITY_KEYS = ("mean_activity", "activity_std")
+FULL_BASELINE_KEYS = BASELINE_KEYS  # n,k,activity*,entropy
+
+COMPETING_H2: tuple[CompetingHypothesis, ...] = (
+    CompetingHypothesis(
+        id="H_size_entropy_add_signal",
+        statement=(
+            "Adding {n, k, state_entropy} to activity dynamics improves sealed-holdout "
+            "Brier by MCID versus activity-only (mean_activity, activity_std)."
+        ),
+    ),
+    CompetingHypothesis(
+        id="H_activity_core_sufficient",
+        statement=(
+            "Holdout signal of the Y19 baseline is carried by early activity dynamics "
+            "alone; size/entropy extras fail MCID against activity-only."
+        ),
+    ),
+    CompetingHypothesis(
+        id="H_underpowered",
+        statement="Holdout class balance too weak to decide between activity-core and full baseline.",
+    ),
+)
+
+
+def run_experiment_h2(*, peek_holdout_labels_in_train: bool = False) -> dict[str, Any]:
+    """Y19-H2 mechanistic protocol — does not mutate H1 locks."""
+    if set(TRAIN_SEEDS_H2) & set(HOLD_SEEDS_H2):
+        raise RuntimeError("H2 train/hold collision")
+    if set(TRAIN_SEEDS_H2) & (set(TRAIN_SEEDS) | set(HOLD_SEEDS)):
+        raise RuntimeError("H2 train overlaps H1 seeds")
+    if set(HOLD_SEEDS_H2) & (set(TRAIN_SEEDS) | set(HOLD_SEEDS)):
+        raise RuntimeError("H2 hold overlaps H1 seeds")
+
+    train_cases = _collect_cases(TRAIN_SEEDS_H2)
+    hold_cases = _collect_cases(HOLD_SEEDS_H2)
+    fit_cases = train_cases + hold_cases if peek_holdout_labels_in_train else train_cases
+
+    def eval_keys(keys: tuple[str, ...]) -> dict[str, Any]:
+        x_tr, y_tr = _design_matrix(fit_cases, keys)
+        beta = _fit_ridge(x_tr, y_tr)
+        x_te, y_te = _design_matrix(hold_cases, keys)
+        pred = _predict(beta, x_te)
+        return {"brier": _brier(y_te, pred), "auc": _auc(y_te, pred), "keys": list(keys)}
+
+    activity = eval_keys(ACTIVITY_KEYS)
+    full = eval_keys(FULL_BASELINE_KEYS)
+    y_hold = [c["label"] for c in hold_cases]
+    n_pos = sum(y_hold)
+    n_neg = len(y_hold) - n_pos
+    # full should be lower Brier if size/entropy help
+    ratio = full["brier"] / activity["brier"] if activity["brier"] > 1e-12 else float("inf")
+    sample_ok = n_pos >= MIN_HOLD_POSITIVES and n_neg >= MIN_HOLD_NEGATIVES
+    beats_mcid = ratio <= MCID_BRIER_RATIO
+
+    if not sample_ok:
+        decision: Decision = "INCONCLUSIVE"
+        winning = "H_underpowered"
+    elif beats_mcid:
+        decision = "SUPPORTED"
+        winning = "H_size_entropy_add_signal"
+    else:
+        decision = "REJECTED"
+        winning = "H_activity_core_sufficient"
+
+    nulls: list[dict[str, Any]] = []
+    if decision == "REJECTED":
+        nulls.append(
+            {
+                "id": "y19_h2_full_vs_activity_mcid_fail",
+                "brier_ratio_full_over_activity": ratio,
+                "mcid": MCID_BRIER_RATIO,
+                "interpretation": "size/entropy extras failed MCID vs activity-only",
+            }
+        )
+
+    return {
+        "protocol_version": PROTOCOL_VERSION_H2,
+        "prior_mission": "Y19-H1",
+        "prior_decision": "REJECTED",
+        "competing_hypotheses": [asdict(h) for h in COMPETING_H2],
+        "winning_hypothesis_id": winning,
+        "decision": decision,
+        "train_n": len(TRAIN_SEEDS_H2),
+        "hold_n": len(HOLD_SEEDS_H2),
+        "hold_positives": n_pos,
+        "hold_negatives": n_neg,
+        "activity_only": activity,
+        "full_baseline": full,
+        "brier_ratio_full_over_activity": ratio,
+        "mcid_brier_ratio": MCID_BRIER_RATIO,
+        "seed_policy": {
+            "train": f"{TRAIN_SEEDS_H2[0]}-{TRAIN_SEEDS_H2[-1]}",
+            "hold": f"{HOLD_SEEDS_H2[0]}-{HOLD_SEEDS_H2[-1]}",
+            "disjoint_from_h1_and_y17": True,
+        },
+        "leak_checks": {
+            "train_hold_disjoint": True,
+            "peek_holdout_labels_in_train": peek_holdout_labels_in_train,
+        },
+        "null_results": nulls,
+        "scientific_claim_accepted": decision == "SUPPORTED",
+        "answer_known_a_priori": False,
+    }
+
+
+def write_preregistration_h2(path: Path) -> None:
+    payload = {
+        "mission_id": "Y19-H2",
+        "protocol_version": PROTOCOL_VERSION_H2,
+        "preregistered_before_data": True,
+        "follows": "Y19-H1 REJECTED → H_baseline_sufficient",
+        "hypothesis": COMPETING_H2[0].statement,
+        "competing_hypotheses": [asdict(h) for h in COMPETING_H2],
+        "primary_outcome": "holdout Brier_full_baseline / Brier_activity_only",
+        "primary_criterion": {
+            "statistic": "holdout_brier_ratio_full_over_activity",
+            "mcid_ratio": MCID_BRIER_RATIO,
+            "decision_rule": {
+                "SUPPORTED": "ratio <= 0.90",
+                "REJECTED": "ratio > 0.90",
+                "INCONCLUSIVE": "holdout balance fail",
+            },
+        },
+        "seed_data_policy": {
+            "train": list(TRAIN_SEEDS_H2),
+            "hold": list(HOLD_SEEDS_H2),
+        },
+        "activity_features": list(ACTIVITY_KEYS),
+        "full_baseline_features": list(FULL_BASELINE_KEYS),
+        "system_same_as_h1": True,
+        "answer_known_a_priori": False,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2), encoding="utf-8")

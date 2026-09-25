@@ -27,7 +27,9 @@
 - [x] Intermediate stable point `bfa58a0` + Linux os_kill smoke
 - [x] Y19-H1 TZ + harness + acceptance tests
 - [x] Y19-H1 pilot mission executed (`REJECTED` — honest MCID miss; not infra failure)
-- [ ] Windows `os_process_kill` smoke on exact `bfa58a0` (seconds)
+- [x] Windows `os_process_kill` smoke on exact `bfa58a0` (PASS; PIDs distinct)
+- [x] Y19-H1 pilot (`REJECTED` — spectral MCID miss)
+- [x] Y19-H2 mechanistic (`SUPPORTED` — size/entropy beat activity-only)
 - [ ] Continue Y19 / further science dogfood → fixes → regressions
 - [ ] Re-pin freeze SHA only after science path stabilizes
 

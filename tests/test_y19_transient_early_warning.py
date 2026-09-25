@@ -77,3 +77,45 @@ def test_mission_script_pass():
     assert ver["deterministic_status"] == "PASS"
     metrics = json.loads((ART / "experiments" / "metrics" / "run.json").read_text(encoding="utf-8"))
     assert metrics["answer_known_a_priori"] is False
+
+
+def test_h2_seeds_disjoint_from_h1():
+    from global_os.evals.research.y19_transient_early_warning import (
+        HOLD_SEEDS_H2,
+        TRAIN_SEEDS_H2,
+    )
+
+    assert not (set(TRAIN_SEEDS_H2) & (set(TRAIN_SEEDS) | set(HOLD_SEEDS)))
+    assert not (set(HOLD_SEEDS_H2) & (set(TRAIN_SEEDS) | set(HOLD_SEEDS)))
+
+
+def test_h2_decision_rule():
+    from global_os.evals.research.y19_transient_early_warning import run_experiment_h2
+
+    raw = run_experiment_h2()
+    assert raw["answer_known_a_priori"] is False
+    assert raw["decision"] in {"SUPPORTED", "REJECTED", "INCONCLUSIVE"}
+    ratio = raw["brier_ratio_full_over_activity"]
+    if raw["hold_positives"] < 12 or raw["hold_negatives"] < 12:
+        assert raw["decision"] == "INCONCLUSIVE"
+    elif ratio <= MCID_BRIER_RATIO:
+        assert raw["decision"] == "SUPPORTED"
+    else:
+        assert raw["decision"] == "REJECTED"
+        assert raw["null_results"]
+
+
+def test_h2_mission_script():
+    art = ROOT / "artifacts" / "y19" / "Y19-H2-baseline-mechanism"
+    env = {**dict(__import__("os").environ), "PYTHONPATH": str(ROOT / "src")}
+    proc = subprocess.run(
+        [sys.executable, str(art / "execute_mission.py")],
+        cwd=str(ROOT),
+        env=env,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr
+    mission = json.loads((art / "mission.json").read_text(encoding="utf-8"))
+    assert mission["decision"] in {"SUPPORTED", "REJECTED", "INCONCLUSIVE"}

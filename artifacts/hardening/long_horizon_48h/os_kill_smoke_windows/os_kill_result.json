@@ -1,0 +1,38 @@
+{
+  "kind": "os_process_kill_cold_resume",
+  "platform": "Windows",
+  "freeze_sha": "bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee",
+  "passed": true,
+  "initial_pid": 33436,
+  "restart_pid": 39344,
+  "child_returncode": 1,
+  "child_returncode_note": "Windows kill semantics (not POSIX SIGKILL -9); child_gone=true still holds",
+  "child_gone": true,
+  "marker": {
+    "pid": 33436,
+    "phase": "planned"
+  },
+  "final_phase": "reported",
+  "goal_id": "goal_smoke_win",
+  "effects": 1,
+  "act_pid": 39344,
+  "db_path": "artifacts\\hardening\\long_horizon_48h\\os_kill_smoke_windows\\lh48_durable.sqlite",
+  "operator_attestation": {
+    "checkout": "git checkout --detach bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee",
+    "rev_parse": "bfa58a0236da1cbfdfa6125017f1ea7dfcb84fee",
+    "recorded_at": "2026-09-25T07:16:00Z",
+    "source": "operator PowerShell paste"
+  },
+  "checks": {
+    "pids_distinct": true,
+    "child_gone": true,
+    "phase_reported": true,
+    "effects_one": true,
+    "passed_flag": true
+  },
+  "does_not_imply": [
+    "Windows 96m preflight PASS",
+    "literal 48h PASS",
+    "M1.5"
+  ]
+}
