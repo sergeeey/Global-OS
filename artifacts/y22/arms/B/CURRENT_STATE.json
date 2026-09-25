@@ -1,0 +1,15 @@
+{
+  "arm": "B",
+  "phase": "TERMINAL",
+  "method": "last_wins",
+  "decision": "SUPPORTED",
+  "gos_components_in_use": [
+    "goal_contract",
+    "competing_hypotheses",
+    "durable_research_state",
+    "falsification_internal_protocol_score",
+    "terminal_stop_rule"
+  ],
+  "sealed_unseen": true,
+  "arm_a_outputs_unread": true
+}

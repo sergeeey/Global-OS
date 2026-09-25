@@ -3,12 +3,12 @@
   "contract": "artifacts/y22/Y22-RESEARCH-PROGRAM.md",
   "prereg": "artifacts/y22/Y22-PREREG.md",
   "protocol_version": "Y22-AB-v1",
-  "updated_at": "2026-09-25T15:27:52Z",
-  "phase": "ARM_A_FROZEN",
+  "updated_at": "2026-09-25T15:31:00Z",
+  "phase": "BOTH_ARMS_FROZEN",
   "prereg_locked": true,
   "arms_started": true,
   "sealed_unseen": true,
-  "unseal_allowed": false,
+  "unseal_allowed": true,
   "task_class": "evidence_synthesis_invalidation_recovery",
   "experiment_label": "mechanism_probe_reliability_not_neutral_third_exact_match",
   "mechanism_hypothesis": "GOS helps as reliability/provenance/recovery layer on stateful evidence change \u2014 not as raw reasoning amplifier (Y20/Y21 null).",
@@ -43,9 +43,14 @@
       "process_log": "artifacts/y22/arms/A/process_log.json"
     },
     "B": {
-      "status": "NOT_STARTED",
+      "status": "FROZEN",
       "role": "strong_agent_plus_global_os",
-      "dir": "artifacts/y22/arms/B"
+      "dir": "artifacts/y22/arms/B",
+      "started_at": "2026-09-25T15:30:23Z",
+      "ended_at": "2026-09-25T15:31:00Z",
+      "model_pin": "composer-cloud-agent-bundle",
+      "submission": "artifacts/y22/arms/B/submission.json",
+      "process_log": "artifacts/y22/arms/B/process_log.json"
     }
   },
   "gos_advantage_claimed": false,
@@ -59,6 +64,6 @@
     "literal_48h",
     "disguise_as_neutral_exact_match_rescue"
   ],
-  "next_step": "Execute Arm B under GOS reliability loop; do not unseal; do not read Arm A submission into B.",
+  "next_step": "Unseal + locked scorer + COMPARISON_REPORT",
   "prereg_boundary_full": "f408ed1d783ffba9591b2925246d69abbad9a4f1"
 }

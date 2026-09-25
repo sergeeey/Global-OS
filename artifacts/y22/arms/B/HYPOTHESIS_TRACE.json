@@ -1,0 +1,34 @@
+[
+  {
+    "id": "H_B_last_wins",
+    "internal_score": 0.890625,
+    "n_answered": 9,
+    "n_active": 9,
+    "n_invalidated": 10,
+    "decision": "SUPPORTED"
+  },
+  {
+    "id": "H_B_distrust_high_src",
+    "internal_score": 0.890625,
+    "n_answered": 9,
+    "n_active": 9,
+    "n_invalidated": 10,
+    "decision": "REJECTED"
+  },
+  {
+    "id": "H_B_corroboration",
+    "internal_score": 0.765625,
+    "n_answered": 1,
+    "n_active": 1,
+    "n_invalidated": 10,
+    "decision": "REJECTED"
+  },
+  {
+    "id": "H_B_earliest_low_src",
+    "internal_score": 0.890625,
+    "n_answered": 9,
+    "n_active": 9,
+    "n_invalidated": 10,
+    "decision": "REJECTED"
+  }
+]
