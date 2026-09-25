@@ -1,0 +1,54 @@
+{
+  "program": "Y21_MEALY_AB",
+  "contract": "artifacts/y21/Y21-RESEARCH-PROGRAM.md",
+  "prereg": "artifacts/y21/Y21-PREREG.md",
+  "protocol_version": "Y21-AB-v1",
+  "plan_agree_sha": "59e0be5",
+  "prereg_boundary_sha": null,
+  "updated_at": "2026-09-25T12:30:00Z",
+  "phase": "PREREG_LOCKED",
+  "prereg_locked": true,
+  "arms_started": false,
+  "sealed_unseen": true,
+  "unseal_allowed": false,
+  "architecture_freeze_until_y21_comparison": true,
+  "task_class": "algorithmic_reverse_engineering_mealy",
+  "win_primary": "sealed_exact_match_rate",
+  "primary_mcid": 0.05,
+  "win_secondary": [
+    "human_interventions",
+    "unsupported_claims",
+    "dispatcher_asks",
+    "failed_hypotheses",
+    "recovery_state_loss",
+    "process_trace_completeness",
+    "cost_wall_time"
+  ],
+  "secondary_cannot_override_primary": true,
+  "public_pack_sha256": "967b8ccfd3c3088fbeb05d4bc23cfa7621ee1725f20fc9563289b8b687e8e933",
+  "sealed_pack_sha256": "d1c7bdc0a40c018fd91ef8063ac5e96dc325bdfd8fb5f0594f0ee65610a7416a",
+  "generator_module_sha256": "6f2c001da60cd1add10ee885bd31c9cfec54e89b832bb95bd869d9b1234b8e6e",
+  "budgets_locked": {
+    "wall_seconds_max": 14400,
+    "token_budget_max": 800000,
+    "tool_calls_max": 400,
+    "python_subprocess_max": 200
+  },
+  "arms": {
+    "A": {"status": "NOT_STARTED", "role": "strong_agent_baseline", "dir": "artifacts/y21/arms/A"},
+    "B": {"status": "NOT_STARTED", "role": "strong_agent_plus_global_os", "dir": "artifacts/y21/arms/B"}
+  },
+  "gos_advantage_claimed": false,
+  "y20_sealed_science_gain": false,
+  "attribution_note": "Generator authored in prereg lock session; arm runners must not open sealed/mealy tables. Prefer replication with separate runner lineage.",
+  "forbidden": [
+    "change_scorer_mcid_budgets_generator_after_lock",
+    "unseal_before_both_arms_frozen",
+    "secondary_override_primary",
+    "retune_y20",
+    "cripple_arm_A",
+    "claim_M1.5",
+    "literal_48h"
+  ],
+  "next_step": "Execute Arm A on public pack only; freeze; do not unseal."
+}
