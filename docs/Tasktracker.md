@@ -31,22 +31,19 @@
 - [x] Y19 EVIDENCE_PACK.md
 - [x] Y19 FROZEN — no in-family H8 / feature-mining
 
-## Active — Y20 preregistered A/B (causal)
+## Done — Y20 A/B scored (`278c10d` prereg → COMPARISON_REPORT)
 
-- [x] Y20-RESEARCH-PROGRAM.md + Y20-PREREG.md + CURRENT_STATE `PREREG_LOCKED`
-- [x] Sealed causal generator + blind scorer + equal-budget schema
-- [x] Public pack hash locked; sealed gitignored
-- [x] Execution protocol: A→freeze→B→freeze→unseal→score (`278c10d` boundary)
-- [x] Process log schema (interventions, dispatcher asks, cost, recovery…)
-- [ ] Execute Arm A (strong agent baseline) under budget caps
-- [ ] Freeze `arms/A` immutable before starting B
-- [ ] Execute Arm B (same model + Global OS) under same caps
-- [ ] Blind score + COMPARISON_REPORT (no GOS-advantage claim before report)
+- [x] Y20 program/prereg/execution protocol + equal budgets
+- [x] Arm A frozen `d6ab951` (strong baseline)
+- [x] Arm B frozen `67c682c` (GOS research loop)
+- [x] Unseal only after both frozen; locked scorer
+- [x] COMPARISON_REPORT: science A≥B; process trace B richer; GOS advantage NOT shown
+- [x] Integrity caveat recorded (generator authorship)
 
-## Later — transfer then LH
+## Next — Y21 transfer / cleaner attribution
 
-- [ ] Y21 other class (e.g. physics-numeric)
-- [ ] Y22 other class (e.g. algorithmic)
+- [ ] Lock Y21 prereg (algorithmic or physical/numerical; not causal)
+- [ ] Baseline arm by process that never authored the generator
 - [ ] Re-pin freeze SHA before any LH 96m/48h
 
 ## Deferred — True 48h / M1.5 (after new freeze)

@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.64 — 2026-09-25
+
+### Y20 A/B scored — GOS accuracy advantage NOT shown
+
+- Sequence honored: A freeze `d6ab951` → B freeze `67c682c` → unseal → locked scorer
+- Science: Arm A edge precision/recall ≥ Arm B; intervention MAE ≈ tied
+- Process: B richer hypothesis/falsification trace; both 0 human interventions
+- Claim: architecture value on this task = process discipline, not sealed accuracy win
+- Integrity caveat: same agent lineage authored generator — directional evidence only
+- Next: Y21 other class with never-saw-generator baseline; no LH/M1.5
+
 ## 0.1.63 — 2026-09-25
 
 ### Y20 execution protocol locked (still no arms)

@@ -298,7 +298,7 @@
     {
       "id": "y20_causal_ab_prereg",
       "state": "RUNTIME_VERIFIED_HARNESS",
-      "evidence": "Y20-PREREG locked; sealed causal generator + blind scorer + equal budgets; artifacts/y20/; src/global_os/evals/research/y20_causal_ab.py; tests/test_y20_causal_ab.py — arms NOT executed; gos_advantage_claimed=false"
+      "evidence": "Y20-PREREG locked @278c10d; A/B executed and scored; COMPARISON_REPORT: baseline science ≥ GOS; process trace richer under GOS; gos_advantage_claimed=false; generator-authorship caveat; artifacts/y20/; tests/test_y20_causal_ab.py"
     },
     {
       "id": "free_model_providers",
