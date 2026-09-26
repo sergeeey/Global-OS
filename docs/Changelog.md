@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.84 — 2026-09-26
+
+### Windows durability preflight PASS (ENV only)
+
+- `5d15600`: PREFLIGHT_WALL, wall≈5761s, m15_claimed=false
+- Not cognitive-real M1.5; next exam SHA `7ab345e` (LH-COGNITIVE)
+
 ## 0.1.83 — 2026-09-25
 
 ### M1.5 claim fork B + LH-COGNITIVE-v1 harness
