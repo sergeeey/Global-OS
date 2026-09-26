@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.85 — 2026-09-26
+
+### Windows cognitive preflight PASS on 7ab345e
+
+- COGNITIVE_PREFLIGHT_WALL, wall≈5760s, EXTERNAL_RESEARCH_OBJECT, m15=false
+- Next: literal cognitive_wall_48h (wall_seconds >= 172800)
+
 ## 0.1.84 — 2026-09-26
 
 ### Windows durability preflight PASS (ENV only)

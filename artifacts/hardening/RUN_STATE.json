@@ -1,8 +1,8 @@
 {
   "sprint": "M15_EXAM_IN_PROGRESS_OPERATOR",
-  "updated_at": "2026-09-26T04:51:36Z",
-  "current_goal": "WINDOWS_COGNITIVE_SMOKE_ON_7ab345e",
-  "phase_statement": "Windows durability preflight PASS on 5d15600 (PREFLIGHT_WALL, wall_s\u22485761, m15=false). ENV evidence only. Next: detach LH-COGNITIVE freeze 7ab345e \u2192 smoke \u2192 cognitive_preflight \u2192 48h. Do NOT wall_48h on 5d15600.",
+  "updated_at": "2026-09-26T12:27:53Z",
+  "current_goal": "COGNITIVE_WALL_48H_ON_7ab345e",
+  "phase_statement": "Cognitive preflight PASS on 7ab345e (COGNITIVE_PREFLIGHT_WALL, wall\u22485760s, EXTERNAL_RESEARCH_OBJECT, m15=false). Next: cognitive_wall_48h literal >=172800s. No mid-run patch.",
   "operator_action_required": true,
   "operator_dispatch_required": true,
   "y20": {
@@ -45,9 +45,19 @@
       "finished_local": "2026-09-26T00:33:28",
       "report": "artifacts/hardening/long_horizon_48h/windows_wall_preflight/program_report.json",
       "claim_class": "DURABILITY_ENV_ONLY_NOT_COGNITIVE_M15"
+    },
+    "windows_cognitive_preflight": "PASS_COGNITIVE_PREFLIGHT_WALL",
+    "windows_cognitive_preflight_detail": {
+      "sha": "7ab345e5badb00a8c97ffdb7010ee4eb42dac4bb",
+      "fidelity": "COGNITIVE_PREFLIGHT_WALL",
+      "passed": true,
+      "wall_seconds": 5760.69,
+      "m15_claimed": false,
+      "workload_class": "EXTERNAL_RESEARCH_OBJECT",
+      "finished_local": "2026-09-26T11:31:04"
     }
   },
-  "next_exact_action": "OPERATOR: backup if needed \u2192 checkout --detach 7ab345e5badb00a8c97ffdb7010ee4eb42dac4bb \u2192 os_kill smoke \u2192 cognitive_preflight",
+  "next_exact_action": "OPERATOR: write EXAM_START for wall_48h \u2192 GOS_REQUIRE_48H=1 GOS_START_RESEARCH_48H=1 \u2192 run_cognitive_research_program mode=cognitive_wall_48h sleep=True",
   "forbidden_now": [
     "r4_during_exam",
     "harden_exam_sha",
@@ -100,7 +110,7 @@
   },
   "m15_claimed": false,
   "windows_preflight": "PASS_DURABILITY_ENV",
-  "literal_48h": "BLOCKED_UNTIL_COGNITIVE_FREEZE_EXAM",
+  "literal_48h": "READY_TO_START_COGNITIVE_WALL",
   "freeze": {
     "label": "FREEZE-R1R3-v1",
     "sha_short": "5d15600",
