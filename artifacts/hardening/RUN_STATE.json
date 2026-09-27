@@ -1,8 +1,8 @@
 {
   "sprint": "M15_EXAM_IN_PROGRESS_OPERATOR",
-  "updated_at": "2026-09-26T12:27:53Z",
-  "current_goal": "COGNITIVE_WALL_48H_ON_7ab345e",
-  "phase_statement": "Cognitive preflight PASS on 7ab345e (COGNITIVE_PREFLIGHT_WALL, wall\u22485760s, EXTERNAL_RESEARCH_OBJECT, m15=false). Next: cognitive_wall_48h literal >=172800s. No mid-run patch.",
+  "updated_at": "2026-09-27T19:04:57Z",
+  "current_goal": "COGNITIVE_WALL_48H_RESTART_AFTER_HOST_REBOOT",
+  "phase_statement": "Host reboot killed in-progress cognitive_wall_48h (~>24h). Class ENV. Incomplete run backed up; same freeze 7ab345e; full restart required. Partial wall time does NOT count toward PASS.",
   "operator_action_required": true,
   "operator_dispatch_required": true,
   "y20": {
@@ -57,7 +57,7 @@
       "finished_local": "2026-09-26T11:31:04"
     }
   },
-  "next_exact_action": "OPERATOR: write EXAM_START for wall_48h \u2192 GOS_REQUIRE_48H=1 GOS_START_RESEARCH_48H=1 \u2192 run_cognitive_research_program mode=cognitive_wall_48h sleep=True",
+  "next_exact_action": "OPERATOR: restart cognitive_wall_48h on 7ab345e into clean windows_cognitive_wall_48h; journal reboot; harden Windows sleep/update",
   "forbidden_now": [
     "r4_during_exam",
     "harden_exam_sha",
@@ -110,7 +110,7 @@
   },
   "m15_claimed": false,
   "windows_preflight": "PASS_DURABILITY_ENV",
-  "literal_48h": "READY_TO_START_COGNITIVE_WALL",
+  "literal_48h": "RESTART_AFTER_HOST_REBOOT",
   "freeze": {
     "label": "FREEZE-R1R3-v1",
     "sha_short": "5d15600",
@@ -145,5 +145,12 @@
     "sha_short": "7ab345e",
     "doc": "artifacts/hardening/FREEZE_LH_COGNITIVE_CANDIDATE.md",
     "replaces_exam_sha_for_cognitive": "5d15600"
+  },
+  "env_incident_reboot": {
+    "class": "BLOCKED_ENVIRONMENT_HOST_REBOOT",
+    "exam_sha": "7ab345e5badb00a8c97ffdb7010ee4eb42dac4bb",
+    "operator_backup": "artifacts/hardening/long_horizon_48h/_bak_reboot_interrupt_20260928_000436",
+    "partial_wall_counts_as_pass": false,
+    "same_sha_restart_allowed": true
   }
 }

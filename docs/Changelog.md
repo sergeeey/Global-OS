@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.86 — 2026-09-28
+
+### ENV: host reboot interrupted cognitive_wall_48h
+
+- Incomplete run backed up; same freeze `7ab345e`; full restart required
+- Partial ~24h wall does not count as PASS
+
 ## 0.1.85 — 2026-09-26
 
 ### Windows cognitive preflight PASS on 7ab345e
