@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.87 — 2026-09-28
+
+### Plan: Mission-Level Runtime Assurance as post-M1.5 bet
+
+- Locked research priority (NOT implemented): monitor+modes+bounded recovery
+- T1 SAFE_AUTONOMY_ENVELOPE before any core integration; KEEP/REJECT
+- See `NEXT_MECHANISM_MISSION_ASSURANCE.md`; wired into H_TRUST / ROADMAP / Project
+
 ## 0.1.86 — 2026-09-28
 
 ### ENV: host reboot interrupted cognitive_wall_48h

@@ -41,3 +41,13 @@ Rationale: GOS adds overhead; A alone can punish the mechanism under test; B alo
 - Y20–Y22: raw primary outcome advantage **NOT SHOWN** (not proof of zero effect).
 - R1–R3: useful checkable real work **EARLY YES** for bundle; causal GOS advantage **NOT MEASURED**.
 - M1.5: long-horizon integrity **TO TEST** — necessary but not sufficient for H_TRUST.
+
+## Leading mechanism candidate (post-M1.5 — not implemented)
+
+**Mission-Level Runtime Assurance + Bounded Recovery** (“Cognitive Simplex” = experiment label).
+
+- Plan: `artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md`
+- First experiment: **T1 SAFE_AUTONOMY_ENVELOPE** (A strong agent / B current GOS / C GOS+assurance)
+- Primary metrics: MIER + SSR; falsifier = utility/attention tax unacceptable or C≈B
+- Must stay **deterministic/stateful first**; LLM monitor never sole oracle
+- **Do not implement** until M1.5 decision + benchmark freeze

@@ -1,3 +1,10 @@
+## Planned — post-M1.5 (do not start mid-exam)
+
+- [ ] Freeze SAFE_AUTONOMY_BENCHMARK-v1 + H_TRUST metrics
+- [ ] T1 SAFE_AUTONOMY_ENVELOPE (A/B/C) KEEP/REJECT
+- [ ] Only if KEEP: thin Mission Assurance / MI-1..5
+- Plan: `artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md`
+
 ## Active — LH-COGNITIVE-v1 → new freeze (Variant B)
 
 - [x] Claim fork documented (`M15_CLAIM_FORK.md`)

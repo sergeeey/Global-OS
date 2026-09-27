@@ -1,8 +1,8 @@
 {
   "sprint": "M15_EXAM_IN_PROGRESS_OPERATOR",
-  "updated_at": "2026-09-27T19:04:57Z",
+  "updated_at": "2026-09-27T21:28:58Z",
   "current_goal": "COGNITIVE_WALL_48H_RESTART_AFTER_HOST_REBOOT",
-  "phase_statement": "Host reboot killed in-progress cognitive_wall_48h (~>24h). Class ENV. Incomplete run backed up; same freeze 7ab345e; full restart required. Partial wall time does NOT count toward PASS.",
+  "phase_statement": "Host reboot killed in-progress cognitive_wall_48h (~>24h). Class ENV. Incomplete run backed up; same freeze 7ab345e; full restart required. Partial wall time does NOT count toward PASS. Post-M1.5 bet locked: Mission Assurance+Recovery via T1 benchmark first.",
   "operator_action_required": true,
   "operator_dispatch_required": true,
   "y20": {
@@ -152,5 +152,7 @@
     "operator_backup": "artifacts/hardening/long_horizon_48h/_bak_reboot_interrupt_20260928_000436",
     "partial_wall_counts_as_pass": false,
     "same_sha_restart_allowed": true
-  }
+  },
+  "next_mechanism_plan": "artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md",
+  "next_mechanism_status": "PLAN_LOCKED_NOT_IMPLEMENTED"
 }

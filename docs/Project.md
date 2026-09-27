@@ -34,7 +34,8 @@ R1–R3    useful autonomous checkable real work (bundle)?     EARLY YES
          causal GOS advantage?                               NOT MEASURED
 M1.5     cognitive-real 48h?  TO TEST after LH-COGNITIVE freeze (not 5d15600 sum-harness)
          5d15600 durability smoke/preflight = ENV evidence only
-Post     H_TRUST: fewer material integrity failures / cost?  CORE NEXT
+Post     H_TRUST / safe usable autonomy envelope?              CORE NEXT (measure)
+         leading bet: Mission Assurance + Bounded Recovery   PLAN LOCKED, NOT BUILT
 Continual SI / universal advantage / M1.5 claim              NOT MEASURED / NOT CLAIMED
 Y20–Y22 scorers                                              FROZEN
 Y23                                                          NOT NOW
@@ -42,11 +43,12 @@ Y23                                                          NOT NOW
 
 ### Plan
 
-1. **M1.5 fork B (locked):** `5d15600` = durability harness only; cognitive-real 48h needs LH-COGNITIVE freeze (`M15_CLAIM_FORK.md`). Windows durability preflight may finish as ENV — **no wall_48h on 5d15600** for cognitive claim.  
-2. **Next:** freeze LH-COGNITIVE SHA → Windows cognitive preflight → ≥48h → audit.  
-3. **After M1.5 decision:** freeze H_TRUST + dual-mode metrics → Trust Kernel by failure mode → adversarial → external → interoperability.  
-4. **Separate ops:** `artifacts/ops/SEPARATE_BACKLOG.md`.  
-5. **Not now:** Y23; Continual SI; “GOS makes the model smarter” slogan.
+1. **NOW:** finish LH-COGNITIVE `cognitive_wall_48h` on `7ab345e` (ENV reboot → full restart OK). No new T0/T1.  
+2. **After M1.5 decision:** freeze H_TRUST + `SAFE_AUTONOMY_BENCHMARK-v1` → **T1** A/B/C (strong agent / GOS / GOS+Mission Assurance). KEEP/REJECT.  
+3. **If KEEP:** thin Cognitive Simplex / Trust Kernel by MI-1..5; metamorphic as support; then adversarial/external.  
+4. **Plan doc:** `artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md`.  
+5. **Separate ops:** `artifacts/ops/SEPARATE_BACKLOG.md`.  
+6. **Not now:** implement assurance mid-exam; Y23; Continual SI; “more agents = smarter”.
 
 ## Документы
 

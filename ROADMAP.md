@@ -34,15 +34,22 @@ Claim fork B (locked) — durability vs cognitive
   do NOT wall_48h on 5d15600 for cognitive-real M1.5 claim
         │
         ▼
-Post-M1.5 — freeze H_TRUST + metrics FIRST
+Post-M1.5 — freeze science FIRST (no premature machinery)
+  H_TRUST + SAFE_AUTONOMY_BENCHMARK-v1 metrics
   Fixed-resource (A) + cost-normalized frontier (B)
   material integrity failure taxonomy locked
         │
         ▼
-Trust Kernel hardening (failure-mode-tied only)
-  → adversarial evaluation
-  → external benchmarks
-  → interoperability
+T1 SAFE_AUTONOMY_ENVELOPE (KEEP/REJECT)
+  A strong agent | B current GOS | C GOS + Mission-Level Runtime Assurance + bounded recovery
+  Leading candidate plan: artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md
+  Thin evaluator only; LLM monitor ≠ oracle; null result OK
+        │
+        ▼
+IF KEEP → Trust Kernel / Cognitive Simplex harden by MI-1..5 failure modes
+  (+ metamorphic Verification Fabric as support)
+  → adversarial → external benchmarks → interoperability
+IF REJECT → do not build; re-rank via update triggers (metamorphic / risk / router / effects)
         │
         ▼
 DoD V2 / M2 / M3 / PRODUCTION_PROVEN (unchanged honesty: per-capability evidence)

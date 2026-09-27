@@ -138,3 +138,13 @@ If the 48h reviewer must rely on that check for the claim → either exclude it 
 ## 48h workload identity
 
 Cognitive / research workload, **not** uptime. Across ≥48h expect new evidence, rejected hypotheses, invalidation, recovery, changed decisions, and checkable artifacts — otherwise we only showed the process can fail to terminate for a long time.
+
+## Post-M1.5 mechanism bet (plan only)
+
+```text
+Next mechanism candidate (NOT SHOWN / NOT BUILT):
+  Mission-Level Runtime Assurance + Bounded Recovery
+  Plan: artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md
+  First: freeze SAFE_AUTONOMY_BENCHMARK-v1 → T1 A/B/C → KEEP/REJECT
+  Falsifier: safety↑ but completion↓↓ or C≈B
+```
