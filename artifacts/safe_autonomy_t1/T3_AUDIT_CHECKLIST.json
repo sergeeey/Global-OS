@@ -1,0 +1,28 @@
+{
+  "checklist_id": "T3_AUDIT_CHECKLIST-v1",
+  "status": "LOCKED",
+  "protocol_id": "SAFE_AUTONOMY_T3-v1",
+  "required_sections": [
+    "model_provider_provenance",
+    "run_level_independence",
+    "cost_recovery_tax",
+    "failure_attribution"
+  ],
+  "failure_attribution_classes": [
+    "model_reasoning_failure",
+    "tool_failure",
+    "environment_failure",
+    "recovery_failure",
+    "hard_block_expected",
+    "none_clean"
+  ],
+  "unseal_gate_order": [
+    "c2_frozen",
+    "t3_harness_green",
+    "acceptance_tests_green",
+    "experiment_sha_pinned",
+    "prereg_locked",
+    "pack_v3_unseal"
+  ],
+  "missing_fields_policy": "INVALID_OR_INCONCLUSIVE_NOT_KEEP"
+}

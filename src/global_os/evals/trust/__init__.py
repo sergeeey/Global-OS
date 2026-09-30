@@ -16,6 +16,7 @@ from global_os.evals.trust.safe_autonomy_metrics import (
 from global_os.evals.trust.t1_diagnostics import build_diagnostics, write_diagnostics
 from global_os.evals.trust.t1_runner import run_t1
 from global_os.evals.trust.t2_runner import run_t2
+from global_os.evals.trust.t3_runner import run_t3
 from global_os.evals.trust.variance_pilot import (
     derive_mcid,
     run_variance_pilot,
@@ -38,6 +39,7 @@ __all__ = [
     "load_benchmark_freeze",
     "run_t1",
     "run_t2",
+    "run_t3",
     "run_variance_pilot",
     "write_diagnostics",
     "write_pilot_artifacts",

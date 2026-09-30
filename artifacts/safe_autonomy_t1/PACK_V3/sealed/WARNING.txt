@@ -1,0 +1,2 @@
+SEALED PACK-v3 — T3 holdout. Do not open for C2 redesign.
+Unseal only after C2 frozen + T3 harness/tests green + SHA freeze.

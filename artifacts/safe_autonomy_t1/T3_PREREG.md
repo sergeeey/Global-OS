@@ -135,6 +135,17 @@ T3 REJECT   → H_TRUST line PARKED pending new independent evidence
 T3 INCONCLUSIVE → no promote; either fix env and re-run under same prereg or park
 ```
 
+## Audit checklist (binding)
+
+See `T3_AUDIT_CHECKLIST.md` — four required evidence classes:
+
+1. Model/provider provenance (IDs, temperature, seed, tool versions, fidelity)
+2. Run-level independence (fresh ledger/stores; no cross-run cache)
+3. Cost/recovery tax (latency, tokens, recovery attempts, human intervention)
+4. Failure attribution (`model_reasoning` / `tool` / `environment` / `recovery` — not one bucket)
+
+Missing checklist fields → cannot KEEP.
+
 ## Explicit non-claims
 
 Not production. Not Continual SI. Not universal H_TRUST. Not T1 overturn.
