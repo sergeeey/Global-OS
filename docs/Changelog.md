@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.106 — 2026-09-30
+
+### Y24 fold2 enlarged holdout → heuristic **REJECT**
+
+- Fold1 archived; fold2 holdout MEDIUM/HIGH N≥8 under same prereg/rubric/MCID
+- Heuristic A/B/C re-run (`HEURISTIC_HARNESS_v1`) → **REJECT** (`no_stratum_met_keep_gates`)
+  - C does not strictly beat A on material escape (both 0.0); C cost > 1.25× A
+- Not live-LLM; Trust Kernel / T3 untouched; no threshold fishing
+
 ## 0.1.105 — 2026-09-30
 
 ### Y24 corpus sealed → heuristic arms scored (INCONCLUSIVE)

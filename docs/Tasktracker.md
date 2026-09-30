@@ -3,8 +3,9 @@
 - [x] T3 CLOSED KEEP once (live Groq; SHA `3ef3f44`) — Trust Kernel not promoted
 - [x] Y24 prereg LOCKED — Adaptive Verifier Complexity Threshold (`artifacts/y24/`)
 - [x] Y24 prep locks: complexity rubric + cost accounting + isolation gate + refuse-exec stubs
-- [x] Y24 corpus seal + isolation attestation + heuristic A/B/C run → **INCONCLUSIVE**
-- [ ] Y24 optional next: enlarge holdout MEDIUM/HIGH (N≥8) under same rubric — or accept INCONCLUSIVE
+- [x] Y24 corpus seal + isolation attestation + heuristic A/B/C run → **INCONCLUSIVE** (fold1)
+- [x] Y24 fold2 enlarge holdout N≥8 → heuristic **REJECT** (escape not strictly better; cost)
+- [ ] Y24 optional: live-LLM fidelity under same prereg — or close campaign as REJECT
 - [ ] Y24 forbidden: threshold fishing, post-hoc stratum relabel, Trust Kernel promote from Y24
 - [ ] Y25 (later): verification-budget frontier — only after Y24 terminal result
 - [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)

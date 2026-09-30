@@ -44,3 +44,9 @@ not Continual SI
 not mathematical verification lower bound (Y25 later)
 not legacy Y19 reopen
 ```
+
+## Fold-2 (2026-09-30)
+
+- **Verdict:** REJECT (`no_stratum_met_keep_gates`)
+- **Fidelity:** HEURISTIC_HARNESS_v1
+- **Not claimed:** live-LLM superiority, Trust Kernel readiness, production safety

@@ -1,15 +1,16 @@
 # Y24_DECISION — Adaptive Verifier Complexity Threshold
 
-**Status:** `INCONCLUSIVE`  
-**Generated (UTC):** 2026-09-30T20:12:23.600912+00:00  
-**Experiment SHA:** `9901912cd08f31578eba67b5d800acd777f82b8e`  
+**Status:** `REJECT`  
+**Generated (UTC):** 2026-09-30T20:35:19.637061+00:00  
+**Experiment SHA:** `1ce7569695c32975968f62b47c057784d3828781`  
+**Fold:** `fold2_enlarged_holdout`  
 **Fidelity:** `HEURISTIC_HARNESS_v1`  
 **H_memory:** `INCONCLUSIVE`
 
 ## Reasons
 
 ```text
-holdout_underpowered_medium_high
+no_stratum_met_keep_gates
 ```
 
 ## Stratum snapshot
@@ -20,21 +21,21 @@ holdout_underpowered_medium_high
     "A": {
       "false_block_rate": 0.0,
       "material_escape_rate": 0.0,
-      "n": 6,
+      "n": 10,
       "task_completion_rate": 1.0,
-      "verification_cost_mean": 200.05000000000004
+      "verification_cost_mean": 200.05
     },
     "B": {
       "false_block_rate": 0.0,
       "material_escape_rate": 0.0,
-      "n": 6,
+      "n": 10,
       "task_completion_rate": 1.0,
       "verification_cost_mean": 1050.4
     },
     "C": {
       "false_block_rate": 0.0,
       "material_escape_rate": 0.0,
-      "n": 6,
+      "n": 10,
       "task_completion_rate": 1.0,
       "verification_cost_mean": 1150.4
     }
@@ -43,21 +44,21 @@ holdout_underpowered_medium_high
     "A": {
       "false_block_rate": 0.0,
       "material_escape_rate": 0.0,
-      "n": 5,
+      "n": 9,
       "task_completion_rate": 1.0,
       "verification_cost_mean": 200.05
     },
     "B": {
-      "false_block_rate": 0.2,
+      "false_block_rate": 0.1111111111111111,
       "material_escape_rate": 0.0,
-      "n": 5,
+      "n": 9,
       "task_completion_rate": 1.0,
-      "verification_cost_mean": 1060.4
+      "verification_cost_mean": 1055.9555555555555
     },
     "C": {
       "false_block_rate": 0.0,
       "material_escape_rate": 0.0,
-      "n": 5,
+      "n": 9,
       "task_completion_rate": 1.0,
       "verification_cost_mean": 1150.4
     }
@@ -66,21 +67,21 @@ holdout_underpowered_medium_high
     "A": {
       "false_block_rate": 0.0,
       "material_escape_rate": 0.0,
-      "n": 5,
+      "n": 10,
       "task_completion_rate": 1.0,
       "verification_cost_mean": 200.05
     },
     "B": {
-      "false_block_rate": 0.2,
+      "false_block_rate": 0.3,
       "material_escape_rate": 0.0,
-      "n": 5,
+      "n": 10,
       "task_completion_rate": 1.0,
-      "verification_cost_mean": 1060.4
+      "verification_cost_mean": 1065.4
     },
     "C": {
       "false_block_rate": 0.0,
       "material_escape_rate": 0.0,
-      "n": 5,
+      "n": 10,
       "task_completion_rate": 1.0,
       "verification_cost_mean": 1150.4
     }

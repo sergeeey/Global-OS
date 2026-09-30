@@ -25,7 +25,7 @@
       "MEDIUM": 10
     }
   },
-  "status": "FROZEN_UNSEEN",
+  "status": "UNSEALED_FOR_EXECUTION",
   "tasks": [
     {
       "commit_sha": "04f236729d80fb2052556f4cc231e8b433e7499e",
@@ -666,5 +666,6 @@
       "task_id": "y24_e05899a66391"
     }
   ],
-  "unsealed_for_execution": false
+  "unsealed_at_utc": "2026-09-30T20:35:19.635076+00:00",
+  "unsealed_for_execution": true
 }

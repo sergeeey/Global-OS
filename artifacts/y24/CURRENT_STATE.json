@@ -1,12 +1,11 @@
 {
-  "arms_started": false,
+  "arms_started": true,
   "campaign_id": "Y24",
-  "experiment_sha": "9901912cd08f31578eba67b5d800acd777f82b8e",
-  "fold": "fold2_enlarged_holdout",
-  "holdout_status": "FROZEN_UNSEEN",
-  "phase": "FOLD2_SEALING",
+  "experiment_sha": "1ce7569695c32975968f62b47c057784d3828781",
+  "holdout_status": "UNSEALED_FOR_EXECUTION",
+  "phase": "SCORED",
   "t3_not_evidence": true,
   "trust_kernel_promoted": false,
-  "updated_at_utc": "2026-09-30T20:12:23.600912+00:00",
-  "verdict": null
+  "updated_at_utc": "2026-09-30T20:35:19.637061+00:00",
+  "verdict": "REJECT"
 }
