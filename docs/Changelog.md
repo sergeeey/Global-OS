@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.100 — 2026-09-30
+
+### Model HTTP: bounded 429/503 backoff (T3 live-path hardening)
+
+- `post_json` retries only HTTP 429/503 with hard-capped attempts (default 4) + exponential backoff
+- Honors `Retry-After` when present as delay-seconds; never unbounded; fail-closed after exhaustion
+- Transport retry ≠ T3 scientific re-sample (`retries=0` in arm harness remains intentional)
+- Acceptance: `tests/test_http_json.py` (429 then success; exhausted 429; OpenAI-compat error surface)
+
 ## 0.1.99 — 2026-09-30
 
 ### T3 continuation-safe runner (still AWAITING_LIVE_KEYS)

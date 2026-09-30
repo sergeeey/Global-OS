@@ -89,8 +89,13 @@ class OpenAICompatProvider(ModelProvider):
         try:
             data = post_json(url, payload, headers=headers, timeout_seconds=self._timeout)
         except HttpJsonError as exc:
-            # Propagate Retry-After hint in message when present
-            raise ModelProviderError(f"{self._provider_id}: {exc}") from exc
+            # post_json already applied bounded 429/503 backoff; surface residual failure.
+            hint = ""
+            if exc.retry_after is not None:
+                hint = f" (Retry-After={exc.retry_after}s after {exc.attempts} attempt(s))"
+            elif exc.attempts > 1:
+                hint = f" (after {exc.attempts} attempt(s))"
+            raise ModelProviderError(f"{self._provider_id}: {exc}{hint}") from exc
         latency_ms = (time.perf_counter() - started) * 1000.0
         return self._parse_response(data, latency_ms=latency_ms)
 

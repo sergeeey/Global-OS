@@ -18,6 +18,9 @@ class ModelHttpSink:
     port: int = 0
     posts: list[dict[str, Any]] = field(default_factory=list)
     response_text: str = "wire-ok"
+    # Optional queue of HTTP status codes (popped per POST). Empty → always 200.
+    status_sequence: list[int] = field(default_factory=list)
+    retry_after_seconds: float | None = None
     _httpd: HTTPServer | None = None
     _thread: threading.Thread | None = None
 
@@ -41,6 +44,21 @@ class ModelHttpSink:
                         "body": body,
                     }
                 )
+                status = 200
+                if sink.status_sequence:
+                    status = int(sink.status_sequence.pop(0))
+                if status >= 400:
+                    err_body = json.dumps(
+                        {"error": {"message": f"mock {status}", "type": "rate_limit"}}
+                    ).encode("utf-8")
+                    self.send_response(status)
+                    self.send_header("Content-Type", "application/json")
+                    self.send_header("Content-Length", str(len(err_body)))
+                    if sink.retry_after_seconds is not None:
+                        self.send_header("Retry-After", str(sink.retry_after_seconds))
+                    self.end_headers()
+                    self.wfile.write(err_body)
+                    return
                 if sink.kind == "openai":
                     req_model = "gpt-4o-mini-wire"
                     try:
@@ -93,8 +111,19 @@ class ModelHttpSink:
 
 
 @contextmanager
-def model_http_sink(kind: str, *, response_text: str = "wire-ok") -> Iterator[ModelHttpSink]:
-    sink = ModelHttpSink(kind=kind, response_text=response_text)
+def model_http_sink(
+    kind: str,
+    *,
+    response_text: str = "wire-ok",
+    status_sequence: list[int] | None = None,
+    retry_after_seconds: float | None = None,
+) -> Iterator[ModelHttpSink]:
+    sink = ModelHttpSink(
+        kind=kind,
+        response_text=response_text,
+        status_sequence=list(status_sequence or []),
+        retry_after_seconds=retry_after_seconds,
+    )
     sink.start()
     try:
         yield sink
