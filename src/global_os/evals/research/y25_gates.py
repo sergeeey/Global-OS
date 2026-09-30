@@ -51,11 +51,13 @@ def memory_pair_valid(first: dict[str, Any], variant: dict[str, Any]) -> bool:
     if first.get("commit_sha") and first.get("commit_sha") == variant.get("commit_sha"):
         return False
     # Prefer different repos when both present
-    if first.get("repo_url") and variant.get("repo_url"):
-        if first.get("repo_url") == variant.get("repo_url") and first.get(
-            "patch_ref"
-        ) == variant.get("patch_ref"):
-            return False
+    if (
+        first.get("repo_url")
+        and variant.get("repo_url")
+        and first.get("repo_url") == variant.get("repo_url")
+        and first.get("patch_ref") == variant.get("patch_ref")
+    ):
+        return False
     return first.get("memory_role") == "first" and variant.get("memory_role") == (
         "unseen_variant"
     )
