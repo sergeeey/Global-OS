@@ -1,8 +1,8 @@
 {
-  "sprint": "M15_EXAM_IN_PROGRESS_OPERATOR",
-  "updated_at": "2026-09-30T03:31:17Z",
-  "current_goal": "POST_M15_SAFE_AUTONOMY_BENCHMARK_FREEZE",
-  "phase_statement": "M1.5 CLOSED_SCOPE_LIMITED (LH-COGNITIVE-v1). EXAM_SHA=7ab345e AUDIT_SHA=a7960d9. Do not re-run 48h. Next: SAFE_AUTONOMY_BENCHMARK-v1 + H_TRUST metrics \u2192 T1 Mission Assurance A/B/C.",
+  "sprint": "POST_M15_SAFE_AUTONOMY_BENCHMARK_FROZEN",
+  "updated_at": "2026-09-30T04:05:00Z",
+  "current_goal": "T1_VARIANCE_PILOT_THEN_ABC",
+  "phase_statement": "M1.5 CLOSED_SCOPE_LIMITED. SAFE_AUTONOMY_BENCHMARK-v1 METRICS_FROZEN. EXAM_SHA=7ab345e AUDIT_SHA=a7960d9. Do not re-run 48h. Next: variance pilot \u2192 MCID \u2192 T1 A/B/C KEEP/REJECT.",
   "operator_action_required": true,
   "operator_dispatch_required": true,
   "y20": {
@@ -71,7 +71,7 @@
       "note": "successful run is the post-reboot full restart; interrupted partial run does not count"
     }
   },
-  "next_exact_action": "Freeze SAFE_AUTONOMY_BENCHMARK-v1 prereg/metrics; prepare T1 arms A/B/C per NEXT_MECHANISM_MISSION_ASSURANCE.md",
+  "next_exact_action": "Run SAFE_AUTONOMY variance pilot (small N); lock MCID amendment; then T1 arms A/B/C",
   "forbidden_now": [
     "r4_during_exam",
     "harden_exam_sha",
@@ -79,7 +79,11 @@
     "claim_M1.5_before_audit",
     "literal_48h_before_windows_preflight_pass",
     "accept_t42_as_48h_pass",
-    "intellectual_coaching_mid_run"
+    "intellectual_coaching_mid_run",
+    "claim_h_trust_before_t1_decision",
+    "implement_mission_assurance_core_before_keep",
+    "invent_mcid_without_variance_pilot",
+    "re_run_same_48h_exam"
   ],
   "r1": {
     "mission_id": "R1-EVIDENCE-INTEGRITY-v1",
@@ -168,7 +172,7 @@
     "same_sha_restart_allowed": true
   },
   "next_mechanism_plan": "artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md",
-  "next_mechanism_status": "PLAN_LOCKED_NOT_IMPLEMENTED",
+  "next_mechanism_status": "BENCHMARK_METRICS_FROZEN_NOT_IMPLEMENTED",
   "post_48h": {
     "operator_runbook": "artifacts/hardening/OPERATOR_POST_48H_NOW.md",
     "auditor": "artifacts/hardening/audit_cognitive_48h/freeze_and_audit.py",
@@ -177,5 +181,15 @@
   "m15_claim_scope": "CLOSED_SCOPE_LIMITED_LH_COGNITIVE_V1",
   "m15_decision": "artifacts/hardening/M15_DECISION.md",
   "exam_sha": "7ab345e5badb00a8c97ffdb7010ee4eb42dac4bb",
-  "audit_sha": "a7960d9616c9c08224f5be9e1e7097bca9744bd0"
+  "audit_sha": "a7960d9616c9c08224f5be9e1e7097bca9744bd0",
+  "h_trust_status": "METRICS_FROZEN",
+  "safe_autonomy_benchmark": {
+    "id": "SAFE_AUTONOMY_BENCHMARK-v1",
+    "status": "METRICS_FROZEN",
+    "arms_started": false,
+    "prereg_md": "artifacts/hardening/SAFE_AUTONOMY_BENCHMARK_V1.md",
+    "prereg_json": "artifacts/hardening/SAFE_AUTONOMY_BENCHMARK_V1.json",
+    "metrics_module": "src/global_os/evals/trust/safe_autonomy_metrics.py",
+    "mcid": "NOT_SET_UNTIL_VARIANCE_PILOT"
+  }
 }

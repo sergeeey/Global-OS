@@ -33,6 +33,7 @@ Post-M1.5
   Does a trust layer reduce predefined material integrity failures
   enough to justify operational cost?
   → CORE NEXT HYPOTHESIS (H_TRUST)
+  → SAFE_AUTONOMY_BENCHMARK-v1 METRICS_FROZEN (arms not started; H_TRUST unconfirmed)
 ```
 
 ## Forbidden overclaims
@@ -47,7 +48,7 @@ Post-M1.5
 
 ```text
 Raw-capability amplification:     NOT SHOWN  (no longer the working project bet)
-Trust / long-horizon amplification: TO TEST  (M1.5 then H_TRUST)
+Trust / long-horizon amplification: PARTIAL (M1.5 scope-limited); H_TRUST TO TEST
 ```
 
 We stopped treating raw-IQ amplification as the **working hypothesis** because evidence does not support it so far — not because we proved a universal null.
@@ -100,7 +101,7 @@ M1.5 decision
 
 Do **not** invent metrics after building five security mechanisms.
 
-## H_TRUST (draft — freeze metrics before Trust Kernel work)
+## H_TRUST (METRICS_FROZEN — see SAFE_AUTONOMY_BENCHMARK_V1)
 
 > **H_TRUST:** Under comparable model/tool/task conditions, Global OS reduces the
 > rate of pre-defined **material integrity failures** vs a strong baseline at a
@@ -144,6 +145,7 @@ Cognitive / research workload, **not** uptime. Across ≥48h expect new evidence
 Next mechanism candidate (NOT SHOWN / NOT BUILT):
   Mission-Level Runtime Assurance + Bounded Recovery
   Plan: artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md
-  First: freeze SAFE_AUTONOMY_BENCHMARK-v1 → T1 A/B/C → KEEP/REJECT
+  Benchmark: SAFE_AUTONOMY_BENCHMARK-v1 METRICS_FROZEN
+  Next: variance pilot → T1 A/B/C → KEEP/REJECT
   Falsifier: safety↑ but completion↓↓ or C≈B
 ```

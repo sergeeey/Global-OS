@@ -31,8 +31,8 @@ R1–R3    useful autonomous checkable real work (bundle)?     EARLY YES
          causal GOS advantage?                               NOT MEASURED
 M1.5     LH-COGNITIVE 48h integrity @7ab345e                 CLOSED_SCOPE_LIMITED
          (audit PASS; ≠ production / Continual SI / causal advantage)
-Post     SAFE_AUTONOMY_ENVELOPE / Mission Assurance T1       NEXT
-         H_TRUST metrics freeze before Trust Kernel
+Post     SAFE_AUTONOMY_BENCHMARK-v1 metrics                   FROZEN
+         Mission Assurance T1 A/B/C                          NEXT (arms not started)
 Continual SI / universal advantage                           NOT MEASURED / NOT CLAIMED
 Y20–Y22 scorers                                              FROZEN
 Y23                                                          NOT NOW
@@ -41,10 +41,11 @@ Y23                                                          NOT NOW
 ### Plan
 
 1. **Done:** M1.5 scope-limited closed — `artifacts/hardening/M15_DECISION.md` (EXAM `7ab345e` / AUDIT `a7960d9`).  
-2. **Next:** freeze `SAFE_AUTONOMY_BENCHMARK-v1` + H_TRUST metrics → T1 A/B/C (strong agent / GOS / GOS+Mission Assurance). KEEP/REJECT.  
-3. Plan: `NEXT_MECHANISM_MISSION_ASSURANCE.md`.  
-4. **Separate ops:** `artifacts/ops/SEPARATE_BACKLOG.md`.  
-5. **Not now:** re-run same 48h; Y23; Continual SI slogans; production-ready claims.
+2. **Done:** `SAFE_AUTONOMY_BENCHMARK-v1` + H_TRUST metrics FROZEN (arms not started; MCID after variance pilot).  
+3. **Next:** variance pilot → T1 A/B/C (strong agent / GOS / GOS+Mission Assurance) → KEEP/REJECT.  
+4. Plan: `NEXT_MECHANISM_MISSION_ASSURANCE.md`.  
+5. **Separate ops:** `artifacts/ops/SEPARATE_BACKLOG.md`.  
+6. **Not now:** re-run same 48h; Y23; Continual SI slogans; production-ready claims; core Mission Assurance before T1 KEEP.
 
 ## Документы
 

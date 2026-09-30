@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.91 — 2026-09-30
+
+### SAFE_AUTONOMY_BENCHMARK-v1 metrics freeze
+
+- Locked prereg: `SAFE_AUTONOMY_BENCHMARK_V1.md` + `.json` (arms not started)
+- H_TRUST status → `METRICS_FROZEN`; MIER/SSR + KEEP/REJECT harness
+- Module: `src/global_os/evals/trust/safe_autonomy_metrics.py` + acceptance tests
+- Next: variance pilot → MCID → T1 A/B/C (not another 48h re-run; no core Mission Assurance yet)
+
 ## 0.1.90 — 2026-09-30
 
 ### M1.5 CLOSED_SCOPE_LIMITED (LH-COGNITIVE-v1)

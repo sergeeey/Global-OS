@@ -1,23 +1,19 @@
 ## Active — post-M1.5
 
 - [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)
-- [ ] Freeze SAFE_AUTONOMY_BENCHMARK-v1 + H_TRUST metrics
+- [x] Freeze SAFE_AUTONOMY_BENCHMARK-v1 + H_TRUST metrics
+- [ ] Variance pilot → MCID amendment
 - [ ] T1 A/B/C Mission Assurance KEEP/REJECT
-
-## Planned — post-M1.5 (do not start mid-exam)
-
-- [ ] Freeze SAFE_AUTONOMY_BENCHMARK-v1 + H_TRUST metrics
-- [ ] T1 SAFE_AUTONOMY_ENVELOPE (A/B/C) KEEP/REJECT
 - [ ] Only if KEEP: thin Mission Assurance / MI-1..5
 - Plan: `artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md`
+- Benchmark: `artifacts/hardening/SAFE_AUTONOMY_BENCHMARK_V1.md`
 
-## Active — LH-COGNITIVE-v1 → new freeze (Variant B)
+## Done — LH-COGNITIVE-v1 (Variant B)
 
 - [x] Claim fork documented (`M15_CLAIM_FORK.md`)
 - [x] Cognitive harness + acceptance tests
-- [ ] Freeze new SHA (after CI)
-- [ ] Windows cognitive smoke/preflight/48h
-- [ ] Independent audit
+- [x] Freeze `7ab345e` + Windows cognitive smoke/preflight/48h
+- [x] Independent audit PASS (`AUDIT_SHA a7960d9`)
 
 ## Note — 5d15600 durability path
 

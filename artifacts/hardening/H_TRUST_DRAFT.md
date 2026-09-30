@@ -1,7 +1,9 @@
-# H_TRUST — draft hypothesis (metrics freeze BEFORE Trust Kernel hardening)
+# H_TRUST — hypothesis (metrics FROZEN; Trust Kernel NOT built)
 
-**Status:** DRAFT — activate only after M1.5 Gate A decision  
-**Must not** drive mid-exam changes to `5d15600`
+**Status:** `METRICS_FROZEN` — SAFE_AUTONOMY_BENCHMARK-v1 locked  
+**Activated after:** M1.5 `CLOSED_SCOPE_LIMITED` (`M15_DECISION.md`)  
+**Benchmark:** `artifacts/hardening/SAFE_AUTONOMY_BENCHMARK_V1.md` (+ `.json`)  
+**Must not** reopen LH-COGNITIVE 48h or patch exam SHA `7ab345e` for this hypothesis
 
 ## Hypothesis
 
@@ -40,14 +42,16 @@ Rationale: GOS adds overhead; A alone can punish the mechanism under test; B alo
 
 - Y20–Y22: raw primary outcome advantage **NOT SHOWN** (not proof of zero effect).
 - R1–R3: useful checkable real work **EARLY YES** for bundle; causal GOS advantage **NOT MEASURED**.
-- M1.5: long-horizon integrity **TO TEST** — necessary but not sufficient for H_TRUST.
+- M1.5: long-horizon integrity **SHOWN** within LH-COGNITIVE-v1 scope — necessary but not sufficient for H_TRUST.
 
 ## Leading mechanism candidate (post-M1.5 — not implemented)
 
 **Mission-Level Runtime Assurance + Bounded Recovery** (“Cognitive Simplex” = experiment label).
 
 - Plan: `artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md`
+- Benchmark freeze: **SAFE_AUTONOMY_BENCHMARK-v1** (`METRICS_FROZEN`; arms not started)
+- Metric module: `src/global_os/evals/trust/safe_autonomy_metrics.py`
 - First experiment: **T1 SAFE_AUTONOMY_ENVELOPE** (A strong agent / B current GOS / C GOS+assurance)
 - Primary metrics: MIER + SSR; falsifier = utility/attention tax unacceptable or C≈B
 - Must stay **deterministic/stateful first**; LLM monitor never sole oracle
-- **Do not implement** until M1.5 decision + benchmark freeze
+- **Do not implement Mission Assurance in core** until T1 KEEP

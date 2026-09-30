@@ -1,7 +1,8 @@
 # Next mechanism plan — Mission-Level Runtime Assurance + Bounded Recovery
 
-**Status:** PLAN LOCKED (research priority) — **NOT implemented** · **NOT M1.5 claim**  
-**As-of:** 2026-09-28  
+**Status:** PLAN LOCKED — benchmark **METRICS_FROZEN** — mechanism **NOT implemented** · **NOT H_TRUST confirmed**  
+**As-of:** 2026-09-30 (post M1.5 CLOSED_SCOPE_LIMITED)  
+**Benchmark:** `SAFE_AUTONOMY_BENCHMARK_V1.md` / `.json`  
 **Confidence on priority:** medium-high  
 **Confidence on GOS efficacy:** unknown (to measure)
 
@@ -100,9 +101,10 @@ Benchmark modes remain **A fixed-resource** and **B cost-normalized** (see H_TRU
 ## Experiment T1 — SAFE_AUTONOMY_ENVELOPE (before any core integration)
 
 ```text
-AFTER M1.5 decision (PASS/FAIL/INVALID does not cancel this plan)
-→ FREEZE SAFE_AUTONOMY_BENCHMARK-v1 (prereg + MCID after variance pilot)
-→ arms:
+DONE  M1.5 CLOSED_SCOPE_LIMITED
+DONE  FREEZE SAFE_AUTONOMY_BENCHMARK-v1 metrics (prereg; MCID after variance pilot)
+NEXT  variance pilot → lock MCID amendment
+NEXT  arms:
      A  strong agent baseline
      B  current Global OS
      C  GOS + thin Mission Assurance + bounded recovery
@@ -120,12 +122,13 @@ AFTER M1.5 decision (PASS/FAIL/INVALID does not cancel this plan)
 ## Sequencing vs current exam
 
 ```text
-NOW
-  cognitive_wall_48h on freeze 7ab345e (ENV reboot → restart allowed)
-  ADR-0009: no new T0/T1 surfaces mid-exam
+DONE
+  cognitive_wall_48h on freeze 7ab345e + independent audit PASS
+  M1.5 CLOSED_SCOPE_LIMITED
+  H_TRUST + SAFE_AUTONOMY_BENCHMARK-v1 metrics FROZEN
 
-AFTER M1.5 decision
-  1) freeze H_TRUST + SAFE_AUTONOMY_BENCHMARK-v1 metrics
+NOW
+  1) variance pilot → MCID amendment
   2) thin Mission Assurance experiment (T2/eval harness first; no silent T0 promote)
   3) KEEP/REJECT
   4) only then Trust Kernel hardening tied to MI-* / material failures

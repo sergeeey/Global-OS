@@ -34,13 +34,14 @@ M1.5 CLOSED_SCOPE_LIMITED (LH-COGNITIVE-v1)
   5d15600 durability ENV PASS retained as supporting evidence only
         │
         ▼
-Post-M1.5 — freeze science FIRST (no premature machinery)
-  H_TRUST + SAFE_AUTONOMY_BENCHMARK-v1 metrics
-  Fixed-resource (A) + cost-normalized frontier (B)
+Post-M1.5 — science freeze DONE
+  H_TRUST + SAFE_AUTONOMY_BENCHMARK-v1 METRICS_FROZEN
+  Fixed-resource + cost-normalized frontier modes locked
   material integrity failure taxonomy locked
+  MCID unset until variance pilot
         │
         ▼
-T1 SAFE_AUTONOMY_ENVELOPE (KEEP/REJECT)
+T1 SAFE_AUTONOMY_ENVELOPE (KEEP/REJECT) — NEXT
   A strong agent | B current GOS | C GOS + Mission-Level Runtime Assurance + bounded recovery
   Leading candidate plan: artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md
   Thin evaluator only; LLM monitor ≠ oracle; null result OK
