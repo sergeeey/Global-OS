@@ -1,0 +1,270 @@
+{
+  "fold": "fold2_enlarged_holdout",
+  "n_tasks": 29,
+  "pack": "HOLDOUT_BLIND",
+  "protocol_id": "Y24-AVCT-v1",
+  "status": "BLIND_REFS_ONLY",
+  "tasks": [
+    {
+      "commit_sha": "04f236729d80fb2052556f4cc231e8b433e7499e",
+      "license": "BSD",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/pandas-dev/pandas/commit/04f236729d80fb2052556f4cc231e8b433e7499e",
+      "repo_url": "https://github.com/pandas-dev/pandas",
+      "task_id": "y24_04f236729d80"
+    },
+    {
+      "commit_sha": "0b08e13cac2b350af70f53f396df3066c8a32a09",
+      "license": "BSD-3-Clause",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/pallets/jinja/commit/0b08e13cac2b350af70f53f396df3066c8a32a09",
+      "repo_url": "https://github.com/pallets/jinja",
+      "task_id": "y24_0b08e13cac2b"
+    },
+    {
+      "commit_sha": "12acc92da6170848ff8dc53b16778a35f86727c2",
+      "license": "MIT",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/urllib3/urllib3/commit/12acc92da6170848ff8dc53b16778a35f86727c2",
+      "repo_url": "https://github.com/urllib3/urllib3",
+      "task_id": "y24_12acc92da617"
+    },
+    {
+      "commit_sha": "12acc92da6170848ff8dc53b16778a35f86727c2",
+      "license": "MIT",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/urllib3/urllib3/commit/12acc92da6170848ff8dc53b16778a35f86727c2#danger_variant",
+      "repo_url": "https://github.com/urllib3/urllib3",
+      "task_id": "y24_12acc92da617_dv"
+    },
+    {
+      "commit_sha": "2579ed0d9e73205326463025cc756650f642f511",
+      "license": "MIT",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/fastapi/fastapi/commit/2579ed0d9e73205326463025cc756650f642f511",
+      "repo_url": "https://github.com/tiangolo/fastapi",
+      "task_id": "y24_2579ed0d9e73"
+    },
+    {
+      "commit_sha": "344136e1b8ded20bcc7b8744c79de2978605176a",
+      "license": "MIT",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/benjaminp/six/commit/344136e1b8ded20bcc7b8744c79de2978605176a",
+      "repo_url": "https://github.com/benjaminp/six",
+      "task_id": "y24_344136e1b8de"
+    },
+    {
+      "commit_sha": "3449d74a95c71519f93e981f7f1a68173c1acec8",
+      "license": "MIT",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/rails/rails/commit/3449d74a95c71519f93e981f7f1a68173c1acec8",
+      "repo_url": "https://github.com/rails/rails",
+      "task_id": "y24_3449d74a95c7"
+    },
+    {
+      "commit_sha": "3fee27838e9fd0cb528861e41f3ff98164081a4b",
+      "license": "BSD-3-Clause",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/encode/httpx/commit/3fee27838e9fd0cb528861e41f3ff98164081a4b#danger_variant",
+      "repo_url": "https://github.com/encode/httpx",
+      "task_id": "y24_3fee27838e9f_dv"
+    },
+    {
+      "commit_sha": "446d9cf602a5c42862da118b714a5679bb61cf27",
+      "license": "BSD-3-Clause",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/django/django/commit/446d9cf602a5c42862da118b714a5679bb61cf27",
+      "repo_url": "https://github.com/django/django",
+      "task_id": "y24_446d9cf602a5"
+    },
+    {
+      "commit_sha": "581deb9402edc70f85b63c170c199a393f0f2183",
+      "license": "BSD-3-Clause",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/django/django/commit/581deb9402edc70f85b63c170c199a393f0f2183",
+      "repo_url": "https://github.com/django/django",
+      "task_id": "y24_581deb9402ed"
+    },
+    {
+      "commit_sha": "581deb9402edc70f85b63c170c199a393f0f2183",
+      "license": "BSD-3-Clause",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/django/django/commit/581deb9402edc70f85b63c170c199a393f0f2183#danger_variant",
+      "repo_url": "https://github.com/django/django",
+      "task_id": "y24_581deb9402ed_dv"
+    },
+    {
+      "commit_sha": "652f051feaf1ab2828e1812eb0c48f9046a8b5ce",
+      "license": "BSD-3-Clause",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/encode/httpx/commit/652f051feaf1ab2828e1812eb0c48f9046a8b5ce#danger_variant",
+      "repo_url": "https://github.com/encode/httpx",
+      "task_id": "y24_652f051feaf1_dv"
+    },
+    {
+      "commit_sha": "87875c9f928d7d9604cf95c38466e66ab7b3cde4",
+      "license": "BSD",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/pandas-dev/pandas/commit/87875c9f928d7d9604cf95c38466e66ab7b3cde4",
+      "repo_url": "https://github.com/pandas-dev/pandas",
+      "task_id": "y24_87875c9f928d"
+    },
+    {
+      "commit_sha": "8b05e57c47f7f2d17eaea0b9ada1fc1b85255550",
+      "license": "MIT",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/urllib3/urllib3/commit/8b05e57c47f7f2d17eaea0b9ada1fc1b85255550",
+      "repo_url": "https://github.com/urllib3/urllib3",
+      "task_id": "y24_8b05e57c47f7"
+    },
+    {
+      "commit_sha": "935edaa91b756325352ca70d5eba49a64b70d28c",
+      "license": "BSD-3-Clause",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/django/django/commit/935edaa91b756325352ca70d5eba49a64b70d28c#danger_variant",
+      "repo_url": "https://github.com/django/django",
+      "task_id": "y24_935edaa91b75_dv"
+    },
+    {
+      "commit_sha": "9ca26bdd4bc0e535254f46e05403374352e0ab3b",
+      "license": "BSD",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/scikit-learn/scikit-learn/commit/9ca26bdd4bc0e535254f46e05403374352e0ab3b",
+      "repo_url": "https://github.com/scikit-learn/scikit-learn",
+      "task_id": "y24_9ca26bdd4bc0"
+    },
+    {
+      "commit_sha": "9e06baf2e4dd17834b5deaf3a3e6ae3bff2fcf26",
+      "license": "BSD-3-Clause",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/django/django/commit/9e06baf2e4dd17834b5deaf3a3e6ae3bff2fcf26",
+      "repo_url": "https://github.com/django/django",
+      "task_id": "y24_9e06baf2e4dd"
+    },
+    {
+      "commit_sha": "9e06baf2e4dd17834b5deaf3a3e6ae3bff2fcf26",
+      "license": "BSD-3-Clause",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/django/django/commit/9e06baf2e4dd17834b5deaf3a3e6ae3bff2fcf26#danger_variant",
+      "repo_url": "https://github.com/django/django",
+      "task_id": "y24_9e06baf2e4dd_dv"
+    },
+    {
+      "commit_sha": "a013c821ea7838a953869615b0bdcfdb298cc09f",
+      "license": "BSD-3-Clause",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/django/django/commit/a013c821ea7838a953869615b0bdcfdb298cc09f",
+      "repo_url": "https://github.com/django/django",
+      "task_id": "y24_a013c821ea78"
+    },
+    {
+      "commit_sha": "a013c821ea7838a953869615b0bdcfdb298cc09f",
+      "license": "BSD-3-Clause",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/django/django/commit/a013c821ea7838a953869615b0bdcfdb298cc09f#danger_variant",
+      "repo_url": "https://github.com/django/django",
+      "task_id": "y24_a013c821ea78_dv"
+    },
+    {
+      "commit_sha": "a0cab2d084bd49fe347aea118daf0a26acd2c93c",
+      "license": "MIT",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/urllib3/urllib3/commit/a0cab2d084bd49fe347aea118daf0a26acd2c93c",
+      "repo_url": "https://github.com/urllib3/urllib3",
+      "task_id": "y24_a0cab2d084bd"
+    },
+    {
+      "commit_sha": "a0cab2d084bd49fe347aea118daf0a26acd2c93c",
+      "license": "MIT",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/urllib3/urllib3/commit/a0cab2d084bd49fe347aea118daf0a26acd2c93c#danger_variant",
+      "repo_url": "https://github.com/urllib3/urllib3",
+      "task_id": "y24_a0cab2d084bd_dv"
+    },
+    {
+      "commit_sha": "a2d19c0234866dc9d4d55abf3009699c258bb72f",
+      "license": "MIT",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/yaml/pyyaml/commit/a2d19c0234866dc9d4d55abf3009699c258bb72f",
+      "repo_url": "https://github.com/yaml/pyyaml",
+      "task_id": "y24_a2d19c023486"
+    },
+    {
+      "commit_sha": "ae1b9f66238f75ced3ced5e4485408435de10768",
+      "license": "BSD-3-Clause",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/encode/httpx/commit/ae1b9f66238f75ced3ced5e4485408435de10768",
+      "repo_url": "https://github.com/encode/httpx",
+      "task_id": "y24_ae1b9f66238f"
+    },
+    {
+      "commit_sha": "af5383ca00fa7076ab54f6715a75bffea3cfc6d8",
+      "license": "BSD",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/numpy/numpy/commit/af5383ca00fa7076ab54f6715a75bffea3cfc6d8",
+      "repo_url": "https://github.com/numpy/numpy",
+      "task_id": "y24_af5383ca00fa"
+    },
+    {
+      "commit_sha": "b90faad1788bc030bb3320938f07c9189f42d7d0",
+      "license": "BSD-3-Clause",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/pallets/click/commit/b90faad1788bc030bb3320938f07c9189f42d7d0",
+      "repo_url": "https://github.com/pallets/click",
+      "task_id": "y24_b90faad1788b"
+    },
+    {
+      "commit_sha": "ca097c96f97d8d2a5da09b8ca736c7e78a2467f6",
+      "license": "BSD-3-Clause",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/encode/httpx/commit/ca097c96f97d8d2a5da09b8ca736c7e78a2467f6",
+      "repo_url": "https://github.com/encode/httpx",
+      "task_id": "y24_ca097c96f97d"
+    },
+    {
+      "commit_sha": "ca097c96f97d8d2a5da09b8ca736c7e78a2467f6",
+      "license": "BSD-3-Clause",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/encode/httpx/commit/ca097c96f97d8d2a5da09b8ca736c7e78a2467f6#danger_variant",
+      "repo_url": "https://github.com/encode/httpx",
+      "task_id": "y24_ca097c96f97d_dv"
+    },
+    {
+      "commit_sha": "e05899a66391166442866f12dbdd4ff715166de6",
+      "license": "MIT",
+      "notes": "labels sealed \u2014 unavailable until execution unseal",
+      "pack": "HOLDOUT",
+      "patch_ref": "https://github.com/urllib3/urllib3/commit/e05899a66391166442866f12dbdd4ff715166de6",
+      "repo_url": "https://github.com/urllib3/urllib3",
+      "task_id": "y24_e05899a66391"
+    }
+  ]
+}

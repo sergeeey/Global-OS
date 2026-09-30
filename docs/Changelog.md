@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.1.107 — 2026-09-30
+
+### Y24-F2 protocol amendment locked (methodological boundary)
+
+- Original prereg had **no** explicit sample-size expansion → fold-2 is **`Y24-AVCT-v1-F2`**, not silent same-prereg
+- Fold-1 restored as **immutable** `artifacts/y24/fold1_immutable/` (INCONCLUSIVE)
+- Y24-F2 heuristic **REJECT** stands under locked amendment; thresholds/rubric/cost/isolation unchanged
+- Explicit: INCONCLUSIVE/REJECT ≠ architecture failure; no TK/C2 “fix”
+
+## 0.1.106 — 2026-09-30
+
+### Y24 fold2 enlarged holdout → heuristic **REJECT**
+
+- Fold1 archived; fold2 holdout MEDIUM/HIGH N≥8 (later reframed as Y24-F2 amendment)
+- Heuristic A/B/C re-run (`HEURISTIC_HARNESS_v1`) → **REJECT** (`no_stratum_met_keep_gates`)
+  - C does not strictly beat A on material escape (both 0.0); C cost > 1.25× A
+- Not live-LLM; Trust Kernel / T3 untouched; no threshold fishing
+
+## 0.1.105 — 2026-09-30
+
+### Y24 corpus sealed → heuristic arms scored (INCONCLUSIVE)
+
+- Built real public OSS commit corpus; a-priori strata; DEV/HOLDOUT split; holdout sealed then unsealed
+- Isolation attestation written; experiment SHA frozen; N-amendment (combined ≥12/stratum; holdout KEEP needs N≥8)
+- Heuristic A/B/C harness + cost ledger executed (`HEURISTIC_HARNESS_v1`) → **INCONCLUSIVE** (holdout MEDIUM/HIGH underpowered)
+- Not live-LLM claim; Trust Kernel / C2 / T3 untouched as evidence
+- Artifacts: `artifacts/y24/{sealed,SCORE_RAW,Y24_DECISION}.md|json`
+
 ## 0.1.104 — 2026-09-30
 
 ### Y24 experiment prep locks (no architecture, no arm runs)

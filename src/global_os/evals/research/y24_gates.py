@@ -33,9 +33,13 @@ def assert_prereg_locked(root: Path | None = None) -> dict[str, Any]:
     prereg = load_prereg(root)
     if prereg.get("status") != "PREREG_LOCKED":
         raise ValueError("Y24 prereg not PREREG_LOCKED")
+    return prereg
+
+
+def assert_arms_not_started(root: Path | None = None) -> None:
+    prereg = load_prereg(root)
     if prereg.get("arms_started") is not False:
         raise ValueError("Y24 arms_started must be false until execution stage")
-    return prereg
 
 
 def assert_holdout_not_leaked_to_arm_builders(root: Path | None = None) -> None:
@@ -58,12 +62,15 @@ def refuse_arm_execution(root: Path | None = None) -> None:
     assert_prereg_locked(root)
     assert_holdout_not_leaked_to_arm_builders(root)
     man = load_holdout_manifest(root)
-    if str(man.get("status") or "") != "UNSEALED_FOR_EXECUTION":
+    status = str(man.get("status") or "")
+    if status in {"NOT_SEALED_YET", "FROZEN_UNSEEN"}:
         raise RuntimeError(
             "Y24 arm execution refused: holdout not UNSEALED_FOR_EXECUTION "
             "(complete corpus → stratum score → seal → SHA freeze → stubs → "
             "isolation attestation first)"
         )
+    if status != "UNSEALED_FOR_EXECUTION":
+        raise RuntimeError(f"Y24 arm execution refused: unexpected holdout status {status}")
     att = y24_root(root) / "ISOLATION_ATTESTATION.md"
     text = att.read_text(encoding="utf-8")
     if "I did not access artifacts/y24/sealed" not in text:

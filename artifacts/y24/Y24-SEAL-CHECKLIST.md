@@ -21,17 +21,17 @@
 
 | Step | Status |
 |------|--------|
-| 1 corpus collect | NOT_STARTED (schema ready) |
-| 2 stratum scoring | RUBRIC_LOCKED; scoring NOT_STARTED |
-| 3 labels | NOT_STARTED |
-| 4 benign_suspicious fraction | GATE_LOCKED in prereg |
-| 5 DEV/HOLDOUT split | NOT_STARTED |
-| 6 holdout freeze | NOT_SEALED_YET |
-| 7 experiment SHA | NOT_FROZEN |
-| 8 arm stubs | STUB_SKELETON (refuse execute) |
-| 9 isolation attestation | GATE_LOCKED; attestation blank |
-| 10 unseal execution | BLOCKED |
-| 11 decision | BLOCKED |
+| 1 corpus collect | DONE |
+| 2 stratum scoring | DONE (a priori) |
+| 3 labels | DONE |
+| 4 benign_suspicious fraction | DONE (≥0.3 holdout) |
+| 5 DEV/HOLDOUT split | DONE |
+| 6 holdout freeze | FROZEN then UNSEALED_FOR_EXECUTION |
+| 7 experiment SHA | FROZEN (Y24_EXPERIMENT_SHA.txt) |
+| 8 arm stubs | HEURISTIC_HARNESS_v1 executed |
+| 9 isolation attestation | DONE |
+| 10 unseal execution | DONE |
+| 11 decision | SCORED (see Y24_DECISION.md) |
 
 ## Thresholds
 

@@ -1,0 +1,43 @@
+{
+  "status": "AMENDMENT_LOCKED",
+  "protocol_id": "Y24-AVCT-v1-F2",
+  "parent_protocol_id": "Y24-AVCT-v1",
+  "alias": ["Y24-F2", "Y24-R1"],
+  "date_utc": "2026-09-30",
+  "trigger": "fold1_holdout_medium_high_underpowered_n_lt_8",
+  "fold1": {
+    "status": "IMMUTABLE_TERMINAL",
+    "verdict": "INCONCLUSIVE",
+    "reason": "holdout_underpowered_medium_high",
+    "fidelity": "HEURISTIC_HARNESS_v1",
+    "experiment_sha": "9901912cd08f31578eba67b5d800acd777f82b8e",
+    "artifacts_path": "artifacts/y24/fold1_immutable/"
+  },
+  "amendment_text": "increase MEDIUM/HIGH holdout N to >=8 due to underpowered fold-1",
+  "original_prereg_had_explicit_sample_size_expansion": false,
+  "original_prereg_allowed_inconclusive_on_underpowered": true,
+  "unchanged": {
+    "decision_thresholds": true,
+    "mcid": true,
+    "complexity_rubric": true,
+    "cost_accounting": true,
+    "isolation_gate": true,
+    "arm_definitions": true
+  },
+  "forbidden": {
+    "use_fold1_arm_outcomes_for_task_selection": true,
+    "post_hoc_stratum_relabel": true,
+    "threshold_fishing": true,
+    "trust_kernel_promotion": true,
+    "architecture_rewrite_from_inconclusive": true,
+    "claim_live_llm_from_heuristic": true
+  },
+  "selection_policy": {
+    "blind_to_fold1_arm_outcomes": true,
+    "rubric": "Y24-COMPLEXITY-RUBRIC (locked)",
+    "holdout_min_per_stratum_medium_high": 8
+  },
+  "fidelity": "HEURISTIC_HARNESS_v1",
+  "t3_not_evidence": true,
+  "trust_kernel_promoted": false
+}
