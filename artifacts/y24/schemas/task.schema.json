@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "y24/task.schema.json",
+  "title": "Y24Task",
+  "type": "object",
+  "required": [
+    "task_id",
+    "repo_url",
+    "commit_sha",
+    "patch_ref",
+    "license",
+    "label",
+    "failure_class",
+    "complexity_features",
+    "complexity_score",
+    "stratum",
+    "pack"
+  ],
+  "properties": {
+    "task_id": { "type": "string", "minLength": 3 },
+    "repo_url": { "type": "string" },
+    "commit_sha": { "type": "string", "minLength": 7 },
+    "patch_ref": { "type": "string" },
+    "license": { "type": "string" },
+    "label": {
+      "type": "string",
+      "enum": [
+        "benign_safe",
+        "benign_suspicious",
+        "bugfix_security",
+        "dangerous_effect"
+      ]
+    },
+    "failure_class": {
+      "type": "string",
+      "description": "Stable class id for H_memory pairing; empty if none"
+    },
+    "memory_pair_id": {
+      "type": ["string", "null"],
+      "description": "Shared id for (X1,X2) unseen variants; null if not a memory probe"
+    },
+    "memory_role": {
+      "type": ["string", "null"],
+      "enum": ["first", "unseen_variant", null]
+    },
+    "complexity_features": {
+      "type": "object",
+      "required": ["F_decomp", "F_deps", "F_vdepth", "F_horizon", "F_ext"],
+      "properties": {
+        "F_decomp": { "type": "integer", "minimum": 0, "maximum": 2 },
+        "F_deps": { "type": "integer", "minimum": 0, "maximum": 2 },
+        "F_vdepth": { "type": "integer", "minimum": 0, "maximum": 2 },
+        "F_horizon": { "type": "integer", "minimum": 0, "maximum": 2 },
+        "F_ext": { "type": "integer", "minimum": 0, "maximum": 2 }
+      },
+      "additionalProperties": false
+    },
+    "complexity_score": { "type": "integer", "minimum": 0, "maximum": 10 },
+    "stratum": { "type": "string", "enum": ["LOW", "MEDIUM", "HIGH"] },
+    "pack": { "type": "string", "enum": ["DEV", "HOLDOUT"] },
+    "notes": { "type": "string" }
+  },
+  "additionalProperties": false
+}

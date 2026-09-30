@@ -1,0 +1,7 @@
+{
+  "pack": "DEV",
+  "status": "EMPTY_DRAFT",
+  "protocol_id": "Y24-AVCT-v1",
+  "tasks": [],
+  "notes": "Populate with publicly licensed OSS change tasks. Score strata before any holdout freeze. Labels for DEV may be visible to implementers; HOLDOUT labels must not."
+}

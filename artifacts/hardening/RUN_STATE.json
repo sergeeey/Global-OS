@@ -1,8 +1,8 @@
 {
-  "sprint": "Y24_PREREG_LOCKED",
-  "updated_at": "2026-09-30T19:40:00Z",
-  "current_goal": "Y24_SEAL_PACK_AND_HARNESS_STUBS",
-  "phase_statement": "T3 CLOSED (KEEP once). Started Y24 Adaptive Verifier Complexity Threshold: PREREG_LOCKED. Informal brief called it Y19 — legacy artifacts/y19 FROZEN; campaign id is Y24. Arms not started; holdout not sealed. T3 not evidence; no Trust Kernel / C2 edits. Next: seal task pack + harness stubs under prereg.",
+  "sprint": "Y24_PREP_EXPERIMENT_NO_EXEC",
+  "updated_at": "2026-09-30T19:50:00Z",
+  "current_goal": "Y24_CORPUS_STRATA_SEAL_THEN_STUBS",
+  "phase_statement": "Y24 PREREG_LOCKED + prep locks: complexity rubric, cost accounting, isolation hard gate. Arms NOT RUN; holdout NOT SEALED; thresholds MUST NOT MOVE; Trust Kernel UNTOUCHED; T3 EXCLUDED. Next: corpus → a-priori strata → seal holdout → stubs/attestation → unseal.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y20": {
@@ -72,7 +72,7 @@
       "note": "successful run is the post-reboot full restart; interrupted partial run does not count"
     }
   },
-  "next_exact_action": "Under Y24-PREREG: collect real OSS tasks, seal Y24_PACK_HOLDOUT as FROZEN_UNSEEN, implement A/B/C harness stubs. Do not execute arms. Do not fish thresholds. Do not edit Trust Kernel / C2. Do not cite T3 as Y24 proof.",
+  "next_exact_action": "Y24: collect public OSS tasks; score LOW/MEDIUM/HIGH with locked rubric before results; split DEV/HOLDOUT; seal holdout; implement A/B/C with shared cost ledger; isolation attestation for C/memory builders; only then unseal execution. No new T0/T1 architecture.",
   "t3_continuation": {
     "path": "artifacts/safe_autonomy_t1/T3/T3_CONTINUATION.md",
     "is_new_sealed_replication": false,
@@ -122,7 +122,11 @@
     "start_y23",
     "start_y25_before_y24_terminal",
     "y24_arm_execution_before_holdout_seal",
-    "y24_threshold_fishing"
+    "y24_threshold_fishing",
+    "post_hoc_stratum_relabel",
+    "arm_c_access_sealed_holdout_before_unseal",
+    "h_memory_same_case_not_variant",
+    "y24_unaccounted_compute_win"
   ],
   "r1": {
     "mission_id": "R1-EVIDENCE-INTEGRITY-v1",
@@ -296,7 +300,7 @@
   },
   "y24": {
     "protocol_id": "Y24-AVCT-v1",
-    "phase": "PREREG_LOCKED",
+    "phase": "PREREG_LOCKED_PREP_EXPERIMENT",
     "path": "artifacts/y24/Y24-PREREG.md",
     "program": "artifacts/y24/Y24-RESEARCH-PROGRAM.md",
     "arms_started": false,
@@ -304,6 +308,10 @@
     "informal_brief_alias": "Y19_adaptive_verifier_threshold",
     "legacy_y19": "FROZEN_DO_NOT_REOPEN",
     "t3_not_evidence": true,
-    "trust_kernel_promoted": false
+    "trust_kernel_promoted": false,
+    "complexity_rubric": "RUBRIC_LOCKED",
+    "cost_accounting": "COST_ACCOUNTING_LOCKED",
+    "isolation_gate": "ISOLATION_GATE_LOCKED",
+    "thresholds_must_not_move": true
   }
 }

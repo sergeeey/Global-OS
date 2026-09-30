@@ -9,9 +9,25 @@
   "y25_status": "FUTURE_NOT_STARTED",
   "arms_started": false,
   "holdout_status": "NOT_SEALED_YET",
+  "complexity_rubric": {
+    "status": "RUBRIC_LOCKED",
+    "path": "artifacts/y24/Y24-COMPLEXITY-RUBRIC.md",
+    "post_hoc_relabel_forbidden": true
+  },
+  "cost_accounting": {
+    "status": "COST_ACCOUNTING_LOCKED",
+    "path": "artifacts/y24/Y24-COST-ACCOUNTING.md"
+  },
+  "isolation": {
+    "status": "ISOLATION_GATE_LOCKED",
+    "path": "artifacts/y24/Y24-ISOLATION.md",
+    "arm_c_memory_builders_forbidden_sealed_access_before_unseal": true,
+    "attestation_path": "artifacts/y24/ISOLATION_ATTESTATION.md"
+  },
   "hypotheses": {
     "H_primary": "complexity_threshold_adaptive_beats_simple",
     "H_memory": "repeat_failure_class_cheaper_without_fp_rise",
+    "H_memory_requires_unseen_variant": true,
     "H_null_allowed": true
   },
   "arms": {
@@ -44,15 +60,20 @@
     "tool_calls",
     "llm_cost_tokens",
     "latency_ms",
+    "verification_calls",
     "verification_cost",
-    "recovery_cost"
+    "recovery_cost",
+    "retry_count",
+    "recovery_overhead_seconds"
   ],
   "verification_cost_formula": {
     "weights": {
       "llm_cost_tokens": 1.0,
       "tool_calls": 50.0,
       "human_interventions": 5000.0,
-      "latency_ms": 0.001
+      "latency_ms": 0.001,
+      "verification_calls": 100.0,
+      "recovery_overhead_seconds": 10.0
     },
     "note": "verification_cost = sum(weight_i * metric_i); locked for primary comparison"
   },
@@ -67,6 +88,7 @@
   "decision": {
     "keep_requires_stratum": ["MEDIUM", "HIGH"],
     "reject_if_escape_win_via_autoimmune": true,
+    "require_cost_match_in_winning_stratum": true,
     "inconclusive_on_env_or_underpowered": true,
     "h_memory_separate": true
   },
@@ -79,8 +101,12 @@
     "pass_at_1_primary",
     "production_security_claim",
     "retune_after_holdout_unseal",
+    "post_hoc_stratum_relabel",
     "llm_boolean_sole_security_oracle",
-    "direct_tool_execution_outside_gateway"
+    "direct_tool_execution_outside_gateway",
+    "arm_c_builder_access_sealed_holdout_before_unseal",
+    "h_memory_same_case_not_unseen_variant",
+    "cost_win_by_unaccounted_compute"
   ],
   "non_claims": [
     "not_trust_kernel",
@@ -94,5 +120,6 @@
     "holdout": "Y24_PACK_HOLDOUT",
     "holdout_must_be_frozen_unseen_before_sha": true
   },
-  "next_stage": "seal_task_pack_and_harness_stubs_no_arm_execution"
+  "next_stage": "collect_corpus_score_strata_seal_holdout_then_stubs",
+  "seal_checklist_path": "artifacts/y24/Y24-SEAL-CHECKLIST.md"
 }

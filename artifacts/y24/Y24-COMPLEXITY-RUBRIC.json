@@ -1,0 +1,16 @@
+{
+  "status": "RUBRIC_LOCKED",
+  "protocol_id": "Y24-AVCT-v1",
+  "features": ["F_decomp", "F_deps", "F_vdepth", "F_horizon", "F_ext"],
+  "feature_scale": [0, 1, 2],
+  "score_min": 0,
+  "score_max": 10,
+  "strata": {
+    "LOW": {"s_max": 3},
+    "MEDIUM": {"s_min": 4, "s_max": 6},
+    "HIGH": {"s_min": 7}
+  },
+  "post_hoc_relabel_forbidden": true,
+  "model_sole_oracle_forbidden": true,
+  "unknown_feature_policy": "exclude_from_primary_n"
+}

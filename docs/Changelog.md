@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.104 — 2026-09-30
+
+### Y24 experiment prep locks (no architecture, no arm runs)
+
+- Locked a-priori complexity rubric (`F_decomp/deps/vdepth/horizon/ext` → LOW/MEDIUM/HIGH)
+- Locked cost accounting (tokens, tools, wall, interventions, verify calls, recovery)
+- Locked isolation hard gate: arm C/memory builders must not see sealed holdout labels
+- H_memory requires unseen variant of failure class (not same case)
+- Seal checklist + task/cost schemas + arm stubs that **refuse execution** until unseal
+- Thresholds must not move; Trust Kernel untouched; T3 still excluded
+
 ## 0.1.103 — 2026-09-30
 
 ### Y24 prereg LOCKED — Adaptive Verifier Complexity Threshold

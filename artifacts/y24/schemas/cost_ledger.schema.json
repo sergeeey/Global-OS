@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "y24/cost_ledger.schema.json",
+  "title": "Y24CostLedgerEntry",
+  "type": "object",
+  "required": [
+    "task_id",
+    "arm_id",
+    "model_tokens_in",
+    "model_tokens_out",
+    "llm_cost_tokens",
+    "tool_calls",
+    "verification_calls",
+    "wall_seconds",
+    "latency_ms",
+    "human_interventions",
+    "retry_count",
+    "recovery_overhead_seconds",
+    "escalations"
+  ],
+  "properties": {
+    "task_id": { "type": "string" },
+    "arm_id": { "type": "string", "enum": ["A", "B", "C"] },
+    "model_tokens_in": { "type": "integer", "minimum": 0 },
+    "model_tokens_out": { "type": "integer", "minimum": 0 },
+    "llm_cost_tokens": { "type": "integer", "minimum": 0 },
+    "tool_calls": { "type": "integer", "minimum": 0 },
+    "verification_calls": { "type": "integer", "minimum": 0 },
+    "wall_seconds": { "type": "number", "minimum": 0 },
+    "latency_ms": { "type": "number", "minimum": 0 },
+    "human_interventions": { "type": "integer", "minimum": 0 },
+    "retry_count": { "type": "integer", "minimum": 0 },
+    "recovery_overhead_seconds": { "type": "number", "minimum": 0 },
+    "escalations": { "type": "integer", "minimum": 0 },
+    "honest_stop": { "type": "boolean" },
+    "cap_hit": { "type": ["string", "null"] }
+  },
+  "additionalProperties": false
+}

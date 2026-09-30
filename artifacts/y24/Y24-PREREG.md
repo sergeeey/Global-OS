@@ -193,12 +193,27 @@ Do **not** retune C (or A/B thresholds) after viewing holdout labels.
 ✗ Silent network fallback / LLM boolean as sole security oracle
 ```
 
+## Locked prep artifacts (binding)
+
+| Artifact | Status |
+|----------|--------|
+| `Y24-COMPLEXITY-RUBRIC.md` | `RUBRIC_LOCKED` — strata from observable S before results |
+| `Y24-COST-ACCOUNTING.md` | `COST_ACCOUNTING_LOCKED` — tokens/tools/time/interventions/verify/recovery |
+| `Y24-ISOLATION.md` | `ISOLATION_GATE_LOCKED` — C/memory builders must not see sealed labels |
+| `Y24-SEAL-CHECKLIST.md` | sequence to unseal execution |
+| schemas `task` / `cost_ledger` | locked shapes |
+
+H_memory: second case must be **unseen variant** of class X (different task_id/patch), not the same case.
+
 ## Stage gate (this commit)
 
 ```text
-phase = PREREG_LOCKED
+phase = PREREG_LOCKED_PREP_EXPERIMENT
 arms_started = false
 holdout_status = NOT_SEALED_YET
-next = design sealed task pack + harness stubs under this prereg
-      (no arm execution; no threshold fishing)
+thresholds = MUST NOT MOVE
+Trust Kernel = UNTOUCHED
+T3 evidence = EXCLUDED
+next = corpus → a-priori strata → seal holdout → stubs + cost ledger
+      → isolation attestation → ONLY THEN unseal execution
 ```

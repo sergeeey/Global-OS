@@ -1,0 +1,10 @@
+{
+  "pack": "HOLDOUT",
+  "status": "NOT_SEALED_YET",
+  "protocol_id": "Y24-AVCT-v1",
+  "tasks": [],
+  "sha256_of_sealed_bundle": null,
+  "frozen_at_utc": null,
+  "unsealed_for_execution": false,
+  "note": "Do not populate arm-visible views with these labels until execution unseal."
+}
