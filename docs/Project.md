@@ -38,9 +38,11 @@ Post     SAFE_AUTONOMY_BENCHMARK-v1 metrics                   FROZEN
          C2 contract SELECTIVE_BOUNDED_RECOVERY-v1           FROZEN_CANDIDATE
          T3 live-LLM replication                             KEEP (continuation; ≠ Trust Kernel)
          H_TRUST                                             T3_KEEP_LIVE — no Trust Kernel promote
+         Y24 adaptive verifier complexity threshold          PREREG_LOCKED (arms not started)
 Continual SI / universal advantage                           NOT MEASURED / NOT CLAIMED
 Y20–Y22 scorers                                              FROZEN
 Y23                                                          NOT NOW
+Y25 verification-budget frontier                             FUTURE (after Y24)
 ```
 
 ### Plan
@@ -52,8 +54,10 @@ Y23                                                          NOT NOW
 5. **Done:** T2 → **KEEP**; C2 frozen as `SELECTIVE_BOUNDED_RECOVERY-v1`; independent review CONFIRM KEEP.  
 6. **Done:** T3 prereg + PACK-v3 + harness; first attempt INCONCLUSIVE (keys/quota); continuation → **KEEP** (`LIVE_LLM`, Groq).  
 7. **Done / CLOSED:** live completion SHA `3ef3f44`; experiment freeze `c6523a6`; C2 unchanged; Trust Kernel not promoted.  
-8. **Next:** switch to next real task outside T3 (`SEPARATE_BACKLOG.md`). Optional later: new prereg + other provider + new sealed holdout + same frozen C2.  
-9. **Not now:** Trust Kernel promote; reopen M1.5; rewrite T1 MCID; Y23; retune C2; invent PACK-v4; keep poking T3.
+8. **Done:** T3 cycle closed — switch away from T3 poke.  
+9. **Active:** **Y24** Adaptive Verifier Complexity Threshold — `PREREG_LOCKED` (`artifacts/y24/`).  
+   Informal brief “Y19” → campaign id **Y24** (legacy Y19 FROZEN). Arms not started.  
+10. **Not now:** Trust Kernel promote; reopen M1.5/Y19; Y23; retune C2; cite T3 as Y24 proof; start Y25 early.
 
 ## Документы
 

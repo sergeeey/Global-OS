@@ -1,0 +1,25 @@
+{
+  "campaign_id": "Y24",
+  "protocol_id": "Y24-AVCT-v1",
+  "phase": "PREREG_LOCKED",
+  "arms_started": false,
+  "holdout_status": "NOT_SEALED_YET",
+  "updated_at_utc": "2026-09-30T19:40:00Z",
+  "prereg_path": "artifacts/y24/Y24-PREREG.md",
+  "program_path": "artifacts/y24/Y24-RESEARCH-PROGRAM.md",
+  "informal_brief_alias": "Y19_adaptive_verifier_threshold",
+  "legacy_y19": "FROZEN_DO_NOT_REOPEN",
+  "t3_not_evidence": true,
+  "trust_kernel_promoted": false,
+  "c2_edited": false,
+  "next_exact_action": "Build Y24_PACK_DEV + seal Y24_PACK_HOLDOUT under locked prereg; implement eval harness stubs for arms A/B/C; do not execute arms; do not retune thresholds toward an expected KEEP.",
+  "forbidden_now": [
+    "arm_execution_before_holdout_seal",
+    "threshold_fishing",
+    "trust_kernel_edit",
+    "c2_edit",
+    "cite_t3_as_y24_proof",
+    "reopen_y19",
+    "start_y23_or_y25_prematurely"
+  ]
+}

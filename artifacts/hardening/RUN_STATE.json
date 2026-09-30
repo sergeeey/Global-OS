@@ -1,8 +1,8 @@
 {
-  "sprint": "T3_CLOSED_KEEP_SWITCH_NEXT",
-  "updated_at": "2026-09-30T17:10:00Z",
-  "current_goal": "NEXT_REAL_TASK_OUTSIDE_T3",
-  "phase_statement": "T3 CLOSED: live continuation KEEP under Groq LIVE_LLM (same prereg/PACK-v3/C2). Experiment freeze SHA c6523a6bb58484a018ae4638949ad4aa085b4095; live completion SHA 3ef3f448d589dc7604b109fe20730de127cf994d. Claim: live generalization shown once. Independent replication NOT YET; production security NOT SHOWN; Trust Kernel NOT promoted. Do not retune C2. Switch to next real task \u2014 do not keep poking T3.",
+  "sprint": "Y24_PREREG_LOCKED",
+  "updated_at": "2026-09-30T19:40:00Z",
+  "current_goal": "Y24_SEAL_PACK_AND_HARNESS_STUBS",
+  "phase_statement": "T3 CLOSED (KEEP once). Started Y24 Adaptive Verifier Complexity Threshold: PREREG_LOCKED. Informal brief called it Y19 — legacy artifacts/y19 FROZEN; campaign id is Y24. Arms not started; holdout not sealed. T3 not evidence; no Trust Kernel / C2 edits. Next: seal task pack + harness stubs under prereg.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y20": {
@@ -72,7 +72,7 @@
       "note": "successful run is the post-reboot full restart; interrupted partial run does not count"
     }
   },
-  "next_exact_action": "T3 cycle closed. Merge PR #1 if not yet merged. Do not retune C2 / invent PACK-v4 / promote Trust Kernel. Next confidence step (later, optional): NEW prereg + other provider/model + new sealed holdout + same frozen C2. Until then: pick next real task outside T3 (see artifacts/ops/SEPARATE_BACKLOG.md).",
+  "next_exact_action": "Under Y24-PREREG: collect real OSS tasks, seal Y24_PACK_HOLDOUT as FROZEN_UNSEEN, implement A/B/C harness stubs. Do not execute arms. Do not fish thresholds. Do not edit Trust Kernel / C2. Do not cite T3 as Y24 proof.",
   "t3_continuation": {
     "path": "artifacts/safe_autonomy_t1/T3/T3_CONTINUATION.md",
     "is_new_sealed_replication": false,
@@ -116,7 +116,13 @@
     "promote_trust_kernel_from_t3_keep_alone",
     "retune_c2_after_t3_keep",
     "claim_independent_replication_from_single_provider_keep",
-    "claim_production_security_from_t3_keep"
+    "claim_production_security_from_t3_keep",
+    "cite_t3_as_y24_evidence",
+    "reopen_y19_for_adaptive_verifier",
+    "start_y23",
+    "start_y25_before_y24_terminal",
+    "y24_arm_execution_before_holdout_seal",
+    "y24_threshold_fishing"
   ],
   "r1": {
     "mission_id": "R1-EVIDENCE-INTEGRITY-v1",
@@ -177,7 +183,7 @@
     "patch_in_place_forbidden": true,
     "wall_seconds_hard_gate": 172800,
     "m15_claimed": false,
-    "next_keystrokes": "Windows detach 7ab345e \u2192 smoke \u2192 cognitive preflight"
+    "next_keystrokes": "Windows detach 7ab345e → smoke → cognitive preflight"
   },
   "scientific_honesty_map": "docs/SCIENTIFIC_HONESTY_MAP.md",
   "h_trust_draft": "artifacts/hardening/H_TRUST_DRAFT.md",
@@ -287,5 +293,17 @@
     "mcid_recompute_for_t1_forbidden": true,
     "m15_reopen_forbidden": true,
     "trust_kernel_promote_forbidden": true
+  },
+  "y24": {
+    "protocol_id": "Y24-AVCT-v1",
+    "phase": "PREREG_LOCKED",
+    "path": "artifacts/y24/Y24-PREREG.md",
+    "program": "artifacts/y24/Y24-RESEARCH-PROGRAM.md",
+    "arms_started": false,
+    "holdout_status": "NOT_SEALED_YET",
+    "informal_brief_alias": "Y19_adaptive_verifier_threshold",
+    "legacy_y19": "FROZEN_DO_NOT_REOPEN",
+    "t3_not_evidence": true,
+    "trust_kernel_promoted": false
   }
 }

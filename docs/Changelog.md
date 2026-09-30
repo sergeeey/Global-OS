@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.103 — 2026-09-30
+
+### Y24 prereg LOCKED — Adaptive Verifier Complexity Threshold
+
+- New dogfood research campaign `Y24-AVCT-v1` (informal brief said “Y19”; legacy `artifacts/y19` remains FROZEN)
+- Question: complexity threshold where adaptive verifier C beats strong simple A at comparable cost/false-block rate
+- Secondary H_memory: repeat failure-class cheaper without FP rise
+- Arms A/B/C, strata LOW/MEDIUM/HIGH, real OSS tasks, sealed holdout planned — **arms not started**
+- Explicit: T3 KEEP ≠ Y24 evidence; no Trust Kernel / C2 edits; Y25 budget-frontier deferred
+- Artifacts: `artifacts/y24/`; acceptance: `tests/test_y24_prereg.py`
+
 ## 0.1.102 — 2026-09-30
 
 ### T3 cycle closed — provenance sync (no C2 edit)
