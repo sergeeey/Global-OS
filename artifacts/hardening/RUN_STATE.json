@@ -1,8 +1,8 @@
 {
   "sprint": "M15_EXAM_IN_PROGRESS_OPERATOR",
-  "updated_at": "2026-09-27T21:28:58Z",
-  "current_goal": "COGNITIVE_WALL_48H_RESTART_AFTER_HOST_REBOOT",
-  "phase_statement": "Host reboot killed in-progress cognitive_wall_48h (~>24h). Class ENV. Incomplete run backed up; same freeze 7ab345e; full restart required. Partial wall time does NOT count toward PASS. Post-M1.5 bet locked: Mission Assurance+Recovery via T1 benchmark first.",
+  "updated_at": "2026-09-30T03:17:45Z",
+  "current_goal": "FREEZE_RAW_ARTIFACTS_THEN_INDEPENDENT_AUDIT",
+  "phase_statement": "LH-COGNITIVE wall_48h PASS on 7ab345e: COGNITIVE_WALL_CLOCK_48H, wall_seconds\u2248172801, EXTERNAL_RESEARCH_OBJECT, m15_claimed=false. NOT M1.5 claim until independent audit within protocol scope.",
   "operator_action_required": true,
   "operator_dispatch_required": true,
   "y20": {
@@ -33,7 +33,7 @@
     "linux_os_kill_smoke": "PASS",
     "windows_os_kill_smoke": "PASS_ON_FREEZE_5d15600",
     "windows_preflight": "PASS_DURABILITY_ENV_PREFLIGHT_WALL",
-    "literal_48h": "NOT_STARTED",
+    "literal_48h": "PASS_COGNITIVE_WALL_CLOCK_48H",
     "m15_claimed": false,
     "cognitive_program": "IMPLEMENTED_ON_MAIN_NOT_FROZEN",
     "windows_preflight_detail": {
@@ -55,9 +55,22 @@
       "m15_claimed": false,
       "workload_class": "EXTERNAL_RESEARCH_OBJECT",
       "finished_local": "2026-09-26T11:31:04"
+    },
+    "literal_48h_detail": {
+      "sha": "7ab345e5badb00a8c97ffdb7010ee4eb42dac4bb",
+      "fidelity": "COGNITIVE_WALL_CLOCK_48H",
+      "passed": true,
+      "wall_seconds": 172801.2008432,
+      "m15_claimed": false,
+      "workload_class": "EXTERNAL_RESEARCH_OBJECT",
+      "finished_local": "2026-09-30T00:21:52",
+      "started_local": "2026-09-28T00:21:43",
+      "report": "artifacts/hardening/long_horizon_48h/windows_cognitive_wall_48h/program_report.json",
+      "prior_reboot_interrupt_backup": "artifacts/hardening/long_horizon_48h/_bak_reboot_interrupt_20260928_000436",
+      "note": "successful run is the post-reboot full restart; interrupted partial run does not count"
     }
   },
-  "next_exact_action": "OPERATOR: restart cognitive_wall_48h on 7ab345e into clean windows_cognitive_wall_48h; journal reboot; harden Windows sleep/update",
+  "next_exact_action": "OPERATOR: freeze/copy raw reports (do not edit) \u2192 independent audit contour \u2192 M1.5 decision (scope-limited)",
   "forbidden_now": [
     "r4_during_exam",
     "harden_exam_sha",
@@ -109,8 +122,8 @@
     "lock_sha": "65c2fb2"
   },
   "m15_claimed": false,
-  "windows_preflight": "PASS_DURABILITY_ENV",
-  "literal_48h": "RESTART_AFTER_HOST_REBOOT",
+  "windows_preflight": "PASS_COGNITIVE_PREFLIGHT_WALL",
+  "literal_48h": "PASS_AWAITING_INDEPENDENT_AUDIT",
   "freeze": {
     "label": "FREEZE-R1R3-v1",
     "sha_short": "5d15600",

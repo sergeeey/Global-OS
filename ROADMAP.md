@@ -28,10 +28,10 @@ CURRENT
   Scorers Y20–Y22 FROZEN; no Y23 as IQ-rescue
         │
         ▼
-Claim fork B (locked) — durability vs cognitive
-  5d15600 smoke/preflight = DURABILITY_ENV only (sum harness ≠ real research 48h)
-  LH-COGNITIVE-v1 on main → NEW freeze → Windows cognitive preflight → ≥48h
-  do NOT wall_48h on 5d15600 for cognitive-real M1.5 claim
+Claim fork B — LH-COGNITIVE harness PASS @7ab345e (audit pending)
+  5d15600 durability ENV PASS retained
+  cognitive smoke+preflight+wall_48h (wall≥172800) PASS; m15_claimed=false
+  NEXT: freeze raw artifacts → independent audit → M1.5 decision (scope-limited)
         │
         ▼
 Post-M1.5 — freeze science FIRST (no premature machinery)

@@ -32,7 +32,7 @@ R1–R3: **EARLY YES** что конфигурация/bundle умеет дов�
 Y20–Y22  raw primary-outcome advantage vs strong baseline?  NOT SHOWN
 R1–R3    useful autonomous checkable real work (bundle)?     EARLY YES
          causal GOS advantage?                               NOT MEASURED
-M1.5     cognitive-real 48h?  TO TEST after LH-COGNITIVE freeze (not 5d15600 sum-harness)
+M1.5     cognitive-real 48h harness PASS @7ab345e (wall≥172800) — AUDIT PENDING / NOT CLAIMED
          5d15600 durability smoke/preflight = ENV evidence only
 Post     H_TRUST / safe usable autonomy envelope?              CORE NEXT (measure)
          leading bet: Mission Assurance + Bounded Recovery   PLAN LOCKED, NOT BUILT
@@ -43,7 +43,7 @@ Y23                                                          NOT NOW
 
 ### Plan
 
-1. **NOW:** finish LH-COGNITIVE `cognitive_wall_48h` on `7ab345e` (ENV reboot → full restart OK). No new T0/T1.  
+1. **NOW:** freeze raw LH-COGNITIVE 48h artifacts @`7ab345e` → independent audit → M1.5 decision (scope-limited). No mid-audit patch.  
 2. **After M1.5 decision:** freeze H_TRUST + `SAFE_AUTONOMY_BENCHMARK-v1` → **T1** A/B/C (strong agent / GOS / GOS+Mission Assurance). KEEP/REJECT.  
 3. **If KEEP:** thin Cognitive Simplex / Trust Kernel by MI-1..5; metamorphic as support; then adversarial/external.  
 4. **Plan doc:** `artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md`.  

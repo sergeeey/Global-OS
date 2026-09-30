@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.88 — 2026-09-30
+
+### LH-COGNITIVE wall_48h harness PASS (audit pending)
+
+- Freeze `7ab345e`: COGNITIVE_WALL_CLOCK_48H, wall_seconds≥172800, m15_claimed=false
+- EXTERNAL_RESEARCH_OBJECT workload; M1.5 NOT CLAIMED until independent audit
+
 ## 0.1.87 — 2026-09-28
 
 ### Plan: Mission-Level Runtime Assurance as post-M1.5 bet
