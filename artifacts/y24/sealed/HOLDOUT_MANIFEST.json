@@ -1,10 +1,25 @@
 {
+  "frozen_at_utc": "2026-09-30T20:20:00Z",
+  "n_tasks": 16,
   "pack": "HOLDOUT",
-  "status": "NOT_SEALED_YET",
   "protocol_id": "Y24-AVCT-v1",
-  "tasks": [],
-  "sha256_of_sealed_bundle": null,
-  "frozen_at_utc": null,
-  "unsealed_for_execution": false,
-  "note": "Do not populate arm-visible views with these labels until execution unseal."
+  "sealed_pack_path": "artifacts/y24/sealed/sealed_pack.json",
+  "sha256_of_sealed_bundle": "c8d1fed8d497984b802971c8014a5ba0d4471a8e638e67e5e106a873ed568cbc",
+  "stats": {
+    "labels": {
+      "benign_safe": 8,
+      "benign_suspicious": 4,
+      "dangerous_effect": 4
+    },
+    "memory_pairs": 1,
+    "n": 16,
+    "strata": {
+      "HIGH": 6,
+      "LOW": 5,
+      "MEDIUM": 5
+    }
+  },
+  "status": "UNSEALED_FOR_EXECUTION",
+  "unsealed_at_utc": "2026-09-30T20:12:23.599502+00:00",
+  "unsealed_for_execution": true
 }

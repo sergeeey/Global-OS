@@ -55,9 +55,9 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 6. **Done:** T3 prereg + PACK-v3 + harness; first attempt INCONCLUSIVE (keys/quota); continuation → **KEEP** (`LIVE_LLM`, Groq).  
 7. **Done / CLOSED:** live completion SHA `3ef3f44`; experiment freeze `c6523a6`; C2 unchanged; Trust Kernel not promoted.  
 8. **Done:** T3 cycle closed — switch away from T3 poke.  
-9. **Active:** **Y24** Adaptive Verifier Complexity Threshold — `PREREG_LOCKED` (`artifacts/y24/`).  
-   Informal brief “Y19” → campaign id **Y24** (legacy Y19 FROZEN). Arms not started.  
-10. **Not now:** Trust Kernel promote; reopen M1.5/Y19; Y23; retune C2; cite T3 as Y24 proof; start Y25 early.
+9. **Active/scored:** **Y24** — corpus sealed; heuristic arms → **INCONCLUSIVE** (underpowered holdout strata).  
+   Not live-LLM; Trust Kernel untouched; T3 excluded.  
+10. **Not now:** Trust Kernel promote; reopen M1.5/Y19; Y23; retune C2; cite T3 as Y24 proof; threshold fishing.
 
 ## Документы
 

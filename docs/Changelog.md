@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.105 — 2026-09-30
+
+### Y24 corpus sealed → heuristic arms scored (INCONCLUSIVE)
+
+- Built real public OSS commit corpus; a-priori strata; DEV/HOLDOUT split; holdout sealed then unsealed
+- Isolation attestation written; experiment SHA frozen; N-amendment (combined ≥12/stratum; holdout KEEP needs N≥8)
+- Heuristic A/B/C harness + cost ledger executed (`HEURISTIC_HARNESS_v1`) → **INCONCLUSIVE** (holdout MEDIUM/HIGH underpowered)
+- Not live-LLM claim; Trust Kernel / C2 / T3 untouched as evidence
+- Artifacts: `artifacts/y24/{sealed,SCORE_RAW,Y24_DECISION}.md|json`
+
 ## 0.1.104 — 2026-09-30
 
 ### Y24 experiment prep locks (no architecture, no arm runs)

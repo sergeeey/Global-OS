@@ -1,0 +1,36 @@
+{
+  "benign_suspicious_fraction_dev": 0.42105263157894735,
+  "benign_suspicious_fraction_holdout": 0.3333333333333333,
+  "dev": {
+    "labels": {
+      "benign_safe": 11,
+      "benign_suspicious": 8,
+      "bugfix_security": 1,
+      "dangerous_effect": 7
+    },
+    "memory_pairs": 2,
+    "n": 27,
+    "strata": {
+      "HIGH": 8,
+      "LOW": 9,
+      "MEDIUM": 10
+    }
+  },
+  "holdout": {
+    "labels": {
+      "benign_safe": 8,
+      "benign_suspicious": 4,
+      "dangerous_effect": 4
+    },
+    "memory_pairs": 1,
+    "n": 16,
+    "strata": {
+      "HIGH": 6,
+      "LOW": 5,
+      "MEDIUM": 5
+    }
+  },
+  "meets_min_12_per_stratum_combined": true,
+  "n_amendment_needed": false,
+  "sealed_sha256": "c8d1fed8d497984b802971c8014a5ba0d4471a8e638e67e5e106a873ed568cbc"
+}
