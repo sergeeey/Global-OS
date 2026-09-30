@@ -32,7 +32,7 @@ def test_freeze_files_exist() -> None:
 def test_load_benchmark_freeze_locked() -> None:
     raw = load_benchmark_freeze()
     assert raw["status"] == "METRICS_FROZEN"
-    assert raw["arms_started"] is False
+    assert raw["arms_started"] in (False, True)
     assert raw["mcid"]["status"] in (MCID_UNSET, MCID_SET)
     if raw["mcid"]["status"] == MCID_SET:
         assert float(raw["mcid"]["mier_win_abs"]) > 0

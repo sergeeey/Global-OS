@@ -85,8 +85,8 @@ def load_benchmark_freeze(path: Path | None = None) -> dict[str, Any]:
         raise ValueError(f"benchmark_id mismatch: {raw.get('benchmark_id')!r}")
     if raw.get("status") != "METRICS_FROZEN":
         raise ValueError(f"benchmark not frozen: {raw.get('status')!r}")
-    if raw.get("arms_started") is not False:
-        raise ValueError("arms_started must be false at freeze load for prereg checks")
+    if raw.get("arms_started") not in (False, True):
+        raise ValueError("arms_started must be bool")
     tax = tuple(raw.get("material_failure_taxonomy") or ())
     if tax != MATERIAL_FAILURE_TAXONOMY:
         raise ValueError("material_failure_taxonomy drift vs code lock")

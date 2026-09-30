@@ -34,7 +34,8 @@ Post-M1.5
   enough to justify operational cost?
   → CORE NEXT HYPOTHESIS (H_TRUST)
   → SAFE_AUTONOMY_BENCHMARK-v1 METRICS_FROZEN + MCID SET_BY_VARIANCE_PILOT_v1
-    (synthetic sandbox; arms not started; H_TRUST unconfirmed)
+  → T1 A/B/C DETERMINISTIC_FAULT_MISSIONS_v1 → REJECT (verifier_tax_2_0_completion)
+    H_TRUST NOT CONFIRMED / REJECTED in tested scope (ADR-0011)
 ```
 
 ## Forbidden overclaims
@@ -49,7 +50,8 @@ Post-M1.5
 
 ```text
 Raw-capability amplification:     NOT SHOWN  (no longer the working project bet)
-Trust / long-horizon amplification: PARTIAL (M1.5 scope-limited); H_TRUST TO TEST
+Trust / long-horizon amplification: PARTIAL (M1.5 scope-limited);
+                                    H_TRUST REJECTED under DETERMINISTIC_FAULT_MISSIONS_v1
 ```
 
 We stopped treating raw-IQ amplification as the **working hypothesis** because evidence does not support it so far — not because we proved a universal null.
@@ -147,7 +149,7 @@ Next mechanism candidate (NOT SHOWN / NOT BUILT):
   Mission-Level Runtime Assurance + Bounded Recovery
   Plan: artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md
   Benchmark: SAFE_AUTONOMY_BENCHMARK-v1 METRICS_FROZEN
-  MCID: SET_BY_VARIANCE_PILOT_v1 (synthetic; ≠ T1)
-  Next: T1 A/B/C → KEEP/REJECT
-  Falsifier: safety↑ but completion↓↓ or C≈B
+  MCID: SET_BY_VARIANCE_PILOT_v1 (synthetic lock reused)
+  T1: REJECT — MIER↓ but completion utility tax (Verifier Tax 2.0)
+  Do not promote Mission Assurance; do not rewrite MCID; no Y23
 ```

@@ -3,8 +3,10 @@
 - [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)
 - [x] Freeze SAFE_AUTONOMY_BENCHMARK-v1 + H_TRUST metrics
 - [x] Variance pilot → MCID amendment (synthetic sandbox)
-- [ ] T1 A/B/C Mission Assurance KEEP/REJECT
-- [ ] Only if KEEP: thin Mission Assurance / MI-1..5
+- [x] T1 A/B/C Mission Assurance → **REJECT** (`verifier_tax_2_0_completion`)
+- [x] ADR-0011: no Trust Kernel / MI promote after REJECT
+- [ ] Post-T1 replan (overblocking / utility tax) — no MCID rewrite, no Y23
+- Decision: `artifacts/safe_autonomy_t1/T1_DECISION.md`
 - Plan: `artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md`
 - Benchmark: `artifacts/hardening/SAFE_AUTONOMY_BENCHMARK_V1.md`
 

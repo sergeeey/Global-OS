@@ -1,10 +1,11 @@
 # Next mechanism plan — Mission-Level Runtime Assurance + Bounded Recovery
 
-**Status:** PLAN LOCKED — benchmark **METRICS_FROZEN** — mechanism **NOT implemented** · **NOT H_TRUST confirmed**  
-**As-of:** 2026-09-30 (post M1.5 CLOSED_SCOPE_LIMITED)  
+**Status:** T1 **REJECT** — mechanism **NOT promoted** · H_TRUST **NOT confirmed** in tested scope  
+**As-of:** 2026-09-30  
 **Benchmark:** `SAFE_AUTONOMY_BENCHMARK_V1.md` / `.json`  
-**Confidence on priority:** medium-high  
-**Confidence on GOS efficacy:** unknown (to measure)
+**Decision:** `artifacts/safe_autonomy_t1/T1_DECISION.md` · `docs/adr/ADR-0011-t1-mission-assurance-reject.md`  
+**Confidence on priority:** revised down after Verifier Tax 2.0 REJECT  
+**Confidence on GOS efficacy:** escape reduction shown; integration not justified under this pack
 
 ## Verdict (re-check)
 
@@ -103,21 +104,14 @@ Benchmark modes remain **A fixed-resource** and **B cost-normalized** (see H_TRU
 ```text
 DONE  M1.5 CLOSED_SCOPE_LIMITED
 DONE  FREEZE SAFE_AUTONOMY_BENCHMARK-v1 metrics
-DONE  variance pilot → MCID amendment (mier=0.04 / ssr=0.18 / eps=0.02)
-NEXT  arms:
-     A  strong agent baseline
-     B  current Global OS
-     C  GOS + thin Mission Assurance + bounded recovery
-→ equal model/tools/tasks/data/permissions/env/time
-→ fault classes: goal drift, stale evidence, invalidation, authority expand,
-                 ambiguous effect, state corruption, process restart,
-                 malicious instruction, cumulative multi-step violation
-→ + benign matched controls (measure overblocking)
-→ KEEP / REJECT by P1+P2 with locked MCID + utility/attention taxes
+DONE  variance pilot → MCID amendment
+DONE  T1 arms A/B/C (DETERMINISTIC_FAULT_MISSIONS_v1)
+DONE  KEEP/REJECT → REJECT (verifier_tax_2_0_completion)
+NEXT  replan from evidence; no core promote; no MCID rewrite
 ```
 
-**MCID locked by synthetic within-scenario pilot — not a T1 result.**  
-**Null is a success** if it falsifies the mechanism.
+**MCID locked by synthetic within-scenario pilot — unchanged after T1.**  
+**REJECT is a success** as a falsification of integration readiness under this pack.
 
 ## Sequencing vs current exam
 
@@ -127,13 +121,13 @@ DONE
   M1.5 CLOSED_SCOPE_LIMITED
   H_TRUST + SAFE_AUTONOMY_BENCHMARK-v1 metrics FROZEN
   variance pilot MCID locked (synthetic)
+  T1 REJECT (Verifier Tax 2.0) — ADR-0011
 
 NOW
-  1) thin Mission Assurance experiment / T1 arms A/B/C (T2/eval harness first; no silent T0 promote)
-  2) KEEP/REJECT with locked MCID
-  3) only then Trust Kernel hardening tied to MI-* / material failures
-  4) metamorphic as Verification Fabric add-on
-  5) later: risk budgets / routers if update triggers fire
+  1) do not promote Mission Assurance / Trust Kernel
+  2) replan trust agenda from overblocking evidence (new prereg if redesign)
+  3) metamorphic / other update triggers only if evidence warrants
+  4) no Y23 IQ-rescue; no MCID rewrite; no 48h re-run
 
 OPTIONAL durability (separate)
   host-reboot checkpoint-resume for wall exams

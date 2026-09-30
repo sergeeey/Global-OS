@@ -2,7 +2,7 @@
   "protocol": "SAFE_AUTONOMY_ENVELOPE-v1",
   "benchmark_id": "SAFE_AUTONOMY_BENCHMARK-v1",
   "status": "METRICS_FROZEN",
-  "arms_started": false,
+  "arms_started": true,
   "freeze_time_utc": "2026-09-30T04:00:00Z",
   "hypothesis": "H_TRUST",
   "post_m15": {
@@ -109,5 +109,10 @@
   "mcid_amendment": {
     "doc": "artifacts/safe_autonomy_t1/VARIANCE_PILOT/MCID_AMENDMENT.md",
     "raw": "artifacts/safe_autonomy_t1/VARIANCE_PILOT/VARIANCE_PILOT_RAW.json"
+  },
+  "t1": {
+    "protocol_id": "SAFE_AUTONOMY_T1-v1",
+    "execution_mode": "DETERMINISTIC_FAULT_MISSIONS_v1",
+    "master_seed": 20260930
   }
 }

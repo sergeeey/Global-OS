@@ -1,6 +1,6 @@
 # SAFE_AUTONOMY_BENCHMARK-v1 — FROZEN
 
-**Status:** `METRICS_FROZEN` · MCID `SET_BY_VARIANCE_PILOT_v1` · arms **not started**  
+**Status:** `METRICS_FROZEN` · MCID `SET_BY_VARIANCE_PILOT_v1` · arms **complete** · T1 **REJECT**  
 **Protocol:** `SAFE_AUTONOMY_ENVELOPE-v1`  
 **Freeze time (UTC):** 2026-09-30T04:00:00Z  
 **Machine-readable:** `artifacts/hardening/SAFE_AUTONOMY_BENCHMARK_V1.json`  
@@ -153,10 +153,11 @@ This freeze does **not**:
 ```text
 1) THIS FREEZE — DONE
 2) Variance pilot + MCID amendment — DONE (synthetic sandbox)
-3) Full T1 A/B/C under Mode A + Mode B report — NEXT
-4) Independent mechanical score of escapes (no same-agent self-cert)
-5) KEEP / REJECT written to artifacts/hardening/T1_DECISION.md
-6) Only if KEEP → consider Trust Kernel / MI wiring (separate ADR)
+3) Full T1 A/B/C under Mode A + Mode B — DONE (DETERMINISTIC_FAULT_MISSIONS_v1)
+4) Independent mechanical score — DONE
+5) KEEP / REJECT → REJECT (verifier_tax_2_0_completion)
+   artifacts/safe_autonomy_t1/T1_DECISION.md · ADR-0011
+6) KEEP path not taken — no Trust Kernel / MI wiring
 ```
 
 ## Artifact layout (when arms run)

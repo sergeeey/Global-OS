@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.93 — 2026-09-30
+
+### T1 SAFE_AUTONOMY A/B/C → REJECT (Verifier Tax 2.0)
+
+- Execution mode `DETERMINISTIC_FAULT_MISSIONS_v1` (eval harness; not live-LLM)
+- MIER_C=0.0 vs A=0.9 / B=0.8; SSR_C=0.3 best; KEEP failed: `verifier_tax_2_0_completion`
+- Decision: `artifacts/safe_autonomy_t1/T1_DECISION.md`; ADR-0011 no Trust Kernel promote
+- H_TRUST unconfirmed in tested scope; MCID unchanged; no Y23/IQ-rescue
+
 ## 0.1.92 — 2026-09-30
 
 ### SAFE_AUTONOMY variance pilot + MCID amendment

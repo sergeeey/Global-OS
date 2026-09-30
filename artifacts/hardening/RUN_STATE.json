@@ -1,8 +1,8 @@
 {
-  "sprint": "POST_M15_T1_ARMS_NEXT",
-  "updated_at": "2026-09-30T04:20:00Z",
-  "current_goal": "T1_SAFE_AUTONOMY_ABC_ARMS",
-  "phase_statement": "M1.5 CLOSED_SCOPE_LIMITED. SAFE_AUTONOMY_BENCHMARK-v1 METRICS_FROZEN. MCID SET_BY_VARIANCE_PILOT_v1 (mier=0.04 ssr=0.18 eps=0.02; synthetic sandbox). Arms not started. Next: T1 A/B/C KEEP/REJECT. Do not re-run 48h.",
+  "sprint": "POST_T1_REJECT",
+  "updated_at": "2026-09-30T09:35:00Z",
+  "current_goal": "POST_T1_ROADMAP_REPLAN",
+  "phase_statement": "T1 SAFE_AUTONOMY A/B/C COMPLETE under DETERMINISTIC_FAULT_MISSIONS_v1. Verdict REJECT (verifier_tax_2_0_completion). MIER_C=0 vs A=0.9/B=0.8 but completion tax too high. H_TRUST unconfirmed in tested scope. No Mission Assurance core promote. No 48h re-run.",
   "operator_action_required": true,
   "operator_dispatch_required": true,
   "y20": {
@@ -27,7 +27,8 @@
     "universal_advantage": false,
     "m15": true,
     "continual_si": false,
-    "m15_scope": "LH_COGNITIVE_V1_ONLY"
+    "m15_scope": "LH_COGNITIVE_V1_ONLY",
+    "h_trust": false
   },
   "long_horizon": {
     "linux_compressed_preflight": "PASS",
@@ -71,7 +72,7 @@
       "note": "successful run is the post-reboot full restart; interrupted partial run does not count"
     }
   },
-  "next_exact_action": "Start T1 SAFE_AUTONOMY arms A/B/C under equal budgets; score with locked MCID; write T1_DECISION.md (KEEP|REJECT). Synthetic pilot \u2260 H_TRUST.",
+  "next_exact_action": "Accept T1 REJECT; do not promote Mission Assurance; replan trust roadmap from evidence (overblocking / utility tax); optional new prereg if redesign \u2014 no MCID rewrite, no Y23.",
   "forbidden_now": [
     "r4_during_exam",
     "harden_exam_sha",
@@ -83,7 +84,10 @@
     "claim_h_trust_before_t1_decision",
     "implement_mission_assurance_core_before_keep",
     "invent_mcid_without_variance_pilot",
-    "re_run_same_48h_exam"
+    "re_run_same_48h_exam",
+    "promote_mission_assurance_after_t1_reject",
+    "rewrite_mcid_after_t1",
+    "y23_iq_rescue_after_t1_reject"
   ],
   "r1": {
     "mission_id": "R1-EVIDENCE-INTEGRITY-v1",
@@ -117,7 +121,8 @@
     "raw_iq": "NOT_SHOWN",
     "universal": "NOT_SHOWN",
     "continual_si": "NOT_MEASURED",
-    "m15": "CLOSED_SCOPE_LIMITED"
+    "m15": "CLOSED_SCOPE_LIMITED",
+    "h_trust": "REJECTED_T1_DETERMINISTIC_FAULT_MISSIONS_V1"
   },
   "r3": {
     "mission": "R3-DATA-FORENSICS-v1",
@@ -172,7 +177,7 @@
     "same_sha_restart_allowed": true
   },
   "next_mechanism_plan": "artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md",
-  "next_mechanism_status": "MCID_LOCKED_ARMS_NOT_STARTED",
+  "next_mechanism_status": "T1_REJECTED_NOT_PROMOTED",
   "post_48h": {
     "operator_runbook": "artifacts/hardening/OPERATOR_POST_48H_NOW.md",
     "auditor": "artifacts/hardening/audit_cognitive_48h/freeze_and_audit.py",
@@ -182,19 +187,28 @@
   "m15_decision": "artifacts/hardening/M15_DECISION.md",
   "exam_sha": "7ab345e5badb00a8c97ffdb7010ee4eb42dac4bb",
   "audit_sha": "a7960d9616c9c08224f5be9e1e7097bca9744bd0",
-  "h_trust_status": "METRICS_FROZEN_MCID_SET",
+  "h_trust_status": "REJECTED_DETERMINISTIC_FAULT_MISSIONS_V1",
   "safe_autonomy_benchmark": {
     "id": "SAFE_AUTONOMY_BENCHMARK-v1",
     "status": "METRICS_FROZEN",
-    "arms_started": false,
+    "arms_started": true,
+    "arms_complete": true,
+    "t1_verdict": "REJECT",
+    "t1_decision": "artifacts/safe_autonomy_t1/T1_DECISION.md",
+    "execution_mode": "DETERMINISTIC_FAULT_MISSIONS_v1",
     "mcid_status": "SET_BY_VARIANCE_PILOT_v1",
-    "mier_win_abs": 0.04,
-    "ssr_win_abs": 0.18,
-    "mier_approx_eps": 0.02,
-    "prereg_md": "artifacts/hardening/SAFE_AUTONOMY_BENCHMARK_V1.md",
-    "prereg_json": "artifacts/hardening/SAFE_AUTONOMY_BENCHMARK_V1.json",
-    "variance_pilot": "artifacts/safe_autonomy_t1/VARIANCE_PILOT/",
-    "metrics_module": "src/global_os/evals/trust/safe_autonomy_metrics.py",
-    "pilot_module": "src/global_os/evals/trust/variance_pilot.py"
+    "mier": {
+      "A": 0.9,
+      "B": 0.8,
+      "C": 0.0
+    },
+    "ssr": {
+      "A": 0.1,
+      "B": 0.2,
+      "C": 0.3
+    },
+    "reject_reasons": [
+      "verifier_tax_2_0_completion"
+    ]
   }
 }

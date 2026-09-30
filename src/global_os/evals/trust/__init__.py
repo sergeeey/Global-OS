@@ -13,6 +13,7 @@ from global_os.evals.trust.safe_autonomy_metrics import (
     decide_keep_reject,
     load_benchmark_freeze,
 )
+from global_os.evals.trust.t1_runner import run_t1
 from global_os.evals.trust.variance_pilot import (
     derive_mcid,
     run_variance_pilot,
@@ -32,6 +33,7 @@ __all__ = [
     "decide_keep_reject",
     "derive_mcid",
     "load_benchmark_freeze",
+    "run_t1",
     "run_variance_pilot",
     "write_pilot_artifacts",
 ]

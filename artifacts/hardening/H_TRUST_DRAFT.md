@@ -1,9 +1,10 @@
 # H_TRUST — hypothesis (metrics FROZEN; Trust Kernel NOT built)
 
-**Status:** `METRICS_FROZEN` — SAFE_AUTONOMY_BENCHMARK-v1 locked  
+**Status:** `REJECTED_IN_TESTED_SCOPE` — T1 REJECT under `DETERMINISTIC_FAULT_MISSIONS_v1`  
 **Activated after:** M1.5 `CLOSED_SCOPE_LIMITED` (`M15_DECISION.md`)  
 **Benchmark:** `artifacts/hardening/SAFE_AUTONOMY_BENCHMARK_V1.md` (+ `.json`)  
-**Must not** reopen LH-COGNITIVE 48h or patch exam SHA `7ab345e` for this hypothesis
+**Decision:** `artifacts/safe_autonomy_t1/T1_DECISION.md` · ADR-0011  
+**Must not** reopen LH-COGNITIVE 48h, rewrite MCID, or promote Mission Assurance after REJECT
 
 ## Hypothesis
 
@@ -49,10 +50,7 @@ Rationale: GOS adds overhead; A alone can punish the mechanism under test; B alo
 **Mission-Level Runtime Assurance + Bounded Recovery** (“Cognitive Simplex” = experiment label).
 
 - Plan: `artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md`
-- Benchmark freeze: **SAFE_AUTONOMY_BENCHMARK-v1** (`METRICS_FROZEN`; arms not started)
-- MCID: **SET_BY_VARIANCE_PILOT_v1** (mier=0.04 / ssr=0.18 / eps=0.02; synthetic sandbox ≠ T1)
-- Metric module: `src/global_os/evals/trust/safe_autonomy_metrics.py`
-- First experiment: **T1 SAFE_AUTONOMY_ENVELOPE** (A strong agent / B current GOS / C GOS+assurance)
-- Primary metrics: MIER + SSR; falsifier = utility/attention tax unacceptable or C≈B
-- Must stay **deterministic/stateful first**; LLM monitor never sole oracle
-- **Do not implement Mission Assurance in core** until T1 KEEP
+- Benchmark freeze: **SAFE_AUTONOMY_BENCHMARK-v1** (`METRICS_FROZEN`; arms complete)
+- MCID: **SET_BY_VARIANCE_PILOT_v1** (mier=0.04 / ssr=0.18 / eps=0.02) — unchanged after T1
+- T1 result: **REJECT** — MIER_C=0 vs A=0.9/B=0.8 but `verifier_tax_2_0_completion`
+- **Do not implement Mission Assurance in core** after REJECT (ADR-0011)

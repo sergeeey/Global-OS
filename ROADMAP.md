@@ -41,16 +41,18 @@ Post-M1.5 — science freeze DONE
   MCID SET_BY_VARIANCE_PILOT_v1 (mier=0.04 / ssr=0.18 / eps=0.02; synthetic)
         │
         ▼
-T1 SAFE_AUTONOMY_ENVELOPE (KEEP/REJECT) — NEXT
-  A strong agent | B current GOS | C GOS + Mission-Level Runtime Assurance + bounded recovery
-  Leading candidate plan: artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md
-  Thin evaluator only; LLM monitor ≠ oracle; null result OK
+T1 SAFE_AUTONOMY_ENVELOPE — REJECT (2026-09-30)
+  Mode: DETERMINISTIC_FAULT_MISSIONS_v1
+  MIER_C=0 vs A=0.9/B=0.8; SSR_C best; failed KEEP: verifier_tax_2_0_completion
+  Decision: artifacts/safe_autonomy_t1/T1_DECISION.md · ADR-0011
+  Thin evaluator only; LLM monitor ≠ oracle; null/REJECT = valid science
         │
         ▼
 IF KEEP → Trust Kernel / Cognitive Simplex harden by MI-1..5 failure modes
   (+ metamorphic Verification Fabric as support)
   → adversarial → external benchmarks → interoperability
-IF REJECT → do not build; re-rank via update triggers (metamorphic / risk / router / effects)
+IF REJECT (current) → do not build/promote; re-rank via update triggers
+  (overblocking redesign with new prereg only; no MCID rewrite; no Y23)
         │
         ▼
 DoD V2 / M2 / M3 / PRODUCTION_PROVEN (unchanged honesty: per-capability evidence)

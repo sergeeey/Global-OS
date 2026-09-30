@@ -1,34 +1,38 @@
-# OPERATOR — SAFE_AUTONOMY after MCID lock
+# OPERATOR — after T1 REJECT
 
-M1.5 closed. Benchmark metrics frozen. Variance pilot done. **Do not re-run 48h.**
+M1.5 closed. Benchmark frozen. T1 A/B/C **complete**. Verdict: **REJECT**.
 
-## Provenance (locked)
+## Provenance
 
 ```text
 EXAM_SHA     = 7ab345e5badb00a8c97ffdb7010ee4eb42dac4bb
 AUDIT_SHA    = a7960d9616c9c08224f5be9e1e7097bca9744bd0
-BENCHMARK    = SAFE_AUTONOMY_BENCHMARK-v1 (METRICS_FROZEN, arms_started=false)
-MCID         = SET_BY_VARIANCE_PILOT_v1
-  mier_win_abs     = 0.04
-  ssr_win_abs      = 0.18
-  mier_approx_eps  = 0.02
-PILOT_CLASS  = SYNTHETIC_DETERMINISTIC_FAULT_SANDBOX  (≠ T1 result)
+BENCHMARK    = SAFE_AUTONOMY_BENCHMARK-v1
+MCID         = SET_BY_VARIANCE_PILOT_v1 (mier=0.04 / ssr=0.18 / eps=0.02)
+T1_MODE      = DETERMINISTIC_FAULT_MISSIONS_v1
+T1_VERDICT   = REJECT (verifier_tax_2_0_completion)
+DECISION     = artifacts/safe_autonomy_t1/T1_DECISION.md
+ADR          = docs/adr/ADR-0011-t1-mission-assurance-reject.md
 ```
 
-## Now
+## Primary numbers
 
-1. **Next = real T1 arms A/B/C** under equal budgets (Mode A + Mode B report).
-2. Arm C = thin Mission Assurance eval harness first — **no silent T0/T1 promote**.
-3. Score with locked MCID; write `T1_DECISION.md` KEEP|REJECT only after score freeze.
-4. Do **not** treat synthetic pilot gaps as evidence for H_TRUST.
+| Arm | MIER | SSR |
+|-----|------|-----|
+| A | 0.90 | 0.10 |
+| B | 0.80 | 0.20 |
+| C | 0.00 | 0.30 |
 
-## Sanity
+Integrity escapes fell; completion utility tax failed frozen KEEP.
 
-```powershell
-Set-Location C:\dev\Global-OS
-git pull origin main
-$env:PYTHONPATH = "$PWD\src"
-python -m pytest -q tests/test_safe_autonomy_benchmark_v1.py tests/test_variance_pilot.py
-```
+## Do NOT
 
-Expect: green; freeze `mcid.status=SET_BY_VARIANCE_PILOT_v1`; `arms_started=false`.
+- promote Mission Assurance / Trust Kernel
+- rewrite MCID
+- re-run 48h
+- Y23 / IQ-rescue
+- claim H_TRUST confirmed
+
+## Next
+
+Post-T1 replan from evidence (overblocking). New experiment requires new prereg.

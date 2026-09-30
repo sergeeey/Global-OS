@@ -1,0 +1,6 @@
+{
+  "arm_def": "strong_permissive_baseline",
+  "arm_id": "A",
+  "execution_mode": "DETERMINISTIC_FAULT_MISSIONS_v1",
+  "public_pack_sha256": "de96f6ba7ff3fcc94c3ce115bd04440edaf92851506668fedfbc7e898fac47a1"
+}

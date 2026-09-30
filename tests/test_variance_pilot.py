@@ -46,13 +46,15 @@ def test_write_and_amend_freeze(tmp_path: Path) -> None:
 
     freeze = tmp_path / "freeze.json"
     freeze.write_text(FREEZE_JSON.read_text(encoding="utf-8"), encoding="utf-8")
-    # Reset mcid to unset for amend path if already set on main freeze
+    # Reset mcid/arms for amend path if already set on main freeze
     raw = json.loads(freeze.read_text(encoding="utf-8"))
     raw["mcid"] = {
         "status": "NOT_SET_UNTIL_VARIANCE_PILOT",
         "rule": "no MCID before variance pilot; amendment required",
     }
+    raw["arms_started"] = False
     raw.pop("mcid_amendment", None)
+    raw.pop("t1", None)
     freeze.write_text(json.dumps(raw), encoding="utf-8")
 
     amended = apply_mcid_to_freeze_json(freeze_path=freeze, mcid=result["mcid"])
@@ -71,7 +73,7 @@ def test_repo_pilot_artifacts_present_after_run() -> None:
     assert PILOT_DIR.joinpath("VARIANCE_PILOT_RAW.json").is_file()
     freeze = load_benchmark_freeze()
     assert freeze["mcid"]["status"] == MCID_SET
-    assert freeze["arms_started"] is False
+    assert freeze["arms_started"] in (False, True)
 
 
 def test_keep_reject_uses_mcid() -> None:

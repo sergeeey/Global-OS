@@ -32,7 +32,8 @@ R1–R3    useful autonomous checkable real work (bundle)?     EARLY YES
 M1.5     LH-COGNITIVE 48h integrity @7ab345e                 CLOSED_SCOPE_LIMITED
          (audit PASS; ≠ production / Continual SI / causal advantage)
 Post     SAFE_AUTONOMY_BENCHMARK-v1 metrics                   FROZEN
-         Mission Assurance T1 A/B/C                          NEXT (arms not started)
+         Mission Assurance T1 A/B/C                          REJECT (Verifier Tax 2.0)
+         H_TRUST in tested deterministic fault scope         REJECTED / NOT CONFIRMED
 Continual SI / universal advantage                           NOT MEASURED / NOT CLAIMED
 Y20–Y22 scorers                                              FROZEN
 Y23                                                          NOT NOW
@@ -41,11 +42,12 @@ Y23                                                          NOT NOW
 ### Plan
 
 1. **Done:** M1.5 scope-limited closed — `artifacts/hardening/M15_DECISION.md` (EXAM `7ab345e` / AUDIT `a7960d9`).  
-2. **Done:** `SAFE_AUTONOMY_BENCHMARK-v1` + H_TRUST metrics FROZEN; MCID SET_BY_VARIANCE_PILOT_v1 (synthetic; arms not started).  
-3. **Next:** T1 A/B/C (strong agent / GOS / GOS+Mission Assurance) → KEEP/REJECT.  
-4. Plan: `NEXT_MECHANISM_MISSION_ASSURANCE.md`.  
-5. **Separate ops:** `artifacts/ops/SEPARATE_BACKLOG.md`.  
-6. **Not now:** re-run same 48h; Y23; Continual SI slogans; production-ready claims; core Mission Assurance before T1 KEEP.
+2. **Done:** `SAFE_AUTONOMY_BENCHMARK-v1` + H_TRUST metrics FROZEN; MCID SET_BY_VARIANCE_PILOT_v1.  
+3. **Done:** T1 A/B/C under `DETERMINISTIC_FAULT_MISSIONS_v1` → **REJECT** (MIER↓ but completion tax; ADR-0011).  
+4. **Next:** post-T1 replan from evidence (no Mission Assurance promote; no MCID rewrite; no Y23).  
+5. Plan: `NEXT_MECHANISM_MISSION_ASSURANCE.md` (candidate falsified for integration in tested scope).  
+6. **Separate ops:** `artifacts/ops/SEPARATE_BACKLOG.md`.  
+7. **Not now:** re-run same 48h; Y23; Continual SI slogans; production-ready claims; core Mission Assurance after REJECT.
 
 ## Документы
 
