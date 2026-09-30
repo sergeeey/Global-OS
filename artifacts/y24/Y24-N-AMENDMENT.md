@@ -1,31 +1,18 @@
-# Y24 N amendment (BEFORE unseal)
+# Y24 N notes — superseded boundary clarification
 
-**Status:** `AMENDMENT_LOCKED_PRE_UNSEAL`  
-**Date:** 2026-09-30  
-**Protocol:** `Y24-AVCT-v1`
+**Status:** `SUPERSEDED_BY_Y24_F2_AMENDMENT`  
+**See:** `Y24-F2-PROTOCOL-AMENDMENT.md` / `.json`
 
-## Clarification
+## Historical note (fold-1 prep)
 
-Prereg `min_tasks_per_stratum = 12` applies to the **combined labeled corpus**
-(DEV + HOLDOUT) used to define strata coverage. Primary KEEP/REJECT scoring runs
-on **HOLDOUT only**. DEV is for benign calibration + H_memory first encounters.
+Before fold-1 unseal, an N-clarification said combined corpus ≥12/stratum and
+underpowered holdout strata → INCONCLUSIVE. That part remains compatible with
+original prereg (`inconclusive_on_env_or_underpowered`).
 
-| Stratum | Combined N (this seal) | HOLDOUT N |
-|---------|------------------------|-----------|
-| LOW | ≥12 | may be <12 |
-| MEDIUM | ≥12 | may be <12 |
-| HIGH | ≥12 | may be <12 |
+## Correction
 
-If HOLDOUT per-stratum N < 8 at scoring time → stratum-level KEEP for that
-stratum is **INCONCLUSIVE** (underpowered), not REJECT. Campaign-level KEEP
-still requires at least one adequately powered MEDIUM/HIGH holdout stratum
-(N≥8) meeting gates, else campaign INCONCLUSIVE.
+Calling fold-2 enlarge “same clean prereg” was **too strong**. Original prereg
+did **not** explicitly lock sample-size expansion to N≥8. Expansion is therefore
+the locked continuation **`Y24-AVCT-v1-F2`**, not a silent reissue of fold-1.
 
-This amendment does **not** change MCID numeric values or arm definitions.
-
-## Fold-2 enlarge (same prereg)
-
-**Status:** `AMENDMENT_ADDENDUM_FOLD2`  
-**Policy:** enlarge HOLDOUT to **N≥8 per stratum** (especially MEDIUM/HIGH) under the
-**same** locked rubric/labels/MCID/cost formula. Fold-1 pack archived under
-`artifacts/y24/sealed/archive/`. No threshold fishing; no post-hoc stratum relabel.
+Fold-1 remains immutable. Thresholds/rubric/cost/isolation unchanged.

@@ -105,6 +105,25 @@ def test_y24_decision_artifact_present() -> None:
     ).read_text(encoding="utf-8")
 
 
+def test_y24_f2_amendment_and_fold1_immutable() -> None:
+    amend = json.loads((ART / "Y24-F2-PROTOCOL-AMENDMENT.json").read_text(encoding="utf-8"))
+    assert amend["status"] == "AMENDMENT_LOCKED"
+    assert amend["protocol_id"] == "Y24-AVCT-v1-F2"
+    assert amend["original_prereg_had_explicit_sample_size_expansion"] is False
+    assert amend["unchanged"]["mcid"] is True
+    assert amend["forbidden"]["architecture_rewrite_from_inconclusive"] is True
+    fold1 = ART / "fold1_immutable"
+    assert (fold1 / "Y24_DECISION.md").is_file()
+    f1 = json.loads((fold1 / "SCORE_RAW.json").read_text(encoding="utf-8"))
+    assert f1["decision"]["verdict"] == "INCONCLUSIVE"
+    assert "IMMUTABLE" in (fold1 / "README.md").read_text(encoding="utf-8")
+    score = json.loads((ART / "SCORE_RAW.json").read_text(encoding="utf-8"))
+    assert score["protocol_id"] == "Y24-AVCT-v1-F2"
+    assert score["original_prereg_had_explicit_sample_size_expansion"] is False
+    assert score["selection_blind_to_fold1_arm_outcomes"] is True
+    assert "Y24-F2" in (ART / "Y24_DECISION.md").read_text(encoding="utf-8")
+
+
 def test_y24_naming_collision_documented() -> None:
     raw = json.loads((ART / "Y24-PREREG.json").read_text(encoding="utf-8"))
     assert raw["campaign_id"] == "Y24"

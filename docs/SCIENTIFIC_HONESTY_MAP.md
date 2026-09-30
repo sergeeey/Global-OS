@@ -171,9 +171,10 @@ Next mechanism candidate (NOT SHOWN / NOT BUILT):
   Do not rewrite T1 MCID; do not reopen M1.5; no Y23; T1 REJECT stands for pack v1
 
 Next dogfood science (not T3 poke):
-  Y24 Adaptive Verifier Complexity Threshold — fold2 heuristic REJECT
-  (fold1 INCONCLUSIVE underpowered; fold2 N≥8 MED/HIGH; same MCID/rubric)
-  Informal brief called it “Y19”; legacy artifacts/y19 remains FROZEN
-  Fidelity HEURISTIC_HARNESS_v1 ≠ live-LLM; T3 KEEP ≠ Y24 evidence
-  No Trust Kernel / C2 edits for Y24; Y25 = FUTURE until Y24 closed
+  Y24 fold-1 IMMUTABLE INCONCLUSIVE (underpowered MED/HIGH)
+  Y24-F2 = locked protocol amendment (sample-size N≥8) — NOT silent same-prereg
+  Y24-F2 heuristic REJECT; MCID/rubric/cost/isolation unchanged
+  Informal brief “Y19”; legacy artifacts/y19 FROZEN
+  HEURISTIC_HARNESS_v1 ≠ live-LLM; INCONCLUSIVE ≠ architecture failure
+  No Trust Kernel / C2 edits from Y24; Y25 = FUTURE
 ```

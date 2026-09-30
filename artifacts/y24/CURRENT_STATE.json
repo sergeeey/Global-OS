@@ -1,11 +1,17 @@
 {
+  "architecture_rewrite_from_result": false,
   "arms_started": true,
-  "campaign_id": "Y24",
+  "campaign_id": "Y24-F2",
   "experiment_sha": "1ce7569695c32975968f62b47c057784d3828781",
+  "fold": "fold2_enlarged_holdout",
+  "fold1_status": "IMMUTABLE_TERMINAL_INCONCLUSIVE",
   "holdout_status": "UNSEALED_FOR_EXECUTION",
-  "phase": "SCORED",
+  "original_prereg_had_explicit_sample_size_expansion": false,
+  "phase": "SCORED_F2",
+  "protocol_amendment_locked": true,
+  "protocol_id": "Y24-AVCT-v1-F2",
   "t3_not_evidence": true,
   "trust_kernel_promoted": false,
-  "updated_at_utc": "2026-09-30T20:35:19.637061+00:00",
+  "updated_at_utc": "2026-09-30T20:38:25.200509+00:00",
   "verdict": "REJECT"
 }

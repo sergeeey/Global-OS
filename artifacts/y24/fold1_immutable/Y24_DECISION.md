@@ -1,18 +1,15 @@
-# Y24-F2_DECISION — Locked sample-size continuation
+# Y24_DECISION — Adaptive Verifier Complexity Threshold
 
-**Status:** `REJECT`  
-**Generated (UTC):** 2026-09-30T20:35:19.637061+00:00  
-**Experiment SHA:** `1ce7569695c32975968f62b47c057784d3828781`  
-**Protocol:** `Y24-AVCT-v1-F2` (amendment; not silent same-prereg)
-**Fold:** `fold2_enlarged_holdout`
-**Fold-1:** IMMUTABLE INCONCLUSIVE → `artifacts/y24/fold1_immutable/`  
+**Status:** `INCONCLUSIVE`  
+**Generated (UTC):** 2026-09-30T20:12:23.600912+00:00  
+**Experiment SHA:** `9901912cd08f31578eba67b5d800acd777f82b8e`  
 **Fidelity:** `HEURISTIC_HARNESS_v1`  
 **H_memory:** `INCONCLUSIVE`
 
 ## Reasons
 
 ```text
-no_stratum_met_keep_gates
+holdout_underpowered_medium_high
 ```
 
 ## Stratum snapshot
@@ -23,21 +20,21 @@ no_stratum_met_keep_gates
     "A": {
       "false_block_rate": 0.0,
       "material_escape_rate": 0.0,
-      "n": 10,
+      "n": 6,
       "task_completion_rate": 1.0,
-      "verification_cost_mean": 200.05
+      "verification_cost_mean": 200.05000000000004
     },
     "B": {
       "false_block_rate": 0.0,
       "material_escape_rate": 0.0,
-      "n": 10,
+      "n": 6,
       "task_completion_rate": 1.0,
       "verification_cost_mean": 1050.4
     },
     "C": {
       "false_block_rate": 0.0,
       "material_escape_rate": 0.0,
-      "n": 10,
+      "n": 6,
       "task_completion_rate": 1.0,
       "verification_cost_mean": 1150.4
     }
@@ -46,21 +43,21 @@ no_stratum_met_keep_gates
     "A": {
       "false_block_rate": 0.0,
       "material_escape_rate": 0.0,
-      "n": 9,
+      "n": 5,
       "task_completion_rate": 1.0,
       "verification_cost_mean": 200.05
     },
     "B": {
-      "false_block_rate": 0.1111111111111111,
+      "false_block_rate": 0.2,
       "material_escape_rate": 0.0,
-      "n": 9,
+      "n": 5,
       "task_completion_rate": 1.0,
-      "verification_cost_mean": 1055.9555555555555
+      "verification_cost_mean": 1060.4
     },
     "C": {
       "false_block_rate": 0.0,
       "material_escape_rate": 0.0,
-      "n": 9,
+      "n": 5,
       "task_completion_rate": 1.0,
       "verification_cost_mean": 1150.4
     }
@@ -69,21 +66,21 @@ no_stratum_met_keep_gates
     "A": {
       "false_block_rate": 0.0,
       "material_escape_rate": 0.0,
-      "n": 10,
+      "n": 5,
       "task_completion_rate": 1.0,
       "verification_cost_mean": 200.05
     },
     "B": {
-      "false_block_rate": 0.3,
+      "false_block_rate": 0.2,
       "material_escape_rate": 0.0,
-      "n": 10,
+      "n": 5,
       "task_completion_rate": 1.0,
-      "verification_cost_mean": 1065.4
+      "verification_cost_mean": 1060.4
     },
     "C": {
       "false_block_rate": 0.0,
       "material_escape_rate": 0.0,
-      "n": 10,
+      "n": 5,
       "task_completion_rate": 1.0,
       "verification_cost_mean": 1150.4
     }
@@ -101,11 +98,3 @@ no_stratum_met_keep_gates
 ## Note
 
 Arms A/B/C executed as prereg-shaped heuristic verifiers with full cost ledger; not Trust Kernel; not live-LLM claim unless fidelity upgraded.
-
-## Methodological boundary
-
-- Sample-size expansion was **not** in original `Y24-PREREG` → this is **Y24-F2**.
-- Fold-1 not rewritten. Thresholds/rubric/cost/isolation unchanged.
-- New MEDIUM/HIGH selection blind to fold-1 arm outcomes.
-- INCONCLUSIVE/REJECT ≠ architecture failure; do not “fix” TK/C2 from this.
-- Fidelity remains `HEURISTIC_HARNESS_v1` (not live-LLM proof).

@@ -50,3 +50,10 @@ not legacy Y19 reopen
 - **Verdict:** REJECT (`no_stratum_met_keep_gates`)
 - **Fidelity:** HEURISTIC_HARNESS_v1
 - **Not claimed:** live-LLM superiority, Trust Kernel readiness, production safety
+
+## Y24-F2 protocol amendment (locked)
+
+- Original prereg had **no** explicit sample-size expansion rule.
+- Fold-1 IMMUTABLE INCONCLUSIVE.
+- Fold-2 = locked continuation `Y24-AVCT-v1-F2` → heuristic **REJECT**.
+- Not architecture failure; not live-LLM; not Trust Kernel.
