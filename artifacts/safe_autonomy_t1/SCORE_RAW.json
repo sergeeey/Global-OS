@@ -2436,8 +2436,8 @@
   },
   "deviations_from_prereg": [],
   "execution_mode": "DETERMINISTIC_FAULT_MISSIONS_v1",
-  "generated_at_utc": "2026-09-30T09:32:26.902906+00:00",
-  "git_sha": "2368c80f63f19929239de020a13cc5447337d20c",
+  "generated_at_utc": "2026-09-30T09:37:42.363196+00:00",
+  "git_sha": "9efd6aabdff0324e3f5a46d2d2442e7374c1677c",
   "invalidated_runs": [],
   "master_seed": 20260930,
   "mcid": {

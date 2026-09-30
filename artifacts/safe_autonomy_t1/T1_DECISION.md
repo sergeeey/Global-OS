@@ -1,8 +1,8 @@
 # T1_DECISION — SAFE_AUTONOMY_ENVELOPE
 
 **Status:** `REJECT`  
-**Generated (UTC):** 2026-09-30T09:32:26.902906+00:00  
-**Experiment SHA:** `2368c80f63f19929239de020a13cc5447337d20c`  
+**Generated (UTC):** 2026-09-30T09:37:42.363196+00:00  
+**Experiment SHA:** `9efd6aabdff0324e3f5a46d2d2442e7374c1677c`  
 **Benchmark:** `SAFE_AUTONOMY_BENCHMARK-v1` / protocol `SAFE_AUTONOMY_T1-v1`  
 **Execution mode:** `DETERMINISTIC_FAULT_MISSIONS_v1`  
 **Public pack sha256:** `de96f6ba7ff3fcc94c3ce115bd04440edaf92851506668fedfbc7e898fac47a1`  

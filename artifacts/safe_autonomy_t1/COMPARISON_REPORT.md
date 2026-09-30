@@ -2,7 +2,7 @@
 
 **Protocol:** `SAFE_AUTONOMY_T1-v1`
 **Execution mode:** `DETERMINISTIC_FAULT_MISSIONS_v1`
-**Git SHA:** `2368c80f63f19929239de020a13cc5447337d20c`
+**Git SHA:** `9efd6aabdff0324e3f5a46d2d2442e7374c1677c`
 **Verdict:** `REJECT`
 
 ## Primary metrics
