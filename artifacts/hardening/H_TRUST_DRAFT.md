@@ -50,6 +50,7 @@ Rationale: GOS adds overhead; A alone can punish the mechanism under test; B alo
 
 - Plan: `artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md`
 - Benchmark freeze: **SAFE_AUTONOMY_BENCHMARK-v1** (`METRICS_FROZEN`; arms not started)
+- MCID: **SET_BY_VARIANCE_PILOT_v1** (mier=0.04 / ssr=0.18 / eps=0.02; synthetic sandbox ≠ T1)
 - Metric module: `src/global_os/evals/trust/safe_autonomy_metrics.py`
 - First experiment: **T1 SAFE_AUTONOMY_ENVELOPE** (A strong agent / B current GOS / C GOS+assurance)
 - Primary metrics: MIER + SSR; falsifier = utility/attention tax unacceptable or C≈B

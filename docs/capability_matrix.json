@@ -107,8 +107,8 @@
     },
     {
       "id": "safe_autonomy_benchmark_v1",
-      "state": "STATICALLY_IMPLEMENTED",
-      "evidence": "SAFE_AUTONOMY_BENCHMARK-v1 METRICS_FROZEN (prereg md+json); H_TRUST metrics locked; MIER/SSR + KEEP/REJECT harness in src/global_os/evals/trust/safe_autonomy_metrics.py; arms not started; MCID unset until variance pilot; ≠ H_TRUST confirmed; ≠ Mission Assurance implemented; tests/test_safe_autonomy_benchmark_v1.py"
+      "state": "RUNTIME_VERIFIED_HARNESS",
+      "evidence": "SAFE_AUTONOMY_BENCHMARK-v1 METRICS_FROZEN; variance pilot SAFE_AUTONOMY_VARIANCE_PILOT-v1 wrote MCID amendment (mier_win_abs=0.04, ssr_win_abs=0.18, mier_approx_eps=0.02; SYNTHETIC_DETERMINISTIC_FAULT_SANDBOX); artifacts/safe_autonomy_t1/VARIANCE_PILOT/; arms not started; ≠ H_TRUST confirmed; ≠ Mission Assurance implemented; tests/test_safe_autonomy_benchmark_v1.py; tests/test_variance_pilot.py"
     },
     {
       "id": "full_epistemic_graph",

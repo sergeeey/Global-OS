@@ -33,7 +33,8 @@ Post-M1.5
   Does a trust layer reduce predefined material integrity failures
   enough to justify operational cost?
   → CORE NEXT HYPOTHESIS (H_TRUST)
-  → SAFE_AUTONOMY_BENCHMARK-v1 METRICS_FROZEN (arms not started; H_TRUST unconfirmed)
+  → SAFE_AUTONOMY_BENCHMARK-v1 METRICS_FROZEN + MCID SET_BY_VARIANCE_PILOT_v1
+    (synthetic sandbox; arms not started; H_TRUST unconfirmed)
 ```
 
 ## Forbidden overclaims
@@ -146,6 +147,7 @@ Next mechanism candidate (NOT SHOWN / NOT BUILT):
   Mission-Level Runtime Assurance + Bounded Recovery
   Plan: artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md
   Benchmark: SAFE_AUTONOMY_BENCHMARK-v1 METRICS_FROZEN
-  Next: variance pilot → T1 A/B/C → KEEP/REJECT
+  MCID: SET_BY_VARIANCE_PILOT_v1 (synthetic; ≠ T1)
+  Next: T1 A/B/C → KEEP/REJECT
   Falsifier: safety↑ but completion↓↓ or C≈B
 ```

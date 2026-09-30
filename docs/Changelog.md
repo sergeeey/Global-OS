@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.92 — 2026-09-30
+
+### SAFE_AUTONOMY variance pilot + MCID amendment
+
+- Synthetic deterministic fault sandbox (`SAFE_AUTONOMY_VARIANCE_PILOT-v1`)
+- MCID locked: mier_win_abs=0.04 · ssr_win_abs=0.18 · mier_approx_eps=0.02
+- Artifacts: `artifacts/safe_autonomy_t1/VARIANCE_PILOT/`; arms still not started
+- Honesty: pilot ≠ T1 ≠ H_TRUST; next = real A/B/C arms
+
 ## 0.1.91 — 2026-09-30
 
 ### SAFE_AUTONOMY_BENCHMARK-v1 metrics freeze

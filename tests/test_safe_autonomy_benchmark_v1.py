@@ -10,6 +10,8 @@ import pytest
 from global_os.evals.trust.safe_autonomy_metrics import (
     FAULT_INJECTION_CLASSES,
     MATERIAL_FAILURE_TAXONOMY,
+    MCID_SET,
+    MCID_UNSET,
     ArmMetrics,
     compute_mier,
     compute_ssr,
@@ -31,7 +33,10 @@ def test_load_benchmark_freeze_locked() -> None:
     raw = load_benchmark_freeze()
     assert raw["status"] == "METRICS_FROZEN"
     assert raw["arms_started"] is False
-    assert raw["mcid"]["status"] == "NOT_SET_UNTIL_VARIANCE_PILOT"
+    assert raw["mcid"]["status"] in (MCID_UNSET, MCID_SET)
+    if raw["mcid"]["status"] == MCID_SET:
+        assert float(raw["mcid"]["mier_win_abs"]) > 0
+        assert float(raw["mcid"]["ssr_win_abs"]) > 0
     assert tuple(raw["material_failure_taxonomy"]) == MATERIAL_FAILURE_TAXONOMY
     assert tuple(raw["fault_injection_classes"]) == FAULT_INJECTION_CLASSES
     assert set(raw["arms"]) == {"A", "B", "C"}
@@ -138,8 +143,9 @@ def test_invalid_without_mode_b() -> None:
     assert "mode_B_frontier_not_reported" in d.reasons
 
 
-def test_md_mentions_no_mcid_before_pilot() -> None:
+def test_md_mentions_mcid_amendment() -> None:
     text = FREEZE_MD.read_text(encoding="utf-8")
-    assert "No MCID until variance pilot" in text
+    assert "SET_BY_VARIANCE_PILOT_v1" in text
     assert "METRICS_FROZEN" in text
     assert "KEEP" in text and "REJECT" in text
+    assert "mier_win_abs" in text

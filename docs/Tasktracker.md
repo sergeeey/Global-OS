@@ -2,7 +2,7 @@
 
 - [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)
 - [x] Freeze SAFE_AUTONOMY_BENCHMARK-v1 + H_TRUST metrics
-- [ ] Variance pilot → MCID amendment
+- [x] Variance pilot → MCID amendment (synthetic sandbox)
 - [ ] T1 A/B/C Mission Assurance KEEP/REJECT
 - [ ] Only if KEEP: thin Mission Assurance / MI-1..5
 - Plan: `artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md`

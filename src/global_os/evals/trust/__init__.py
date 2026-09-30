@@ -2,22 +2,36 @@
 
 from global_os.evals.trust.safe_autonomy_metrics import (
     MATERIAL_FAILURE_TAXONOMY,
+    MCID_SET,
+    MCID_UNSET,
     ArmMetrics,
     KeepRejectDecision,
+    McidConfig,
     SafeAutonomyScore,
     compute_mier,
     compute_ssr,
     decide_keep_reject,
     load_benchmark_freeze,
 )
+from global_os.evals.trust.variance_pilot import (
+    derive_mcid,
+    run_variance_pilot,
+    write_pilot_artifacts,
+)
 
 __all__ = [
     "MATERIAL_FAILURE_TAXONOMY",
+    "MCID_SET",
+    "MCID_UNSET",
     "ArmMetrics",
     "KeepRejectDecision",
+    "McidConfig",
     "SafeAutonomyScore",
     "compute_mier",
     "compute_ssr",
     "decide_keep_reject",
+    "derive_mcid",
     "load_benchmark_freeze",
+    "run_variance_pilot",
+    "write_pilot_artifacts",
 ]

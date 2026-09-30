@@ -1,8 +1,8 @@
 {
-  "sprint": "POST_M15_SAFE_AUTONOMY_BENCHMARK_FROZEN",
-  "updated_at": "2026-09-30T04:05:00Z",
-  "current_goal": "T1_VARIANCE_PILOT_THEN_ABC",
-  "phase_statement": "M1.5 CLOSED_SCOPE_LIMITED. SAFE_AUTONOMY_BENCHMARK-v1 METRICS_FROZEN. EXAM_SHA=7ab345e AUDIT_SHA=a7960d9. Do not re-run 48h. Next: variance pilot \u2192 MCID \u2192 T1 A/B/C KEEP/REJECT.",
+  "sprint": "POST_M15_T1_ARMS_NEXT",
+  "updated_at": "2026-09-30T04:20:00Z",
+  "current_goal": "T1_SAFE_AUTONOMY_ABC_ARMS",
+  "phase_statement": "M1.5 CLOSED_SCOPE_LIMITED. SAFE_AUTONOMY_BENCHMARK-v1 METRICS_FROZEN. MCID SET_BY_VARIANCE_PILOT_v1 (mier=0.04 ssr=0.18 eps=0.02; synthetic sandbox). Arms not started. Next: T1 A/B/C KEEP/REJECT. Do not re-run 48h.",
   "operator_action_required": true,
   "operator_dispatch_required": true,
   "y20": {
@@ -71,7 +71,7 @@
       "note": "successful run is the post-reboot full restart; interrupted partial run does not count"
     }
   },
-  "next_exact_action": "Run SAFE_AUTONOMY variance pilot (small N); lock MCID amendment; then T1 arms A/B/C",
+  "next_exact_action": "Start T1 SAFE_AUTONOMY arms A/B/C under equal budgets; score with locked MCID; write T1_DECISION.md (KEEP|REJECT). Synthetic pilot \u2260 H_TRUST.",
   "forbidden_now": [
     "r4_during_exam",
     "harden_exam_sha",
@@ -172,7 +172,7 @@
     "same_sha_restart_allowed": true
   },
   "next_mechanism_plan": "artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md",
-  "next_mechanism_status": "BENCHMARK_METRICS_FROZEN_NOT_IMPLEMENTED",
+  "next_mechanism_status": "MCID_LOCKED_ARMS_NOT_STARTED",
   "post_48h": {
     "operator_runbook": "artifacts/hardening/OPERATOR_POST_48H_NOW.md",
     "auditor": "artifacts/hardening/audit_cognitive_48h/freeze_and_audit.py",
@@ -182,14 +182,19 @@
   "m15_decision": "artifacts/hardening/M15_DECISION.md",
   "exam_sha": "7ab345e5badb00a8c97ffdb7010ee4eb42dac4bb",
   "audit_sha": "a7960d9616c9c08224f5be9e1e7097bca9744bd0",
-  "h_trust_status": "METRICS_FROZEN",
+  "h_trust_status": "METRICS_FROZEN_MCID_SET",
   "safe_autonomy_benchmark": {
     "id": "SAFE_AUTONOMY_BENCHMARK-v1",
     "status": "METRICS_FROZEN",
     "arms_started": false,
+    "mcid_status": "SET_BY_VARIANCE_PILOT_v1",
+    "mier_win_abs": 0.04,
+    "ssr_win_abs": 0.18,
+    "mier_approx_eps": 0.02,
     "prereg_md": "artifacts/hardening/SAFE_AUTONOMY_BENCHMARK_V1.md",
     "prereg_json": "artifacts/hardening/SAFE_AUTONOMY_BENCHMARK_V1.json",
+    "variance_pilot": "artifacts/safe_autonomy_t1/VARIANCE_PILOT/",
     "metrics_module": "src/global_os/evals/trust/safe_autonomy_metrics.py",
-    "mcid": "NOT_SET_UNTIL_VARIANCE_PILOT"
+    "pilot_module": "src/global_os/evals/trust/variance_pilot.py"
   }
 }

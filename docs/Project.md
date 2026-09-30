@@ -41,8 +41,8 @@ Y23                                                          NOT NOW
 ### Plan
 
 1. **Done:** M1.5 scope-limited closed — `artifacts/hardening/M15_DECISION.md` (EXAM `7ab345e` / AUDIT `a7960d9`).  
-2. **Done:** `SAFE_AUTONOMY_BENCHMARK-v1` + H_TRUST metrics FROZEN (arms not started; MCID after variance pilot).  
-3. **Next:** variance pilot → T1 A/B/C (strong agent / GOS / GOS+Mission Assurance) → KEEP/REJECT.  
+2. **Done:** `SAFE_AUTONOMY_BENCHMARK-v1` + H_TRUST metrics FROZEN; MCID SET_BY_VARIANCE_PILOT_v1 (synthetic; arms not started).  
+3. **Next:** T1 A/B/C (strong agent / GOS / GOS+Mission Assurance) → KEEP/REJECT.  
 4. Plan: `NEXT_MECHANISM_MISSION_ASSURANCE.md`.  
 5. **Separate ops:** `artifacts/ops/SEPARATE_BACKLOG.md`.  
 6. **Not now:** re-run same 48h; Y23; Continual SI slogans; production-ready claims; core Mission Assurance before T1 KEEP.

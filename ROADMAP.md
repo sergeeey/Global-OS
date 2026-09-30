@@ -38,7 +38,7 @@ Post-M1.5 — science freeze DONE
   H_TRUST + SAFE_AUTONOMY_BENCHMARK-v1 METRICS_FROZEN
   Fixed-resource + cost-normalized frontier modes locked
   material integrity failure taxonomy locked
-  MCID unset until variance pilot
+  MCID SET_BY_VARIANCE_PILOT_v1 (mier=0.04 / ssr=0.18 / eps=0.02; synthetic)
         │
         ▼
 T1 SAFE_AUTONOMY_ENVELOPE (KEEP/REJECT) — NEXT

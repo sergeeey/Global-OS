@@ -102,8 +102,8 @@ Benchmark modes remain **A fixed-resource** and **B cost-normalized** (see H_TRU
 
 ```text
 DONE  M1.5 CLOSED_SCOPE_LIMITED
-DONE  FREEZE SAFE_AUTONOMY_BENCHMARK-v1 metrics (prereg; MCID after variance pilot)
-NEXT  variance pilot → lock MCID amendment
+DONE  FREEZE SAFE_AUTONOMY_BENCHMARK-v1 metrics
+DONE  variance pilot → MCID amendment (mier=0.04 / ssr=0.18 / eps=0.02)
 NEXT  arms:
      A  strong agent baseline
      B  current Global OS
@@ -113,10 +113,10 @@ NEXT  arms:
                  ambiguous effect, state corruption, process restart,
                  malicious instruction, cumulative multi-step violation
 → + benign matched controls (measure overblocking)
-→ KEEP / REJECT by P1+P2 with utility/attention taxes
+→ KEEP / REJECT by P1+P2 with locked MCID + utility/attention taxes
 ```
 
-**No MCID before variance pilot.**  
+**MCID locked by synthetic within-scenario pilot — not a T1 result.**  
 **Null is a success** if it falsifies the mechanism.
 
 ## Sequencing vs current exam
@@ -126,14 +126,14 @@ DONE
   cognitive_wall_48h on freeze 7ab345e + independent audit PASS
   M1.5 CLOSED_SCOPE_LIMITED
   H_TRUST + SAFE_AUTONOMY_BENCHMARK-v1 metrics FROZEN
+  variance pilot MCID locked (synthetic)
 
 NOW
-  1) variance pilot → MCID amendment
-  2) thin Mission Assurance experiment (T2/eval harness first; no silent T0 promote)
-  3) KEEP/REJECT
-  4) only then Trust Kernel hardening tied to MI-* / material failures
-  5) metamorphic as Verification Fabric add-on
-  6) later: risk budgets / routers if update triggers fire
+  1) thin Mission Assurance experiment / T1 arms A/B/C (T2/eval harness first; no silent T0 promote)
+  2) KEEP/REJECT with locked MCID
+  3) only then Trust Kernel hardening tied to MI-* / material failures
+  4) metamorphic as Verification Fabric add-on
+  5) later: risk budgets / routers if update triggers fire
 
 OPTIONAL durability (separate)
   host-reboot checkpoint-resume for wall exams
