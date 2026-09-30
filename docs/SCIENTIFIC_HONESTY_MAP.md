@@ -171,8 +171,9 @@ Next mechanism candidate (NOT SHOWN / NOT BUILT):
   Do not rewrite T1 MCID; do not reopen M1.5; no Y23; T1 REJECT stands for pack v1
 
 Next dogfood science (not T3 poke):
-  Y24 Adaptive Verifier Complexity Threshold — PREREG_LOCKED (arms not started)
+  Y24 Adaptive Verifier Complexity Threshold — fold2 heuristic REJECT
+  (fold1 INCONCLUSIVE underpowered; fold2 N≥8 MED/HIGH; same MCID/rubric)
   Informal brief called it “Y19”; legacy artifacts/y19 remains FROZEN
-  T3 KEEP is NOT evidence for Y24; no Trust Kernel / C2 edits for Y24
-  Y25 verification-budget frontier = FUTURE after Y24 terminal result
+  Fidelity HEURISTIC_HARNESS_v1 ≠ live-LLM; T3 KEEP ≠ Y24 evidence
+  No Trust Kernel / C2 edits for Y24; Y25 = FUTURE until Y24 closed
 ```
