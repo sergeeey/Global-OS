@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.90 — 2026-09-30
+
+### M1.5 CLOSED_SCOPE_LIMITED (LH-COGNITIVE-v1)
+
+- EXAM_SHA `7ab345e` · AUDIT_SHA `a7960d9` · independent audit all_gates_passed
+- wall_seconds≥172800 · EXTERNAL_RESEARCH_OBJECT · decision locked in M15_DECISION.md
+- Next: SAFE_AUTONOMY_BENCHMARK-v1 / Mission Assurance T1 (not another 48h re-run)
+
 ## 0.1.89 — 2026-09-30
 
 ### Post-48h: freeze + independent audit tooling

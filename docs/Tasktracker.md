@@ -1,3 +1,9 @@
+## Active — post-M1.5
+
+- [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)
+- [ ] Freeze SAFE_AUTONOMY_BENCHMARK-v1 + H_TRUST metrics
+- [ ] T1 A/B/C Mission Assurance KEEP/REJECT
+
 ## Planned — post-M1.5 (do not start mid-exam)
 
 - [ ] Freeze SAFE_AUTONOMY_BENCHMARK-v1 + H_TRUST metrics

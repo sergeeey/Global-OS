@@ -19,16 +19,15 @@ R1–R3
   Causal GOS-alone advantage vs unstructured strong agent?
   → NOT MEASURED
 
-M1.5 claim fork (2026-09-25) — see artifacts/hardening/M15_CLAIM_FORK.md
-  5d15600 embedded workload = deterministic durability harness (sum 1..20 …)
-  → A: narrow “48h research-runtime integrity” ONLY if someone runs 48h on it
-  → B (CHOSEN): LH-COGNITIVE-v1 external object → new freeze → then 48h
-  Running/finished Windows preflight on 5d15600 = DURABILITY_ENV evidence
-  Do NOT start wall_48h on 5d15600 for cognitive-real M1.5 claim
+M1.5 claim fork B (chosen) — CLOSED_SCOPE_LIMITED
+  see artifacts/hardening/M15_DECISION.md
+  EXAM_SHA 7ab345e · AUDIT_SHA a7960d9
+  Demonstrated: EXTERNAL_RESEARCH_OBJECT cognitive wall ≥172800s + integrity gates + independent audit
+  NOT demonstrated: production security, Continual SI, causal GOS vs baseline
 
-M1.5 (Gate A — cognitive path)
-  Long-horizon integrity on frozen REAL research workload ≥48h?
-  → TO TEST after LH-COGNITIVE freeze (not on 5d15600 sum-harness)
+M1.5 (cognitive path)
+  Long-horizon integrity on frozen real research workload ≥48h?
+  → SHOWN within LH-COGNITIVE-v1 protocol scope (not universal)
 
 Post-M1.5
   Does a trust layer reduce predefined material integrity failures

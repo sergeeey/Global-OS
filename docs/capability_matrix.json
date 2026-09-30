@@ -102,8 +102,8 @@
     },
     {
       "id": "goal_integrity_soak_48h",
-      "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "LH-v1 operator Windows ~42h scheduled harness PASS (immutable artifacts/hardening/long_horizon_48h/wall_48h/); audited NOT literal 48h (LH-FC-EARLY-STOP-42H). LH-v2 adds T+48 barrier + wall_seconds>=172800 gate. M1.5 not claimed; ≠ PRODUCTION_PROVEN; tests/test_long_horizon_program.py; tests/test_survival_soak.py"
+      "state": "RUNTIME_VERIFIED_HARNESS",
+      "evidence": "LH-COGNITIVE-v1 Windows wall PASS on EXAM_SHA 7ab345e (wall_seconds=172801.2, COGNITIVE_WALL_CLOCK_48H, EXTERNAL_RESEARCH_OBJECT); independent audit all_gates_passed (AUDIT_SHA a7960d9); M15_DECISION CLOSED_SCOPE_LIMITED; freeze pack artifacts/hardening/freeze_lh_cognitive_7ab345e/; LH-v1 42h early-stop retained as historical; ≠ PRODUCTION_PROVEN; tests/test_long_horizon_program.py; tests/test_cognitive_research_program.py; tests/test_cognitive_48h_independent_audit.py"
     },
     {
       "id": "full_epistemic_graph",

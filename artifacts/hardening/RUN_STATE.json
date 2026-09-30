@@ -1,8 +1,8 @@
 {
   "sprint": "M15_EXAM_IN_PROGRESS_OPERATOR",
-  "updated_at": "2026-09-30T03:20:25Z",
-  "current_goal": "OPERATOR_FREEZE_AND_INDEPENDENT_AUDIT",
-  "phase_statement": "48h harness PASS recorded. Next: operator freeze+independent audit via OPERATOR_POST_48H_NOW.md; then lock M15_DECISION.md.",
+  "updated_at": "2026-09-30T03:31:17Z",
+  "current_goal": "POST_M15_SAFE_AUTONOMY_BENCHMARK_FREEZE",
+  "phase_statement": "M1.5 CLOSED_SCOPE_LIMITED (LH-COGNITIVE-v1). EXAM_SHA=7ab345e AUDIT_SHA=a7960d9. Do not re-run 48h. Next: SAFE_AUTONOMY_BENCHMARK-v1 + H_TRUST metrics \u2192 T1 Mission Assurance A/B/C.",
   "operator_action_required": true,
   "operator_dispatch_required": true,
   "y20": {
@@ -25,15 +25,16 @@
     "gos_sealed_science_gain_y21": false,
     "gos_reliability_composite_gain_y22": false,
     "universal_advantage": false,
-    "m15": false,
-    "continual_si": false
+    "m15": true,
+    "continual_si": false,
+    "m15_scope": "LH_COGNITIVE_V1_ONLY"
   },
   "long_horizon": {
     "linux_compressed_preflight": "PASS",
     "linux_os_kill_smoke": "PASS",
     "windows_os_kill_smoke": "PASS_ON_FREEZE_5d15600",
     "windows_preflight": "PASS_DURABILITY_ENV_PREFLIGHT_WALL",
-    "literal_48h": "PASS_COGNITIVE_WALL_CLOCK_48H",
+    "literal_48h": "PASS_AUDITED_M15_SCOPE_LIMITED_CLOSED",
     "m15_claimed": false,
     "cognitive_program": "IMPLEMENTED_ON_MAIN_NOT_FROZEN",
     "windows_preflight_detail": {
@@ -70,7 +71,7 @@
       "note": "successful run is the post-reboot full restart; interrupted partial run does not count"
     }
   },
-  "next_exact_action": "OPERATOR: run artifacts/hardening/OPERATOR_POST_48H_NOW.md one-block; paste INDEPENDENT_REVIEW.json",
+  "next_exact_action": "Freeze SAFE_AUTONOMY_BENCHMARK-v1 prereg/metrics; prepare T1 arms A/B/C per NEXT_MECHANISM_MISSION_ASSURANCE.md",
   "forbidden_now": [
     "r4_during_exam",
     "harden_exam_sha",
@@ -112,7 +113,7 @@
     "raw_iq": "NOT_SHOWN",
     "universal": "NOT_SHOWN",
     "continual_si": "NOT_MEASURED",
-    "m15": "NOT_CLAIMED"
+    "m15": "CLOSED_SCOPE_LIMITED"
   },
   "r3": {
     "mission": "R3-DATA-FORENSICS-v1",
@@ -121,9 +122,9 @@
     "independent_useful": true,
     "lock_sha": "65c2fb2"
   },
-  "m15_claimed": false,
+  "m15_claimed": true,
   "windows_preflight": "PASS_COGNITIVE_PREFLIGHT_WALL",
-  "literal_48h": "PASS_AWAITING_INDEPENDENT_AUDIT",
+  "literal_48h": "PASS_AUDITED",
   "freeze": {
     "label": "FREEZE-R1R3-v1",
     "sha_short": "5d15600",
@@ -172,5 +173,9 @@
     "operator_runbook": "artifacts/hardening/OPERATOR_POST_48H_NOW.md",
     "auditor": "artifacts/hardening/audit_cognitive_48h/freeze_and_audit.py",
     "decision_draft": "artifacts/hardening/M15_DECISION.md"
-  }
+  },
+  "m15_claim_scope": "CLOSED_SCOPE_LIMITED_LH_COGNITIVE_V1",
+  "m15_decision": "artifacts/hardening/M15_DECISION.md",
+  "exam_sha": "7ab345e5badb00a8c97ffdb7010ee4eb42dac4bb",
+  "audit_sha": "a7960d9616c9c08224f5be9e1e7097bca9744bd0"
 }

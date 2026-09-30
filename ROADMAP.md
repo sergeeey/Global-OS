@@ -28,10 +28,10 @@ CURRENT
   Scorers Y20–Y22 FROZEN; no Y23 as IQ-rescue
         │
         ▼
-Claim fork B — LH-COGNITIVE harness PASS @7ab345e (audit pending)
-  5d15600 durability ENV PASS retained
-  cognitive smoke+preflight+wall_48h (wall≥172800) PASS; m15_claimed=false
-  NEXT: freeze raw artifacts → independent audit → M1.5 decision (scope-limited)
+M1.5 CLOSED_SCOPE_LIMITED (LH-COGNITIVE-v1)
+  EXAM_SHA 7ab345e · AUDIT_SHA a7960d9 · wall_seconds≥172800 · audit all_gates_passed
+  Decision: artifacts/hardening/M15_DECISION.md
+  5d15600 durability ENV PASS retained as supporting evidence only
         │
         ▼
 Post-M1.5 — freeze science FIRST (no premature machinery)
