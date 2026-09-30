@@ -11,12 +11,14 @@
 - [x] T2 on PACK-v2 → **KEEP** (FSR=1.0, URR=0, MIER_C2=0; ADR-0012)
 - [x] Freeze `SELECTIVE_BOUNDED_RECOVERY-v1` + T2 independent review CONFIRM KEEP
 - [x] T3 prereg LOCKED (live-LLM replication; no C2 redesign)
+- [x] T3 audit checklist + PACK-v3 seal + harness + acceptance tests
+- [x] T3 execute → **INCONCLUSIVE** (`provider_key_unavailable_live_layer`, SHA `c6523a6`)
 - Decision T1: `artifacts/safe_autonomy_t1/T1_DECISION.md` (REJECT stands)
 - Decision T2: `artifacts/safe_autonomy_t1/T2/T2_DECISION.md`
+- Decision T3: `artifacts/safe_autonomy_t1/T3/T3_DECISION.md`
 - Review: `artifacts/safe_autonomy_t1/T2/T2_INDEPENDENT_REVIEW.md`
 - Contract: `artifacts/safe_autonomy_t1/SELECTIVE_BOUNDED_RECOVERY_V1.md`
-- T3: `artifacts/safe_autonomy_t1/T3_PREREG.md`
-- [ ] Next: seal PACK-v3 → execute T3 L1/L2 → KEEP/REJECT/INCONCLUSIVE; no Trust Kernel promote
+- [ ] Next: operator loads OPENROUTER/GROQ/GEMINI keys → re-run T3 same prereg; no C2 edit; no Trust Kernel promote
 
 ## Done — LH-COGNITIVE-v1 (Variant B)
 

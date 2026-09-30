@@ -55,8 +55,8 @@ Post-M1.5
 ```text
 Raw-capability amplification:     NOT SHOWN  (no longer the working project bet)
 Trust / long-horizon amplification: PARTIAL (M1.5 scope-limited);
-                                    H_TRUST T1 REJECT (pack v1); T2 KEEP (PACK-v2);
-                                    C2 frozen; T3 live replication preregged (not run)
+                                    H_TRUST T1 REJECT; T2 KEEP; C2 frozen;
+                                    T3 INCONCLUSIVE (live keys unavailable)
 ```
 
 We stopped treating raw-IQ amplification as the **working hypothesis** because evidence does not support it so far — not because we proved a universal null.
@@ -159,7 +159,7 @@ Next mechanism candidate (NOT SHOWN / NOT BUILT):
   Post-T1 diagnostics → SAFE_CONTAINMENT_BUT_LOW_FAULT_SALVAGE
   T2: KEEP — selective bounded recovery on PACK-v2 (FSR=1.0, URR=0, MIER=0)
   C2 contract SELECTIVE_BOUNDED_RECOVERY-v1 FROZEN_CANDIDATE (pin e6dfd08)
-  T3: PREREG_LOCKED live-LLM L1 + natural L2; no C2 edit after holdout unseal
-  Allowed: KEEP for further testing. Forbidden: proven H_TRUST / Trust Kernel / production
+  T3: INCONCLUSIVE — live provider keys unavailable (SHA c6523a6); C2 not edited
+  Allowed: KEEP for further testing only after live replication. Forbidden: proven H_TRUST / Trust Kernel / production
   Do not rewrite T1 MCID; do not reopen M1.5; no Y23; T1 REJECT stands for pack v1
 ```

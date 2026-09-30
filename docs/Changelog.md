@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.97 — 2026-09-30
+
+### T3 executed → INCONCLUSIVE (live keys unavailable)
+
+- Audit checklist locked (provenance, independence, cost/recovery tax, attribution)
+- PACK-v3 sealed then unsealed after SHA freeze `c6523a6`
+- L1/L2 harness ran under `LIVE_BLOCKED_KEYS_UNAVAILABLE` (scripted proxy plumbing)
+- Primary verdict **INCONCLUSIVE** (`provider_key_unavailable_live_layer`) — not KEEP
+- C2 pin unchanged; URR=0 on smoke path; no Trust Kernel promote
+- Decision: `artifacts/safe_autonomy_t1/T3/T3_DECISION.md`
+
 ## 0.1.96 — 2026-09-30
 
 ### C2 freeze + T2 review + T3 prereg

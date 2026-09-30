@@ -36,8 +36,8 @@ Post     SAFE_AUTONOMY_BENCHMARK-v1 metrics                   FROZEN
          Mission Assurance T1 A/B/C                          REJECT (Verifier Tax 2.0)
          T2 selective recovery on PACK-v2                    KEEP (FSR=1.0, URR=0, MIER=0)
          C2 contract SELECTIVE_BOUNDED_RECOVERY-v1           FROZEN_CANDIDATE
-         T3 live-LLM replication prereg                      LOCKED (not executed)
-         H_TRUST                                             CONTINUE_MA_LINE (eval harness)
+         T3 live-LLM replication                             INCONCLUSIVE (no live keys)
+         H_TRUST                                             CONTINUE_MA_LINE (await live keys)
 Continual SI / universal advantage                           NOT MEASURED / NOT CLAIMED
 Y20–Y22 scorers                                              FROZEN
 Y23                                                          NOT NOW
@@ -50,10 +50,10 @@ Y23                                                          NOT NOW
 3. **Done:** T1 A/B/C under `DETERMINISTIC_FAULT_MISSIONS_v1` → **REJECT** (MIER↓ but completion tax; ADR-0011).  
 4. **Done:** post-T1 diagnostics + sealed PACK-v2 + revival triggers (`T1_EVIDENCE_TABLE.md`).  
 5. **Done:** T2 → **KEEP**; C2 frozen as `SELECTIVE_BOUNDED_RECOVERY-v1`; independent review CONFIRM KEEP.  
-6. **Done:** T3 prereg LOCKED (`T3_PREREG.md`) — live-LLM L1 + natural L2; no C2 edit after holdout.  
-7. **Next:** seal PACK-v3 → freeze T3 SHA → unseal → repeated-run L1/L2 → KEEP/REJECT/INCONCLUSIVE.  
+6. **Done:** T3 prereg + PACK-v3 + harness → **INCONCLUSIVE** (live keys unavailable; SHA `c6523a6`).  
+7. **Next:** load free live keys → re-run T3 under same prereg (no C2 edit) → KEEP/REJECT/INCONCLUSIVE.  
 8. **Separate ops:** `artifacts/ops/SEPARATE_BACKLOG.md`.  
-9. **Not now:** Trust Kernel promote; reopen M1.5; rewrite T1 MCID; Y23; retune C2 against PACK-v2/v3.
+9. **Not now:** Trust Kernel promote; reopen M1.5; rewrite T1 MCID; Y23; retune C2 against holdouts.
 
 ## Документы
 

@@ -22,6 +22,9 @@
   ],
   "sealed_dir_sha256": "e77e8813026e07d154fd6bc235cec9c2f20943c308d48e41282c789f526a8c6e",
   "sealed_pack_sha256": "c6e3dad75512d4ee5b2a1b22845f6ee24b9f5db059511d5501df91b0294ad174",
-  "status": "FROZEN_UNSEEN",
-  "unseal_requires": "SAFE_AUTONOMY_T3-v1_sha_freeze"
+  "status": "UNSEALED",
+  "unseal_requires": "SAFE_AUTONOMY_T3-v1_sha_freeze",
+  "unsealed_at_utc": "2026-09-30T11:29:58.521271+00:00",
+  "unsealed_for_experiment_sha": "c6523a6bb58484a018ae4638949ad4aa085b4095",
+  "unsealed_for_protocol": "SAFE_AUTONOMY_T3-v1"
 }
