@@ -146,6 +146,7 @@ def run_t3_arm_once(
     missions: list[dict[str, Any]],
     seed: int,
     prefer_live: bool = True,
+    live_block_reason: str | None = None,
 ) -> dict[str, Any]:
     """One independent run of one arm on a mission list (L1 or L2 subset)."""
     if arm_id not in {"A", "B", "C2"}:
@@ -206,6 +207,7 @@ def run_t3_arm_once(
             scenario=scenario if scenario != "natural" else "benign",
             ledger=ledger,
             prefer_live=prefer_live,
+            live_block_reason=live_block_reason,
         )
         fidelity_global = fidelity
         provenance_samples.append(
@@ -597,6 +599,7 @@ def run_t3_layer(
     layer: str,
     seeds: tuple[int, ...],
     prefer_live: bool = True,
+    live_block_reason: str | None = None,
 ) -> dict[str, Any]:
     """Run A/B/C2 × seeds on L1 or L2 missions."""
     if layer == "L1":
@@ -620,6 +623,7 @@ def run_t3_layer(
                     missions=deepcopy(missions),
                     seed=seed,
                     prefer_live=prefer_live,
+                    live_block_reason=live_block_reason,
                 )
             )
         out["arms"][arm_id] = arm_runs

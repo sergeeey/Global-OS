@@ -22,9 +22,23 @@ _MAX_BACKOFF_SECONDS = 60.0
 _BASE_BACKOFF_SECONDS = 1.0
 # Groq free on_demand RPM ≈ 30 → ≥2s spacing avoids 429 storms on long evals.
 _GROQ_DEFAULT_MIN_INTERVAL = 2.1
+_QUOTA_BODY_MARKERS = (
+    "tokens per day",
+    "requests per day",
+    " on tpd",
+    " on rpd",
+    "tpd):",
+    "rpd):",
+)
 
 _pace_lock = threading.Lock()
 _next_slot_monotonic = 0.0
+
+
+def is_daily_quota_error(body: str) -> bool:
+    """True when provider signals day-window quota (retrying wastes wall clock)."""
+    b = body.lower()
+    return any(marker in b for marker in _QUOTA_BODY_MARKERS)
 
 
 class HttpJsonError(Exception):
@@ -38,12 +52,14 @@ class HttpJsonError(Exception):
         body: str = "",
         retry_after: float | None = None,
         attempts: int = 1,
+        quota_exhausted: bool = False,
     ) -> None:
         super().__init__(message)
         self.status = status
         self.body = body
         self.retry_after = retry_after
         self.attempts = attempts
+        self.quota_exhausted = quota_exhausted
 
 
 class _KeepAuthRedirectHandler(urllib.request.HTTPRedirectHandler):
@@ -170,13 +186,18 @@ def post_json(
         except urllib.error.HTTPError as exc:
             body = exc.read().decode("utf-8", errors="replace")
             retry_after = parse_retry_after(exc.headers.get("Retry-After") if exc.headers else None)
+            quota = is_daily_quota_error(body)
             err = HttpJsonError(
                 f"HTTP {exc.code} from {url}: {body[:500]}",
                 status=exc.code,
                 body=body,
                 retry_after=retry_after,
                 attempts=attempt + 1,
+                quota_exhausted=quota,
             )
+            # Day-window TPD/RPD: fail closed immediately (retrying burns hours).
+            if quota:
+                raise err from exc
             if exc.code in _RETRYABLE_STATUS and attempt + 1 < max_attempts:
                 delay = _backoff_seconds(attempt, retry_after=retry_after)
                 _log_retry(url, status=exc.code, attempt=attempt + 1, delay=delay)
@@ -196,12 +217,16 @@ def post_json(
             ) from exc
 
         if status >= 400:
+            quota = is_daily_quota_error(raw)
             err = HttpJsonError(
                 f"HTTP {status} from {url}: {raw[:500]}",
                 status=status,
                 body=raw,
                 attempts=attempt + 1,
+                quota_exhausted=quota,
             )
+            if quota:
+                raise err
             if status in _RETRYABLE_STATUS and attempt + 1 < max_attempts:
                 delay = _backoff_seconds(attempt, retry_after=None)
                 _log_retry(url, status=status, attempt=attempt + 1, delay=delay)

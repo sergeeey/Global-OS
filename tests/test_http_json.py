@@ -113,3 +113,40 @@ def test_post_json_paces_when_min_interval_env_set(monkeypatch: pytest.MonkeyPat
     assert len(sink.posts) == 2
     assert sleeps  # paced on second call
     assert abs(sleeps[0] - 0.4) < 1e-9
+
+
+def test_post_json_does_not_retry_daily_quota(monkeypatch: pytest.MonkeyPatch):
+    import global_os.adapters.models.http_json as hj
+
+    sleeps: list[float] = []
+    monkeypatch.setattr(hj.time, "sleep", lambda s: sleeps.append(float(s)))
+    body = (
+        '{"error":{"message":"Rate limit reached on tokens per day (TPD): '
+        'Limit 200000, Used 199861","type":"tokens","code":"rate_limit_exceeded"}}'
+    )
+    with model_http_sink(
+        "openai",
+        status_sequence=[429, 429],
+        retry_after_seconds=60,
+    ) as sink:
+        # Override handler body via status path — inject TPD text by patching posts after
+        # Use a custom one-shot server response: monkeypatch read by replacing sink sequence
+        # Easier: call is_daily_quota_error unit + force HttpJsonError path with patched open
+        assert hj.is_daily_quota_error(body)
+        # Simulate HTTPError-like flow by posting to sink that returns generic 429 then
+        # checking no multi-retry when body has TPD — sink body is generic; patch post_json path:
+        original = hj.is_daily_quota_error
+        monkeypatch.setattr(hj, "is_daily_quota_error", lambda _b: True)
+        with pytest.raises(HttpJsonError) as ei:
+            post_json(
+                f"{sink.base_url}/v1/chat/completions",
+                {"model": "x"},
+                headers={},
+                max_attempts=4,
+            )
+        monkeypatch.setattr(hj, "is_daily_quota_error", original)
+    assert ei.value.status == 429
+    assert ei.value.quota_exhausted is True
+    assert ei.value.attempts == 1
+    assert len(sink.posts) == 1
+    assert sleeps == []

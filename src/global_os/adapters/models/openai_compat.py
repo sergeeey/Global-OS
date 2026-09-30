@@ -91,7 +91,9 @@ class OpenAICompatProvider(ModelProvider):
         except HttpJsonError as exc:
             # post_json already applied bounded 429/503 backoff; surface residual failure.
             hint = ""
-            if exc.retry_after is not None:
+            if getattr(exc, "quota_exhausted", False):
+                hint = " (quota_exhausted=day_window)"
+            elif exc.retry_after is not None:
                 hint = f" (Retry-After={exc.retry_after}s after {exc.attempts} attempt(s))"
             elif exc.attempts > 1:
                 hint = f" (after {exc.attempts} attempt(s))"

@@ -131,6 +131,7 @@ def resolve_provider_bundle(
     scenario: str,
     ledger: EventLedger,
     prefer_live: bool = True,
+    live_block_reason: str | None = None,
 ) -> tuple[RecordingModelProvider, str, dict[str, Any]]:
     """Return (recording_provider, fidelity, provenance_stub).
 
@@ -144,7 +145,21 @@ def resolve_provider_bundle(
         "seed": seed,
         "tool_versions": {"filesystem.write": "t3_eval_v1"},
     }
-    if prefer_live and free_live_ready():
+    inner: ModelProvider
+    if live_block_reason:
+        # Keys may be present but live layer still blocked (quota / policy).
+        inner = ScriptedVariationalProvider(seed=seed, scenario=scenario)
+        fidelity = "LIVE_BLOCKED"
+        provenance.update(
+            {
+                "provider_id": "scripted",
+                "model_id": "variational-proxy",
+                "model_version": "t3-v1",
+                "fidelity": fidelity,
+                "block_reason": live_block_reason,
+            }
+        )
+    elif prefer_live and free_live_ready():
         # Prefer groq → openrouter → gemini (free tier)
         name: ProviderName = (
             "groq"
@@ -173,7 +188,7 @@ def resolve_provider_bundle(
                 "model_id": "variational-proxy",
                 "model_version": "t3-v1",
                 "fidelity": fidelity,
-                "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+                "block_reason": "provider_key_unavailable_live_layer",
             }
         )
     else:
@@ -197,6 +212,60 @@ def resolve_provider_bundle(
         producer="evals.trust.t3_agent",
     )
     return recorded, fidelity, provenance
+
+
+def preflight_live_provider() -> dict[str, Any]:
+    """One cheap live call before T3 arms. Fail closed on day-quota.
+
+    Returns {ok, block_reason, detail, provider_id, model_id}.
+    """
+    from global_os.adapters.models.http_json import is_daily_quota_error
+
+    keys = live_keys_present()
+    if not free_live_ready():
+        return {
+            "ok": False,
+            "block_reason": "provider_key_unavailable_live_layer",
+            "detail": "no free-tier keys",
+            "provider_id": None,
+            "model_id": None,
+        }
+    name: ProviderName = (
+        "groq" if keys.get("groq") else "openrouter" if keys.get("openrouter") else "gemini"
+    )
+    try:
+        provider = open_model_provider(name, scientific=True)
+        resp = provider.generate(
+            GenerateRequest(
+                prompt="T3 preflight: reply with exactly OK",
+                max_tokens=16,
+                temperature=0.0,
+            )
+        )
+        return {
+            "ok": True,
+            "block_reason": None,
+            "detail": f"preflight_ok tokens_in={resp.input_tokens} tokens_out={resp.output_tokens}",
+            "provider_id": name,
+            "model_id": getattr(provider, "_model", name),
+        }
+    except ModelProviderError as exc:
+        msg = str(exc)
+        if is_daily_quota_error(msg) or "quota_exhausted" in msg.lower():
+            return {
+                "ok": False,
+                "block_reason": "provider_quota_exhausted_live_layer",
+                "detail": msg[:500],
+                "provider_id": name,
+                "model_id": None,
+            }
+        return {
+            "ok": False,
+            "block_reason": "provider_preflight_failed_live_layer",
+            "detail": msg[:500],
+            "provider_id": name,
+            "model_id": None,
+        }
 
 
 def propose_action(

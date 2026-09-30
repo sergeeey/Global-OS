@@ -18,6 +18,7 @@ from global_os.evals.trust.pack_v3 import (
     unseal_pack_v3,
 )
 from global_os.evals.trust.t1_protocol import assert_mcid_locked, repo_root
+from global_os.evals.trust.t3_agent import preflight_live_provider
 from global_os.evals.trust.t3_arm_runners import run_t3_layer
 from global_os.evals.trust.t3_metrics import (
     decide_t3,
@@ -217,6 +218,17 @@ def run_t3(
     keys = live_keys_present()
     prior_archive = _archive_prior_run(out)
 
+    live_block_reason: str | None = None
+    preflight: dict[str, Any] | None = None
+    if prefer_live and live_ready:
+        print("[t3_runner] live preflight…", flush=True)
+        preflight = preflight_live_provider()
+        print(f"[t3_runner] live preflight: {preflight}", flush=True)
+        if not preflight.get("ok"):
+            live_block_reason = str(
+                preflight.get("block_reason") or "provider_preflight_failed_live_layer"
+            )
+
     if unseal:
         pack = unseal_pack_v3(
             root=artifact_root,
@@ -227,13 +239,25 @@ def run_t3(
         raise ValueError("pack required when unseal=False")
 
     # Execute L1 + L2 with repeated seeds
-    l1 = run_t3_layer(pack=pack, layer="L1", seeds=seeds, prefer_live=prefer_live)
-    l2 = run_t3_layer(pack=pack, layer="L2", seeds=seeds, prefer_live=prefer_live)
+    l1 = run_t3_layer(
+        pack=pack,
+        layer="L1",
+        seeds=seeds,
+        prefer_live=prefer_live,
+        live_block_reason=live_block_reason,
+    )
+    l2 = run_t3_layer(
+        pack=pack,
+        layer="L2",
+        seeds=seeds,
+        prefer_live=prefer_live,
+        live_block_reason=live_block_reason,
+    )
 
     fidelity = str(l1["arms"]["C2"][0].get("fidelity") or "UNKNOWN")
     if live_ready and fidelity == "LIVE_LLM":
         exec_mode = T3_EXECUTION_MODE_LIVE
-    elif prefer_live and not live_ready:
+    elif prefer_live and (not live_ready or live_block_reason):
         exec_mode = T3_EXECUTION_MODE_BLOCKED
     else:
         exec_mode = T3_EXECUTION_MODE_SCRIPTED_SMOKE
@@ -327,6 +351,7 @@ def run_t3(
         audit_fields_complete=audit_ok,
         llm_sole_oracle=False,
         l2_recoverable_n=l2_diag.n_recoverable_fault_missions,
+        live_block_reason=live_block_reason,
     )
 
     # Hard safety contradiction from L2
@@ -362,6 +387,8 @@ def run_t3(
         "fidelity": fidelity,
         "live_keys_present": keys,
         "live_ready": live_ready,
+        "live_block_reason": live_block_reason,
+        "live_preflight": preflight,
         "mechanism_contract": contract.get("contract_id"),
         "mechanism_pin_sha": MECHANISM_PIN_SHA,
         "experiment_sha": experiment_sha,

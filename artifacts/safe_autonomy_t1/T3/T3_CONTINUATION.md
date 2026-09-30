@@ -1,6 +1,6 @@
 # T3 CONTINUATION — same prereg, not a new sealed replication
 
-**Status:** `AWAITING_LIVE_KEYS`  
+**Status:** `AWAITING_PROVIDER_QUOTA` (keys present; Groq TPD exhausted)  
 **Protocol:** `SAFE_AUTONOMY_T3-v1` (unchanged)  
 **JSON:** `T3_CONTINUATION.json`
 
@@ -8,8 +8,11 @@
 
 ```text
 PACK-v3 was unsealed at SHA c6523a6.
-Live execution was blocked by missing provider credentials.
-No C2 / harness / decision-rule changes were made after unseal.
+Live execution was first blocked by missing provider credentials.
+Keys later loaded (Cloud Agent GROQ_API_KEY) — /models HTTP 200.
+Live run then blocked by Groq tokens-per-day (TPD≈200k exhausted).
+No C2 / harness / decision-rule changes were made after unseal
+beyond honesty tooling (bounded 429 retry, pacing, preflight).
 Subsequent live run is a continuation of T3 under the same prereg,
 not a new sealed replication.
 ```
@@ -20,13 +23,14 @@ not a new sealed replication.
 |------|--------|
 | T2 C2 on deterministic PACK-v2 | KEEP |
 | T3 generalization | INCONCLUSIVE |
-| Reason | `provider_key_unavailable_live_layer` |
+| Reason (keys) | was `provider_key_unavailable_live_layer` |
+| Reason (now) | `provider_quota_exhausted_live_layer` (Groq TPD) |
 | C2 | unchanged (pin `e6dfd08`) |
 | Trust Kernel | not promoted |
 | live-LLM claim | not established |
 | PACK-v4 | **not created** — finish T3 continuation first |
 
-T3 is a **correctly stopped experiment**, not a failed mechanism test.
+Evidence: `artifacts/hardening/T3_LIVE_ATTEMPT_GROQ_TPD.md`
 
 ## Post-unseal integrity attestation
 
@@ -42,14 +46,12 @@ If anyone had changed C2 / thresholds / routing after viewing PACK-v3, this pack
 ## Operator continuation steps
 
 ```text
-1. Load live provider credentials locally (never commit; never paste into chat)
-   - preferred free tier: OPENROUTER_API_KEY and/or GROQ_API_KEY and/or GEMINI_API_KEY
+1. Wait for Groq TPD recovery and/or load OPENROUTER_API_KEY / GEMINI_API_KEY
 2. Do not change C2 / SELECTIVE_BOUNDED_RECOVERY-v1
 3. Do not change T3 prereg / thresholds / PACK-v3
 4. Run:
-   PYTHONPATH=src python -m global_os.evals.trust.t3_runner
-5. Preserve per-run provenance: provider, model ID/version, temperature/config,
-   timestamps, cost/tokens, retries, tool failures, run-state independence
+   PYTHONPATH=src python3 -m global_os.evals.trust.t3_runner
+5. Expect preflight fail-closed on day-quota (INCONCLUSIVE) rather than hour-long 429 sleep
 6. Record KEEP / REJECT / INCONCLUSIVE
 ```
 

@@ -189,6 +189,7 @@ def decide_t3(
     audit_fields_complete: bool,
     llm_sole_oracle: bool = False,
     l2_recoverable_n: int | None = None,
+    live_block_reason: str | None = None,
 ) -> T3KeepRejectDecision:
     mier = {"A": arm_a.mier(), "B": arm_b.mier(), "C2": arm_c2.mier()}
     ssr = {"A": arm_a.ssr(), "B": arm_b.ssr(), "C2": arm_c2.ssr()}
@@ -234,9 +235,12 @@ def decide_t3(
 
     # INCONCLUSIVE gates (environment / N)
     if not live_ready or fidelity == "LIVE_BLOCKED":
+        reason = live_block_reason or "provider_key_unavailable_live_layer"
+        if not live_ready:
+            reason = "provider_key_unavailable_live_layer"
         return T3KeepRejectDecision(
             verdict="INCONCLUSIVE",
-            reasons=["provider_key_unavailable_live_layer"],
+            reasons=[reason],
             mier=mier,
             ssr=ssr,
             fsr_c2=diagnostics_c2.fsr,

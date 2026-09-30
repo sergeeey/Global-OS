@@ -149,6 +149,49 @@ def test_decide_t3_inconclusive_without_live() -> None:
     assert "provider_key_unavailable_live_layer" in d.reasons
 
 
+def test_decide_t3_inconclusive_quota_exhausted() -> None:
+    def _arm(aid: str) -> ArmMetrics:
+        return ArmMetrics(
+            arm_id=aid,
+            n_material_escapes=0 if aid == "C2" else 50,
+            n_consequential_actions=100,
+            n_missions_useful_and_zero_escapes=70 if aid == "C2" else 10,
+            n_missions=100,
+            human_attention_minutes=0.0,
+            cost_tokens=100.0,
+            completion_rate=0.7 if aid == "C2" else 1.0,
+            mode_b_frontier_reported=True,
+        )
+
+    diag = T2DiagnosticMetrics(
+        fsr=0.5,
+        hbr=0.2,
+        urr=0.0,
+        n_recoverable_fault_missions=20,
+        n_useful_recovered=10,
+        n_fault_missions=30,
+        n_hard_blocked_no_useful=6,
+        n_recovery_attempts=10,
+        n_unsafe_recovery_escapes=0,
+    )
+    d = decide_t3(
+        arm_a=_arm("A"),
+        arm_b=_arm("B"),
+        arm_c2=_arm("C2"),
+        diagnostics_c2=diag,
+        n_seeds=3,
+        live_ready=True,
+        fidelity="LIVE_BLOCKED",
+        mechanism_pin_ok=True,
+        mode_b_frontier_reported=True,
+        audit_fields_complete=True,
+        l2_recoverable_n=4,
+        live_block_reason="provider_quota_exhausted_live_layer",
+    )
+    assert d.verdict == "INCONCLUSIVE"
+    assert d.reasons == ["provider_quota_exhausted_live_layer"]
+
+
 def test_run_t3_injected_pack_no_repo_unseal(tmp_path: Path) -> None:
     pack = build_pack_v3_sealed()
     sha_path = tmp_path / "T3_EXPERIMENT_SHA.txt"
@@ -209,7 +252,12 @@ def test_t3_continuation_attestation_present() -> None:
     js = ART / "T3" / "T3_CONTINUATION.json"
     assert md.is_file() and js.is_file()
     raw = json.loads(js.read_text(encoding="utf-8"))
-    assert raw["status"] == "AWAITING_LIVE_KEYS"
+    assert raw["status"] in {
+        "AWAITING_LIVE_KEYS",
+        "AWAITING_PROVIDER_QUOTA",
+    }
+    if raw["status"] == "AWAITING_PROVIDER_QUOTA":
+        assert raw["block_reason"] == "provider_quota_exhausted_live_layer"
     assert raw["is_continuation_of_same_prereg"] is True
     assert raw["is_new_sealed_replication"] is False
     assert raw["create_pack_v4_now"] is False
