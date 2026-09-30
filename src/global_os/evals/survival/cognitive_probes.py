@@ -12,7 +12,7 @@ from typing import Any
 
 import numpy as np
 from numpy.typing import NDArray
-from scipy import stats  # type: ignore[import]
+from scipy import stats  # type: ignore[import-untyped]
 
 from global_os.common.hashing import content_hash
 
