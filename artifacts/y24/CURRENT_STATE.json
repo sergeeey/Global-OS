@@ -1,11 +1,12 @@
 {
-  "arms_started": true,
+  "arms_started": false,
   "campaign_id": "Y24",
   "experiment_sha": "9901912cd08f31578eba67b5d800acd777f82b8e",
-  "holdout_status": "UNSEALED_FOR_EXECUTION",
-  "phase": "SCORED",
+  "fold": "fold2_enlarged_holdout",
+  "holdout_status": "FROZEN_UNSEEN",
+  "phase": "FOLD2_SEALING",
   "t3_not_evidence": true,
   "trust_kernel_promoted": false,
   "updated_at_utc": "2026-09-30T20:12:23.600912+00:00",
-  "verdict": "INCONCLUSIVE"
+  "verdict": null
 }

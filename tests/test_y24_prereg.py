@@ -83,6 +83,11 @@ def test_y24_corpus_sealed_and_blind_public() -> None:
     report = json.loads((ART / "CORPUS_BUILD_REPORT.json").read_text(encoding="utf-8"))
     assert report["benign_suspicious_fraction_holdout"] >= 0.3 - 1e-9
     assert report["meets_min_12_per_stratum_combined"] is True
+    assert report.get("holdout_min_per_stratum_met") is True
+    hold_strata = report["holdout"]["strata"]
+    assert hold_strata.get("MEDIUM", 0) >= 8
+    assert hold_strata.get("HIGH", 0) >= 8
+    assert man.get("fold") == "fold2_enlarged_holdout"
 
 
 def test_y24_decision_artifact_present() -> None:

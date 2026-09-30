@@ -22,3 +22,10 @@ still requires at least one adequately powered MEDIUM/HIGH holdout stratum
 (N≥8) meeting gates, else campaign INCONCLUSIVE.
 
 This amendment does **not** change MCID numeric values or arm definitions.
+
+## Fold-2 enlarge (same prereg)
+
+**Status:** `AMENDMENT_ADDENDUM_FOLD2`  
+**Policy:** enlarge HOLDOUT to **N≥8 per stratum** (especially MEDIUM/HIGH) under the
+**same** locked rubric/labels/MCID/cost formula. Fold-1 pack archived under
+`artifacts/y24/sealed/archive/`. No threshold fishing; no post-hoc stratum relabel.

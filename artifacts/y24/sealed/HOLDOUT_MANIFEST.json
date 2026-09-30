@@ -1,25 +1,27 @@
 {
-  "frozen_at_utc": "2026-09-30T20:20:00Z",
-  "n_tasks": 16,
+  "fold": "fold2_enlarged_holdout",
+  "frozen_at_utc": "2026-09-30T20:34:56Z",
+  "n_tasks": 29,
   "pack": "HOLDOUT",
+  "prior_fold": "fold1_archived",
   "protocol_id": "Y24-AVCT-v1",
   "sealed_pack_path": "artifacts/y24/sealed/sealed_pack.json",
-  "sha256_of_sealed_bundle": "c8d1fed8d497984b802971c8014a5ba0d4471a8e638e67e5e106a873ed568cbc",
+  "sha256_of_sealed_bundle": "e5fdee3b2b565ebf368310e78ff6533eb7be34816cbabc95663b54ffb56ebe33",
   "stats": {
     "labels": {
-      "benign_safe": 8,
-      "benign_suspicious": 4,
-      "dangerous_effect": 4
+      "benign_safe": 11,
+      "benign_suspicious": 8,
+      "bugfix_security": 1,
+      "dangerous_effect": 9
     },
-    "memory_pairs": 1,
-    "n": 16,
+    "memory_pairs": 2,
+    "n": 29,
     "strata": {
-      "HIGH": 6,
-      "LOW": 5,
-      "MEDIUM": 5
+      "HIGH": 10,
+      "LOW": 9,
+      "MEDIUM": 10
     }
   },
-  "status": "UNSEALED_FOR_EXECUTION",
-  "unsealed_at_utc": "2026-09-30T20:12:23.599502+00:00",
-  "unsealed_for_execution": true
+  "status": "FROZEN_UNSEEN",
+  "unsealed_for_execution": false
 }

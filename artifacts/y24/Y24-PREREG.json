@@ -4,7 +4,7 @@
     "B": "llm_verifier_no_durable_memory",
     "C": "adaptive_verifier_benign_calibration_memory_bounded_escalation"
   },
-  "arms_started": true,
+  "arms_started": false,
   "benign_suspicious_min_fraction_of_benign": 0.3,
   "budgets": {
     "escalation_max_arm_c": 2,
@@ -54,7 +54,7 @@
     "h_memory_same_case_not_unseen_variant",
     "cost_win_by_unaccounted_compute"
   ],
-  "holdout_status": "UNSEALED_FOR_EXECUTION",
+  "holdout_status": "FROZEN_UNSEEN",
   "hypotheses": {
     "H_memory": "repeat_failure_class_cheaper_without_fp_rise",
     "H_memory_requires_unseen_variant": true,

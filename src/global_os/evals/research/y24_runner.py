@@ -37,16 +37,34 @@ def _write(path: Path, data: Any) -> None:
         path.write_text(str(data), encoding="utf-8")
 
 
-def freeze_experiment_sha(*, root: Path | None = None) -> str:
+def freeze_experiment_sha(*, root: Path | None = None, fold: str | None = None) -> str:
+    """Freeze git SHA for the active fold. Fold1 write-once; fold2+ get side files."""
     r = root or repo_root()
-    path = y24_root(r) / "Y24_EXPERIMENT_SHA.txt"
-    if path.is_file():
-        return path.read_text(encoding="utf-8").strip()
+    base = y24_root(r) / "Y24_EXPERIMENT_SHA.txt"
     sha = _git_sha(r)
     if sha == "UNKNOWN":
         raise ValueError("cannot freeze UNKNOWN sha")
-    path.write_text(sha + "\n", encoding="utf-8")
-    return sha
+    active_fold = fold
+    if active_fold is None:
+        man = load_holdout_manifest(r)
+        active_fold = str(man.get("fold") or "fold1")
+    if active_fold in {"", "fold1", "None"}:
+        if base.is_file():
+            return base.read_text(encoding="utf-8").strip()
+        base.write_text(sha + "\n", encoding="utf-8")
+        return sha
+    # fold2+ — write-once per fold file; pointer in Y24_EXPERIMENT_SHA_ACTIVE.json
+    fold_path = y24_root(r) / f"Y24_EXPERIMENT_SHA_{active_fold}.txt"
+    if fold_path.is_file():
+        frozen = fold_path.read_text(encoding="utf-8").strip()
+    else:
+        frozen = sha
+        fold_path.write_text(frozen + "\n", encoding="utf-8")
+    _write(
+        y24_root(r) / "Y24_EXPERIMENT_SHA_ACTIVE.json",
+        {"fold": active_fold, "experiment_sha": frozen, "protocol_id": "Y24-AVCT-v1"},
+    )
+    return frozen
 
 
 def write_isolation_attestation(*, root: Path | None = None) -> None:

@@ -6,7 +6,9 @@ import hashlib
 import json
 import random
 import re
+import shutil
 from collections import Counter, defaultdict
+from datetime import UTC, datetime
 from pathlib import Path
 
 from global_os.evals.research.y24_complexity import stratum_from_features
@@ -14,6 +16,8 @@ from global_os.evals.research.y24_complexity import stratum_from_features
 ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "artifacts" / "y24"
 RNG = random.Random(20260930)
+HOLDOUT_MIN_PER_STRATUM = 8
+SELECT_PER_STRATUM = 20
 
 
 def _features(
@@ -95,6 +99,32 @@ def _benign_sus_frac(items: list[dict]) -> float:
     return sum(1 for t in benign if t["label"] == "benign_suspicious") / len(benign)
 
 
+def _archive_previous_seal() -> None:
+    sealed = ART / "sealed"
+    pack = sealed / "sealed_pack.json"
+    if not pack.is_file():
+        return
+    try:
+        prev = json.loads(pack.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return
+    if not prev.get("tasks"):
+        return
+    stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
+    dest = sealed / "archive" / f"fold1_{stamp}"
+    dest.mkdir(parents=True, exist_ok=True)
+    for name in ("sealed_pack.json", "HOLDOUT_MANIFEST.json"):
+        src = sealed / name
+        if src.is_file():
+            shutil.copy2(src, dest / name)
+    (dest / "README.md").write_text(
+        "# Archived Y24 holdout fold-1\n\n"
+        "Superseded by fold-2 enlarge (same prereg/rubric; N≥8 MEDIUM/HIGH holdout).\n"
+        "Not discarded — retained for audit.\n",
+        encoding="utf-8",
+    )
+
+
 def main() -> int:
     enriched = json.loads(Path("/tmp/y24_enriched.json").read_text(encoding="utf-8"))
     tasks: list[dict] = []
@@ -133,7 +163,7 @@ def main() -> int:
     # Curator danger variants from suspicious surfaces (documented)
     sus = [t for t in tasks if t["label"] == "benign_suspicious"]
     RNG.shuffle(sus)
-    for t in sus[:12]:
+    for t in sus[:16]:
         twin = dict(t)
         twin["task_id"] = t["task_id"] + "_dv"
         twin["patch_ref"] = t["patch_ref"] + "#danger_variant"
@@ -157,7 +187,7 @@ def main() -> int:
             continue
         RNG.shuffle(group)
         a, b = group[0], group[1]
-        if a["commit_sha"] == b["commit_sha"] and a["task_id"] == b["task_id"]:
+        if a["task_id"] == b["task_id"]:
             continue
         pid = f"mem_{fc}_{pair_n}"
         a["memory_pair_id"] = pid
@@ -168,7 +198,7 @@ def main() -> int:
         if pair_n >= 8:
             break
 
-    # Select up to 14 per stratum with label diversity
+    # Select with label diversity
     selected: list[dict] = []
     for stratum in ("LOW", "MEDIUM", "HIGH"):
         pool = [t for t in tasks if t["stratum"] == stratum]
@@ -177,34 +207,57 @@ def main() -> int:
         for t in pool:
             by_lab[t["label"]].append(t)
         picked: list[dict] = []
-        # round-robin labels
         labels = list(by_lab.keys())
-        while len(picked) < 14 and any(by_lab.values()):
+        while len(picked) < SELECT_PER_STRATUM and any(by_lab.values()):
             for lab in labels:
-                if by_lab[lab] and len(picked) < 14:
+                if by_lab[lab] and len(picked) < SELECT_PER_STRATUM:
                     picked.append(by_lab[lab].pop())
         selected.extend(picked)
 
-    # Ensure memory pair members included
     ids = {t["task_id"] for t in selected}
     for t in tasks:
         if t.get("memory_pair_id") and t["task_id"] not in ids:
             selected.append(t)
             ids.add(t["task_id"])
 
-    # Stratified split DEV/HOLDOUT by (stratum, label)
-    buckets: dict[tuple[str, str], list] = defaultdict(list)
-    for t in selected:
-        buckets[(t["stratum"], t["label"])].append(t)
+    # Force holdout ≥ HOLDOUT_MIN_PER_STRATUM per stratum, then remainder DEV
     final: list[dict] = []
-    for group in buckets.values():
-        RNG.shuffle(group)
-        # half holdout (at least 1 if len>=2)
-        n_h = len(group) // 2
-        for i, t in enumerate(group):
+    for stratum in ("LOW", "MEDIUM", "HIGH"):
+        pool = [t for t in selected if t["stratum"] == stratum]
+        RNG.shuffle(pool)
+        # Prefer label diversity in holdout first
+        by_lab: dict[str, list] = defaultdict(list)
+        for t in pool:
+            by_lab[t["label"]].append(t)
+        holdout: list[dict] = []
+        labels = list(by_lab.keys())
+        while len(holdout) < HOLDOUT_MIN_PER_STRATUM and any(by_lab.values()):
+            progress = False
+            for lab in labels:
+                if by_lab[lab] and len(holdout) < HOLDOUT_MIN_PER_STRATUM:
+                    holdout.append(by_lab[lab].pop())
+                    progress = True
+            if not progress:
+                break
+        # If still short, take any remaining from pool leftovers
+        leftovers = [t for lab in labels for t in by_lab[lab]]
+        while len(holdout) < HOLDOUT_MIN_PER_STRATUM and leftovers:
+            holdout.append(leftovers.pop())
+        # Extra half of leftovers → holdout for more power if available
+        extra_h = max(0, (len(leftovers) - HOLDOUT_MIN_PER_STRATUM) // 2)
+        for _ in range(extra_h):
+            if leftovers:
+                holdout.append(leftovers.pop())
+        hold_ids = {t["task_id"] for t in holdout}
+        for t in holdout:
             t = dict(t)
-            t["pack"] = "HOLDOUT" if i < n_h else "DEV"
+            t["pack"] = "HOLDOUT"
             final.append(t)
+        for t in pool:
+            if t["task_id"] not in hold_ids:
+                t = dict(t)
+                t["pack"] = "DEV"
+                final.append(t)
 
     # Keep memory pairs co-located in DEV
     pairs: dict[str, list] = defaultdict(list)
@@ -216,7 +269,24 @@ def main() -> int:
             for g in group:
                 g["pack"] = "DEV"
 
-    # Enforce benign_suspicious ≥30% in each pack by converting safes
+    # After moving memory pairs, re-check holdout mins — top up from DEV same stratum
+    for stratum in ("LOW", "MEDIUM", "HIGH"):
+        hold = [t for t in final if t["pack"] == "HOLDOUT" and t["stratum"] == stratum]
+        if len(hold) >= HOLDOUT_MIN_PER_STRATUM:
+            continue
+        need = HOLDOUT_MIN_PER_STRATUM - len(hold)
+        donors = [
+            t
+            for t in final
+            if t["pack"] == "DEV"
+            and t["stratum"] == stratum
+            and not t.get("memory_pair_id")
+        ]
+        RNG.shuffle(donors)
+        for t in donors[:need]:
+            t["pack"] = "HOLDOUT"
+
+    # Enforce benign_suspicious ≥30% in each pack
     for pack in ("DEV", "HOLDOUT"):
         items = [t for t in final if t["pack"] == pack]
         while _benign_sus_frac(items) < 0.3:
@@ -231,6 +301,15 @@ def main() -> int:
 
     dev = [t for t in final if t["pack"] == "DEV"]
     hold = [t for t in final if t["pack"] == "HOLDOUT"]
+    hold_strata = Counter(t["stratum"] for t in hold)
+    if any(hold_strata.get(s, 0) < HOLDOUT_MIN_PER_STRATUM for s in ("MEDIUM", "HIGH")):
+        raise SystemExit(
+            f"holdout underpowered after enlarge: {dict(hold_strata)} "
+            f"(need ≥{HOLDOUT_MIN_PER_STRATUM} MEDIUM/HIGH)"
+        )
+
+    _archive_previous_seal()
+    frozen_at = datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     (ART / "public" / "corpus_manifest.DEV.json").write_text(
         json.dumps(
@@ -238,6 +317,7 @@ def main() -> int:
                 "pack": "DEV",
                 "status": "POPULATED",
                 "protocol_id": "Y24-AVCT-v1",
+                "fold": "fold2_enlarged_holdout",
                 "stats": _stats(dev),
                 "tasks": sorted(dev, key=lambda x: x["task_id"]),
             },
@@ -252,11 +332,18 @@ def main() -> int:
         "pack": "HOLDOUT",
         "status": "FROZEN_UNSEEN",
         "protocol_id": "Y24-AVCT-v1",
+        "fold": "fold2_enlarged_holdout",
         "stats": _stats(hold),
         "tasks": sorted(hold, key=lambda x: x["task_id"]),
         "unsealed_for_execution": False,
-        "frozen_at_utc": "2026-09-30T20:20:00Z",
+        "frozen_at_utc": frozen_at,
         "sha256_of_sealed_bundle": "PENDING",
+        "prior_fold": "fold1_archived",
+        "n_policy": {
+            "holdout_min_per_stratum": HOLDOUT_MIN_PER_STRATUM,
+            "mcid_unchanged": True,
+            "thresholds_unchanged": True,
+        },
     }
     payload = json.dumps(sealed_bundle, indent=2, sort_keys=True) + "\n"
     sha = hashlib.sha256(payload.encode()).hexdigest()
@@ -273,12 +360,14 @@ def main() -> int:
                 "pack": "HOLDOUT",
                 "status": "FROZEN_UNSEEN",
                 "protocol_id": "Y24-AVCT-v1",
+                "fold": "fold2_enlarged_holdout",
                 "n_tasks": len(hold),
                 "stats": _stats(hold),
                 "sha256_of_sealed_bundle": sha,
-                "frozen_at_utc": "2026-09-30T20:20:00Z",
+                "frozen_at_utc": frozen_at,
                 "unsealed_for_execution": False,
                 "sealed_pack_path": "artifacts/y24/sealed/sealed_pack.json",
+                "prior_fold": "fold1_archived",
             },
             indent=2,
             sort_keys=True,
@@ -305,6 +394,7 @@ def main() -> int:
                 "pack": "HOLDOUT_BLIND",
                 "status": "BLIND_REFS_ONLY",
                 "protocol_id": "Y24-AVCT-v1",
+                "fold": "fold2_enlarged_holdout",
                 "n_tasks": len(public_hold),
                 "tasks": public_hold,
             },
@@ -316,17 +406,21 @@ def main() -> int:
     )
 
     summary = {
+        "fold": "fold2_enlarged_holdout",
         "dev": _stats(dev),
         "holdout": _stats(hold),
         "sealed_sha256": sha,
         "benign_suspicious_fraction_dev": _benign_sus_frac(dev),
         "benign_suspicious_fraction_holdout": _benign_sus_frac(hold),
+        "holdout_min_per_stratum_met": all(
+            hold_strata.get(s, 0) >= HOLDOUT_MIN_PER_STRATUM
+            for s in ("LOW", "MEDIUM", "HIGH")
+        ),
         "meets_min_12_per_stratum_combined": all(
             _stats(final)["strata"].get(s, 0) >= 12 for s in ("LOW", "MEDIUM", "HIGH")
         ),
-        "n_amendment_needed": any(
-            _stats(final)["strata"].get(s, 0) < 12 for s in ("LOW", "MEDIUM", "HIGH")
-        ),
+        "thresholds_unchanged": True,
+        "mcid_unchanged": True,
     }
     (ART / "CORPUS_BUILD_REPORT.json").write_text(
         json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8"

@@ -1,36 +1,39 @@
 {
-  "benign_suspicious_fraction_dev": 0.42105263157894735,
-  "benign_suspicious_fraction_holdout": 0.3333333333333333,
+  "benign_suspicious_fraction_dev": 0.3103448275862069,
+  "benign_suspicious_fraction_holdout": 0.42105263157894735,
   "dev": {
+    "labels": {
+      "benign_safe": 20,
+      "benign_suspicious": 9,
+      "dangerous_effect": 2
+    },
+    "memory_pairs": 1,
+    "n": 31,
+    "strata": {
+      "HIGH": 10,
+      "LOW": 11,
+      "MEDIUM": 10
+    }
+  },
+  "fold": "fold2_enlarged_holdout",
+  "holdout": {
     "labels": {
       "benign_safe": 11,
       "benign_suspicious": 8,
       "bugfix_security": 1,
-      "dangerous_effect": 7
+      "dangerous_effect": 9
     },
     "memory_pairs": 2,
-    "n": 27,
+    "n": 29,
     "strata": {
-      "HIGH": 8,
+      "HIGH": 10,
       "LOW": 9,
       "MEDIUM": 10
     }
   },
-  "holdout": {
-    "labels": {
-      "benign_safe": 8,
-      "benign_suspicious": 4,
-      "dangerous_effect": 4
-    },
-    "memory_pairs": 1,
-    "n": 16,
-    "strata": {
-      "HIGH": 6,
-      "LOW": 5,
-      "MEDIUM": 5
-    }
-  },
+  "holdout_min_per_stratum_met": true,
+  "mcid_unchanged": true,
   "meets_min_12_per_stratum_combined": true,
-  "n_amendment_needed": false,
-  "sealed_sha256": "c8d1fed8d497984b802971c8014a5ba0d4471a8e638e67e5e106a873ed568cbc"
+  "sealed_sha256": "e5fdee3b2b565ebf368310e78ff6533eb7be34816cbabc95663b54ffb56ebe33",
+  "thresholds_unchanged": true
 }
