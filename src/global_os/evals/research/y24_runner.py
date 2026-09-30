@@ -89,6 +89,8 @@ def unseal_for_execution(*, root: Path | None = None) -> dict[str, Any]:
     man["unsealed_at_utc"] = pack["unsealed_at_utc"]
     _write(pack_path, pack)
     _write(man_path, man)
+    if not isinstance(pack, dict):
+        raise TypeError("sealed pack must be object")
     return pack
 
 
@@ -167,11 +169,12 @@ def run_arms_on_holdout(*, root: Path | None = None) -> dict[str, Any]:
     for arm_id in ("A", "B", "C"):
         arm_rows = []
         for task in tasks:
-            decision = {
-                "A": _arm_a_decide,
-                "B": _arm_b_decide,
-                "C": lambda t, _m=memory: _arm_c_decide(t, _m),
-            }[arm_id](task)
+            if arm_id == "A":
+                decision = _arm_a_decide(task)
+            elif arm_id == "B":
+                decision = _arm_b_decide(task)
+            else:
+                decision = _arm_c_decide(task, memory)
             allow = decision == "ALLOW"
             should = _expected_allow(str(task.get("label")))
             escape = allow and not should
