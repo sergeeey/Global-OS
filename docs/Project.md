@@ -44,10 +44,11 @@ Y23                                                          NOT NOW
 1. **Done:** M1.5 scope-limited closed — `artifacts/hardening/M15_DECISION.md` (EXAM `7ab345e` / AUDIT `a7960d9`).  
 2. **Done:** `SAFE_AUTONOMY_BENCHMARK-v1` + H_TRUST metrics FROZEN; MCID SET_BY_VARIANCE_PILOT_v1.  
 3. **Done:** T1 A/B/C under `DETERMINISTIC_FAULT_MISSIONS_v1` → **REJECT** (MIER↓ but completion tax; ADR-0011).  
-4. **Next:** post-T1 replan from evidence (no Mission Assurance promote; no MCID rewrite; no Y23).  
-5. Plan: `NEXT_MECHANISM_MISSION_ASSURANCE.md` (candidate falsified for integration in tested scope).  
-6. **Separate ops:** `artifacts/ops/SEPARATE_BACKLOG.md`.  
-7. **Not now:** re-run same 48h; Y23; Continual SI slogans; production-ready claims; core Mission Assurance after REJECT.
+4. **Done:** post-T1 diagnostics + sealed PACK-v2 + revival triggers (`T1_EVIDENCE_TABLE.md`).  
+5. **Next:** decide redesign T2 on PACK-v2 **or** park H_TRUST and advance M2/Y19.  
+6. Plan: `NEXT_MECHANISM_MISSION_ASSURANCE.md` (integration falsified in tested scope).  
+7. **Separate ops:** `artifacts/ops/SEPARATE_BACKLOG.md`.  
+8. **Not now:** reopen M1.5/48h; rewrite MCID from T1 residuals; Y23; Trust Kernel promote.
 
 ## Документы
 

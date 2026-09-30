@@ -5,8 +5,11 @@
 - [x] Variance pilot → MCID amendment (synthetic sandbox)
 - [x] T1 A/B/C Mission Assurance → **REJECT** (`verifier_tax_2_0_completion`)
 - [x] ADR-0011: no Trust Kernel / MI promote after REJECT
-- [ ] Post-T1 replan (overblocking / utility tax) — no MCID rewrite, no Y23
+- [x] Post-T1 diagnostics (CI, overblocking, cost, sensitivity)
+- [x] Sealed PACK-v2 + revival triggers + evidence table
+- [ ] Decide: redesign T2 (new prereg on PACK-v2) **or** park H_TRUST → M2/Y19
 - Decision: `artifacts/safe_autonomy_t1/T1_DECISION.md`
+- Diagnostics: `artifacts/safe_autonomy_t1/POST_T1_DIAGNOSTICS/DIAGNOSTICS.md`
 - Plan: `artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md`
 - Benchmark: `artifacts/hardening/SAFE_AUTONOMY_BENCHMARK_V1.md`
 

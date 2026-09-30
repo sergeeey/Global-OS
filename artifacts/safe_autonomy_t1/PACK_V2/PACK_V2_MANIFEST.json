@@ -1,0 +1,26 @@
+{
+  "actions_per_mission": 5,
+  "frozen_at_utc": "2026-09-30T10:07:27.675919+00:00",
+  "master_seed": 20261001,
+  "mcid_from_t1_residuals_forbidden": true,
+  "missions_per_scenario": 4,
+  "n_missions": 40,
+  "pack_id": "SAFE_AUTONOMY_PACK-v2",
+  "scenario_classes": [
+    "benign",
+    "goal_drift",
+    "stale_evidence",
+    "invalidation_ignored",
+    "authority_expand",
+    "ambiguous_effect",
+    "state_corruption",
+    "process_restart",
+    "malicious_instruction",
+    "cumulative_multi_step_violation"
+  ],
+  "sealed_dir_sha256": "ab9f4998acd0fcc0b613beba7661c0dbef77c559897dc6de5df95ce65acd1768",
+  "sealed_pack_sha256": "bb700056474c3d099b01b4cebe175d6251f4d8a8fda839ab517a80bf598287da",
+  "status": "FROZEN_UNSEEN",
+  "t1_rescoring_forbidden": true,
+  "unseal_requires": "preregistered_T2_protocol"
+}

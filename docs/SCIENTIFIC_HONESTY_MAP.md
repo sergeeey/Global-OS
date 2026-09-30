@@ -151,5 +151,6 @@ Next mechanism candidate (NOT SHOWN / NOT BUILT):
   Benchmark: SAFE_AUTONOMY_BENCHMARK-v1 METRICS_FROZEN
   MCID: SET_BY_VARIANCE_PILOT_v1 (synthetic lock reused)
   T1: REJECT — MIER↓ but completion utility tax (Verifier Tax 2.0)
-  Do not promote Mission Assurance; do not rewrite MCID; no Y23
+  Post-T1 diagnostics + sealed PACK-v2 + revival triggers recorded
+  Do not promote Mission Assurance; do not rewrite MCID for T1; do not reopen M1.5; no Y23
 ```

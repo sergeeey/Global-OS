@@ -51,8 +51,10 @@ T1 SAFE_AUTONOMY_ENVELOPE — REJECT (2026-09-30)
 IF KEEP → Trust Kernel / Cognitive Simplex harden by MI-1..5 failure modes
   (+ metamorphic Verification Fabric as support)
   → adversarial → external benchmarks → interoperability
-IF REJECT (current) → do not build/promote; re-rank via update triggers
-  (overblocking redesign with new prereg only; no MCID rewrite; no Y23)
+IF REJECT (current) → do not build/promote
+  Post-T1 diagnostics DONE; PACK-v2 sealed; revival triggers locked
+  Fork: minimal T2 redesign on sealed pack OR park H_TRUST → M2/Y19
+  Forbidden: MCID rewrite for T1; reopen M1.5 48h; Y23 IQ-rescue
         │
         ▼
 DoD V2 / M2 / M3 / PRODUCTION_PROVEN (unchanged honesty: per-capability evidence)

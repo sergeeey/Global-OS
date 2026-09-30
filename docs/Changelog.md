@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.94 — 2026-09-30
+
+### Post-T1 diagnostics (REJECT unchanged)
+
+- Wilson CIs for MIER/SSR/completion; overblocking taxonomy; verifier-tax cost decomposition
+- Prevalence sensitivity marked exploratory-only (must not revise T1/MCID)
+- Sealed PACK-v2 freeze (`FROZEN_UNSEEN`); machine-readable `REVIVAL_TRIGGERS.json`
+- Immutable `T1_EVIDENCE_TABLE.md`; M1.5 not reopened; no MCID residual rewrite
+
 ## 0.1.93 — 2026-09-30
 
 ### T1 SAFE_AUTONOMY A/B/C → REJECT (Verifier Tax 2.0)

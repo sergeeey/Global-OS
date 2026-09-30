@@ -1,0 +1,2 @@
+SEALED PACK-v2 — do not open for Arm redesign against T1.
+Unseal only under preregistered T2 protocol.

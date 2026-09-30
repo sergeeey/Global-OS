@@ -108,7 +108,7 @@
     {
       "id": "safe_autonomy_benchmark_v1",
       "state": "RUNTIME_VERIFIED_HARNESS",
-      "evidence": "T1 A/B/C COMPLETE under DETERMINISTIC_FAULT_MISSIONS_v1 → REJECT (verifier_tax_2_0_completion); MIER_C=0 vs A=0.9/B=0.8; SSR_C=0.3; artifacts/safe_autonomy_t1/T1_DECISION.md; ADR-0011 no Trust Kernel promote; MCID unchanged; ≠ live-LLM; ≠ H_TRUST confirmed; tests/test_t1_safe_autonomy.py; tests/test_safe_autonomy_benchmark_v1.py; tests/test_variance_pilot.py"
+      "evidence": "T1 REJECT + post-T1 diagnostics (Wilson CI, overblocking, verifier-tax decomposition); sealed PACK-v2; REVIVAL_TRIGGERS; T1_EVIDENCE_TABLE; artifacts/safe_autonomy_t1/POST_T1_DIAGNOSTICS/; ADR-0011; MCID unchanged; M1.5 not reopened; tests/test_t1_safe_autonomy.py; tests/test_t1_diagnostics.py"
     },
     {
       "id": "full_epistemic_graph",
