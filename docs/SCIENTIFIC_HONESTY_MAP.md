@@ -170,11 +170,14 @@ Next mechanism candidate (NOT SHOWN / NOT BUILT):
   Forbidden: proven universal H_TRUST / Trust Kernel / production from this KEEP
   Do not rewrite T1 MCID; do not reopen M1.5; no Y23; T1 REJECT stands for pack v1
 
-Next dogfood science (not T3 poke):
-  Y24 fold-1 IMMUTABLE INCONCLUSIVE (underpowered MED/HIGH)
-  Y24-F2 = locked protocol amendment (sample-size N≥8) — NOT silent same-prereg
-  Y24-F2 heuristic REJECT; MCID/rubric/cost/isolation unchanged
-  Informal brief “Y19”; legacy artifacts/y19 FROZEN
-  HEURISTIC_HARNESS_v1 ≠ live-LLM; INCONCLUSIVE ≠ architecture failure
-  No Trust Kernel / C2 edits from Y24; Y25 = FUTURE
+Y24 CLOSED (scientific):
+  F1 INCONCLUSIVE | F2 REJECT under Y24-AVCT-v1-F2
+  Fidelity HEURISTIC_HARNESS_v1
+  Adaptive-C advantage: NOT SHOWN / REJECTED under protocol
+  Trust Kernel: UNCHANGED — do not rescue Y24 with more N/tuning/PACK-v4
+
+Next dogfood science:
+  Y25 Memory Value (Y25-MV-v1) PREREG_LOCKED — W0 vs W1 on real OSS
+  unseen-variant failure pairs; Y24 H_memory was INCONCLUSIVE ≠ SUPPORT
+  Strong baseline, sealed holdout, same budget; no claims beyond evidence
 ```

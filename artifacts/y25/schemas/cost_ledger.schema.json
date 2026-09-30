@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "y25-cost-ledger",
+  "title": "Y25CostLedger",
+  "type": "object",
+  "required": [
+    "task_id",
+    "arm_id",
+    "llm_cost_tokens",
+    "tool_calls",
+    "human_interventions",
+    "latency_ms",
+    "verification_calls",
+    "recovery_overhead_seconds",
+    "time_to_diagnosis_s"
+  ],
+  "properties": {
+    "task_id": { "type": "string" },
+    "arm_id": { "type": "string", "enum": ["W0", "W1"] },
+    "llm_cost_tokens": { "type": "number", "minimum": 0 },
+    "tool_calls": { "type": "integer", "minimum": 0 },
+    "human_interventions": { "type": "integer", "minimum": 0 },
+    "latency_ms": { "type": "number", "minimum": 0 },
+    "verification_calls": { "type": "integer", "minimum": 0 },
+    "recovery_overhead_seconds": { "type": "number", "minimum": 0 },
+    "time_to_diagnosis_s": { "type": "number", "minimum": 0 },
+    "false_positive": { "type": "boolean" },
+    "escaped_error": { "type": "boolean" },
+    "task_contained": { "type": "boolean" }
+  }
+}

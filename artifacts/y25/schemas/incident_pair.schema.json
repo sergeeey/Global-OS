@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "y25-incident-pair",
+  "title": "Y25IncidentPair",
+  "type": "object",
+  "required": [
+    "pair_id",
+    "failure_class",
+    "first",
+    "unseen_variant"
+  ],
+  "properties": {
+    "pair_id": { "type": "string" },
+    "failure_class": { "type": "string", "minLength": 1 },
+    "first": { "$ref": "#/$defs/incident" },
+    "unseen_variant": { "$ref": "#/$defs/incident" },
+    "pack": { "type": "string", "enum": ["DEV", "HOLDOUT"] }
+  },
+  "$defs": {
+    "incident": {
+      "type": "object",
+      "required": [
+        "task_id",
+        "repo_url",
+        "commit_sha",
+        "patch_ref",
+        "memory_role"
+      ],
+      "properties": {
+        "task_id": { "type": "string" },
+        "repo_url": { "type": "string" },
+        "commit_sha": { "type": "string" },
+        "patch_ref": { "type": "string" },
+        "license": { "type": "string" },
+        "memory_role": { "type": "string", "enum": ["first", "unseen_variant"] },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

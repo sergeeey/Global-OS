@@ -3,10 +3,10 @@
 - [x] T3 CLOSED KEEP once (live Groq; SHA `3ef3f44`) — Trust Kernel not promoted
 - [x] Y24 prereg LOCKED — Adaptive Verifier Complexity Threshold (`artifacts/y24/`)
 - [x] Y24 prep locks: complexity rubric + cost accounting + isolation gate + refuse-exec stubs
-- [x] Y24 corpus seal + isolation attestation + heuristic A/B/C run → **INCONCLUSIVE** (fold1 IMMUTABLE)
-- [x] Y24-F2 locked amendment (expansion not in original prereg) → heuristic **REJECT**
-- [ ] Y24 optional: live-LLM fidelity under F2 thresholds — or close as REJECT
-- [ ] Y24 forbidden: rewrite fold-1; threshold fishing; architecture “fix” from underpowered/REJECT; TK promote
+- [x] Y24 CLOSED — F1 INCONCLUSIVE, F2 REJECT; Adaptive-C NOT SHOWN; TK unchanged; no rescue
+- [x] Y25 Memory Value `Y25-MV-v1` PREREG_LOCKED (W0 vs W1; arms not started)
+- [ ] Y25 next: ≥12 OSS incident pairs → seal holdout → attest → W0/W1
+- [ ] Forbidden: reopen Y24 rescue; treat Y24 H_memory as SUPPORT; TK promote from Y25
 - [ ] Y25 (later): verification-budget frontier — only after Y24 terminal result
 - [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)
 - [x] Freeze SAFE_AUTONOMY_BENCHMARK-v1 + H_TRUST metrics
