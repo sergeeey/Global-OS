@@ -197,7 +197,7 @@ def main() -> int:
     for t in selected:
         buckets[(t["stratum"], t["label"])].append(t)
     final: list[dict] = []
-    for key, group in buckets.items():
+    for group in buckets.values():
         RNG.shuffle(group)
         # half holdout (at least 1 if len>=2)
         n_h = len(group) // 2

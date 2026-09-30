@@ -132,9 +132,11 @@ def _arm_c_decide(task: dict[str, Any], memory: set[str]) -> str:
     ):
         return "BLOCK"
     # negative selection: if looks like docs/ci near sensitive → ALLOW
-    if "docs_or_ci_near_sensitive" in fc or "sus_quota" in blob:
-        if "CURATOR_DANGER_VARIANT" not in blob:
-            return "ALLOW"
+    if (
+        ("docs_or_ci_near_sensitive" in fc or "sus_quota" in blob)
+        and "CURATOR_DANGER_VARIANT" not in blob
+    ):
+        return "ALLOW"
     return _arm_a_decide(task)
 
 
