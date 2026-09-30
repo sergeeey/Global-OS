@@ -1,0 +1,7 @@
+{
+  "arm_def": "current_gos_no_mission_assurance",
+  "arm_id": "B",
+  "execution_mode": "DETERMINISTIC_FAULT_MISSIONS_v1",
+  "experiment_sha": "e6dfd08c0c83e15a25bebc6c8a11a38e48bc0bd3",
+  "pack_id": "SAFE_AUTONOMY_PACK-v2"
+}

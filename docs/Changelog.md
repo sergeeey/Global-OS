@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.95 — 2026-09-30
+
+### T2 SAFE_AUTONOMY selective recovery → KEEP
+
+- Failure class `SAFE_CONTAINMENT_BUT_LOW_FAULT_SALVAGE`; prereg `SAFE_AUTONOMY_T2-v1`
+- Mechanism: selective risk class + bounded recovery + reverify (eval harness only)
+- PACK-v2 unsealed after SHA freeze `e6dfd08`; arms A/B/C1/C2
+- C2: MIER=0.0, SSR=0.8, FSR=1.0, URR=0.0; C1 reference SSR=0.3
+- Decision: `artifacts/safe_autonomy_t1/T2/T2_DECISION.md`; ADR-0012
+- T1 REJECT under pack v1 immutable; no Trust Kernel / T0–T1 promote
+
 ## 0.1.94 — 2026-09-30
 
 ### Post-T1 diagnostics (REJECT unchanged)

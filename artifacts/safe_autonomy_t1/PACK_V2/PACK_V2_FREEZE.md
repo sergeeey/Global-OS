@@ -1,8 +1,9 @@
 # SAFE_AUTONOMY PACK-v2 — FREEZE (unseen / sealed)
 
-**Status:** `FROZEN_UNSEEN`  
+**Status:** `UNSEALED` (was `FROZEN_UNSEEN` until T2)  
 **Freeze time (UTC):** 2026-09-30T10:10:00Z  
-**Purpose:** holdout pack for any future T2 redesign — **not** for rescoring T1.
+**Unsealed for:** `SAFE_AUTONOMY_T2-v1` @ experiment SHA `e6dfd08c0c83e15a25bebc6c8a11a38e48bc0bd3`  
+**Purpose:** holdout pack for T2 redesign — **not** for rescoring T1.
 
 ## Rules (binding)
 

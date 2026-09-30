@@ -1,16 +1,13 @@
-# H_TRUST revival triggers (machine-readable companion)
+# H_TRUST revival triggers
 
-**Status:** ACTIVE  
+**Status:** `FIRED_T2_KEEP`  
 **JSON:** `REVIVAL_TRIGGERS.json`
 
 ```text
-H_TRUST remains REJECTED
-UNTIL one of:
-- selective verifier reduces overblocking (RT-1)
-- risk router improves fault targeting (RT-2)
-- effect-level verification reduces verifier tax (RT-3)
-- new mechanism meets preregistered T2 criteria (RT-4)
-AND a new preregistered experiment completes on sealed PACK-v2 (or successor).
+T1 REJECT under pack v1          = immutable
+T2 KEEP on PACK-v2               = selective recovery continues MA line
+RT-1 + RT-2                      = fired via T2
+Trust Kernel / T0–T1 promote     = still FORBIDDEN (ADR-0012)
 ```
 
-This is **not** a rescue of T1. T1 REJECT stands under frozen MCID + pack v1.
+T2 is not a rescue that rewrites T1. It is a new preregistered experiment on the sealed holdout pack.

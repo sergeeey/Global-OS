@@ -7,11 +7,14 @@
 - [x] ADR-0011: no Trust Kernel / MI promote after REJECT
 - [x] Post-T1 diagnostics (CI, overblocking, cost, sensitivity)
 - [x] Sealed PACK-v2 + revival triggers + evidence table
-- [ ] Decide: redesign T2 (new prereg on PACK-v2) **or** park H_TRUST → M2/Y19
-- Decision: `artifacts/safe_autonomy_t1/T1_DECISION.md`
+- [x] T2 prereg + selective recovery router + acceptance tests
+- [x] T2 on PACK-v2 → **KEEP** (FSR=1.0, URR=0, MIER_C2=0; ADR-0012)
+- Decision T1: `artifacts/safe_autonomy_t1/T1_DECISION.md` (REJECT stands)
+- Decision T2: `artifacts/safe_autonomy_t1/T2/T2_DECISION.md`
 - Diagnostics: `artifacts/safe_autonomy_t1/POST_T1_DIAGNOSTICS/DIAGNOSTICS.md`
 - Plan: `artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md`
 - Benchmark: `artifacts/hardening/SAFE_AUTONOMY_BENCHMARK_V1.md`
+- [ ] Next: continue MA line under honesty bounds **or** M2/Y19; no Trust Kernel promote
 
 ## Done — LH-COGNITIVE-v1 (Variant B)
 

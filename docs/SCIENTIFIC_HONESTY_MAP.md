@@ -35,7 +35,9 @@ Post-M1.5
   → CORE NEXT HYPOTHESIS (H_TRUST)
   → SAFE_AUTONOMY_BENCHMARK-v1 METRICS_FROZEN + MCID SET_BY_VARIANCE_PILOT_v1
   → T1 A/B/C DETERMINISTIC_FAULT_MISSIONS_v1 → REJECT (verifier_tax_2_0_completion)
-    H_TRUST NOT CONFIRMED / REJECTED in tested scope (ADR-0011)
+    H_TRUST NOT CONFIRMED under pack v1 (ADR-0011)
+  → T2 selective recovery on PACK-v2 → KEEP (FSR=1.0, URR=0; ADR-0012)
+    continue MA eval-harness line; still ≠ Trust Kernel / production / live-LLM
 ```
 
 ## Forbidden overclaims
@@ -51,7 +53,7 @@ Post-M1.5
 ```text
 Raw-capability amplification:     NOT SHOWN  (no longer the working project bet)
 Trust / long-horizon amplification: PARTIAL (M1.5 scope-limited);
-                                    H_TRUST REJECTED under DETERMINISTIC_FAULT_MISSIONS_v1
+                                    H_TRUST T1 REJECT (pack v1); T2 KEEP selective recovery (PACK-v2)
 ```
 
 We stopped treating raw-IQ amplification as the **working hypothesis** because evidence does not support it so far — not because we proved a universal null.
@@ -151,6 +153,8 @@ Next mechanism candidate (NOT SHOWN / NOT BUILT):
   Benchmark: SAFE_AUTONOMY_BENCHMARK-v1 METRICS_FROZEN
   MCID: SET_BY_VARIANCE_PILOT_v1 (synthetic lock reused)
   T1: REJECT — MIER↓ but completion utility tax (Verifier Tax 2.0)
-  Post-T1 diagnostics + sealed PACK-v2 + revival triggers recorded
-  Do not promote Mission Assurance; do not rewrite MCID for T1; do not reopen M1.5; no Y23
+  Post-T1 diagnostics → SAFE_CONTAINMENT_BUT_LOW_FAULT_SALVAGE
+  T2: KEEP — selective bounded recovery on PACK-v2 (FSR=1.0, URR=0, MIER=0)
+  Continue MA eval-harness line; still no Trust Kernel / T0–T1 promote
+  Do not rewrite T1 MCID; do not reopen M1.5; no Y23; T1 REJECT stands for pack v1
 ```

@@ -1,0 +1,7 @@
+{
+  "arm_def": "gos_plus_thin_ma_containment_only",
+  "arm_id": "C1",
+  "execution_mode": "DETERMINISTIC_FAULT_MISSIONS_v1",
+  "experiment_sha": "e6dfd08c0c83e15a25bebc6c8a11a38e48bc0bd3",
+  "pack_id": "SAFE_AUTONOMY_PACK-v2"
+}

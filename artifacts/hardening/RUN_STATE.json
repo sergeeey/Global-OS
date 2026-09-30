@@ -1,10 +1,10 @@
 {
-  "sprint": "POST_T1_DIAGNOSTICS_DONE",
-  "updated_at": "2026-09-30T10:15:00Z",
-  "current_goal": "DECIDE_REDESIGN_OR_PARK_H_TRUST",
-  "phase_statement": "T1 REJECT stands. Post-T1 diagnostics complete (Wilson CI, overblocking, verifier-tax decomposition, prevalence sensitivity). PACK-v2 FROZEN_UNSEEN. Revival triggers machine-readable. Do not reopen M1.5; do not rewrite MCID for T1; do not promote Mission Assurance. Next: decide redesign (new T2 prereg) vs park H_TRUST.",
-  "operator_action_required": true,
-  "operator_dispatch_required": true,
+  "sprint": "T2_KEEP_SELECTIVE_RECOVERY",
+  "updated_at": "2026-09-30T10:35:00Z",
+  "current_goal": "CONTINUE_MA_LINE_OR_ADVANCE_M2",
+  "phase_statement": "T1 REJECT under pack v1 stands. T2 KEEP on PACK-v2: selective risk class + bounded recovery + reverify (MIER_C2=0, SSR_C2=0.8, FSR=1.0, URR=0). Experiment SHA e6dfd08. RT-1/RT-2 fired. Still no Trust Kernel / T0–T1 promote. Do not reopen M1.5; do not rewrite T1 MCID.",
+  "operator_action_required": false,
+  "operator_dispatch_required": false,
   "y20": {
     "sealed_science_gain": false
   },
@@ -28,7 +28,7 @@
     "m15": true,
     "continual_si": false,
     "m15_scope": "LH_COGNITIVE_V1_ONLY",
-    "h_trust": false
+    "h_trust": "T2_KEEP_EVAL_HARNESS_NOT_TRUST_KERNEL"
   },
   "long_horizon": {
     "linux_compressed_preflight": "PASS",
@@ -72,7 +72,7 @@
       "note": "successful run is the post-reboot full restart; interrupted partial run does not count"
     }
   },
-  "next_exact_action": "Read POST_T1_DIAGNOSTICS/DIAGNOSTICS.md + T1_EVIDENCE_TABLE.md; choose RT-* redesign with new prereg on sealed PACK-v2 OR park H_TRUST and advance M2/Y19.",
+  "next_exact_action": "Continue Mission Assurance eval-harness line under ADR-0012 honesty bounds, or advance M2/Y19. Do not promote Trust Kernel from T2 KEEP alone; prefer independent replication on realistic/live workloads before stronger claims.",
   "forbidden_now": [
     "r4_during_exam",
     "harden_exam_sha",
@@ -85,9 +85,11 @@
     "implement_mission_assurance_core_before_keep",
     "invent_mcid_without_variance_pilot",
     "re_run_same_48h_exam",
-    "promote_mission_assurance_after_t1_reject",
-    "rewrite_mcid_after_t1",
-    "y23_iq_rescue_after_t1_reject"
+    "promote_mission_assurance_to_trust_kernel_from_t2_keep_alone",
+    "rewrite_t1_mcid_from_residuals",
+    "y23_iq_rescue_after_t1_reject",
+    "claim_live_llm_or_production_from_t2_keep",
+    "reopen_m15_48h"
   ],
   "r1": {
     "mission_id": "R1-EVIDENCE-INTEGRITY-v1",
@@ -177,7 +179,7 @@
     "same_sha_restart_allowed": true
   },
   "next_mechanism_plan": "artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md",
-  "next_mechanism_status": "T1_REJECTED_NOT_PROMOTED",
+  "next_mechanism_status": "T2_KEEP_EVAL_HARNESS_NO_TRUST_KERNEL",
   "post_48h": {
     "operator_runbook": "artifacts/hardening/OPERATOR_POST_48H_NOW.md",
     "auditor": "artifacts/hardening/audit_cognitive_48h/freeze_and_audit.py",
@@ -187,7 +189,7 @@
   "m15_decision": "artifacts/hardening/M15_DECISION.md",
   "exam_sha": "7ab345e5badb00a8c97ffdb7010ee4eb42dac4bb",
   "audit_sha": "a7960d9616c9c08224f5be9e1e7097bca9744bd0",
-  "h_trust_status": "REJECTED_DETERMINISTIC_FAULT_MISSIONS_V1",
+  "h_trust_status": "T2_KEEP_CONTINUE_MISSION_ASSURANCE_EVAL_HARNESS",
   "safe_autonomy_benchmark": {
     "id": "SAFE_AUTONOMY_BENCHMARK-v1",
     "status": "METRICS_FROZEN",
@@ -195,6 +197,9 @@
     "arms_complete": true,
     "t1_verdict": "REJECT",
     "t1_decision": "artifacts/safe_autonomy_t1/T1_DECISION.md",
+    "t2_verdict": "KEEP",
+    "t2_decision": "artifacts/safe_autonomy_t1/T2/T2_DECISION.md",
+    "t2_experiment_sha": "e6dfd08c0c83e15a25bebc6c8a11a38e48bc0bd3",
     "execution_mode": "DETERMINISTIC_FAULT_MISSIONS_v1",
     "mcid_status": "SET_BY_VARIANCE_PILOT_v1",
     "mier": {
@@ -207,6 +212,20 @@
       "B": 0.2,
       "C": 0.3
     },
+    "t2_mier": {
+      "A": 0.9,
+      "B": 0.8,
+      "C1": 0.0,
+      "C2": 0.0
+    },
+    "t2_ssr": {
+      "A": 0.1,
+      "B": 0.2,
+      "C1": 0.3,
+      "C2": 0.8
+    },
+    "t2_fsr_c2": 1.0,
+    "t2_urr_c2": 0.0,
     "reject_reasons": [
       "verifier_tax_2_0_completion"
     ]
@@ -216,8 +235,11 @@
     "evidence_table": "artifacts/safe_autonomy_t1/T1_EVIDENCE_TABLE.md",
     "revival_triggers": "artifacts/safe_autonomy_t1/REVIVAL_TRIGGERS.json",
     "pack_v2": "artifacts/safe_autonomy_t1/PACK_V2/PACK_V2_MANIFEST.json",
+    "pack_v2_status": "UNSEALED",
     "t1_verdict_immutable": "REJECT",
+    "t2_verdict": "KEEP",
     "mcid_recompute_for_t1_forbidden": true,
-    "m15_reopen_forbidden": true
+    "m15_reopen_forbidden": true,
+    "trust_kernel_promote_forbidden": true
   }
 }

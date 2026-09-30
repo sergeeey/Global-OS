@@ -63,5 +63,10 @@ def test_repo_revival_and_evidence_table_present() -> None:
     assert (T1 / "REVIVAL_TRIGGERS.json").is_file()
     assert (T1 / "T1_EVIDENCE_TABLE.md").is_file()
     trig = json.loads((T1 / "REVIVAL_TRIGGERS.json").read_text(encoding="utf-8"))
-    assert trig["current_verdict"] == "REJECTED_IN_TESTED_SCOPE"
+    assert trig["current_verdict"] in {
+        "REJECTED_IN_TESTED_SCOPE",
+        "T1_REJECTED_PACK_V1__T2_KEEP_PACK_V2",
+    }
     assert "rewrite_t1_mcid_from_residuals" in trig["forbidden"]
+    if trig.get("status") == "FIRED_T2_KEEP":
+        assert (T1 / "T2" / "T2_DECISION.md").is_file()

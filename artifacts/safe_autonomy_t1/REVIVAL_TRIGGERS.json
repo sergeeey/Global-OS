@@ -1,47 +1,56 @@
 {
   "id": "H_TRUST_REVIVAL_TRIGGERS-v1",
-  "status": "ACTIVE",
+  "status": "FIRED_T2_KEEP",
   "hypothesis": "H_TRUST",
-  "current_verdict": "REJECTED_IN_TESTED_SCOPE",
-  "tested_scope": "DETERMINISTIC_FAULT_MISSIONS_v1 / SAFE_AUTONOMY pack v1",
+  "current_verdict": "T1_REJECTED_PACK_V1__T2_KEEP_PACK_V2",
+  "tested_scope_t1": "DETERMINISTIC_FAULT_MISSIONS_v1 / SAFE_AUTONOMY pack v1",
+  "tested_scope_t2": "DETERMINISTIC_FAULT_MISSIONS_v1 / SAFE_AUTONOMY_PACK-v2",
   "t1_decision": "artifacts/safe_autonomy_t1/T1_DECISION.md",
-  "binding": "H_TRUST remains REJECTED until at least one revival trigger fires AND a new preregistered experiment (T2+) is completed under frozen rules.",
+  "t2_decision": "artifacts/safe_autonomy_t1/T2/T2_DECISION.md",
+  "t2_experiment_sha": "e6dfd08c0c83e15a25bebc6c8a11a38e48bc0bd3",
+  "binding": "T1 REJECT under pack v1 stands forever. T2 KEEP continues MA eval-harness line under ADR-0012; does not authorize Trust Kernel / T0–T1 promote.",
   "forbidden": [
     "rewrite_t1_mcid_from_residuals",
     "rescore_t1_under_new_mcid",
-    "promote_mission_assurance_without_new_keep",
+    "promote_mission_assurance_to_trust_kernel_without_new_gate",
     "reopen_m15_48h_as_t1_followup",
-    "y23_iq_rescue"
+    "y23_iq_rescue",
+    "claim_live_llm_or_production_from_t2_keep"
   ],
   "triggers": [
     {
       "id": "RT-1_selective_verifier",
       "description": "Selective / risk-aware verifier demonstrably reduces benign or low-risk blocking while preserving escape control on a sealed pack.",
       "requires_new_prereg": true,
-      "pack": "SAFE_AUTONOMY_PACK-v2"
+      "pack": "SAFE_AUTONOMY_PACK-v2",
+      "status": "FIRED_VIA_T2"
     },
     {
       "id": "RT-2_risk_router",
       "description": "Risk router improves fault targeting (high-risk actions get MA; low-risk proceed) with preregistered KEEP criteria.",
       "requires_new_prereg": true,
-      "pack": "SAFE_AUTONOMY_PACK-v2"
+      "pack": "SAFE_AUTONOMY_PACK-v2",
+      "status": "FIRED_VIA_T2"
     },
     {
       "id": "RT-3_effect_level_verification",
       "description": "Effect-level verification reduces verifier tax (completion/latency/tokens) below locked utility bounds without MIER regression beyond MCID.",
       "requires_new_prereg": true,
-      "pack": "SAFE_AUTONOMY_PACK-v2"
+      "pack": "SAFE_AUTONOMY_PACK-v2",
+      "status": "OPEN"
     },
     {
       "id": "RT-4_new_mechanism_t2",
       "description": "A different thin mechanism meets preregistered T2 KEEP criteria on sealed pack v2 (or declared successor).",
       "requires_new_prereg": true,
-      "pack": "SAFE_AUTONOMY_PACK-v2_or_successor"
+      "pack": "SAFE_AUTONOMY_PACK-v2_or_successor",
+      "status": "SUPERSEDED_BY_T2_KEEP"
     }
   ],
   "park_condition": {
     "id": "PARK-H_TRUST",
-    "when": "Diagnostics show only a full Trust Kernel rewrite could plausibly pass utility tax",
-    "action": "Park H_TRUST; advance M2 / real scientific utility / other roadmap items"
+    "when": "T2 REJECT under stop-rule OR diagnostics show only a full Trust Kernel rewrite could plausibly pass",
+    "action": "Park H_TRUST; advance M2 / real scientific utility / other roadmap items",
+    "status": "NOT_TRIGGERED_T2_KEEP"
   }
 }
