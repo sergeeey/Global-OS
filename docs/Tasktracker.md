@@ -23,7 +23,9 @@
 - [x] Model HTTP bounded 429/503 backoff + Groq RPM pacing + TPD fail-closed + T3 live preflight
 - [x] Live attempt: GROQ key valid; blocked by Groq TPD≈200k (`T3_LIVE_ATTEMPT_GROQ_TPD.md`)
 - [x] T3 continuation re-run after TPD recovery → **KEEP** (`LIVE_LLM`) — Trust Kernel not promoted
-- [ ] Next: independent review of T3 KEEP artifacts; optional second free provider for diversity
+- [x] T3 cycle closed: Honesty Map / RUN_STATE / provenance synced; live SHA `3ef3f44` pinned
+- [ ] Next (outside T3): pick next real task from `artifacts/ops/SEPARATE_BACKLOG.md`
+- [ ] Optional later (new experiment, not T3 poke): new prereg + other provider + new sealed holdout + same frozen C2
 
 ## Done — LH-COGNITIVE-v1 (Variant B)
 

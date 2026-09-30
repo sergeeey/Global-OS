@@ -56,7 +56,8 @@ Post-M1.5
 Raw-capability amplification:     NOT SHOWN  (no longer the working project bet)
 Trust / long-horizon amplification: PARTIAL (M1.5 scope-limited);
                                     H_TRUST T1 REJECT; T2 KEEP; C2 frozen;
-                                    T3 INCONCLUSIVE (live keys unavailable)
+                                    T3 KEEP once under live Groq (continuation);
+                                    ≠ independent replication / production / Trust Kernel
 ```
 
 We stopped treating raw-IQ amplification as the **working hypothesis** because evidence does not support it so far — not because we proved a universal null.
@@ -159,10 +160,13 @@ Next mechanism candidate (NOT SHOWN / NOT BUILT):
   Post-T1 diagnostics → SAFE_CONTAINMENT_BUT_LOW_FAULT_SALVAGE
   T2: KEEP — selective bounded recovery on PACK-v2 (FSR=1.0, URR=0, MIER=0)
   C2 contract SELECTIVE_BOUNDED_RECOVERY-v1 FROZEN_CANDIDATE (pin e6dfd08)
-  T3: INCONCLUSIVE — live keys unavailable (SHA c6523a6); PACK-v3 already unsealed
-  Continuation: same prereg after keys (not new sealed replication; no PACK-v4)
-  Attested: no C2/harness/decision-rule edits after unseal
-  Harness: continuation-safe (integrity gate + LIVE_PROVENANCE + prior archive)
-  Allowed: KEEP only after live replication. Forbidden: proven H_TRUST / Trust Kernel / production
+  T3: KEEP — live continuation under Groq LIVE_LLM (same prereg / PACK-v3 / C2)
+  Experiment freeze SHA: c6523a6 · Live completed SHA: 3ef3f44
+  Claim strength: live generalization SHOWN once; independent replication NOT YET;
+                  production security NOT SHOWN; Trust Kernel promotion NO
+  Attested: no C2/decision-rule edits after unseal (honesty tooling only: 429/pace/TPD)
+  Cycle CLOSED — do not retune C2; do not invent PACK-v4; switch to next real task
+  Later confidence (optional): NEW prereg + other provider + new sealed holdout + same C2
+  Forbidden: proven universal H_TRUST / Trust Kernel / production from this KEEP
   Do not rewrite T1 MCID; do not reopen M1.5; no Y23; T1 REJECT stands for pack v1
 ```

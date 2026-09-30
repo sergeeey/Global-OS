@@ -1,10 +1,10 @@
 {
-  "sprint": "T3_LIVE_KEEP_NO_TRUST_KERNEL",
-  "updated_at": "2026-09-30T16:28:32Z",
-  "current_goal": "INDEPENDENT_REVIEW_T3_KEEP_THEN_DECIDE_NEXT",
-  "phase_statement": "T3 continuation LIVE_LLM completed \u2192 KEEP (URR=0, FSR=1.0, MIER_C2=0, SSR_C2=0.8). Same prereg/PACK-v3/C2. Trust Kernel NOT promoted. Honesty tooling landed for Groq RPM/TPD. Next: independent review of artifacts; no PACK-v4.",
-  "operator_action_required": true,
-  "operator_dispatch_required": true,
+  "sprint": "T3_CLOSED_KEEP_SWITCH_NEXT",
+  "updated_at": "2026-09-30T17:10:00Z",
+  "current_goal": "NEXT_REAL_TASK_OUTSIDE_T3",
+  "phase_statement": "T3 CLOSED: live continuation KEEP under Groq LIVE_LLM (same prereg/PACK-v3/C2). Experiment freeze SHA c6523a6bb58484a018ae4638949ad4aa085b4095; live completion SHA 3ef3f448d589dc7604b109fe20730de127cf994d. Claim: live generalization shown once. Independent replication NOT YET; production security NOT SHOWN; Trust Kernel NOT promoted. Do not retune C2. Switch to next real task \u2014 do not keep poking T3.",
+  "operator_action_required": false,
+  "operator_dispatch_required": false,
   "y20": {
     "sealed_science_gain": false
   },
@@ -28,7 +28,7 @@
     "m15": true,
     "continual_si": false,
     "m15_scope": "LH_COGNITIVE_V1_ONLY",
-    "h_trust": "T3_KEEP_LIVE_LLM_CONTINUATION_NOT_TRUST_KERNEL"
+    "h_trust": "T3_KEEP_LIVE_LLM_ONCE_NOT_TRUST_KERNEL"
   },
   "long_horizon": {
     "linux_compressed_preflight": "PASS",
@@ -72,7 +72,7 @@
       "note": "successful run is the post-reboot full restart; interrupted partial run does not count"
     }
   },
-  "next_exact_action": "Human/independent review of artifacts/safe_autonomy_t1/T3/{T3_DECISION,SCORE_RAW,LIVE_PROVENANCE}.md|json. Do not promote Trust Kernel. Optional: second free provider for diversity.",
+  "next_exact_action": "T3 cycle closed. Merge PR #1 if not yet merged. Do not retune C2 / invent PACK-v4 / promote Trust Kernel. Next confidence step (later, optional): NEW prereg + other provider/model + new sealed holdout + same frozen C2. Until then: pick next real task outside T3 (see artifacts/ops/SEPARATE_BACKLOG.md).",
   "t3_continuation": {
     "path": "artifacts/safe_autonomy_t1/T3/T3_CONTINUATION.md",
     "is_new_sealed_replication": false,
@@ -86,7 +86,9 @@
     "fidelity": "LIVE_LLM",
     "execution_mode": "LIVE_LLM_T3_v1",
     "trust_kernel_promoted": false,
-    "decision": "artifacts/safe_autonomy_t1/T3/T3_DECISION.md"
+    "decision": "artifacts/safe_autonomy_t1/T3/T3_DECISION.md",
+    "live_completed_sha": "3ef3f448d589dc7604b109fe20730de127cf994d",
+    "cycle_closed": true
   },
   "forbidden_now": [
     "r4_during_exam",
@@ -110,7 +112,11 @@
     "retune_c2_against_pack_v2",
     "create_pack_v4_to_reset_t3",
     "claim_live_llm_from_scripted_smoke",
-    "treat_live_rerun_as_new_sealed_replication"
+    "treat_live_rerun_as_new_sealed_replication",
+    "promote_trust_kernel_from_t3_keep_alone",
+    "retune_c2_after_t3_keep",
+    "claim_independent_replication_from_single_provider_keep",
+    "claim_production_security_from_t3_keep"
   ],
   "r1": {
     "mission_id": "R1-EVIDENCE-INTEGRITY-v1",
@@ -200,7 +206,7 @@
     "same_sha_restart_allowed": true
   },
   "next_mechanism_plan": "artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md",
-  "next_mechanism_status": "C2_FROZEN_T3_INCONCLUSIVE_AWAIT_KEYS",
+  "next_mechanism_status": "C2_FROZEN_T3_KEEP_LIVE_CLOSED",
   "selective_bounded_recovery": {
     "contract": "artifacts/safe_autonomy_t1/SELECTIVE_BOUNDED_RECOVERY_V1.md",
     "status": "MECHANISM_FROZEN_CANDIDATE",
@@ -208,8 +214,14 @@
     "t2_review": "artifacts/safe_autonomy_t1/T2/T2_INDEPENDENT_REVIEW.md",
     "t3_prereg": "artifacts/safe_autonomy_t1/T3_PREREG.md",
     "t3_decision": "artifacts/safe_autonomy_t1/T3/T3_DECISION.md",
-    "t3_verdict": "INCONCLUSIVE",
-    "t3_experiment_sha": "c6523a6bb58484a018ae4638949ad4aa085b4095"
+    "t3_verdict": "KEEP",
+    "t3_experiment_sha": "c6523a6bb58484a018ae4638949ad4aa085b4095",
+    "t3_live_completed_sha": "3ef3f448d589dc7604b109fe20730de127cf994d",
+    "t3_fidelity": "LIVE_LLM",
+    "t3_execution_mode": "LIVE_LLM_T3_v1",
+    "trust_kernel_promoted": false,
+    "independent_replication": "NOT_YET_SHOWN",
+    "production_security": "NOT_SHOWN"
   },
   "post_48h": {
     "operator_runbook": "artifacts/hardening/OPERATOR_POST_48H_NOW.md",
@@ -220,7 +232,7 @@
   "m15_decision": "artifacts/hardening/M15_DECISION.md",
   "exam_sha": "7ab345e5badb00a8c97ffdb7010ee4eb42dac4bb",
   "audit_sha": "a7960d9616c9c08224f5be9e1e7097bca9744bd0",
-  "h_trust_status": "T2_KEEP_CONTINUE_MISSION_ASSURANCE_EVAL_HARNESS",
+  "h_trust_status": "T3_KEEP_LIVE_LLM_CONTINUATION_NOT_TRUST_KERNEL",
   "safe_autonomy_benchmark": {
     "id": "SAFE_AUTONOMY_BENCHMARK-v1",
     "status": "METRICS_FROZEN",
@@ -259,7 +271,10 @@
     "t2_urr_c2": 0.0,
     "reject_reasons": [
       "verifier_tax_2_0_completion"
-    ]
+    ],
+    "t3_verdict": "KEEP",
+    "t3_live_completed_sha": "3ef3f448d589dc7604b109fe20730de127cf994d",
+    "t3_fidelity": "LIVE_LLM"
   },
   "post_t1": {
     "diagnostics": "artifacts/safe_autonomy_t1/POST_T1_DIAGNOSTICS/DIAGNOSTICS.md",

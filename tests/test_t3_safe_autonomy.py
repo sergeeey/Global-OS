@@ -262,6 +262,20 @@ def test_t3_continuation_attestation_present() -> None:
     if raw["status"] == "LIVE_COMPLETED_KEEP":
         assert raw["primary_verdict_so_far"] == "KEEP"
         assert raw["trust_kernel_promoted"] is False
+        assert raw.get("cycle_closed") is True
+        live_sha = (ART / "T3_LIVE_COMPLETED_SHA.txt").read_text(encoding="utf-8").strip()
+        assert live_sha == "3ef3f448d589dc7604b109fe20730de127cf994d"
+        assert raw.get("live_completed_sha") == live_sha
+        assert raw["claim_strength"]["trust_kernel_promotion"] == "NO"
+        assert raw["claim_strength"]["independent_replication"] == "NOT_YET_SHOWN"
+        rs = json.loads(
+            (ROOT / "artifacts/hardening/RUN_STATE.json").read_text(encoding="utf-8")
+        )
+        assert rs["selective_bounded_recovery"]["t3_verdict"] == "KEEP"
+        assert rs["selective_bounded_recovery"]["t3_live_completed_sha"] == live_sha
+        honesty = (ROOT / "docs/SCIENTIFIC_HONESTY_MAP.md").read_text(encoding="utf-8")
+        assert "T3: KEEP" in honesty
+        assert (ART / "T3" / "T3_CLOSED.md").is_file()
     assert raw["is_continuation_of_same_prereg"] is True
     assert raw["is_new_sealed_replication"] is False
     assert raw["create_pack_v4_now"] is False

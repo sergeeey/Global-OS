@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.102 — 2026-09-30
+
+### T3 cycle closed — provenance sync (no C2 edit)
+
+- Synced Honesty Map / RUN_STATE / Project / capability matrix to one state: T3 KEEP once
+- Pinned live completion SHA `3ef3f44` in `T3_LIVE_COMPLETED_SHA.txt` (experiment freeze remains `c6523a6`)
+- Claim bounds locked: live generalization SHOWN once; replication/production/Trust Kernel NO
+- Cycle closed — switch to next real task; do not retune C2 after KEEP
+
 ## 0.1.101 — 2026-09-30
 
 ### T3 live continuation → KEEP (not Trust Kernel)

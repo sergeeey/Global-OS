@@ -1,8 +1,10 @@
 # T3 CONTINUATION — same prereg, not a new sealed replication
 
-**Status:** `LIVE_COMPLETED_KEEP`  
+**Status:** `LIVE_COMPLETED_KEEP` (cycle **CLOSED**)  
 **Protocol:** `SAFE_AUTONOMY_T3-v1` (unchanged)  
-**JSON:** `T3_CONTINUATION.json`
+**JSON:** `T3_CONTINUATION.json`  
+**Live completed SHA:** `3ef3f44` (`T3_LIVE_COMPLETED_SHA.txt`)  
+**Experiment freeze SHA:** `c6523a6` (`T3_EXPERIMENT_SHA.txt`)
 
 ## Binding facts
 
@@ -14,6 +16,17 @@ No C2 / decision-threshold / routing edits after unseal.
 Honesty tooling only: bounded 429 retry, Groq pacing, TPD fail-closed, preflight.
 This live KEEP is a continuation of the same prereg — not a new sealed replication.
 Trust Kernel is NOT promoted from this single KEEP.
+Cycle CLOSED — do not retune C2; switch to next real task.
+```
+
+## Claim strength (binding)
+
+```text
+C2 mechanism evidence        STRONGER
+live generalization          SHOWN once
+independent replication      NOT YET SHOWN
+production security          NOT SHOWN
+Trust Kernel promotion       NO
 ```
 
 ## Interpretation
@@ -25,8 +38,9 @@ Trust Kernel is NOT promoted from this single KEEP.
 | L1 C2 | MIER=0.0 · SSR=0.8 · FSR=1.0 · URR=0.0 |
 | C2 | unchanged (pin `e6dfd08`) |
 | Trust Kernel | **not promoted** |
-| live-LLM claim | established (continuation) |
+| live-LLM claim | established once (continuation) |
 | PACK-v4 | **not created** |
+| Cycle | **CLOSED** |
 
 Decision: `artifacts/safe_autonomy_t1/T3/T3_DECISION.md`  
 Provenance: `LIVE_PROVENANCE.json` (provider=`groq`, model=`openai/gpt-oss-120b`)  
@@ -44,7 +58,14 @@ Quota incident: `artifacts/hardening/T3_LIVE_ATTEMPT_GROQ_TPD.md`
 ## Forbidden
 
 - invent PACK-v4 to “reset”
-- edit C2 after PACK-v3 unseal
+- edit / retune C2 after PACK-v3 unseal or after KEEP
 - rewrite MCID / T3 thresholds for a win
 - promote Trust Kernel from a single T3 KEEP
-- claim production / universal H_TRUST
+- claim production / universal H_TRUST / independent replication from this KEEP
+- keep poking T3 instead of switching to the next real task
+
+## Later (optional, new experiment — not T3 poke)
+
+```text
+new prereg → other provider/model → new sealed holdout → same frozen C2 → replication
+```

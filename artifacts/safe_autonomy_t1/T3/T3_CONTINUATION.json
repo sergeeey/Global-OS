@@ -49,9 +49,11 @@
     "c2_mechanism_pin_sha": "e6dfd08c0c83e15a25bebc6c8a11a38e48bc0bd3"
   },
   "operator_next": [
-    "independent_review_of_T3_KEEP_artifacts",
-    "do_not_promote_trust_kernel_from_single_keep",
-    "optional_add_second_free_provider_for_diversity"
+    "merge_pr_1_if_needed",
+    "do_not_retune_c2",
+    "do_not_promote_trust_kernel",
+    "switch_to_next_real_task_outside_t3",
+    "optional_later_new_prereg_other_provider_new_holdout_same_c2"
   ],
   "forbidden": [
     "edit_c2_after_unseal",
@@ -59,5 +61,14 @@
     "create_pack_v4_to_reset",
     "claim_live_from_scripted_smoke",
     "promote_trust_kernel"
-  ]
+  ],
+  "cycle_closed": true,
+  "live_completed_sha": "3ef3f448d589dc7604b109fe20730de127cf994d",
+  "claim_strength": {
+    "c2_mechanism_evidence": "STRONGER",
+    "live_generalization": "SHOWN_ONCE",
+    "independent_replication": "NOT_YET_SHOWN",
+    "production_security": "NOT_SHOWN",
+    "trust_kernel_promotion": "NO"
+  }
 }
