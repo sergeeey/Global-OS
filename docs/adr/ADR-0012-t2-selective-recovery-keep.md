@@ -36,11 +36,15 @@ Primary evidence (`artifacts/safe_autonomy_t1/T2/T2_DECISION.md`, experiment SHA
 ## Consequences
 
 + H_TRUST line continues under deterministic fault missions with selective recovery.
++ Mechanism frozen as candidate contract `SELECTIVE_BOUNDED_RECOVERY-v1`
+  (eval harness only; pin SHA `e6dfd08`).
++ Independent artifact review confirms KEEP (`T2/T2_INDEPENDENT_REVIEW.md`) —
+  not an external lab, not a claim upgrade.
++ T3 prereg LOCKED for live-LLM generalization (`T3_PREREG.md`) — **not redesign**.
 + **Still forbidden:** Trust Kernel / T0–T1 core promote; blind verifier weakening;
-  T1 MCID rewrite; M1.5 reopen; Y23 IQ-rescue.
-+ Next evidence must not invent production/live-LLM claims from this KEEP.
-− Independent replication on more realistic/live workloads remains required before
-  any stronger trust claim.
+  T1 MCID rewrite; M1.5 reopen; Y23 IQ-rescue; C2 edit after holdout unseal.
++ Next evidence must not invent production/live-LLM claims from this KEEP alone.
+− Live replication (T3) remains required before any stronger trust claim.
 
 ## Non-claims
 

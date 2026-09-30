@@ -9,12 +9,14 @@
 - [x] Sealed PACK-v2 + revival triggers + evidence table
 - [x] T2 prereg + selective recovery router + acceptance tests
 - [x] T2 on PACK-v2 → **KEEP** (FSR=1.0, URR=0, MIER_C2=0; ADR-0012)
+- [x] Freeze `SELECTIVE_BOUNDED_RECOVERY-v1` + T2 independent review CONFIRM KEEP
+- [x] T3 prereg LOCKED (live-LLM replication; no C2 redesign)
 - Decision T1: `artifacts/safe_autonomy_t1/T1_DECISION.md` (REJECT stands)
 - Decision T2: `artifacts/safe_autonomy_t1/T2/T2_DECISION.md`
-- Diagnostics: `artifacts/safe_autonomy_t1/POST_T1_DIAGNOSTICS/DIAGNOSTICS.md`
-- Plan: `artifacts/hardening/NEXT_MECHANISM_MISSION_ASSURANCE.md`
-- Benchmark: `artifacts/hardening/SAFE_AUTONOMY_BENCHMARK_V1.md`
-- [ ] Next: continue MA line under honesty bounds **or** M2/Y19; no Trust Kernel promote
+- Review: `artifacts/safe_autonomy_t1/T2/T2_INDEPENDENT_REVIEW.md`
+- Contract: `artifacts/safe_autonomy_t1/SELECTIVE_BOUNDED_RECOVERY_V1.md`
+- T3: `artifacts/safe_autonomy_t1/T3_PREREG.md`
+- [ ] Next: seal PACK-v3 → execute T3 L1/L2 → KEEP/REJECT/INCONCLUSIVE; no Trust Kernel promote
 
 ## Done — LH-COGNITIVE-v1 (Variant B)
 

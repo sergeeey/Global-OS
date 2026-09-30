@@ -1,0 +1,19 @@
+{
+  "review_id": "T2_INDEPENDENT_REVIEW-v1",
+  "status": "REVIEW_COMPLETE",
+  "experiment_sha": "e6dfd08c0c83e15a25bebc6c8a11a38e48bc0bd3",
+  "t2_verdict_confirmed": "KEEP",
+  "integrity_pass": true,
+  "metrics_recomputed": {
+    "mier_C2": 0.0,
+    "ssr_C2": 0.8,
+    "fsr_C2": 1.0,
+    "urr_C2": 0.0,
+    "ssr_C1": 0.3,
+    "fsr_C1": 0.2857142857142857
+  },
+  "claim_scope_ok": true,
+  "trust_kernel_promote": false,
+  "external_lab_replication": false,
+  "next": "T3_PREREG_LIVE_LLM_REPLICATION"
+}

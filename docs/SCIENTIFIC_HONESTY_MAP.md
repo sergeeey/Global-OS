@@ -37,7 +37,9 @@ Post-M1.5
   → T1 A/B/C DETERMINISTIC_FAULT_MISSIONS_v1 → REJECT (verifier_tax_2_0_completion)
     H_TRUST NOT CONFIRMED under pack v1 (ADR-0011)
   → T2 selective recovery on PACK-v2 → KEEP (FSR=1.0, URR=0; ADR-0012)
-    continue MA eval-harness line; still ≠ Trust Kernel / production / live-LLM
+  → C2 frozen as SELECTIVE_BOUNDED_RECOVERY-v1 (candidate capability, not core)
+  → T3 prereg LOCKED: live-LLM generalization/replication (not redesign)
+    still ≠ Trust Kernel / production / universal H_TRUST
 ```
 
 ## Forbidden overclaims
@@ -53,7 +55,8 @@ Post-M1.5
 ```text
 Raw-capability amplification:     NOT SHOWN  (no longer the working project bet)
 Trust / long-horizon amplification: PARTIAL (M1.5 scope-limited);
-                                    H_TRUST T1 REJECT (pack v1); T2 KEEP selective recovery (PACK-v2)
+                                    H_TRUST T1 REJECT (pack v1); T2 KEEP (PACK-v2);
+                                    C2 frozen; T3 live replication preregged (not run)
 ```
 
 We stopped treating raw-IQ amplification as the **working hypothesis** because evidence does not support it so far — not because we proved a universal null.
@@ -155,6 +158,8 @@ Next mechanism candidate (NOT SHOWN / NOT BUILT):
   T1: REJECT — MIER↓ but completion utility tax (Verifier Tax 2.0)
   Post-T1 diagnostics → SAFE_CONTAINMENT_BUT_LOW_FAULT_SALVAGE
   T2: KEEP — selective bounded recovery on PACK-v2 (FSR=1.0, URR=0, MIER=0)
-  Continue MA eval-harness line; still no Trust Kernel / T0–T1 promote
+  C2 contract SELECTIVE_BOUNDED_RECOVERY-v1 FROZEN_CANDIDATE (pin e6dfd08)
+  T3: PREREG_LOCKED live-LLM L1 + natural L2; no C2 edit after holdout unseal
+  Allowed: KEEP for further testing. Forbidden: proven H_TRUST / Trust Kernel / production
   Do not rewrite T1 MCID; do not reopen M1.5; no Y23; T1 REJECT stands for pack v1
 ```

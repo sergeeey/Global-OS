@@ -35,6 +35,8 @@ M1.5     LH-COGNITIVE 48h integrity @7ab345e                 CLOSED_SCOPE_LIMITE
 Post     SAFE_AUTONOMY_BENCHMARK-v1 metrics                   FROZEN
          Mission Assurance T1 A/B/C                          REJECT (Verifier Tax 2.0)
          T2 selective recovery on PACK-v2                    KEEP (FSR=1.0, URR=0, MIER=0)
+         C2 contract SELECTIVE_BOUNDED_RECOVERY-v1           FROZEN_CANDIDATE
+         T3 live-LLM replication prereg                      LOCKED (not executed)
          H_TRUST                                             CONTINUE_MA_LINE (eval harness)
 Continual SI / universal advantage                           NOT MEASURED / NOT CLAIMED
 Y20–Y22 scorers                                              FROZEN
@@ -47,10 +49,11 @@ Y23                                                          NOT NOW
 2. **Done:** `SAFE_AUTONOMY_BENCHMARK-v1` + H_TRUST metrics FROZEN; MCID SET_BY_VARIANCE_PILOT_v1.  
 3. **Done:** T1 A/B/C under `DETERMINISTIC_FAULT_MISSIONS_v1` → **REJECT** (MIER↓ but completion tax; ADR-0011).  
 4. **Done:** post-T1 diagnostics + sealed PACK-v2 + revival triggers (`T1_EVIDENCE_TABLE.md`).  
-5. **Done:** T2 prereg + selective recovery + PACK-v2 unseal → **KEEP** (`T2/T2_DECISION.md`, ADR-0012).  
-6. **Next:** continue Mission Assurance line under honesty bounds **or** advance M2/Y19; no Trust Kernel promote.  
-7. **Separate ops:** `artifacts/ops/SEPARATE_BACKLOG.md`.  
-8. **Not now:** reopen M1.5/48h; rewrite T1 MCID; Y23; Trust Kernel / T0–T1 promote from T2 KEEP.
+5. **Done:** T2 → **KEEP**; C2 frozen as `SELECTIVE_BOUNDED_RECOVERY-v1`; independent review CONFIRM KEEP.  
+6. **Done:** T3 prereg LOCKED (`T3_PREREG.md`) — live-LLM L1 + natural L2; no C2 edit after holdout.  
+7. **Next:** seal PACK-v3 → freeze T3 SHA → unseal → repeated-run L1/L2 → KEEP/REJECT/INCONCLUSIVE.  
+8. **Separate ops:** `artifacts/ops/SEPARATE_BACKLOG.md`.  
+9. **Not now:** Trust Kernel promote; reopen M1.5; rewrite T1 MCID; Y23; retune C2 against PACK-v2/v3.
 
 ## Документы
 

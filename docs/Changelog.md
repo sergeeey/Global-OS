@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.96 — 2026-09-30
+
+### C2 freeze + T2 review + T3 prereg
+
+- Frozen candidate contract `SELECTIVE_BOUNDED_RECOVERY-v1` (eval harness; pin SHA e6dfd08)
+- Independent T2 artifact review → CONFIRM KEEP (not external lab; not claim upgrade)
+- T3 prereg LOCKED: live-LLM L1 + natural L2; ≥3 runs/condition; URR=0 hard; no C2 edit after holdout
+- Allowed claim language locked; Trust Kernel / production / universal H_TRUST still forbidden
+- Next: seal PACK-v3 → execute T3 (not redesign)
+
 ## 0.1.95 — 2026-09-30
 
 ### T2 SAFE_AUTONOMY selective recovery → KEEP
