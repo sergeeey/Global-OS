@@ -86,3 +86,30 @@ def test_openai_compat_surfaces_retry_exhausted(monkeypatch: pytest.MonkeyPatch)
         )
         with pytest.raises(ModelProviderError, match="Retry-After|attempt"):
             p.generate(GenerateRequest(prompt="ping"))
+
+
+def test_post_json_paces_when_min_interval_env_set(monkeypatch: pytest.MonkeyPatch):
+    import global_os.adapters.models.http_json as hj
+
+    monkeypatch.setenv("GOS_MODEL_HTTP_MIN_INTERVAL_SECONDS", "0.5")
+    hj._next_slot_monotonic = 0.0
+    clock = {"t": 1000.0}
+    sleeps: list[float] = []
+
+    monkeypatch.setattr(hj.time, "monotonic", lambda: clock["t"])
+
+    def _sleep(seconds: float) -> None:
+        sleeps.append(float(seconds))
+        clock["t"] += float(seconds)
+
+    monkeypatch.setattr(hj.time, "sleep", _sleep)
+
+    with model_http_sink("openai", response_text="a") as sink:
+        url = f"{sink.base_url}/v1/chat/completions"
+        post_json(url, {"model": "x"}, headers={})
+        clock["t"] += 0.1  # not enough to clear interval
+        post_json(url, {"model": "x"}, headers={})
+
+    assert len(sink.posts) == 2
+    assert sleeps  # paced on second call
+    assert abs(sleeps[0] - 0.4) < 1e-9

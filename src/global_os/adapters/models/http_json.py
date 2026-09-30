@@ -4,6 +4,9 @@ from __future__ import annotations
 
 import json
 import math
+import os
+import sys
+import threading
 import time
 import urllib.error
 import urllib.request
@@ -17,6 +20,11 @@ _RETRYABLE_STATUS = frozenset({429, 503})
 _DEFAULT_MAX_ATTEMPTS = 4  # 1 try + up to 3 retries
 _MAX_BACKOFF_SECONDS = 60.0
 _BASE_BACKOFF_SECONDS = 1.0
+# Groq free on_demand RPM ≈ 30 → ≥2s spacing avoids 429 storms on long evals.
+_GROQ_DEFAULT_MIN_INTERVAL = 2.1
+
+_pace_lock = threading.Lock()
+_next_slot_monotonic = 0.0
 
 
 class HttpJsonError(Exception):
@@ -86,6 +94,46 @@ def _backoff_seconds(attempt: int, *, retry_after: float | None) -> float:
     return float(min(_BASE_BACKOFF_SECONDS * (2**attempt), _MAX_BACKOFF_SECONDS))
 
 
+def _min_interval_for_url(url: str) -> float:
+    """Optional global pacing. Env overrides; Groq free-tier gets a safe default."""
+    raw = os.environ.get("GOS_MODEL_HTTP_MIN_INTERVAL_SECONDS", "").strip()
+    if raw:
+        try:
+            return max(0.0, float(raw))
+        except ValueError as exc:
+            raise ValueError(
+                f"GOS_MODEL_HTTP_MIN_INTERVAL_SECONDS must be float, got {raw!r}"
+            ) from exc
+    if "api.groq.com" in url:
+        return _GROQ_DEFAULT_MIN_INTERVAL
+    return 0.0
+
+
+def _acquire_request_slot(url: str) -> None:
+    """Serialize / space outbound model POSTs (process-local). Never unbounded."""
+    global _next_slot_monotonic
+    interval = _min_interval_for_url(url)
+    if interval <= 0:
+        return
+    with _pace_lock:
+        now = time.monotonic()
+        wait = _next_slot_monotonic - now
+        if wait > 0:
+            time.sleep(wait)
+            now = time.monotonic()
+        _next_slot_monotonic = now + interval
+
+
+def _log_retry(url: str, *, status: int, attempt: int, delay: float) -> None:
+    if os.environ.get("GOS_HTTP_DEBUG", "").strip() not in {"1", "true", "TRUE", "yes"}:
+        return
+    print(
+        f"[http_json] retry status={status} attempt={attempt} delay={delay:.2f}s url={url}",
+        file=sys.stderr,
+        flush=True,
+    )
+
+
 def post_json(
     url: str,
     payload: dict[str, Any],
@@ -98,6 +146,7 @@ def post_json(
 
     Retries only on HTTP 429/503 with exponential backoff (honors Retry-After
     when present as delay-seconds). Attempts are hard-capped — never unbounded.
+    Groq free-tier URLs are paced (~2.1s) to stay under RPM=30 unless overridden.
     """
     if max_attempts < 1:
         raise ValueError("max_attempts must be >= 1")
@@ -112,6 +161,7 @@ def post_json(
 
     last_error: HttpJsonError | None = None
     for attempt in range(max_attempts):
+        _acquire_request_slot(url)
         request = urllib.request.Request(url, data=data, headers=req_headers, method="POST")
         try:
             with _OPENER.open(request, timeout=timeout_seconds) as resp:
@@ -128,7 +178,9 @@ def post_json(
                 attempts=attempt + 1,
             )
             if exc.code in _RETRYABLE_STATUS and attempt + 1 < max_attempts:
-                time.sleep(_backoff_seconds(attempt, retry_after=retry_after))
+                delay = _backoff_seconds(attempt, retry_after=retry_after)
+                _log_retry(url, status=exc.code, attempt=attempt + 1, delay=delay)
+                time.sleep(delay)
                 last_error = err
                 continue
             raise err from exc
@@ -151,7 +203,9 @@ def post_json(
                 attempts=attempt + 1,
             )
             if status in _RETRYABLE_STATUS and attempt + 1 < max_attempts:
-                time.sleep(_backoff_seconds(attempt, retry_after=None))
+                delay = _backoff_seconds(attempt, retry_after=None)
+                _log_retry(url, status=status, attempt=attempt + 1, delay=delay)
+                time.sleep(delay)
                 last_error = err
                 continue
             raise err

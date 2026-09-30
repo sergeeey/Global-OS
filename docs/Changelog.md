@@ -2,12 +2,14 @@
 
 ## 0.1.100 — 2026-09-30
 
-### Model HTTP: bounded 429/503 backoff (T3 live-path hardening)
+### Model HTTP: bounded 429/503 backoff + Groq RPM pacing (T3 live-path)
 
 - `post_json` retries only HTTP 429/503 with hard-capped attempts (default 4) + exponential backoff
 - Honors `Retry-After` when present as delay-seconds; never unbounded; fail-closed after exhaustion
+- Process-local pacing for `api.groq.com` (~2.1s; override via `GOS_MODEL_HTTP_MIN_INTERVAL_SECONDS`) to avoid free-tier RPM=30 storms
 - Transport retry ≠ T3 scientific re-sample (`retries=0` in arm harness remains intentional)
-- Acceptance: `tests/test_http_json.py` (429 then success; exhausted 429; OpenAI-compat error surface)
+- `t3_runner` prints per arm/seed progress lines for long live runs
+- Acceptance: `tests/test_http_json.py` (429 then success; exhausted 429; pacing; OpenAI-compat error surface)
 
 ## 0.1.99 — 2026-09-30
 

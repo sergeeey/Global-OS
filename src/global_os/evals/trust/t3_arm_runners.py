@@ -610,6 +610,10 @@ def run_t3_layer(
     for arm_id in ("A", "B", "C2"):
         arm_runs = []
         for seed in seeds:
+            print(
+                f"[t3_runner] layer={layer} arm={arm_id} seed={seed} missions={len(missions)}",
+                flush=True,
+            )
             arm_runs.append(
                 run_t3_arm_once(
                     arm_id=arm_id,
