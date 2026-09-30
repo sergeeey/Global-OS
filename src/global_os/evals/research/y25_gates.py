@@ -15,12 +15,18 @@ def y25_root(root: Path | None = None) -> Path:
 
 def load_prereg(root: Path | None = None) -> dict[str, Any]:
     path = y25_root(root) / "Y25-PREREG.json"
-    return json.loads(path.read_text(encoding="utf-8"))
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise TypeError("Y25 prereg must be object")
+    return data
 
 
 def load_holdout_manifest(root: Path | None = None) -> dict[str, Any]:
     path = y25_root(root) / "sealed" / "HOLDOUT_MANIFEST.json"
-    return json.loads(path.read_text(encoding="utf-8"))
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise TypeError("Y25 holdout manifest must be object")
+    return data
 
 
 def assert_prereg_locked(root: Path | None = None) -> dict[str, Any]:
