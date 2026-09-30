@@ -81,8 +81,17 @@ def build_pack_v2_sealed() -> dict[str, Any]:
     }
 
 
+def pack_v2_root(root: Path | None = None) -> Path:
+    """PACK_V2 directory.
+
+    ``root`` if provided is the parent of ``PACK_V2`` (artifact root),
+    matching the historical freeze API. ``None`` → default T1 artifact root.
+    """
+    return (root or t1_artifact_root()) / "PACK_V2"
+
+
 def freeze_pack_v2(*, root: Path | None = None) -> dict[str, Any]:
-    out = (root or t1_artifact_root()) / "PACK_V2"
+    out = pack_v2_root(root)
     sealed_dir = out / "sealed"
     sealed_dir.mkdir(parents=True, exist_ok=True)
     pack = build_pack_v2_sealed()
@@ -113,6 +122,102 @@ def freeze_pack_v2(*, root: Path | None = None) -> dict[str, Any]:
     man_path = out / "PACK_V2_MANIFEST.json"
     man_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return manifest
+
+
+def load_manifest(*, root: Path | None = None) -> dict[str, Any]:
+    path = pack_v2_root(root) / "PACK_V2_MANIFEST.json"
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(raw, dict):
+        raise TypeError("PACK_V2_MANIFEST must be object")
+    return raw
+
+
+def assert_pack_v2_integrity(*, root: Path | None = None) -> dict[str, Any]:
+    """Fail closed if sealed blob drifted from freeze manifest."""
+    out = pack_v2_root(root)
+    manifest = load_manifest(root=root)
+    sealed_path = out / "sealed" / "sealed_pack.json"
+    if not sealed_path.is_file():
+        raise FileNotFoundError("sealed_pack.json missing")
+    content_sha = hashlib.sha256(sealed_path.read_bytes()).hexdigest()
+    expected = str(manifest.get("sealed_pack_sha256") or "")
+    if content_sha != expected:
+        raise ValueError(
+            f"PACK-v2 sealed content drift: got {content_sha} expected {expected}"
+        )
+    return manifest
+
+
+def unseal_pack_v2(
+    *,
+    root: Path | None = None,
+    experiment_sha: str,
+    protocol_id: str,
+    force: bool = False,
+) -> dict[str, Any]:
+    """Explicit unseal for T2 only after prereg + SHA freeze.
+
+    Returns the pack dict. Updates manifest status → UNSEALED.
+    """
+    if not experiment_sha or experiment_sha == "UNKNOWN":
+        raise ValueError("experiment_sha required to unseal PACK-v2")
+    if not protocol_id:
+        raise ValueError("protocol_id required to unseal PACK-v2")
+
+    out = pack_v2_root(root)
+    manifest = assert_pack_v2_integrity(root=root)
+    status = str(manifest.get("status") or "")
+    if status == "UNSEALED" and not force:
+        # Idempotent reload of already-unsealed pack for this experiment
+        unsealed_path = out / "unsealed" / "unsealed_pack.json"
+        if unsealed_path.is_file():
+            pack = json.loads(unsealed_path.read_text(encoding="utf-8"))
+            if not isinstance(pack, dict):
+                raise TypeError("unsealed pack must be object")
+            if manifest.get("unsealed_for_experiment_sha") != experiment_sha:
+                raise ValueError(
+                    "PACK-v2 already unsealed for a different experiment SHA"
+                )
+            return pack
+        raise FileNotFoundError("manifest UNSEALED but unsealed_pack.json missing")
+    if status != "FROZEN_UNSEEN" and not (status == "UNSEALED" and force):
+        raise ValueError(f"PACK-v2 cannot unseal from status={status!r}")
+
+    sealed_path = out / "sealed" / "sealed_pack.json"
+    pack = json.loads(sealed_path.read_text(encoding="utf-8"))
+    if not isinstance(pack, dict):
+        raise TypeError("sealed pack must be object")
+
+    unsealed_dir = out / "unsealed"
+    unsealed_dir.mkdir(parents=True, exist_ok=True)
+    unsealed_path = unsealed_dir / "unsealed_pack.json"
+    pack_out = dict(pack)
+    pack_out["status"] = "UNSEALED"
+    pack_out["unsealed_at_utc"] = datetime.now(UTC).isoformat()
+    pack_out["unsealed_for_protocol"] = protocol_id
+    pack_out["unsealed_for_experiment_sha"] = experiment_sha
+    unsealed_path.write_text(
+        json.dumps(pack_out, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+
+    manifest["status"] = "UNSEALED"
+    manifest["unsealed_at_utc"] = pack_out["unsealed_at_utc"]
+    manifest["unsealed_for_protocol"] = protocol_id
+    manifest["unsealed_for_experiment_sha"] = experiment_sha
+    (out / "PACK_V2_MANIFEST.json").write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+    (out / "PACK_V2_UNSEAL.md").write_text(
+        "# PACK-v2 UNSEAL\n\n"
+        f"**Status:** `UNSEALED`\n"
+        f"**Protocol:** `{protocol_id}`\n"
+        f"**Experiment SHA:** `{experiment_sha}`\n"
+        f"**Unsealed (UTC):** `{pack_out['unsealed_at_utc']}`\n\n"
+        "Holdout pack opened only after T2 prereg + tests + SHA freeze.\n"
+        "T1 REJECT under pack v1 remains immutable.\n",
+        encoding="utf-8",
+    )
+    return pack_out
 
 
 def main() -> int:
