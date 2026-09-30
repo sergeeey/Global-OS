@@ -37,6 +37,32 @@ provider_key_unavailable_live_layer
 
 Stop rule: `no_promote_rerun_or_park`
 
+## Honest status (binding)
+
+```text
+T2 C2 mechanism        KEEP on deterministic PACK-v2
+T3 generalization      INCONCLUSIVE
+Reason                 provider_key_unavailable_live_layer
+C2                     unchanged
+Trust Kernel           not promoted
+live-LLM claim         not established
+```
+
+This is a **correctly stopped experiment**, not a failed mechanism test.
+
+## PACK-v3 unseal / continuation (binding)
+
+```text
+PACK-v3 was unsealed at SHA c6523a6.
+Live execution was blocked by missing provider credentials.
+No C2/harness/decision-rule changes were made after unseal.
+Subsequent live run is a continuation of T3 under the same prereg,
+not a new sealed replication.
+```
+
+Do **not** create PACK-v4 to reset. Finish T3 as continuation after keys load.  
+See `T3_CONTINUATION.md`.
+
 ## Audit checklist
 
 - Provenance / independence / cost-recovery tax / failure attribution: `True`

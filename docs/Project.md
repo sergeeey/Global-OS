@@ -51,9 +51,9 @@ Y23                                                          NOT NOW
 4. **Done:** post-T1 diagnostics + sealed PACK-v2 + revival triggers (`T1_EVIDENCE_TABLE.md`).  
 5. **Done:** T2 → **KEEP**; C2 frozen as `SELECTIVE_BOUNDED_RECOVERY-v1`; independent review CONFIRM KEEP.  
 6. **Done:** T3 prereg + PACK-v3 + harness → **INCONCLUSIVE** (live keys unavailable; SHA `c6523a6`).  
-7. **Next:** load free live keys → re-run T3 under same prereg (no C2 edit) → KEEP/REJECT/INCONCLUSIVE.  
+7. **Next:** load free live keys → re-run T3 as **continuation** (same prereg/pack; no C2 edit; no PACK-v4) → KEEP/REJECT/INCONCLUSIVE.  
 8. **Separate ops:** `artifacts/ops/SEPARATE_BACKLOG.md`.  
-9. **Not now:** Trust Kernel promote; reopen M1.5; rewrite T1 MCID; Y23; retune C2 against holdouts.
+9. **Not now:** Trust Kernel promote; reopen M1.5; rewrite T1 MCID; Y23; retune C2; invent PACK-v4 to reset.
 
 ## Документы
 

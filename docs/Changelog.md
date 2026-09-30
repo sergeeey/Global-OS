@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.98 — 2026-09-30
+
+### T3 continuation protocol (no PACK-v4)
+
+- Documented: PACK-v3 unsealed at `c6523a6` before live keys; no C2/harness/rule edits after unseal
+- Future live run = **continuation of same prereg**, not a new sealed replication
+- Operator runbook: `OPERATOR_T3_CONTINUATION_NOW.md`; attestation hashes locked
+- No PACK-v4; no C2/prereg/MCID changes; Trust Kernel still not promoted
+
 ## 0.1.97 — 2026-09-30
 
 ### T3 executed → INCONCLUSIVE (live keys unavailable)

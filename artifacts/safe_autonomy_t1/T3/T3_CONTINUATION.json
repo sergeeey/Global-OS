@@ -1,0 +1,39 @@
+{
+  "continuation_id": "T3_CONTINUATION-v1",
+  "status": "AWAITING_LIVE_KEYS",
+  "protocol_id": "SAFE_AUTONOMY_T3-v1",
+  "pack_id": "SAFE_AUTONOMY_PACK-v3",
+  "pack_unsealed_at_experiment_sha": "c6523a6bb58484a018ae4638949ad4aa085b4095",
+  "primary_verdict_so_far": "INCONCLUSIVE",
+  "block_reason": "provider_key_unavailable_live_layer",
+  "is_new_sealed_replication": false,
+  "is_continuation_of_same_prereg": true,
+  "create_pack_v4_now": false,
+  "post_unseal_changes": {
+    "c2_recovery_router": false,
+    "mechanism_contract": false,
+    "t3_prereg": false,
+    "decision_thresholds": false,
+    "routing_logic": false
+  },
+  "pinned_hashes": {
+    "recovery_router_py_sha256": "09e00e4f67f8b8c05eab5e0f212b39fb5244375ad3e20b699126a1ce2e652597",
+    "selective_bounded_recovery_v1_json_sha256": "4df0056fc101b69e07f9623d26b76433c1c0a5761149b9037b894688be74636b",
+    "t3_prereg_json_sha256": "e3f9504d9321f98c63358c13485c91f1478af22d70cc824c2a8c9cfaeb5ba19a",
+    "t3_experiment_sha": "c6523a6bb58484a018ae4638949ad4aa085b4095",
+    "c2_mechanism_pin_sha": "e6dfd08c0c83e15a25bebc6c8a11a38e48bc0bd3"
+  },
+  "operator_next": [
+    "load_live_keys_locally_not_in_git",
+    "rerun_t3_runner_same_prereg",
+    "preserve_provider_model_provenance",
+    "record_KEEP_REJECT_or_INCONCLUSIVE"
+  ],
+  "forbidden": [
+    "edit_c2_after_unseal",
+    "rewrite_thresholds_for_win",
+    "create_pack_v4_to_reset",
+    "claim_live_from_scripted_smoke",
+    "promote_trust_kernel"
+  ]
+}

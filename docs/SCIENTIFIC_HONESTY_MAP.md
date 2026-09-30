@@ -159,7 +159,9 @@ Next mechanism candidate (NOT SHOWN / NOT BUILT):
   Post-T1 diagnostics → SAFE_CONTAINMENT_BUT_LOW_FAULT_SALVAGE
   T2: KEEP — selective bounded recovery on PACK-v2 (FSR=1.0, URR=0, MIER=0)
   C2 contract SELECTIVE_BOUNDED_RECOVERY-v1 FROZEN_CANDIDATE (pin e6dfd08)
-  T3: INCONCLUSIVE — live provider keys unavailable (SHA c6523a6); C2 not edited
-  Allowed: KEEP for further testing only after live replication. Forbidden: proven H_TRUST / Trust Kernel / production
+  T3: INCONCLUSIVE — live keys unavailable (SHA c6523a6); PACK-v3 already unsealed
+  Continuation: same prereg after keys (not new sealed replication; no PACK-v4)
+  Attested: no C2/harness/decision-rule edits after unseal
+  Allowed: KEEP only after live replication. Forbidden: proven H_TRUST / Trust Kernel / production
   Do not rewrite T1 MCID; do not reopen M1.5; no Y23; T1 REJECT stands for pack v1
 ```

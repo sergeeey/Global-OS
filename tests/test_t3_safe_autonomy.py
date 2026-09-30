@@ -192,6 +192,31 @@ def test_run_t3_injected_pack_no_repo_unseal(tmp_path: Path) -> None:
     assert raw["live_ready"] is False or raw["fidelity"] != "LIVE_LLM"
 
 
+def test_t3_continuation_attestation_present() -> None:
+    md = ART / "T3" / "T3_CONTINUATION.md"
+    js = ART / "T3" / "T3_CONTINUATION.json"
+    assert md.is_file() and js.is_file()
+    raw = json.loads(js.read_text(encoding="utf-8"))
+    assert raw["status"] == "AWAITING_LIVE_KEYS"
+    assert raw["is_continuation_of_same_prereg"] is True
+    assert raw["is_new_sealed_replication"] is False
+    assert raw["create_pack_v4_now"] is False
+    assert raw["post_unseal_changes"]["c2_recovery_router"] is False
+    assert raw["pack_unsealed_at_experiment_sha"] == (
+        ART / "T3_EXPERIMENT_SHA.txt"
+    ).read_text(encoding="utf-8").strip()
+    decision = (ART / "T3" / "T3_DECISION.md").read_text(encoding="utf-8")
+    assert "continuation of T3 under the same prereg" in decision
+    assert "not a new sealed replication" in decision
+    # Pin hashes must still match frozen files
+    import hashlib
+
+    router = hashlib.sha256(
+        (ROOT / "src/global_os/evals/trust/recovery_router.py").read_bytes()
+    ).hexdigest()
+    assert router == raw["pinned_hashes"]["recovery_router_py_sha256"]
+
+
 def test_freeze_t3_sha_write_once(tmp_path: Path) -> None:
     import global_os.evals.trust.t3_runner as tr
 
