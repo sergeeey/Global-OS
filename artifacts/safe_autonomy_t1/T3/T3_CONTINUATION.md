@@ -1,6 +1,6 @@
 # T3 CONTINUATION — same prereg, not a new sealed replication
 
-**Status:** `AWAITING_PROVIDER_QUOTA` (keys present; Groq TPD exhausted)  
+**Status:** `LIVE_COMPLETED_KEEP`  
 **Protocol:** `SAFE_AUTONOMY_T3-v1` (unchanged)  
 **JSON:** `T3_CONTINUATION.json`
 
@@ -8,13 +8,12 @@
 
 ```text
 PACK-v3 was unsealed at SHA c6523a6.
-Live execution was first blocked by missing provider credentials.
-Keys later loaded (Cloud Agent GROQ_API_KEY) — /models HTTP 200.
-Live run then blocked by Groq tokens-per-day (TPD≈200k exhausted).
-No C2 / harness / decision-rule changes were made after unseal
-beyond honesty tooling (bounded 429 retry, pacing, preflight).
-Subsequent live run is a continuation of T3 under the same prereg,
-not a new sealed replication.
+Live execution was first blocked by missing provider credentials, then by
+Groq TPD exhaustion; after quota recovery, continuation completed LIVE_LLM.
+No C2 / decision-threshold / routing edits after unseal.
+Honesty tooling only: bounded 429 retry, Groq pacing, TPD fail-closed, preflight.
+This live KEEP is a continuation of the same prereg — not a new sealed replication.
+Trust Kernel is NOT promoted from this single KEEP.
 ```
 
 ## Interpretation
@@ -22,15 +21,16 @@ not a new sealed replication.
 | Item | Status |
 |------|--------|
 | T2 C2 on deterministic PACK-v2 | KEEP |
-| T3 generalization | INCONCLUSIVE |
-| Reason (keys) | was `provider_key_unavailable_live_layer` |
-| Reason (now) | `provider_quota_exhausted_live_layer` (Groq TPD) |
+| T3 generalization | **KEEP** (`LIVE_LLM_T3_v1`) |
+| L1 C2 | MIER=0.0 · SSR=0.8 · FSR=1.0 · URR=0.0 |
 | C2 | unchanged (pin `e6dfd08`) |
-| Trust Kernel | not promoted |
-| live-LLM claim | not established |
-| PACK-v4 | **not created** — finish T3 continuation first |
+| Trust Kernel | **not promoted** |
+| live-LLM claim | established (continuation) |
+| PACK-v4 | **not created** |
 
-Evidence: `artifacts/hardening/T3_LIVE_ATTEMPT_GROQ_TPD.md`
+Decision: `artifacts/safe_autonomy_t1/T3/T3_DECISION.md`  
+Provenance: `LIVE_PROVENANCE.json` (provider=`groq`, model=`openai/gpt-oss-120b`)  
+Quota incident: `artifacts/hardening/T3_LIVE_ATTEMPT_GROQ_TPD.md`
 
 ## Post-unseal integrity attestation
 
@@ -41,32 +41,10 @@ Evidence: `artifacts/hardening/T3_LIVE_ATTEMPT_GROQ_TPD.md`
 | `T3_PREREG.json` | `e3f9504d9321f98c63358c13485c91f1478af22d70cc824c2a8c9cfaeb5ba19a` | none after unseal |
 | T3 experiment SHA freeze | `c6523a6bb58484a018ae4638949ad4aa085b4095` | write-once |
 
-If anyone had changed C2 / thresholds / routing after viewing PACK-v3, this pack would lose clean-holdout status and a new sealed pack would be required. **That did not happen.**
-
-## Operator continuation steps
-
-```text
-1. Wait for Groq TPD recovery and/or load OPENROUTER_API_KEY / GEMINI_API_KEY
-2. Do not change C2 / SELECTIVE_BOUNDED_RECOVERY-v1
-3. Do not change T3 prereg / thresholds / PACK-v3
-4. Run:
-   PYTHONPATH=src python3 -m global_os.evals.trust.t3_runner
-5. Expect preflight fail-closed on day-quota (INCONCLUSIVE) rather than hour-long 429 sleep
-6. Record KEEP / REJECT / INCONCLUSIVE
-```
-
-## Verdict policy (unchanged)
-
-| Verdict | Meaning |
-|---------|---------|
-| KEEP | C2 survived first live generalization step |
-| REJECT | deterministic benefit did not transfer |
-| INCONCLUSIVE | environment/provider still blocks — fix env, not mechanism |
-
 ## Forbidden
 
-- invent PACK-v4 to “reset” without finishing T3 continuation
+- invent PACK-v4 to “reset”
 - edit C2 after PACK-v3 unseal
 - rewrite MCID / T3 thresholds for a win
-- claim live-LLM success from scripted harness smoke
-- promote Trust Kernel from INCONCLUSIVE
+- promote Trust Kernel from a single T3 KEEP
+- claim production / universal H_TRUST

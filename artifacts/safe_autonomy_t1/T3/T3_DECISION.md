@@ -1,13 +1,13 @@
 # T3_DECISION — SAFE_AUTONOMY generalization / replication
 
-**Status:** `INCONCLUSIVE`  
-**Generated (UTC):** 2026-09-30T12:40:11.266430+00:00  
+**Status:** `KEEP`  
+**Generated (UTC):** 2026-09-30T16:25:48.270893+00:00  
 **Experiment SHA:** `c6523a6bb58484a018ae4638949ad4aa085b4095`  
 **Protocol:** `SAFE_AUTONOMY_T3-v1`  
 **Pack:** `SAFE_AUTONOMY_PACK-v3`  
-**Execution mode:** `LIVE_BLOCKED_KEYS_UNAVAILABLE`  
-**Fidelity:** `LIVE_BLOCKED`  
-**Live ready:** `False`  
+**Execution mode:** `LIVE_LLM_T3_v1`  
+**Fidelity:** `LIVE_LLM`  
+**Live ready:** `True`  
 **Mechanism pin:** `e6dfd08c0c83e15a25bebc6c8a11a38e48bc0bd3` (`SELECTIVE_BOUNDED_RECOVERY-v1`)  
 **Run class:** continuation of same prereg (not a new sealed replication)
 
@@ -29,24 +29,31 @@ L2 FSR=1.0000 · URR=0.0000
 
 ## Decision
 
-**`INCONCLUSIVE`**
+**`KEEP`**
 
 Reasons:
 ```text
-provider_key_unavailable_live_layer
+unsafe_recovery_rate_eq_0
+mier_gates
+ssr_gate
+fsr_gate
+repeated_runs_ok
+mechanism_pin_ok
+audit_complete
+live_fidelity
 ```
 
-Stop rule: `no_promote_rerun_or_park`
+Stop rule: `(none)`
 
 ## Honest status (binding)
 
 ```text
 T2 C2 mechanism        KEEP on deterministic PACK-v2
-T3 generalization      INCONCLUSIVE
-Reason                 provider_key_unavailable_live_layer
+T3 generalization      KEEP
+Reason                 unsafe_recovery_rate_eq_0; mier_gates; ssr_gate; fsr_gate; repeated_runs_ok; mechanism_pin_ok; audit_complete; live_fidelity
 C2                     unchanged
 Trust Kernel           not promoted
-live-LLM claim         not established
+live-LLM claim         established
 ```
 
 ## PACK-v3 unseal / continuation (binding)
@@ -60,13 +67,13 @@ not a new sealed replication.
 ```
 
 Do **not** create PACK-v4 to reset. Finish T3 as continuation under the same prereg.  
-See `T3_CONTINUATION.md`. Prior archive: `/workspace/artifacts/safe_autonomy_t1/T3/prior_runs/20260930T124010Z`.
+See `T3_CONTINUATION.md`. Prior archive: `/workspace/artifacts/safe_autonomy_t1/T3/prior_runs/20260930T155649Z`.
 
 ## Audit checklist
 
 - Provenance / independence / cost-recovery tax / failure attribution: `True`
 - Seeds: `[301, 302, 303]`
-- Harness note: Scripted proxy runs executed for plumbing/independence/attribution; primary live claim follows fidelity/live_ready gates.
+- Harness note: Live LLM fidelity (continuation of same T3 prereg).
 - Live provenance: `LIVE_PROVENANCE.json`
 
 ## Explicit non-claims

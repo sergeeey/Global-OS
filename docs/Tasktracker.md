@@ -22,7 +22,8 @@
 - [x] Continuation-safe runner: integrity gate + LIVE_PROVENANCE + prior archive + decision regen keeps binding
 - [x] Model HTTP bounded 429/503 backoff + Groq RPM pacing + TPD fail-closed + T3 live preflight
 - [x] Live attempt: GROQ key valid; blocked by Groq TPD≈200k (`T3_LIVE_ATTEMPT_GROQ_TPD.md`)
-- [ ] Next: wait TPD recovery or add OpenRouter/Gemini → re-run `t3_runner` → KEEP/REJECT/INCONCLUSIVE
+- [x] T3 continuation re-run after TPD recovery → **KEEP** (`LIVE_LLM`) — Trust Kernel not promoted
+- [ ] Next: independent review of T3 KEEP artifacts; optional second free provider for diversity
 
 ## Done — LH-COGNITIVE-v1 (Variant B)
 

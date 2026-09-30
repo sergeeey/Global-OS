@@ -36,8 +36,8 @@ Post     SAFE_AUTONOMY_BENCHMARK-v1 metrics                   FROZEN
          Mission Assurance T1 A/B/C                          REJECT (Verifier Tax 2.0)
          T2 selective recovery on PACK-v2                    KEEP (FSR=1.0, URR=0, MIER=0)
          C2 contract SELECTIVE_BOUNDED_RECOVERY-v1           FROZEN_CANDIDATE
-         T3 live-LLM replication                             INCONCLUSIVE (keys OK; Groq TPD exhausted)
-         H_TRUST                                             CONTINUE_MA_LINE (await quota / alt free keys)
+         T3 live-LLM replication                             KEEP (continuation; ≠ Trust Kernel)
+         H_TRUST                                             T3_KEEP_LIVE — no Trust Kernel promote
 Continual SI / universal advantage                           NOT MEASURED / NOT CLAIMED
 Y20–Y22 scorers                                              FROZEN
 Y23                                                          NOT NOW

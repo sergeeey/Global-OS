@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.101 — 2026-09-30
+
+### T3 live continuation → KEEP (not Trust Kernel)
+
+- Live run completed under Groq (`openai/gpt-oss-120b`): fidelity `LIVE_LLM`, mode `LIVE_LLM_T3_v1`
+- Verdict **KEEP** — L1 C2 MIER=0 · SSR=0.8 · FSR=1.0 · URR=0; L2 URR=0
+- Same prereg / PACK-v3 / C2 pin; continuation ≠ new sealed replication
+- Trust Kernel **not** promoted; see `T3_DECISION.md` + `LIVE_PROVENANCE.json`
+- Prior blockers documented: missing keys, then Groq TPD; honesty tooling retained
+
 ## 0.1.100 — 2026-09-30
 
 ### Model HTTP + T3 live honesty (Groq RPM/TPD)

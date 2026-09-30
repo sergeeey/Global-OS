@@ -255,9 +255,13 @@ def test_t3_continuation_attestation_present() -> None:
     assert raw["status"] in {
         "AWAITING_LIVE_KEYS",
         "AWAITING_PROVIDER_QUOTA",
+        "LIVE_COMPLETED_KEEP",
     }
     if raw["status"] == "AWAITING_PROVIDER_QUOTA":
         assert raw["block_reason"] == "provider_quota_exhausted_live_layer"
+    if raw["status"] == "LIVE_COMPLETED_KEEP":
+        assert raw["primary_verdict_so_far"] == "KEEP"
+        assert raw["trust_kernel_promoted"] is False
     assert raw["is_continuation_of_same_prereg"] is True
     assert raw["is_new_sealed_replication"] is False
     assert raw["create_pack_v4_now"] is False

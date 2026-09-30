@@ -2,17 +2,17 @@
   "arm_id": "C2",
   "completion_rate": 1.0,
   "cost_recovery_tax": {
-    "cost_tokens": 1314.0,
+    "cost_tokens": 864.0,
     "human_attention_minutes": 0.30000000000000004,
-    "input_tokens": 720.0,
-    "latency_ms_total": 240.0,
+    "input_tokens": 0.0,
+    "latency_ms_total": 94615.4813140005,
     "model_calls": 48.0,
-    "output_tokens": 450.0,
+    "output_tokens": 0.0,
     "recovery_attempts": 6.0,
     "recovery_events": 6.0,
     "verifier_eval_count": 48.0
   },
-  "cost_tokens": 1314.0,
+  "cost_tokens": 864.0,
   "diagnostics": {
     "fsr": 1.0,
     "hbr": 0.0,
@@ -32,7 +32,7 @@
     "recovery_failure": 0,
     "tool_failure": 3
   },
-  "fidelity": "LIVE_BLOCKED",
+  "fidelity": "LIVE_LLM",
   "flakiness": 0.0,
   "human_attention_minutes": 0.30000000000000004,
   "mier": 0.0,

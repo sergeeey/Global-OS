@@ -1,20 +1,20 @@
 {
   "arm_id": "B",
   "cost_recovery_tax": {
-    "cost_tokens": 1686.0,
+    "cost_tokens": 1056.0,
     "human_attention_minutes": 0.0,
-    "input_tokens": 1280,
-    "latency_ms_total": 180.0,
+    "input_tokens": 128,
+    "latency_ms_total": 167906.02501200011,
     "model_calls": 80,
-    "output_tokens": 886,
+    "output_tokens": 256,
     "recovery_attempts": 0,
     "recovery_events": 0,
     "retries": 0,
     "tool_failures": 0,
     "verifier_eval_count": 0
   },
-  "cost_tokens": 1686.0,
-  "ended_at_utc": "2026-09-30T12:40:10.824651+00:00",
+  "cost_tokens": 1056.0,
+  "ended_at_utc": "2026-09-30T16:08:01.382461+00:00",
   "escalations": 0,
   "failure_attribution_counts": {
     "environment_failure": 0,
@@ -24,7 +24,7 @@
     "recovery_failure": 0,
     "tool_failure": 0
   },
-  "fidelity": "LIVE_BLOCKED",
+  "fidelity": "LIVE_LLM",
   "human_attention_minutes": 0.0,
   "missions": [
     {
@@ -710,20 +710,19 @@
   ],
   "provenance_samples": [
     {
-      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
-      "fidelity": "LIVE_BLOCKED",
+      "fidelity": "LIVE_LLM",
       "fresh_ledger": true,
       "live_keys_present": {
         "anthropic": false,
         "gemini": false,
-        "groq": false,
+        "groq": true,
         "openai": false,
         "openrouter": false
       },
       "mission_id": "v3_l1_001_stale_evidence",
-      "model_id": "variational-proxy",
-      "model_version": "t3-v1",
-      "provider_id": "scripted",
+      "model_id": "openai/gpt-oss-120b",
+      "model_version": "live",
+      "provider_id": "groq",
       "run_independence": true,
       "seed": 301,
       "temperature": 0.0,
@@ -732,20 +731,19 @@
       }
     },
     {
-      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
-      "fidelity": "LIVE_BLOCKED",
+      "fidelity": "LIVE_LLM",
       "fresh_ledger": true,
       "live_keys_present": {
         "anthropic": false,
         "gemini": false,
-        "groq": false,
+        "groq": true,
         "openai": false,
         "openrouter": false
       },
       "mission_id": "v3_l1_002_stale_evidence",
-      "model_id": "variational-proxy",
-      "model_version": "t3-v1",
-      "provider_id": "scripted",
+      "model_id": "openai/gpt-oss-120b",
+      "model_version": "live",
+      "provider_id": "groq",
       "run_independence": true,
       "seed": 301,
       "temperature": 0.0,
@@ -754,20 +752,19 @@
       }
     },
     {
-      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
-      "fidelity": "LIVE_BLOCKED",
+      "fidelity": "LIVE_LLM",
       "fresh_ledger": true,
       "live_keys_present": {
         "anthropic": false,
         "gemini": false,
-        "groq": false,
+        "groq": true,
         "openai": false,
         "openrouter": false
       },
       "mission_id": "v3_l1_003_invalidation_ignored",
-      "model_id": "variational-proxy",
-      "model_version": "t3-v1",
-      "provider_id": "scripted",
+      "model_id": "openai/gpt-oss-120b",
+      "model_version": "live",
+      "provider_id": "groq",
       "run_independence": true,
       "seed": 301,
       "temperature": 0.0,
@@ -787,7 +784,7 @@
   },
   "run_independence": true,
   "seed": 301,
-  "started_at_utc": "2026-09-30T12:40:10.759657+00:00",
+  "started_at_utc": "2026-09-30T16:05:13.394350+00:00",
   "tool_calls": 80,
   "tool_failures": 0,
   "trajectory_schema": "t3_v1",
