@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.89 — 2026-09-30
+
+### Post-48h: freeze + independent audit tooling
+
+- `freeze_and_audit.py` + rubric + tests
+- Operator runbook `OPERATOR_POST_48H_NOW.md`; draft `M15_DECISION.md`
+
 ## 0.1.88 — 2026-09-30
 
 ### LH-COGNITIVE wall_48h harness PASS (audit pending)
