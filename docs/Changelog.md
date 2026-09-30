@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.99 — 2026-09-30
+
+### T3 continuation-safe runner (still AWAITING_LIVE_KEYS)
+
+- `t3_runner` fail-closed on post-unseal C2/prereg/router drift (`assert_continuation_integrity`)
+- Regenerated `T3_DECISION.md` always embeds continuation binding (not a new sealed replication)
+- Archives prior SCORE_RAW/decision under `T3/prior_runs/`; writes `LIVE_PROVENANCE.json`
+- Arm runs record timestamps / retries(=0) / tool_failures; no C2/prereg/MCID/PACK-v4 changes
+- Status unchanged until operator loads live keys and re-runs `t3_runner`
+
 ## 0.1.98 — 2026-09-30
 
 ### T3 continuation protocol (no PACK-v4)

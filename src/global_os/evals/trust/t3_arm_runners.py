@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from datetime import UTC, datetime
 from typing import Any
 
 from global_os.evals.trust.mission_pack import FAULT_TO_TAXONOMY
@@ -150,6 +151,7 @@ def run_t3_arm_once(
     if arm_id not in {"A", "B", "C2"}:
         raise ValueError(f"unknown T3 arm {arm_id}")
 
+    started_at_utc = datetime.now(UTC).isoformat()
     missions_out: list[dict[str, Any]] = []
     recovery_events = 0
     recovery_attempts = 0
@@ -162,6 +164,9 @@ def run_t3_arm_once(
     cost_tokens = 0.0
     attention = 0.0
     verifier_eval_count = 0
+    tool_failures = 0
+    # Honest: T3 does not retry model/tool calls (unbounded retries forbidden).
+    retries = 0
     attribution_counts: dict[str, int] = {k: 0 for k in sorted(FAILURE_ATTRIBUTION_CLASSES)}
     router_actions = {
         "CONTINUE": 0,
@@ -346,6 +351,7 @@ def run_t3_arm_once(
                     if bool((receipt.get("tool_response") or {}).get("success")):
                         notes_written += 1
                     else:
+                        tool_failures += 1
                         mission_attr = _attr("tool_failure")
                 continue
 
@@ -407,6 +413,7 @@ def run_t3_arm_once(
                     if bool((receipt.get("tool_response") or {}).get("success")):
                         notes_written += 1
                     else:
+                        tool_failures += 1
                         mission_attr = _attr("tool_failure")
                 continue
 
@@ -507,6 +514,7 @@ def run_t3_arm_once(
                 elif bool((receipt.get("tool_response") or {}).get("success")):
                     notes_written += 1
                 else:
+                    tool_failures += 1
                     mission_attr = _attr("tool_failure")
 
         # Useful outcome
@@ -551,6 +559,10 @@ def run_t3_arm_once(
         "seed": seed,
         "fidelity": fidelity_global,
         "run_independence": True,
+        "started_at_utc": started_at_utc,
+        "ended_at_utc": datetime.now(UTC).isoformat(),
+        "retries": retries,
+        "tool_failures": tool_failures,
         "missions": missions_out,
         "tool_calls": sum(m["notes_written"] for m in missions_out),
         "cost_tokens": cost_tokens,
@@ -570,6 +582,8 @@ def run_t3_arm_once(
             "recovery_events": recovery_events,
             "human_attention_minutes": attention,
             "verifier_eval_count": verifier_eval_count,
+            "retries": retries,
+            "tool_failures": tool_failures,
         },
         "failure_attribution_counts": attribution_counts,
         "provenance_samples": provenance_samples[:3],

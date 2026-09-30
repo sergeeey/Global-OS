@@ -34,8 +34,10 @@ PYTHONPATH=src python -m global_os.evals.trust.t3_runner
 4. Check artifacts:
 
 - `artifacts/safe_autonomy_t1/T3/T3_DECISION.md` → KEEP | REJECT | INCONCLUSIVE
-- `SCORE_RAW.json` → `fidelity` should be `LIVE_LLM` when keys work
-- preserve provider / model ID / version / temperature / cost / retries
+  (must still say continuation / not a new sealed replication)
+- `SCORE_RAW.json` → `fidelity` should be `LIVE_LLM` when keys work; `continuation` block present
+- `LIVE_PROVENANCE.json` → provider, model ID/version, temperature, timestamps, cost, retries, tool failures
+- prior blocked run archived under `T3/prior_runs/` (do not delete)
 
 ## Do not
 

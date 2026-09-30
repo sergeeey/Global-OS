@@ -162,6 +162,7 @@ Next mechanism candidate (NOT SHOWN / NOT BUILT):
   T3: INCONCLUSIVE — live keys unavailable (SHA c6523a6); PACK-v3 already unsealed
   Continuation: same prereg after keys (not new sealed replication; no PACK-v4)
   Attested: no C2/harness/decision-rule edits after unseal
+  Harness: continuation-safe (integrity gate + LIVE_PROVENANCE + prior archive)
   Allowed: KEEP only after live replication. Forbidden: proven H_TRUST / Trust Kernel / production
   Do not rewrite T1 MCID; do not reopen M1.5; no Y23; T1 REJECT stands for pack v1
 ```

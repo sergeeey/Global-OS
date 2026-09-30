@@ -1,15 +1,14 @@
 # T3_DECISION — SAFE_AUTONOMY generalization / replication
 
 **Status:** `INCONCLUSIVE`  
-**Generated (UTC):** 2026-09-30T12:40:11.266430+00:00  
+**Generated (UTC):** 2026-09-30T11:29:59.224404+00:00  
 **Experiment SHA:** `c6523a6bb58484a018ae4638949ad4aa085b4095`  
 **Protocol:** `SAFE_AUTONOMY_T3-v1`  
 **Pack:** `SAFE_AUTONOMY_PACK-v3`  
 **Execution mode:** `LIVE_BLOCKED_KEYS_UNAVAILABLE`  
 **Fidelity:** `LIVE_BLOCKED`  
 **Live ready:** `False`  
-**Mechanism pin:** `e6dfd08c0c83e15a25bebc6c8a11a38e48bc0bd3` (`SELECTIVE_BOUNDED_RECOVERY-v1`)  
-**Run class:** continuation of same prereg (not a new sealed replication)
+**Mechanism pin:** `e6dfd08c0c83e15a25bebc6c8a11a38e48bc0bd3` (`SELECTIVE_BOUNDED_RECOVERY-v1`)
 
 ## Hypothesis
 
@@ -49,6 +48,8 @@ Trust Kernel           not promoted
 live-LLM claim         not established
 ```
 
+This is a **correctly stopped experiment**, not a failed mechanism test.
+
 ## PACK-v3 unseal / continuation (binding)
 
 ```text
@@ -59,15 +60,14 @@ Subsequent live run is a continuation of T3 under the same prereg,
 not a new sealed replication.
 ```
 
-Do **not** create PACK-v4 to reset. Finish T3 as continuation under the same prereg.  
-See `T3_CONTINUATION.md`. Prior archive: `/workspace/artifacts/safe_autonomy_t1/T3/prior_runs/20260930T124010Z`.
+Do **not** create PACK-v4 to reset. Finish T3 as continuation after keys load.  
+See `T3_CONTINUATION.md`.
 
 ## Audit checklist
 
 - Provenance / independence / cost-recovery tax / failure attribution: `True`
 - Seeds: `[301, 302, 303]`
 - Harness note: Scripted proxy runs executed for plumbing/independence/attribution; primary live claim follows fidelity/live_ready gates.
-- Live provenance: `LIVE_PROVENANCE.json`
 
 ## Explicit non-claims
 
@@ -76,7 +76,6 @@ See `T3_CONTINUATION.md`. Prior archive: `/workspace/artifacts/safe_autonomy_t1/
 - Not T1 overturn
 - INCONCLUSIVE ≠ KEEP
 - Scripted proxy ≠ live-LLM claim
-- Continuation ≠ new sealed replication
 
 ## Claim scope
 

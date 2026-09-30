@@ -1,8 +1,8 @@
 {
   "sprint": "T3_CONTINUATION_AWAIT_LIVE_KEYS",
-  "updated_at": "2026-09-30T12:35:00Z",
+  "updated_at": "2026-09-30T13:05:00Z",
   "current_goal": "RERUN_T3_CONTINUATION_WITH_LIVE_KEYS",
-  "phase_statement": "T3 INCONCLUSIVE (environment blocker). PACK-v3 unsealed at c6523a6 before live keys existed. Attested: no C2/harness/decision-rule changes after unseal. Future live run = continuation of same prereg (not new sealed replication). No PACK-v4. Load keys locally → re-run t3_runner. No Trust Kernel promote.",
+  "phase_statement": "T3 INCONCLUSIVE (environment blocker). PACK-v3 unsealed at c6523a6 before live keys existed. Attested: no C2/harness/decision-rule changes after unseal. Runner now continuation-safe (integrity gate, LIVE_PROVENANCE, prior archive, decision regen keeps binding). Future live run = continuation of same prereg (not new sealed replication). No PACK-v4. Load keys locally → re-run t3_runner. No Trust Kernel promote.",
   "operator_action_required": true,
   "operator_dispatch_required": true,
   "y20": {

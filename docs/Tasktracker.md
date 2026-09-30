@@ -19,6 +19,7 @@
 - Decision T3: `artifacts/safe_autonomy_t1/T3/T3_DECISION.md`
 - Continuation: `artifacts/safe_autonomy_t1/T3/T3_CONTINUATION.md`
 - Operator: `artifacts/hardening/OPERATOR_T3_CONTINUATION_NOW.md`
+- [x] Continuation-safe runner: integrity gate + LIVE_PROVENANCE + prior archive + decision regen keeps binding
 - [ ] Next: load live keys locally → re-run `t3_runner` as continuation → KEEP/REJECT/INCONCLUSIVE
 
 ## Done — LH-COGNITIVE-v1 (Variant B)

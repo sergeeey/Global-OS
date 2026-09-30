@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
@@ -28,13 +29,16 @@ from global_os.evals.trust.t3_metrics import (
 from global_os.evals.trust.t3_protocol import (
     ARM_DEFS_T3,
     CLAIM_SCOPE_T3,
+    CONTINUATION_BINDING_TEXT,
     MECHANISM_PIN_SHA,
+    PACK_V3_UNSEALED_AT_SHA,
     T3_EXECUTION_MODE_BLOCKED,
     T3_EXECUTION_MODE_LIVE,
     T3_EXECUTION_MODE_SCRIPTED_SMOKE,
     T3_PROTOCOL_ID,
     T3_SEEDS,
     assert_audit_checklist,
+    assert_continuation_integrity,
     assert_mechanism_pin,
     assert_prereg_locked,
     t3_artifact_root,
@@ -60,20 +64,104 @@ def _write_json(path: Path, data: Any) -> None:
     path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def _archive_prior_run(out: Path) -> Path | None:
+    """Preserve previous SCORE_RAW/decision before overwrite (continuation evidence)."""
+    score = out / "SCORE_RAW.json"
+    if not score.is_file():
+        return None
+    stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
+    dest = out / "prior_runs" / stamp
+    dest.mkdir(parents=True, exist_ok=True)
+    for name in (
+        "SCORE_RAW.json",
+        "T3_DECISION.md",
+        "COMPARISON_REPORT.md",
+        "CURRENT_STATE.json",
+        "LIVE_PROVENANCE.json",
+    ):
+        src = out / name
+        if src.is_file():
+            shutil.copy2(src, dest / name)
+    return dest
+
+
+def _collect_live_provenance(
+    *,
+    l1: dict[str, Any],
+    l2: dict[str, Any],
+    keys: dict[str, bool],
+    fidelity: str,
+    exec_mode: str,
+    generated: str,
+) -> dict[str, Any]:
+    samples: list[dict[str, Any]] = []
+    for layer_name, layer in (("L1", l1), ("L2", l2)):
+        for arm_id, runs in layer.get("arms", {}).items():
+            for run in runs:
+                for sample in run.get("provenance_samples") or []:
+                    samples.append(
+                        {
+                            "layer": layer_name,
+                            "arm_id": arm_id,
+                            "seed": run.get("seed"),
+                            **sample,
+                        }
+                    )
+                samples.append(
+                    {
+                        "layer": layer_name,
+                        "arm_id": arm_id,
+                        "seed": run.get("seed"),
+                        "started_at_utc": run.get("started_at_utc"),
+                        "ended_at_utc": run.get("ended_at_utc"),
+                        "retries": run.get("retries"),
+                        "tool_failures": run.get("tool_failures"),
+                        "cost_tokens": run.get("cost_tokens"),
+                        "fidelity": run.get("fidelity"),
+                        "run_independence": run.get("run_independence"),
+                    }
+                )
+    return {
+        "generated_at_utc": generated,
+        "execution_mode": exec_mode,
+        "fidelity": fidelity,
+        "live_keys_present": keys,
+        "is_continuation_of_same_prereg": True,
+        "is_new_sealed_replication": False,
+        "pack_unsealed_at_experiment_sha": PACK_V3_UNSEALED_AT_SHA,
+        "required_fields": [
+            "provider",
+            "model_id",
+            "model_version",
+            "temperature",
+            "timestamps",
+            "cost_tokens",
+            "retries",
+            "tool_failures",
+            "run_independence",
+        ],
+        "samples": samples,
+    }
+
+
 def freeze_t3_experiment_sha(*, root: Path | None = None, sha: str | None = None) -> str:
+    """Write-once freeze. If already frozen, return it (continuation may advance HEAD)."""
     r = root or repo_root()
     path = t3_experiment_sha_path(r)
+    if path.is_file():
+        existing = path.read_text(encoding="utf-8").strip()
+        if not existing or existing == "UNKNOWN":
+            raise ValueError("frozen T3 experiment SHA invalid")
+        # Continuation / honesty tooling commits must not overwrite the freeze.
+        if sha is not None and sha != existing:
+            raise ValueError(
+                f"T3_EXPERIMENT_SHA already frozen to {existing}; "
+                f"refusing overwrite with {sha}"
+            )
+        return existing
     resolved = sha or _git_sha(r)
     if resolved == "UNKNOWN":
         raise ValueError("cannot freeze UNKNOWN git SHA")
-    if path.is_file():
-        existing = path.read_text(encoding="utf-8").strip()
-        if existing != resolved:
-            raise ValueError(
-                f"T3_EXPERIMENT_SHA already frozen to {existing}; "
-                f"refusing overwrite with {resolved}"
-            )
-        return existing
     path.write_text(resolved + "\n", encoding="utf-8")
     return resolved
 
@@ -115,6 +203,7 @@ def run_t3(
     assert_audit_checklist(root)
     assert_mcid_locked()
     contract = assert_mechanism_pin(root)
+    continuation = assert_continuation_integrity(root)
     ensure_pack_v3_sealed(root=root)
     assert_pack_v3_integrity(root=artifact_root)
 
@@ -126,6 +215,7 @@ def run_t3(
     head = _git_sha(root)
     live_ready = free_live_ready()
     keys = live_keys_present()
+    prior_archive = _archive_prior_run(out)
 
     if unseal:
         pack = unseal_pack_v3(
@@ -246,6 +336,25 @@ def run_t3(
         decision.stop_rule = "H_TRUST_PARKED"
 
     generated = datetime.now(UTC).isoformat()
+    live_prov = _collect_live_provenance(
+        l1=l1,
+        l2=l2,
+        keys=keys,
+        fidelity=fidelity,
+        exec_mode=exec_mode,
+        generated=generated,
+    )
+    continuation_block = {
+        "continuation_id": continuation.get("continuation_id"),
+        "is_continuation_of_same_prereg": True,
+        "is_new_sealed_replication": False,
+        "create_pack_v4_now": False,
+        "pack_unsealed_at_experiment_sha": PACK_V3_UNSEALED_AT_SHA,
+        "post_unseal_c2_unchanged": True,
+        "binding_text": CONTINUATION_BINDING_TEXT,
+        "prior_run_archive": str(prior_archive) if prior_archive else None,
+        "attestation_status": continuation.get("status"),
+    }
     score_raw = {
         "protocol_id": T3_PROTOCOL_ID,
         "pack_id": PACK_V3_ID,
@@ -259,6 +368,7 @@ def run_t3(
         "git_head": head,
         "generated_at_utc": generated,
         "seeds": list(seeds),
+        "continuation": continuation_block,
         "layers": {
             "L1": layer_scores["L1"]["arms"],
             "L2": layer_scores["L2"]["arms"],
@@ -276,12 +386,13 @@ def run_t3(
             "Scripted proxy runs executed for plumbing/independence/attribution; "
             "primary live claim follows fidelity/live_ready gates."
             if fidelity != "LIVE_LLM"
-            else "Live LLM fidelity."
+            else "Live LLM fidelity (continuation of same T3 prereg)."
         ),
         "deviations_from_prereg": [],
         "invalidated_runs": [],
     }
     _write_json(out / "SCORE_RAW.json", score_raw)
+    _write_json(out / "LIVE_PROVENANCE.json", live_prov)
     (out / "COMPARISON_REPORT.md").write_text(_comparison_md(score_raw), encoding="utf-8")
     (out / "T3_DECISION.md").write_text(_decision_md(score_raw), encoding="utf-8")
     _write_json(
@@ -294,7 +405,10 @@ def run_t3(
             "fidelity": fidelity,
             "live_ready": live_ready,
             "updated_at_utc": generated,
+            "is_continuation_of_same_prereg": True,
+            "is_new_sealed_replication": False,
             "decision_path": "artifacts/safe_autonomy_t1/T3/T3_DECISION.md",
+            "live_provenance_path": "artifacts/safe_autonomy_t1/T3/LIVE_PROVENANCE.json",
         },
     )
 
@@ -353,6 +467,8 @@ def _comparison_md(raw: dict[str, Any]) -> str:
 
 def _decision_md(raw: dict[str, Any]) -> str:
     d = raw["decision"]
+    cont = raw.get("continuation") or {}
+    binding = str(cont.get("binding_text") or CONTINUATION_BINDING_TEXT)
     return f"""# T3_DECISION — SAFE_AUTONOMY generalization / replication
 
 **Status:** `{d["verdict"]}`  
@@ -363,7 +479,8 @@ def _decision_md(raw: dict[str, Any]) -> str:
 **Execution mode:** `{raw["execution_mode"]}`  
 **Fidelity:** `{raw["fidelity"]}`  
 **Live ready:** `{raw["live_ready"]}`  
-**Mechanism pin:** `{raw["mechanism_pin_sha"]}` (`{raw["mechanism_contract"]}`)
+**Mechanism pin:** `{raw["mechanism_pin_sha"]}` (`{raw["mechanism_contract"]}`)  
+**Run class:** continuation of same prereg (not a new sealed replication)
 
 ## Hypothesis
 
@@ -392,11 +509,32 @@ Reasons:
 
 Stop rule: `{d.get("stop_rule") or "(none)"}`
 
+## Honest status (binding)
+
+```text
+T2 C2 mechanism        KEEP on deterministic PACK-v2
+T3 generalization      {d["verdict"]}
+Reason                 {"; ".join(d.get("reasons") or []) or "(none)"}
+C2                     unchanged
+Trust Kernel           not promoted
+live-LLM claim         {"established" if raw.get("fidelity") == "LIVE_LLM" else "not established"}
+```
+
+## PACK-v3 unseal / continuation (binding)
+
+```text
+{binding}
+```
+
+Do **not** create PACK-v4 to reset. Finish T3 as continuation under the same prereg.  
+See `T3_CONTINUATION.md`. Prior archive: `{cont.get("prior_run_archive") or "(none)"}`.
+
 ## Audit checklist
 
 - Provenance / independence / cost-recovery tax / failure attribution: `{raw["audit_checklist_complete"]}`
 - Seeds: `{raw["seeds"]}`
 - Harness note: {raw["harness_smoke_note"]}
+- Live provenance: `LIVE_PROVENANCE.json`
 
 ## Explicit non-claims
 
@@ -405,6 +543,7 @@ Stop rule: `{d.get("stop_rule") or "(none)"}`
 - Not T1 overturn
 - INCONCLUSIVE ≠ KEEP
 - Scripted proxy ≠ live-LLM claim
+- Continuation ≠ new sealed replication
 
 ## Claim scope
 
@@ -424,6 +563,8 @@ def main() -> int:
                 "fidelity": result["fidelity"],
                 "live_ready": result["live_ready"],
                 "experiment_sha": result["experiment_sha"],
+                "is_continuation_of_same_prereg": True,
+                "is_new_sealed_replication": False,
                 "l1_mier_c2": result["layers"]["L1"]["C2"]["mier"],
                 "l1_ssr_c2": result["layers"]["L1"]["C2"]["ssr"],
                 "l1_fsr_c2": result["diagnostics"]["L1_C2"]["fsr"],

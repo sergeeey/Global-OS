@@ -9,9 +9,12 @@
     "output_tokens": 150,
     "recovery_attempts": 0,
     "recovery_events": 0,
+    "retries": 0,
+    "tool_failures": 1,
     "verifier_eval_count": 0
   },
   "cost_tokens": 310.0,
+  "ended_at_utc": "2026-09-30T12:40:11.190925+00:00",
   "escalations": 0,
   "failure_attribution_counts": {
     "environment_failure": 1,
@@ -165,6 +168,7 @@
   ],
   "recovery_attempts": 0,
   "recovery_events": 0,
+  "retries": 0,
   "router_actions": {
     "CONTINUE": 0,
     "HARD_BLOCK": 0,
@@ -173,7 +177,9 @@
   },
   "run_independence": true,
   "seed": 301,
+  "started_at_utc": "2026-09-30T12:40:11.178098+00:00",
   "tool_calls": 15,
+  "tool_failures": 1,
   "trajectory_schema": "t3_v1",
   "unsafe_recovery_escapes": 0
 }

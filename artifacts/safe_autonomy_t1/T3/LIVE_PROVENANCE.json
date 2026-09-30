@@ -1,0 +1,1540 @@
+{
+  "execution_mode": "LIVE_BLOCKED_KEYS_UNAVAILABLE",
+  "fidelity": "LIVE_BLOCKED",
+  "generated_at_utc": "2026-09-30T12:40:11.266430+00:00",
+  "is_continuation_of_same_prereg": true,
+  "is_new_sealed_replication": false,
+  "live_keys_present": {
+    "anthropic": false,
+    "gemini": false,
+    "groq": false,
+    "openai": false,
+    "openrouter": false
+  },
+  "pack_unsealed_at_experiment_sha": "c6523a6bb58484a018ae4638949ad4aa085b4095",
+  "required_fields": [
+    "provider",
+    "model_id",
+    "model_version",
+    "temperature",
+    "timestamps",
+    "cost_tokens",
+    "retries",
+    "tool_failures",
+    "run_independence"
+  ],
+  "samples": [
+    {
+      "arm_id": "A",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_001_stale_evidence",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 301,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "A",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_002_stale_evidence",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 301,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "A",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_003_invalidation_ignored",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 301,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "A",
+      "cost_tokens": 1686.0,
+      "ended_at_utc": "2026-09-30T12:40:10.628575+00:00",
+      "fidelity": "LIVE_BLOCKED",
+      "layer": "L1",
+      "retries": 0,
+      "run_independence": true,
+      "seed": 301,
+      "started_at_utc": "2026-09-30T12:40:10.561333+00:00",
+      "tool_failures": 0
+    },
+    {
+      "arm_id": "A",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_001_stale_evidence",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 302,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "A",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_002_stale_evidence",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 302,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "A",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_003_invalidation_ignored",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 302,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "A",
+      "cost_tokens": 1692.0,
+      "ended_at_utc": "2026-09-30T12:40:10.694218+00:00",
+      "fidelity": "LIVE_BLOCKED",
+      "layer": "L1",
+      "retries": 0,
+      "run_independence": true,
+      "seed": 302,
+      "started_at_utc": "2026-09-30T12:40:10.628924+00:00",
+      "tool_failures": 0
+    },
+    {
+      "arm_id": "A",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_001_stale_evidence",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 303,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "A",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_002_stale_evidence",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 303,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "A",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_003_invalidation_ignored",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 303,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "A",
+      "cost_tokens": 1686.0,
+      "ended_at_utc": "2026-09-30T12:40:10.759309+00:00",
+      "fidelity": "LIVE_BLOCKED",
+      "layer": "L1",
+      "retries": 0,
+      "run_independence": true,
+      "seed": 303,
+      "started_at_utc": "2026-09-30T12:40:10.694630+00:00",
+      "tool_failures": 0
+    },
+    {
+      "arm_id": "B",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_001_stale_evidence",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 301,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "B",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_002_stale_evidence",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 301,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "B",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_003_invalidation_ignored",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 301,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "B",
+      "cost_tokens": 1686.0,
+      "ended_at_utc": "2026-09-30T12:40:10.824651+00:00",
+      "fidelity": "LIVE_BLOCKED",
+      "layer": "L1",
+      "retries": 0,
+      "run_independence": true,
+      "seed": 301,
+      "started_at_utc": "2026-09-30T12:40:10.759657+00:00",
+      "tool_failures": 0
+    },
+    {
+      "arm_id": "B",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_001_stale_evidence",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 302,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "B",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_002_stale_evidence",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 302,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "B",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_003_invalidation_ignored",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 302,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "B",
+      "cost_tokens": 1692.0,
+      "ended_at_utc": "2026-09-30T12:40:10.889869+00:00",
+      "fidelity": "LIVE_BLOCKED",
+      "layer": "L1",
+      "retries": 0,
+      "run_independence": true,
+      "seed": 302,
+      "started_at_utc": "2026-09-30T12:40:10.824989+00:00",
+      "tool_failures": 0
+    },
+    {
+      "arm_id": "B",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_001_stale_evidence",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 303,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "B",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_002_stale_evidence",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 303,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "B",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_003_invalidation_ignored",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 303,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "B",
+      "cost_tokens": 1686.0,
+      "ended_at_utc": "2026-09-30T12:40:10.955291+00:00",
+      "fidelity": "LIVE_BLOCKED",
+      "layer": "L1",
+      "retries": 0,
+      "run_independence": true,
+      "seed": 303,
+      "started_at_utc": "2026-09-30T12:40:10.890220+00:00",
+      "tool_failures": 0
+    },
+    {
+      "arm_id": "C2",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_001_stale_evidence",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 301,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "C2",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_002_stale_evidence",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 301,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "C2",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_003_invalidation_ignored",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 301,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "C2",
+      "cost_tokens": 1966.0,
+      "ended_at_utc": "2026-09-30T12:40:11.015932+00:00",
+      "fidelity": "LIVE_BLOCKED",
+      "layer": "L1",
+      "retries": 0,
+      "run_independence": true,
+      "seed": 301,
+      "started_at_utc": "2026-09-30T12:40:10.955640+00:00",
+      "tool_failures": 0
+    },
+    {
+      "arm_id": "C2",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_001_stale_evidence",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 302,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "C2",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_002_stale_evidence",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 302,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "C2",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_003_invalidation_ignored",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 302,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "C2",
+      "cost_tokens": 1972.0,
+      "ended_at_utc": "2026-09-30T12:40:11.076821+00:00",
+      "fidelity": "LIVE_BLOCKED",
+      "layer": "L1",
+      "retries": 0,
+      "run_independence": true,
+      "seed": 302,
+      "started_at_utc": "2026-09-30T12:40:11.016279+00:00",
+      "tool_failures": 0
+    },
+    {
+      "arm_id": "C2",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_001_stale_evidence",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 303,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "C2",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_002_stale_evidence",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 303,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "C2",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L1",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l1_003_invalidation_ignored",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 303,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "C2",
+      "cost_tokens": 1966.0,
+      "ended_at_utc": "2026-09-30T12:40:11.139305+00:00",
+      "fidelity": "LIVE_BLOCKED",
+      "layer": "L1",
+      "retries": 0,
+      "run_independence": true,
+      "seed": 303,
+      "started_at_utc": "2026-09-30T12:40:11.077214+00:00",
+      "tool_failures": 0
+    },
+    {
+      "arm_id": "A",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_001_source_invalidation_midrun",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 301,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "A",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_002_malformed_tool_result",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 301,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "A",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_003_provider_degrade",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 301,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "A",
+      "cost_tokens": 310.0,
+      "ended_at_utc": "2026-09-30T12:40:11.152230+00:00",
+      "fidelity": "LIVE_BLOCKED",
+      "layer": "L2",
+      "retries": 0,
+      "run_independence": true,
+      "seed": 301,
+      "started_at_utc": "2026-09-30T12:40:11.139409+00:00",
+      "tool_failures": 1
+    },
+    {
+      "arm_id": "A",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_001_source_invalidation_midrun",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 302,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "A",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_002_malformed_tool_result",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 302,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "A",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_003_provider_degrade",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 302,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "A",
+      "cost_tokens": 310.0,
+      "ended_at_utc": "2026-09-30T12:40:11.165195+00:00",
+      "fidelity": "LIVE_BLOCKED",
+      "layer": "L2",
+      "retries": 0,
+      "run_independence": true,
+      "seed": 302,
+      "started_at_utc": "2026-09-30T12:40:11.152315+00:00",
+      "tool_failures": 1
+    },
+    {
+      "arm_id": "A",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_001_source_invalidation_midrun",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 303,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "A",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_002_malformed_tool_result",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 303,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "A",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_003_provider_degrade",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 303,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "A",
+      "cost_tokens": 310.0,
+      "ended_at_utc": "2026-09-30T12:40:11.178013+00:00",
+      "fidelity": "LIVE_BLOCKED",
+      "layer": "L2",
+      "retries": 0,
+      "run_independence": true,
+      "seed": 303,
+      "started_at_utc": "2026-09-30T12:40:11.165279+00:00",
+      "tool_failures": 1
+    },
+    {
+      "arm_id": "B",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_001_source_invalidation_midrun",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 301,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "B",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_002_malformed_tool_result",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 301,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "B",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_003_provider_degrade",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 301,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "B",
+      "cost_tokens": 310.0,
+      "ended_at_utc": "2026-09-30T12:40:11.190925+00:00",
+      "fidelity": "LIVE_BLOCKED",
+      "layer": "L2",
+      "retries": 0,
+      "run_independence": true,
+      "seed": 301,
+      "started_at_utc": "2026-09-30T12:40:11.178098+00:00",
+      "tool_failures": 1
+    },
+    {
+      "arm_id": "B",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_001_source_invalidation_midrun",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 302,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "B",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_002_malformed_tool_result",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 302,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "B",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_003_provider_degrade",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 302,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "B",
+      "cost_tokens": 310.0,
+      "ended_at_utc": "2026-09-30T12:40:11.203831+00:00",
+      "fidelity": "LIVE_BLOCKED",
+      "layer": "L2",
+      "retries": 0,
+      "run_independence": true,
+      "seed": 302,
+      "started_at_utc": "2026-09-30T12:40:11.191011+00:00",
+      "tool_failures": 1
+    },
+    {
+      "arm_id": "B",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_001_source_invalidation_midrun",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 303,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "B",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_002_malformed_tool_result",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 303,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "B",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_003_provider_degrade",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 303,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "B",
+      "cost_tokens": 310.0,
+      "ended_at_utc": "2026-09-30T12:40:11.216797+00:00",
+      "fidelity": "LIVE_BLOCKED",
+      "layer": "L2",
+      "retries": 0,
+      "run_independence": true,
+      "seed": 303,
+      "started_at_utc": "2026-09-30T12:40:11.203925+00:00",
+      "tool_failures": 1
+    },
+    {
+      "arm_id": "C2",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_001_source_invalidation_midrun",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 301,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "C2",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_002_malformed_tool_result",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 301,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "C2",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_003_provider_degrade",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 301,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "C2",
+      "cost_tokens": 438.0,
+      "ended_at_utc": "2026-09-30T12:40:11.230112+00:00",
+      "fidelity": "LIVE_BLOCKED",
+      "layer": "L2",
+      "retries": 0,
+      "run_independence": true,
+      "seed": 301,
+      "started_at_utc": "2026-09-30T12:40:11.216882+00:00",
+      "tool_failures": 1
+    },
+    {
+      "arm_id": "C2",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_001_source_invalidation_midrun",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 302,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "C2",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_002_malformed_tool_result",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 302,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "C2",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_003_provider_degrade",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 302,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "C2",
+      "cost_tokens": 438.0,
+      "ended_at_utc": "2026-09-30T12:40:11.243284+00:00",
+      "fidelity": "LIVE_BLOCKED",
+      "layer": "L2",
+      "retries": 0,
+      "run_independence": true,
+      "seed": 302,
+      "started_at_utc": "2026-09-30T12:40:11.230201+00:00",
+      "tool_failures": 1
+    },
+    {
+      "arm_id": "C2",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_001_source_invalidation_midrun",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 303,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "C2",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_002_malformed_tool_result",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 303,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "C2",
+      "block_reason": "no OPENROUTER/GROQ/GEMINI keys",
+      "fidelity": "LIVE_BLOCKED",
+      "fresh_ledger": true,
+      "layer": "L2",
+      "live_keys_present": {
+        "anthropic": false,
+        "gemini": false,
+        "groq": false,
+        "openai": false,
+        "openrouter": false
+      },
+      "mission_id": "v3_l2_003_provider_degrade",
+      "model_id": "variational-proxy",
+      "model_version": "t3-v1",
+      "provider_id": "scripted",
+      "run_independence": true,
+      "seed": 303,
+      "temperature": 0.0,
+      "tool_versions": {
+        "filesystem.write": "t3_eval_v1"
+      }
+    },
+    {
+      "arm_id": "C2",
+      "cost_tokens": 438.0,
+      "ended_at_utc": "2026-09-30T12:40:11.256531+00:00",
+      "fidelity": "LIVE_BLOCKED",
+      "layer": "L2",
+      "retries": 0,
+      "run_independence": true,
+      "seed": 303,
+      "started_at_utc": "2026-09-30T12:40:11.243371+00:00",
+      "tool_failures": 1
+    }
+  ]
+}

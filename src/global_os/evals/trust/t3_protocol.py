@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -16,6 +17,16 @@ T3_EXECUTION_MODE_SCRIPTED_SMOKE = "SCRIPTED_MODEL_PROXY_v1"
 
 MECHANISM_CONTRACT_ID = "SELECTIVE_BOUNDED_RECOVERY-v1"
 MECHANISM_PIN_SHA = "e6dfd08c0c83e15a25bebc6c8a11a38e48bc0bd3"
+# First unseal of PACK-v3 (before live keys existed). Live reruns are continuation.
+PACK_V3_UNSEALED_AT_SHA = "c6523a6bb58484a018ae4638949ad4aa085b4095"
+
+CONTINUATION_BINDING_TEXT = (
+    "PACK-v3 was unsealed at SHA c6523a6.\n"
+    "Live execution was blocked by missing provider credentials.\n"
+    "No C2/harness/decision-rule changes were made after unseal.\n"
+    "Subsequent live run is a continuation of T3 under the same prereg,\n"
+    "not a new sealed replication."
+)
 
 T3_SEEDS: tuple[int, ...] = (301, 302, 303)
 MIN_RUNS_PER_ARM_SEED = 3
@@ -112,3 +123,69 @@ def assert_audit_checklist(root: Path | None = None) -> None:
     }
     if required != expect:
         raise ValueError(f"audit checklist sections drift: {required ^ expect}")
+
+
+def t3_continuation_paths(root: Path | None = None) -> tuple[Path, Path]:
+    base = t3_artifact_root(root)
+    return base / "T3_CONTINUATION.md", base / "T3_CONTINUATION.json"
+
+
+def load_continuation_attestation(root: Path | None = None) -> dict[str, Any]:
+    """Load binding continuation record (same prereg; not a new sealed replication)."""
+    _md, js = t3_continuation_paths(root)
+    if not js.is_file():
+        raise FileNotFoundError("T3_CONTINUATION.json missing")
+    raw = json.loads(js.read_text(encoding="utf-8"))
+    if not isinstance(raw, dict):
+        raise TypeError("T3_CONTINUATION.json must be object")
+    return raw
+
+
+def assert_continuation_integrity(root: Path | None = None) -> dict[str, Any]:
+    """Fail closed if C2/prereg/router drifted after PACK-v3 unseal."""
+    r = root or repo_root()
+    att = load_continuation_attestation(r)
+    if att.get("is_new_sealed_replication") is not False:
+        raise ValueError("continuation attestation must mark not-new-sealed-replication")
+    if att.get("is_continuation_of_same_prereg") is not True:
+        raise ValueError("continuation attestation must mark same-prereg continuation")
+    if att.get("create_pack_v4_now") is not False:
+        raise ValueError("PACK-v4 must not be created while finishing T3 continuation")
+    if att.get("pack_unsealed_at_experiment_sha") != PACK_V3_UNSEALED_AT_SHA:
+        raise ValueError("pack unseal SHA drift vs PACK_V3_UNSEALED_AT_SHA")
+    # Canonical freeze file under repo artifacts (not a patched out-of-tree test path).
+    frozen_path = t1_artifact_root(r) / "T3_EXPERIMENT_SHA.txt"
+    frozen = frozen_path.read_text(encoding="utf-8").strip()
+    if frozen != PACK_V3_UNSEALED_AT_SHA:
+        raise ValueError("T3_EXPERIMENT_SHA drift vs first unseal SHA")
+    pins = att.get("pinned_hashes") or {}
+    if not isinstance(pins, dict):
+        raise TypeError("pinned_hashes must be object")
+    checks = {
+        "recovery_router_py_sha256": r / "src/global_os/evals/trust/recovery_router.py",
+        "selective_bounded_recovery_v1_json_sha256": (
+            t1_artifact_root(r) / "SELECTIVE_BOUNDED_RECOVERY_V1.json"
+        ),
+        "t3_prereg_json_sha256": t1_artifact_root(r) / "T3_PREREG.json",
+    }
+    for key, path in checks.items():
+        expected = str(pins.get(key) or "")
+        actual = hashlib.sha256(path.read_bytes()).hexdigest()
+        if not expected or actual != expected:
+            raise ValueError(
+                f"post-unseal integrity fail for {key}: "
+                f"file changed after PACK-v3 unseal (holdout compromised)"
+            )
+    post = att.get("post_unseal_changes") or {}
+    if not isinstance(post, dict):
+        raise TypeError("post_unseal_changes must be object")
+    for flag in (
+        "c2_recovery_router",
+        "mechanism_contract",
+        "t3_prereg",
+        "decision_thresholds",
+        "routing_logic",
+    ):
+        if post.get(flag) is not False:
+            raise ValueError(f"post_unseal_changes.{flag} must be false")
+    return att

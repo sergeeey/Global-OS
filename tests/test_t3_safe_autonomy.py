@@ -23,10 +23,13 @@ from global_os.evals.trust.t3_metrics import (
     merge_seed_trajectories,
 )
 from global_os.evals.trust.t3_protocol import (
+    CONTINUATION_BINDING_TEXT,
     FAILURE_ATTRIBUTION_CLASSES,
     MECHANISM_PIN_SHA,
+    PACK_V3_UNSEALED_AT_SHA,
     T3_PROTOCOL_ID,
     assert_audit_checklist,
+    assert_continuation_integrity,
     assert_mechanism_pin,
     assert_prereg_locked,
 )
@@ -190,6 +193,15 @@ def test_run_t3_injected_pack_no_repo_unseal(tmp_path: Path) -> None:
     # only if prefer_live True. With prefer_live=False fidelity SCRIPTED_PROXY —
     # decide_t3 treats non-LIVE_BLOCKED + live_ready False as INCONCLUSIVE via live_ready.
     assert raw["live_ready"] is False or raw["fidelity"] != "LIVE_LLM"
+    cont = raw["continuation"]
+    assert cont["is_continuation_of_same_prereg"] is True
+    assert cont["is_new_sealed_replication"] is False
+    assert cont["create_pack_v4_now"] is False
+    assert cont["pack_unsealed_at_experiment_sha"] == PACK_V3_UNSEALED_AT_SHA
+    decision_md = (tmp_path / "t3_out" / "T3_DECISION.md").read_text(encoding="utf-8")
+    assert "continuation of T3 under the same prereg" in decision_md
+    assert "not a new sealed replication" in decision_md
+    assert (tmp_path / "t3_out" / "LIVE_PROVENANCE.json").is_file()
 
 
 def test_t3_continuation_attestation_present() -> None:
@@ -208,13 +220,55 @@ def test_t3_continuation_attestation_present() -> None:
     decision = (ART / "T3" / "T3_DECISION.md").read_text(encoding="utf-8")
     assert "continuation of T3 under the same prereg" in decision
     assert "not a new sealed replication" in decision
-    # Pin hashes must still match frozen files
-    import hashlib
+    assert CONTINUATION_BINDING_TEXT.splitlines()[0] in decision
+    # Pin hashes must still match frozen files (fail-closed holdout integrity)
+    att = assert_continuation_integrity(ROOT)
+    assert att["pinned_hashes"]["t3_experiment_sha"] == PACK_V3_UNSEALED_AT_SHA
 
-    router = hashlib.sha256(
-        (ROOT / "src/global_os/evals/trust/recovery_router.py").read_bytes()
-    ).hexdigest()
-    assert router == raw["pinned_hashes"]["recovery_router_py_sha256"]
+
+def test_decision_md_regen_preserves_continuation_binding() -> None:
+    from global_os.evals.trust.t3_runner import _decision_md
+
+    md = _decision_md(
+        {
+            "decision": {
+                "verdict": "INCONCLUSIVE",
+                "reasons": ["provider_key_unavailable_live_layer"],
+                "stop_rule": "no_promote_rerun_or_park",
+            },
+            "generated_at_utc": "2026-09-30T00:00:00+00:00",
+            "experiment_sha": PACK_V3_UNSEALED_AT_SHA,
+            "protocol_id": T3_PROTOCOL_ID,
+            "pack_id": "SAFE_AUTONOMY_PACK-v3",
+            "execution_mode": "LIVE_BLOCKED_KEYS_UNAVAILABLE",
+            "fidelity": "LIVE_BLOCKED",
+            "live_ready": False,
+            "mechanism_pin_sha": MECHANISM_PIN_SHA,
+            "mechanism_contract": "SELECTIVE_BOUNDED_RECOVERY-v1",
+            "layers": {
+                "L1": {
+                    "A": {"mier": 0.9, "ssr": 0.1, "flakiness": 0.0},
+                    "B": {"mier": 0.8, "ssr": 0.1, "flakiness": 0.0},
+                    "C2": {"mier": 0.0, "ssr": 0.8, "flakiness": 0.0},
+                }
+            },
+            "diagnostics": {
+                "L1_C2": {"fsr": 1.0, "urr": 0.0},
+                "L2_C2": {"fsr": 1.0, "urr": 0.0},
+            },
+            "audit_checklist_complete": True,
+            "seeds": [301, 302, 303],
+            "harness_smoke_note": "test",
+            "claim_scope": "test scope",
+            "continuation": {
+                "binding_text": CONTINUATION_BINDING_TEXT,
+                "prior_run_archive": None,
+            },
+        }
+    )
+    assert "continuation of T3 under the same prereg" in md
+    assert "not a new sealed replication" in md
+    assert "PACK-v3 was unsealed at SHA c6523a6" in md
 
 
 def test_freeze_t3_sha_write_once(tmp_path: Path) -> None:
