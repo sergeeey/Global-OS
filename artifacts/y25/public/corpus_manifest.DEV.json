@@ -1,6 +1,570 @@
 {
   "pack": "DEV",
-  "status": "EMPTY_AWAITING_CORPUS",
+  "pairs": [
+    {
+      "failure_class": "redirect_topology_refresh",
+      "first": {
+        "additions": 54,
+        "commit_sha": "3fe1b11f7e4ef0267bbb23e91946cb11dea355e3",
+        "deletions": 0,
+        "failure_class": "redirect_topology_refresh",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 3,
+        "notes": "Track S3 region redirect feature id (#3804)",
+        "patch_ref": "https://github.com/boto/botocore/commit/3fe1b11f7e4ef0267bbb23e91946cb11dea355e3",
+        "paths": [
+          "botocore/useragent.py",
+          "botocore/utils.py",
+          "tests/functional/test_useragent.py"
+        ],
+        "repo": "boto/botocore",
+        "repo_url": "https://github.com/boto/botocore",
+        "task_id": "y25_botocore_3fe1b11f7e4e"
+      },
+      "pack": "DEV",
+      "pair_id": "y25_pair_01_redirect_topology_refresh",
+      "same_repo": false,
+      "transfer_difficulty": "HARD",
+      "transfer_note": "Redirect requires topology/region refresh before retry",
+      "unseen_variant": {
+        "additions": 62,
+        "commit_sha": "6e7723c456c9c30dc252835add4d16e1f07c8203",
+        "deletions": 0,
+        "failure_class": "redirect_topology_refresh",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 2,
+        "notes": "[fix(asyncio)] Refresh cluster topology before retrying MOVED redirects (#4322)",
+        "patch_ref": "https://github.com/redis/redis-py/commit/6e7723c456c9c30dc252835add4d16e1f07c8203",
+        "paths": [
+          "redis/asyncio/cluster.py",
+          "tests/test_asyncio/test_cluster.py"
+        ],
+        "repo": "redis/redis-py",
+        "repo_url": "https://github.com/redis/redis-py",
+        "task_id": "y25_redis-py_6e7723c456c9"
+      }
+    },
+    {
+      "failure_class": "tls_stream_lifecycle_on_timeout",
+      "first": {
+        "additions": 58,
+        "commit_sha": "ce3bffc46c4fe30e8010d15a53e578e07bd58ca7",
+        "deletions": 14,
+        "failure_class": "tls_stream_lifecycle_on_timeout",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 4,
+        "notes": "Close TLS socket when connect() is cancelled; strengthen tests",
+        "patch_ref": "https://github.com/tornadoweb/tornado/commit/ce3bffc46c4fe30e8010d15a53e578e07bd58ca7",
+        "paths": [
+          "tornado/iostream.py",
+          "tornado/tcpclient.py",
+          "tornado/test/iostream_test.py",
+          "tornado/test/tcpclient_test.py"
+        ],
+        "repo": "tornadoweb/tornado",
+        "repo_url": "https://github.com/tornadoweb/tornado",
+        "task_id": "y25_tornado_ce3bffc46c4f"
+      },
+      "pack": "DEV",
+      "pair_id": "y25_pair_03_tls_stream_lifecycle_on_timeout",
+      "same_repo": false,
+      "transfer_difficulty": "MEDIUM",
+      "transfer_note": "Close/cancel TLS streams cleanly on timeout/abort",
+      "unseen_variant": {
+        "additions": 7,
+        "commit_sha": "e05899a66391166442866f12dbdd4ff715166de6",
+        "deletions": 1,
+        "failure_class": "tls_stream_lifecycle_on_timeout",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 2,
+        "notes": "Handle ConnectionAbortedError in SSL socket test (#5274)",
+        "patch_ref": "https://github.com/urllib3/urllib3/commit/e05899a66391166442866f12dbdd4ff715166de6",
+        "paths": [
+          "changelog/5274.misc.rst",
+          "test/with_dummyserver/test_socketlevel.py"
+        ],
+        "repo": "urllib3/urllib3",
+        "repo_url": "https://github.com/urllib3/urllib3",
+        "task_id": "y25_urllib3_e05899a66391"
+      }
+    },
+    {
+      "failure_class": "connect_timeout_propagation",
+      "first": {
+        "additions": 49,
+        "commit_sha": "3bb7bf271e12c458924f9d532a8a91c05aaba9dc",
+        "deletions": 13,
+        "failure_class": "connect_timeout_propagation",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 2,
+        "notes": "simple_httpclient: Pass connect timeout to TCPClient.connect",
+        "patch_ref": "https://github.com/tornadoweb/tornado/commit/3bb7bf271e12c458924f9d532a8a91c05aaba9dc",
+        "paths": [
+          "tornado/simple_httpclient.py",
+          "tornado/test/simple_httpclient_test.py"
+        ],
+        "repo": "tornadoweb/tornado",
+        "repo_url": "https://github.com/tornadoweb/tornado",
+        "task_id": "y25_tornado_3bb7bf271e12"
+      },
+      "pack": "DEV",
+      "pair_id": "y25_pair_04_connect_timeout_propagation",
+      "same_repo": false,
+      "transfer_difficulty": "MEDIUM",
+      "transfer_note": "Connect/timeout must be wired to the actual network layer",
+      "unseen_variant": {
+        "additions": 1,
+        "commit_sha": "f91c8897f568a8075f4f0c1c9dcc81b8ec798ef3",
+        "deletions": 0,
+        "failure_class": "connect_timeout_propagation",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 1,
+        "notes": "Restored timeout in GeoDjango CI workflow.",
+        "patch_ref": "https://github.com/django/django/commit/f91c8897f568a8075f4f0c1c9dcc81b8ec798ef3",
+        "paths": [
+          ".github/workflows/postgis.yml"
+        ],
+        "repo": "django/django",
+        "repo_url": "https://github.com/django/django",
+        "task_id": "y25_django_f91c8897f568"
+      }
+    },
+    {
+      "failure_class": "exception_escape_from_protocol_layer",
+      "first": {
+        "additions": 88,
+        "commit_sha": "f656a1a575e4c20b309b3f7fe40fdd79e89ccfcf",
+        "deletions": 9,
+        "failure_class": "exception_escape_from_protocol_layer",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 3,
+        "notes": "http1connection: Don't let _QuietException escape from read_response",
+        "patch_ref": "https://github.com/tornadoweb/tornado/commit/f656a1a575e4c20b309b3f7fe40fdd79e89ccfcf",
+        "paths": [
+          "tornado/http1connection.py",
+          "tornado/test/http1connection_test.py",
+          "tornado/test/simple_httpclient_test.py"
+        ],
+        "repo": "tornadoweb/tornado",
+        "repo_url": "https://github.com/tornadoweb/tornado",
+        "task_id": "y25_tornado_f656a1a575e4"
+      },
+      "pack": "DEV",
+      "pair_id": "y25_pair_06_exception_escape_from_protocol_layer",
+      "same_repo": false,
+      "transfer_difficulty": "HARD",
+      "transfer_note": "Internal quiet/protocol exceptions must not escape boundaries",
+      "unseen_variant": {
+        "additions": 6,
+        "commit_sha": "dcbede0cb00df32e7f1895e19e37d5f40a75d1f6",
+        "deletions": 1,
+        "failure_class": "exception_escape_from_protocol_layer",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 2,
+        "notes": "autoescape selection uses case-insensitive comparison (#6013)",
+        "patch_ref": "https://github.com/pallets/flask/commit/dcbede0cb00df32e7f1895e19e37d5f40a75d1f6",
+        "paths": [
+          "CHANGES.rst",
+          "src/flask/sansio/app.py"
+        ],
+        "repo": "pallets/flask",
+        "repo_url": "https://github.com/pallets/flask",
+        "task_id": "y25_flask_dcbede0cb00d"
+      }
+    },
+    {
+      "failure_class": "buffered_event_flush_ordering",
+      "first": {
+        "additions": 19,
+        "commit_sha": "f7cbeadd4ae286ad9ef063334ccbae6667b10652",
+        "deletions": 3,
+        "failure_class": "buffered_event_flush_ordering",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 3,
+        "notes": "fix(worker): flush buffered events with hub.call_soon() (#10736)",
+        "patch_ref": "https://github.com/celery/celery/commit/f7cbeadd4ae286ad9ef063334ccbae6667b10652",
+        "paths": [
+          "celery/worker/consumer/consumer.py",
+          "t/integration/test_backend.py",
+          "t/unit/worker/test_consumer.py"
+        ],
+        "repo": "celery/celery",
+        "repo_url": "https://github.com/celery/celery",
+        "task_id": "y25_celery_f7cbeadd4ae2"
+      },
+      "pack": "DEV",
+      "pair_id": "y25_pair_07_buffered_event_flush_ordering",
+      "same_repo": false,
+      "transfer_difficulty": "HARD",
+      "transfer_note": "Buffered work must flush on correct event-loop/hub scheduling",
+      "unseen_variant": {
+        "additions": 104,
+        "commit_sha": "1487e3d5269cadeb9cf2a4f409afa4e67237c53f",
+        "deletions": 3,
+        "failure_class": "buffered_event_flush_ordering",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 3,
+        "notes": "Close event loops after coroutine job execution (#2479)",
+        "patch_ref": "https://github.com/rq/rq/commit/1487e3d5269cadeb9cf2a4f409afa4e67237c53f",
+        "paths": [
+          "rq/job.py",
+          "tests/fixtures.py",
+          "tests/test_job.py"
+        ],
+        "repo": "rq/rq",
+        "repo_url": "https://github.com/rq/rq",
+        "task_id": "y25_rq_1487e3d5269c"
+      }
+    },
+    {
+      "failure_class": "schedule_timebase_utc",
+      "first": {
+        "additions": 41,
+        "commit_sha": "7358790b8fffcb32c175004e134c57c432807d76",
+        "deletions": 4,
+        "failure_class": "schedule_timebase_utc",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 2,
+        "notes": "Schedule job repeats against UTC, not the local wall clock (#2475)",
+        "patch_ref": "https://github.com/rq/rq/commit/7358790b8fffcb32c175004e134c57c432807d76",
+        "paths": [
+          "rq/repeat.py",
+          "tests/test_repeat.py"
+        ],
+        "repo": "rq/rq",
+        "repo_url": "https://github.com/rq/rq",
+        "task_id": "y25_rq_7358790b8fff"
+      },
+      "pack": "DEV",
+      "pair_id": "y25_pair_10_schedule_timebase_utc",
+      "same_repo": false,
+      "transfer_difficulty": "MEDIUM",
+      "transfer_note": "Schedulers must use UTC/canonical timebase not local wall clock",
+      "unseen_variant": {
+        "additions": 5,
+        "commit_sha": "7103643295368d2e67efc6842b47dc5be73a77f7",
+        "deletions": 4,
+        "failure_class": "schedule_timebase_utc",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 1,
+        "notes": "docs: update default value of interval_max in retry_policy (#10717)",
+        "patch_ref": "https://github.com/celery/celery/commit/7103643295368d2e67efc6842b47dc5be73a77f7",
+        "paths": [
+          "docs/userguide/calling.rst"
+        ],
+        "repo": "celery/celery",
+        "repo_url": "https://github.com/celery/celery",
+        "task_id": "y25_celery_710364329536"
+      }
+    },
+    {
+      "failure_class": "multipart_stream_eof_safety",
+      "first": {
+        "additions": 23,
+        "commit_sha": "9774b08ef457e91e37e38c8a1abbfa3510427f21",
+        "deletions": 0,
+        "failure_class": "multipart_stream_eof_safety",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 2,
+        "notes": "Stop multipart range responses on unexpected EOF (#3583)",
+        "patch_ref": "https://github.com/Kludex/starlette/commit/9774b08ef457e91e37e38c8a1abbfa3510427f21",
+        "paths": [
+          "starlette/responses.py",
+          "tests/test_responses.py"
+        ],
+        "repo": "encode/starlette",
+        "repo_url": "https://github.com/encode/starlette",
+        "task_id": "y25_starlette_9774b08ef457"
+      },
+      "pack": "DEV",
+      "pair_id": "y25_pair_11_multipart_stream_eof_safety",
+      "same_repo": false,
+      "transfer_difficulty": "MEDIUM",
+      "transfer_note": "Multipart/stream responses must stop safely on unexpected EOF",
+      "unseen_variant": {
+        "additions": 18,
+        "commit_sha": "10b7295922741b91a15751029e6ad3e8e5efb9f3",
+        "deletions": 11,
+        "failure_class": "multipart_stream_eof_safety",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 2,
+        "notes": "docs: Use `with` to open files in multipart examples (#3478)",
+        "patch_ref": "https://github.com/encode/httpx/commit/10b7295922741b91a15751029e6ad3e8e5efb9f3",
+        "paths": [
+          "docs/advanced/clients.md",
+          "docs/quickstart.md"
+        ],
+        "repo": "encode/httpx",
+        "repo_url": "https://github.com/encode/httpx",
+        "task_id": "y25_httpx_10b729592274"
+      }
+    },
+    {
+      "failure_class": "job_pipeline_rate_limit_honor",
+      "first": {
+        "additions": 23,
+        "commit_sha": "fe06797161e668567041e017e48eb4af0e5b1bf8",
+        "deletions": 1,
+        "failure_class": "job_pipeline_rate_limit_honor",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 2,
+        "notes": "Honor the caller's pipeline when enqueueing a rate-limited job (#2493)",
+        "patch_ref": "https://github.com/rq/rq/commit/fe06797161e668567041e017e48eb4af0e5b1bf8",
+        "paths": [
+          "rq/queue.py",
+          "tests/test_rate_limit.py"
+        ],
+        "repo": "rq/rq",
+        "repo_url": "https://github.com/rq/rq",
+        "task_id": "y25_rq_fe06797161e6"
+      },
+      "pack": "DEV",
+      "pair_id": "y25_pair_13_job_pipeline_rate_limit_honor",
+      "same_repo": false,
+      "transfer_difficulty": "MEDIUM",
+      "transfer_note": "Caller pipeline/context must be honored under rate-limit enqueue",
+      "unseen_variant": {
+        "additions": 73,
+        "commit_sha": "a84fd3ed2fc2f4594d6f5206dcbd88068f973517",
+        "deletions": 8,
+        "failure_class": "job_pipeline_rate_limit_honor",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 3,
+        "notes": "fix(utils): BufferMap ignores bufmaxsize and miscounts total (#10705)",
+        "patch_ref": "https://github.com/celery/celery/commit/a84fd3ed2fc2f4594d6f5206dcbd88068f973517",
+        "paths": [
+          "celery/utils/collections.py",
+          "t/integration/test_backend.py",
+          "t/unit/utils/test_collections.py"
+        ],
+        "repo": "celery/celery",
+        "repo_url": "https://github.com/celery/celery",
+        "task_id": "y25_celery_a84fd3ed2fc2"
+      }
+    },
+    {
+      "failure_class": "admin_date_hierarchy_range",
+      "first": {
+        "additions": 25,
+        "commit_sha": "935edaa91b756325352ca70d5eba49a64b70d28c",
+        "deletions": 9,
+        "failure_class": "admin_date_hierarchy_range",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 2,
+        "notes": "Fixed #37357 -- Handled out-of-range year in admin date_hierarchy.",
+        "patch_ref": "https://github.com/django/django/commit/935edaa91b756325352ca70d5eba49a64b70d28c",
+        "paths": [
+          "django/contrib/admin/views/main.py",
+          "tests/admin_changelist/tests.py"
+        ],
+        "repo": "django/django",
+        "repo_url": "https://github.com/django/django",
+        "task_id": "y25_django_935edaa91b75"
+      },
+      "pack": "DEV",
+      "pair_id": "y25_pair_17_admin_date_hierarchy_range",
+      "same_repo": false,
+      "transfer_difficulty": "HARD",
+      "transfer_note": "Out-of-range temporal/protocol values must be handled safely",
+      "unseen_variant": {
+        "additions": 17,
+        "commit_sha": "85c3b7434fd6b58596486dbe93cfe605ee358881",
+        "deletions": 0,
+        "failure_class": "admin_date_hierarchy_range",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 2,
+        "notes": "Ignore Range when If-Range contains a weak ETag (#3567)",
+        "patch_ref": "https://github.com/Kludex/starlette/commit/85c3b7434fd6b58596486dbe93cfe605ee358881",
+        "paths": [
+          "starlette/responses.py",
+          "tests/test_responses.py"
+        ],
+        "repo": "encode/starlette",
+        "repo_url": "https://github.com/encode/starlette",
+        "task_id": "y25_starlette_85c3b7434fd6"
+      }
+    },
+    {
+      "failure_class": "cluster_moved_redirect_retry",
+      "first": {
+        "additions": 62,
+        "commit_sha": "6e7723c456c9c30dc252835add4d16e1f07c8203",
+        "deletions": 0,
+        "failure_class": "cluster_moved_redirect_retry",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 2,
+        "notes": "[fix(asyncio)] Refresh cluster topology before retrying MOVED redirects (#4322)",
+        "patch_ref": "https://github.com/redis/redis-py/commit/6e7723c456c9c30dc252835add4d16e1f07c8203",
+        "paths": [
+          "redis/asyncio/cluster.py",
+          "tests/test_asyncio/test_cluster.py"
+        ],
+        "repo": "redis/redis-py",
+        "repo_url": "https://github.com/redis/redis-py",
+        "task_id": "y25_redis-py_6e7723c456c9"
+      },
+      "pack": "DEV",
+      "pair_id": "y25_pair_19_cluster_moved_redirect_retry",
+      "same_repo": false,
+      "transfer_difficulty": "MEDIUM",
+      "transfer_note": "MOVED/region redirects need refresh-before-retry discipline",
+      "unseen_variant": {
+        "additions": 54,
+        "commit_sha": "3fe1b11f7e4ef0267bbb23e91946cb11dea355e3",
+        "deletions": 0,
+        "failure_class": "cluster_moved_redirect_retry",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 3,
+        "notes": "Track S3 region redirect feature id (#3804)",
+        "patch_ref": "https://github.com/boto/botocore/commit/3fe1b11f7e4ef0267bbb23e91946cb11dea355e3",
+        "paths": [
+          "botocore/useragent.py",
+          "botocore/utils.py",
+          "tests/functional/test_useragent.py"
+        ],
+        "repo": "boto/botocore",
+        "repo_url": "https://github.com/boto/botocore",
+        "task_id": "y25_botocore_3fe1b11f7e4e"
+      }
+    },
+    {
+      "failure_class": "cookie_secure_shared_policy",
+      "first": {
+        "additions": 74,
+        "commit_sha": "6bc84990f2a6429667f741d97f5da22884b8a8d3",
+        "deletions": 3,
+        "failure_class": "cookie_secure_shared_policy",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 7,
+        "notes": "Fix treat_as_secure_origin on request cookies (#13833)",
+        "patch_ref": "https://github.com/aio-libs/aiohttp/commit/6bc84990f2a6429667f741d97f5da22884b8a8d3",
+        "paths": [
+          "CHANGES/13833.bugfix.rst",
+          "aiohttp/abc.py",
+          "aiohttp/client.py",
+          "aiohttp/cookiejar.py",
+          "docs/client_reference.rst",
+          "tests/test_client_functional.py",
+          "tests/test_cookiejar.py"
+        ],
+        "repo": "aio-libs/aiohttp",
+        "repo_url": "https://github.com/aio-libs/aiohttp",
+        "task_id": "y25_aiohttp_6bc84990f2a6"
+      },
+      "pack": "DEV",
+      "pair_id": "y25_pair_20_cookie_secure_shared_policy",
+      "same_repo": false,
+      "transfer_difficulty": "MEDIUM",
+      "transfer_note": "Secure/shared cookie policy across request origin checks",
+      "unseen_variant": {
+        "additions": 52,
+        "commit_sha": "699dae42f5ee0a90b358d00db9aebe9c67e9283f",
+        "deletions": 15,
+        "failure_class": "cookie_secure_shared_policy",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 2,
+        "notes": "Include Vary: Origin on all normal CORS responses (#3516)",
+        "patch_ref": "https://github.com/Kludex/starlette/commit/699dae42f5ee0a90b358d00db9aebe9c67e9283f",
+        "paths": [
+          "starlette/middleware/cors.py",
+          "tests/middleware/test_cors.py"
+        ],
+        "repo": "encode/starlette",
+        "repo_url": "https://github.com/encode/starlette",
+        "task_id": "y25_starlette_699dae42f5ee"
+      }
+    },
+    {
+      "failure_class": "cron_heartbeat_self_heal",
+      "first": {
+        "additions": 95,
+        "commit_sha": "85936ce63d704eb64bfbf8f58bda3e37711f3f3b",
+        "deletions": 44,
+        "failure_class": "cron_heartbeat_self_heal",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 4,
+        "notes": "Make CronScheduler.heartbeat() self heals, if it still runs after brief connection timeouts (#2467)",
+        "patch_ref": "https://github.com/rq/rq/commit/85936ce63d704eb64bfbf8f58bda3e37711f3f3b",
+        "paths": [
+          "rq/cron.py",
+          "rq/cron_scheduler_registry.py",
+          "rq/defaults.py",
+          "tests/test_cron.py"
+        ],
+        "repo": "rq/rq",
+        "repo_url": "https://github.com/rq/rq",
+        "task_id": "y25_rq_85936ce63d70"
+      },
+      "pack": "DEV",
+      "pair_id": "y25_pair_22_cron_heartbeat_self_heal",
+      "same_repo": false,
+      "transfer_difficulty": "MEDIUM",
+      "transfer_note": "Scheduler heartbeat must self-heal after brief control-plane stalls",
+      "unseen_variant": {
+        "additions": 5,
+        "commit_sha": "7103643295368d2e67efc6842b47dc5be73a77f7",
+        "deletions": 4,
+        "failure_class": "cron_heartbeat_self_heal",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 1,
+        "notes": "docs: update default value of interval_max in retry_policy (#10717)",
+        "patch_ref": "https://github.com/celery/celery/commit/7103643295368d2e67efc6842b47dc5be73a77f7",
+        "paths": [
+          "docs/userguide/calling.rst"
+        ],
+        "repo": "celery/celery",
+        "repo_url": "https://github.com/celery/celery",
+        "task_id": "y25_celery_710364329536"
+      }
+    }
+  ],
   "protocol_id": "Y25-MV-v1",
-  "pairs": []
+  "stats": {
+    "cross_repo_pairs": 12,
+    "failure_classes": [
+      "admin_date_hierarchy_range",
+      "buffered_event_flush_ordering",
+      "cluster_moved_redirect_retry",
+      "connect_timeout_propagation",
+      "cookie_secure_shared_policy",
+      "cron_heartbeat_self_heal",
+      "exception_escape_from_protocol_layer",
+      "job_pipeline_rate_limit_honor",
+      "multipart_stream_eof_safety",
+      "redirect_topology_refresh",
+      "schedule_timebase_utc",
+      "tls_stream_lifecycle_on_timeout"
+    ],
+    "n_pairs": 12,
+    "same_repo_pairs": 0,
+    "transfer_difficulty": {
+      "HARD": 4,
+      "MEDIUM": 8
+    }
+  },
+  "status": "POPULATED"
 }

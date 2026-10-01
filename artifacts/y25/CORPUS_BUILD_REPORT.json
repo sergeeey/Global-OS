@@ -1,0 +1,58 @@
+{
+  "cross_repo_preferred": true,
+  "dev": {
+    "cross_repo_pairs": 12,
+    "failure_classes": [
+      "admin_date_hierarchy_range",
+      "buffered_event_flush_ordering",
+      "cluster_moved_redirect_retry",
+      "connect_timeout_propagation",
+      "cookie_secure_shared_policy",
+      "cron_heartbeat_self_heal",
+      "exception_escape_from_protocol_layer",
+      "job_pipeline_rate_limit_honor",
+      "multipart_stream_eof_safety",
+      "redirect_topology_refresh",
+      "schedule_timebase_utc",
+      "tls_stream_lifecycle_on_timeout"
+    ],
+    "n_pairs": 12,
+    "same_repo_pairs": 0,
+    "transfer_difficulty": {
+      "HARD": 4,
+      "MEDIUM": 8
+    }
+  },
+  "holdout": {
+    "cross_repo_pairs": 11,
+    "failure_classes": [
+      "cancel_fd_double_close",
+      "connection_close_token_handling",
+      "duplicate_config_merge",
+      "host_header_port_matching",
+      "http_range_conditional_split",
+      "idempotent_backend_forget",
+      "out_of_range_protocol_field",
+      "redirect_authority_semantics",
+      "retry_side_effect_amplification",
+      "ssl_connector_deprecation_edge",
+      "upload_buffer_blocksize",
+      "url_absolute_form_authority"
+    ],
+    "n_pairs": 12,
+    "same_repo_pairs": 1,
+    "transfer_difficulty": {
+      "EASY": 1,
+      "HARD": 8,
+      "MEDIUM": 3
+    }
+  },
+  "holdout_fraction": 0.5,
+  "min_pairs_met": true,
+  "n_pairs_total": 24,
+  "prereg_frozen": true,
+  "protocol_id": "Y25-MV-v1",
+  "same_repo_pairs_remaining": 1,
+  "sample_size_expansion_after_unseal": "FORBIDDEN_WITHOUT_LOCKED_AMENDMENT",
+  "sealed_sha256": "f9091c4be1f9d1db416200b6ebe7938350bd78b778d4675339b29ce31b1f1438"
+}

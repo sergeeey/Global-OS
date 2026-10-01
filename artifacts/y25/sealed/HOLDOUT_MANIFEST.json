@@ -1,8 +1,34 @@
 {
+  "frozen_at_utc": "2026-10-01T02:47:02Z",
+  "n_pairs": 12,
   "pack": "HOLDOUT",
-  "status": "NOT_SEALED_YET",
   "protocol_id": "Y25-MV-v1",
-  "n_pairs": 0,
-  "unsealed_for_execution": false,
-  "sha256_of_sealed_bundle": null
+  "sealed_pack_path": "artifacts/y25/sealed/sealed_pack.json",
+  "sha256_of_sealed_bundle": "f9091c4be1f9d1db416200b6ebe7938350bd78b778d4675339b29ce31b1f1438",
+  "stats": {
+    "cross_repo_pairs": 11,
+    "failure_classes": [
+      "cancel_fd_double_close",
+      "connection_close_token_handling",
+      "duplicate_config_merge",
+      "host_header_port_matching",
+      "http_range_conditional_split",
+      "idempotent_backend_forget",
+      "out_of_range_protocol_field",
+      "redirect_authority_semantics",
+      "retry_side_effect_amplification",
+      "ssl_connector_deprecation_edge",
+      "upload_buffer_blocksize",
+      "url_absolute_form_authority"
+    ],
+    "n_pairs": 12,
+    "same_repo_pairs": 1,
+    "transfer_difficulty": {
+      "EASY": 1,
+      "HARD": 8,
+      "MEDIUM": 3
+    }
+  },
+  "status": "FROZEN_UNSEEN",
+  "unsealed_for_execution": false
 }
