@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.113 — 2026-10-01
+
+### M-EXT1 immutable + M-EXT2/EW1 INCONCLUSIVE
+
+- M-EXT1/EW2 sealed IMMUTABLE (`ROOT_CAUSE_CONFIRMED`); no urllib3 polish for GOS self-score
+- M-EXT2/EW1 science exam: sealed holdout scored → **INCONCLUSIVE** (all-positive labels; balance gate)
+- No post-hoc label/feature retune; architecture unchanged
+- Sequence complete: OSS eng exam + science exam; next suggested = GOS vs strong single agent
+
 ## 0.1.112 — 2026-10-01
 
 ### M-EXT1 EW2 exam: urllib3#5248 ROOT_CAUSE_CONFIRMED

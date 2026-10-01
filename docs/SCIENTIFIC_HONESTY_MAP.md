@@ -178,8 +178,8 @@ Y24 CLOSED (scientific):
 
 Y25 CAMPAIGN_CLOSED REJECT — memory NOT SHOWN at prereg strength; no F2
 EXTERNAL REAL WORK
-  M-EXT1 EW2: urllib3#5248 ROOT_CAUSE_CONFIRMED (hard gate; upstream-ready pack)
-  EW1: still queued (NOT started)
-  GOS architecture UNCHANGED; Y24/Y25 not evidence
-  Success = external reproducible result, not self-proof
+  M-EXT1/EW2 IMMUTABLE ROOT_CAUSE_CONFIRMED (urllib3#5248)
+  M-EXT2/EW1 CLOSED INCONCLUSIVE (label degeneracy; no retune)
+  Two external classes: OSS engineering + science protocol honesty
+  Next: GOS vs strong single agent — not Immune*/F2 fishing
 ```

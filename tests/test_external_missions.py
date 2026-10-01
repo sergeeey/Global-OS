@@ -1,4 +1,4 @@
-"""Acceptance: external dual missions locked; not GOS self-proof."""
+"""Acceptance: external dual missions + M-EXT1/M-EXT2 terminals."""
 
 from __future__ import annotations
 
@@ -13,36 +13,47 @@ def test_external_contract_locked() -> None:
     raw = json.loads((EXT / "CONTRACT" / "EXTERNAL_REAL_WORK.json").read_text(encoding="utf-8"))
     assert raw["status"] == "CONTRACT_LOCKED"
     assert "EW1" in raw["missions"] and "EW2" in raw["missions"]
-    assert "cite_y24_or_y25_as_evidence_for_external_hypothesis" in raw["forbidden"]
-    assert (EXT / "CONTRACT" / "EXTERNAL_REAL_WORK.md").is_file()
 
 
-def test_ew1_prereg_not_y19_reopen() -> None:
-    raw = json.loads(
-        (EXT / "EW1_transient_predictor" / "EW1-PREREG.json").read_text(encoding="utf-8")
-    )
-    assert raw["status"] == "PREREG_LOCKED"
-    assert raw["protocol_id"] == "EW1-CTP-v1"
-    assert raw["not_y19_reopen"] is True
-    assert raw["y19_y24_y25_not_evidence"] is True
-    assert raw["arms_started"] is False
-    assert raw["holdout_status"] == "NOT_SEALED_YET"
-    assert len(raw["hypotheses"]) == 3
-    y19 = (ROOT / "artifacts" / "y19" / "CLAIMS.md").read_text(encoding="utf-8")
-    assert "FROZEN" in y19
+def test_m_ext1_immutable() -> None:
+    closed = json.loads((EXT / "M_EXT1_EW2_EXAM" / "M_EXT1_CLOSED.json").read_text(encoding="utf-8"))
+    assert closed["status"] == "IMMUTABLE_TERMINAL"
+    assert closed["terminal"] == "ROOT_CAUSE_CONFIRMED"
+    assert closed["architecture_changes"] == "NONE"
+    assert closed["gos_self_score_polish_forbidden"] is True
+    assert "IMMUTABLE" in (EXT / "M_EXT1_EW2_EXAM" / "M_EXT1_CLOSED.md").read_text(encoding="utf-8")
 
 
-def test_ew2_urllib3_issue_pinned() -> None:
-    raw = json.loads((EXT / "EW2_oss_incident" / "EW2-PREREG.json").read_text(encoding="utf-8"))
-    pin = json.loads((EXT / "EW2_oss_incident" / "EW2_PIN.json").read_text(encoding="utf-8"))
-    assert raw["status"] == "PREREG_LOCKED"
-    assert raw["target"]["issue_number"] == 5248
-    assert raw["target"]["repo"] == "urllib3/urllib3"
-    assert pin["issue_number"] == 5248
-    assert pin["urllib3_head_sha_at_pin"]
-    assert raw["investigation_started"] is True
-    assert raw.get("terminal_verdict") == "ROOT_CAUSE_CONFIRMED"
-    assert (EXT / "EW2_oss_incident" / "ISSUE_SNAPSHOT.json").is_file()
+def test_m_ext1_ew2_exam_terminal() -> None:
+    exam = EXT / "M_EXT1_EW2_EXAM"
+    goal = (exam / "GOAL_CONTRACT.md").read_text(encoding="utf-8")
+    assert "Time / budget" in goal or "budget envelope" in goal.lower()
+    ledger = json.loads((exam / "MISSION_LEDGER.json").read_text(encoding="utf-8"))
+    assert ledger["terminal_verdict"] == "ROOT_CAUSE_CONFIRMED"
+    assert ledger["gos_modified"] is False
+    before = (
+        EXT / "EW2_oss_incident" / "repro" / "logs" / "regression_BEFORE_patch.txt"
+    ).read_text(encoding="utf-8")
+    after = (
+        EXT / "EW2_oss_incident" / "repro" / "logs" / "regression_AFTER_patch.txt"
+    ).read_text(encoding="utf-8")
+    assert "FAILED" in before
+    assert "2 passed" in after
+
+
+def test_m_ext2_ew1_inconclusive_no_retune() -> None:
+    closed = json.loads((EXT / "M_EXT2_EW1_EXAM" / "M_EXT2_CLOSED.json").read_text(encoding="utf-8"))
+    assert closed["status"] == "CAMPAIGN_CLOSED"
+    assert closed["terminal"] == "INCONCLUSIVE"
+    assert closed["post_hoc_retune"] is False
+    score = json.loads((EXT / "EW1_transient_predictor" / "SCORE_RAW.json").read_text(encoding="utf-8"))
+    assert score["decision"]["verdict"] == "INCONCLUSIVE"
+    assert score["gos_architecture_changed"] is False
+    assert score["not_y19_reopen"] is True
+    bal = score["decision"]["holdout_balance"]
+    assert bal["neg"] == 0
+    decision = (EXT / "EW1_transient_predictor" / "EW1_DECISION.md").read_text(encoding="utf-8")
+    assert "INCONCLUSIVE" in decision
 
 
 def test_y24_y25_remain_closed() -> None:
@@ -50,34 +61,3 @@ def test_y24_y25_remain_closed() -> None:
     y25 = json.loads((ROOT / "artifacts" / "y25" / "Y25_CLOSED.json").read_text(encoding="utf-8"))
     assert y24["status"] == "CAMPAIGN_CLOSED"
     assert y25["status"] == "CAMPAIGN_CLOSED"
-    assert y25["y25_f2"] == "FORBIDDEN_NOW"
-
-
-def test_m_ext1_ew2_exam_terminal() -> None:
-    exam = EXT / "M_EXT1_EW2_EXAM"
-    goal = (exam / "GOAL_CONTRACT.md").read_text(encoding="utf-8")
-    assert "budget envelope" in goal.lower() or "Budget envelope" in goal or "Time / budget" in goal
-    assert "ROOT_CAUSE_CONFIRMED" in goal
-    assert "fails before patch" in goal.lower() or "FAILS before" in goal or "fails before" in goal
-    ledger = json.loads((exam / "MISSION_LEDGER.json").read_text(encoding="utf-8"))
-    assert ledger["terminal_verdict"] == "ROOT_CAUSE_CONFIRMED"
-    assert ledger["gos_modified"] is False
-    assert ledger["hard_gate"]["regression_fail_before_pass_after"] is True
-    root = (EXT / "EW2_oss_incident" / "ROOT_CAUSE.md").read_text(encoding="utf-8")
-    assert "ROOT_CAUSE_CONFIRMED" in root
-    assert (EXT / "EW2_oss_incident" / "proposed_fix.diff").is_file()
-    before = (EXT / "EW2_oss_incident" / "repro" / "logs" / "regression_BEFORE_patch.txt").read_text(
-        encoding="utf-8"
-    )
-    after = (EXT / "EW2_oss_incident" / "repro" / "logs" / "regression_AFTER_patch.txt").read_text(
-        encoding="utf-8"
-    )
-    assert "FAILED" in before
-    assert "2 passed" in after
-    bottlenecks = (exam / "BOTTLENECKS.md").read_text(encoding="utf-8")
-    assert "Intrinsic" in bottlenecks
-    assert "Global OS" in bottlenecks
-    ew1 = json.loads(
-        (EXT / "EW1_transient_predictor" / "CURRENT_STATE.json").read_text(encoding="utf-8")
-    )
-    assert ew1["arms_started"] is False

@@ -4,11 +4,10 @@
 - [x] Y24 prereg LOCKED — Adaptive Verifier Complexity Threshold (`artifacts/y24/`)
 - [x] Y24 prep locks: complexity rubric + cost accounting + isolation gate + refuse-exec stubs
 - [x] Y24 CLOSED — F1 INCONCLUSIVE, F2 REJECT; Adaptive-C NOT SHOWN; TK unchanged; no rescue
-- [x] Y25 CAMPAIGN_CLOSED — REJECT; no Y25-F2
-- [x] EXTERNAL REAL WORK contract + EW1/EW2 prereg locked
-- [x] M-EXT1 EW2 exam: urllib3#5248 **ROOT_CAUSE_CONFIRMED** (hard gate)
-- [ ] EW1 queued: generate data → seal → score vs baseline
-- [ ] Forbidden: architecture shopping from EW2 success; Y25-F2; cite Y24/Y25
+- [x] M-EXT1 IMMUTABLE — urllib3#5248 ROOT_CAUSE_CONFIRMED
+- [x] M-EXT2/EW1 CLOSED — INCONCLUSIVE (degenerate labels; no retune)
+- [ ] Next: GOS vs strong single agent on external task + budget
+- [ ] Forbidden: M-EXT2-F2 label-fish; M-EXT1 self-score polish; Immune*
 - [ ] Y25 (later): verification-budget frontier — only after Y24 terminal result
 - [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)
 - [x] Freeze SAFE_AUTONOMY_BENCHMARK-v1 + H_TRUST metrics

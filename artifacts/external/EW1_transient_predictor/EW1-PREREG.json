@@ -1,52 +1,72 @@
 {
-  "status": "PREREG_LOCKED",
-  "protocol_id": "EW1-CTP-v1",
-  "mission_id": "EW1",
-  "date_utc": "2026-10-01",
-  "domain": "coupled_logistic_map_lattice",
-  "not_y19_reopen": true,
-  "y19_y24_y25_not_evidence": true,
-  "system": {
-    "N_values": [16, 24],
-    "r_range": [3.7, 3.9],
-    "epsilon_range": [0.05, 0.2],
-    "early_window_W": 8,
-    "tau_long_chaotic": 40,
-    "label": "long_chaotic"
-  },
-  "hypotheses": [
-    "H_early_complexity",
-    "H_baseline_sufficient",
-    "H_size_spurious"
+  "arms_started": true,
+  "baseline_features": [
+    "N",
+    "mean_x",
+    "std_x",
+    "max_abs_dx"
   ],
-  "primary_hypothesis": "H_early_complexity",
-  "baseline_features": ["N", "mean_x", "std_x", "max_abs_dx"],
   "candidate_extra_features": [
     "permutation_entropy_early",
     "spectral_high_energy",
     "local_divergence_proxy"
   ],
-  "train_seeds": {"start": 1000, "end": 1299},
-  "holdout_seeds": {"start": 9000, "end": 9149},
-  "model": "ridge_linear_probability_stdlib",
-  "primary_metric": "holdout_brier",
-  "mcid": {
-    "brier_candidate_max_ratio_vs_baseline": 0.9,
-    "ablation_without_N_required": true
-  },
   "class_balance_min_pos_neg": 12,
+  "date_utc": "2026-10-01",
   "decision": {
-    "supported": "primary_and_ablation_mcid_on_sealed_holdout",
+    "inconclusive": "underpowered_or_integrity_or_env",
     "rejected": "powered_and_fails",
-    "inconclusive": "underpowered_or_integrity_or_env"
+    "supported": "primary_and_ablation_mcid_on_sealed_holdout"
   },
-  "holdout_status": "NOT_SEALED_YET",
-  "arms_started": false,
+  "domain": "coupled_logistic_map_lattice",
   "forbidden": [
     "holdout_peek_before_unseal",
     "post_hoc_feature_mining_after_unseal",
     "cite_y19_as_ew1_evidence",
     "cite_y24_y25_as_ew1_evidence",
     "change_gos_to_improve_score"
-  ]
+  ],
+  "holdout_seeds": {
+    "end": 9149,
+    "start": 9000
+  },
+  "holdout_status": "UNSEALED_FOR_EXECUTION",
+  "hypotheses": [
+    "H_early_complexity",
+    "H_baseline_sufficient",
+    "H_size_spurious"
+  ],
+  "mcid": {
+    "ablation_without_N_required": true,
+    "brier_candidate_max_ratio_vs_baseline": 0.9
+  },
+  "mission_id": "EW1",
+  "model": "ridge_linear_probability_stdlib",
+  "not_y19_reopen": true,
+  "primary_hypothesis": "H_early_complexity",
+  "primary_metric": "holdout_brier",
+  "protocol_id": "EW1-CTP-v1",
+  "status": "PREREG_LOCKED",
+  "system": {
+    "N_values": [
+      16,
+      24
+    ],
+    "early_window_W": 8,
+    "epsilon_range": [
+      0.05,
+      0.2
+    ],
+    "label": "long_chaotic",
+    "r_range": [
+      3.7,
+      3.9
+    ],
+    "tau_long_chaotic": 40
+  },
+  "train_seeds": {
+    "end": 1299,
+    "start": 1000
+  },
+  "y19_y24_y25_not_evidence": true
 }

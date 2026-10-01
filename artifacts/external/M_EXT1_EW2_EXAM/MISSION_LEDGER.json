@@ -11,6 +11,7 @@
     "scripted_runs_used": 8,
     "wall_hours_cap": 6
   },
+  "closed_record": "M_EXT1_CLOSED.json",
   "exam_id": "M-EXT1-EW2",
   "finished_at_utc": "2026-10-01T09:48:05.182447+00:00",
   "goal_status": "GOAL_LOCKED",
@@ -21,6 +22,7 @@
     "regression_fail_before_pass_after": true,
     "repro": true
   },
+  "immutable_terminal": true,
   "phases": {
     "A_pin_env": "DONE",
     "B_repro": "DONE",

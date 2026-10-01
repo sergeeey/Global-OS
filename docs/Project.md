@@ -55,9 +55,9 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 6. **Done:** T3 prereg + PACK-v3 + harness; first attempt INCONCLUSIVE (keys/quota); continuation → **KEEP** (`LIVE_LLM`, Groq).  
 7. **Done / CLOSED:** live completion SHA `3ef3f44`; experiment freeze `c6523a6`; C2 unchanged; Trust Kernel not promoted.  
 8. **Done:** T3 cycle closed — switch away from T3 poke.  
-9. **Closed:** Y24/Y25; TK UNCHANGED.  
-10. **Exam done:** M-EXT1 EW2 urllib3#5248 ROOT_CAUSE_CONFIRMED (external artifact).  
-11. **Queued:** EW1 science exam. Not now: Immune*/Y25-F2 from EW2 success.
+9. **Closed:** Y24/Y25; M-EXT1 IMMUTABLE; M-EXT2/EW1 INCONCLUSIVE; TK UNCHANGED.  
+10. **Evidence:** external OSS eng result + honest science INCONCLUSIVE.  
+11. **Next:** GOS vs strong single agent. Not: label-fish EW1; Immune* from success.
 
 ## Документы
 
