@@ -1,0 +1,10 @@
+{
+  "frozen_at_utc": "2026-10-01T02:45:00Z",
+  "note": "Rules immutable before incident corpus familiarity. Sample-size expansion after unseal forbidden without locked amendment (Y24 lesson).",
+  "prereg_git_commit": "8d28a295d6ce18f61e467668fb1f948b4725e36b",
+  "prereg_json_sha256": "722ecf3a80c0bc772a98429a7c42c7de63e03b6d7d27bf13a047cfe971f53177",
+  "protocol_id": "Y25-MV-v1",
+  "sample_size_expansion_after_unseal": "FORBIDDEN_WITHOUT_LOCKED_AMENDMENT",
+  "status": "PREREG_SHA_FROZEN",
+  "y24_rescue": false
+}
