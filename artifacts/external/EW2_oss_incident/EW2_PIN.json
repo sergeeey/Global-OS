@@ -1,0 +1,12 @@
+{
+  "default_branch": "main",
+  "issue_number": 5248,
+  "issue_state_at_pin": "OPEN",
+  "issue_url": "https://github.com/urllib3/urllib3/issues/5248",
+  "note": "Investigation must record the exact SHA used for repro runs; may differ from pin head if checkout updates \u2014 log it.",
+  "pinned_at_utc": "2026-10-01T07:40:46.488881+00:00",
+  "repo": "urllib3/urllib3",
+  "reported_urllib3_version_in_issue": "2.7.1.dev58",
+  "status": "ISSUE_AND_HEAD_PINNED",
+  "urllib3_head_sha_at_pin": "796d200d3070ead69ec3a5d848fecf52a2249b59"
+}

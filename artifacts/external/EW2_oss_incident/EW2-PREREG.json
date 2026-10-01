@@ -1,0 +1,40 @@
+{
+  "date_utc": "2026-10-01",
+  "decision_vocab": [
+    "ROOT_CAUSE_CONFIRMED",
+    "REJECTED",
+    "INCONCLUSIVE"
+  ],
+  "forbidden": [
+    "change_gos_to_improve_investigation_optics",
+    "cite_y24_y25_as_urllib3_evidence",
+    "claim_upstream_merge_without_review",
+    "scope_creep_without_new_pin"
+  ],
+  "hypotheses": [
+    "H_zero_blocksize_read_loop",
+    "H_body_already_consumed",
+    "H_http2_or_proxy_path",
+    "H_not_reproducible"
+  ],
+  "investigation_started": false,
+  "mission_id": "EW2",
+  "pin_path": "artifacts/external/EW2_oss_incident/EW2_PIN.json",
+  "pin_status": "ISSUE_AND_HEAD_PINNED",
+  "primary_hypothesis": "H_zero_blocksize_read_loop",
+  "protocol_id": "EW2-OSS-v1",
+  "status": "PREREG_LOCKED",
+  "target": {
+    "alternate_issue": {
+      "issue_number": 3782,
+      "issue_url": "https://github.com/encode/httpx/issues/3782",
+      "repo": "encode/httpx",
+      "status": "NOT_STARTED"
+    },
+    "issue_number": 5248,
+    "issue_url": "https://github.com/urllib3/urllib3/issues/5248",
+    "repo": "urllib3/urllib3",
+    "title": "HTTPConnection(blocksize=0) silently drops file-like request bodies"
+  },
+  "y24_y25_not_evidence": true
+}

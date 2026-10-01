@@ -42,3 +42,14 @@ reopen it as an evidence-driven campaign — not because the cell analogy is pre
 - Trust Kernel unchanged unless a real mission forces a contract-level change
   through normal ADR + tests (not metaphor)
 - No claims stronger than evidence
+
+## Active missions (2026-10-01)
+
+Contract: `artifacts/external/CONTRACT/EXTERNAL_REAL_WORK.md` (`CONTRACT_LOCKED`)
+
+| Id | Status | Target |
+|----|--------|--------|
+| **EW1** | `PREREG_LOCKED` | Coupled logistic-map lattice — early predictor of long/chaotic transient vs strong baseline (`EW1-CTP-v1`). **Not** Y19 reopen. |
+| **EW2** | `PREREG_LOCKED` + issue pinned | [urllib3#5248](https://github.com/urllib3/urllib3/issues/5248) — `blocksize=0` silently drops file-like bodies |
+
+Next execution: generate/seal EW1 data **or** run EW2 repro matrix — without changing Global OS for score optics.
