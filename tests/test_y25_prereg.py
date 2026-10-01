@@ -20,6 +20,7 @@ def test_y25_prereg_frozen_before_corpus() -> None:
     raw = json.loads((ART / "Y25-PREREG.json").read_text(encoding="utf-8"))
     freeze = json.loads((ART / "Y25_PREREG_FREEZE.json").read_text(encoding="utf-8"))
     closed = json.loads((Y24 / "Y24_CLOSED.json").read_text(encoding="utf-8"))
+    y25c = json.loads((ART / "Y25_CLOSED.json").read_text(encoding="utf-8"))
     assert raw["status"] == "PREREG_LOCKED"
     assert raw["protocol_id"] == "Y25-MV-v1"
     assert freeze["status"] == "PREREG_SHA_FROZEN"
@@ -29,6 +30,13 @@ def test_y25_prereg_frozen_before_corpus() -> None:
     )
     assert closed["status"] == "CAMPAIGN_CLOSED"
     assert closed["post_hoc_y24_rescue_forbidden"] is True
+    assert y25c["status"] == "CAMPAIGN_CLOSED"
+    assert y25c["decision"] == "REJECT"
+    assert y25c["memory_value"] == "NOT_SHOWN_AT_PREREGISTERED_STRENGTH"
+    assert y25c["y25_f2"] == "FORBIDDEN_NOW"
+    assert "EXTERNAL_REAL_WORK" in y25c["next"]
+    assert "Y25-F2" in (ART / "Y25_CLOSED.md").read_text(encoding="utf-8")
+    assert (ROOT / "artifacts" / "NEXT_EXTERNAL_REAL_WORK.md").is_file()
 
 
 def test_y25_cost_and_memory_ratio() -> None:

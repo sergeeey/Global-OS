@@ -176,9 +176,9 @@ Y24 CLOSED (scientific):
   Adaptive-C advantage: NOT SHOWN / REJECTED under protocol
   Trust Kernel: UNCHANGED — do not rescue Y24 with more N/tuning/PACK-v4
 
-Y25 Memory Value (Y25-MV-v1):
-  Prereg SHA frozen before corpus; holdout sealed N≥12 cross-repo
-  Heuristic W0 vs W1 → REJECT (median cost ratio ≰ 0.60)
-  Not live-LLM proof; Y24 unrescued; Trust Kernel UNCHANGED
-  No post-hoc N expansion without locked amendment
+Y25 CAMPAIGN_CLOSED REJECT (ratio≈0.80 vs ≤0.60)
+  memory value NOT SHOWN at preregistered strength
+  No Y25-F2 / retune / live-LLM rescue
+  Y24+Y25: strong cellular features lack evidence → pause self-architecture
+  Next: EXTERNAL_REAL_WORK (artifacts/NEXT_EXTERNAL_REAL_WORK.md)
 ```
