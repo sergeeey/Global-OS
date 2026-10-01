@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.108 — 2026-09-30
+
+### Y24 CLOSED + Y25 Memory Value PREREG_LOCKED
+
+- Merged PR #3; Y24 scientific close: F1 INCONCLUSIVE, F2 REJECT; Adaptive-C advantage NOT SHOWN under `HEURISTIC_HARNESS_v1`; Trust Kernel UNCHANGED
+- Explicit forbid: more N / tuning / new thresholds / PACK-v4 / “fix C”
+- Opened **Y25** (`Y25-MV-v1`): WITHOUT_MEMORY vs WITH_MEMORY on real OSS unseen-variant failure pairs; cost/FP/escape gates; isolation locked; arms not started
+
 ## 0.1.107 — 2026-09-30
 
 ### Y24-F2 protocol amendment locked (methodological boundary)

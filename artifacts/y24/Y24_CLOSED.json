@@ -1,0 +1,28 @@
+{
+  "status": "CAMPAIGN_CLOSED",
+  "closed_at_utc": "2026-09-30T20:50:00Z",
+  "protocol_id": "Y24-AVCT-v1",
+  "folds": {
+    "F1": {
+      "verdict": "INCONCLUSIVE",
+      "reason": "holdout_underpowered_medium_high",
+      "immutable": true,
+      "path": "artifacts/y24/fold1_immutable/"
+    },
+    "F2": {
+      "verdict": "REJECT",
+      "protocol_amendment": "Y24-AVCT-v1-F2",
+      "reason": "no_stratum_met_keep_gates",
+      "path": "artifacts/y24/"
+    }
+  },
+  "fidelity": "HEURISTIC_HARNESS_v1",
+  "adaptive_c_advantage": "NOT_SHOWN_REJECTED_UNDER_PROTOCOL",
+  "trust_kernel": "UNCHANGED",
+  "c2": "UNCHANGED",
+  "architecture_rewrite_from_result": false,
+  "post_hoc_y24_rescue_forbidden": true,
+  "next_campaign": "Y25",
+  "h_memory_in_y24": "INCONCLUSIVE_NOT_ADEQUATE_STANDALONE_RESOLUTION",
+  "t3_not_evidence": true
+}

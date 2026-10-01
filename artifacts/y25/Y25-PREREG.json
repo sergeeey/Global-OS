@@ -1,0 +1,81 @@
+{
+  "status": "PREREG_LOCKED",
+  "protocol_id": "Y25-MV-v1",
+  "campaign_id": "Y25",
+  "date_utc": "2026-09-30",
+  "parent_closed": {
+    "campaign": "Y24",
+    "status": "CAMPAIGN_CLOSED",
+    "h_memory_resolution": "INCONCLUSIVE_NOT_ADEQUATE",
+    "adaptive_c_advantage": "NOT_SHOWN_REJECTED_UNDER_PROTOCOL"
+  },
+  "arms": {
+    "W0": "without_memory",
+    "W1": "with_memory_dev_first_encounters_only"
+  },
+  "arms_started": false,
+  "hypotheses": {
+    "H_primary": "memory_makes_unseen_variant_cheaper_without_fp_escape_inflation",
+    "H_null_allowed": true,
+    "requires_unseen_variant": true,
+    "same_case_forbidden": true
+  },
+  "unit": "incident_pair",
+  "min_pairs": 12,
+  "target_pairs": 16,
+  "holdout_fraction_min": 0.5,
+  "mcid": {
+    "MEMORY_COST_RATIO_MAX": 0.6,
+    "MCID_fp": 0.05,
+    "MCID_escape": 0.05,
+    "amend_only_before_unseal": true
+  },
+  "metrics": [
+    "time_to_diagnosis_s",
+    "tool_calls",
+    "llm_cost_tokens",
+    "human_interventions",
+    "verification_calls",
+    "latency_ms",
+    "recovery_overhead_seconds",
+    "false_positive",
+    "escaped_error",
+    "task_contained"
+  ],
+  "cost_accounting": {
+    "path": "artifacts/y25/Y25-COST-ACCOUNTING.md",
+    "status": "COST_ACCOUNTING_LOCKED"
+  },
+  "isolation": {
+    "path": "artifacts/y25/Y25-ISOLATION.md",
+    "attestation_path": "artifacts/y25/ISOLATION_ATTESTATION.md",
+    "status": "ISOLATION_GATE_LOCKED",
+    "w1_builders_forbidden_sealed_access_before_unseal": true
+  },
+  "decision": {
+    "keep_requires_n_pairs": 12,
+    "inconclusive_on_env_or_underpowered": true,
+    "reject_if_cost_win_via_fp_or_escape": true
+  },
+  "holdout_status": "NOT_SEALED_YET",
+  "fidelity_default": "HEURISTIC_HARNESS_v1",
+  "forbidden": [
+    "reopen_y24_for_rescue",
+    "tune_y24_arm_c",
+    "pack_v4",
+    "threshold_fishing",
+    "treat_y24_h_memory_as_supported",
+    "same_case_not_unseen_variant",
+    "select_holdout_using_arm_outcomes",
+    "post_hoc_failure_class_relabel",
+    "trust_kernel_promote_from_y25",
+    "edit_c2_for_y25",
+    "use_t3_keep_as_y25_evidence",
+    "production_memory_claim",
+    "architecture_rewrite_from_y24_reject"
+  ],
+  "trust_kernel_promoted": false,
+  "t3_not_evidence": true,
+  "y23_forbidden": true,
+  "legacy_y19_status": "FROZEN_DO_NOT_REOPEN"
+}

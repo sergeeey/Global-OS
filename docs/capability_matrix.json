@@ -330,5 +330,19 @@
       "state": "RUNTIME_VERIFIED_LOCAL",
       "evidence": "R1 real-use evidence-integrity mission terminal; artifacts/r1/decision.md; artifacts/r1/EVALUATION.md; artifacts/r1/CLAIMS.md; tests/test_capability_matrix.py::test_capability_evidence_paths_exist"
     }
-  ]
+  ],
+  "research_campaigns": {
+    "Y24": {
+      "status": "CLOSED",
+      "f1": "INCONCLUSIVE",
+      "f2": "REJECT",
+      "fidelity": "HEURISTIC_HARNESS_v1",
+      "adaptive_c_advantage": "NOT_SHOWN"
+    },
+    "Y25": {
+      "status": "PREREG_LOCKED",
+      "protocol_id": "Y25-MV-v1",
+      "focus": "memory_value_unseen_variant"
+    }
+  }
 }

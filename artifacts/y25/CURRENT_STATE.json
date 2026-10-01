@@ -1,0 +1,14 @@
+{
+  "campaign_id": "Y25",
+  "protocol_id": "Y25-MV-v1",
+  "phase": "PREREG_LOCKED_PREP_CORPUS",
+  "arms_started": false,
+  "holdout_status": "NOT_SEALED_YET",
+  "y24_status": "CAMPAIGN_CLOSED",
+  "y24_adaptive_c_advantage": "NOT_SHOWN_REJECTED_UNDER_PROTOCOL",
+  "y24_h_memory": "INCONCLUSIVE_NOT_ADEQUATE",
+  "trust_kernel_promoted": false,
+  "t3_not_evidence": true,
+  "architecture_rewrite_from_y24": false,
+  "updated_at_utc": "2026-09-30T20:50:00Z"
+}

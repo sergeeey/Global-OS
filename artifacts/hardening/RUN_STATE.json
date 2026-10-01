@@ -1,8 +1,8 @@
 {
-  "sprint": "Y24_F2_AMENDMENT_SCORED",
-  "updated_at": "2026-09-30T20:45:00Z",
-  "current_goal": "Y24_REVIEW_THEN_NEXT",
-  "phase_statement": "Y24 fold-1 IMMUTABLE INCONCLUSIVE. Sample-size expansion not in original prereg → locked Y24-F2 amendment (N≥8 MED/HIGH). Heuristic REJECT. Thresholds/rubric/cost/isolation unchanged. Not architecture failure; not live-LLM; Trust Kernel untouched.",
+  "sprint": "Y25_PREREG_LOCKED",
+  "updated_at": "2026-09-30T20:55:00Z",
+  "current_goal": "Y25_CORPUS_THEN_SEAL",
+  "phase_statement": "Y24 CLOSED: F1 INCONCLUSIVE, F2 REJECT under Y24-AVCT-v1-F2; Adaptive-C advantage NOT SHOWN under HEURISTIC_HARNESS_v1; Trust Kernel UNCHANGED. Y25 Memory Value PREREG_LOCKED (W0 vs W1 on real OSS unseen-variant pairs). No Y24 rescue.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y20": {
@@ -72,7 +72,7 @@
       "note": "successful run is the post-reboot full restart; interrupted partial run does not count"
     }
   },
-  "next_exact_action": "Accept Y24-F2 REJECT under HEURISTIC_HARNESS_v1, or lock a separate live-LLM fidelity upgrade under same amendment thresholds. Do not rewrite fold-1; do not retune MCID; do not “fix” architecture from underpowered/REJECT evidence.",
+  "next_exact_action": "Collect ≥12 real OSS failure incident pairs (first + unseen variant, different repo/patch) → a-priori failure_class → DEV/HOLDOUT seal → attest → then W0/W1. Do not reopen Y24; do not tune C; do not change MCID after unseal.",
   "t3_continuation": {
     "path": "artifacts/safe_autonomy_t1/T3/T3_CONTINUATION.md",
     "is_new_sealed_replication": false,
@@ -299,27 +299,17 @@
     "trust_kernel_promote_forbidden": true
   },
   "y24": {
-    "protocol_id": "Y24-AVCT-v1-F2",
-    "phase": "F2_SCORED",
-    "path": "artifacts/y24/Y24-PREREG.md",
-    "program": "artifacts/y24/Y24-RESEARCH-PROGRAM.md",
-    "arms_started": true,
-    "holdout_status": "UNSEALED_FOR_EXECUTION",
-    "informal_brief_alias": "Y19_adaptive_verifier_threshold",
-    "legacy_y19": "FROZEN_DO_NOT_REOPEN",
-    "t3_not_evidence": true,
-    "trust_kernel_promoted": false,
-    "complexity_rubric": "RUBRIC_LOCKED",
-    "cost_accounting": "COST_ACCOUNTING_LOCKED",
-    "isolation_gate": "ISOLATION_GATE_LOCKED",
-    "thresholds_must_not_move": true,
-    "verdict": "REJECT",
+    "status": "CAMPAIGN_CLOSED",
+    "f1": "INCONCLUSIVE",
+    "f2": "REJECT",
     "fidelity": "HEURISTIC_HARNESS_v1",
-    "experiment_sha": "1ce7569695c32975968f62b47c057784d3828781",
-    "fold": "fold2_enlarged_holdout",
-    "fold1_verdict": "INCONCLUSIVE",
-    "fold1_immutable": true,
-    "amendment_locked": true,
-    "sample_size_expansion_in_original_prereg": false
+    "adaptive_c_advantage": "NOT_SHOWN_REJECTED_UNDER_PROTOCOL",
+    "trust_kernel": "UNCHANGED"
+  },
+  "y25": {
+    "phase": "PREREG_LOCKED_PREP_CORPUS",
+    "protocol_id": "Y25-MV-v1",
+    "arms_started": false,
+    "holdout_status": "NOT_SEALED_YET"
   }
 }
