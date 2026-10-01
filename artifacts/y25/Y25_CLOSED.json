@@ -1,0 +1,23 @@
+{
+  "status": "CAMPAIGN_CLOSED",
+  "closed_at_utc": "2026-10-01T05:05:00Z",
+  "protocol_id": "Y25-MV-v1",
+  "decision": "REJECT",
+  "fidelity": "HEURISTIC_HARNESS_v1",
+  "primary_metric": {
+    "name": "median_cost_ratio_w1_over_w0",
+    "observed": 0.7958357832117041,
+    "required_max": 0.6
+  },
+  "memory_value": "NOT_SHOWN_AT_PREREGISTERED_STRENGTH",
+  "approx_median_cost_reduction": "~0.20",
+  "required_median_cost_reduction": "~0.40",
+  "y25_f2": "FORBIDDEN_NOW",
+  "threshold_retune": false,
+  "post_hoc_n_expansion": false,
+  "live_llm_rescue": false,
+  "trust_kernel": "UNCHANGED",
+  "y24_rescued": false,
+  "architecture_promotion": false,
+  "next": "EXTERNAL_REAL_WORK_NOT_SELF_ARCHITECTURE_CAMPAIGN"
+}

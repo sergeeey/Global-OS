@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.110 — 2026-10-01
+
+### Y25 CAMPAIGN_CLOSED + pivot to external real work
+
+- Merged PR #5; Y25 closed REJECT (ratio≈0.80 vs ≤0.60); memory NOT SHOWN at prereg strength
+- Explicit: no Y25-F2, no threshold retune, no live-LLM rescue, no architecture from metaphor
+- Joint Y24+Y25: strong cellular-analogy features lack evidence → pause self-architecture campaigns
+- Next: external real OSS/science mission (`artifacts/NEXT_EXTERNAL_REAL_WORK.md`)
+
 ## 0.1.109 — 2026-10-01
 
 ### Y25 Memory Value: prereg freeze → sealed corpus → heuristic REJECT

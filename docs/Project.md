@@ -55,9 +55,9 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 6. **Done:** T3 prereg + PACK-v3 + harness; first attempt INCONCLUSIVE (keys/quota); continuation → **KEEP** (`LIVE_LLM`, Groq).  
 7. **Done / CLOSED:** live completion SHA `3ef3f44`; experiment freeze `c6523a6`; C2 unchanged; Trust Kernel not promoted.  
 8. **Done:** T3 cycle closed — switch away from T3 poke.  
-9. **Closed:** Y24 — F1 INCONCLUSIVE, F2 REJECT; Adaptive-C NOT SHOWN; TK UNCHANGED.  
-10. **Scored:** **Y25** Memory Value heuristic → **REJECT** (cost ratio ≰ 0.60). Not live-LLM.  
-11. **Not now:** Y24 rescue; post-hoc N expand; TK promote; architecture rewrite from REJECT.
+9. **Closed:** Y24 Adaptive-C NOT SHOWN; Y25 memory NOT SHOWN at prereg strength; TK UNCHANGED.  
+10. **Pivot:** external real work — stop self-architecture campaigns for now.  
+11. **Not now:** Y25-F2; threshold fishing; live-LLM rescue; ImmuneMemoryService from REJECT.
 
 ## Документы
 

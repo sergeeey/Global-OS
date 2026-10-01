@@ -4,9 +4,10 @@
 - [x] Y24 prereg LOCKED — Adaptive Verifier Complexity Threshold (`artifacts/y24/`)
 - [x] Y24 prep locks: complexity rubric + cost accounting + isolation gate + refuse-exec stubs
 - [x] Y24 CLOSED — F1 INCONCLUSIVE, F2 REJECT; Adaptive-C NOT SHOWN; TK unchanged; no rescue
-- [x] Y25 prereg SHA frozen before corpus; sealed ≥24 pairs; W0/W1 → heuristic **REJECT**
-- [ ] Y25 optional: live-LLM fidelity under same MCID — or accept REJECT
-- [ ] Forbidden: post-hoc N expand; Y24 rescue; TK promote from Y25
+- [x] Y25 CAMPAIGN_CLOSED — REJECT; memory NOT SHOWN at prereg strength; no Y25-F2
+- [x] Pivot locked: external real work (pause self-architecture campaigns)
+- [ ] Pick external OSS/science mission with unknown answer
+- [ ] Forbidden: Y25-F2; threshold 0.60→0.85; live-LLM rescue; build Immune* from REJECT
 - [ ] Y25 (later): verification-budget frontier — only after Y24 terminal result
 - [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)
 - [x] Freeze SAFE_AUTONOMY_BENCHMARK-v1 + H_TRUST metrics
