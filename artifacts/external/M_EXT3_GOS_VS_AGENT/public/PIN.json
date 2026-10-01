@@ -1,0 +1,6 @@
+{
+  "repo": "encode/httpx",
+  "issue": 3614,
+  "working_sha": "b5addb64f0161ff6bfe94c124ef76f6a1fba5254",
+  "clone_hint": "git clone https://github.com/encode/httpx.git && git checkout b5addb64f0161ff6bfe94c124ef76f6a1fba5254"
+}

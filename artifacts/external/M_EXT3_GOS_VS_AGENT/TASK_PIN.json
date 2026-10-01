@@ -1,0 +1,30 @@
+{
+  "status": "TASK_PINNED",
+  "exam_id": "M-EXT3-GSA",
+  "protocol_id": "M-EXT3-GSA-v1",
+  "issue_url": "https://github.com/encode/httpx/issues/3614",
+  "repo": "encode/httpx",
+  "issue_number": 3614,
+  "title": "Corruption of query parameter value when using base_url with query string",
+  "working_sha": "b5addb64f0161ff6bfe94c124ef76f6a1fba5254",
+  "working_sha_short": "b5addb6",
+  "selection_gates_pass": true,
+  "gates": {
+    "external_value": "PASS",
+    "unknown_a_priori": "PASS",
+    "not_contaminated_m_ext1": "PASS",
+    "not_ew1_retune": "PASS",
+    "repro_capable": "PASS",
+    "hard_gate_compatible": "PASS",
+    "non_degenerate_expected": "PASS",
+    "budget_fit": "PASS",
+    "dual_arm_fair": "PASS",
+    "license_ethics": "PASS"
+  },
+  "contaminates_m_ext1": false,
+  "ew2_alternate_was": "encode/httpx#3782",
+  "why_not_3782": "issue comments already contain full RCA \u2014 contaminated for comparison",
+  "selection_repro_note": "On tip SHA, Client(base_url='https://httpbingo.org/get?data=1').base_url.query == b'data=1/' (corrupt trailing slash)",
+  "pinned_at_utc": "2026-10-01T12:31:06Z",
+  "arms_started": false
+}

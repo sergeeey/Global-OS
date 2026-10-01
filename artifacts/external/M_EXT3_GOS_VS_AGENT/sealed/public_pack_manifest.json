@@ -1,0 +1,11 @@
+{
+  "public_pack_sha256": "2a4566b14d49baebfa3a5411a3f1fe5a1b0703e3b1ae3e96837b7055a9cb04b2",
+  "files": [
+    "ISSUE_SNAPSHOT.json",
+    "PIN.json",
+    "README.md",
+    "repro_hint.md"
+  ],
+  "frozen_at_utc": "2026-10-01T12:31:06Z",
+  "arms_started": false
+}
