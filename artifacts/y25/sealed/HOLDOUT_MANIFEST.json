@@ -1,8 +1,35 @@
 {
+  "frozen_at_utc": "2026-10-01T02:49:11Z",
+  "n_pairs": 13,
   "pack": "HOLDOUT",
-  "status": "NOT_SEALED_YET",
   "protocol_id": "Y25-MV-v1",
-  "n_pairs": 0,
-  "unsealed_for_execution": false,
-  "sha256_of_sealed_bundle": null
+  "sealed_pack_path": "artifacts/y25/sealed/sealed_pack.json",
+  "sha256_of_sealed_bundle": "8751aac10eb532756fd97aa42085831bb8524eee07743242399a7320af185d39",
+  "stats": {
+    "cross_repo_pairs": 13,
+    "failure_classes": [
+      "cancel_fd_double_close",
+      "connection_close_token_handling",
+      "cookie_secure_shared_policy",
+      "cron_heartbeat_self_heal",
+      "duplicate_config_merge",
+      "format_escape_percent",
+      "host_header_port_matching",
+      "redirect_authority_semantics",
+      "redirect_topology_refresh",
+      "retry_side_effect_amplification",
+      "secure_shared_cookie_fix",
+      "tls_handshake_timing_isolation",
+      "url_absolute_form_authority"
+    ],
+    "n_pairs": 13,
+    "same_repo_pairs": 0,
+    "transfer_difficulty": {
+      "HARD": 9,
+      "MEDIUM": 4
+    }
+  },
+  "status": "UNSEALED_FOR_EXECUTION",
+  "unsealed_at_utc": "2026-10-01T02:49:20.468502+00:00",
+  "unsealed_for_execution": true
 }

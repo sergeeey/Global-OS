@@ -1,0 +1,255 @@
+{
+  "playbooks": {
+    "buffered_event_flush_ordering": {
+      "checklist_tokens": [
+        "buffered",
+        "call_soon",
+        "events",
+        "flush",
+        "worker"
+      ],
+      "expected_tool_calls_with_memory": 3,
+      "expected_tool_calls_without_memory": 8,
+      "failure_class": "buffered_event_flush_ordering",
+      "path_hints": [
+        "celery/worker/consumer/consumer.py",
+        "t/integration/test_backend.py",
+        "t/unit/worker/test_consumer.py"
+      ],
+      "seed_repo": "https://github.com/celery/celery",
+      "seed_task_id": "y25_celery_f7cbeadd4ae2",
+      "transfer_difficulty": "HARD"
+    },
+    "connect_timeout_propagation": {
+      "checklist_tokens": [
+        "connect",
+        "pass",
+        "simple_httpclient",
+        "tcpclient",
+        "timeout"
+      ],
+      "expected_tool_calls_with_memory": 3,
+      "expected_tool_calls_without_memory": 8,
+      "failure_class": "connect_timeout_propagation",
+      "path_hints": [
+        "tornado/simple_httpclient.py",
+        "tornado/test/simple_httpclient_test.py"
+      ],
+      "seed_repo": "https://github.com/tornadoweb/tornado",
+      "seed_task_id": "y25_tornado_3bb7bf271e12",
+      "transfer_difficulty": "MEDIUM"
+    },
+    "cron_registry_observability": {
+      "checklist_tokens": [
+        "active",
+        "added",
+        "cron",
+        "cronjobregistry",
+        "histories",
+        "monitor",
+        "schedulers",
+        "without"
+      ],
+      "expected_tool_calls_with_memory": 3,
+      "expected_tool_calls_without_memory": 8,
+      "failure_class": "cron_registry_observability",
+      "path_hints": [
+        "rq/cron.py",
+        "rq/cron_job_registry.py",
+        "tests/test_cron_job.py",
+        "tests/test_cron_job_registry.py"
+      ],
+      "seed_repo": "https://github.com/rq/rq",
+      "seed_task_id": "y25_rq_e1b13ffb08fd",
+      "transfer_difficulty": "HARD"
+    },
+    "exception_escape_from_protocol_layer": {
+      "checklist_tokens": [
+        "_quietexception",
+        "connection",
+        "escape",
+        "http",
+        "read_response"
+      ],
+      "expected_tool_calls_with_memory": 3,
+      "expected_tool_calls_without_memory": 8,
+      "failure_class": "exception_escape_from_protocol_layer",
+      "path_hints": [
+        "tornado/http1connection.py",
+        "tornado/test/http1connection_test.py",
+        "tornado/test/simple_httpclient_test.py"
+      ],
+      "seed_repo": "https://github.com/tornadoweb/tornado",
+      "seed_task_id": "y25_tornado_f656a1a575e4",
+      "transfer_difficulty": "HARD"
+    },
+    "http_range_conditional_split": {
+      "checklist_tokens": [
+        "apply_conditions",
+        "apply_range",
+        "make_conditional",
+        "split"
+      ],
+      "expected_tool_calls_with_memory": 3,
+      "expected_tool_calls_without_memory": 8,
+      "failure_class": "http_range_conditional_split",
+      "path_hints": [
+        "CHANGES.rst",
+        "docs/quickstart.rst",
+        "src/werkzeug/datastructures/etag.py",
+        "src/werkzeug/datastructures/range.py",
+        "src/werkzeug/http.py",
+        "src/werkzeug/middleware/shared_data.py",
+        "src/werkzeug/sansio/http.py",
+        "src/werkzeug/test.py"
+      ],
+      "seed_repo": "https://github.com/pallets/werkzeug",
+      "seed_task_id": "y25_werkzeug_830d4b3957e9",
+      "transfer_difficulty": "MEDIUM"
+    },
+    "job_pipeline_rate_limit_honor": {
+      "checklist_tokens": [
+        "caller",
+        "enqueueing",
+        "honor",
+        "limited",
+        "pipeline",
+        "rate"
+      ],
+      "expected_tool_calls_with_memory": 3,
+      "expected_tool_calls_without_memory": 8,
+      "failure_class": "job_pipeline_rate_limit_honor",
+      "path_hints": [
+        "rq/queue.py",
+        "tests/test_rate_limit.py"
+      ],
+      "seed_repo": "https://github.com/rq/rq",
+      "seed_task_id": "y25_rq_fe06797161e6",
+      "transfer_difficulty": "MEDIUM"
+    },
+    "multipart_stream_eof_safety": {
+      "checklist_tokens": [
+        "multipart",
+        "range",
+        "responses",
+        "stop",
+        "unexpected"
+      ],
+      "expected_tool_calls_with_memory": 3,
+      "expected_tool_calls_without_memory": 8,
+      "failure_class": "multipart_stream_eof_safety",
+      "path_hints": [
+        "starlette/responses.py",
+        "tests/test_responses.py"
+      ],
+      "seed_repo": "https://github.com/encode/starlette",
+      "seed_task_id": "y25_starlette_9774b08ef457",
+      "transfer_difficulty": "MEDIUM"
+    },
+    "out_of_range_protocol_field": {
+      "checklist_tokens": [
+        "contains",
+        "etag",
+        "ignore",
+        "range",
+        "weak"
+      ],
+      "expected_tool_calls_with_memory": 3,
+      "expected_tool_calls_without_memory": 8,
+      "failure_class": "out_of_range_protocol_field",
+      "path_hints": [
+        "starlette/responses.py",
+        "tests/test_responses.py"
+      ],
+      "seed_repo": "https://github.com/encode/starlette",
+      "seed_task_id": "y25_starlette_85c3b7434fd6",
+      "transfer_difficulty": "HARD"
+    },
+    "schedule_timebase_utc": {
+      "checklist_tokens": [
+        "against",
+        "clock",
+        "local",
+        "repeats",
+        "schedule",
+        "wall"
+      ],
+      "expected_tool_calls_with_memory": 3,
+      "expected_tool_calls_without_memory": 8,
+      "failure_class": "schedule_timebase_utc",
+      "path_hints": [
+        "rq/repeat.py",
+        "tests/test_repeat.py"
+      ],
+      "seed_repo": "https://github.com/rq/rq",
+      "seed_task_id": "y25_rq_7358790b8fff",
+      "transfer_difficulty": "MEDIUM"
+    },
+    "ssl_connector_deprecation_edge": {
+      "checklist_tokens": [
+        "deprecate",
+        "tcpconnector"
+      ],
+      "expected_tool_calls_with_memory": 3,
+      "expected_tool_calls_without_memory": 8,
+      "failure_class": "ssl_connector_deprecation_edge",
+      "path_hints": [
+        "CHANGES/13829.deprecation.rst",
+        "aiohttp/connector.py",
+        "docs/client_advanced.rst",
+        "docs/client_reference.rst",
+        "examples/fake_server.py",
+        "tests/test_client_functional.py",
+        "tests/test_connector.py",
+        "tests/test_proxy_functional.py"
+      ],
+      "seed_repo": "https://github.com/aio-libs/aiohttp",
+      "seed_task_id": "y25_aiohttp_25f30573cc01",
+      "transfer_difficulty": "MEDIUM"
+    },
+    "tls_stream_lifecycle_on_timeout": {
+      "checklist_tokens": [
+        "cancelled",
+        "close",
+        "connect",
+        "socket",
+        "strengthen",
+        "tests"
+      ],
+      "expected_tool_calls_with_memory": 3,
+      "expected_tool_calls_without_memory": 8,
+      "failure_class": "tls_stream_lifecycle_on_timeout",
+      "path_hints": [
+        "tornado/iostream.py",
+        "tornado/tcpclient.py",
+        "tornado/test/iostream_test.py",
+        "tornado/test/tcpclient_test.py"
+      ],
+      "seed_repo": "https://github.com/tornadoweb/tornado",
+      "seed_task_id": "y25_tornado_ce3bffc46c4f",
+      "transfer_difficulty": "MEDIUM"
+    },
+    "upload_buffer_blocksize": {
+      "checklist_tokens": [
+        "blocksize",
+        "buffering",
+        "document",
+        "tuning",
+        "upload"
+      ],
+      "expected_tool_calls_with_memory": 3,
+      "expected_tool_calls_without_memory": 8,
+      "failure_class": "upload_buffer_blocksize",
+      "path_hints": [
+        "changelog/5269.doc.rst",
+        "docs/advanced-usage.rst",
+        "docs/user-guide.rst",
+        "src/urllib3/connection.py"
+      ],
+      "seed_repo": "https://github.com/urllib3/urllib3",
+      "seed_task_id": "y25_urllib3_911bc94d2275",
+      "transfer_difficulty": "HARD"
+    }
+  },
+  "source": "DEV_first_encounters_only"
+}

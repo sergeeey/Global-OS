@@ -1,0 +1,216 @@
+{
+  "n_pairs": 13,
+  "pack": "HOLDOUT_BLIND",
+  "pairs": [
+    {
+      "first": {
+        "commit_sha": "44bbdb83bdb752400cb91acf4b82424ca5e07eff",
+        "patch_ref": "https://github.com/aio-libs/aiohttp/commit/44bbdb83bdb752400cb91acf4b82424ca5e07eff",
+        "repo_url": "https://github.com/aio-libs/aiohttp",
+        "task_id": "y25_aiohttp_44bbdb83bdb7"
+      },
+      "notes": "failure_class/labels sealed until execution unseal",
+      "pair_id": "y25_pair_00_redirect_authority_semantics",
+      "unseen_variant": {
+        "commit_sha": "adde463f32b7c52727211d10f45ae961650ffd4c",
+        "patch_ref": "https://github.com/urllib3/urllib3/commit/adde463f32b7c52727211d10f45ae961650ffd4c",
+        "repo_url": "https://github.com/urllib3/urllib3",
+        "task_id": "y25_urllib3_adde463f32b7"
+      }
+    },
+    {
+      "first": {
+        "commit_sha": "3fe1b11f7e4ef0267bbb23e91946cb11dea355e3",
+        "patch_ref": "https://github.com/boto/botocore/commit/3fe1b11f7e4ef0267bbb23e91946cb11dea355e3",
+        "repo_url": "https://github.com/boto/botocore",
+        "task_id": "y25_botocore_3fe1b11f7e4e"
+      },
+      "notes": "failure_class/labels sealed until execution unseal",
+      "pair_id": "y25_pair_01_redirect_topology_refresh",
+      "unseen_variant": {
+        "commit_sha": "6e7723c456c9c30dc252835add4d16e1f07c8203",
+        "patch_ref": "https://github.com/redis/redis-py/commit/6e7723c456c9c30dc252835add4d16e1f07c8203",
+        "repo_url": "https://github.com/redis/redis-py",
+        "task_id": "y25_redis-py_6e7723c456c9"
+      }
+    },
+    {
+      "first": {
+        "commit_sha": "030606f8016f2feb6f679288ea171ac4b31db639",
+        "patch_ref": "https://github.com/rq/rq/commit/030606f8016f2feb6f679288ea171ac4b31db639",
+        "repo_url": "https://github.com/rq/rq",
+        "task_id": "y25_rq_030606f8016f"
+      },
+      "notes": "failure_class/labels sealed until execution unseal",
+      "pair_id": "y25_pair_05_retry_side_effect_amplification",
+      "unseen_variant": {
+        "commit_sha": "9a209d21087de10b300b2530de023989a71a3f7e",
+        "patch_ref": "https://github.com/urllib3/urllib3/commit/9a209d21087de10b300b2530de023989a71a3f7e",
+        "repo_url": "https://github.com/urllib3/urllib3",
+        "task_id": "y25_urllib3_9a209d21087d"
+      }
+    },
+    {
+      "first": {
+        "commit_sha": "a2f1075109c1aa5a2b8e6e3f86c8f41d3efa6ece",
+        "patch_ref": "https://github.com/aio-libs/aiohttp/commit/a2f1075109c1aa5a2b8e6e3f86c8f41d3efa6ece",
+        "repo_url": "https://github.com/aio-libs/aiohttp",
+        "task_id": "y25_aiohttp_a2f1075109c1"
+      },
+      "notes": "failure_class/labels sealed until execution unseal",
+      "pair_id": "y25_pair_08_host_header_port_matching",
+      "unseen_variant": {
+        "commit_sha": "a31e6b73469cb2bf7eb8f70b5ff21f710fd2e23c",
+        "patch_ref": "https://github.com/pallets/flask/commit/a31e6b73469cb2bf7eb8f70b5ff21f710fd2e23c",
+        "repo_url": "https://github.com/pallets/flask",
+        "task_id": "y25_flask_a31e6b73469c"
+      }
+    },
+    {
+      "first": {
+        "commit_sha": "ce960dd17e34f143762c14c32b9e14435ea7ce11",
+        "patch_ref": "https://github.com/aio-libs/aiohttp/commit/ce960dd17e34f143762c14c32b9e14435ea7ce11",
+        "repo_url": "https://github.com/aio-libs/aiohttp",
+        "task_id": "y25_aiohttp_ce960dd17e34"
+      },
+      "notes": "failure_class/labels sealed until execution unseal",
+      "pair_id": "y25_pair_09_url_absolute_form_authority",
+      "unseen_variant": {
+        "commit_sha": "3f587c61a1a6c72c71c76193e5b863fb0c1180a1",
+        "patch_ref": "https://github.com/urllib3/urllib3/commit/3f587c61a1a6c72c71c76193e5b863fb0c1180a1",
+        "repo_url": "https://github.com/urllib3/urllib3",
+        "task_id": "y25_urllib3_3f587c61a1a6"
+      }
+    },
+    {
+      "first": {
+        "commit_sha": "09a236b050ab58ae51f17dca54dedae78376a978",
+        "patch_ref": "https://github.com/Kludex/uvicorn/commit/09a236b050ab58ae51f17dca54dedae78376a978",
+        "repo_url": "https://github.com/Kludex/uvicorn",
+        "task_id": "y25_uvicorn_09a236b050ab"
+      },
+      "notes": "failure_class/labels sealed until execution unseal",
+      "pair_id": "y25_pair_14_connection_close_token_handling",
+      "unseen_variant": {
+        "commit_sha": "6f8998793074ffdafe2c867cbc05509056d32c17",
+        "patch_ref": "https://github.com/sqlalchemy/sqlalchemy/commit/6f8998793074ffdafe2c867cbc05509056d32c17",
+        "repo_url": "https://github.com/sqlalchemy/sqlalchemy",
+        "task_id": "y25_sqlalchemy_6f8998793074"
+      }
+    },
+    {
+      "first": {
+        "commit_sha": "dc680eb20c526d8babacaf4751a12f51431ea246",
+        "patch_ref": "https://github.com/MagicStack/uvloop/commit/dc680eb20c526d8babacaf4751a12f51431ea246",
+        "repo_url": "https://github.com/MagicStack/uvloop",
+        "task_id": "y25_uvloop_dc680eb20c52"
+      },
+      "notes": "failure_class/labels sealed until execution unseal",
+      "pair_id": "y25_pair_15_cancel_fd_double_close",
+      "unseen_variant": {
+        "commit_sha": "09217b75d51f3c74d089b587f1be813b6bdfc7d7",
+        "patch_ref": "https://github.com/urllib3/urllib3/commit/09217b75d51f3c74d089b587f1be813b6bdfc7d7",
+        "repo_url": "https://github.com/urllib3/urllib3",
+        "task_id": "y25_urllib3_09217b75d51f"
+      }
+    },
+    {
+      "first": {
+        "commit_sha": "6bc84990f2a6429667f741d97f5da22884b8a8d3",
+        "patch_ref": "https://github.com/aio-libs/aiohttp/commit/6bc84990f2a6429667f741d97f5da22884b8a8d3",
+        "repo_url": "https://github.com/aio-libs/aiohttp",
+        "task_id": "y25_aiohttp_6bc84990f2a6"
+      },
+      "notes": "failure_class/labels sealed until execution unseal",
+      "pair_id": "y25_pair_19_cookie_secure_shared_policy",
+      "unseen_variant": {
+        "commit_sha": "c9176b57af56eb0f0906e47e0eea95de43bbf38f",
+        "patch_ref": "https://github.com/Kludex/starlette/commit/c9176b57af56eb0f0906e47e0eea95de43bbf38f",
+        "repo_url": "https://github.com/encode/starlette",
+        "task_id": "y25_starlette_c9176b57af56"
+      }
+    },
+    {
+      "first": {
+        "commit_sha": "85936ce63d704eb64bfbf8f58bda3e37711f3f3b",
+        "patch_ref": "https://github.com/rq/rq/commit/85936ce63d704eb64bfbf8f58bda3e37711f3f3b",
+        "repo_url": "https://github.com/rq/rq",
+        "task_id": "y25_rq_85936ce63d70"
+      },
+      "notes": "failure_class/labels sealed until execution unseal",
+      "pair_id": "y25_pair_21_cron_heartbeat_self_heal",
+      "unseen_variant": {
+        "commit_sha": "8a26020bc5a06282e8e5f030e22ce12f49bf3ccb",
+        "patch_ref": "https://github.com/urllib3/urllib3/commit/8a26020bc5a06282e8e5f030e22ce12f49bf3ccb",
+        "repo_url": "https://github.com/urllib3/urllib3",
+        "task_id": "y25_urllib3_8a26020bc5a0"
+      }
+    },
+    {
+      "first": {
+        "commit_sha": "ed551789f4f37c1e74bf39e3c34881a7d824898f",
+        "patch_ref": "https://github.com/scrapy/scrapy/commit/ed551789f4f37c1e74bf39e3c34881a7d824898f",
+        "repo_url": "https://github.com/scrapy/scrapy",
+        "task_id": "y25_scrapy_ed551789f4f3"
+      },
+      "notes": "failure_class/labels sealed until execution unseal",
+      "pair_id": "y25_pair_22_duplicate_config_merge",
+      "unseen_variant": {
+        "commit_sha": "dd2bf125423ce15a4088f4c9433ffac7d8ad021e",
+        "patch_ref": "https://github.com/pandas-dev/pandas/commit/dd2bf125423ce15a4088f4c9433ffac7d8ad021e",
+        "repo_url": "https://github.com/pandas-dev/pandas",
+        "task_id": "y25_pandas_dd2bf125423c"
+      }
+    },
+    {
+      "first": {
+        "commit_sha": "57bacc6c8d50d2d765c5b1a72372aaa596d2582a",
+        "patch_ref": "https://github.com/tornadoweb/tornado/commit/57bacc6c8d50d2d765c5b1a72372aaa596d2582a",
+        "repo_url": "https://github.com/tornadoweb/tornado",
+        "task_id": "y25_tornado_57bacc6c8d50"
+      },
+      "notes": "failure_class/labels sealed until execution unseal",
+      "pair_id": "y25_pair_23_tls_handshake_timing_isolation",
+      "unseen_variant": {
+        "commit_sha": "a0cab2d084bd49fe347aea118daf0a26acd2c93c",
+        "patch_ref": "https://github.com/urllib3/urllib3/commit/a0cab2d084bd49fe347aea118daf0a26acd2c93c",
+        "repo_url": "https://github.com/urllib3/urllib3",
+        "task_id": "y25_urllib3_a0cab2d084bd"
+      }
+    },
+    {
+      "first": {
+        "commit_sha": "e11d2836203a21bec59095498e578d37801027e7",
+        "patch_ref": "https://github.com/aio-libs/aiohttp/commit/e11d2836203a21bec59095498e578d37801027e7",
+        "repo_url": "https://github.com/aio-libs/aiohttp",
+        "task_id": "y25_aiohttp_e11d2836203a"
+      },
+      "notes": "failure_class/labels sealed until execution unseal",
+      "pair_id": "y25_pair_24_secure_shared_cookie_fix",
+      "unseen_variant": {
+        "commit_sha": "699dae42f5ee0a90b358d00db9aebe9c67e9283f",
+        "patch_ref": "https://github.com/Kludex/starlette/commit/699dae42f5ee0a90b358d00db9aebe9c67e9283f",
+        "repo_url": "https://github.com/encode/starlette",
+        "task_id": "y25_starlette_699dae42f5ee"
+      }
+    },
+    {
+      "first": {
+        "commit_sha": "31b6167d95294a4bda00013e44c399a3a62d3d9d",
+        "patch_ref": "https://github.com/celery/celery/commit/31b6167d95294a4bda00013e44c399a3a62d3d9d",
+        "repo_url": "https://github.com/celery/celery",
+        "task_id": "y25_celery_31b6167d9529"
+      },
+      "notes": "failure_class/labels sealed until execution unseal",
+      "pair_id": "y25_pair_26_format_escape_percent",
+      "unseen_variant": {
+        "commit_sha": "5ef70112a1ff19c05324ff889dd30405b1002044",
+        "patch_ref": "https://github.com/pallets/jinja/commit/5ef70112a1ff19c05324ff889dd30405b1002044",
+        "repo_url": "https://github.com/pallets/jinja",
+        "task_id": "y25_jinja_5ef70112a1ff"
+      }
+    }
+  ],
+  "protocol_id": "Y25-MV-v1",
+  "status": "BLIND_REFS_ONLY"
+}

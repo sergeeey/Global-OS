@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.109 — 2026-10-01
+
+### Y25 Memory Value: prereg freeze → sealed corpus → heuristic REJECT
+
+- Merged PR #4; froze `Y25_PREREG_SHA` before corpus familiarity
+- Sealed ≥24 cross-repo unseen-variant pairs (holdout N≥12)
+- W0 vs W1 same budget → **REJECT** (median cost ratio W1/W0 ≈0.80 > 0.60)
+- Y24 unrescued; Trust Kernel unchanged; no post-hoc N expansion
+
 ## 0.1.108 — 2026-09-30
 
 ### Y24 CLOSED + Y25 Memory Value PREREG_LOCKED

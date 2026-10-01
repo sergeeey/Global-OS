@@ -1,0 +1,647 @@
+{
+  "frozen_at_utc": "2026-10-01T02:49:11Z",
+  "pack": "HOLDOUT",
+  "pairs": [
+    {
+      "failure_class": "redirect_authority_semantics",
+      "first": {
+        "additions": 88,
+        "commit_sha": "44bbdb83bdb752400cb91acf4b82424ca5e07eff",
+        "deletions": 4,
+        "failure_class": "redirect_authority_semantics",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 4,
+        "notes": "Resolve same-scheme redirects without an authority against the URL (#13855)",
+        "patch_ref": "https://github.com/aio-libs/aiohttp/commit/44bbdb83bdb752400cb91acf4b82424ca5e07eff",
+        "paths": [
+          "CHANGES/13855.bugfix.rst",
+          "aiohttp/client.py",
+          "tests/test_client_functional.py",
+          "tests/test_client_session.py"
+        ],
+        "repo": "aio-libs/aiohttp",
+        "repo_url": "https://github.com/aio-libs/aiohttp",
+        "task_id": "y25_aiohttp_44bbdb83bdb7"
+      },
+      "pack": "HOLDOUT",
+      "pair_id": "y25_pair_00_redirect_authority_semantics",
+      "same_repo": false,
+      "transfer_difficulty": "HARD",
+      "transfer_note": "HTTP redirect authority/body framing across client stacks",
+      "unseen_variant": {
+        "additions": 100,
+        "commit_sha": "adde463f32b7c52727211d10f45ae961650ffd4c",
+        "deletions": 1,
+        "failure_class": "redirect_authority_semantics",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 7,
+        "notes": "Drop request body framing state on 303 redirects (#5161)",
+        "patch_ref": "https://github.com/urllib3/urllib3/commit/adde463f32b7c52727211d10f45ae961650ffd4c",
+        "paths": [
+          "changelog/5161.bugfix.rst",
+          "dummyserver/app.py",
+          "src/urllib3/_collections.py",
+          "src/urllib3/connectionpool.py",
+          "src/urllib3/poolmanager.py",
+          "test/with_dummyserver/test_connectionpool.py",
+          "test/with_dummyserver/test_poolmanager.py"
+        ],
+        "repo": "urllib3/urllib3",
+        "repo_url": "https://github.com/urllib3/urllib3",
+        "task_id": "y25_urllib3_adde463f32b7"
+      }
+    },
+    {
+      "failure_class": "redirect_topology_refresh",
+      "first": {
+        "additions": 54,
+        "commit_sha": "3fe1b11f7e4ef0267bbb23e91946cb11dea355e3",
+        "deletions": 0,
+        "failure_class": "redirect_topology_refresh",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 3,
+        "notes": "Track S3 region redirect feature id (#3804)",
+        "patch_ref": "https://github.com/boto/botocore/commit/3fe1b11f7e4ef0267bbb23e91946cb11dea355e3",
+        "paths": [
+          "botocore/useragent.py",
+          "botocore/utils.py",
+          "tests/functional/test_useragent.py"
+        ],
+        "repo": "boto/botocore",
+        "repo_url": "https://github.com/boto/botocore",
+        "task_id": "y25_botocore_3fe1b11f7e4e"
+      },
+      "pack": "HOLDOUT",
+      "pair_id": "y25_pair_01_redirect_topology_refresh",
+      "same_repo": false,
+      "transfer_difficulty": "HARD",
+      "transfer_note": "Redirect requires topology/region refresh before retry",
+      "unseen_variant": {
+        "additions": 62,
+        "commit_sha": "6e7723c456c9c30dc252835add4d16e1f07c8203",
+        "deletions": 0,
+        "failure_class": "redirect_topology_refresh",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 2,
+        "notes": "[fix(asyncio)] Refresh cluster topology before retrying MOVED redirects (#4322)",
+        "patch_ref": "https://github.com/redis/redis-py/commit/6e7723c456c9c30dc252835add4d16e1f07c8203",
+        "paths": [
+          "redis/asyncio/cluster.py",
+          "tests/test_asyncio/test_cluster.py"
+        ],
+        "repo": "redis/redis-py",
+        "repo_url": "https://github.com/redis/redis-py",
+        "task_id": "y25_redis-py_6e7723c456c9"
+      }
+    },
+    {
+      "failure_class": "retry_side_effect_amplification",
+      "first": {
+        "additions": 44,
+        "commit_sha": "030606f8016f2feb6f679288ea171ac4b31db639",
+        "deletions": 5,
+        "failure_class": "retry_side_effect_amplification",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 3,
+        "notes": "Fixed a bug where immediate repeat can cause jobs to go over rate limit (#2503)",
+        "patch_ref": "https://github.com/rq/rq/commit/030606f8016f2feb6f679288ea171ac4b31db639",
+        "paths": [
+          "rq/repeat.py",
+          "rq/worker/base.py",
+          "tests/test_rate_limit.py"
+        ],
+        "repo": "rq/rq",
+        "repo_url": "https://github.com/rq/rq",
+        "task_id": "y25_rq_030606f8016f"
+      },
+      "pack": "HOLDOUT",
+      "pair_id": "y25_pair_05_retry_side_effect_amplification",
+      "same_repo": false,
+      "transfer_difficulty": "HARD",
+      "transfer_note": "Retries/repeats must not amplify side effects / exceed limits",
+      "unseen_variant": {
+        "additions": 31,
+        "commit_sha": "9a209d21087de10b300b2530de023989a71a3f7e",
+        "deletions": 1,
+        "failure_class": "retry_side_effect_amplification",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 3,
+        "notes": "Deprecate empty collection for retrying all methods (#5223)",
+        "patch_ref": "https://github.com/urllib3/urllib3/commit/9a209d21087de10b300b2530de023989a71a3f7e",
+        "paths": [
+          "changelog/5044.removal.rst",
+          "src/urllib3/util/retry.py",
+          "test/test_retry.py"
+        ],
+        "repo": "urllib3/urllib3",
+        "repo_url": "https://github.com/urllib3/urllib3",
+        "task_id": "y25_urllib3_9a209d21087d"
+      }
+    },
+    {
+      "failure_class": "host_header_port_matching",
+      "first": {
+        "additions": 37,
+        "commit_sha": "a2f1075109c1aa5a2b8e6e3f86c8f41d3efa6ece",
+        "deletions": 4,
+        "failure_class": "host_header_port_matching",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 3,
+        "notes": "Match domain sub-applications when the Host carries a port (#13693)",
+        "patch_ref": "https://github.com/aio-libs/aiohttp/commit/a2f1075109c1aa5a2b8e6e3f86c8f41d3efa6ece",
+        "paths": [
+          "CHANGES/13693.bugfix.rst",
+          "aiohttp/web_urldispatcher.py",
+          "tests/test_urldispatch.py"
+        ],
+        "repo": "aio-libs/aiohttp",
+        "repo_url": "https://github.com/aio-libs/aiohttp",
+        "task_id": "y25_aiohttp_a2f1075109c1"
+      },
+      "pack": "HOLDOUT",
+      "pair_id": "y25_pair_08_host_header_port_matching",
+      "same_repo": false,
+      "transfer_difficulty": "MEDIUM",
+      "transfer_note": "Host matching must account for port / host-header quirks",
+      "unseen_variant": {
+        "additions": 0,
+        "commit_sha": "a31e6b73469cb2bf7eb8f70b5ff21f710fd2e23c",
+        "deletions": 48,
+        "failure_class": "host_header_port_matching",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 1,
+        "notes": "remove werkzeug host tests",
+        "patch_ref": "https://github.com/pallets/flask/commit/a31e6b73469cb2bf7eb8f70b5ff21f710fd2e23c",
+        "paths": [
+          "tests/test_reqctx.py"
+        ],
+        "repo": "pallets/flask",
+        "repo_url": "https://github.com/pallets/flask",
+        "task_id": "y25_flask_a31e6b73469c"
+      }
+    },
+    {
+      "failure_class": "url_absolute_form_authority",
+      "first": {
+        "additions": 56,
+        "commit_sha": "ce960dd17e34f143762c14c32b9e14435ea7ce11",
+        "deletions": 26,
+        "failure_class": "url_absolute_form_authority",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 6,
+        "notes": "Reject absolute-form targets without an authority before parsing (#13858)",
+        "patch_ref": "https://github.com/aio-libs/aiohttp/commit/ce960dd17e34f143762c14c32b9e14435ea7ce11",
+        "paths": [
+          "CHANGES/13858.bugfix.rst",
+          "THREAT_MODEL.md",
+          "aiohttp/_http_parser.pyx",
+          "aiohttp/http_parser.py",
+          "tests/test_client_functional.py",
+          "tests/test_http_parser.py"
+        ],
+        "repo": "aio-libs/aiohttp",
+        "repo_url": "https://github.com/aio-libs/aiohttp",
+        "task_id": "y25_aiohttp_ce960dd17e34"
+      },
+      "pack": "HOLDOUT",
+      "pair_id": "y25_pair_09_url_absolute_form_authority",
+      "same_repo": false,
+      "transfer_difficulty": "HARD",
+      "transfer_note": "Absolute-form / authority validation before parse vs percent-encoding path edge",
+      "unseen_variant": {
+        "additions": 70,
+        "commit_sha": "3f587c61a1a6c72c71c76193e5b863fb0c1180a1",
+        "deletions": 10,
+        "failure_class": "url_absolute_form_authority",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 2,
+        "notes": "Speed up URL percent encoding with an ASCII fast path (#5221)",
+        "patch_ref": "https://github.com/urllib3/urllib3/commit/3f587c61a1a6c72c71c76193e5b863fb0c1180a1",
+        "paths": [
+          "src/urllib3/util/url.py",
+          "test/test_util.py"
+        ],
+        "repo": "urllib3/urllib3",
+        "repo_url": "https://github.com/urllib3/urllib3",
+        "task_id": "y25_urllib3_3f587c61a1a6"
+      }
+    },
+    {
+      "failure_class": "connection_close_token_handling",
+      "first": {
+        "additions": 125,
+        "commit_sha": "09a236b050ab58ae51f17dca54dedae78376a978",
+        "deletions": 74,
+        "failure_class": "connection_close_token_handling",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 5,
+        "notes": "Handle Connection close tokens across HTTP protocols (#3103)",
+        "patch_ref": "https://github.com/Kludex/uvicorn/commit/09a236b050ab58ae51f17dca54dedae78376a978",
+        "paths": [
+          "pyproject.toml",
+          "tests/protocols/test_http.py",
+          "uv.lock",
+          "uvicorn/protocols/http/httptools_impl.py",
+          "uvicorn/protocols/http/zttp_impl.py"
+        ],
+        "repo": "Kludex/uvicorn",
+        "repo_url": "https://github.com/Kludex/uvicorn",
+        "task_id": "y25_uvicorn_09a236b050ab"
+      },
+      "pack": "HOLDOUT",
+      "pair_id": "y25_pair_14_connection_close_token_handling",
+      "same_repo": false,
+      "transfer_difficulty": "HARD",
+      "transfer_note": "Connection close tokens/lifecycle across HTTP vs DB async contexts",
+      "unseen_variant": {
+        "additions": 409,
+        "commit_sha": "6f8998793074ffdafe2c867cbc05509056d32c17",
+        "deletions": 93,
+        "failure_class": "connection_close_token_handling",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 7,
+        "notes": "wait for async context manager close when cancelled",
+        "patch_ref": "https://github.com/sqlalchemy/sqlalchemy/commit/6f8998793074ffdafe2c867cbc05509056d32c17",
+        "paths": [
+          "doc/build/changelog/unreleased_20/12710.rst",
+          "lib/sqlalchemy/ext/asyncio/base.py",
+          "lib/sqlalchemy/ext/asyncio/engine.py",
+          "lib/sqlalchemy/ext/asyncio/session.py",
+          "lib/sqlalchemy/pool/base.py",
+          "lib/sqlalchemy/testing/cancellation.py",
+          "test/ext/asyncio/test_cancellation.py"
+        ],
+        "repo": "sqlalchemy/sqlalchemy",
+        "repo_url": "https://github.com/sqlalchemy/sqlalchemy",
+        "task_id": "y25_sqlalchemy_6f8998793074"
+      }
+    },
+    {
+      "failure_class": "cancel_fd_double_close",
+      "first": {
+        "additions": 249,
+        "commit_sha": "dc680eb20c526d8babacaf4751a12f51431ea246",
+        "deletions": 0,
+        "failure_class": "cancel_fd_double_close",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 3,
+        "notes": "Detach socket on create_connection cancellation to prevent fd double-close (#740)",
+        "patch_ref": "https://github.com/MagicStack/uvloop/commit/dc680eb20c526d8babacaf4751a12f51431ea246",
+        "paths": [
+          "tests/test_tcp.py",
+          "tests/test_unix.py",
+          "uvloop/loop.pyx"
+        ],
+        "repo": "MagicStack/uvloop",
+        "repo_url": "https://github.com/MagicStack/uvloop",
+        "task_id": "y25_uvloop_dc680eb20c52"
+      },
+      "pack": "HOLDOUT",
+      "pair_id": "y25_pair_15_cancel_fd_double_close",
+      "same_repo": false,
+      "transfer_difficulty": "HARD",
+      "transfer_note": "Cancellation must not double-close fds / leave leaked sockets",
+      "unseen_variant": {
+        "additions": 23,
+        "commit_sha": "09217b75d51f3c74d089b587f1be813b6bdfc7d7",
+        "deletions": 15,
+        "failure_class": "cancel_fd_double_close",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 2,
+        "notes": "Close dummyserver sockets when a bind fails before retrying (#5262)",
+        "patch_ref": "https://github.com/urllib3/urllib3/commit/09217b75d51f3c74d089b587f1be813b6bdfc7d7",
+        "paths": [
+          "changelog/5262.misc.rst",
+          "dummyserver/hypercornserver.py"
+        ],
+        "repo": "urllib3/urllib3",
+        "repo_url": "https://github.com/urllib3/urllib3",
+        "task_id": "y25_urllib3_09217b75d51f"
+      }
+    },
+    {
+      "failure_class": "cookie_secure_shared_policy",
+      "first": {
+        "additions": 74,
+        "commit_sha": "6bc84990f2a6429667f741d97f5da22884b8a8d3",
+        "deletions": 3,
+        "failure_class": "cookie_secure_shared_policy",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 7,
+        "notes": "Fix treat_as_secure_origin on request cookies (#13833)",
+        "patch_ref": "https://github.com/aio-libs/aiohttp/commit/6bc84990f2a6429667f741d97f5da22884b8a8d3",
+        "paths": [
+          "CHANGES/13833.bugfix.rst",
+          "aiohttp/abc.py",
+          "aiohttp/client.py",
+          "aiohttp/cookiejar.py",
+          "docs/client_reference.rst",
+          "tests/test_client_functional.py",
+          "tests/test_cookiejar.py"
+        ],
+        "repo": "aio-libs/aiohttp",
+        "repo_url": "https://github.com/aio-libs/aiohttp",
+        "task_id": "y25_aiohttp_6bc84990f2a6"
+      },
+      "pack": "HOLDOUT",
+      "pair_id": "y25_pair_19_cookie_secure_shared_policy",
+      "same_repo": false,
+      "transfer_difficulty": "HARD",
+      "transfer_note": "Secure cookie / CORS vary origin response policy transfer",
+      "unseen_variant": {
+        "additions": 30,
+        "commit_sha": "c9176b57af56eb0f0906e47e0eea95de43bbf38f",
+        "deletions": 8,
+        "failure_class": "cookie_secure_shared_policy",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 2,
+        "notes": "Vary CORS preflight responses by their request inputs (#3517)",
+        "patch_ref": "https://github.com/Kludex/starlette/commit/c9176b57af56eb0f0906e47e0eea95de43bbf38f",
+        "paths": [
+          "starlette/middleware/cors.py",
+          "tests/middleware/test_cors.py"
+        ],
+        "repo": "encode/starlette",
+        "repo_url": "https://github.com/encode/starlette",
+        "task_id": "y25_starlette_c9176b57af56"
+      }
+    },
+    {
+      "failure_class": "cron_heartbeat_self_heal",
+      "first": {
+        "additions": 95,
+        "commit_sha": "85936ce63d704eb64bfbf8f58bda3e37711f3f3b",
+        "deletions": 44,
+        "failure_class": "cron_heartbeat_self_heal",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 4,
+        "notes": "Make CronScheduler.heartbeat() self heals, if it still runs after brief connection timeouts (#2467)",
+        "patch_ref": "https://github.com/rq/rq/commit/85936ce63d704eb64bfbf8f58bda3e37711f3f3b",
+        "paths": [
+          "rq/cron.py",
+          "rq/cron_scheduler_registry.py",
+          "rq/defaults.py",
+          "tests/test_cron.py"
+        ],
+        "repo": "rq/rq",
+        "repo_url": "https://github.com/rq/rq",
+        "task_id": "y25_rq_85936ce63d70"
+      },
+      "pack": "HOLDOUT",
+      "pair_id": "y25_pair_21_cron_heartbeat_self_heal",
+      "same_repo": false,
+      "transfer_difficulty": "MEDIUM",
+      "transfer_note": "Scheduler heartbeat self-heal vs retry interval policy docs/ops",
+      "unseen_variant": {
+        "additions": 42,
+        "commit_sha": "8a26020bc5a06282e8e5f030e22ce12f49bf3ccb",
+        "deletions": 2,
+        "failure_class": "cron_heartbeat_self_heal",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 3,
+        "notes": "Document recommended retry backoff and jitter settings (#5182)",
+        "patch_ref": "https://github.com/urllib3/urllib3/commit/8a26020bc5a06282e8e5f030e22ce12f49bf3ccb",
+        "paths": [
+          "changelog/3677.misc.rst",
+          "docs/user-guide.rst",
+          "src/urllib3/util/retry.py"
+        ],
+        "repo": "urllib3/urllib3",
+        "repo_url": "https://github.com/urllib3/urllib3",
+        "task_id": "y25_urllib3_8a26020bc5a0"
+      }
+    },
+    {
+      "failure_class": "duplicate_config_merge",
+      "first": {
+        "additions": 3,
+        "commit_sha": "ed551789f4f37c1e74bf39e3c34881a7d824898f",
+        "deletions": 3,
+        "failure_class": "duplicate_config_merge",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 1,
+        "notes": "Fix duplicated setting entries when merging parallel doc reads (#8238)",
+        "patch_ref": "https://github.com/scrapy/scrapy/commit/ed551789f4f37c1e74bf39e3c34881a7d824898f",
+        "paths": [
+          "docs/_ext/scrapydocs.py"
+        ],
+        "repo": "scrapy/scrapy",
+        "repo_url": "https://github.com/scrapy/scrapy",
+        "task_id": "y25_scrapy_ed551789f4f3"
+      },
+      "pack": "HOLDOUT",
+      "pair_id": "y25_pair_22_duplicate_config_merge",
+      "same_repo": false,
+      "transfer_difficulty": "HARD",
+      "transfer_note": "Merging parallel reads must not duplicate config/setting entries",
+      "unseen_variant": {
+        "additions": 28,
+        "commit_sha": "dd2bf125423ce15a4088f4c9433ffac7d8ad021e",
+        "deletions": 1,
+        "failure_class": "duplicate_config_merge",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 3,
+        "notes": "ENH: informative error for duplicate-labeled other in where/fillna (GH#27672) (#69807)",
+        "patch_ref": "https://github.com/pandas-dev/pandas/commit/dd2bf125423ce15a4088f4c9433ffac7d8ad021e",
+        "paths": [
+          "pandas/core/generic.py",
+          "pandas/tests/frame/methods/test_fillna.py",
+          "pandas/tests/series/indexing/test_where.py"
+        ],
+        "repo": "pandas-dev/pandas",
+        "repo_url": "https://github.com/pandas-dev/pandas",
+        "task_id": "y25_pandas_dd2bf125423c"
+      }
+    },
+    {
+      "failure_class": "tls_handshake_timing_isolation",
+      "first": {
+        "additions": 32,
+        "commit_sha": "57bacc6c8d50d2d765c5b1a72372aaa596d2582a",
+        "deletions": 19,
+        "failure_class": "tls_handshake_timing_isolation",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 2,
+        "notes": "test: Make TLS handshake leak tests independent of connect timing",
+        "patch_ref": "https://github.com/tornadoweb/tornado/commit/57bacc6c8d50d2d765c5b1a72372aaa596d2582a",
+        "paths": [
+          "tornado/test/simple_httpclient_test.py",
+          "tornado/test/tcpclient_test.py"
+        ],
+        "repo": "tornadoweb/tornado",
+        "repo_url": "https://github.com/tornadoweb/tornado",
+        "task_id": "y25_tornado_57bacc6c8d50"
+      },
+      "pack": "HOLDOUT",
+      "pair_id": "y25_pair_23_tls_handshake_timing_isolation",
+      "same_repo": false,
+      "transfer_difficulty": "MEDIUM",
+      "transfer_note": "TLS handshake leak tests/resources must be timing-independent",
+      "unseen_variant": {
+        "additions": 6,
+        "commit_sha": "a0cab2d084bd49fe347aea118daf0a26acd2c93c",
+        "deletions": 0,
+        "failure_class": "tls_handshake_timing_isolation",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 1,
+        "notes": "Skip TLS stream EOF test on PyPy 8.0.0 (#5276)",
+        "patch_ref": "https://github.com/urllib3/urllib3/commit/a0cab2d084bd49fe347aea118daf0a26acd2c93c",
+        "paths": [
+          "test/test_ssltransport.py"
+        ],
+        "repo": "urllib3/urllib3",
+        "repo_url": "https://github.com/urllib3/urllib3",
+        "task_id": "y25_urllib3_a0cab2d084bd"
+      }
+    },
+    {
+      "failure_class": "secure_shared_cookie_fix",
+      "first": {
+        "additions": 42,
+        "commit_sha": "e11d2836203a21bec59095498e578d37801027e7",
+        "deletions": 3,
+        "failure_class": "secure_shared_cookie_fix",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 6,
+        "notes": "Fix secure shared cookie (#13830)",
+        "patch_ref": "https://github.com/aio-libs/aiohttp/commit/e11d2836203a21bec59095498e578d37801027e7",
+        "paths": [
+          "CHANGES/13830.bugfix.rst",
+          "aiohttp/cookiejar.py",
+          "docs/client_reference.rst",
+          "docs/spelling_wordlist.txt",
+          "tests/test_client_functional.py",
+          "tests/test_cookiejar.py"
+        ],
+        "repo": "aio-libs/aiohttp",
+        "repo_url": "https://github.com/aio-libs/aiohttp",
+        "task_id": "y25_aiohttp_e11d2836203a"
+      },
+      "pack": "HOLDOUT",
+      "pair_id": "y25_pair_24_secure_shared_cookie_fix",
+      "same_repo": false,
+      "transfer_difficulty": "MEDIUM",
+      "transfer_note": "Shared/secure cookie fixes across HTTP frameworks",
+      "unseen_variant": {
+        "additions": 52,
+        "commit_sha": "699dae42f5ee0a90b358d00db9aebe9c67e9283f",
+        "deletions": 15,
+        "failure_class": "secure_shared_cookie_fix",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 2,
+        "notes": "Include Vary: Origin on all normal CORS responses (#3516)",
+        "patch_ref": "https://github.com/Kludex/starlette/commit/699dae42f5ee0a90b358d00db9aebe9c67e9283f",
+        "paths": [
+          "starlette/middleware/cors.py",
+          "tests/middleware/test_cors.py"
+        ],
+        "repo": "encode/starlette",
+        "repo_url": "https://github.com/encode/starlette",
+        "task_id": "y25_starlette_699dae42f5ee"
+      }
+    },
+    {
+      "failure_class": "format_escape_percent",
+      "first": {
+        "additions": 147,
+        "commit_sha": "31b6167d95294a4bda00013e44c399a3a62d3d9d",
+        "deletions": 4,
+        "failure_class": "format_escape_percent",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 8,
+        "notes": "Fix escaped percent signs in node formatting (#10663)",
+        "patch_ref": "https://github.com/celery/celery/commit/31b6167d95294a4bda00013e44c399a3a62d3d9d",
+        "paths": [
+          "Changelog.rst",
+          "celery/apps/multi.py",
+          "celery/utils/text.py",
+          "docs/userguide/workers.rst",
+          "t/integration/test_logfile_format.py",
+          "t/unit/apps/test_multi.py",
+          "t/unit/utils/test_nodenames.py",
+          "t/unit/utils/test_text.py"
+        ],
+        "repo": "celery/celery",
+        "repo_url": "https://github.com/celery/celery",
+        "task_id": "y25_celery_31b6167d9529"
+      },
+      "pack": "HOLDOUT",
+      "pair_id": "y25_pair_26_format_escape_percent",
+      "same_repo": false,
+      "transfer_difficulty": "HARD",
+      "transfer_note": "Escape/format edge cases in node naming vs template autoescape",
+      "unseen_variant": {
+        "additions": 3,
+        "commit_sha": "5ef70112a1ff19c05324ff889dd30405b1002044",
+        "deletions": 19,
+        "failure_class": "format_escape_percent",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 1,
+        "notes": "Merge branch 'stable'",
+        "patch_ref": "https://github.com/pallets/jinja/commit/5ef70112a1ff19c05324ff889dd30405b1002044",
+        "paths": [
+          ".github/workflows/publish.yaml"
+        ],
+        "repo": "pallets/jinja",
+        "repo_url": "https://github.com/pallets/jinja",
+        "task_id": "y25_jinja_5ef70112a1ff"
+      }
+    }
+  ],
+  "prereg_sha_file": "artifacts/y25/Y25_PREREG_SHA.txt",
+  "protocol_id": "Y25-MV-v1",
+  "sha256_of_sealed_bundle": "8751aac10eb532756fd97aa42085831bb8524eee07743242399a7320af185d39",
+  "stats": {
+    "cross_repo_pairs": 13,
+    "failure_classes": [
+      "cancel_fd_double_close",
+      "connection_close_token_handling",
+      "cookie_secure_shared_policy",
+      "cron_heartbeat_self_heal",
+      "duplicate_config_merge",
+      "format_escape_percent",
+      "host_header_port_matching",
+      "redirect_authority_semantics",
+      "redirect_topology_refresh",
+      "retry_side_effect_amplification",
+      "secure_shared_cookie_fix",
+      "tls_handshake_timing_isolation",
+      "url_absolute_form_authority"
+    ],
+    "n_pairs": 13,
+    "same_repo_pairs": 0,
+    "transfer_difficulty": {
+      "HARD": 9,
+      "MEDIUM": 4
+    }
+  },
+  "status": "UNSEALED_FOR_EXECUTION",
+  "unsealed_at_utc": "2026-10-01T02:49:20.468502+00:00",
+  "unsealed_for_execution": true
+}

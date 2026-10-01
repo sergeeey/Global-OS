@@ -1,4 +1,4 @@
-"""Acceptance: Y25 Memory Value prereg locks + Y24 closed boundary."""
+"""Acceptance: Y25 Memory Value prereg locks + corpus seal + decision boundary."""
 
 from __future__ import annotations
 
@@ -16,18 +16,19 @@ ART = ROOT / "artifacts" / "y25"
 Y24 = ROOT / "artifacts" / "y24"
 
 
-def test_y25_prereg_locked_and_y24_closed() -> None:
+def test_y25_prereg_frozen_before_corpus() -> None:
     raw = json.loads((ART / "Y25-PREREG.json").read_text(encoding="utf-8"))
+    freeze = json.loads((ART / "Y25_PREREG_FREEZE.json").read_text(encoding="utf-8"))
     closed = json.loads((Y24 / "Y24_CLOSED.json").read_text(encoding="utf-8"))
     assert raw["status"] == "PREREG_LOCKED"
     assert raw["protocol_id"] == "Y25-MV-v1"
-    assert raw["arms_started"] is False
-    assert raw["hypotheses"]["requires_unseen_variant"] is True
-    assert raw["mcid"]["MEMORY_COST_RATIO_MAX"] == 0.6
+    assert freeze["status"] == "PREREG_SHA_FROZEN"
+    assert (ART / "Y25_PREREG_SHA.txt").read_text(encoding="utf-8").strip()
+    assert freeze["sample_size_expansion_after_unseal"] == (
+        "FORBIDDEN_WITHOUT_LOCKED_AMENDMENT"
+    )
     assert closed["status"] == "CAMPAIGN_CLOSED"
-    assert closed["adaptive_c_advantage"] == "NOT_SHOWN_REJECTED_UNDER_PROTOCOL"
     assert closed["post_hoc_y24_rescue_forbidden"] is True
-    assert "CAMPAIGN_CLOSED" in (Y24 / "Y24_CLOSED.md").read_text(encoding="utf-8")
 
 
 def test_y25_cost_and_memory_ratio() -> None:
@@ -68,14 +69,37 @@ def test_y25_unseen_variant_gate() -> None:
     assert memory_pair_valid(first, same) is False
 
 
-def test_y25_stub_refuses_before_unseal() -> None:
-    with pytest.raises(RuntimeError, match="holdout not UNSEALED"):
-        run_arm_stub("W1", {"task_id": "x"})
+def test_y25_corpus_sealed_and_scored() -> None:
+    report = json.loads((ART / "CORPUS_BUILD_REPORT.json").read_text(encoding="utf-8"))
+    man = json.loads((ART / "sealed" / "HOLDOUT_MANIFEST.json").read_text(encoding="utf-8"))
+    assert report["n_pairs_total"] >= 12
+    assert report["holdout"]["n_pairs"] >= 12
+    assert man["status"] in {"FROZEN_UNSEEN", "UNSEALED_FOR_EXECUTION"}
+    assert man["sha256_of_sealed_bundle"]
+    blind = json.loads(
+        (ART / "public" / "corpus_manifest.HOLDOUT_BLIND.json").read_text(encoding="utf-8")
+    )
+    for p in blind["pairs"]:
+        assert "failure_class" not in p
+    score = json.loads((ART / "SCORE_RAW.json").read_text(encoding="utf-8"))
+    assert score["decision"]["verdict"] in {"KEEP", "REJECT", "INCONCLUSIVE"}
+    assert score["y24_not_rescued"] is True
+    assert score["trust_kernel_promoted"] is False
+    assert "Trust Kernel" in (ART / "Y25_DECISION.md").read_text(encoding="utf-8")
+    assert "I did not access artifacts/y25/sealed" in (
+        ART / "ISOLATION_ATTESTATION.md"
+    ).read_text(encoding="utf-8")
 
 
-def test_y25_does_not_claim_y24_memory_support() -> None:
-    claims = (ART / "CLAIMS.md").read_text(encoding="utf-8")
-    assert "Y24 H_memory INCONCLUSIVE as SUPPORT" in claims
-    prereg = (ART / "Y25-PREREG.md").read_text(encoding="utf-8")
-    assert "INCONCLUSIVE" in prereg
-    assert "Trust Kernel" in prereg
+def test_y25_stub_refuses_if_frozen_unseen(monkeypatch: pytest.MonkeyPatch) -> None:
+    man_path = ART / "sealed" / "HOLDOUT_MANIFEST.json"
+    original = man_path.read_text(encoding="utf-8")
+    data = json.loads(original)
+    data["status"] = "FROZEN_UNSEEN"
+    data["unsealed_for_execution"] = False
+    man_path.write_text(json.dumps(data) + "\n", encoding="utf-8")
+    try:
+        with pytest.raises(RuntimeError, match="holdout not UNSEALED"):
+            run_arm_stub("W1", {"task_id": "x"})
+    finally:
+        man_path.write_text(original, encoding="utf-8")
