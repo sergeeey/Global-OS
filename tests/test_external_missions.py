@@ -1,4 +1,4 @@
-"""Acceptance: external dual missions + M-EXT1/M-EXT2 terminals."""
+"""Acceptance: external missions + M-EXT1/M-EXT2 terminals + M-EXT3 prereg."""
 
 from __future__ import annotations
 
@@ -13,6 +13,7 @@ def test_external_contract_locked() -> None:
     raw = json.loads((EXT / "CONTRACT" / "EXTERNAL_REAL_WORK.json").read_text(encoding="utf-8"))
     assert raw["status"] == "CONTRACT_LOCKED"
     assert "EW1" in raw["missions"] and "EW2" in raw["missions"]
+    assert "M-EXT3-GSA" in raw["missions"]
 
 
 def test_m_ext1_immutable() -> None:
@@ -61,3 +62,32 @@ def test_y24_y25_remain_closed() -> None:
     y25 = json.loads((ROOT / "artifacts" / "y25" / "Y25_CLOSED.json").read_text(encoding="utf-8"))
     assert y24["status"] == "CAMPAIGN_CLOSED"
     assert y25["status"] == "CAMPAIGN_CLOSED"
+
+
+def test_m_ext3_prereg_locked_arms_not_started() -> None:
+    exam = EXT / "M_EXT3_GOS_VS_AGENT"
+    prereg = json.loads((exam / "M-EXT3-PREREG.json").read_text(encoding="utf-8"))
+    assert prereg["status"] == "PREREG_LOCKED"
+    assert prereg["arms_started"] is False
+    assert prereg["task_pin_status"] == "AWAITING_TASK_PIN"
+    assert prereg["secondary_cannot_override_primary_for_B_ADVANTAGE"] is True
+    assert "reuse_urllib3_5248_or_m_ext1_pack" in prereg["forbidden"]
+    budgets = prereg["equal_budgets"]
+    assert budgets["wall_hours"] == 6
+    assert budgets["model_pin"] == "identical_A_B"
+    ledger = json.loads((exam / "MISSION_LEDGER.json").read_text(encoding="utf-8"))
+    assert ledger["arms_started"] is False
+    assert ledger["phases"]["C_arm_A"] == "BLOCKED_ON_PIN"
+    goal = (exam / "GOAL_CONTRACT.md").read_text(encoding="utf-8")
+    assert "Arm" in goal or "arms" in goal.lower()
+    assert "urllib3#5248" in (exam / "TASK_SELECTION.md").read_text(encoding="utf-8")
+    assert not (exam / "TASK_PIN.json").exists()
+    status = (exam / "STATUS.md").read_text(encoding="utf-8")
+    assert "PREREG_LOCKED" in status
+    assert "AWAITING_TASK_PIN" in status or "awaiting" in status.lower()
+
+
+def test_m_ext1_still_immutable_under_m_ext3() -> None:
+    closed = json.loads((EXT / "M_EXT1_EW2_EXAM" / "M_EXT1_CLOSED.json").read_text(encoding="utf-8"))
+    assert closed["status"] == "IMMUTABLE_TERMINAL"
+    assert closed["gos_self_score_polish_forbidden"] is True

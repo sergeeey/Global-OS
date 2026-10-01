@@ -57,7 +57,8 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 8. **Done:** T3 cycle closed — switch away from T3 poke.  
 9. **Closed:** Y24/Y25; M-EXT1 IMMUTABLE; M-EXT2/EW1 INCONCLUSIVE; TK UNCHANGED.  
 10. **Evidence:** external OSS eng result + honest science INCONCLUSIVE.  
-11. **Next:** GOS vs strong single agent. Not: label-fish EW1; Immune* from success.
+11. **Prereg locked:** M-EXT3 GOS vs strong single agent (`artifacts/external/M_EXT3_GOS_VS_AGENT/`).  
+12. **Next:** pin OSS task → run equal-budget arms. Not: label-fish EW1; Immune*; polish urllib3.
 
 ## Документы
 

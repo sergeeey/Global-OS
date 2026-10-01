@@ -340,9 +340,26 @@
       "adaptive_c_advantage": "NOT_SHOWN"
     },
     "Y25": {
-      "status": "PREREG_LOCKED",
+      "status": "CLOSED",
       "protocol_id": "Y25-MV-v1",
-      "focus": "memory_value_unseen_variant"
+      "verdict": "REJECT",
+      "memory_value": "NOT_SHOWN_AT_PREREGISTERED_STRENGTH"
+    },
+    "M_EXT1": {
+      "status": "IMMUTABLE_TERMINAL",
+      "protocol_id": "EW2-OSS-v1",
+      "terminal": "ROOT_CAUSE_CONFIRMED"
+    },
+    "M_EXT2": {
+      "status": "CLOSED",
+      "protocol_id": "EW1-CTP-v1",
+      "terminal": "INCONCLUSIVE"
+    },
+    "M_EXT3": {
+      "status": "PREREG_LOCKED",
+      "protocol_id": "M-EXT3-GSA-v1",
+      "arms_started": false,
+      "focus": "gos_vs_strong_single_agent_external_oss"
     }
   }
 }

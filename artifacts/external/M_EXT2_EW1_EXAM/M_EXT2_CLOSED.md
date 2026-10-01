@@ -16,3 +16,6 @@ Scientific value: the prereg class-balance gate correctly blocked a vacuous
 SUPPORTED/REJECTED claim when the label definition produced no negatives.
 
 M-EXT1 remains IMMUTABLE. Y19 not reopened.
+
+Next exam prereg: `M-EXT3-GSA-v1` (GOS vs strong single agent) —
+see `artifacts/external/M_EXT3_GOS_VS_AGENT/`.

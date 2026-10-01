@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.114 — 2026-10-01
+
+### M-EXT3 prereg: GOS vs strong single agent
+
+- Locked `M-EXT3-GSA-v1` Goal Contract + prereg before any arm execution
+- Equal budgets, M-EXT1-class hard gates, primary decision table (B/A/TIE/TIE_NULL/INCONCLUSIVE)
+- Task selection gates open; `arms_started=false` until `TASK_PIN.json`
+- Forbidden: reuse urllib3#5248, M-EXT2-F2, unequal budgets, architecture-for-optics
+- M-EXT1 IMMUTABLE / M-EXT2 CLOSED unchanged
+
 ## 0.1.113 — 2026-10-01
 
 ### M-EXT1 immutable + M-EXT2/EW1 INCONCLUSIVE

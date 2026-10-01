@@ -13,12 +13,13 @@
 
 Value of the answer must exist **independently of Global OS**.
 
-## Dual missions
+## Missions
 
 | Id | Type | Title |
 |----|------|--------|
 | **EW1** | Science | Early predictor of escape into long/chaotic transient vs strong baseline |
 | **EW2** | OSS | Live open-source incident investigation with unknown root cause |
+| **M-EXT3 / GSA** | Comparison | GOS assembled workflow vs strong single agent on pinned external OSS task |
 
 ## Required for each mission
 

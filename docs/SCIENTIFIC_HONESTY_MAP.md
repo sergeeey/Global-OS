@@ -181,5 +181,8 @@ EXTERNAL REAL WORK
   M-EXT1/EW2 IMMUTABLE ROOT_CAUSE_CONFIRMED (urllib3#5248)
   M-EXT2/EW1 CLOSED INCONCLUSIVE (label degeneracy; no retune)
   Two external classes: OSS engineering + science protocol honesty
-  Next: GOS vs strong single agent — not Immune*/F2 fishing
+  M-EXT3/GSA PREREG_LOCKED — GOS vs strong single agent; arms not started;
+    awaiting OSS task pin (not urllib3#5248; not EW1 F2)
+  Causal GOS vs strong agent on external work: NOT YET MEASURED
+  Forbidden: Immune*/F2 fishing / polish M-EXT1 for self-score
 ```

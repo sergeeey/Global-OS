@@ -1,0 +1,61 @@
+{
+  "protocol_id": "M-EXT3-GSA-v1",
+  "exam_id": "M-EXT3-GSA",
+  "status": "PREREG_LOCKED",
+  "arms_started": false,
+  "hypothesis_id": "H_GSA",
+  "hypothesis": "On pinned open OSS incident under equal budgets, GOS workflow (B) hard-gate ROOT_CAUSE_CONFIRMED more/completer than strong single agent (A)",
+  "task_class": "OSS_INCIDENT_M_EXT1_CLASS",
+  "task_pin_status": "AWAITING_TASK_PIN",
+  "arms": {
+    "A": {
+      "role": "strong_single_agent_baseline",
+      "gos_loop": false
+    },
+    "B": {
+      "role": "current_gos_assembled_workflow",
+      "gos_loop": true,
+      "architecture_edits_for_optics": false
+    }
+  },
+  "equal_budgets": {
+    "wall_hours": 6,
+    "scripted_runs": 40,
+    "hypothesis_pivots": 8,
+    "provider_usd": 5,
+    "gos_code_edits_for_optics": 0,
+    "model_pin": "identical_A_B",
+    "public_pack": "identical_sha"
+  },
+  "hard_gate_for_root_cause_confirmed": [
+    "stable_repro_on_pinned_sha",
+    "mechanism_plus_disconfirming_tests",
+    "patch_eliminates_on_repro",
+    "regression_fail_before_pass_after"
+  ],
+  "primary_decision": {
+    "B_ADVANTAGE": "HG(B)=1 and HG(A)=0",
+    "A_ADVANTAGE": "HG(A)=1 and HG(B)=0",
+    "TIE": "HG(A)=1 and HG(B)=1",
+    "TIE_NULL": "HG(A)=0 and HG(B)=0",
+    "INCONCLUSIVE": "protocol_integrity_or_task_degeneracy_or_leakage"
+  },
+  "secondary_cannot_override_primary_for_B_ADVANTAGE": true,
+  "forbidden": [
+    "reuse_urllib3_5248_or_m_ext1_pack",
+    "m_ext2_f2_label_fish_as_comparison",
+    "unequal_budgets_or_model_pin",
+    "weaken_arm_A_post_hoc",
+    "gos_architecture_edits_for_exam_optics",
+    "claim_universal_superiority_from_one_task",
+    "cite_y24_y25_t3_as_h_gsa_evidence",
+    "start_arms_before_task_pin"
+  ],
+  "priors_immutable": {
+    "M_EXT1": "IMMUTABLE_TERMINAL",
+    "M_EXT2": "CAMPAIGN_CLOSED_INCONCLUSIVE",
+    "Y24": "CAMPAIGN_CLOSED",
+    "Y25": "CAMPAIGN_CLOSED"
+  },
+  "locked_at_utc": "2026-10-01T14:00:00Z"
+}

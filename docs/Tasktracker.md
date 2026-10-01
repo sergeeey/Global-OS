@@ -6,8 +6,9 @@
 - [x] Y24 CLOSED — F1 INCONCLUSIVE, F2 REJECT; Adaptive-C NOT SHOWN; TK unchanged; no rescue
 - [x] M-EXT1 IMMUTABLE — urllib3#5248 ROOT_CAUSE_CONFIRMED
 - [x] M-EXT2/EW1 CLOSED — INCONCLUSIVE (degenerate labels; no retune)
-- [ ] Next: GOS vs strong single agent on external task + budget
-- [ ] Forbidden: M-EXT2-F2 label-fish; M-EXT1 self-score polish; Immune*
+- [x] M-EXT3 prereg LOCKED — GOS vs strong single agent (`M-EXT3-GSA-v1`)
+- [ ] M-EXT3: pin OSS task → equal-budget Arm A/B → score → close
+- [ ] Forbidden: M-EXT2-F2 label-fish; M-EXT1 self-score polish; Immune*; arms before pin
 - [ ] Y25 (later): verification-budget frontier — only after Y24 terminal result
 - [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)
 - [x] Freeze SAFE_AUTONOMY_BENCHMARK-v1 + H_TRUST metrics

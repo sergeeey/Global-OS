@@ -1,0 +1,39 @@
+{
+  "exam_id": "M-EXT3-GSA",
+  "protocol_id": "M-EXT3-GSA-v1",
+  "goal_status": "GOAL_LOCKED",
+  "prereg_status": "PREREG_LOCKED",
+  "arms_started": false,
+  "task_pin_status": "AWAITING_TASK_PIN",
+  "gos_modified": false,
+  "y24_y25_cited": false,
+  "m_ext1_polished_for_optics": false,
+  "m_ext2_f2": false,
+  "phases": {
+    "A_prereg": "DONE",
+    "B_task_pin": "PENDING",
+    "C_arm_A": "BLOCKED_ON_PIN",
+    "D_arm_B": "BLOCKED_ON_PIN",
+    "E_score": "BLOCKED",
+    "F_close": "BLOCKED"
+  },
+  "arms": {
+    "A": {
+      "role": "strong_single_agent_baseline",
+      "status": "NOT_STARTED"
+    },
+    "B": {
+      "role": "current_gos_assembled_workflow",
+      "status": "NOT_STARTED"
+    }
+  },
+  "terminal_verdict": null,
+  "started_at_utc": null,
+  "budget_template": {
+    "wall_hours_cap": 6,
+    "scripted_runs_cap": 40,
+    "hypothesis_pivots_cap": 8,
+    "provider_usd_cap": 5,
+    "gos_code_edits_cap": 0
+  }
+}

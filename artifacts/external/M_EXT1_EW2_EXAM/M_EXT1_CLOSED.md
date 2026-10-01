@@ -26,7 +26,7 @@ Does **not** mean: production-ready, better than any single agent, or Trust Kern
 
 Optional upstream filing of the deliverable pack is **external use**, not a GOS self-test.
 
-## Next
+## Next (historical)
 
-`M-EXT2 / EW1` — scientific discovery exam (unknown outcome), then later
-GOS vs strong single agent on comparable external task + budget.
+`M-EXT2 / EW1` completed INCONCLUSIVE. Comparison exam prereg:
+`M-EXT3-GSA-v1` at `artifacts/external/M_EXT3_GOS_VS_AGENT/` (arms not started).

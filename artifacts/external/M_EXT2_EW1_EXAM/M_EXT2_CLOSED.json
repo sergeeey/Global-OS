@@ -8,5 +8,6 @@
   "post_hoc_retune": false,
   "m_ext1_status": "IMMUTABLE_TERMINAL",
   "closed_at_utc": "2026-10-01T12:15:00Z",
-  "next_suggested": "GOS_VS_STRONG_SINGLE_AGENT_ON_EXTERNAL_TASK"
+  "next_suggested": "M_EXT3_GSA_PREREG_THEN_TASK_PIN",
+  "m_ext3_prereg": "artifacts/external/M_EXT3_GOS_VS_AGENT/M-EXT3-PREREG.json"
 }
