@@ -1,0 +1,3 @@
+PASSED test_base_url_with_query_does_not_corrupt_query_when_enforcing_slash
+PASSED test_base_url_path_still_gets_trailing_slash
+2 passed, 0 failed

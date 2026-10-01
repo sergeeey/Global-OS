@@ -1,0 +1,3 @@
+base_url= https://httpbingo.org/get/?data=1
+query= b'data=1'
+BUG_FIXED

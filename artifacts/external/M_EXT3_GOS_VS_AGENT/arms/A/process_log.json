@@ -1,0 +1,15 @@
+{
+  "arm_id": "A",
+  "style": "strong_single_agent_minimal_scaffolding",
+  "steps": [
+    "read public pack ISSUE_SNAPSHOT + repro_hint",
+    "repro on pinned SHA → BUG_REPRODUCED",
+    "grep _enforce_trailing_slash / raw_path",
+    "confirm raw_path includes query; path-only slash preserves query",
+    "patch path-based trailing slash",
+    "regression FAIL before / PASS after via standalone harness",
+    "freeze submission"
+  ],
+  "competing_explanations_formal_doc": false,
+  "gos_artifacts": false
+}

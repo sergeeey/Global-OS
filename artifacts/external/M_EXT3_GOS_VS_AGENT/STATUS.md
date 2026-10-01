@@ -1,22 +1,17 @@
 # M-EXT3 GOS vs Agent — Status
 
-**Status:** `PREREG_LOCKED_AWAITING_TASK_PIN`  
+**Status:** `TASK_PINNED_ARMS_READY`  
 **Protocol:** `M-EXT3-GSA-v1`  
-**Arms started:** `false`
+**Task:** encode/httpx#3614  
+**Working SHA:** `b5addb6`  
+**Arms started:** `false` → next: start Arm A
 
-## Sequence position
+## Sequence
 
 ```text
 M-EXT1 / EW2  IMMUTABLE   ROOT_CAUSE_CONFIRMED
 M-EXT2 / EW1  CLOSED      INCONCLUSIVE
-M-EXT3 / GSA  PREREG      awaiting external OSS task pin
+M-EXT3 / GSA  TASK_PINNED awaiting equal-budget arms
 ```
 
-## Next exact action
-
-1. Select OSS incident under `TASK_SELECTION.md`  
-2. Write `TASK_PIN.json`  
-3. Freeze public pack  
-4. Only then start Arm A / Arm B under equal budgets  
-
-Do **not** polish M-EXT1 urllib3 for self-score. Do **not** M-EXT2-F2.
+Public pack frozen: `sealed/public_pack_manifest.json`.

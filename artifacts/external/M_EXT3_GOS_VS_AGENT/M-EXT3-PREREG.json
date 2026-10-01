@@ -6,7 +6,8 @@
   "hypothesis_id": "H_GSA",
   "hypothesis": "On pinned open OSS incident under equal budgets, GOS workflow (B) hard-gate ROOT_CAUSE_CONFIRMED more/completer than strong single agent (A)",
   "task_class": "OSS_INCIDENT_M_EXT1_CLASS",
-  "task_pin_status": "AWAITING_TASK_PIN",
+  "task_pin_status": "TASK_PINNED",
+  "task_pin_path": "TASK_PIN.json",
   "arms": {
     "A": {
       "role": "strong_single_agent_baseline",
