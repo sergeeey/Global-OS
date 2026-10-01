@@ -14,6 +14,7 @@ def test_external_contract_locked() -> None:
     assert raw["status"] == "CONTRACT_LOCKED"
     assert "EW1" in raw["missions"] and "EW2" in raw["missions"]
     assert "M-EXT3-GSA" in raw["missions"]
+    assert "M-EXT4-MPEMBA" in raw["missions"]
 
 
 def test_m_ext1_immutable() -> None:
@@ -101,3 +102,26 @@ def test_m_ext1_still_immutable_under_m_ext3() -> None:
     closed = json.loads((EXT / "M_EXT1_EW2_EXAM" / "M_EXT1_CLOSED.json").read_text(encoding="utf-8"))
     assert closed["status"] == "IMMUTABLE_TERMINAL"
     assert closed["gos_self_score_polish_forbidden"] is True
+
+
+def test_m_ext4_mission_open_science_not_started() -> None:
+    exam = EXT / "M_EXT4_MPEMBA_EXAM"
+    gate = json.loads((exam / "M-EXT4-PREREG-GATE.json").read_text(encoding="utf-8"))
+    assert gate["status"] == "MISSION_OPEN"
+    assert gate["science_cycle_started"] is False
+    assert "ILL_POSED" in gate["allowed_terminals"]
+    assert "NOT_NOVEL_IN_CLAIMED_FORM" in gate["allowed_terminals"]
+    assert "human_content_coaching_before_terminal" in gate["forbidden"]
+    ledger = json.loads((exam / "MISSION_LEDGER.json").read_text(encoding="utf-8"))
+    assert ledger["source_hypothesis_immutable"] is True
+    assert ledger["science_cycle_started"] is False
+    assert ledger["phases"]["B_literature"] == "PENDING"
+    src = (exam / "SOURCE_HYPOTHESIS.md").read_text(encoding="utf-8")
+    assert "IMMUTABLE" in src
+    assert "Mpemba" in src or "mpemba" in src.lower()
+    brief = (exam / "MISSION_BRIEF.md").read_text(encoding="utf-8")
+    assert "novelty/literature audit" in brief or "literature" in brief.lower()
+    assert "SOURCE_HYPOTHESIS.md" in brief
+    # Setup must not pre-write the decision or spoil with a finished cycle
+    assert not (exam / "DECISION.md").exists()
+    assert not (exam / "LITERATURE_MAP.md").exists()

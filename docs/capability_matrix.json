@@ -361,6 +361,12 @@
       "terminal": "TIE",
       "task": "encode/httpx#3614",
       "h_gsa_primary_advantage": "NOT_CONFIRMED"
+    },
+    "M_EXT4": {
+      "status": "MISSION_OPEN",
+      "protocol_id": "M-EXT4-MPEMBA-v1",
+      "science_cycle_started": false,
+      "focus": "mpemba_like_nn_parameter_dynamics"
     }
   }
 }

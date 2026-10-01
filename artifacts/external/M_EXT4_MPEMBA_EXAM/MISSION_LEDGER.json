@@ -1,0 +1,30 @@
+{
+  "exam_id": "M-EXT4-MPEMBA",
+  "protocol_id": "M-EXT4-MPEMBA-v1",
+  "goal_status": "GOAL_LOCKED",
+  "source_hypothesis": "SOURCE_HYPOTHESIS.md",
+  "source_hypothesis_immutable": true,
+  "science_cycle_started": false,
+  "prereg_locked": false,
+  "arms_or_holdout_sealed": false,
+  "gos_modified": false,
+  "human_content_coaching": false,
+  "phases": {
+    "A_contract": "DONE",
+    "B_literature": "PENDING",
+    "C_formalization": "PENDING",
+    "D_competing": "PENDING",
+    "E_prereg_seal": "PENDING",
+    "F_pilot": "BLOCKED_ON_PREREG",
+    "G_confirmatory": "BLOCKED_ON_SEAL",
+    "H_decision": "BLOCKED"
+  },
+  "terminal_verdict": null,
+  "budget": {
+    "wall_hours_cap": 24,
+    "wall_hours_used": 0,
+    "gos_code_edits_cap": 0,
+    "gos_code_edits_used": 0
+  },
+  "opened_at_utc": "2026-10-01T15:50:00Z"
+}

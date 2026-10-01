@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.116 — 2026-10-01
+
+### M-EXT4 mission open — Mpemba NN dynamics
+
+- Locked Goal Contract + agent `MISSION_BRIEF` + immutable `SOURCE_HYPOTHESIS`
+- Terminal vocabulary includes `ILL_POSED` / `NOT_NOVEL_IN_CLAIMED_FORM`
+- Science cycle not started in setup (exam integrity; no content coaching)
+- Prior M-EXT1–3 unchanged
+
 ## 0.1.115 — 2026-10-01
 
 ### M-EXT3 CLOSED TIE — GOS vs strong single agent (httpx#3614)

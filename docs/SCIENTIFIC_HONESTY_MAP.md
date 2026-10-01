@@ -184,5 +184,7 @@ EXTERNAL REAL WORK
   M-EXT3/GSA CLOSED TIE — httpx#3614; both arms HG=1 ROOT_CAUSE_CONFIRMED
   H_GSA primary advantage: NOT CONFIRMED (n=1; same-lineage caveat)
   Causal GOS vs strong agent universal superiority: NOT SHOWN
+  M-EXT4/EW4 MISSION_OPEN — Mpemba-like NN dynamics; unknown outcome;
+    source hypothesis immutable; no human content-coaching before terminal
   Forbidden: Immune*/F2 fishing / polish M-EXT1 / post-hoc harder-task win-hunt
 ```

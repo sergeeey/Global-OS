@@ -8,7 +8,9 @@
 - [x] M-EXT2/EW1 CLOSED — INCONCLUSIVE (degenerate labels; no retune)
 - [x] M-EXT3 prereg LOCKED — GOS vs strong single agent (`M-EXT3-GSA-v1`)
 - [x] M-EXT3 CLOSED TIE — httpx#3614; HG(A)=HG(B)=1; H_GSA NOT CONFIRMED
-- [ ] Forbidden: M-EXT2-F2; M-EXT1 polish; Immune*; post-hoc harder-task win-hunt
+- [x] M-EXT4 mission OPEN — Mpemba NN contract + immutable hypothesis (cycle not started)
+- [ ] M-EXT4 autonomous: literature → prereg → sealed confirmatory → terminal
+- [ ] Forbidden: content-coach M-EXT4; M-EXT2-F2; M-EXT1 polish; Immune*; win-hunt
 - [ ] Y25 (later): verification-budget frontier — only after Y24 terminal result
 - [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)
 - [x] Freeze SAFE_AUTONOMY_BENCHMARK-v1 + H_TRUST metrics

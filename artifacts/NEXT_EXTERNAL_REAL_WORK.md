@@ -52,6 +52,7 @@ Contract: `artifacts/external/CONTRACT/EXTERNAL_REAL_WORK.md` (`CONTRACT_LOCKED`
 | **EW1 / M-EXT2** | `CLOSED` **INCONCLUSIVE** | Label degeneracy (0 negatives); class-balance gate; no retune |
 | **EW2 / M-EXT1** | `IMMUTABLE` **ROOT_CAUSE_CONFIRMED** | urllib3#5248 deliverable pack |
 | **M-EXT3 / GSA** | `CLOSED` **TIE** | httpx#3614; HG(A)=HG(B)=1; H_GSA NOT CONFIRMED |
+| **M-EXT4 / EW4** | `MISSION_OPEN` | Mpemba NN dynamics — contract locked; science cycle not started |
 
-Optional upstream filing of M-EXT1/M-EXT3 packs = external use, not self-test.
-Do not fish a harder task post-hoc for a GOS “win” without new prereg.
+Next: autonomous M-EXT4 execution (literature → prereg → sealed confirmatory → terminal).
+**No human content-coaching** on hypothesis weaknesses. Optional upstream M-EXT1/3 = external use.
