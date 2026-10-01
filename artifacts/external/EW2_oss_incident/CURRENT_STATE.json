@@ -1,0 +1,9 @@
+{
+  "mission_id": "EW2",
+  "protocol_id": "EW2-OSS-v1",
+  "phase": "PREREG_LOCKED_ISSUE_PINNED",
+  "investigation_started": false,
+  "target_issue": "urllib3/urllib3#5248",
+  "gos_self_proof": false,
+  "updated_at_utc": "2026-10-01T07:45:00Z"
+}

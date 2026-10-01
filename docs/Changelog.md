@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.111 — 2026-10-01
+
+### External dual missions locked (EW1 science + EW2 OSS)
+
+- Merged Y25 close; EXTERNAL REAL WORK contract locked
+- **EW1** `EW1-CTP-v1`: coupled logistic-map early predictor vs baseline (not Y19 reopen)
+- **EW2** `EW2-OSS-v1`: urllib3#5248 pinned (`blocksize=0` silent body drop)
+- Forbidden: GOS self-proof; cite Y24/Y25 as external evidence; architecture-from-metaphor
+
 ## 0.1.110 — 2026-10-01
 
 ### Y25 CAMPAIGN_CLOSED + pivot to external real work

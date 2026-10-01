@@ -1,0 +1,25 @@
+{
+  "status": "CONTRACT_LOCKED",
+  "date_utc": "2026-10-01",
+  "goal": "reproducible_external_result_not_gos_self_proof",
+  "missions": ["EW1", "EW2"],
+  "required": [
+    "competing_hypotheses_2_to_4",
+    "strong_baseline",
+    "preregistration",
+    "sealed_holdout_or_repro_protocol",
+    "counterevidence_search",
+    "independent_verification",
+    "reproducible_code_data",
+    "honest_reject_or_inconclusive_allowed"
+  ],
+  "forbidden": [
+    "change_gos_to_improve_mission_score_without_real_failure_case",
+    "cite_y24_or_y25_as_evidence_for_external_hypothesis",
+    "reopen_y19_y24_y25_for_rescue",
+    "promote_architecture_from_metaphor"
+  ],
+  "y24_status": "CAMPAIGN_CLOSED",
+  "y25_status": "CAMPAIGN_CLOSED",
+  "trust_kernel": "UNCHANGED_UNLESS_REAL_MISSION_FAILURE_FORCES_ADR"
+}

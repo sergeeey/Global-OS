@@ -176,9 +176,10 @@ Y24 CLOSED (scientific):
   Adaptive-C advantage: NOT SHOWN / REJECTED under protocol
   Trust Kernel: UNCHANGED — do not rescue Y24 with more N/tuning/PACK-v4
 
-Y25 CAMPAIGN_CLOSED REJECT (ratio≈0.80 vs ≤0.60)
-  memory value NOT SHOWN at preregistered strength
-  No Y25-F2 / retune / live-LLM rescue
-  Y24+Y25: strong cellular features lack evidence → pause self-architecture
-  Next: EXTERNAL_REAL_WORK (artifacts/NEXT_EXTERNAL_REAL_WORK.md)
+Y25 CAMPAIGN_CLOSED REJECT — memory NOT SHOWN at prereg strength; no F2
+EXTERNAL REAL WORK CONTRACT_LOCKED
+  EW1: coupled logistic chaotic-transient predictor (NOT Y19 reopen)
+  EW2: urllib3#5248 blocksize=0 silent body drop (issue pinned)
+  Goal: external result — not Global OS self-proof
+  Forbidden: cite Y24/Y25 as evidence for EW1/EW2
 ```

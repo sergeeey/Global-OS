@@ -4,10 +4,11 @@
 - [x] Y24 prereg LOCKED — Adaptive Verifier Complexity Threshold (`artifacts/y24/`)
 - [x] Y24 prep locks: complexity rubric + cost accounting + isolation gate + refuse-exec stubs
 - [x] Y24 CLOSED — F1 INCONCLUSIVE, F2 REJECT; Adaptive-C NOT SHOWN; TK unchanged; no rescue
-- [x] Y25 CAMPAIGN_CLOSED — REJECT; memory NOT SHOWN at prereg strength; no Y25-F2
-- [x] Pivot locked: external real work (pause self-architecture campaigns)
-- [ ] Pick external OSS/science mission with unknown answer
-- [ ] Forbidden: Y25-F2; threshold 0.60→0.85; live-LLM rescue; build Immune* from REJECT
+- [x] Y25 CAMPAIGN_CLOSED — REJECT; no Y25-F2
+- [x] EXTERNAL REAL WORK contract + EW1/EW2 prereg locked
+- [ ] EW1: generate data → seal holdout → score vs baseline
+- [ ] EW2: repro urllib3#5248 → competing H → root cause / INCONCLUSIVE
+- [ ] Forbidden: GOS self-proof; cite Y24/Y25 as external evidence; Y25-F2
 - [ ] Y25 (later): verification-budget frontier — only after Y24 terminal result
 - [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)
 - [x] Freeze SAFE_AUTONOMY_BENCHMARK-v1 + H_TRUST metrics
