@@ -310,8 +310,12 @@ def score_results(raw: dict[str, Any], prereg: dict[str, Any]) -> dict[str, Any]
 
     costs_w0 = [p["cost_w0"] for p in pairs]
     costs_w1 = [p["cost_w1"] for p in pairs]
-    med = lambda xs: sorted(xs)[len(xs) // 2]
-    med_w0, med_w1 = med(costs_w0), med(costs_w1)
+
+    def _median(xs: list[float]) -> float:
+        ordered = sorted(xs)
+        return float(ordered[len(ordered) // 2])
+
+    med_w0, med_w1 = _median(costs_w0), _median(costs_w1)
     ratio = med_w1 / med_w0 if med_w0 > 0 else 999.0
     fp_w0 = sum(1 for p in pairs if p["fp_w0"]) / n
     fp_w1 = sum(1 for p in pairs if p["fp_w1"]) / n

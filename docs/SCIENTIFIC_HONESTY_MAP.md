@@ -176,8 +176,9 @@ Y24 CLOSED (scientific):
   Adaptive-C advantage: NOT SHOWN / REJECTED under protocol
   Trust Kernel: UNCHANGED — do not rescue Y24 with more N/tuning/PACK-v4
 
-Next dogfood science:
-  Y25 Memory Value (Y25-MV-v1) PREREG_LOCKED — W0 vs W1 on real OSS
-  unseen-variant failure pairs; Y24 H_memory was INCONCLUSIVE ≠ SUPPORT
-  Strong baseline, sealed holdout, same budget; no claims beyond evidence
+Y25 Memory Value (Y25-MV-v1):
+  Prereg SHA frozen before corpus; holdout sealed N≥12 cross-repo
+  Heuristic W0 vs W1 → REJECT (median cost ratio ≰ 0.60)
+  Not live-LLM proof; Y24 unrescued; Trust Kernel UNCHANGED
+  No post-hoc N expansion without locked amendment
 ```
