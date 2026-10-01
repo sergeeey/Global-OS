@@ -1,22 +1,26 @@
 # M-EXT4 — Status
 
-**Status:** `MISSION_OPEN_AWAITING_AUTONOMOUS_EXECUTION`  
-**Protocol:** `M-EXT4-MPEMBA-v1`  
-**Phase:** contract + immutable hypothesis locked; science cycle **not started**
-
 ```text
-M-EXT1 IMMUTABLE
-M-EXT2 CLOSED INCONCLUSIVE
-M-EXT3 CLOSED TIE
-M-EXT4 OPEN — Mpemba NN dynamics (unknown outcome)
+M-EXT4                 OPEN / CONTRACT_LOCKED
+source hypothesis      LOCKED
+scientific cycle       NOT STARTED
+literature audit       NOT STARTED
+prereg                 NOT STARTED
+experiment             NOT STARTED
+decision               NONE
+operator coaching      FORBIDDEN
 ```
 
-## Operator rule
+**Protocol:** `M-EXT4-MPEMBA-v1`  
+**Success criterion:** honest scientific terminal about the hypothesis — not confirmation.
 
-Do **not** content-coach the agent on hypothesis weaknesses.
-Allow autonomous work until terminal or exact resource blocker.
+## Next (operator)
 
-## Next
+1. Review/merge PR #11  
+2. New cloud session  
+3. Give only `MISSION_BRIEF.md` + `SOURCE_HYPOTHESIS.md`  
+4. Command: work autonomously to terminal; do not presuppose support; if ill-posed, record it; no coaching except real resource blocker  
+5. Do not intervene  
+6. Wait for terminal outcome  
 
-Executing agent: start at literature check + formalization (see `MISSION_BRIEF.md`).
-Do not jump to a large training script before prereg.
+If a fuller author hypothesis text exists, replace `SOURCE_HYPOTHESIS.md` **before** literature/prereg starts.
