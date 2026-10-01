@@ -127,7 +127,7 @@ PAIR_SPECS: list[dict] = [
         "transfer_note": "Cancellation must not double-close fds / leave leaked sockets",
         "transfer_difficulty": "HARD",
         "first": ("MagicStack/uvloop", "dc680eb20c52"),
-        "unseen_variant": ("sqlalchemy/sqlalchemy", "6f8998793074"),
+        "unseen_variant": ("urllib3/urllib3", "09217b75d51f"),
     },
     {
         "failure_class": "http_range_conditional_split",
@@ -138,10 +138,10 @@ PAIR_SPECS: list[dict] = [
     },
     {
         "failure_class": "admin_date_hierarchy_range",
-        "transfer_note": "Out-of-range temporal values must be handled safely (admin vs client port)",
+        "transfer_note": "Out-of-range temporal values must be handled safely (admin vs path ensure)",
         "transfer_difficulty": "HARD",
         "first": ("django/django", "935edaa91b75"),
-        "unseen_variant": ("redis/redis-py", "a1788da71604"),
+        "unseen_variant": ("django/django", "2f7f30c320b6"),
     },
     {
         "failure_class": "ssl_connector_deprecation_edge",
@@ -177,6 +177,34 @@ PAIR_SPECS: list[dict] = [
         "transfer_difficulty": "HARD",
         "first": ("scrapy/scrapy", "ed551789f4f3"),
         "unseen_variant": ("pandas-dev/pandas", "dd2bf125423c"),
+    },
+    {
+        "failure_class": "tls_handshake_timing_isolation",
+        "transfer_note": "TLS handshake leak tests/resources must be timing-independent",
+        "transfer_difficulty": "MEDIUM",
+        "first": ("tornadoweb/tornado", "57bacc6c8d50"),
+        "unseen_variant": ("urllib3/urllib3", "a0cab2d084bd"),
+    },
+    {
+        "failure_class": "secure_shared_cookie_fix",
+        "transfer_note": "Shared/secure cookie fixes across HTTP frameworks",
+        "transfer_difficulty": "MEDIUM",
+        "first": ("aio-libs/aiohttp", "e11d2836203a"),
+        "unseen_variant": ("encode/starlette", "699dae42f5"),
+    },
+    {
+        "failure_class": "cron_registry_observability",
+        "transfer_note": "Cron/job registries for history vs eager_start scheduling knobs",
+        "transfer_difficulty": "HARD",
+        "first": ("rq/rq", "e1b13ffb08fd"),
+        "unseen_variant": ("MagicStack/uvloop", "3cbb09560ed1"),
+    },
+    {
+        "failure_class": "format_escape_percent",
+        "transfer_note": "Escape/format edge cases in node naming vs template autoescape",
+        "transfer_difficulty": "HARD",
+        "first": ("celery/celery", "31b6167d9529"),
+        "unseen_variant": ("pallets/jinja", "5ef70112a1ff"),  # may fail — resolve
     },
 ]
 

@@ -2,48 +2,49 @@
   "pack": "DEV",
   "pairs": [
     {
-      "failure_class": "redirect_topology_refresh",
+      "failure_class": "out_of_range_protocol_field",
       "first": {
-        "additions": 54,
-        "commit_sha": "3fe1b11f7e4ef0267bbb23e91946cb11dea355e3",
+        "additions": 17,
+        "commit_sha": "85c3b7434fd6b58596486dbe93cfe605ee358881",
         "deletions": 0,
-        "failure_class": "redirect_topology_refresh",
+        "failure_class": "out_of_range_protocol_field",
         "license": "SEE_REPO",
         "memory_role": "first",
-        "n_files": 3,
-        "notes": "Track S3 region redirect feature id (#3804)",
-        "patch_ref": "https://github.com/boto/botocore/commit/3fe1b11f7e4ef0267bbb23e91946cb11dea355e3",
+        "n_files": 2,
+        "notes": "Ignore Range when If-Range contains a weak ETag (#3567)",
+        "patch_ref": "https://github.com/Kludex/starlette/commit/85c3b7434fd6b58596486dbe93cfe605ee358881",
         "paths": [
-          "botocore/useragent.py",
-          "botocore/utils.py",
-          "tests/functional/test_useragent.py"
+          "starlette/responses.py",
+          "tests/test_responses.py"
         ],
-        "repo": "boto/botocore",
-        "repo_url": "https://github.com/boto/botocore",
-        "task_id": "y25_botocore_3fe1b11f7e4e"
+        "repo": "encode/starlette",
+        "repo_url": "https://github.com/encode/starlette",
+        "task_id": "y25_starlette_85c3b7434fd6"
       },
       "pack": "DEV",
-      "pair_id": "y25_pair_01_redirect_topology_refresh",
+      "pair_id": "y25_pair_02_out_of_range_protocol_field",
       "same_repo": false,
       "transfer_difficulty": "HARD",
-      "transfer_note": "Redirect requires topology/region refresh before retry",
+      "transfer_note": "Reject/ignore out-of-range protocol fields (Range vs port)",
       "unseen_variant": {
-        "additions": 62,
-        "commit_sha": "6e7723c456c9c30dc252835add4d16e1f07c8203",
-        "deletions": 0,
-        "failure_class": "redirect_topology_refresh",
+        "additions": 71,
+        "commit_sha": "a1788da716042f853833cb75d520249ae94d9ab3",
+        "deletions": 2,
+        "failure_class": "out_of_range_protocol_field",
         "license": "SEE_REPO",
         "memory_role": "unseen_variant",
-        "n_files": 2,
-        "notes": "[fix(asyncio)] Refresh cluster topology before retrying MOVED redirects (#4322)",
-        "patch_ref": "https://github.com/redis/redis-py/commit/6e7723c456c9c30dc252835add4d16e1f07c8203",
+        "n_files": 4,
+        "notes": "Reject bool and out-of-range Connection port (#4335)",
+        "patch_ref": "https://github.com/redis/redis-py/commit/a1788da716042f853833cb75d520249ae94d9ab3",
         "paths": [
-          "redis/asyncio/cluster.py",
-          "tests/test_asyncio/test_cluster.py"
+          "redis/asyncio/connection.py",
+          "redis/connection.py",
+          "tests/test_asyncio/test_connection.py",
+          "tests/test_connection.py"
         ],
         "repo": "redis/redis-py",
         "repo_url": "https://github.com/redis/redis-py",
-        "task_id": "y25_redis-py_6e7723c456c9"
+        "task_id": "y25_redis-py_a1788da71604"
       }
     },
     {
@@ -359,186 +360,204 @@
       }
     },
     {
-      "failure_class": "admin_date_hierarchy_range",
+      "failure_class": "http_range_conditional_split",
       "first": {
-        "additions": 25,
-        "commit_sha": "935edaa91b756325352ca70d5eba49a64b70d28c",
-        "deletions": 9,
-        "failure_class": "admin_date_hierarchy_range",
+        "additions": 876,
+        "commit_sha": "830d4b3957e9532be5f510e499dd797964d064d6",
+        "deletions": 677,
+        "failure_class": "http_range_conditional_split",
         "license": "SEE_REPO",
         "memory_role": "first",
-        "n_files": 2,
-        "notes": "Fixed #37357 -- Handled out-of-range year in admin date_hierarchy.",
-        "patch_ref": "https://github.com/django/django/commit/935edaa91b756325352ca70d5eba49a64b70d28c",
+        "n_files": 15,
+        "notes": "split `make_conditional` into `apply_conditions` and `apply_range` (#3308)",
+        "patch_ref": "https://github.com/pallets/werkzeug/commit/830d4b3957e9532be5f510e499dd797964d064d6",
         "paths": [
-          "django/contrib/admin/views/main.py",
-          "tests/admin_changelist/tests.py"
+          "CHANGES.rst",
+          "docs/quickstart.rst",
+          "src/werkzeug/datastructures/etag.py",
+          "src/werkzeug/datastructures/range.py",
+          "src/werkzeug/http.py",
+          "src/werkzeug/middleware/shared_data.py",
+          "src/werkzeug/sansio/http.py",
+          "src/werkzeug/test.py",
+          "src/werkzeug/utils.py",
+          "src/werkzeug/wrappers/response.py",
+          "tests/test_apply_conditions.py",
+          "tests/test_apply_range.py",
+          "tests/test_http.py",
+          "tests/test_send_file.py",
+          "tests/test_wrappers.py"
         ],
-        "repo": "django/django",
-        "repo_url": "https://github.com/django/django",
-        "task_id": "y25_django_935edaa91b75"
+        "repo": "pallets/werkzeug",
+        "repo_url": "https://github.com/pallets/werkzeug",
+        "task_id": "y25_werkzeug_830d4b3957e9"
       },
       "pack": "DEV",
-      "pair_id": "y25_pair_17_admin_date_hierarchy_range",
+      "pair_id": "y25_pair_16_http_range_conditional_split",
       "same_repo": false,
-      "transfer_difficulty": "HARD",
-      "transfer_note": "Out-of-range temporal/protocol values must be handled safely",
+      "transfer_difficulty": "MEDIUM",
+      "transfer_note": "Range/conditional response application must be explicit and safe",
       "unseen_variant": {
-        "additions": 17,
-        "commit_sha": "85c3b7434fd6b58596486dbe93cfe605ee358881",
-        "deletions": 0,
-        "failure_class": "admin_date_hierarchy_range",
+        "additions": 23,
+        "commit_sha": "4fe55eb2649e74fb01472bad9a1bc54fc3495904",
+        "deletions": 1,
+        "failure_class": "http_range_conditional_split",
         "license": "SEE_REPO",
         "memory_role": "unseen_variant",
         "n_files": 2,
-        "notes": "Ignore Range when If-Range contains a weak ETag (#3567)",
-        "patch_ref": "https://github.com/Kludex/starlette/commit/85c3b7434fd6b58596486dbe93cfe605ee358881",
+        "notes": "Preserve `FileResponse` status for range requests (#3568)",
+        "patch_ref": "https://github.com/Kludex/starlette/commit/4fe55eb2649e74fb01472bad9a1bc54fc3495904",
         "paths": [
           "starlette/responses.py",
           "tests/test_responses.py"
         ],
         "repo": "encode/starlette",
         "repo_url": "https://github.com/encode/starlette",
-        "task_id": "y25_starlette_85c3b7434fd6"
+        "task_id": "y25_starlette_4fe55eb2649e"
       }
     },
     {
-      "failure_class": "cluster_moved_redirect_retry",
+      "failure_class": "ssl_connector_deprecation_edge",
       "first": {
-        "additions": 62,
-        "commit_sha": "6e7723c456c9c30dc252835add4d16e1f07c8203",
-        "deletions": 0,
-        "failure_class": "cluster_moved_redirect_retry",
+        "additions": 105,
+        "commit_sha": "25f30573cc01da08f5b962128eebb16b9701ada3",
+        "deletions": 50,
+        "failure_class": "ssl_connector_deprecation_edge",
         "license": "SEE_REPO",
         "memory_role": "first",
-        "n_files": 2,
-        "notes": "[fix(asyncio)] Refresh cluster topology before retrying MOVED redirects (#4322)",
-        "patch_ref": "https://github.com/redis/redis-py/commit/6e7723c456c9c30dc252835add4d16e1f07c8203",
+        "n_files": 9,
+        "notes": "Deprecate TCPConnector ssl (#13829)",
+        "patch_ref": "https://github.com/aio-libs/aiohttp/commit/25f30573cc01da08f5b962128eebb16b9701ada3",
         "paths": [
-          "redis/asyncio/cluster.py",
-          "tests/test_asyncio/test_cluster.py"
-        ],
-        "repo": "redis/redis-py",
-        "repo_url": "https://github.com/redis/redis-py",
-        "task_id": "y25_redis-py_6e7723c456c9"
-      },
-      "pack": "DEV",
-      "pair_id": "y25_pair_19_cluster_moved_redirect_retry",
-      "same_repo": false,
-      "transfer_difficulty": "MEDIUM",
-      "transfer_note": "MOVED/region redirects need refresh-before-retry discipline",
-      "unseen_variant": {
-        "additions": 54,
-        "commit_sha": "3fe1b11f7e4ef0267bbb23e91946cb11dea355e3",
-        "deletions": 0,
-        "failure_class": "cluster_moved_redirect_retry",
-        "license": "SEE_REPO",
-        "memory_role": "unseen_variant",
-        "n_files": 3,
-        "notes": "Track S3 region redirect feature id (#3804)",
-        "patch_ref": "https://github.com/boto/botocore/commit/3fe1b11f7e4ef0267bbb23e91946cb11dea355e3",
-        "paths": [
-          "botocore/useragent.py",
-          "botocore/utils.py",
-          "tests/functional/test_useragent.py"
-        ],
-        "repo": "boto/botocore",
-        "repo_url": "https://github.com/boto/botocore",
-        "task_id": "y25_botocore_3fe1b11f7e4e"
-      }
-    },
-    {
-      "failure_class": "cookie_secure_shared_policy",
-      "first": {
-        "additions": 74,
-        "commit_sha": "6bc84990f2a6429667f741d97f5da22884b8a8d3",
-        "deletions": 3,
-        "failure_class": "cookie_secure_shared_policy",
-        "license": "SEE_REPO",
-        "memory_role": "first",
-        "n_files": 7,
-        "notes": "Fix treat_as_secure_origin on request cookies (#13833)",
-        "patch_ref": "https://github.com/aio-libs/aiohttp/commit/6bc84990f2a6429667f741d97f5da22884b8a8d3",
-        "paths": [
-          "CHANGES/13833.bugfix.rst",
-          "aiohttp/abc.py",
-          "aiohttp/client.py",
-          "aiohttp/cookiejar.py",
+          "CHANGES/13829.deprecation.rst",
+          "aiohttp/connector.py",
+          "docs/client_advanced.rst",
           "docs/client_reference.rst",
+          "examples/fake_server.py",
           "tests/test_client_functional.py",
-          "tests/test_cookiejar.py"
+          "tests/test_connector.py",
+          "tests/test_proxy_functional.py",
+          "tests/test_web_sendfile_functional.py"
         ],
         "repo": "aio-libs/aiohttp",
         "repo_url": "https://github.com/aio-libs/aiohttp",
-        "task_id": "y25_aiohttp_6bc84990f2a6"
+        "task_id": "y25_aiohttp_25f30573cc01"
       },
       "pack": "DEV",
-      "pair_id": "y25_pair_20_cookie_secure_shared_policy",
+      "pair_id": "y25_pair_18_ssl_connector_deprecation_edge",
       "same_repo": false,
       "transfer_difficulty": "MEDIUM",
-      "transfer_note": "Secure/shared cookie policy across request origin checks",
+      "transfer_note": "SSL connector configuration edge cases across HTTP clients",
       "unseen_variant": {
-        "additions": 52,
-        "commit_sha": "699dae42f5ee0a90b358d00db9aebe9c67e9283f",
-        "deletions": 15,
-        "failure_class": "cookie_secure_shared_policy",
+        "additions": 27,
+        "commit_sha": "652f051feaf1ab2828e1812eb0c48f9046a8b5ce",
+        "deletions": 13,
+        "failure_class": "ssl_connector_deprecation_edge",
         "license": "SEE_REPO",
         "memory_role": "unseen_variant",
         "n_files": 2,
-        "notes": "Include Vary: Origin on all normal CORS responses (#3516)",
-        "patch_ref": "https://github.com/Kludex/starlette/commit/699dae42f5ee0a90b358d00db9aebe9c67e9283f",
+        "notes": "Documentation for SSL_CERT_FILE and SSL_CERT_DIR (#3579)",
+        "patch_ref": "https://github.com/encode/httpx/commit/652f051feaf1ab2828e1812eb0c48f9046a8b5ce",
         "paths": [
-          "starlette/middleware/cors.py",
-          "tests/middleware/test_cors.py"
+          "docs/advanced/ssl.md",
+          "docs/environment_variables.md"
         ],
-        "repo": "encode/starlette",
-        "repo_url": "https://github.com/encode/starlette",
-        "task_id": "y25_starlette_699dae42f5ee"
+        "repo": "encode/httpx",
+        "repo_url": "https://github.com/encode/httpx",
+        "task_id": "y25_httpx_652f051feaf1"
       }
     },
     {
-      "failure_class": "cron_heartbeat_self_heal",
+      "failure_class": "upload_buffer_blocksize",
       "first": {
-        "additions": 95,
-        "commit_sha": "85936ce63d704eb64bfbf8f58bda3e37711f3f3b",
-        "deletions": 44,
-        "failure_class": "cron_heartbeat_self_heal",
+        "additions": 59,
+        "commit_sha": "911bc94d227519483c82e516e2bf10860396afd5",
+        "deletions": 0,
+        "failure_class": "upload_buffer_blocksize",
         "license": "SEE_REPO",
         "memory_role": "first",
         "n_files": 4,
-        "notes": "Make CronScheduler.heartbeat() self heals, if it still runs after brief connection timeouts (#2467)",
-        "patch_ref": "https://github.com/rq/rq/commit/85936ce63d704eb64bfbf8f58bda3e37711f3f3b",
+        "notes": "Document upload buffering and `blocksize` tuning (#5269)",
+        "patch_ref": "https://github.com/urllib3/urllib3/commit/911bc94d227519483c82e516e2bf10860396afd5",
+        "paths": [
+          "changelog/5269.doc.rst",
+          "docs/advanced-usage.rst",
+          "docs/user-guide.rst",
+          "src/urllib3/connection.py"
+        ],
+        "repo": "urllib3/urllib3",
+        "repo_url": "https://github.com/urllib3/urllib3",
+        "task_id": "y25_urllib3_911bc94d2275"
+      },
+      "pack": "DEV",
+      "pair_id": "y25_pair_20_upload_buffer_blocksize",
+      "same_repo": false,
+      "transfer_difficulty": "HARD",
+      "transfer_note": "Upload/buffer sizing vs worker event buffer flush discipline",
+      "unseen_variant": {
+        "additions": 16,
+        "commit_sha": "41db6a707f2636526847dbda0e5610e732e6b4fc",
+        "deletions": 1,
+        "failure_class": "upload_buffer_blocksize",
+        "license": "SEE_REPO",
+        "memory_role": "unseen_variant",
+        "n_files": 2,
+        "notes": "Stabilize CodSpeed upload buffer allocations (#3524)",
+        "patch_ref": "https://github.com/Kludex/starlette/commit/41db6a707f2636526847dbda0e5610e732e6b4fc",
+        "paths": [
+          ".github/workflows/benchmark.yml",
+          "benchmarks/README.md"
+        ],
+        "repo": "encode/starlette",
+        "repo_url": "https://github.com/encode/starlette",
+        "task_id": "y25_starlette_41db6a707f26"
+      }
+    },
+    {
+      "failure_class": "cron_registry_observability",
+      "first": {
+        "additions": 172,
+        "commit_sha": "e1b13ffb08fd81ecae6048f63c049c9a38560b40",
+        "deletions": 5,
+        "failure_class": "cron_registry_observability",
+        "license": "SEE_REPO",
+        "memory_role": "first",
+        "n_files": 4,
+        "notes": "Added a CronJobRegistry so we can monitor cron job histories without active schedulers (#2464)",
+        "patch_ref": "https://github.com/rq/rq/commit/e1b13ffb08fd81ecae6048f63c049c9a38560b40",
         "paths": [
           "rq/cron.py",
-          "rq/cron_scheduler_registry.py",
-          "rq/defaults.py",
-          "tests/test_cron.py"
+          "rq/cron_job_registry.py",
+          "tests/test_cron_job.py",
+          "tests/test_cron_job_registry.py"
         ],
         "repo": "rq/rq",
         "repo_url": "https://github.com/rq/rq",
-        "task_id": "y25_rq_85936ce63d70"
+        "task_id": "y25_rq_e1b13ffb08fd"
       },
       "pack": "DEV",
-      "pair_id": "y25_pair_22_cron_heartbeat_self_heal",
+      "pair_id": "y25_pair_25_cron_registry_observability",
       "same_repo": false,
-      "transfer_difficulty": "MEDIUM",
-      "transfer_note": "Scheduler heartbeat must self-heal after brief control-plane stalls",
+      "transfer_difficulty": "HARD",
+      "transfer_note": "Cron/job registries for history vs eager_start scheduling knobs",
       "unseen_variant": {
-        "additions": 5,
-        "commit_sha": "7103643295368d2e67efc6842b47dc5be73a77f7",
-        "deletions": 4,
-        "failure_class": "cron_heartbeat_self_heal",
+        "additions": 62,
+        "commit_sha": "3cbb09560ed1753089133a3925b130ec5e151826",
+        "deletions": 8,
+        "failure_class": "cron_registry_observability",
         "license": "SEE_REPO",
         "memory_role": "unseen_variant",
-        "n_files": 1,
-        "notes": "docs: update default value of interval_max in retry_policy (#10717)",
-        "patch_ref": "https://github.com/celery/celery/commit/7103643295368d2e67efc6842b47dc5be73a77f7",
+        "n_files": 3,
+        "notes": "feat: support eager_start kwarg (#748)",
+        "patch_ref": "https://github.com/MagicStack/uvloop/commit/3cbb09560ed1753089133a3925b130ec5e151826",
         "paths": [
-          "docs/userguide/calling.rst"
+          "tests/test_base.py",
+          "uvloop/loop.pyi",
+          "uvloop/loop.pyx"
         ],
-        "repo": "celery/celery",
-        "repo_url": "https://github.com/celery/celery",
-        "task_id": "y25_celery_710364329536"
+        "repo": "MagicStack/uvloop",
+        "repo_url": "https://github.com/MagicStack/uvloop",
+        "task_id": "y25_uvloop_3cbb09560ed1"
       }
     }
   ],
@@ -546,24 +565,24 @@
   "stats": {
     "cross_repo_pairs": 12,
     "failure_classes": [
-      "admin_date_hierarchy_range",
       "buffered_event_flush_ordering",
-      "cluster_moved_redirect_retry",
       "connect_timeout_propagation",
-      "cookie_secure_shared_policy",
-      "cron_heartbeat_self_heal",
+      "cron_registry_observability",
       "exception_escape_from_protocol_layer",
+      "http_range_conditional_split",
       "job_pipeline_rate_limit_honor",
       "multipart_stream_eof_safety",
-      "redirect_topology_refresh",
+      "out_of_range_protocol_field",
       "schedule_timebase_utc",
-      "tls_stream_lifecycle_on_timeout"
+      "ssl_connector_deprecation_edge",
+      "tls_stream_lifecycle_on_timeout",
+      "upload_buffer_blocksize"
     ],
     "n_pairs": 12,
     "same_repo_pairs": 0,
     "transfer_difficulty": {
-      "HARD": 4,
-      "MEDIUM": 8
+      "HARD": 5,
+      "MEDIUM": 7
     }
   },
   "status": "POPULATED"
