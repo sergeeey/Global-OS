@@ -1,0 +1,7 @@
+F.                                                                       [100%]
+=================================== FAILURES ===================================
+E   Failed: DID NOT RAISE ValueError
+/workspace/artifacts/external/EW2_oss_incident/repro/test_regression_blocksize_zero.py:21: Failed: DID NOT RAISE ValueError
+=========================== short test summary info ============================
+FAILED ../../workspace/artifacts/external/EW2_oss_incident/repro/test_regression_blocksize_zero.py::test_blocksize_zero_rejects_file_like_body
+1 failed, 1 passed in 0.24s

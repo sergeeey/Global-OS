@@ -1,0 +1,41 @@
+{
+  "blockers": [],
+  "budget": {
+    "gos_code_edits_cap": 0,
+    "gos_code_edits_used": 0,
+    "hypothesis_pivots_cap": 8,
+    "hypothesis_pivots_used": 4,
+    "provider_usd_cap": 5,
+    "provider_usd_used": 0,
+    "scripted_runs_cap": 40,
+    "scripted_runs_used": 8,
+    "wall_hours_cap": 6
+  },
+  "exam_id": "M-EXT1-EW2",
+  "finished_at_utc": "2026-10-01T09:48:05.182447+00:00",
+  "goal_status": "GOAL_LOCKED",
+  "gos_modified": false,
+  "hard_gate": {
+    "counterevidence": true,
+    "patch_eliminates": true,
+    "regression_fail_before_pass_after": true,
+    "repro": true
+  },
+  "phases": {
+    "A_pin_env": "DONE",
+    "B_repro": "DONE",
+    "C_hypotheses": "DONE",
+    "D_terminal": "DONE",
+    "E_debrief": "DONE"
+  },
+  "protocol_id": "EW2-OSS-v1",
+  "started_at_utc": "2026-10-01T09:50:00Z",
+  "terminal_verdict": "ROOT_CAUSE_CONFIRMED",
+  "urllib3": {
+    "issue": 5248,
+    "issue_url": "https://github.com/urllib3/urllib3/issues/5248",
+    "working_sha": "796d200d3070ead69ec3a5d848fecf52a2249b59",
+    "worktree": "/tmp/urllib3-ew2"
+  },
+  "y24_y25_cited": false
+}

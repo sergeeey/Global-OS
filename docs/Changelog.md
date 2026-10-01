@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.112 — 2026-10-01
+
+### M-EXT1 EW2 exam: urllib3#5248 ROOT_CAUSE_CONFIRMED
+
+- Large external exam under Goal Contract + budget envelope
+- Reproduced silent empty chunked upload at `blocksize=0` on pin SHA
+- H_zero_blocksize_read_loop confirmed; H2–H4 rejected with counterevidence
+- Hard gate: regression fails before patch / passes after; proposed_fix.diff upstream-ready
+- GOS architecture unchanged; EW1 still queued; Y24/Y25 not cited
+
 ## 0.1.111 — 2026-10-01
 
 ### External dual missions locked (EW1 science + EW2 OSS)

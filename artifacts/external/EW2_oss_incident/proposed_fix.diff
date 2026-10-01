@@ -1,0 +1,32 @@
+diff --git a/src/urllib3/connection.py b/src/urllib3/connection.py
+index 7e3752c..fae65de 100644
+--- a/src/urllib3/connection.py
++++ b/src/urllib3/connection.py
+@@ -182,6 +182,10 @@ class HTTPConnection(_HTTPConnection):
+         proxy: Url | None = None,
+         proxy_config: ProxyConfig | None = None,
+     ) -> None:
++        if blocksize <= 0:
++            raise ValueError(
++                f"blocksize must be > 0 for file-like request bodies, not {blocksize!r}"
++            )
+         super().__init__(
+             host=host,
+             port=port,
+diff --git a/src/urllib3/util/request.py b/src/urllib3/util/request.py
+index 8c6c7fb..e92a05d 100644
+--- a/src/urllib3/util/request.py
++++ b/src/urllib3/util/request.py
+@@ -262,6 +262,12 @@ def body_to_chunks(
+ 
+     # File-like object, TODO: use seek() and tell() for length?
+     elif hasattr(body, "read"):
++        # blocksize<=0 makes file.read(0) return b"" immediately in Python,
++        # which would silently upload an empty chunked body (urllib3#5248).
++        if blocksize <= 0:
++            raise ValueError(
++                f"blocksize must be > 0 for file-like request bodies, not {blocksize!r}"
++            )
+ 
+         def chunk_readable() -> typing.Iterable[bytes]:
+             encode = isinstance(body, io.TextIOBase)

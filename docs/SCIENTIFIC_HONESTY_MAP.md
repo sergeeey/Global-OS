@@ -177,9 +177,9 @@ Y24 CLOSED (scientific):
   Trust Kernel: UNCHANGED — do not rescue Y24 with more N/tuning/PACK-v4
 
 Y25 CAMPAIGN_CLOSED REJECT — memory NOT SHOWN at prereg strength; no F2
-EXTERNAL REAL WORK CONTRACT_LOCKED
-  EW1: coupled logistic chaotic-transient predictor (NOT Y19 reopen)
-  EW2: urllib3#5248 blocksize=0 silent body drop (issue pinned)
-  Goal: external result — not Global OS self-proof
-  Forbidden: cite Y24/Y25 as evidence for EW1/EW2
+EXTERNAL REAL WORK
+  M-EXT1 EW2: urllib3#5248 ROOT_CAUSE_CONFIRMED (hard gate; upstream-ready pack)
+  EW1: still queued (NOT started)
+  GOS architecture UNCHANGED; Y24/Y25 not evidence
+  Success = external reproducible result, not self-proof
 ```

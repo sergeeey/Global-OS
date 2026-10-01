@@ -1,0 +1,3 @@
+default_has_payload True
+zero_has_payload False
+zero_repr b'POST /upload HTTP/1.1\r\nHost: 127.0.0.1:39405\r\nAccept-Encoding: identity\r\nTransfer-Encoding: chunked\r\nUser-Agent: python-urllib3/0.1.dev1\r\n\r\n0\r\n\r\n'

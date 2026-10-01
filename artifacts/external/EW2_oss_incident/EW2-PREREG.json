@@ -17,7 +17,7 @@
     "H_http2_or_proxy_path",
     "H_not_reproducible"
   ],
-  "investigation_started": false,
+  "investigation_started": true,
   "mission_id": "EW2",
   "pin_path": "artifacts/external/EW2_oss_incident/EW2_PIN.json",
   "pin_status": "ISSUE_AND_HEAD_PINNED",
@@ -36,5 +36,6 @@
     "repo": "urllib3/urllib3",
     "title": "HTTPConnection(blocksize=0) silently drops file-like request bodies"
   },
+  "terminal_verdict": "ROOT_CAUSE_CONFIRMED",
   "y24_y25_not_evidence": true
 }

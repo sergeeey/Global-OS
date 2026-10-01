@@ -1,0 +1,2 @@
+default_payload True
+zero_raises True blocksize must be > 0 for file-like request bodies, not 0
