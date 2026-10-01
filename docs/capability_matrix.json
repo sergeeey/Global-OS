@@ -356,10 +356,11 @@
       "terminal": "INCONCLUSIVE"
     },
     "M_EXT3": {
-      "status": "PREREG_LOCKED",
+      "status": "CLOSED",
       "protocol_id": "M-EXT3-GSA-v1",
-      "arms_started": false,
-      "focus": "gos_vs_strong_single_agent_external_oss"
+      "terminal": "TIE",
+      "task": "encode/httpx#3614",
+      "h_gsa_primary_advantage": "NOT_CONFIRMED"
     }
   }
 }

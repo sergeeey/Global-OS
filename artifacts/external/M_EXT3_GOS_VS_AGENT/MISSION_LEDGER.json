@@ -3,7 +3,7 @@
   "protocol_id": "M-EXT3-GSA-v1",
   "goal_status": "GOAL_LOCKED",
   "prereg_status": "PREREG_LOCKED",
-  "arms_started": false,
+  "arms_started": true,
   "task_pin_status": "TASK_PINNED",
   "task_pin": "TASK_PIN.json",
   "public_pack_manifest": "sealed/public_pack_manifest.json",
@@ -14,28 +14,35 @@
   "phases": {
     "A_prereg": "DONE",
     "B_task_pin": "DONE",
-    "C_arm_A": "READY",
-    "D_arm_B": "BLOCKED_ON_ARM_A_FREEZE",
-    "E_score": "BLOCKED",
-    "F_close": "BLOCKED"
+    "C_arm_A": "DONE",
+    "D_arm_B": "DONE",
+    "E_score": "DONE",
+    "F_close": "DONE"
   },
   "arms": {
     "A": {
       "role": "strong_single_agent_baseline",
-      "status": "NOT_STARTED"
+      "status": "FROZEN_SCORED",
+      "HG": 1,
+      "terminal": "ROOT_CAUSE_CONFIRMED"
     },
     "B": {
       "role": "current_gos_assembled_workflow",
-      "status": "NOT_STARTED"
+      "status": "FROZEN_SCORED",
+      "HG": 1,
+      "terminal": "ROOT_CAUSE_CONFIRMED"
     }
   },
-  "terminal_verdict": null,
-  "started_at_utc": null,
+  "terminal_verdict": "TIE",
+  "h_gsa_primary_advantage": "NOT_CONFIRMED",
+  "started_at_utc": "2026-10-01T12:35:00Z",
+  "finished_at_utc": "2026-10-01T12:55:00Z",
   "budget_template": {
     "wall_hours_cap": 6,
     "scripted_runs_cap": 40,
     "hypothesis_pivots_cap": 8,
     "provider_usd_cap": 5,
     "gos_code_edits_cap": 0
-  }
+  },
+  "closed_record": "M_EXT3_CLOSED.json"
 }

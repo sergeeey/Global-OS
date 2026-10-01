@@ -1,0 +1,15 @@
+{
+  "arm_id": "B",
+  "style": "gos_goal_epistemic_counterevidence_terminal",
+  "steps": [
+    "lock Arm B GOAL_CONTRACT from public pack",
+    "register H1–H4 competing explanations",
+    "repro + counterevidence matrix (H2–H4 disconfirmed/rejected; H1 confirmed)",
+    "path-only trailing-slash patch",
+    "regression FAIL before / PASS after",
+    "ROOT_CAUSE.md + ledger + freeze submission"
+  ],
+  "competing_explanations_formal_doc": true,
+  "gos_artifacts": true,
+  "read_arm_A": false
+}

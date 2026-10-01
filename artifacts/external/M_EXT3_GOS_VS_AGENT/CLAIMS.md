@@ -1,19 +1,18 @@
-# M-EXT3 — Allowed claims (pre-execution)
+# M-EXT3 — Claims (post-terminal)
 
-## May say now
+## May say
 
-- Prereg for GOS vs strong single agent on external OSS task is **LOCKED**.
-- Arms have **not** started; task is **not** pinned yet.
-- M-EXT1/M-EXT2 priors remain immutable/closed; they are **not** H_GSA evidence.
+> Under protocol `M-EXT3-GSA-v1`, on pinned task encode/httpx#3614, with equal
+> budgets, primary verdict was **TIE** (both arms hard-gate `ROOT_CAUSE_CONFIRMED`).
+> H_GSA primary advantage: **NOT CONFIRMED**. Universal superiority: **not claimed**.
 
-## Must not say yet
+## Must not say
 
 - “Global OS beats a strong single agent”
 - “Causal GOS advantage SHOWN”
-- Any Arm A/B score or hard-gate result
+- “TIE means GOS is useless” / “TIE means GOS is validated as equal”
 
-## After terminal (template)
+## External engineering claim (arm-independent)
 
-> Under protocol `M-EXT3-GSA-v1`, on pinned task `<issue>`, with equal budgets,
-> primary verdict was `<B_ADVANTAGE|A_ADVANTAGE|TIE|TIE_NULL|INCONCLUSIVE>`
-> within protocol scope. Universal superiority: **not claimed**.
+httpx#3614 root cause (trailing slash on `raw_path` corrupting query) has
+reproducible patch + regression in arm artifacts — optional upstream filing.

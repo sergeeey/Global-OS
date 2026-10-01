@@ -26,5 +26,5 @@
   "why_not_3782": "issue comments already contain full RCA \u2014 contaminated for comparison",
   "selection_repro_note": "On tip SHA, Client(base_url='https://httpbingo.org/get?data=1').base_url.query == b'data=1/' (corrupt trailing slash)",
   "pinned_at_utc": "2026-10-01T12:31:06Z",
-  "arms_started": false
+  "arms_started": true
 }

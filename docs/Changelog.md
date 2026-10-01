@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.115 — 2026-10-01
+
+### M-EXT3 CLOSED TIE — GOS vs strong single agent (httpx#3614)
+
+- Pinned encode/httpx#3614 (`base_url` query → trailing-slash corruption)
+- Arm A (strong agent) + Arm B (GOS): both hard-gate `ROOT_CAUSE_CONFIRMED` → **TIE**
+- Root cause: `_enforce_trailing_slash` mutates `raw_path` including query
+- H_GSA primary advantage NOT CONFIRMED; architecture unchanged; M-EXT1 untouched
+- Same-lineage sequential caveat recorded; no post-hoc win-hunt
+
 ## 0.1.114 — 2026-10-01
 
 ### M-EXT3 prereg: GOS vs strong single agent

@@ -1,0 +1,38 @@
+{
+  "exam_id": "M-EXT3-GSA",
+  "protocol_id": "M-EXT3-GSA-v1",
+  "task": "encode/httpx#3614",
+  "working_sha": "b5addb64f0161ff6bfe94c124ef76f6a1fba5254",
+  "arms": {
+    "A": {
+      "HG": 1,
+      "terminal": "ROOT_CAUSE_CONFIRMED",
+      "submission": "arms/A/submission.json"
+    },
+    "B": {
+      "HG": 1,
+      "terminal": "ROOT_CAUSE_CONFIRMED",
+      "submission": "arms/B/submission.json"
+    }
+  },
+  "primary_verdict": "TIE",
+  "primary_rule": "HG(A)=1 and HG(B)=1 → TIE",
+  "h_gsa": "NOT_CONFIRMED_NO_PRIMARY_ADVANTAGE",
+  "secondary": {
+    "note": "Cannot override primary to manufacture B_ADVANTAGE",
+    "formal_competing_explanations_doc": {"A": false, "B": true},
+    "counterevidence_matrix_artifact": {"A": false, "B": true},
+    "human_interventions": {"A": 0, "B": 0},
+    "budget_remaining_wall_hours_approx": {"A": 5.65, "B": 5.5}
+  },
+  "integrity": {
+    "equal_budgets": true,
+    "identical_public_pack": true,
+    "gos_architecture_changed": false,
+    "m_ext1_polished": false,
+    "m_ext2_f2": false,
+    "same_lineage_caveat": "both_arms_same_cloud_agent_session_sequential_isolation",
+    "cross_arm_workdir_read_claimed": false
+  },
+  "scored_at_utc": "2026-10-01T12:55:00Z"
+}

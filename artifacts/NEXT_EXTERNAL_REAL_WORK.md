@@ -51,6 +51,7 @@ Contract: `artifacts/external/CONTRACT/EXTERNAL_REAL_WORK.md` (`CONTRACT_LOCKED`
 |----|--------|--------|
 | **EW1 / M-EXT2** | `CLOSED` **INCONCLUSIVE** | Label degeneracy (0 negatives); class-balance gate; no retune |
 | **EW2 / M-EXT1** | `IMMUTABLE` **ROOT_CAUSE_CONFIRMED** | urllib3#5248 deliverable pack |
-| **M-EXT3 / GSA** | `PREREG_LOCKED` awaiting task pin | GOS vs strong single agent (OSS class) |
+| **M-EXT3 / GSA** | `CLOSED` **TIE** | httpx#3614; HG(A)=HG(B)=1; H_GSA NOT CONFIRMED |
 
-Next exact: pin external OSS task under `M_EXT3_GOS_VS_AGENT/TASK_SELECTION.md`, then run equal-budget arms. Optional upstream filing of M-EXT1 pack = external use, not self-test.
+Optional upstream filing of M-EXT1/M-EXT3 packs = external use, not self-test.
+Do not fish a harder task post-hoc for a GOS “win” without new prereg.

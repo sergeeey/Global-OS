@@ -1,0 +1,37 @@
+{
+  "arm_id": "B",
+  "exam_id": "M-EXT3-GSA",
+  "protocol_id": "M-EXT3-GSA-v1",
+  "task": "encode/httpx#3614",
+  "working_sha": "b5addb64f0161ff6bfe94c124ef76f6a1fba5254",
+  "gos_loop": true,
+  "gos_modified": false,
+  "terminal_verdict": "ROOT_CAUSE_CONFIRMED",
+  "hard_gate": {
+    "stable_repro_on_pinned_sha": true,
+    "mechanism_plus_disconfirming_tests": true,
+    "patch_eliminates_on_repro": true,
+    "regression_fail_before_pass_after": true
+  },
+  "budget": {
+    "wall_hours_cap": 6,
+    "wall_hours_used_approx": 0.5,
+    "scripted_runs_cap": 40,
+    "scripted_runs_used": 8,
+    "hypothesis_pivots_cap": 8,
+    "hypothesis_pivots_used": 4,
+    "provider_usd_cap": 5,
+    "provider_usd_used": 0,
+    "gos_code_edits_cap": 0,
+    "gos_code_edits_used": 0
+  },
+  "phases": {
+    "A_pin_env": "DONE",
+    "B_repro": "DONE",
+    "C_hypotheses": "DONE",
+    "D_terminal": "DONE",
+    "E_debrief": "DONE"
+  },
+  "y24_y25_cited": false,
+  "read_arm_A": false
+}

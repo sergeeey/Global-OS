@@ -2,7 +2,7 @@
   "protocol_id": "M-EXT3-GSA-v1",
   "exam_id": "M-EXT3-GSA",
   "status": "PREREG_LOCKED",
-  "arms_started": false,
+  "arms_started": true,
   "hypothesis_id": "H_GSA",
   "hypothesis": "On pinned open OSS incident under equal budgets, GOS workflow (B) hard-gate ROOT_CAUSE_CONFIRMED more/completer than strong single agent (A)",
   "task_class": "OSS_INCIDENT_M_EXT1_CLASS",
