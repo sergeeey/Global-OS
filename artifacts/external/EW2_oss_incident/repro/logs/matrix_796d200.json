@@ -1,0 +1,52 @@
+{
+  "payload": "SECRET_PAYLOAD_C3_BLOCKSIZE_ZERO",
+  "results": [
+    {
+      "blocksize": "default",
+      "payload_on_wire": true,
+      "transfer_encoding_chunked": true,
+      "silent_empty_chunked_body": false,
+      "wire_len": 183,
+      "wire_tail_hex": "65722d4167656e743a20707974686f6e2d75726c6c6962332f302e312e646576310d0a0d0a32300d0a5345435245545f5041594c4f41445f43335f424c4f434b53495a455f5a45524f0d0a300d0a0d0a",
+      "wire_utf8_lossy": "POST /upload HTTP/1.1\r\nHost: 127.0.0.1:35295\r\nAccept-Encoding: identity\r\nTransfer-Encoding: chunked\r\nUser-Agent: python-urllib3/0.1.dev1\r\n\r\n20\r\nSECRET_PAYLOAD_C3_BLOCKSIZE_ZERO\r\n0\r\n\r\n"
+    },
+    {
+      "blocksize": 16384,
+      "payload_on_wire": true,
+      "transfer_encoding_chunked": true,
+      "silent_empty_chunked_body": false,
+      "wire_len": 183,
+      "wire_tail_hex": "65722d4167656e743a20707974686f6e2d75726c6c6962332f302e312e646576310d0a0d0a32300d0a5345435245545f5041594c4f41445f43335f424c4f434b53495a455f5a45524f0d0a300d0a0d0a",
+      "wire_utf8_lossy": "POST /upload HTTP/1.1\r\nHost: 127.0.0.1:35295\r\nAccept-Encoding: identity\r\nTransfer-Encoding: chunked\r\nUser-Agent: python-urllib3/0.1.dev1\r\n\r\n20\r\nSECRET_PAYLOAD_C3_BLOCKSIZE_ZERO\r\n0\r\n\r\n"
+    },
+    {
+      "blocksize": 8192,
+      "payload_on_wire": true,
+      "transfer_encoding_chunked": true,
+      "silent_empty_chunked_body": false,
+      "wire_len": 183,
+      "wire_tail_hex": "65722d4167656e743a20707974686f6e2d75726c6c6962332f302e312e646576310d0a0d0a32300d0a5345435245545f5041594c4f41445f43335f424c4f434b53495a455f5a45524f0d0a300d0a0d0a",
+      "wire_utf8_lossy": "POST /upload HTTP/1.1\r\nHost: 127.0.0.1:35295\r\nAccept-Encoding: identity\r\nTransfer-Encoding: chunked\r\nUser-Agent: python-urllib3/0.1.dev1\r\n\r\n20\r\nSECRET_PAYLOAD_C3_BLOCKSIZE_ZERO\r\n0\r\n\r\n"
+    },
+    {
+      "blocksize": 1,
+      "payload_on_wire": false,
+      "transfer_encoding_chunked": true,
+      "silent_empty_chunked_body": true,
+      "wire_len": 337,
+      "wire_tail_hex": "4c0d0a310d0a4f0d0a310d0a430d0a310d0a4b0d0a310d0a530d0a310d0a490d0a310d0a5a0d0a310d0a450d0a310d0a5f0d0a310d0a5a0d0a310d0a450d0a310d0a520d0a310d0a4f0d0a300d0a0d0a",
+      "wire_utf8_lossy": "POST /upload HTTP/1.1\r\nHost: 127.0.0.1:35295\r\nAccept-Encoding: identity\r\nTransfer-Encoding: chunked\r\nUser-Agent: python-urllib3/0.1.dev1\r\n\r\n1\r\nS\r\n1\r\nE\r\n1\r\nC\r\n1\r\nR\r\n1\r\nE\r\n1\r\nT\r\n1\r\n_\r\n1\r\nP\r\n1\r\nA\r\n1\r\nY\r\n1\r\nL\r\n1\r\nO\r\n1\r\nA\r\n1\r\nD\r\n1\r\n_\r\n1\r\nC\r\n1\r\n3\r\n1\r\n_\r\n1\r\nB\r\n1\r\nL\r\n1\r\nO\r\n1\r\nC\r\n1\r\nK\r\n1\r\nS\r\n1\r\nI\r\n1\r\nZ\r\n1\r\nE\r\n1\r\n_\r\n1\r\nZ\r\n1\r\nE\r\n1\r\nR\r\n1\r\nO\r\n0\r\n\r\n"
+    },
+    {
+      "blocksize": 0,
+      "payload_on_wire": false,
+      "transfer_encoding_chunked": true,
+      "silent_empty_chunked_body": true,
+      "wire_len": 145,
+      "wire_tail_hex": "656e746974790d0a5472616e736665722d456e636f64696e673a206368756e6b65640d0a557365722d4167656e743a20707974686f6e2d75726c6c6962332f302e312e646576310d0a0d0a300d0a0d0a",
+      "wire_utf8_lossy": "POST /upload HTTP/1.1\r\nHost: 127.0.0.1:35295\r\nAccept-Encoding: identity\r\nTransfer-Encoding: chunked\r\nUser-Agent: python-urllib3/0.1.dev1\r\n\r\n0\r\n\r\n"
+    }
+  ],
+  "bug_reproduced": true,
+  "default_sends_payload": true
+}

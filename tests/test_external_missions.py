@@ -40,7 +40,8 @@ def test_ew2_urllib3_issue_pinned() -> None:
     assert raw["target"]["repo"] == "urllib3/urllib3"
     assert pin["issue_number"] == 5248
     assert pin["urllib3_head_sha_at_pin"]
-    assert raw["investigation_started"] is False
+    assert raw["investigation_started"] is True
+    assert raw.get("terminal_verdict") == "ROOT_CAUSE_CONFIRMED"
     assert (EXT / "EW2_oss_incident" / "ISSUE_SNAPSHOT.json").is_file()
 
 
@@ -50,3 +51,33 @@ def test_y24_y25_remain_closed() -> None:
     assert y24["status"] == "CAMPAIGN_CLOSED"
     assert y25["status"] == "CAMPAIGN_CLOSED"
     assert y25["y25_f2"] == "FORBIDDEN_NOW"
+
+
+def test_m_ext1_ew2_exam_terminal() -> None:
+    exam = EXT / "M_EXT1_EW2_EXAM"
+    goal = (exam / "GOAL_CONTRACT.md").read_text(encoding="utf-8")
+    assert "budget envelope" in goal.lower() or "Budget envelope" in goal or "Time / budget" in goal
+    assert "ROOT_CAUSE_CONFIRMED" in goal
+    assert "fails before patch" in goal.lower() or "FAILS before" in goal or "fails before" in goal
+    ledger = json.loads((exam / "MISSION_LEDGER.json").read_text(encoding="utf-8"))
+    assert ledger["terminal_verdict"] == "ROOT_CAUSE_CONFIRMED"
+    assert ledger["gos_modified"] is False
+    assert ledger["hard_gate"]["regression_fail_before_pass_after"] is True
+    root = (EXT / "EW2_oss_incident" / "ROOT_CAUSE.md").read_text(encoding="utf-8")
+    assert "ROOT_CAUSE_CONFIRMED" in root
+    assert (EXT / "EW2_oss_incident" / "proposed_fix.diff").is_file()
+    before = (EXT / "EW2_oss_incident" / "repro" / "logs" / "regression_BEFORE_patch.txt").read_text(
+        encoding="utf-8"
+    )
+    after = (EXT / "EW2_oss_incident" / "repro" / "logs" / "regression_AFTER_patch.txt").read_text(
+        encoding="utf-8"
+    )
+    assert "FAILED" in before
+    assert "2 passed" in after
+    bottlenecks = (exam / "BOTTLENECKS.md").read_text(encoding="utf-8")
+    assert "Intrinsic" in bottlenecks
+    assert "Global OS" in bottlenecks
+    ew1 = json.loads(
+        (EXT / "EW1_transient_predictor" / "CURRENT_STATE.json").read_text(encoding="utf-8")
+    )
+    assert ew1["arms_started"] is False

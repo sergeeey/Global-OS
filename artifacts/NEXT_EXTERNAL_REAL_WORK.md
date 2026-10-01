@@ -50,6 +50,6 @@ Contract: `artifacts/external/CONTRACT/EXTERNAL_REAL_WORK.md` (`CONTRACT_LOCKED`
 | Id | Status | Target |
 |----|--------|--------|
 | **EW1** | `PREREG_LOCKED` | Coupled logistic-map lattice — early predictor of long/chaotic transient vs strong baseline (`EW1-CTP-v1`). **Not** Y19 reopen. |
-| **EW2** | `PREREG_LOCKED` + issue pinned | [urllib3#5248](https://github.com/urllib3/urllib3/issues/5248) — `blocksize=0` silently drops file-like bodies |
+| **EW2** | `TERMINAL` **ROOT_CAUSE_CONFIRMED** | [urllib3#5248](https://github.com/urllib3/urllib3/issues/5248) — see `M_EXT1_EW2_EXAM/` |
 
-Next execution: generate/seal EW1 data **or** run EW2 repro matrix — without changing Global OS for score optics.
+Next: EW1 science exam (queued). Optional: file upstream PR from deliverable pack.
