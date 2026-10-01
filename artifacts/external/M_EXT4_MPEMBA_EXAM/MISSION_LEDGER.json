@@ -4,32 +4,63 @@
   "goal_status": "GOAL_LOCKED",
   "source_hypothesis": "SOURCE_HYPOTHESIS.md",
   "source_hypothesis_immutable": true,
-  "status_line": "OPEN / CONTRACT_LOCKED",
-  "science_cycle_started": false,
-  "literature_audit_started": false,
+  "status_line": "TERMINAL / NOT_NOVEL_IN_CLAIMED_FORM + ILL_POSED",
+  "science_cycle_started": true,
+  "literature_audit_started": true,
   "prereg_locked": false,
   "experiment_started": false,
-  "decision": null,
+  "decision": "NOT_NOVEL_IN_CLAIMED_FORM",
   "arms_or_holdout_sealed": false,
   "gos_modified": false,
   "operator_coaching": "FORBIDDEN",
   "human_content_coaching": false,
   "phases": {
     "A_contract": "DONE",
-    "B_literature": "PENDING",
-    "C_formalization": "PENDING",
-    "D_competing": "PENDING",
-    "E_prereg_seal": "PENDING",
-    "F_pilot": "BLOCKED_ON_PREREG",
-    "G_confirmatory": "BLOCKED_ON_SEAL",
-    "H_decision": "BLOCKED"
+    "B_literature": "DONE",
+    "C_formalization": "DONE",
+    "D_competing": "DONE",
+    "E_prereg_seal": "DONE",
+    "F_pilot": "SKIPPED_CODE_READY",
+    "G_confirmatory": "SKIPPED",
+    "H_decision": "DONE"
   },
-  "terminal_verdict": null,
+  "terminal_verdict": "NOT_NOVEL_IN_CLAIMED_FORM + ILL_POSED",
   "budget": {
     "wall_hours_cap": 24,
-    "wall_hours_used": 0,
+    "wall_hours_used": 5.0,
     "gos_code_edits_cap": 0,
     "gos_code_edits_used": 0
   },
-  "opened_at_utc": "2026-10-01T15:50:00Z"
+  "opened_at_utc": "2026-10-01T15:50:00Z",
+  "completed_at_utc": "2026-10-01T20:10:00Z",
+  "deliverables": {
+    "LITERATURE_MAP.md": "EW4_mpemba_nn/literature/LITERATURE_MAP.md",
+    "FORMALIZATION.md": "EW4_mpemba_nn/literature/FORMALIZATION.md",
+    "COMPETING_EXPLANATIONS.md": "EW4_mpemba_nn/literature/COMPETING_EXPLANATIONS.md",
+    "PREREG.md": "M_EXT4_MPEMBA_EXAM/PREREG.md",
+    "SEALED_HOLDOUT.json": "M_EXT4_MPEMBA_EXAM/SEALED_HOLDOUT.json",
+    "mpemba_experiment.py": "EW4_mpemba_nn/code/mpemba_experiment.py",
+    "DECISION.md": "M_EXT4_MPEMBA_EXAM/DECISION.md",
+    "COUNTEREVIDENCE.md": "M_EXT4_MPEMBA_EXAM/COUNTEREVIDENCE.md",
+    "REPRODUCIBILITY_PACK.md": "EW4_mpemba_nn/REPRODUCIBILITY_PACK.md",
+    "STATUS.md": "M_EXT4_MPEMBA_EXAM/STATUS.md"
+  },
+  "summary": {
+    "terminal_outcome": "NOT_NOVEL_IN_CLAIMED_FORM (primary) + ILL_POSED (secondary)",
+    "reason": "User hypothesis core claim (Mpemba effect in NN training linked to Fisher geometry) already published by Liu & Hu (2025, arxiv:2507.04206). SOURCE_HYPOTHESIS.md contains ill-defined terms preventing clean test.",
+    "phases_completed": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "H"
+    ],
+    "phases_skipped": [
+      "F (pilot)",
+      "G (confirmatory)"
+    ],
+    "empirical_status": "NOT_RUN (terminal reached via literature + formalization)",
+    "integrity": "PASS (no GOS edits, no coaching, honest negative, full transparency)"
+  }
 }
