@@ -184,7 +184,15 @@ EXTERNAL REAL WORK
   M-EXT3/GSA CLOSED TIE — httpx#3614; both arms HG=1 ROOT_CAUSE_CONFIRMED
   H_GSA primary advantage: NOT CONFIRMED (n=1; same-lineage caveat)
   Causal GOS vs strong agent universal superiority: NOT SHOWN
-  M-EXT4/EW4 MISSION_OPEN — Mpemba-like NN dynamics; unknown outcome;
-    source hypothesis immutable; no human content-coaching before terminal
-  Forbidden: Immune*/F2 fishing / polish M-EXT1 / post-hoc harder-task win-hunt
+  M-EXT4/EW4 TERMINAL + POST_HOC_AUDIT
+    exam: SUCCESSFUL SCIENTIFIC TRIAGE
+    broad novelty: NOT NOVEL (Liu & Hu 2025)
+    init-based novelty: UNRESOLVED
+    empirical Mpemba: NOT TESTED
+    formulation: PARTLY ILL-POSED
+    errata: stats 14/20, confirmatory CLI, Fisher overclaim, P≈0.6
+  M-EXT5/EW5 MISSION_OPEN — init-based Mpemba; H_EFFECT ⊥ H_FISHER;
+    mechanical gate PENDING; not an M-EXT4 rewrite
+  Process lesson: agent terminal → independent post-hoc audit → headline
+  Forbidden: Immune*/ScienceKernel / rewrite M-EXT4 / polish M-EXT1
 ```

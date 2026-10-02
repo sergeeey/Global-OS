@@ -58,8 +58,9 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 9. **Closed:** Y24/Y25; M-EXT1 IMMUTABLE; M-EXT2/EW1 INCONCLUSIVE; TK UNCHANGED.  
 10. **Evidence:** external OSS eng result + honest science INCONCLUSIVE.  
 11. **Closed:** M-EXT3 TIE on httpx#3614 — both arms hard-gated; H_GSA NOT CONFIRMED.  
-12. **Open:** M-EXT4 Mpemba NN science mission — contract locked; autonomous execution next.  
-13. **Not:** content-coach M-EXT4; win-hunt; Immune*; polish urllib3.
+12. **Audited:** M-EXT4 triage success + errata; init Mpemba UNRESOLVED / NOT TESTED.  
+13. **Open:** M-EXT5 init-based Mpemba (mechanical gate first).  
+14. **Not:** rewrite M-EXT4; ScienceKernel; Immune*; polish urllib3.
 
 ## Документы
 

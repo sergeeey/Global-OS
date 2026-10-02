@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.117 — 2026-10-02
+
+### M-EXT4 post-hoc audit + M-EXT5 open
+
+- Added `POST_HOC_AUDIT.md` / `ERRATA.md` / `ACCUMULATED_CLAIM.md` (M-EXT4 agent `DECISION.md` immutable)
+- Accumulated claim: SUCCESSFUL SCIENTIFIC TRIAGE; broad NOT NOVEL; init UNRESOLVED; empirical NOT TESTED
+- Opened M-EXT5 (`H_EFFECT` ⊥ `H_FISHER`) with mechanical correctness gate ALL PENDING
+- Science cycle for M-EXT5 not started; no GOS architecture changes
+
 ## 0.1.116 — 2026-10-01
 
 ### M-EXT4 mission open — Mpemba NN dynamics

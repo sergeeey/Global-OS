@@ -52,7 +52,8 @@ Contract: `artifacts/external/CONTRACT/EXTERNAL_REAL_WORK.md` (`CONTRACT_LOCKED`
 | **EW1 / M-EXT2** | `CLOSED` **INCONCLUSIVE** | Label degeneracy (0 negatives); class-balance gate; no retune |
 | **EW2 / M-EXT1** | `IMMUTABLE` **ROOT_CAUSE_CONFIRMED** | urllib3#5248 deliverable pack |
 | **M-EXT3 / GSA** | `CLOSED` **TIE** | httpx#3614; HG(A)=HG(B)=1; H_GSA NOT CONFIRMED |
-| **M-EXT4 / EW4** | `MISSION_OPEN` | Mpemba NN dynamics — contract locked; science cycle not started |
+| **M-EXT4 / EW4** | `TERMINAL` + post-hoc audit | Triage success; broad NOT NOVEL; init novelty UNRESOLVED; empirical NOT TESTED |
+| **M-EXT5 / EW5** | `MISSION_OPEN` | Init-based Mpemba; mechanical gate ALL PENDING; science not started |
 
-Next: autonomous M-EXT4 execution (literature → prereg → sealed confirmatory → terminal).
-**No human content-coaching** on hypothesis weaknesses. Optional upstream M-EXT1/3 = external use.
+Next: review/merge audit layer → execute M-EXT5 (gate → pilot → final prereg → seal → dual terminal).
+Do not rewrite M-EXT4. No Immune*/ScienceKernel.

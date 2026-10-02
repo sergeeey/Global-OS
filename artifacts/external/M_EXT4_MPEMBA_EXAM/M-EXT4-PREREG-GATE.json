@@ -1,8 +1,11 @@
 {
   "protocol_id": "M-EXT4-MPEMBA-v1",
   "exam_id": "M-EXT4-MPEMBA",
-  "status": "MISSION_OPEN",
-  "science_cycle_started": false,
+  "status": "TERMINAL_WITH_POST_HOC_AUDIT",
+  "science_cycle_started": true,
+  "agent_terminal": "NOT_NOVEL_IN_CLAIMED_FORM + ILL_POSED",
+  "exam_outcome_post_audit": "SUCCESSFUL_SCIENTIFIC_TRIAGE",
+  "accumulated_claim_path": "ACCUMULATED_CLAIM.md",
   "allowed_terminals": [
     "SUPPORTED_WITHIN_SCOPE",
     "REJECTED",

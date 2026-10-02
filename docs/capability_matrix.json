@@ -363,10 +363,18 @@
       "h_gsa_primary_advantage": "NOT_CONFIRMED"
     },
     "M_EXT4": {
-      "status": "MISSION_OPEN",
+      "status": "TERMINAL_WITH_POST_HOC_AUDIT",
       "protocol_id": "M-EXT4-MPEMBA-v1",
-      "science_cycle_started": false,
-      "focus": "mpemba_like_nn_parameter_dynamics"
+      "agent_terminal": "NOT_NOVEL_IN_CLAIMED_FORM + ILL_POSED",
+      "exam_outcome": "SUCCESSFUL_SCIENTIFIC_TRIAGE",
+      "init_based_novelty": "UNRESOLVED",
+      "empirical": "NOT_TESTED"
+    },
+    "M_EXT5": {
+      "status": "MISSION_OPEN",
+      "protocol_id": "M-EXT5-INIT-MPEMBA-v1",
+      "mechanical_gate": "ALL_PENDING",
+      "focus": "initialization_induced_mpemba_H_EFFECT_perp_H_FISHER"
     }
   }
 }

@@ -15,6 +15,7 @@ def test_external_contract_locked() -> None:
     assert "EW1" in raw["missions"] and "EW2" in raw["missions"]
     assert "M-EXT3-GSA" in raw["missions"]
     assert "M-EXT4-MPEMBA" in raw["missions"]
+    assert "M-EXT5-INIT-MPEMBA" in raw["missions"]
 
 
 def test_m_ext1_immutable() -> None:
@@ -104,24 +105,50 @@ def test_m_ext1_still_immutable_under_m_ext3() -> None:
     assert closed["gos_self_score_polish_forbidden"] is True
 
 
-def test_m_ext4_mission_open_science_not_started() -> None:
+def test_m_ext4_terminal_with_post_hoc_audit() -> None:
     exam = EXT / "M_EXT4_MPEMBA_EXAM"
-    gate = json.loads((exam / "M-EXT4-PREREG-GATE.json").read_text(encoding="utf-8"))
-    assert gate["status"] == "MISSION_OPEN"
-    assert gate["science_cycle_started"] is False
-    assert "ILL_POSED" in gate["allowed_terminals"]
-    assert "NOT_NOVEL_IN_CLAIMED_FORM" in gate["allowed_terminals"]
-    assert "human_content_coaching_before_terminal" in gate["forbidden"]
+    # Agent historical terminal remains
+    decision = (exam / "DECISION.md").read_text(encoding="utf-8")
+    assert "NOT_NOVEL_IN_CLAIMED_FORM" in decision
+    assert "ILL_POSED" in decision
+    # Audit layer corrects accumulated claim without rewriting DECISION meaning as sole headline
+    audit = (exam / "POST_HOC_AUDIT.md").read_text(encoding="utf-8")
+    assert "SUCCESSFUL SCIENTIFIC TRIAGE" in audit
+    assert "UNRESOLVED" in audit
+    assert "NOT TESTED" in audit
+    errata = (exam / "ERRATA.md").read_text(encoding="utf-8")
+    assert "14/20" in errata or "P(X" in errata
+    assert "confirmatory" in errata.lower()
+    claim = (exam / "ACCUMULATED_CLAIM.md").read_text(encoding="utf-8")
+    assert "SUCCESSFUL SCIENTIFIC TRIAGE" in claim
+    assert "UNRESOLVED" in claim
+    assert "NOT TESTED" in claim
     ledger = json.loads((exam / "MISSION_LEDGER.json").read_text(encoding="utf-8"))
     assert ledger["source_hypothesis_immutable"] is True
-    assert ledger["science_cycle_started"] is False
-    assert ledger["phases"]["B_literature"] == "PENDING"
-    src = (exam / "SOURCE_HYPOTHESIS.md").read_text(encoding="utf-8")
-    assert "IMMUTABLE" in src
-    assert "Mpemba" in src or "mpemba" in src.lower()
-    brief = (exam / "MISSION_BRIEF.md").read_text(encoding="utf-8")
-    assert "novelty/literature audit" in brief or "literature" in brief.lower()
-    assert "SOURCE_HYPOTHESIS.md" in brief
-    # Setup must not pre-write the decision or spoil with a finished cycle
+    assert ledger["decision"] == "NOT_NOVEL_IN_CLAIMED_FORM"
+    assert ledger["exam_outcome_post_audit"] == "SUCCESSFUL_SCIENTIFIC_TRIAGE"
+    assert ledger["empirical_post_audit"] == "NOT_TESTED"
+    # Confirmatory CLI is not actually implemented (errata F5/E5)
+    code = (EXT / "EW4_mpemba_nn" / "code" / "mpemba_experiment.py").read_text(encoding="utf-8")
+    assert "sys.exit(1)" in code
+    assert "--confirmatory" in code
+
+
+def test_m_ext5_mission_open_gate_pending() -> None:
+    exam = EXT / "M_EXT5_INIT_MPEMBA_EXAM"
+    gate = json.loads((exam / "M-EXT5-PREREG-GATE.json").read_text(encoding="utf-8"))
+    assert gate["status"] == "MISSION_OPEN"
+    assert gate["science_cycle_started"] is False
+    assert gate["mechanical_gate_required"] is True
+    assert "H_EFFECT" in gate["hypotheses"] and "H_FISHER" in gate["hypotheses"]
+    assert "reuse_m_ext4_14_of_20_broken_alpha_rule" in gate["forbidden"]
+    ledger = json.loads((exam / "MISSION_LEDGER.json").read_text(encoding="utf-8"))
+    assert ledger["mechanical_gate_status"] == "ALL_PENDING"
+    assert ledger["phases"]["B_mechanical_gate"] == "PENDING"
     assert not (exam / "DECISION.md").exists()
-    assert not (exam / "LITERATURE_MAP.md").exists()
+    mech = (exam / "MECHANICAL_GATE.md").read_text(encoding="utf-8")
+    assert "PENDING" in mech
+    assert "GATE_OPEN_ALL_PENDING" in mech
+    hy = (exam / "HYPOTHESES.md").read_text(encoding="utf-8")
+    assert "H_EFFECT" in hy and "H_FISHER" in hy
+    assert "Observing crossing" in hy or "crossing" in hy.lower()
