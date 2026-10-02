@@ -57,8 +57,9 @@ Contract: `artifacts/external/CONTRACT/EXTERNAL_REAL_WORK.md` (`CONTRACT_LOCKED`
 
 Campaign report: `artifacts/external/CAMPAIGN_REPORT_2026-10-02.md` (see also M-EXT5 DECISION).
 
-Canonical claim: `artifacts/external/ACCUMULATED_CLAIM.md`.
+Canonical claim: `artifacts/external/ACCUMULATED_CLAIM.md`.  
+**main** is canonical after merge of PR #11 (`02acddb`).
 
-Next: merge PR #11 (supersedes #9+#10 tips); close duplicates; **pilot usage** on real projects.
+**Mode now: pilot usage** on real user projects (Goal Contract → work → audit → deliverable).  
 Do not chain M-EXT6 self-exams by default. Do not promote early secondary→primary without new prereg.
 No Immune*/ScienceKernel.

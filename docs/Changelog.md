@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.121 — 2026-10-02
+
+### main canonical + pilot usage mode
+
+- PR #11 merged to `main` (`02acddb`); external exam campaign on default branch
+- Mode switch: **pilot usage** on real projects (not M-EXT6 self-exam chain)
+
 ## 0.1.120 — 2026-10-02
 
 ### Honesty sync — campaign report + accumulated claim
