@@ -1,0 +1,19 @@
+{
+  "status": "CAMPAIGN_CLOSED",
+  "exam_id": "M-EXT3-GSA",
+  "protocol_id": "M-EXT3-GSA-v1",
+  "terminal": "TIE",
+  "task": "encode/httpx#3614",
+  "working_sha": "b5addb64f0161ff6bfe94c124ef76f6a1fba5254",
+  "HG_A": 1,
+  "HG_B": 1,
+  "h_gsa_primary_advantage": "NOT_CONFIRMED",
+  "architecture_changes": "NONE",
+  "gos_self_score_polish_forbidden": true,
+  "m_ext1_status": "IMMUTABLE_TERMINAL",
+  "m_ext2_status": "CAMPAIGN_CLOSED",
+  "same_lineage_caveat": true,
+  "closed_at_utc": "2026-10-01T12:55:00Z",
+  "comparison_report": "COMPARISON_REPORT.md",
+  "score_raw": "SCORE_RAW.json"
+}

@@ -1,0 +1,26 @@
+{
+  "decision": {
+    "holdout_balance": {
+      "n": 150,
+      "neg": 0,
+      "pos": 150
+    },
+    "reasons": [
+      "holdout_class_balance_underpowered"
+    ],
+    "verdict": "INCONCLUSIVE"
+  },
+  "exam_id": "M-EXT2-EW1",
+  "fidelity": "SIMULATED_LATTICE_V1",
+  "generated_at_utc": "2026-10-01T11:58:58.939976+00:00",
+  "gos_architecture_changed": false,
+  "not_y19_reopen": true,
+  "protocol_id": "EW1-CTP-v1",
+  "sealed_sha256": "cb84def6817971f3f9391792b63e8c974e8b011ddbe4d614aecf5b2c7d5d858e",
+  "train_balance": {
+    "n": 300,
+    "neg": 0,
+    "pos": 300
+  },
+  "y24_y25_not_evidence": true
+}

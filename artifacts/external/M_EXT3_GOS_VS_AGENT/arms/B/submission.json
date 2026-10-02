@@ -1,0 +1,35 @@
+{
+  "arm_id": "B",
+  "role": "current_gos_assembled_workflow",
+  "gos_loop": true,
+  "task": "encode/httpx#3614",
+  "working_sha": "b5addb64f0161ff6bfe94c124ef76f6a1fba5254",
+  "terminal": "ROOT_CAUSE_CONFIRMED",
+  "hard_gate": {
+    "stable_repro_on_pinned_sha": true,
+    "mechanism_plus_disconfirming_tests": true,
+    "patch_eliminates_on_repro": true,
+    "regression_fail_before_pass_after": true
+  },
+  "HG": 1,
+  "surviving_hypothesis": "H_raw_path_trailing_slash",
+  "rejected_hypotheses": ["H_merge_url_join", "H_urlparse_artifact", "H_not_reproducible"],
+  "patch": "workdir/proposed_fix.diff",
+  "regression_before": "workdir/repro/logs/regression_BEFORE_patch.txt",
+  "regression_after": "workdir/repro/logs/regression_AFTER_patch.txt",
+  "counterevidence": "workdir/repro/logs/counterevidence_matrix.txt",
+  "budget": {
+    "wall_hours_cap": 6,
+    "wall_hours_used_approx": 0.5,
+    "scripted_runs_cap": 40,
+    "scripted_runs_used": 8,
+    "hypothesis_pivots_cap": 8,
+    "hypothesis_pivots_used": 4,
+    "provider_usd_cap": 5,
+    "provider_usd_used": 0
+  },
+  "human_interventions": 0,
+  "stop_reason": "hard_gate_met",
+  "same_lineage_caveat": "same_cloud_agent_session_as_arm_A_sequential_isolation",
+  "read_arm_A_during_investigation": false
+}

@@ -1,0 +1,16 @@
+=== H4 repro ===
+client.base_url.query b'data=1/'
+H4_REJECTED_reproduced
+=== H3 urlparse alone ===
+URL.query b'data=1' raw_path b'/get?data=1'
+H3_DISCONFIRMED_url_alone_clean
+=== H2 merge vs init ===
+corruption present on Client.base_url before build_request: b'data=1/'
+after build_request b'data=1/'
+H2_DISCONFIRMED_corrupt_at_init_not_only_merge
+=== H1 mechanism ===
+raw_path before slash policy b'/get?data=1'
+raw_path + slash b'/get?data=1/'
+copy_with raw_path+/ => https://httpbingo.org/get?data=1/ b'data=1/'
+copy_with path+/ => https://httpbingo.org/get/?data=1 b'data=1'
+H1_CONFIRMED_raw_path_slash_corrupts_query

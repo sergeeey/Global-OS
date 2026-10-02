@@ -1,0 +1,38 @@
+{
+  "H_EFFECT_rule": "SUPPORTED if wins>=15 and p<0.05; REJECTED if wins<=12; else INCONCLUSIVE; n_valid<16 INCONCLUSIVE",
+  "H_FISHER": "gradnorm proxy; only if H_EFFECT SUPPORTED",
+  "PRIMARY_MIN_WINS": 15,
+  "PRIMARY_N": 20,
+  "config": {
+    "batch_size": 64,
+    "data_seed": 0,
+    "hidden_dim": 64,
+    "loss_target": 0.35,
+    "loss_target_early": 1.0,
+    "loss_target_late": 0.35,
+    "lr": 0.05,
+    "max_steps": 1500,
+    "momentum": 0.0,
+    "monitor_every": 5,
+    "n_classes": 10,
+    "n_features": 64,
+    "n_test": 1000,
+    "n_train": 4000,
+    "protocol_id": "M-EXT5-INIT-MPEMBA-v1",
+    "ref_seed": 12345,
+    "ref_train_steps": 4000,
+    "sigma_cold_factor": 0.3,
+    "sigma_hot_factor": 2.0
+  },
+  "pilot_amendment": {
+    "early_wins_over_5": 5,
+    "late_wins_over_5": 0,
+    "primary_choice": "late"
+  },
+  "primary_endpoint": "loss_target_late_0.35",
+  "protocol_id": "M-EXT5-INIT-MPEMBA-v1",
+  "seal_path": "SEALED_HOLDOUT.json",
+  "seal_sha256": "2cf3c65d38fbf0e1d336142791677f916127f4ef88bd867d59f709bb62a109ee",
+  "secondary_endpoint": "loss_target_early_1.0",
+  "status": "PREREG_LOCKED"
+}

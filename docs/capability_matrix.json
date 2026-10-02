@@ -340,9 +340,43 @@
       "adaptive_c_advantage": "NOT_SHOWN"
     },
     "Y25": {
-      "status": "PREREG_LOCKED",
+      "status": "CLOSED",
       "protocol_id": "Y25-MV-v1",
-      "focus": "memory_value_unseen_variant"
+      "verdict": "REJECT",
+      "memory_value": "NOT_SHOWN_AT_PREREGISTERED_STRENGTH"
+    },
+    "M_EXT1": {
+      "status": "IMMUTABLE_TERMINAL",
+      "protocol_id": "EW2-OSS-v1",
+      "terminal": "ROOT_CAUSE_CONFIRMED"
+    },
+    "M_EXT2": {
+      "status": "CLOSED",
+      "protocol_id": "EW1-CTP-v1",
+      "terminal": "INCONCLUSIVE"
+    },
+    "M_EXT3": {
+      "status": "CLOSED",
+      "protocol_id": "M-EXT3-GSA-v1",
+      "terminal": "TIE",
+      "task": "encode/httpx#3614",
+      "h_gsa_primary_advantage": "NOT_CONFIRMED"
+    },
+    "M_EXT4": {
+      "status": "TERMINAL_WITH_POST_HOC_AUDIT",
+      "protocol_id": "M-EXT4-MPEMBA-v1",
+      "agent_terminal": "NOT_NOVEL_IN_CLAIMED_FORM + ILL_POSED",
+      "exam_outcome": "SUCCESSFUL_SCIENTIFIC_TRIAGE",
+      "init_based_novelty": "UNRESOLVED",
+      "empirical": "NOT_TESTED"
+    },
+    "M_EXT5": {
+      "status": "CLOSED",
+      "protocol_id": "M-EXT5-INIT-MPEMBA-v1",
+      "H_EFFECT": "REJECTED",
+      "H_EFFECT_EARLY_SECONDARY": "SUPPORTED_WITHIN_SCOPE",
+      "H_FISHER": "REJECTED",
+      "scope": "synthetic_mlp_cpu"
     }
   }
 }

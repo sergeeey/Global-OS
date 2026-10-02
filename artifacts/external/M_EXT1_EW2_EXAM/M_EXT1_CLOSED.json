@@ -1,0 +1,12 @@
+{
+  "status": "IMMUTABLE_TERMINAL",
+  "exam_id": "M-EXT1-EW2",
+  "protocol_id": "EW2-OSS-v1",
+  "terminal": "ROOT_CAUSE_CONFIRMED",
+  "external_artifact": "artifacts/external/M_EXT1_EW2_EXAM/DELIVERABLE_PACK.md",
+  "architecture_changes": "NONE",
+  "gos_self_score_polish_forbidden": true,
+  "upstream_filing": "OPTIONAL_EXTERNAL_USE_NOT_GOS_SELF_TEST",
+  "closed_at_utc": "2026-10-01T12:00:00Z",
+  "next_exam": "M-EXT2-EW1"
+}

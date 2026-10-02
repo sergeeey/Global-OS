@@ -1,0 +1,2866 @@
+{
+  "frozen_at_utc": "2026-10-01T11:58:58Z",
+  "pack": "HOLDOUT",
+  "protocol_id": "EW1-CTP-v1",
+  "rows": [
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.22867508111549992,
+        "max_abs_dx": 0.6471219352548345,
+        "mean_x": 0.6561775429702998,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.8557516533718736,
+        "std_x": 0.21180093349276116
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.14605032381422653,
+        "r": 3.7275339977005175,
+        "seed": 9000
+      },
+      "seed": 9000
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2562768238197063,
+        "max_abs_dx": 0.7897077476046717,
+        "mean_x": 0.6595112285568293,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.999333183320672,
+        "std_x": 0.23081711998850168
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.077475421388752,
+        "r": 3.863386054148641,
+        "seed": 9001
+      },
+      "seed": 9001
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.21982289712040168,
+        "max_abs_dx": 0.6870876951828188,
+        "mean_x": 0.6499150381226971,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.7978494067201705,
+        "std_x": 0.22375938432429054
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.1163325035784801,
+        "r": 3.7608581105659384,
+        "seed": 9002
+      },
+      "seed": 9002
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.19524366483959907,
+        "max_abs_dx": 0.6579332010630814,
+        "mean_x": 0.621445768642637,
+        "permutation_entropy_early": 0.6934264036172686,
+        "spectral_high_energy": 0.7412601305648455,
+        "std_x": 0.23634334416988165
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.16085671858907846,
+        "r": 3.7436804237725045,
+        "seed": 9003
+      },
+      "seed": 9003
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.20627021535457554,
+        "max_abs_dx": 0.7333012751016929,
+        "mean_x": 0.6334025871134684,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.7282246137798831,
+        "std_x": 0.23410011735102937
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.08211050133230709,
+        "r": 3.7146384944520903,
+        "seed": 9004
+      },
+      "seed": 9004
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.20831505104791925,
+        "max_abs_dx": 0.7281110176513749,
+        "mean_x": 0.6475898792872429,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.6819929288667153,
+        "std_x": 0.23151628903021398
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.1787951974050554,
+        "r": 3.8364804298332134,
+        "seed": 9005
+      },
+      "seed": 9005
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.16148040401108527,
+        "max_abs_dx": 0.6747976894381463,
+        "mean_x": 0.6263908075171539,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.9006732719550301,
+        "std_x": 0.24245466816283853
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.14044548353314346,
+        "r": 3.758884317637228,
+        "seed": 9006
+      },
+      "seed": 9006
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.27913350079084404,
+        "max_abs_dx": 0.7802765629854999,
+        "mean_x": 0.646830540457064,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.7299928613575304,
+        "std_x": 0.23917809440049717
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.05777345779664869,
+        "r": 3.839911303438637,
+        "seed": 9007
+      },
+      "seed": 9007
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.18722335971193008,
+        "max_abs_dx": 0.7587307618267167,
+        "mean_x": 0.6360972691813609,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.9455644113414178,
+        "std_x": 0.2392242167599242
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.1286923338626752,
+        "r": 3.8102692978726673,
+        "seed": 9008
+      },
+      "seed": 9008
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2273787880064413,
+        "max_abs_dx": 0.6961138636245888,
+        "mean_x": 0.6609119685683041,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9409714081867617,
+        "std_x": 0.2134450973304592
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.09167008444333336,
+        "r": 3.7252485249967093,
+        "seed": 9009
+      },
+      "seed": 9009
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2384468105795228,
+        "max_abs_dx": 0.7277104062090662,
+        "mean_x": 0.6515508283460614,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9822241678176211,
+        "std_x": 0.22797661034749447
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.09736244822349442,
+        "r": 3.808499561973913,
+        "seed": 9010
+      },
+      "seed": 9010
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.17207310847922272,
+        "max_abs_dx": 0.6219190962604624,
+        "mean_x": 0.6632125296219626,
+        "permutation_entropy_early": 0.5644754678724219,
+        "spectral_high_energy": 0.948782457509446,
+        "std_x": 0.2041905734636036
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.11775798678396722,
+        "r": 3.721474693646454,
+        "seed": 9011
+      },
+      "seed": 9011
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2365793953381865,
+        "max_abs_dx": 0.7752398495484024,
+        "mean_x": 0.6392703636761743,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.9041904645686716,
+        "std_x": 0.23727864746728472
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.10693683758917039,
+        "r": 3.8568627337820924,
+        "seed": 9012
+      },
+      "seed": 9012
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.24550283293193373,
+        "max_abs_dx": 0.8127200798771038,
+        "mean_x": 0.6380983268613573,
+        "permutation_entropy_early": 0.8710490642551499,
+        "spectral_high_energy": 0.9486014994996899,
+        "std_x": 0.25416494910469406
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.05114996710522026,
+        "r": 3.874193571865194,
+        "seed": 9013
+      },
+      "seed": 9013
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2503302822129894,
+        "max_abs_dx": 0.6921299399890971,
+        "mean_x": 0.6606899125025356,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9478196975475912,
+        "std_x": 0.21752478482882498
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.11351081497689432,
+        "r": 3.7766763602823126,
+        "seed": 9014
+      },
+      "seed": 9014
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.21425131120546936,
+        "max_abs_dx": 0.6579528845794591,
+        "mean_x": 0.6514883077865739,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9872290090887049,
+        "std_x": 0.2260847799541405
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.1126178278025281,
+        "r": 3.741965705695642,
+        "seed": 9015
+      },
+      "seed": 9015
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.29626628282169354,
+        "max_abs_dx": 0.6939925233584764,
+        "mean_x": 0.6578559172720551,
+        "permutation_entropy_early": 0.5644754678724219,
+        "spectral_high_energy": 0.938474355741759,
+        "std_x": 0.21437740874126807
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.11916989741328778,
+        "r": 3.7793365063639675,
+        "seed": 9016
+      },
+      "seed": 9016
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2967387241562854,
+        "max_abs_dx": 0.7306306817110495,
+        "mean_x": 0.6500129636608873,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9476863195142333,
+        "std_x": 0.23018611215675797
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.06827306245741091,
+        "r": 3.815086141193933,
+        "seed": 9017
+      },
+      "seed": 9017
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.19915620070403944,
+        "max_abs_dx": 0.6346218733145472,
+        "mean_x": 0.6549642842623151,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.7114166840402091,
+        "std_x": 0.21095096557593637
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.13632400264561334,
+        "r": 3.703462188558845,
+        "seed": 9018
+      },
+      "seed": 9018
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.20554810810390134,
+        "max_abs_dx": 0.7223557955993882,
+        "mean_x": 0.6473623666074736,
+        "permutation_entropy_early": 0.6131471927654567,
+        "spectral_high_energy": 0.7799352925190227,
+        "std_x": 0.2232942556402769
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.11470521513288728,
+        "r": 3.7609185585173277,
+        "seed": 9019
+      },
+      "seed": 9019
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.1734121464656042,
+        "max_abs_dx": 0.7167031579511706,
+        "mean_x": 0.6455984380565888,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.7516531819504644,
+        "std_x": 0.23051050613927365
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.16948271895764672,
+        "r": 3.7827262064649307,
+        "seed": 9020
+      },
+      "seed": 9020
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.18778931967409931,
+        "max_abs_dx": 0.8117342374435135,
+        "mean_x": 0.6356045672623138,
+        "permutation_entropy_early": 0.6131471927654567,
+        "spectral_high_energy": 0.640035420710745,
+        "std_x": 0.24376893482152273
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.1590701228870868,
+        "r": 3.899623006267109,
+        "seed": 9021
+      },
+      "seed": 9021
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.17871287193875673,
+        "max_abs_dx": 0.7402553626971335,
+        "mean_x": 0.6406859523029109,
+        "permutation_entropy_early": 0.8710490642551499,
+        "spectral_high_energy": 0.8144198097559825,
+        "std_x": 0.23552556592583412
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.15827193512285398,
+        "r": 3.797389383966643,
+        "seed": 9022
+      },
+      "seed": 9022
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2776249487345109,
+        "max_abs_dx": 0.7282406149884819,
+        "mean_x": 0.634120911692916,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.591016305601315,
+        "std_x": 0.23557475686713286
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.050692981774186185,
+        "r": 3.7367906925387526,
+        "seed": 9023
+      },
+      "seed": 9023
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.22295774103032198,
+        "max_abs_dx": 0.7310973907998565,
+        "mean_x": 0.6583713360698712,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9730905061359196,
+        "std_x": 0.22283883542125316
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.15545790356558306,
+        "r": 3.829506708353596,
+        "seed": 9024
+      },
+      "seed": 9024
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.22934157807154923,
+        "max_abs_dx": 0.7256844904093024,
+        "mean_x": 0.6546973775078606,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9258256546020963,
+        "std_x": 0.22772927529428463
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.13945097243831592,
+        "r": 3.826136209783755,
+        "seed": 9025
+      },
+      "seed": 9025
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2319328799551419,
+        "max_abs_dx": 0.6319989011210339,
+        "mean_x": 0.6432506738252238,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.7492228432439001,
+        "std_x": 0.22148453791672748
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.13750553537693325,
+        "r": 3.7373906003468895,
+        "seed": 9026
+      },
+      "seed": 9026
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.27497442334502864,
+        "max_abs_dx": 0.6522521261472973,
+        "mean_x": 0.6554585905358387,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9008920762594678,
+        "std_x": 0.22144477334948254
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.09301479527033599,
+        "r": 3.7702840337794314,
+        "seed": 9027
+      },
+      "seed": 9027
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2587952648414791,
+        "max_abs_dx": 0.6931566518048992,
+        "mean_x": 0.6442306766155146,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.7672959277291328,
+        "std_x": 0.2319649107935109
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.12286820825319045,
+        "r": 3.8038036391283194,
+        "seed": 9028
+      },
+      "seed": 9028
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.26745119894388747,
+        "max_abs_dx": 0.7169815391335888,
+        "mean_x": 0.6324651356184495,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.7713359458838308,
+        "std_x": 0.241813450489611
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.08016924989897664,
+        "r": 3.7922415473624604,
+        "seed": 9029
+      },
+      "seed": 9029
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.19751175999904547,
+        "max_abs_dx": 0.7303811666657499,
+        "mean_x": 0.6452920821379071,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9457268617333734,
+        "std_x": 0.22552661470439125
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.16269694343688923,
+        "r": 3.7684922580366993,
+        "seed": 9030
+      },
+      "seed": 9030
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.21339732528414543,
+        "max_abs_dx": 0.6480582454607169,
+        "mean_x": 0.6559432178424752,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9181319635339465,
+        "std_x": 0.21120778791872116
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.11388581635712561,
+        "r": 3.708900072239173,
+        "seed": 9031
+      },
+      "seed": 9031
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.1941795217111015,
+        "max_abs_dx": 0.6570685976970728,
+        "mean_x": 0.6396824003801241,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.8008624284350551,
+        "std_x": 0.2270670418876421
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.13227119695371875,
+        "r": 3.719193584521367,
+        "seed": 9032
+      },
+      "seed": 9032
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.20264425599953334,
+        "max_abs_dx": 0.7498580220561044,
+        "mean_x": 0.6316045305083271,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9525391443484502,
+        "std_x": 0.24031985578208392
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.12039176441499046,
+        "r": 3.841237411556199,
+        "seed": 9033
+      },
+      "seed": 9033
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2276857439257212,
+        "max_abs_dx": 0.7207199869715244,
+        "mean_x": 0.6579902747869659,
+        "permutation_entropy_early": 0.9999999999999967,
+        "spectral_high_energy": 0.9105683290846455,
+        "std_x": 0.22385791320830173
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.15124611545145814,
+        "r": 3.8232977046431045,
+        "seed": 9034
+      },
+      "seed": 9034
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.18439191403198585,
+        "max_abs_dx": 0.6411133977617579,
+        "mean_x": 0.656664522104717,
+        "permutation_entropy_early": 0.8710490642551499,
+        "spectral_high_energy": 0.8578440886874665,
+        "std_x": 0.20829863082577108
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.19148214163664373,
+        "r": 3.7045341580670232,
+        "seed": 9035
+      },
+      "seed": 9035
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.25047255685721814,
+        "max_abs_dx": 0.7921324994127992,
+        "mean_x": 0.6185105108655535,
+        "permutation_entropy_early": 0.6131471927654567,
+        "spectral_high_energy": 0.8087148390306133,
+        "std_x": 0.25842038277702695
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.062443623919832436,
+        "r": 3.8309508172762157,
+        "seed": 9036
+      },
+      "seed": 9036
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2007208090770144,
+        "max_abs_dx": 0.7778855337707881,
+        "mean_x": 0.643351501180205,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.8949481578845121,
+        "std_x": 0.2344429753937524
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.167245524508157,
+        "r": 3.8492908068481393,
+        "seed": 9037
+      },
+      "seed": 9037
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2543181213056676,
+        "max_abs_dx": 0.6827836762958537,
+        "mean_x": 0.6293283890924419,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.7827469303054727,
+        "std_x": 0.2326570833633563
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.07406653245863495,
+        "r": 3.710302009448655,
+        "seed": 9038
+      },
+      "seed": 9038
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2616403599103255,
+        "max_abs_dx": 0.6282509309360604,
+        "mean_x": 0.6448716233051978,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.7261865183028732,
+        "std_x": 0.2223083509554104
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.0756893875222423,
+        "r": 3.709834311050654,
+        "seed": 9039
+      },
+      "seed": 9039
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.23256762110302553,
+        "max_abs_dx": 0.7128355896643557,
+        "mean_x": 0.6565943043458885,
+        "permutation_entropy_early": 0.5644754678724219,
+        "spectral_high_energy": 0.9756385790356381,
+        "std_x": 0.22105869124862756
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.07381596465272813,
+        "r": 3.794830770792654,
+        "seed": 9040
+      },
+      "seed": 9040
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.27759521384167085,
+        "max_abs_dx": 0.6526726634634847,
+        "mean_x": 0.6565386029711926,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.887347200720972,
+        "std_x": 0.21449723284867397
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.11381471376559986,
+        "r": 3.742119389399797,
+        "seed": 9041
+      },
+      "seed": 9041
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.25206177661733836,
+        "max_abs_dx": 0.7276439120360474,
+        "mean_x": 0.6517893545605502,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9693730620914184,
+        "std_x": 0.22670676364068726
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.11533940470106369,
+        "r": 3.823527254355238,
+        "seed": 9042
+      },
+      "seed": 9042
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2769025357520129,
+        "max_abs_dx": 0.786913967593,
+        "mean_x": 0.6410394451249114,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.8183600494871506,
+        "std_x": 0.23940150793544812
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.08337507743322138,
+        "r": 3.896077154475534,
+        "seed": 9043
+      },
+      "seed": 9043
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2147334776473873,
+        "max_abs_dx": 0.7614976916531135,
+        "mean_x": 0.6397650629689499,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.8413758736950657,
+        "std_x": 0.2420748973363837
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.1343003055661986,
+        "r": 3.8470604543429143,
+        "seed": 9044
+      },
+      "seed": 9044
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2551446072897331,
+        "max_abs_dx": 0.7895015925897158,
+        "mean_x": 0.6387178031354526,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9955052214473679,
+        "std_x": 0.24966711724416288
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.07334086724351974,
+        "r": 3.8865637295214466,
+        "seed": 9045
+      },
+      "seed": 9045
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2836405704341988,
+        "max_abs_dx": 0.7314133333974632,
+        "mean_x": 0.6484870344320061,
+        "permutation_entropy_early": 0.8710490642551499,
+        "spectral_high_energy": 0.9115150944381797,
+        "std_x": 0.2323724985157384
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.09007134171761041,
+        "r": 3.832767567972941,
+        "seed": 9046
+      },
+      "seed": 9046
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2342555478038082,
+        "max_abs_dx": 0.8577281616468415,
+        "mean_x": 0.6323375164918668,
+        "permutation_entropy_early": 0.5644754678724219,
+        "spectral_high_energy": 0.9738156035307945,
+        "std_x": 0.25483247896372396
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.06382839512046257,
+        "r": 3.8916985700848366,
+        "seed": 9047
+      },
+      "seed": 9047
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2229184542734866,
+        "max_abs_dx": 0.6984435784700048,
+        "mean_x": 0.6630007245215654,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.4701528995382389,
+        "std_x": 0.20639532836416127
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.06694177449356142,
+        "r": 3.705724685501659,
+        "seed": 9048
+      },
+      "seed": 9048
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.19366138031363433,
+        "max_abs_dx": 0.760893707781882,
+        "mean_x": 0.6535430383423855,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.7112205129930002,
+        "std_x": 0.2223835338961434
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.18239851849531624,
+        "r": 3.8065251300508405,
+        "seed": 9049
+      },
+      "seed": 9049
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.21723408866191896,
+        "max_abs_dx": 0.7218741113403884,
+        "mean_x": 0.6622048617933538,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9901507523755599,
+        "std_x": 0.21872048520221699
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.06627156119636084,
+        "r": 3.7804874680703127,
+        "seed": 9050
+      },
+      "seed": 9050
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.18574356616002458,
+        "max_abs_dx": 0.7124712339469924,
+        "mean_x": 0.6544440187821645,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.7396761034225486,
+        "std_x": 0.21509980652875216
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.18369925671829246,
+        "r": 3.8227405527991998,
+        "seed": 9051
+      },
+      "seed": 9051
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.16256907572330456,
+        "max_abs_dx": 0.6674828990346242,
+        "mean_x": 0.6582720923706816,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9217943068414458,
+        "std_x": 0.20968482648068076
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.17755668924138113,
+        "r": 3.7123607926871647,
+        "seed": 9052
+      },
+      "seed": 9052
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.19251178169525995,
+        "max_abs_dx": 0.6458325411457242,
+        "mean_x": 0.6567823685046943,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.8875365784114851,
+        "std_x": 0.20450046952652617
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.1816649850436558,
+        "r": 3.7156399589862916,
+        "seed": 9053
+      },
+      "seed": 9053
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.21159228956921006,
+        "max_abs_dx": 0.673342173371384,
+        "mean_x": 0.6402897405807311,
+        "permutation_entropy_early": 0.5644754678724219,
+        "spectral_high_energy": 0.9375190884929535,
+        "std_x": 0.2280419433611305
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.06034903956001941,
+        "r": 3.712490548082069,
+        "seed": 9054
+      },
+      "seed": 9054
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.22620288233814836,
+        "max_abs_dx": 0.6432899347905311,
+        "mean_x": 0.6526998188181931,
+        "permutation_entropy_early": 0.5644754678724219,
+        "spectral_high_energy": 0.9829543655823875,
+        "std_x": 0.22189481308880005
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.07891572049618163,
+        "r": 3.7035684611581194,
+        "seed": 9055
+      },
+      "seed": 9055
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.18818567959902854,
+        "max_abs_dx": 0.734259056378458,
+        "mean_x": 0.6452740718755275,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9574246040808269,
+        "std_x": 0.23320724396167858
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.17959946466814652,
+        "r": 3.8154279217782414,
+        "seed": 9056
+      },
+      "seed": 9056
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.19798541345148368,
+        "max_abs_dx": 0.6581234926140962,
+        "mean_x": 0.6491587037050479,
+        "permutation_entropy_early": 0.6934264036172686,
+        "spectral_high_energy": 0.8891102852271654,
+        "std_x": 0.22279136115149567
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.1980102228197793,
+        "r": 3.793720341893952,
+        "seed": 9057
+      },
+      "seed": 9057
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.30330207826336164,
+        "max_abs_dx": 0.8377143970566749,
+        "mean_x": 0.6392131045188669,
+        "permutation_entropy_early": 0.9999999999999967,
+        "spectral_high_energy": 0.9725906969016929,
+        "std_x": 0.24947309126600342
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.09675912723561995,
+        "r": 3.873088214271535,
+        "seed": 9058
+      },
+      "seed": 9058
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.27751025739485713,
+        "max_abs_dx": 0.7656117464403254,
+        "mean_x": 0.6294502154402053,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9352173330563892,
+        "std_x": 0.24631156692343703
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.08286042508084746,
+        "r": 3.8347864150236344,
+        "seed": 9059
+      },
+      "seed": 9059
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.27137296526047905,
+        "max_abs_dx": 0.6790510078965379,
+        "mean_x": 0.6467197370536777,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.8960587517308188,
+        "std_x": 0.23077401154527832
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.0747282193200006,
+        "r": 3.766381718856073,
+        "seed": 9060
+      },
+      "seed": 9060
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.26183081518472995,
+        "max_abs_dx": 0.7373327579309416,
+        "mean_x": 0.6307497194458063,
+        "permutation_entropy_early": 0.8710490642551499,
+        "spectral_high_energy": 0.7985904721751765,
+        "std_x": 0.24597253951373113
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.12847927010131766,
+        "r": 3.8891584835408284,
+        "seed": 9061
+      },
+      "seed": 9061
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.19626361303678552,
+        "max_abs_dx": 0.7090500358920195,
+        "mean_x": 0.6587559044095381,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9928437861332677,
+        "std_x": 0.22218816210502598
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.11899620683974838,
+        "r": 3.7831575742492123,
+        "seed": 9062
+      },
+      "seed": 9062
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.19075903413312614,
+        "max_abs_dx": 0.7448004552719784,
+        "mean_x": 0.632118109497442,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.8424034283082025,
+        "std_x": 0.23825161130680617
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.1469548163107747,
+        "r": 3.7896911631259522,
+        "seed": 9063
+      },
+      "seed": 9063
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.1898756424787232,
+        "max_abs_dx": 0.6518751567612795,
+        "mean_x": 0.6600529396895923,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.8680337690670863,
+        "std_x": 0.2142420194180312
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.16681445644765713,
+        "r": 3.743892092135673,
+        "seed": 9064
+      },
+      "seed": 9064
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2137077624725718,
+        "max_abs_dx": 0.8097433914903647,
+        "mean_x": 0.6519173314696034,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.9215648638227956,
+        "std_x": 0.23727187306341674
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.18101613192068544,
+        "r": 3.8540662499908613,
+        "seed": 9065
+      },
+      "seed": 9065
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.20544945122919314,
+        "max_abs_dx": 0.6455032550882264,
+        "mean_x": 0.6528922972489267,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9431193211045275,
+        "std_x": 0.2206735271042978
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.1628259156458747,
+        "r": 3.7290462176196644,
+        "seed": 9066
+      },
+      "seed": 9066
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.24036816223910235,
+        "max_abs_dx": 0.6814863173402935,
+        "mean_x": 0.6711736636100264,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9883040299962738,
+        "std_x": 0.20227706652011396
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.10915674051352402,
+        "r": 3.725443257464322,
+        "seed": 9067
+      },
+      "seed": 9067
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.24403876578996472,
+        "max_abs_dx": 0.7661666439499981,
+        "mean_x": 0.6635050520924858,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.8964180875447434,
+        "std_x": 0.23016987599777922
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.10538723642306538,
+        "r": 3.8691229414186634,
+        "seed": 9068
+      },
+      "seed": 9068
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.22570520918113246,
+        "max_abs_dx": 0.6956699144822096,
+        "mean_x": 0.6478397331159736,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9033107241562582,
+        "std_x": 0.2230296646698394
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.10886922974387162,
+        "r": 3.761444778093085,
+        "seed": 9069
+      },
+      "seed": 9069
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.31123446553338224,
+        "max_abs_dx": 0.7518680957727392,
+        "mean_x": 0.65583828575997,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9934687944047629,
+        "std_x": 0.22779017724830702
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.09187394242188701,
+        "r": 3.836441793524447,
+        "seed": 9070
+      },
+      "seed": 9070
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.23897712402484456,
+        "max_abs_dx": 0.6864782886279803,
+        "mean_x": 0.6507494940364137,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9429213896785633,
+        "std_x": 0.22953490217872644
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.1109670343565612,
+        "r": 3.798005678287749,
+        "seed": 9071
+      },
+      "seed": 9071
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2435472715742646,
+        "max_abs_dx": 0.7237419549608818,
+        "mean_x": 0.6467088850028361,
+        "permutation_entropy_early": 0.9999999999999967,
+        "spectral_high_energy": 0.7754260891513215,
+        "std_x": 0.22797662949712486
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.12611737100695986,
+        "r": 3.812083165709585,
+        "seed": 9072
+      },
+      "seed": 9072
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2436143570677168,
+        "max_abs_dx": 0.7406940487688559,
+        "mean_x": 0.6538260111365423,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9536299187689414,
+        "std_x": 0.22234002945436077
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.11984551477239502,
+        "r": 3.8301683052577684,
+        "seed": 9073
+      },
+      "seed": 9073
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.22580048224944282,
+        "max_abs_dx": 0.7327125601148775,
+        "mean_x": 0.6338938709868519,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.6043865711247971,
+        "std_x": 0.23023450097410364
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.07391988045458775,
+        "r": 3.717516998619628,
+        "seed": 9074
+      },
+      "seed": 9074
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.282121422347762,
+        "max_abs_dx": 0.7606474026302339,
+        "mean_x": 0.6520987610760661,
+        "permutation_entropy_early": 0.6934264036172686,
+        "spectral_high_energy": 0.93214460271673,
+        "std_x": 0.23662568230217734
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.10857079493057274,
+        "r": 3.881797861458527,
+        "seed": 9075
+      },
+      "seed": 9075
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.26766669234587276,
+        "max_abs_dx": 0.7544229451644632,
+        "mean_x": 0.6300380247588917,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.7985480175494566,
+        "std_x": 0.2497893106194794
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.10743696076918248,
+        "r": 3.8670670600259434,
+        "seed": 9076
+      },
+      "seed": 9076
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.19650013043456496,
+        "max_abs_dx": 0.6671400317345137,
+        "mean_x": 0.6656079031037094,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.7459013964386412,
+        "std_x": 0.1994045855791715
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.19180117874927927,
+        "r": 3.7282184304788597,
+        "seed": 9077
+      },
+      "seed": 9077
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.21346100598303958,
+        "max_abs_dx": 0.7017439259273586,
+        "mean_x": 0.653763435065998,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.8955364725907056,
+        "std_x": 0.22485670905517452
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.06184078903782493,
+        "r": 3.745139500347591,
+        "seed": 9078
+      },
+      "seed": 9078
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.22555972030903426,
+        "max_abs_dx": 0.7294483537430011,
+        "mean_x": 0.6542630674753083,
+        "permutation_entropy_early": 0.5644754678724219,
+        "spectral_high_energy": 0.9314247866792033,
+        "std_x": 0.22203712792773336
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.16522277776729288,
+        "r": 3.8095831165095992,
+        "seed": 9079
+      },
+      "seed": 9079
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.26966034950924445,
+        "max_abs_dx": 0.6956631406544201,
+        "mean_x": 0.6384528256102321,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.8980160174458857,
+        "std_x": 0.2392663003262045
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.102727081905267,
+        "r": 3.8004367331724613,
+        "seed": 9080
+      },
+      "seed": 9080
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.19689878591743784,
+        "max_abs_dx": 0.7221154690561511,
+        "mean_x": 0.6558173694095222,
+        "permutation_entropy_early": 0.6131471927654567,
+        "spectral_high_energy": 0.7103317499626252,
+        "std_x": 0.22738356495839934
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.157106096738527,
+        "r": 3.805360515386374,
+        "seed": 9081
+      },
+      "seed": 9081
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.19871729850878803,
+        "max_abs_dx": 0.7100011698761428,
+        "mean_x": 0.6517606932064769,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.7827201170867298,
+        "std_x": 0.22431155643423586
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.15186454294762403,
+        "r": 3.879234938546434,
+        "seed": 9082
+      },
+      "seed": 9082
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.217154601192428,
+        "max_abs_dx": 0.7258511756290758,
+        "mean_x": 0.6702060315203814,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9397663071870576,
+        "std_x": 0.20945461509945748
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.11644882023796804,
+        "r": 3.814358036975672,
+        "seed": 9083
+      },
+      "seed": 9083
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.1870567450722023,
+        "max_abs_dx": 0.7139340468287335,
+        "mean_x": 0.6573742638852824,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9726639388051987,
+        "std_x": 0.21826881108058732
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.11764015259559073,
+        "r": 3.7841131088305158,
+        "seed": 9084
+      },
+      "seed": 9084
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.25071201839454355,
+        "max_abs_dx": 0.7962583201069852,
+        "mean_x": 0.6333457816624211,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.31607045271387857,
+        "std_x": 0.2452452232602854
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.06617805538765714,
+        "r": 3.8679026351509984,
+        "seed": 9085
+      },
+      "seed": 9085
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.17690362549055716,
+        "max_abs_dx": 0.7363492001946179,
+        "mean_x": 0.6440117880998398,
+        "permutation_entropy_early": 0.8710490642551499,
+        "spectral_high_energy": 0.7941429642246143,
+        "std_x": 0.2278224053435208
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.15170361603745103,
+        "r": 3.7869283693818767,
+        "seed": 9086
+      },
+      "seed": 9086
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2228769325213052,
+        "max_abs_dx": 0.6653492240702754,
+        "mean_x": 0.6583814286260745,
+        "permutation_entropy_early": 0.5644754678724219,
+        "spectral_high_energy": 0.7935108385120514,
+        "std_x": 0.20810460926695
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.0949006730871543,
+        "r": 3.718220722768022,
+        "seed": 9087
+      },
+      "seed": 9087
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.23613513362170035,
+        "max_abs_dx": 0.7645971415947687,
+        "mean_x": 0.6496396309705587,
+        "permutation_entropy_early": 0.8710490642551499,
+        "spectral_high_energy": 0.7143283368099625,
+        "std_x": 0.22946164197697483
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.13538599179260047,
+        "r": 3.8653420369528657,
+        "seed": 9088
+      },
+      "seed": 9088
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2805247292277678,
+        "max_abs_dx": 0.7292714522738197,
+        "mean_x": 0.6416443130885621,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9466225016537897,
+        "std_x": 0.2322082406632309
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.06595504924088474,
+        "r": 3.774930057288142,
+        "seed": 9089
+      },
+      "seed": 9089
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2558720862992429,
+        "max_abs_dx": 0.6957777855194596,
+        "mean_x": 0.6503350384564581,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.98452347695607,
+        "std_x": 0.22912883547455037
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.0897436986649443,
+        "r": 3.7819879014587525,
+        "seed": 9090
+      },
+      "seed": 9090
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2766669784286756,
+        "max_abs_dx": 0.7720512814834077,
+        "mean_x": 0.6269211492569926,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.727276452229249,
+        "std_x": 0.2550365327234846
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.07013890440079446,
+        "r": 3.8561199769333028,
+        "seed": 9091
+      },
+      "seed": 9091
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.1983727691108332,
+        "max_abs_dx": 0.7722589485664515,
+        "mean_x": 0.6379196476767466,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9714060725143221,
+        "std_x": 0.24319242925607573
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.1433425752374406,
+        "r": 3.843555504286657,
+        "seed": 9092
+      },
+      "seed": 9092
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2064534162807422,
+        "max_abs_dx": 0.6669176082504384,
+        "mean_x": 0.6573177169189574,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9444385168149532,
+        "std_x": 0.21246941428639457
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.1533637246497232,
+        "r": 3.7344903155054316,
+        "seed": 9093
+      },
+      "seed": 9093
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.21210280413925442,
+        "max_abs_dx": 0.7615692858265423,
+        "mean_x": 0.6341193607300695,
+        "permutation_entropy_early": 0.5644754678724219,
+        "spectral_high_energy": 0.8198732531756521,
+        "std_x": 0.2452647065542807
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.1642536541506272,
+        "r": 3.8691386552085745,
+        "seed": 9094
+      },
+      "seed": 9094
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.20962105700431807,
+        "max_abs_dx": 0.7343514828409917,
+        "mean_x": 0.6694721341505677,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.931919032051812,
+        "std_x": 0.21103660162190868
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.11531948093223962,
+        "r": 3.8368323624858895,
+        "seed": 9095
+      },
+      "seed": 9095
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.23435641874175606,
+        "max_abs_dx": 0.7619880082482722,
+        "mean_x": 0.6668544204746316,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.8554235938339977,
+        "std_x": 0.2159464129221535
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.06351988030414618,
+        "r": 3.842956004992289,
+        "seed": 9096
+      },
+      "seed": 9096
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2603086685729907,
+        "max_abs_dx": 0.8051598845259393,
+        "mean_x": 0.6575377002637108,
+        "permutation_entropy_early": 0.6934264036172686,
+        "spectral_high_energy": 0.8920206523232174,
+        "std_x": 0.22897417593632152
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.10160209662782024,
+        "r": 3.8871901165909373,
+        "seed": 9097
+      },
+      "seed": 9097
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.21866820351261373,
+        "max_abs_dx": 0.7661882228440542,
+        "mean_x": 0.6375554669828892,
+        "permutation_entropy_early": 0.5644754678724219,
+        "spectral_high_energy": 0.6465550965120443,
+        "std_x": 0.24404989167875207
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.09422988483902167,
+        "r": 3.8769036757065853,
+        "seed": 9098
+      },
+      "seed": 9098
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.18801637719947573,
+        "max_abs_dx": 0.7904671361609503,
+        "mean_x": 0.6505657866837345,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9936060099433837,
+        "std_x": 0.23939124380738636
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.07439417404920459,
+        "r": 3.824334323818283,
+        "seed": 9099
+      },
+      "seed": 9099
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.25978577914979095,
+        "max_abs_dx": 0.6593342419363406,
+        "mean_x": 0.661579138244491,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.8202336108280311,
+        "std_x": 0.21262560223387222
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.15542464485026117,
+        "r": 3.803539960293109,
+        "seed": 9100
+      },
+      "seed": 9100
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2107330692508782,
+        "max_abs_dx": 0.7029514615155261,
+        "mean_x": 0.6566777854804201,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9264216771127323,
+        "std_x": 0.21336469765639274
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.1332986156135792,
+        "r": 3.7522662061446437,
+        "seed": 9101
+      },
+      "seed": 9101
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.18946677123702593,
+        "max_abs_dx": 0.7487816803020768,
+        "mean_x": 0.6537266877330276,
+        "permutation_entropy_early": 0.9999999999999967,
+        "spectral_high_energy": 0.8423161107106435,
+        "std_x": 0.22967504527974003
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.1998891712002241,
+        "r": 3.8738798491679804,
+        "seed": 9102
+      },
+      "seed": 9102
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2466856237377204,
+        "max_abs_dx": 0.7281121682955056,
+        "mean_x": 0.650968094679329,
+        "permutation_entropy_early": 0.8710490642551499,
+        "spectral_high_energy": 0.7914394832168928,
+        "std_x": 0.2221224013116645
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.10092108517179113,
+        "r": 3.7940578825282247,
+        "seed": 9103
+      },
+      "seed": 9103
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.19817089487643655,
+        "max_abs_dx": 0.7714068355461112,
+        "mean_x": 0.6534828051000687,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.8949019418923655,
+        "std_x": 0.2257152921670266
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.12843184158469725,
+        "r": 3.840883229950737,
+        "seed": 9104
+      },
+      "seed": 9104
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.22215585194362414,
+        "max_abs_dx": 0.629064695291899,
+        "mean_x": 0.6554816293913313,
+        "permutation_entropy_early": 0.38685280723454046,
+        "spectral_high_energy": 0.9038518685033629,
+        "std_x": 0.21408054717317643
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.11380395026831312,
+        "r": 3.709512029483558,
+        "seed": 9105
+      },
+      "seed": 9105
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.1771531394143946,
+        "max_abs_dx": 0.7215921734989127,
+        "mean_x": 0.6571641898486338,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9621181621992312,
+        "std_x": 0.22569086848331102
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.17931513360624968,
+        "r": 3.8240808602385714,
+        "seed": 9106
+      },
+      "seed": 9106
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.22130403876949414,
+        "max_abs_dx": 0.6678664404876477,
+        "mean_x": 0.6263284378377246,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.8585556197943911,
+        "std_x": 0.24357580808600932
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.10733117006737164,
+        "r": 3.7706764550581267,
+        "seed": 9107
+      },
+      "seed": 9107
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2997685907845029,
+        "max_abs_dx": 0.6736478665310962,
+        "mean_x": 0.6592161554100806,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9815320775076994,
+        "std_x": 0.2154785328642819
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.0855692231694441,
+        "r": 3.725747370953645,
+        "seed": 9108
+      },
+      "seed": 9108
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2188060378076302,
+        "max_abs_dx": 0.6980423668725444,
+        "mean_x": 0.6405262448629984,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.7198933726397903,
+        "std_x": 0.23034022846159158
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.11288141097164274,
+        "r": 3.7528072381455733,
+        "seed": 9109
+      },
+      "seed": 9109
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.19620849119500425,
+        "max_abs_dx": 0.7148418858374408,
+        "mean_x": 0.6372290801694498,
+        "permutation_entropy_early": 0.5644754678724219,
+        "spectral_high_energy": 0.86238261010311,
+        "std_x": 0.23221434332154345
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.1590277670303754,
+        "r": 3.811746893321903,
+        "seed": 9110
+      },
+      "seed": 9110
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.23673727464730102,
+        "max_abs_dx": 0.7752104461754936,
+        "mean_x": 0.650749083164816,
+        "permutation_entropy_early": 0.6131471927654567,
+        "spectral_high_energy": 0.8995512340425378,
+        "std_x": 0.24627524691297137
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.0686923129598883,
+        "r": 3.8629329260996252,
+        "seed": 9111
+      },
+      "seed": 9111
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.24962534773399706,
+        "max_abs_dx": 0.711040085175282,
+        "mean_x": 0.649103611051439,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.8183424169341367,
+        "std_x": 0.22974946105837357
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.08291097712734553,
+        "r": 3.816526744446278,
+        "seed": 9112
+      },
+      "seed": 9112
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.18565366773938594,
+        "max_abs_dx": 0.6507223955711273,
+        "mean_x": 0.6559132893778273,
+        "permutation_entropy_early": 0.5644754678724219,
+        "spectral_high_energy": 0.9572939048991611,
+        "std_x": 0.21866848728827726
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.1769706103515894,
+        "r": 3.747031535677199,
+        "seed": 9113
+      },
+      "seed": 9113
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.24531429101184013,
+        "max_abs_dx": 0.7021892705067171,
+        "mean_x": 0.6330867940024896,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.6777363412490998,
+        "std_x": 0.23595782243919006
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.05153161075005191,
+        "r": 3.786261062303826,
+        "seed": 9114
+      },
+      "seed": 9114
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.21209860481476753,
+        "max_abs_dx": 0.7406447210323566,
+        "mean_x": 0.6579230704114362,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.9480118210546018,
+        "std_x": 0.22330810985501562
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.13001939807430446,
+        "r": 3.8111031498569,
+        "seed": 9115
+      },
+      "seed": 9115
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.23189020067100896,
+        "max_abs_dx": 0.7707880430481504,
+        "mean_x": 0.641306565319468,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.8886504823703194,
+        "std_x": 0.23405279729071166
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.1540340594983282,
+        "r": 3.8411041662032486,
+        "seed": 9116
+      },
+      "seed": 9116
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.1877012433591471,
+        "max_abs_dx": 0.6645339460485276,
+        "mean_x": 0.647422346257709,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.8643105726798536,
+        "std_x": 0.22282561821844832
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.10278482112378373,
+        "r": 3.7014385274085826,
+        "seed": 9117
+      },
+      "seed": 9117
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2950750964480282,
+        "max_abs_dx": 0.6816434628322383,
+        "mean_x": 0.6476719560057211,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.6702310766712369,
+        "std_x": 0.22743295719222167
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.06799755214295995,
+        "r": 3.7777654932547184,
+        "seed": 9118
+      },
+      "seed": 9118
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2482871167892676,
+        "max_abs_dx": 0.6872003444711846,
+        "mean_x": 0.6447343262032104,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9481271067493234,
+        "std_x": 0.22683558865771836
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.05966541173396693,
+        "r": 3.7058311379889837,
+        "seed": 9119
+      },
+      "seed": 9119
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2089128535217156,
+        "max_abs_dx": 0.7162422862944535,
+        "mean_x": 0.6546013432517231,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.8797278129653885,
+        "std_x": 0.22392097445341086
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.11816326210197678,
+        "r": 3.7628594061834226,
+        "seed": 9120
+      },
+      "seed": 9120
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.20369071508469627,
+        "max_abs_dx": 0.7332784695167733,
+        "mean_x": 0.6649417871282166,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9904763617706676,
+        "std_x": 0.22158138616601755
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.1443570420115604,
+        "r": 3.8448019889630034,
+        "seed": 9121
+      },
+      "seed": 9121
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2035781560689415,
+        "max_abs_dx": 0.7725560513501706,
+        "mean_x": 0.6546562806300618,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9878270544622372,
+        "std_x": 0.2309600556790061
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.12060620105568363,
+        "r": 3.8625748481037956,
+        "seed": 9122
+      },
+      "seed": 9122
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.22493297791660924,
+        "max_abs_dx": 0.650593800183745,
+        "mean_x": 0.6424125714848382,
+        "permutation_entropy_early": 0.6934264036172686,
+        "spectral_high_energy": 0.704550782946392,
+        "std_x": 0.22939280549683946
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.15612643283159494,
+        "r": 3.759345397672612,
+        "seed": 9123
+      },
+      "seed": 9123
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.22151370344019916,
+        "max_abs_dx": 0.6817346837401845,
+        "mean_x": 0.6500351839874444,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9146622104058163,
+        "std_x": 0.22102893336666443
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.058284891945515935,
+        "r": 3.718943485181954,
+        "seed": 9124
+      },
+      "seed": 9124
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.2095190177068739,
+        "max_abs_dx": 0.6977288721287234,
+        "mean_x": 0.6414391218434949,
+        "permutation_entropy_early": 0.8710490642551499,
+        "spectral_high_energy": 0.5675086022563501,
+        "std_x": 0.23256136937801158
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.18420644687098842,
+        "r": 3.8026040637631984,
+        "seed": 9125
+      },
+      "seed": 9125
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.31186269960504787,
+        "max_abs_dx": 0.7572701223878656,
+        "mean_x": 0.6315800052693994,
+        "permutation_entropy_early": 0.8710490642551499,
+        "spectral_high_energy": 0.6771759078845653,
+        "std_x": 0.24215685741410123
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.07133143290092545,
+        "r": 3.877173871176364,
+        "seed": 9126
+      },
+      "seed": 9126
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.17742359134079913,
+        "max_abs_dx": 0.6599358893606729,
+        "mean_x": 0.628607052755148,
+        "permutation_entropy_early": 0.8710490642551499,
+        "spectral_high_energy": 0.6339874586343673,
+        "std_x": 0.22960809402436114
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.15817481670730155,
+        "r": 3.710882366150004,
+        "seed": 9127
+      },
+      "seed": 9127
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.21472228460429424,
+        "max_abs_dx": 0.7389057509464191,
+        "mean_x": 0.6370717871730002,
+        "permutation_entropy_early": 0.6131471927654567,
+        "spectral_high_energy": 0.812494989857291,
+        "std_x": 0.24311198519223978
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.1273069137017206,
+        "r": 3.832380241917504,
+        "seed": 9128
+      },
+      "seed": 9128
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.22375010886617397,
+        "max_abs_dx": 0.7783124763809648,
+        "mean_x": 0.6558755060490552,
+        "permutation_entropy_early": 0.8710490642551499,
+        "spectral_high_energy": 0.9253505016569905,
+        "std_x": 0.22895630245716336
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.16681206729536074,
+        "r": 3.8715044171991244,
+        "seed": 9129
+      },
+      "seed": 9129
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2941723179619198,
+        "max_abs_dx": 0.7873675140919326,
+        "mean_x": 0.6370937290746375,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.7241960391075303,
+        "std_x": 0.24115689466668466
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.07256290813518076,
+        "r": 3.8458535296021146,
+        "seed": 9130
+      },
+      "seed": 9130
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.19106930705271366,
+        "max_abs_dx": 0.625107704724336,
+        "mean_x": 0.6586063421637185,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9851522495271715,
+        "std_x": 0.21247070575357135
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.10466830544655342,
+        "r": 3.700214199582439,
+        "seed": 9131
+      },
+      "seed": 9131
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.1670463044782812,
+        "max_abs_dx": 0.678397874109572,
+        "mean_x": 0.6531097208526094,
+        "permutation_entropy_early": 0.6131471927654567,
+        "spectral_high_energy": 0.7325683312794011,
+        "std_x": 0.2194260574963197
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.19254803618014732,
+        "r": 3.789993552381686,
+        "seed": 9132
+      },
+      "seed": 9132
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.26778063239475697,
+        "max_abs_dx": 0.6830927417957855,
+        "mean_x": 0.6571122948283293,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9899574533571529,
+        "std_x": 0.21965552371059552
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.0742220799799005,
+        "r": 3.7735230974310054,
+        "seed": 9133
+      },
+      "seed": 9133
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.20153569659874965,
+        "max_abs_dx": 0.6578999677097721,
+        "mean_x": 0.6556827701670722,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9290200026729157,
+        "std_x": 0.2233661846231413
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.18852123434126156,
+        "r": 3.7850190271954456,
+        "seed": 9134
+      },
+      "seed": 9134
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.22848051813021245,
+        "max_abs_dx": 0.7980626645040232,
+        "mean_x": 0.6482742576922373,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.8229467397671363,
+        "std_x": 0.23980347624556217
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.11276102695267153,
+        "r": 3.885827628248451,
+        "seed": 9135
+      },
+      "seed": 9135
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.21183301568370724,
+        "max_abs_dx": 0.6468934349250076,
+        "mean_x": 0.6509971445444517,
+        "permutation_entropy_early": 0.6131471927654567,
+        "spectral_high_energy": 0.7764126488170955,
+        "std_x": 0.21953511594645123
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.15332117224052114,
+        "r": 3.7607122300374276,
+        "seed": 9136
+      },
+      "seed": 9136
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.17868460849012108,
+        "max_abs_dx": 0.8190804040663915,
+        "mean_x": 0.6434149956551451,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.972912356547693,
+        "std_x": 0.23154249479707656
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.16749050919603523,
+        "r": 3.8892123214320597,
+        "seed": 9137
+      },
+      "seed": 9137
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.21092332673824607,
+        "max_abs_dx": 0.763776730912862,
+        "mean_x": 0.654538767532761,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.8564362324338628,
+        "std_x": 0.23622996195186333
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.10470368556334454,
+        "r": 3.8416405391978286,
+        "seed": 9138
+      },
+      "seed": 9138
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.16396969544410997,
+        "max_abs_dx": 0.6685551054839726,
+        "mean_x": 0.664190097781244,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9821974680971053,
+        "std_x": 0.20893444275109135
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.19068682719905422,
+        "r": 3.74747755457647,
+        "seed": 9139
+      },
+      "seed": 9139
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.24397814949082772,
+        "max_abs_dx": 0.7233055116458678,
+        "mean_x": 0.6521759123436398,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9083113834894528,
+        "std_x": 0.2223001765042104
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.06561667065907843,
+        "r": 3.7064517325869035,
+        "seed": 9140
+      },
+      "seed": 9140
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.23163119544770183,
+        "max_abs_dx": 0.7549190837188644,
+        "mean_x": 0.6420229803383264,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9155386611113282,
+        "std_x": 0.23732029971925506
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.15853612186041435,
+        "r": 3.8440522981060434,
+        "seed": 9141
+      },
+      "seed": 9141
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.25702868335158513,
+        "max_abs_dx": 0.8534502949798739,
+        "mean_x": 0.6453208985425061,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.9592076058964512,
+        "std_x": 0.24518586023564043
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.11410744634028679,
+        "r": 3.898823877362951,
+        "seed": 9142
+      },
+      "seed": 9142
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.28075177305022164,
+        "max_abs_dx": 0.8296826041813903,
+        "mean_x": 0.6460520577032606,
+        "permutation_entropy_early": 0.8710490642551499,
+        "spectral_high_energy": 0.830550938349807,
+        "std_x": 0.24329783836169253
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.07165424686541932,
+        "r": 3.895049302870312,
+        "seed": 9143
+      },
+      "seed": 9143
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2828456203120107,
+        "max_abs_dx": 0.8008056133535912,
+        "mean_x": 0.6537916057096528,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.9614217183500101,
+        "std_x": 0.23512247530567498
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.09005821026201352,
+        "r": 3.8908818940779937,
+        "seed": 9144
+      },
+      "seed": 9144
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.1956312862483904,
+        "max_abs_dx": 0.7422623252469404,
+        "mean_x": 0.6558041290346839,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.9784418032714608,
+        "std_x": 0.21321018360773916
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.18068801940719703,
+        "r": 3.7903988456096283,
+        "seed": 9145
+      },
+      "seed": 9145
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.2422020202509604,
+        "max_abs_dx": 0.8249600388280607,
+        "mean_x": 0.6222180744371164,
+        "permutation_entropy_early": 0.6934264036172686,
+        "spectral_high_energy": 0.9219121821889595,
+        "std_x": 0.2554818140027126
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.0655266332143683,
+        "r": 3.8562661543244854,
+        "seed": 9146
+      },
+      "seed": 9146
+    },
+    {
+      "features": {
+        "N": 16.0,
+        "local_divergence_proxy": 0.23910427071356735,
+        "max_abs_dx": 0.8433694432446892,
+        "mean_x": 0.6535766061931123,
+        "permutation_entropy_early": 0.6934264036172686,
+        "spectral_high_energy": 0.9685671992645453,
+        "std_x": 0.22758571401749092
+      },
+      "label": 1,
+      "meta": {
+        "N": 16,
+        "epsilon": 0.1504703044487789,
+        "r": 3.8938339957977477,
+        "seed": 9147
+      },
+      "seed": 9147
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.23666596964753195,
+        "max_abs_dx": 0.6981328494453019,
+        "mean_x": 0.6583989426022244,
+        "permutation_entropy_early": 0.7420981285103034,
+        "spectral_high_energy": 0.996881982068257,
+        "std_x": 0.21886872201493618
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.08721545756116464,
+        "r": 3.74445534960588,
+        "seed": 9148
+      },
+      "seed": 9148
+    },
+    {
+      "features": {
+        "N": 24.0,
+        "local_divergence_proxy": 0.24146078426794015,
+        "max_abs_dx": 0.7685679671504919,
+        "mean_x": 0.6430173210176301,
+        "permutation_entropy_early": 0.87104906425515,
+        "spectral_high_energy": 0.9659888098780681,
+        "std_x": 0.23963655635257844
+      },
+      "label": 1,
+      "meta": {
+        "N": 24,
+        "epsilon": 0.07884000089061506,
+        "r": 3.8384096979421765,
+        "seed": 9149
+      },
+      "seed": 9149
+    }
+  ],
+  "sha256_of_sealed_bundle": "cb84def6817971f3f9391792b63e8c974e8b011ddbe4d614aecf5b2c7d5d858e",
+  "stats": {
+    "n": 150,
+    "neg": 0,
+    "pos": 150
+  },
+  "status": "UNSEALED_FOR_EXECUTION",
+  "unsealed_at_utc": "2026-10-01T11:58:58.936358+00:00",
+  "unsealed_for_execution": true
+}

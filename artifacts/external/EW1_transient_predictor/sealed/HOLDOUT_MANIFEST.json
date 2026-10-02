@@ -1,7 +1,13 @@
 {
+  "n": 150,
   "pack": "HOLDOUT",
-  "status": "NOT_SEALED_YET",
   "protocol_id": "EW1-CTP-v1",
-  "n_seeds": 0,
-  "sha256_of_sealed_bundle": null
+  "sha256_of_sealed_bundle": "cb84def6817971f3f9391792b63e8c974e8b011ddbe4d614aecf5b2c7d5d858e",
+  "stats": {
+    "n": 150,
+    "neg": 0,
+    "pos": 150
+  },
+  "status": "UNSEALED_FOR_EXECUTION",
+  "unsealed_for_execution": true
 }

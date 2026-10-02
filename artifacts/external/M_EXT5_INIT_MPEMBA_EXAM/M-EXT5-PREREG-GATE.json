@@ -1,0 +1,34 @@
+{
+  "protocol_id": "M-EXT5-INIT-MPEMBA-v1",
+  "exam_id": "M-EXT5-INIT-MPEMBA",
+  "status": "CAMPAIGN_CLOSED",
+  "science_cycle_started": true,
+  "mechanical_gate_required": true,
+  "mechanical_gate_status": "GATE_GREEN",
+  "terminals": {
+    "H_EFFECT": "REJECTED",
+    "H_EFFECT_EARLY_SECONDARY": "SUPPORTED_WITHIN_SCOPE",
+    "H_FISHER": "REJECTED"
+  },
+  "hypotheses": {
+    "H_EFFECT": {
+      "focus": "initialization_induced_mpemba_crossing",
+      "terminals": ["SUPPORTED_WITHIN_SCOPE", "REJECTED", "INCONCLUSIVE"]
+    },
+    "H_FISHER": {
+      "focus": "fisher_geometry_explains_crossing",
+      "terminals": ["SUPPORTED_WITHIN_SCOPE", "REJECTED", "INCONCLUSIVE"],
+      "secondary_to_effect": true
+    }
+  },
+  "forbidden": [
+    "rewrite_m_ext4_artifacts",
+    "reuse_m_ext4_14_of_20_broken_alpha_rule",
+    "cite_uncalibrated_p_approx_0_6",
+    "treat_crossing_as_fisher_proof",
+    "gos_architecture_edits_for_optics",
+    "confirmatory_before_mechanical_gate_green",
+    "human_content_coaching_before_terminal"
+  ],
+  "locked_at_utc": "2026-10-02T07:30:00Z"
+}

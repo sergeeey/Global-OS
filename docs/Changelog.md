@@ -1,5 +1,74 @@
 # Changelog
 
+## 0.1.120 — 2026-10-02
+
+### Honesty sync — campaign report + accumulated claim
+
+- Fixed M-EXT5 status to single `CAMPAIGN_CLOSED` (removed OPEN drift in report)
+- Narrowed empirics wording: late init-Mpemba REJECTED in-protocol; general NN existence NOT ESTABLISHED
+- Canonical `artifacts/external/ACCUMULATED_CLAIM.md`; next mode = pilot usage, not M-EXT6
+
+## 0.1.119 — 2026-10-02
+
+### M-EXT5 CLOSED — init Mpemba dual terminals
+
+- Mechanical gate GREEN; prereg 15/20; sealed n=20 synthetic MLP
+- H_EFFECT (late): **REJECTED** (2/20); early secondary SUPPORTED (20/20); H_FISHER REJECTED
+- No GOS architecture changes; M-EXT4 immutable
+
+## 0.1.118 — 2026-10-02
+
+### Campaign report (external exams)
+
+- Added `artifacts/external/CAMPAIGN_REPORT_2026-10-02.md` — full results summary M-EXT1…M-EXT5-open
+
+## 0.1.117 — 2026-10-02
+
+### M-EXT4 post-hoc audit + M-EXT5 open
+
+- Added `POST_HOC_AUDIT.md` / `ERRATA.md` / `ACCUMULATED_CLAIM.md` (M-EXT4 agent `DECISION.md` immutable)
+- Accumulated claim: SUCCESSFUL SCIENTIFIC TRIAGE; broad NOT NOVEL; init UNRESOLVED; empirical NOT TESTED
+- Opened M-EXT5 (`H_EFFECT` ⊥ `H_FISHER`) with mechanical correctness gate ALL PENDING
+- Science cycle for M-EXT5 not started; no GOS architecture changes
+
+## 0.1.116 — 2026-10-01
+
+### M-EXT4 mission open — Mpemba NN dynamics
+
+- Locked Goal Contract + agent `MISSION_BRIEF` + immutable `SOURCE_HYPOTHESIS`
+- Terminal vocabulary includes `ILL_POSED` / `NOT_NOVEL_IN_CLAIMED_FORM`
+- Science cycle not started in setup (exam integrity; no content coaching)
+- Prior M-EXT1–3 unchanged
+
+## 0.1.115 — 2026-10-01
+
+### M-EXT3 CLOSED TIE — GOS vs strong single agent (httpx#3614)
+
+- Pinned encode/httpx#3614 (`base_url` query → trailing-slash corruption)
+- Arm A (strong agent) + Arm B (GOS): both hard-gate `ROOT_CAUSE_CONFIRMED` → **TIE**
+- Root cause: `_enforce_trailing_slash` mutates `raw_path` including query
+- H_GSA primary advantage NOT CONFIRMED; architecture unchanged; M-EXT1 untouched
+- Same-lineage sequential caveat recorded; no post-hoc win-hunt
+
+## 0.1.114 — 2026-10-01
+
+### M-EXT3 prereg: GOS vs strong single agent
+
+- Locked `M-EXT3-GSA-v1` Goal Contract + prereg before any arm execution
+- Equal budgets, M-EXT1-class hard gates, primary decision table (B/A/TIE/TIE_NULL/INCONCLUSIVE)
+- Task selection gates open; `arms_started=false` until `TASK_PIN.json`
+- Forbidden: reuse urllib3#5248, M-EXT2-F2, unequal budgets, architecture-for-optics
+- M-EXT1 IMMUTABLE / M-EXT2 CLOSED unchanged
+
+## 0.1.113 — 2026-10-01
+
+### M-EXT1 immutable + M-EXT2/EW1 INCONCLUSIVE
+
+- M-EXT1/EW2 sealed IMMUTABLE (`ROOT_CAUSE_CONFIRMED`); no urllib3 polish for GOS self-score
+- M-EXT2/EW1 science exam: sealed holdout scored → **INCONCLUSIVE** (all-positive labels; balance gate)
+- No post-hoc label/feature retune; architecture unchanged
+- Sequence complete: OSS eng exam + science exam; next suggested = GOS vs strong single agent
+
 ## 0.1.112 — 2026-10-01
 
 ### M-EXT1 EW2 exam: urllib3#5248 ROOT_CAUSE_CONFIRMED

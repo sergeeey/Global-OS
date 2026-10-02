@@ -1,0 +1,18 @@
+diff --git a/httpx/_client.py b/httpx/_client.py
+index 13cd933..358296e 100644
+--- a/httpx/_client.py
++++ b/httpx/_client.py
+@@ -232,9 +232,11 @@ class BaseClient:
+         return self._trust_env
+ 
+     def _enforce_trailing_slash(self, url: URL) -> URL:
+-        if url.raw_path.endswith(b"/"):
++        # Append slash to the path only. raw_path includes "?query", so
++        # mutating raw_path would corrupt query values (encode/httpx#3614).
++        if url.path.endswith("/"):
+             return url
+-        return url.copy_with(raw_path=url.raw_path + b"/")
++        return url.copy_with(path=url.path + "/")
+ 
+     def _get_proxy_map(
+         self, proxy: ProxyTypes | None, allow_env_proxies: bool

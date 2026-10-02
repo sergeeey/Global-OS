@@ -1,10 +1,10 @@
 {
+  "arms_started": true,
+  "exam_id": "M-EXT2-EW1",
+  "holdout_status": "UNSEALED_FOR_EXECUTION",
   "mission_id": "EW1",
+  "phase": "SCORED",
   "protocol_id": "EW1-CTP-v1",
-  "phase": "PREREG_LOCKED_PREP_DATA",
-  "holdout_status": "NOT_SEALED_YET",
-  "arms_started": false,
-  "y19_reopen": false,
-  "gos_self_proof": false,
-  "updated_at_utc": "2026-10-01T07:45:00Z"
+  "updated_at_utc": "2026-10-01T11:58:58.940487+00:00",
+  "verdict": "INCONCLUSIVE"
 }

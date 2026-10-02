@@ -1,0 +1,130 @@
+{
+  "exam_id": "M-EXT4-MPEMBA",
+  "protocol": "M-EXT4-MPEMBA-v1",
+  "sealed_at": "2026-10-01T19:50:00Z",
+  "purpose": "Confirmatory holdout seeds (\u03b8_hot, \u03b8_cold, S_data)",
+  "count": 20,
+  "entropy_hex": "0xDEADBEEFCAFEBABE",
+  "seeds": [
+    {
+      "run_id": 1,
+      "theta_hot_seed": 28350527,
+      "theta_cold_seed": 1482946522,
+      "batch_shuffle_seed": 2272382365
+    },
+    {
+      "run_id": 2,
+      "theta_hot_seed": 475271582,
+      "theta_cold_seed": 2210737829,
+      "batch_shuffle_seed": 3831400603
+    },
+    {
+      "run_id": 3,
+      "theta_hot_seed": 658782302,
+      "theta_cold_seed": 448619881,
+      "batch_shuffle_seed": 3094282592
+    },
+    {
+      "run_id": 4,
+      "theta_hot_seed": 2323438621,
+      "theta_cold_seed": 436562346,
+      "batch_shuffle_seed": 4075161810
+    },
+    {
+      "run_id": 5,
+      "theta_hot_seed": 3400729727,
+      "theta_cold_seed": 1103997299,
+      "batch_shuffle_seed": 3324465966
+    },
+    {
+      "run_id": 6,
+      "theta_hot_seed": 3715287094,
+      "theta_cold_seed": 3965344668,
+      "batch_shuffle_seed": 168540616
+    },
+    {
+      "run_id": 7,
+      "theta_hot_seed": 2054486040,
+      "theta_cold_seed": 3863631432,
+      "batch_shuffle_seed": 306160272
+    },
+    {
+      "run_id": 8,
+      "theta_hot_seed": 848735641,
+      "theta_cold_seed": 1493349535,
+      "batch_shuffle_seed": 4106971529
+    },
+    {
+      "run_id": 9,
+      "theta_hot_seed": 451368802,
+      "theta_cold_seed": 2575962073,
+      "batch_shuffle_seed": 2433990629
+    },
+    {
+      "run_id": 10,
+      "theta_hot_seed": 3259641311,
+      "theta_cold_seed": 910014202,
+      "batch_shuffle_seed": 2612058400
+    },
+    {
+      "run_id": 11,
+      "theta_hot_seed": 667398523,
+      "theta_cold_seed": 2470507694,
+      "batch_shuffle_seed": 3197888218
+    },
+    {
+      "run_id": 12,
+      "theta_hot_seed": 3929302718,
+      "theta_cold_seed": 723492095,
+      "batch_shuffle_seed": 968817595
+    },
+    {
+      "run_id": 13,
+      "theta_hot_seed": 1083363472,
+      "theta_cold_seed": 3589146310,
+      "batch_shuffle_seed": 1139072483
+    },
+    {
+      "run_id": 14,
+      "theta_hot_seed": 2983485578,
+      "theta_cold_seed": 3868916690,
+      "batch_shuffle_seed": 3106222440
+    },
+    {
+      "run_id": 15,
+      "theta_hot_seed": 2559461577,
+      "theta_cold_seed": 1397139027,
+      "batch_shuffle_seed": 978176741
+    },
+    {
+      "run_id": 16,
+      "theta_hot_seed": 2552856015,
+      "theta_cold_seed": 847421650,
+      "batch_shuffle_seed": 91343316
+    },
+    {
+      "run_id": 17,
+      "theta_hot_seed": 811009207,
+      "theta_cold_seed": 4053237924,
+      "batch_shuffle_seed": 3948327281
+    },
+    {
+      "run_id": 18,
+      "theta_hot_seed": 883284823,
+      "theta_cold_seed": 1398303264,
+      "batch_shuffle_seed": 1612841429
+    },
+    {
+      "run_id": 19,
+      "theta_hot_seed": 1523713690,
+      "theta_cold_seed": 2836232219,
+      "batch_shuffle_seed": 338511040
+    },
+    {
+      "run_id": 20,
+      "theta_hot_seed": 4091519731,
+      "theta_cold_seed": 3606940223,
+      "batch_shuffle_seed": 1794333994
+    }
+  ]
+}

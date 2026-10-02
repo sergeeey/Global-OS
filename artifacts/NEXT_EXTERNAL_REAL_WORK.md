@@ -49,7 +49,16 @@ Contract: `artifacts/external/CONTRACT/EXTERNAL_REAL_WORK.md` (`CONTRACT_LOCKED`
 
 | Id | Status | Target |
 |----|--------|--------|
-| **EW1** | `PREREG_LOCKED` | Coupled logistic-map lattice — early predictor of long/chaotic transient vs strong baseline (`EW1-CTP-v1`). **Not** Y19 reopen. |
-| **EW2** | `TERMINAL` **ROOT_CAUSE_CONFIRMED** | [urllib3#5248](https://github.com/urllib3/urllib3/issues/5248) — see `M_EXT1_EW2_EXAM/` |
+| **EW1 / M-EXT2** | `CLOSED` **INCONCLUSIVE** | Label degeneracy (0 negatives); class-balance gate; no retune |
+| **EW2 / M-EXT1** | `IMMUTABLE` **ROOT_CAUSE_CONFIRMED** | urllib3#5248 deliverable pack |
+| **M-EXT3 / GSA** | `CLOSED` **TIE** | httpx#3614; HG(A)=HG(B)=1; H_GSA NOT CONFIRMED |
+| **M-EXT4 / EW4** | `TERMINAL` + post-hoc audit | Triage success; broad NOT NOVEL; init novelty UNRESOLVED; empirical NOT TESTED |
+| **M-EXT5 / EW5** | `CLOSED` | H_EFFECT(late) REJECTED; early secondary SUPPORTED; H_FISHER REJECTED |
 
-Next: EW1 science exam (queued). Optional: file upstream PR from deliverable pack.
+Campaign report: `artifacts/external/CAMPAIGN_REPORT_2026-10-02.md` (see also M-EXT5 DECISION).
+
+Canonical claim: `artifacts/external/ACCUMULATED_CLAIM.md`.
+
+Next: merge PR #11 (supersedes #9+#10 tips); close duplicates; **pilot usage** on real projects.
+Do not chain M-EXT6 self-exams by default. Do not promote early secondary→primary without new prereg.
+No Immune*/ScienceKernel.

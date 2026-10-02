@@ -1,0 +1,35 @@
+{
+  "protocol_id": "M-EXT4-MPEMBA-v1",
+  "exam_id": "M-EXT4-MPEMBA",
+  "status": "TERMINAL_WITH_POST_HOC_AUDIT",
+  "science_cycle_started": true,
+  "agent_terminal": "NOT_NOVEL_IN_CLAIMED_FORM + ILL_POSED",
+  "exam_outcome_post_audit": "SUCCESSFUL_SCIENTIFIC_TRIAGE",
+  "accumulated_claim_path": "ACCUMULATED_CLAIM.md",
+  "allowed_terminals": [
+    "SUPPORTED_WITHIN_SCOPE",
+    "REJECTED",
+    "INCONCLUSIVE",
+    "ILL_POSED",
+    "NOT_NOVEL_IN_CLAIMED_FORM"
+  ],
+  "required_before_confirmatory": [
+    "LITERATURE_MAP.md",
+    "FORMALIZATION.md",
+    "COMPETING_EXPLANATIONS.md",
+    "PREREG.md",
+    "SEALED_HOLDOUT.json"
+  ],
+  "forbidden": [
+    "edit_source_hypothesis",
+    "gos_architecture_edits_for_optics",
+    "cite_y24_y25_mext_as_mpemba_evidence",
+    "pilot_access_to_confirmatory_holdout",
+    "post_hoc_endpoint_fishing_after_unseal",
+    "llm_as_numerical_result_oracle",
+    "silent_easier_experiment_without_amendment",
+    "human_content_coaching_before_terminal"
+  ],
+  "compute_policy": "CPU sufficient to start (toy + small MLP); GPU optional; stop with blocker if required resource missing",
+  "locked_at_utc": "2026-10-01T15:50:00Z"
+}

@@ -1,0 +1,89 @@
+{
+  "entropy": "0xE501BEEF",
+  "n_pairs": 20,
+  "note": "Do not read during pilot; confirmatory only",
+  "pairs": [
+    {
+      "seed_batch": 25986,
+      "seed_pair": 1000
+    },
+    {
+      "seed_batch": 42047,
+      "seed_pair": 1001
+    },
+    {
+      "seed_batch": 29445,
+      "seed_pair": 1002
+    },
+    {
+      "seed_batch": 47850,
+      "seed_pair": 1003
+    },
+    {
+      "seed_batch": 30067,
+      "seed_pair": 1004
+    },
+    {
+      "seed_batch": 13435,
+      "seed_pair": 1005
+    },
+    {
+      "seed_batch": 35578,
+      "seed_pair": 1006
+    },
+    {
+      "seed_batch": 38095,
+      "seed_pair": 1007
+    },
+    {
+      "seed_batch": 17667,
+      "seed_pair": 1008
+    },
+    {
+      "seed_batch": 39497,
+      "seed_pair": 1009
+    },
+    {
+      "seed_batch": 43420,
+      "seed_pair": 1010
+    },
+    {
+      "seed_batch": 17894,
+      "seed_pair": 1011
+    },
+    {
+      "seed_batch": 24485,
+      "seed_pair": 1012
+    },
+    {
+      "seed_batch": 32165,
+      "seed_pair": 1013
+    },
+    {
+      "seed_batch": 31305,
+      "seed_pair": 1014
+    },
+    {
+      "seed_batch": 40318,
+      "seed_pair": 1015
+    },
+    {
+      "seed_batch": 20126,
+      "seed_pair": 1016
+    },
+    {
+      "seed_batch": 39622,
+      "seed_pair": 1017
+    },
+    {
+      "seed_batch": 46542,
+      "seed_pair": 1018
+    },
+    {
+      "seed_batch": 34986,
+      "seed_pair": 1019
+    }
+  ],
+  "protocol_id": "M-EXT5-INIT-MPEMBA-v1",
+  "status": "SEALED"
+}

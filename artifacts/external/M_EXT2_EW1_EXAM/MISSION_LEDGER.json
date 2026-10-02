@@ -1,0 +1,17 @@
+{
+  "exam_id": "M-EXT2-EW1",
+  "protocol_id": "EW1-CTP-v1",
+  "terminal_verdict": "INCONCLUSIVE",
+  "reason": "holdout_class_balance_underpowered_all_positive_labels",
+  "train_balance": {"n": 300, "pos": 300, "neg": 0},
+  "holdout_balance": {"n": 150, "pos": 150, "neg": 0},
+  "gos_architecture_changed": false,
+  "y19_reopen": false,
+  "post_hoc_label_retune": false,
+  "m_ext1_immutable": true,
+  "budget": {
+    "wall_hours_cap": 8,
+    "reseal_after_unseal": 0,
+    "feature_add_after_unseal": 0
+  }
+}

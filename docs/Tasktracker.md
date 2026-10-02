@@ -4,11 +4,17 @@
 - [x] Y24 prereg LOCKED — Adaptive Verifier Complexity Threshold (`artifacts/y24/`)
 - [x] Y24 prep locks: complexity rubric + cost accounting + isolation gate + refuse-exec stubs
 - [x] Y24 CLOSED — F1 INCONCLUSIVE, F2 REJECT; Adaptive-C NOT SHOWN; TK unchanged; no rescue
-- [x] Y25 CAMPAIGN_CLOSED — REJECT; no Y25-F2
-- [x] EXTERNAL REAL WORK contract + EW1/EW2 prereg locked
-- [x] M-EXT1 EW2 exam: urllib3#5248 **ROOT_CAUSE_CONFIRMED** (hard gate)
-- [ ] EW1 queued: generate data → seal → score vs baseline
-- [ ] Forbidden: architecture shopping from EW2 success; Y25-F2; cite Y24/Y25
+- [x] M-EXT1 IMMUTABLE — urllib3#5248 ROOT_CAUSE_CONFIRMED
+- [x] M-EXT2/EW1 CLOSED — INCONCLUSIVE (degenerate labels; no retune)
+- [x] M-EXT3 prereg LOCKED — GOS vs strong single agent (`M-EXT3-GSA-v1`)
+- [x] M-EXT3 CLOSED TIE — httpx#3614; HG(A)=HG(B)=1; H_GSA NOT CONFIRMED
+- [x] M-EXT4 agent TERMINAL — NOT_NOVEL_IN_CLAIMED_FORM + ILL_POSED (immutable)
+- [x] M-EXT4 POST_HOC_AUDIT + ERRATA — triage success; init novelty UNRESOLVED; empirical NOT TESTED
+- [x] M-EXT5 CAMPAIGN_CLOSED — late REJECTED; early secondary SUPPORTED; H_FISHER REJECTED
+- [x] Honesty sync: report + ACCUMULATED_CLAIM (no OPEN/CLOSED drift)
+- [ ] Merge PR #11; close duplicate #9/#10
+- [ ] Pilot usage on real projects (not M-EXT6 self-exam chain by default)
+- [ ] Forbidden: rewrite M-EXT4/5; secondary→primary silently; Immune*/ScienceKernel
 - [ ] Y25 (later): verification-budget frontier — only after Y24 terminal result
 - [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)
 - [x] Freeze SAFE_AUTONOMY_BENCHMARK-v1 + H_TRUST metrics
