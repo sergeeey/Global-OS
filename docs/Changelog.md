@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.118 — 2026-10-02
+
+### Campaign report (external exams)
+
+- Added `artifacts/external/CAMPAIGN_REPORT_2026-10-02.md` — full results summary M-EXT1…M-EXT5-open
+
 ## 0.1.117 — 2026-10-02
 
 ### M-EXT4 post-hoc audit + M-EXT5 open
