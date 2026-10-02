@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.119 — 2026-10-02
+
+### M-EXT5 CLOSED — init Mpemba dual terminals
+
+- Mechanical gate GREEN; prereg 15/20; sealed n=20 synthetic MLP
+- H_EFFECT (late): **REJECTED** (2/20); early secondary SUPPORTED (20/20); H_FISHER REJECTED
+- No GOS architecture changes; M-EXT4 immutable
+
 ## 0.1.118 — 2026-10-02
 
 ### Campaign report (external exams)

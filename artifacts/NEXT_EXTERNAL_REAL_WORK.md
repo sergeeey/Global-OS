@@ -53,9 +53,9 @@ Contract: `artifacts/external/CONTRACT/EXTERNAL_REAL_WORK.md` (`CONTRACT_LOCKED`
 | **EW2 / M-EXT1** | `IMMUTABLE` **ROOT_CAUSE_CONFIRMED** | urllib3#5248 deliverable pack |
 | **M-EXT3 / GSA** | `CLOSED` **TIE** | httpx#3614; HG(A)=HG(B)=1; H_GSA NOT CONFIRMED |
 | **M-EXT4 / EW4** | `TERMINAL` + post-hoc audit | Triage success; broad NOT NOVEL; init novelty UNRESOLVED; empirical NOT TESTED |
-| **M-EXT5 / EW5** | `MISSION_OPEN` | Init-based Mpemba; mechanical gate ALL PENDING; science not started |
+| **M-EXT5 / EW5** | `CLOSED` | H_EFFECT(late) REJECTED; early secondary SUPPORTED; H_FISHER REJECTED |
 
-Campaign report: `artifacts/external/CAMPAIGN_REPORT_2026-10-02.md`.
+Campaign report: `artifacts/external/CAMPAIGN_REPORT_2026-10-02.md` (see also M-EXT5 DECISION).
 
-Next: review/merge audit layer → execute M-EXT5 (gate → pilot → final prereg → seal → dual terminal).
-Do not rewrite M-EXT4. No Immune*/ScienceKernel.
+Next: merge PR #11. Optional new prereg if early-threshold claim elevated to primary.
+Do not rewrite M-EXT4/5. No Immune*/ScienceKernel.

@@ -1,9 +1,15 @@
 {
   "protocol_id": "M-EXT5-INIT-MPEMBA-v1",
   "exam_id": "M-EXT5-INIT-MPEMBA",
-  "status": "MISSION_OPEN",
-  "science_cycle_started": false,
+  "status": "CAMPAIGN_CLOSED",
+  "science_cycle_started": true,
   "mechanical_gate_required": true,
+  "mechanical_gate_status": "GATE_GREEN",
+  "terminals": {
+    "H_EFFECT": "REJECTED",
+    "H_EFFECT_EARLY_SECONDARY": "SUPPORTED_WITHIN_SCOPE",
+    "H_FISHER": "REJECTED"
+  },
   "hypotheses": {
     "H_EFFECT": {
       "focus": "initialization_induced_mpemba_crossing",

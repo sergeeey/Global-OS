@@ -134,21 +134,28 @@ def test_m_ext4_terminal_with_post_hoc_audit() -> None:
     assert "--confirmatory" in code
 
 
-def test_m_ext5_mission_open_gate_pending() -> None:
+def test_m_ext5_closed_dual_terminals() -> None:
     exam = EXT / "M_EXT5_INIT_MPEMBA_EXAM"
-    gate = json.loads((exam / "M-EXT5-PREREG-GATE.json").read_text(encoding="utf-8"))
-    assert gate["status"] == "MISSION_OPEN"
-    assert gate["science_cycle_started"] is False
-    assert gate["mechanical_gate_required"] is True
-    assert "H_EFFECT" in gate["hypotheses"] and "H_FISHER" in gate["hypotheses"]
-    assert "reuse_m_ext4_14_of_20_broken_alpha_rule" in gate["forbidden"]
-    ledger = json.loads((exam / "MISSION_LEDGER.json").read_text(encoding="utf-8"))
-    assert ledger["mechanical_gate_status"] == "ALL_PENDING"
-    assert ledger["phases"]["B_mechanical_gate"] == "PENDING"
-    assert not (exam / "DECISION.md").exists()
+    closed = json.loads((exam / "M_EXT5_CLOSED.json").read_text(encoding="utf-8"))
+    assert closed["status"] == "CAMPAIGN_CLOSED"
+    assert closed["H_EFFECT"] == "REJECTED"
+    assert closed["H_EFFECT_EARLY_SECONDARY"] == "SUPPORTED_WITHIN_SCOPE"
+    assert closed["H_FISHER"] == "REJECTED"
+    assert closed["n_wins_late"] == 2
+    assert closed["n_wins_early"] == 20
+    assert closed["architecture_changes"] == "NONE"
     mech = (exam / "MECHANICAL_GATE.md").read_text(encoding="utf-8")
-    assert "PENDING" in mech
-    assert "GATE_OPEN_ALL_PENDING" in mech
-    hy = (exam / "HYPOTHESES.md").read_text(encoding="utf-8")
-    assert "H_EFFECT" in hy and "H_FISHER" in hy
-    assert "Observing crossing" in hy or "crossing" in hy.lower()
+    assert "GATE_GREEN" in mech
+    decision = (exam / "DECISION.md").read_text(encoding="utf-8")
+    assert "REJECTED" in decision and "SUPPORTED_WITHIN_SCOPE" in decision
+    conf = json.loads(
+        (EXT / "EW5_init_mpemba" / "results" / "confirmatory_results.json").read_text(encoding="utf-8")
+    )
+    assert conf["H_EFFECT"] == "REJECTED"
+    assert conf["primary_endpoint"] == "loss_target_late"
+    prereg = json.loads((exam / "PREREG.json").read_text(encoding="utf-8"))
+    assert prereg["PRIMARY_MIN_WINS"] == 15
+    gate_res = json.loads(
+        (EXT / "EW5_init_mpemba" / "results" / "mechanical_gate_results.json").read_text(encoding="utf-8")
+    )
+    assert gate_res["failed"] == 0

@@ -371,10 +371,12 @@
       "empirical": "NOT_TESTED"
     },
     "M_EXT5": {
-      "status": "MISSION_OPEN",
+      "status": "CLOSED",
       "protocol_id": "M-EXT5-INIT-MPEMBA-v1",
-      "mechanical_gate": "ALL_PENDING",
-      "focus": "initialization_induced_mpemba_H_EFFECT_perp_H_FISHER"
+      "H_EFFECT": "REJECTED",
+      "H_EFFECT_EARLY_SECONDARY": "SUPPORTED_WITHIN_SCOPE",
+      "H_FISHER": "REJECTED",
+      "scope": "synthetic_mlp_cpu"
     }
   }
 }

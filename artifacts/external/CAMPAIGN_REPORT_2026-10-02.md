@@ -28,7 +28,7 @@
 | **M-EXT2 / EW1** | Science | `INCONCLUSIVE` | Sealed science; degenerate labels; без retune |
 | **M-EXT3 / GSA** | Comparison | `TIE` | GOS vs strong agent на httpx#3614; оба HG=1; H_GSA NOT CONFIRMED |
 | **M-EXT4 / EW4** | Science triage | Agent: `NOT_NOVEL`+`ILL_POSED`; Audit: **SUCCESSFUL TRIAGE** | Автономный scientific triage; эмпирика не закрыта |
-| **M-EXT5 / EW5** | Science (residual) | `OPEN` / gate PENDING | Узкий init-based Mpemba: H_EFFECT ⊥ H_FISHER |
+| **M-EXT5 / EW5** | Science (residual) | H_EFFECT **REJECTED**; early sec. SUPPORTED; H_FISHER **REJECTED** | Late init-Mpemba нет; early threshold-dependent crossing есть; не Fisher |
 
 **Trust Kernel:** не промотирован.  
 **Immune* / ScienceKernel:** не строились.
@@ -80,10 +80,12 @@ original formulation: PARTLY ILL-POSED
 
 Errata: несогласованный порог 14/20 vs α=0.05; `--confirmatory` не реализован; overclaim Fisher-Rao; P≈0.6 некалиброван.
 
-### 3.5 M-EXT5 — открыт, не запущен
+### 3.5 M-EXT5 — выполнен и закрыт
 
-Контракт + `MISSION_BRIEF` + `MECHANICAL_GATE` (все PENDING) + раздельные H_EFFECT / H_FISHER.  
-Научный цикл и pilot **не** начаты.
+- Mechanical gate GREEN (в т.ч. stats 15/20, working `--confirmatory`).  
+- Pilot: late 0/5, early 5/5 → primary = late.  
+- Confirmatory n=20: late **2/20 → H_EFFECT REJECTED**; early **20/20** secondary SUPPORTED; H_FISHER REJECTED.  
+- Scope: synthetic MLP (torchvision env broken).
 
 ---
 
@@ -142,9 +144,9 @@ independent post-hoc scientific audit
 
 1. **Review / merge** PR #11 (после вашего OK).  
 2. Закрыть/синхронизировать #9/#10, чтобы не плодить дубли.  
-3. **M-EXT5 execute:** mechanical gate → pilot → final prereg → seal → confirmatory → dual terminal.  
-4. Опционально: upstream filing urllib3#5248 / httpx#3614 (**external use**, не self-score).  
-5. Не делать: rewrite M-EXT4, Immune*, ScienceKernel, win-hunt более жёсткой задачей без нового prereg.
+3. Опционально: новый prereg, если early-threshold Mpemba поднимают в **primary**.  
+4. Опционально: upstream filing urllib3#5248 / httpx#3614 (**external use**).  
+5. Не делать: rewrite M-EXT4/5, silently promote secondary, Immune*, ScienceKernel.
 
 ---
 

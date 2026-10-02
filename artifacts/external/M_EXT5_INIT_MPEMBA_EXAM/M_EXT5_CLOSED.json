@@ -1,0 +1,16 @@
+{
+  "status": "CAMPAIGN_CLOSED",
+  "exam_id": "M-EXT5-INIT-MPEMBA",
+  "protocol_id": "M-EXT5-INIT-MPEMBA-v1",
+  "H_EFFECT": "REJECTED",
+  "H_EFFECT_EARLY_SECONDARY": "SUPPORTED_WITHIN_SCOPE",
+  "H_FISHER": "REJECTED",
+  "n_valid": 20,
+  "n_wins_late": 2,
+  "n_wins_early": 20,
+  "seal_sha256": "2cf3c65d38fbf0e1d336142791677f916127f4ef88bd867d59f709bb62a109ee",
+  "mechanical_gate": "GATE_GREEN",
+  "architecture_changes": "NONE",
+  "scope": "synthetic_mlp_cpu",
+  "closed_at_utc": "2026-10-02T09:00:00Z"
+}

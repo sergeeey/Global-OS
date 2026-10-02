@@ -10,9 +10,9 @@
 - [x] M-EXT3 CLOSED TIE — httpx#3614; HG(A)=HG(B)=1; H_GSA NOT CONFIRMED
 - [x] M-EXT4 agent TERMINAL — NOT_NOVEL_IN_CLAIMED_FORM + ILL_POSED (immutable)
 - [x] M-EXT4 POST_HOC_AUDIT + ERRATA — triage success; init novelty UNRESOLVED; empirical NOT TESTED
-- [x] M-EXT5 mission OPEN — H_EFFECT ⊥ H_FISHER; mechanical gate pending
-- [ ] M-EXT5: gate PASS → pilot → final prereg → seal → dual terminal
-- [ ] Forbidden: rewrite M-EXT4; reuse broken 14/20 rule; Immune*/ScienceKernel; content-coach
+- [x] M-EXT5 CLOSED — H_EFFECT REJECTED; early secondary SUPPORTED; H_FISHER REJECTED
+- [ ] Merge PR #11; optional follow-up prereg for early-threshold-as-primary
+- [ ] Forbidden: rewrite M-EXT4/5; promote secondary silently; Immune*/ScienceKernel
 - [ ] Y25 (later): verification-budget frontier — only after Y24 terminal result
 - [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)
 - [x] Freeze SAFE_AUTONOMY_BENCHMARK-v1 + H_TRUST metrics

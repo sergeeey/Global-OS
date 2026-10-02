@@ -2,35 +2,36 @@
   "exam_id": "M-EXT5-INIT-MPEMBA",
   "protocol_id": "M-EXT5-INIT-MPEMBA-v1",
   "goal_status": "GOAL_LOCKED",
-  "status_line": "OPEN / CONTRACT_LOCKED",
+  "status_line": "CAMPAIGN_CLOSED",
   "m_ext4_relation": "NEW_MISSION_NOT_REWRITE",
-  "m_ext4_audit_required_reading": [
-    "artifacts/external/M_EXT4_MPEMBA_EXAM/POST_HOC_AUDIT.md",
-    "artifacts/external/M_EXT4_MPEMBA_EXAM/ERRATA.md"
-  ],
-  "hypotheses": ["H_EFFECT", "H_FISHER"],
-  "mechanical_gate_status": "ALL_PENDING",
-  "science_cycle_started": false,
-  "pilot_started": false,
-  "prereg_locked": false,
-  "experiment_started": false,
-  "decision": null,
+  "mechanical_gate_status": "GATE_GREEN",
+  "science_cycle_started": true,
+  "pilot_started": true,
+  "prereg_locked": true,
+  "experiment_started": true,
+  "decision": {
+    "H_EFFECT": "REJECTED",
+    "H_EFFECT_EARLY_SECONDARY": "SUPPORTED_WITHIN_SCOPE",
+    "H_FISHER": "REJECTED"
+  },
   "gos_modified": false,
   "operator_coaching": "FORBIDDEN",
   "phases": {
     "A_contract": "DONE",
-    "B_mechanical_gate": "PENDING",
-    "C_formalization_endpoints": "BLOCKED_ON_GATE",
-    "D_pilot": "BLOCKED_ON_GATE",
-    "E_final_prereg_seal": "BLOCKED",
-    "F_confirmatory": "BLOCKED",
-    "G_decision": "BLOCKED"
+    "B_mechanical_gate": "DONE",
+    "C_formalization_endpoints": "DONE",
+    "D_pilot": "DONE",
+    "E_final_prereg_seal": "DONE",
+    "F_confirmatory": "DONE",
+    "G_decision": "DONE"
   },
   "budget": {
     "wall_hours_cap": 40,
-    "wall_hours_used": 0,
+    "wall_hours_used": 2.0,
     "gos_code_edits_cap": 0,
     "gos_code_edits_used": 0
   },
-  "opened_at_utc": "2026-10-02T07:30:00Z"
+  "opened_at_utc": "2026-10-02T07:30:00Z",
+  "closed_at_utc": "2026-10-02T09:00:00Z",
+  "closed_record": "M_EXT5_CLOSED.json"
 }

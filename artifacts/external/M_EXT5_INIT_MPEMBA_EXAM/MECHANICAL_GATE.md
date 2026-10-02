@@ -1,21 +1,17 @@
 # M-EXT5 — Mechanical correctness gate
 
-**Status:** `GATE_OPEN_ALL_PENDING`  
-**Rule:** No pilot scientific claims and **no confirmatory data collection** until every row is `PASS` with evidence path.
+**Status:** `GATE_GREEN`  
+**Evidence:** `artifacts/external/EW5_init_mpemba/results/mechanical_gate_results.json`
 
 | # | Check | Status | Evidence |
 |---|--------|--------|----------|
-| G1 | Confirmatory mode actually runs (loads seal, executes pairs, writes results) | `PENDING` | |
-| G2 | “N SGD steps” means exactly N parameter updates (not epochs-miscounted) | `PENDING` | |
-| G3 | Full config serializes to JSON (bit-reproducible fields recorded) | `PENDING` | |
-| G4 | Seed reproducibility: same seed ⇒ same init + same batch sequence | `PENDING` | |
-| G5 | Hot/cold receive **identical** batches (paired) | `PENDING` | |
-| G6 | Optimizer / LR / noise process identical across hot/cold | `PENDING` | |
-| G7 | Sealed confirmatory seeds unread during pilot / gate work | `PENDING` | |
-| G8 | Statistical decision rules internally consistent (threshold ↔ stated α/test) | `PENDING` | |
+| G1 | Confirmatory mode runs | `PASS` | `gate_tests.py` G1 → `run_confirmatory` |
+| G2 | N steps = N updates | `PASS` | G2_G4_G5_G6 |
+| G3 | Config serializes | `PASS` | G3 |
+| G4 | Seed reproducible | `PASS` | G4_repro |
+| G5 | Identical batches hot/cold | `PASS` | G2_G4_G5_G6 |
+| G6 | Same optimizer/LR | `PASS` | shared Config + SGD |
+| G7 | Seal seeds ≠ pilot | `PASS` | pilot 10–14 vs confirmatory ≥1000 |
+| G8 | Stats rule consistent (15/20) | `PASS` | `stats_rules.py` + G8 |
 
-## Notes
-
-- M-EXT4 code must **not** be assumed to pass G1/G8 (see M-EXT4 ERRATA E4/E5).  
-- Prefer a clean M-EXT5 package under `artifacts/external/EW5_init_mpemba/` rather than silently patching M-EXT4 history.  
-- When all PASS, set this file status to `GATE_GREEN` and record SHA of gate evidence in `MISSION_LEDGER.json`.
+All PASS before confirmatory data collection.

@@ -1,8 +1,8 @@
 {
-  "sprint": "M_EXT5_INIT_MPEMBA_OPEN",
-  "updated_at": "2026-10-02T07:35:00Z",
-  "current_goal": "M_EXT5_MECHANICAL_GATE_THEN_SCIENCE",
-  "phase_statement": "M-EXT4 TERMINAL + POST_HOC_AUDIT: exam SUCCESSFUL SCIENTIFIC TRIAGE; broad NOT NOVEL; init novelty UNRESOLVED; empirical NOT TESTED. M-EXT5 OPEN (H_EFFECT ⊥ H_FISHER); mechanical gate ALL PENDING. Architecture unchanged.",
+  "sprint": "M_EXT5_CLOSED",
+  "updated_at": "2026-10-02T09:05:00Z",
+  "current_goal": "MERGE_AND_OPTIONAL_FOLLOWUPS",
+  "phase_statement": "M-EXT5 CLOSED: H_EFFECT(late) REJECTED (2/20); early secondary SUPPORTED (20/20); H_FISHER REJECTED. Gate GREEN. M-EXT4 audit stands. Architecture unchanged.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y20": {
@@ -72,7 +72,7 @@
       "note": "successful run is the post-reboot full restart; interrupted partial run does not count"
     }
   },
-  "next_exact_action": "Merge PR with M-EXT4 audit layer. Execute M-EXT5: pass MECHANICAL_GATE → formalize endpoints → pilot → final prereg/seal → confirmatory → dual terminal (H_EFFECT, H_FISHER). Do not rewrite M-EXT4; do not reuse broken 14/20 rule; no GOS architecture edits.",
+  "next_exact_action": "Review/merge PR #11. Optional: new prereg if early-threshold Mpemba elevated to primary; optional upstream OSS packs. Do not rewrite M-EXT4/5 post-hoc; no Immune*/ScienceKernel.",
   "t3_continuation": {
     "path": "artifacts/safe_autonomy_t1/T3/T3_CONTINUATION.md",
     "is_new_sealed_replication": false,
@@ -330,10 +330,10 @@
     "M_EXT2": "CLOSED_INCONCLUSIVE",
     "M_EXT3": "CLOSED_TIE_H_GSA_NOT_CONFIRMED",
     "M_EXT4": "TERMINAL_POST_HOC_AUDIT_TRIAGE_SUCCESS",
-    "M_EXT5": "MISSION_OPEN_GATE_PENDING",
+    "M_EXT5": "CLOSED_H_EFFECT_REJECTED_EARLY_SECONDARY_SUPPORTED",
     "EW1": "INCONCLUSIVE_LABEL_DEGENERATE",
     "EW2": "TERMINAL_ROOT_CAUSE_CONFIRMED",
     "EW4": "MPEMBA_TRIAGE_AUDITED",
-    "EW5": "INIT_MPEMBA_OPEN"
+    "EW5": "INIT_MPEMBA_CLOSED"
   }
 }

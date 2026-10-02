@@ -191,8 +191,11 @@ EXTERNAL REAL WORK
     empirical Mpemba: NOT TESTED
     formulation: PARTLY ILL-POSED
     errata: stats 14/20, confirmatory CLI, Fisher overclaim, P≈0.6
-  M-EXT5/EW5 MISSION_OPEN — init-based Mpemba; H_EFFECT ⊥ H_FISHER;
-    mechanical gate PENDING; not an M-EXT4 rewrite
+  M-EXT5/EW5 CLOSED — synthetic MLP, gate GREEN, stats 15/20
+    H_EFFECT (late loss≤0.35): REJECTED (2/20)
+    H_EFFECT_EARLY secondary (≤1.0): SUPPORTED_WITHIN_SCOPE (20/20)
+    H_FISHER (grad-norm proxy): REJECTED
+    Lesson: threshold defines the claim; early ≠ late Mpemba; crossing ≠ Fisher
   Process lesson: agent terminal → independent post-hoc audit → headline
-  Forbidden: Immune*/ScienceKernel / rewrite M-EXT4 / polish M-EXT1
+  Forbidden: Immune*/ScienceKernel / rewrite M-EXT4 / promote secondary to primary silently
 ```
