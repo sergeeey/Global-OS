@@ -1,8 +1,8 @@
 # Отчёт: внешняя экзаменационная кампания Global OS
 
 **Дата:** 2026-10-02 (honesty sync)  
-**Ветка:** `cursor/m-ext4-mpemba-mission-2907` @ tip (см. git)  
-**Sprint:** `M_EXT5_CLOSED`  
+**Ветка:** `main` @ `02acddb` (канон после merge #11)  
+**Sprint:** `PILOT_USAGE` (post-merge)  
 **Архитектура Global OS:** без изменений ради optics (ADR-0009 соблюдён)
 
 ---
@@ -158,21 +158,18 @@ independent post-hoc scientific audit
 
 | Канал | Состояние |
 |-------|-----------|
-| Канонический tip кампании | `cursor/m-ext4-mpemba-mission-2907` → PR **#11** |
-| Ancestry | tip **#9** (`cb05dad`) и tip **#10** (`3308087`) — **ancestors of #11** (`46ef3c1`) |
-| #9 / #10 | OPEN duplicates — закрыть после merge #11 |
-| `main` | отстаёт (последний merge: #8 / M-EXT1) |
-
-Рекомендация: **merge #11** → close #9 и #10 → `main` = единственная каноническая истина.
+| Канон | **`main` @ `02acddb`** (merge PR #11) |
+| #9 / #10 / #11 | MERGED |
+| Mode | **pilot usage** — не цепочка M-EXT* self-exams |
 
 ---
 
 ## 7. Что дальше (не M-EXT6)
 
-1. Merge #11; закрыть дубли #9/#10.  
+1. ~~Merge #11~~ **DONE** (`main` = канон).  
 2. **Не** поднимать early-Mpemba secondary в primary без отдельного prereg.  
 3. **Не** запускать цепочку новых экзаменов ради самооценки.  
-4. Перейти к **pilot usage** на реальных задачах пользователя:
+4. **Pilot usage** на реальных задачах пользователя:
 
 ```text
 большая задача

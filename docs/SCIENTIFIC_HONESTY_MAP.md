@@ -198,8 +198,10 @@ EXTERNAL REAL WORK
     Do NOT silently promote early secondary → primary
   Accumulated: GOS can finish real eng/science terminals; late init-Mpemba
     rejected in this protocol; GOS vs strong agent advantage NOT SHOWN
-  Next mode: pilot usage on real user projects — not M-EXT6 self-exams
+  main canonical: merge PR #11 (02acddb)
+  Next mode: PILOT_USAGE on real user projects — not M-EXT6 self-exams
   Process: agent terminal → independent post-hoc audit → headline
   Forbidden: Immune*/ScienceKernel / rewrite M-EXT4/5 / secondary→headline
 ```
+
 

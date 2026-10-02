@@ -1,8 +1,8 @@
 {
-  "sprint": "M_EXT5_CLOSED",
-  "updated_at": "2026-10-02T09:05:00Z",
-  "current_goal": "MERGE_AND_OPTIONAL_FOLLOWUPS",
-  "phase_statement": "M-EXT5 CLOSED: H_EFFECT(late) REJECTED (2/20); early secondary SUPPORTED (20/20); H_FISHER REJECTED. Gate GREEN. M-EXT4 audit stands. Architecture unchanged.",
+  "sprint": "PILOT_USAGE",
+  "updated_at": "2026-10-02T20:55:00Z",
+  "current_goal": "REAL_USER_PROJECTS_PILOT_USAGE",
+  "phase_statement": "PR #11 merged to main (02acddb). External exam campaign complete. main is canonical. Mode: pilot usage on real user projects \u2014 not M-EXT6 self-exam chain. M-EXT5 CAMPAIGN_CLOSED (late REJECTED; early secondary SUPPORTED; Fisher REJECTED).",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y20": {
@@ -72,7 +72,7 @@
       "note": "successful run is the post-reboot full restart; interrupted partial run does not count"
     }
   },
-  "next_exact_action": "Merge PR #11 (contains #9+#10 tips); close duplicate #9/#10. Then pilot usage on real user projects — not M-EXT6 self-exams. Do not promote early-Mpemba secondary to primary without new prereg; no Immune*/ScienceKernel.",
+  "next_exact_action": "Accept real user Goal Contracts; deliver checkable results with competing alternatives + audit. Log interventions/errors/recoveries. Do not invent M-EXT6; do not promote early-Mpemba secondary without new prereg; no Immune*/ScienceKernel.",
   "t3_continuation": {
     "path": "artifacts/safe_autonomy_t1/T3/T3_CONTINUATION.md",
     "is_new_sealed_replication": false,
@@ -187,7 +187,7 @@
     "patch_in_place_forbidden": true,
     "wall_seconds_hard_gate": 172800,
     "m15_claimed": false,
-    "next_keystrokes": "Windows detach 7ab345e → smoke → cognitive preflight"
+    "next_keystrokes": "Windows detach 7ab345e \u2192 smoke \u2192 cognitive preflight"
   },
   "scientific_honesty_map": "docs/SCIENTIFIC_HONESTY_MAP.md",
   "h_trust_draft": "artifacts/hardening/H_TRUST_DRAFT.md",
@@ -334,6 +334,9 @@
     "EW1": "INCONCLUSIVE_LABEL_DEGENERATE",
     "EW2": "TERMINAL_ROOT_CAUSE_CONFIRMED",
     "EW4": "MPEMBA_TRIAGE_AUDITED",
-    "EW5": "INIT_MPEMBA_CLOSED"
+    "EW5": "INIT_MPEMBA_CLOSED",
+    "main_canonical": true,
+    "merged_pr": 11,
+    "merge_sha": "02acddb"
   }
 }
