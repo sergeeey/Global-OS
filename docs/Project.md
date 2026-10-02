@@ -59,8 +59,8 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 10. **Evidence:** external OSS eng result + honest science INCONCLUSIVE.  
 11. **Closed:** M-EXT3 TIE on httpx#3614 — both arms hard-gated; H_GSA NOT CONFIRMED.  
 12. **Audited:** M-EXT4 triage success + errata; init Mpemba UNRESOLVED / NOT TESTED.  
-13. **Closed:** M-EXT5 — late Mpemba REJECTED; early secondary SUPPORTED; Fisher REJECTED.  
-14. **Next:** merge #11; optional new prereg for early-primary. Not: rewrite; ScienceKernel; Immune*.
+13. **Closed:** M-EXT5 CAMPAIGN_CLOSED — late REJECTED; early secondary SUPPORTED; Fisher REJECTED.  
+14. **Next:** merge #11; pilot usage on real projects. Not: M-EXT6 chain; secondary→primary; ScienceKernel.
 
 ## Документы
 

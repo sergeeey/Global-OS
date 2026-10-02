@@ -134,6 +134,21 @@ def test_m_ext4_terminal_with_post_hoc_audit() -> None:
     assert "--confirmatory" in code
 
 
+def test_campaign_accumulated_claim_m_ext5_closed() -> None:
+    claim = (EXT / "ACCUMULATED_CLAIM.md").read_text(encoding="utf-8")
+    assert "CAMPAIGN_CLOSED" in claim
+    assert "REJECTED" in claim
+    assert "SECONDARY SUPPORTED" in claim or "secondary" in claim.lower()
+    assert "NOT ESTABLISHED" in claim
+    report = (EXT / "CAMPAIGN_REPORT_2026-10-02.md").read_text(encoding="utf-8")
+    assert "sprint:` `M_EXT5_CLOSED`" in report.replace(" ", "") or "M_EXT5_CLOSED" in report
+    assert "M_EXT5_INIT_MPEMBA_OPEN" not in report
+    assert "| M-EXT5 open |" not in report
+    assert "CAMPAIGN_CLOSED" in report
+    # Must not claim total ignorance of init-Mpemba after M-EXT5 late REJECT
+    assert "Existence/absence of **initialization-induced** Mpemba effect" not in report
+
+
 def test_m_ext5_closed_dual_terminals() -> None:
     exam = EXT / "M_EXT5_INIT_MPEMBA_EXAM"
     closed = json.loads((exam / "M_EXT5_CLOSED.json").read_text(encoding="utf-8"))

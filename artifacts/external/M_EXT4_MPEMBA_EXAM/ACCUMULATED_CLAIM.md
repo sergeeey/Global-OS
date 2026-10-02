@@ -12,5 +12,8 @@ empirical Mpemba effect: NOT TESTED
 original formulation: PARTLY ILL-POSED
 ```
 
-**Next science mission:** `M-EXT5` — initialization-induced Mpemba (H_EFFECT ⊥ H_FISHER).  
-**Not next:** rewrite M-EXT4; Immune*/ScienceKernel from this audit.
+**Historical note:** At M-EXT4 audit time, init empirics were UNRESOLVED / NOT TESTED.  
+**Superseded by M-EXT5** (`CAMPAIGN_CLOSED`): late H_EFFECT REJECTED; early secondary SUPPORTED; H_FISHER REJECTED (synthetic MLP).  
+See `artifacts/external/ACCUMULATED_CLAIM.md` for campaign-level canon.
+
+**Not next:** rewrite M-EXT4; promote early secondary; Immune*/ScienceKernel.

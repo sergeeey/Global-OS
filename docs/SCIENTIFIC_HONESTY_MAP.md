@@ -184,18 +184,22 @@ EXTERNAL REAL WORK
   M-EXT3/GSA CLOSED TIE — httpx#3614; both arms HG=1 ROOT_CAUSE_CONFIRMED
   H_GSA primary advantage: NOT CONFIRMED (n=1; same-lineage caveat)
   Causal GOS vs strong agent universal superiority: NOT SHOWN
-  M-EXT4/EW4 TERMINAL + POST_HOC_AUDIT
+  M-EXT4/EW4 TERMINAL + POST_HOC_AUDIT (historical triage)
     exam: SUCCESSFUL SCIENTIFIC TRIAGE
     broad novelty: NOT NOVEL (Liu & Hu 2025)
-    init-based novelty: UNRESOLVED
-    empirical Mpemba: NOT TESTED
     formulation: PARTLY ILL-POSED
     errata: stats 14/20, confirmatory CLI, Fisher overclaim, P≈0.6
-  M-EXT5/EW5 CLOSED — synthetic MLP, gate GREEN, stats 15/20
-    H_EFFECT (late loss≤0.35): REJECTED (2/20)
-    H_EFFECT_EARLY secondary (≤1.0): SUPPORTED_WITHIN_SCOPE (20/20)
-    H_FISHER (grad-norm proxy): REJECTED
-    Lesson: threshold defines the claim; early ≠ late Mpemba; crossing ≠ Fisher
-  Process lesson: agent terminal → independent post-hoc audit → headline
-  Forbidden: Immune*/ScienceKernel / rewrite M-EXT4 / promote secondary to primary silently
+    (init empirics deferred → M-EXT5; do not cite M-EXT4 as “NOT TESTED” after M-EXT5)
+  M-EXT5 = CAMPAIGN_CLOSED — synthetic MLP, gate GREEN, stats 15/20
+    H_EFFECT(primary late): REJECTED (2/20)
+    early crossing: SECONDARY SUPPORTED (20/20)
+    H_FISHER: REJECTED
+    General init-Mpemba across nets/regimes: NOT ESTABLISHED
+    Do NOT silently promote early secondary → primary
+  Accumulated: GOS can finish real eng/science terminals; late init-Mpemba
+    rejected in this protocol; GOS vs strong agent advantage NOT SHOWN
+  Next mode: pilot usage on real user projects — not M-EXT6 self-exams
+  Process: agent terminal → independent post-hoc audit → headline
+  Forbidden: Immune*/ScienceKernel / rewrite M-EXT4/5 / secondary→headline
 ```
+

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.120 — 2026-10-02
+
+### Honesty sync — campaign report + accumulated claim
+
+- Fixed M-EXT5 status to single `CAMPAIGN_CLOSED` (removed OPEN drift in report)
+- Narrowed empirics wording: late init-Mpemba REJECTED in-protocol; general NN existence NOT ESTABLISHED
+- Canonical `artifacts/external/ACCUMULATED_CLAIM.md`; next mode = pilot usage, not M-EXT6
+
 ## 0.1.119 — 2026-10-02
 
 ### M-EXT5 CLOSED — init Mpemba dual terminals

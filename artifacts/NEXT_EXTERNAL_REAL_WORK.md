@@ -57,5 +57,8 @@ Contract: `artifacts/external/CONTRACT/EXTERNAL_REAL_WORK.md` (`CONTRACT_LOCKED`
 
 Campaign report: `artifacts/external/CAMPAIGN_REPORT_2026-10-02.md` (see also M-EXT5 DECISION).
 
-Next: merge PR #11. Optional new prereg if early-threshold claim elevated to primary.
-Do not rewrite M-EXT4/5. No Immune*/ScienceKernel.
+Canonical claim: `artifacts/external/ACCUMULATED_CLAIM.md`.
+
+Next: merge PR #11 (supersedes #9+#10 tips); close duplicates; **pilot usage** on real projects.
+Do not chain M-EXT6 self-exams by default. Do not promote early secondary→primary without new prereg.
+No Immune*/ScienceKernel.

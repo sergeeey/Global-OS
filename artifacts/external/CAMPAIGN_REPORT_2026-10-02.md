@@ -1,9 +1,25 @@
 # Отчёт: внешняя экзаменационная кампания Global OS
 
-**Дата:** 2026-10-02  
-**Ветка:** `cursor/m-ext4-mpemba-mission-2907` @ `8d2b5b2`  
-**Sprint:** `M_EXT5_INIT_MPEMBA_OPEN`  
+**Дата:** 2026-10-02 (honesty sync)  
+**Ветка:** `cursor/m-ext4-mpemba-mission-2907` @ tip (см. git)  
+**Sprint:** `M_EXT5_CLOSED`  
 **Архитектура Global OS:** без изменений ради optics (ADR-0009 соблюдён)
+
+---
+
+## 0. Accumulated claim (канон)
+
+> **Global OS способен автономно доводить реальные инженерные и научные миссии до проверяемого terminal outcome. В конкретном synthetic-MLP эксперименте поздний initialization-Mpemba effect не подтвердился, ранний crossing наблюдался как secondary result, а Fisher-механизм не подтвердился. Преимущество Global OS над сильным одиночным агентом пока не показано.**
+
+Единый статус M-EXT5:
+
+```text
+M-EXT5 = CAMPAIGN_CLOSED
+H_EFFECT(primary late) = REJECTED
+H_FISHER = REJECTED
+early crossing = SECONDARY SUPPORTED
+fidelity/scope = synthetic MLP
+```
 
 ---
 
@@ -27,8 +43,8 @@
 | **M-EXT1 / EW2** | OSS eng | `ROOT_CAUSE_CONFIRMED` IMMUTABLE | Реальный urllib3#5248: repro → H1 → patch → regression fail/pass |
 | **M-EXT2 / EW1** | Science | `INCONCLUSIVE` | Sealed science; degenerate labels; без retune |
 | **M-EXT3 / GSA** | Comparison | `TIE` | GOS vs strong agent на httpx#3614; оба HG=1; H_GSA NOT CONFIRMED |
-| **M-EXT4 / EW4** | Science triage | Agent: `NOT_NOVEL`+`ILL_POSED`; Audit: **SUCCESSFUL TRIAGE** | Автономный scientific triage; эмпирика не закрыта |
-| **M-EXT5 / EW5** | Science (residual) | H_EFFECT **REJECTED**; early sec. SUPPORTED; H_FISHER **REJECTED** | Late init-Mpemba нет; early threshold-dependent crossing есть; не Fisher |
+| **M-EXT4 / EW4** | Science triage | Agent: `NOT_NOVEL`+`ILL_POSED`; Audit: **SUCCESSFUL TRIAGE** | Автономный triage; эмпирика тогда ещё не бежала |
+| **M-EXT5 / EW5** | Science (residual) | **CAMPAIGN_CLOSED** | Late H_EFFECT REJECTED; early secondary SUPPORTED; H_FISHER REJECTED; synthetic MLP |
 
 **Trust Kernel:** не промотирован.  
 **Immune* / ScienceKernel:** не строились.
@@ -60,32 +76,35 @@
 
 ### 3.4 M-EXT4 — экзамен научного triage
 
-**Подготовка (эта сессия / setup):** контракт + immutable hypothesis; цикл не стартовали здесь (no coaching).
-
-**Исполнение (отдельная cloud-сессия):** полный цикл до terminal без empirical run:
-literature → formalization → competing → prereg/seal → decision.
-
-Agent terminal: `NOT_NOVEL_IN_CLAIMED_FORM` + `ILL_POSED`  
+Agent terminal (immutable): `NOT_NOVEL_IN_CLAIMED_FORM` + `ILL_POSED`  
 Ключевой find: Liu & Hu (2025, arXiv:2507.04206).
 
-**Post-hoc audit (эта сессия):** без переписывания `DECISION.md`:
+Post-hoc audit (исторический snapshot на момент triage, до M-EXT5):
 
 ```text
 exam outcome: SUCCESSFUL SCIENTIFIC TRIAGE
 broad novelty: NOT NOVEL
-specific init-based novelty: UNRESOLVED
-empirical Mpemba effect: NOT TESTED
+specific init-based novelty: UNRESOLVED   ← тогда; см. M-EXT5 ниже
+empirical Mpemba effect: NOT TESTED       ← тогда; см. M-EXT5 ниже
 original formulation: PARTLY ILL-POSED
 ```
 
-Errata: несогласованный порог 14/20 vs α=0.05; `--confirmatory` не реализован; overclaim Fisher-Rao; P≈0.6 некалиброван.
+Errata M-EXT4: порог 14/20 vs α=0.05; `--confirmatory` не работал; overclaim Fisher-Rao; P≈0.6 некалиброван.
 
-### 3.5 M-EXT5 — выполнен и закрыт
+### 3.5 M-EXT5 — CAMPAIGN_CLOSED
 
-- Mechanical gate GREEN (в т.ч. stats 15/20, working `--confirmatory`).  
-- Pilot: late 0/5, early 5/5 → primary = late.  
-- Confirmatory n=20: late **2/20 → H_EFFECT REJECTED**; early **20/20** secondary SUPPORTED; H_FISHER REJECTED.  
-- Scope: synthetic MLP (torchvision env broken).
+```text
+M-EXT5 = CAMPAIGN_CLOSED
+H_EFFECT(primary late, loss≤0.35) = REJECTED          (2/20)
+H_FISHER = REJECTED
+early crossing (secondary, loss≤1.0) = SUPPORTED_WITHIN_SCOPE  (20/20)
+fidelity/scope = synthetic MLP (CPU)
+mechanical gate = GREEN; stats rule = 15/20
+```
+
+- Pilot: late 0/5, early 5/5 → primary locked to **late**.  
+- Confirmatory sealed n=20.  
+- Early secondary **не** поднимается в headline primary без нового prereg.
 
 ---
 
@@ -93,18 +112,28 @@ Errata: несогласованный порог 14/20 vs α=0.05; `--confirmat
 
 ### Доказано (в заявленных рамках)
 
-1. Собранный workflow способен end-to-end провести **реальную OSS-миссию** с неизвестным ответом и оставить проверяемый патч.  
-2. Способен **честно остановиться** на science-протоколе (INCONCLUSIVE / NOT_NOVEL / ILL_POSED).  
-3. Способен пройти **autonomous scientific triage** (литература + formalization + prereg) без подтверждения гипотезы.  
-4. На одном OSS-кейсе **не показал** primary advantage над strong single agent (TIE).
+1. Workflow способен end-to-end провести **реальную OSS-миссию** с неизвестным ответом и оставить проверяемый патч.  
+2. Способен **честно остановиться** на science-протоколе (INCONCLUSIVE / NOT_NOVEL / ILL_POSED / REJECTED).  
+3. Способен пройти **autonomous scientific triage** и довести residual empirics до dual terminal.  
+4. На одном OSS-кейсе **не показал** primary advantage над strong single agent (TIE).  
+5. **В этом synthetic-MLP протоколе:**
+   ```text
+   Late initialization-induced Mpemba effect: REJECTED
+   Early threshold-dependent crossing: SUPPORTED as secondary
+   Fisher mechanism: REJECTED in this protocol
+   ```
 
-### Не доказано
+### Не установлено / не переоценивать
 
-- Universal / production readiness  
-- Causal GOS superiority over strong agents  
-- Existence/absence of **initialization-induced** Mpemba effect  
-- Fisher mechanism for that effect  
-- Trust Kernel promotion  
+```text
+General existence/absence of init-Mpemba across neural networks / LR regimes:
+  NOT ESTABLISHED
+Causal GOS superiority vs strong agents: NOT SHOWN
+Universal / production readiness: NOT SHOWN
+Trust Kernel promotion: NO
+```
+
+Нельзя говорить «existence/absence init-Mpemba вообще неизвестны» после M-EXT5: **late-эффект в этом протоколе уже REJECTED**; неизвестна лишь **генерализация**.
 
 ---
 
@@ -114,8 +143,6 @@ Errata: несогласованный порог 14/20 vs α=0.05; `--confirmat
 раньше: «умеет ли система исследовать?»
 сейчас: «умеет ли она достаточно жёстко проверять свой scientific terminal claim?»
 ```
-
-Введённый gate (без нового ядра):
 
 ```text
 agent terminal decision
@@ -131,22 +158,36 @@ independent post-hoc scientific audit
 
 | Канал | Состояние |
 |-------|-----------|
-| Полная кампания M-EXT1…5 open | ветка `cursor/m-ext4-mpemba-mission-2907` |
-| PR с audit + M-EXT5 contract | [#11](https://github.com/sergeeey/Global-OS/pull/11) OPEN, mergeable |
-| Также OPEN (частично перекрываются) | [#9](https://github.com/sergeeey/Global-OS/pull/9), [#10](https://github.com/sergeeey/Global-OS/pull/10) |
-| `main` | отстаёт (последний известный merge: M-EXT1 / #8) пока #9–#11 не смержены |
+| Канонический tip кампании | `cursor/m-ext4-mpemba-mission-2907` → PR **#11** |
+| Ancestry | tip **#9** (`cb05dad`) и tip **#10** (`3308087`) — **ancestors of #11** (`46ef3c1`) |
+| #9 / #10 | OPEN duplicates — закрыть после merge #11 |
+| `main` | отстаёт (последний merge: #8 / M-EXT1) |
 
-Рекомендация merge: **#11** как наиболее полный tip (включает M-EXT2/3/4/5 слой относительно ранних PR — проверить stack при merge).
+Рекомендация: **merge #11** → close #9 и #10 → `main` = единственная каноническая истина.
 
 ---
 
-## 7. Что осталось
+## 7. Что дальше (не M-EXT6)
 
-1. **Review / merge** PR #11 (после вашего OK).  
-2. Закрыть/синхронизировать #9/#10, чтобы не плодить дубли.  
-3. Опционально: новый prereg, если early-threshold Mpemba поднимают в **primary**.  
-4. Опционально: upstream filing urllib3#5248 / httpx#3614 (**external use**).  
-5. Не делать: rewrite M-EXT4/5, silently promote secondary, Immune*, ScienceKernel.
+1. Merge #11; закрыть дубли #9/#10.  
+2. **Не** поднимать early-Mpemba secondary в primary без отдельного prereg.  
+3. **Не** запускать цепочку новых экзаменов ради самооценки.  
+4. Перейти к **pilot usage** на реальных задачах пользователя:
+
+```text
+большая задача
+→ Goal Contract
+→ автономное исследование/разработка
+→ competing alternatives
+→ experiments / implementation
+→ independent audit
+→ deliverable
+```
+
+Собирать естественные наблюдения (где нужен человек, ошибки, recovery, неподтверждённые claims, время, внешний результат, сравнение со strong agent).  
+Архитектуру менять только от **повторяющихся** реальных failures.
+
+5. Опционально: upstream urllib3#5248 / httpx#3614 (**external use**).
 
 ---
 
@@ -160,16 +201,12 @@ independent post-hoc scientific audit
 | M-EXT3 comparison | `artifacts/external/M_EXT3_GOS_VS_AGENT/` |
 | M-EXT4 decision (immutable) | `…/M_EXT4_MPEMBA_EXAM/DECISION.md` |
 | M-EXT4 audit | `…/POST_HOC_AUDIT.md`, `ERRATA.md`, `ACCUMULATED_CLAIM.md` |
-| M-EXT5 open | `artifacts/external/M_EXT5_INIT_MPEMBA_EXAM/` |
+| M-EXT5 **CLOSED** | `artifacts/external/M_EXT5_INIT_MPEMBA_EXAM/` (`DECISION.md`, `M_EXT5_CLOSED.json`) |
 | RUN_STATE | `artifacts/hardening/RUN_STATE.json` |
 | Honesty map | `docs/SCIENTIFIC_HONESTY_MAP.md` |
 
 ---
 
-## 9. Итог одной страницей
+## 9. Итог
 
-Global OS прошёл путь от внутренних harness-кампаний к **внешним** экзаменам трёх классов (OSS eng, science protocol, agent comparison) и к **автономному scientific triage** по пользовательской гипотезе Mpemba.
-
-Успех кампании — не «гипотеза подтверждена» и не «GOS лучше всех», а:
-
-> система умеет производить проверяемую внешнюю инженерную работу и честно закрывать научные вопросы, включая негативные/ограничивающие verdict’ы; узкий init-based Mpemba остаётся открытой научной задачей (M-EXT5).
+Инфраструктуры достаточно, чтобы **работать**. Главная работа Global OS теперь — не доказывать, что он существует, а приносить реальные результаты пользователю.
