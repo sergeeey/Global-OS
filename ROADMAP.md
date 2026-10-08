@@ -21,43 +21,27 @@ Binding claim language: `docs/SCIENTIFIC_HONESTY_MAP.md`.
 **NULL ≠ zero effect.** Raw-capability amplification is **NOT SHOWN** (not “proven impossible”).
 
 ```text
-CURRENT
-  Y20–Y22: primary-outcome advantage vs strong baseline NOT SHOWN (tested classes)
-  R1–R3: useful autonomous checkable real work EARLY YES (bundle); causal GOS NOT MEASURED
-  Freeze exam candidate: 5d15600 (FREEZE-R1R3-v1)
-  Scorers Y20–Y22 FROZEN; no Y23 as IQ-rescue
+CURRENT — PILOT_USAGE (main tip after #13 audit)
+  Accept real user Goal Contracts → checkable deliverable + audit
+  Do NOT invent M-EXT6 self-exam chain / ScienceKernel / Trust Kernel promote
+  Y20–Y22: primary-outcome advantage NOT SHOWN
+  R1–R3: useful autonomous checkable work EARLY YES (bundle); causal GOS NOT MEASURED
+  External: M-EXT1 IMMUTABLE; M-EXT2 INCONCLUSIVE; M-EXT3 TIE; M-EXT4 triage; M-EXT5 CLOSED
+  Scorers Y20–Y22 FROZEN; Y24/Y25 CLOSED; no Y23 as IQ-rescue
         │
-        ▼
+        ▲ historical path (complete) ▼
 M1.5 CLOSED_SCOPE_LIMITED (LH-COGNITIVE-v1)
   EXAM_SHA 7ab345e · AUDIT_SHA a7960d9 · wall_seconds≥172800 · audit all_gates_passed
   Decision: artifacts/hardening/M15_DECISION.md
-  5d15600 durability ENV PASS retained as supporting evidence only
+  5d15600 durability ENV PASS = supporting evidence only (not cognitive-real claim)
         │
         ▼
-Post-M1.5 — science freeze DONE
-  H_TRUST + SAFE_AUTONOMY_BENCHMARK-v1 METRICS_FROZEN
-  Fixed-resource + cost-normalized frontier modes locked
-  material integrity failure taxonomy locked
-  MCID SET_BY_VARIANCE_PILOT_v1 (mier=0.04 / ssr=0.18 / eps=0.02; synthetic)
+Post-M1.5 — T1 REJECT · T2 KEEP · T3 KEEP once (LIVE_LLM) · Trust Kernel NOT promoted
+  H_TRUST metrics FROZEN; C2 SELECTIVE_BOUNDED_RECOVERY-v1 FROZEN_CANDIDATE
+  Forbidden: MCID rewrite for T1; reopen M1.5; Y23 IQ-rescue; PACK-v4 invent
         │
         ▼
-T1 SAFE_AUTONOMY_ENVELOPE — REJECT (2026-09-30)
-  Mode: DETERMINISTIC_FAULT_MISSIONS_v1
-  MIER_C=0 vs A=0.9/B=0.8; SSR_C best; failed KEEP: verifier_tax_2_0_completion
-  Decision: artifacts/safe_autonomy_t1/T1_DECISION.md · ADR-0011
-  Thin evaluator only; LLM monitor ≠ oracle; null/REJECT = valid science
-        │
-        ▼
-IF KEEP → Trust Kernel / Cognitive Simplex harden by MI-1..5 failure modes
-  (+ metamorphic Verification Fabric as support)
-  → adversarial → external benchmarks → interoperability
-IF REJECT (current) → do not build/promote
-  Post-T1 diagnostics DONE; PACK-v2 sealed; revival triggers locked
-  Fork: minimal T2 redesign on sealed pack OR park H_TRUST → M2/Y19
-  Forbidden: MCID rewrite for T1; reopen M1.5 48h; Y23 IQ-rescue
-        │
-        ▼
-DoD V2 / M2 / M3 / PRODUCTION_PROVEN (unchanged honesty: per-capability evidence)
+Later (evidence-gated): DoD V2 full PASS · M2 H-ORG · Continual SI · PRODUCTION_PROVEN
 ```
 
 ## M0 — Trustworthy Skeleton — done
@@ -85,26 +69,18 @@ DoD V2 / M2 / M3 / PRODUCTION_PROVEN (unchanged honesty: per-capability evidence
 Acceptance: `tests/test_m14_trust_boundary.py`.  
 **Not claimed complete until CI on main is green.**
 
-## M1.5 — Long-Horizon Reality Validation
+## M1.5 — Long-Horizon Reality Validation — CLOSED_SCOPE_LIMITED
 
 ```text
-✓ real-model H-ENV + H-RSN
-✓ 48h wall-clock + injected faults
-✓ provider outage/recovery + model swap
-✓ Docker + OTLP active
-✓ survival×13 + corrupted + malicious
-✓ Goal Integrity hard gates PASS
-✓ no authority bypass; replay intact
-✓ cold epistemic restore under load
+✓ LH-COGNITIVE-v1 Windows wall PASS (EXAM_SHA 7ab345e, wall_seconds≥172800)
+✓ Independent audit PASS (AUDIT_SHA a7960d9)
+✓ Decision: artifacts/hardening/M15_DECISION.md
+✓ 5d15600 durability ENV path retained as supporting evidence only
 ```
 
-Still **≠** PRODUCTION_PROVEN.  
-**LH-v1:** operator Windows ~42h scheduled harness PASS (immutable
-`wall_48h/`); audited **not** literal 48h (`LH-FC-EARLY-STOP-42H`).  
-**LH-v2:** T+48 barrier + `wall_seconds >= 172800` required for `WALL_CLOCK_48H`.  
-**M1.5:** not claimed until true 48h under LH-v2 (+ remaining checklist),  
-**within protocol scope** on freeze `5d15600` (see `docs/SCIENTIFIC_HONESTY_MAP.md`).  
-H-ORG / Continual SI / H_TRUST remain separate questions after M1.5.
+Still **≠** PRODUCTION_PROVEN / Continual SI / universal advantage.  
+**LH-v1 historical:** ~42h early-stop retained; **not** the M1.5 close path.  
+See `docs/SCIENTIFIC_HONESTY_MAP.md`. H-ORG / Continual SI / Trust Kernel remain separate.
 
 ## DoD V2
 
@@ -138,4 +114,6 @@ independent audit.
 
 ## Definition of Done
 
-M1.4 / M1.5 / DoD V2 / PRODUCTION_PROVEN **not claimed** on current HEAD until evidence gates pass.
+- M1.4: done (ADR-0010 + CI).  
+- M1.5: **CLOSED_SCOPE_LIMITED** only (not production / Continual SI).  
+- DoD V2 / PRODUCTION_PROVEN: **not closed** until per-item evidence gates pass.

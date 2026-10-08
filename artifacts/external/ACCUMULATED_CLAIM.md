@@ -21,5 +21,5 @@ General existence/absence across neural networks: NOT ESTABLISHED
 Fisher mechanism: REJECTED in this protocol
 ```
 
-**Repo:** PR #11 merged to `main` (`02acddb`).  
+**Repo:** campaign on `main` via PR #11 (`02acddb`); tip includes audit PR #13 (`dc7a428`).  
 **Next:** pilot usage on real projects; no secondary→primary without new prereg; no M-EXT6 self-exam chain by default.
