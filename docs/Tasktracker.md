@@ -13,6 +13,8 @@
 - [x] M-EXT5 CAMPAIGN_CLOSED — late REJECTED; early secondary SUPPORTED; H_FISHER REJECTED
 - [x] Honesty sync: report + ACCUMULATED_CLAIM (no OPEN/CLOSED drift)
 - [x] Merge PR #11 to main (`02acddb`); #9/#10/#11 MERGED
+- [x] Merge PR #12 — pilot-usage canon (`45446e0`)
+- [x] Project audit 2026-10-08 (`artifacts/hardening/PROJECT_AUDIT_2026-10-08.md`)
 - [ ] Pilot usage on real projects (not M-EXT6 self-exam chain by default)
 - [ ] Forbidden: rewrite M-EXT4/5; secondary→primary silently; Immune*/ScienceKernel
 - [ ] Y25 (later): verification-budget frontier — only after Y24 terminal result

@@ -298,7 +298,7 @@
     {
       "id": "autonomous_research_loop_poc",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "Y19 H5→H7 without operator dispatch; terminal_scientific_result; durable state + CLAIMS.md split (science ≠ GOS loop); milestone 4378005; artifacts/y19/; tests/test_y19_transient_early_warning.py — bundle autonomy only; GOS vs strong-agent baseline NOT PROVEN (Y20 A/B pending); NOT continual SI / general transfer / M1.5 / PRODUCTION_PROVEN"
+      "evidence": "Y19 H5→H7 without operator dispatch; terminal_scientific_result; durable state + CLAIMS.md split (science ≠ GOS loop); milestone 4378005; artifacts/y19/; tests/test_y19_transient_early_warning.py — bundle autonomy only; Y20–Y22 scored: primary advantage NOT SHOWN; NOT continual SI / general transfer / PRODUCTION_PROVEN"
     },
     {
       "id": "y20_causal_ab_prereg",
@@ -367,8 +367,9 @@
       "protocol_id": "M-EXT4-MPEMBA-v1",
       "agent_terminal": "NOT_NOVEL_IN_CLAIMED_FORM + ILL_POSED",
       "exam_outcome": "SUCCESSFUL_SCIENTIFIC_TRIAGE",
-      "init_based_novelty": "UNRESOLVED",
-      "empirical": "NOT_TESTED"
+      "init_based_novelty": "UNRESOLVED_IN_M_EXT4_SCOPE",
+      "empirical_in_m_ext4": "NOT_TESTED",
+      "empirical_followup": "CLOSED_IN_M_EXT5"
     },
     "M_EXT5": {
       "status": "CLOSED",
