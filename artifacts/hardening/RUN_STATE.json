@@ -1,8 +1,8 @@
 {
   "sprint": "PILOT_USAGE",
-  "updated_at": "2026-10-02T20:55:00Z",
+  "updated_at": "2026-10-08T12:00:00Z",
   "current_goal": "REAL_USER_PROJECTS_PILOT_USAGE",
-  "phase_statement": "PR #11 merged to main (02acddb). External exam campaign complete. main is canonical. Mode: pilot usage on real user projects \u2014 not M-EXT6 self-exam chain. M-EXT5 CAMPAIGN_CLOSED (late REJECTED; early secondary SUPPORTED; Fisher REJECTED).",
+  "phase_statement": "main tip 45446e0 (PR #12 pilot-usage canon). External exam campaign complete at #11 (02acddb). Mode: pilot usage on real user projects \u2014 not M-EXT6 self-exam chain. Project audit 2026-10-08 recorded. M-EXT5 CAMPAIGN_CLOSED (late REJECTED; early secondary SUPPORTED; Fisher REJECTED).",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y20": {
@@ -336,7 +336,10 @@
     "EW4": "MPEMBA_TRIAGE_AUDITED",
     "EW5": "INIT_MPEMBA_CLOSED",
     "main_canonical": true,
-    "merged_pr": 11,
-    "merge_sha": "02acddb"
+    "merged_pr": 12,
+    "merge_sha": "45446e0",
+    "campaign_merge_pr": 11,
+    "campaign_merge_sha": "02acddb",
+    "pilot_usage_canon_pr": 12
   }
 }

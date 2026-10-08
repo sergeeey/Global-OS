@@ -1,11 +1,20 @@
 # Changelog
 
+## 0.1.122 — 2026-10-08
+
+### Project audit (PILOT_USAGE)
+
+- Full project audit: `artifacts/hardening/PROJECT_AUDIT_2026-10-08.md`
+- Honesty hygiene: M_EXT4 empirical follow-up → M-EXT5; RUN_STATE tip → `45446e0` (#12)
+- Verdict: runtime mature (0 PRODUCTION_PROVEN); next = real user Goal Contracts
+
 ## 0.1.121 — 2026-10-02
 
 ### main canonical + pilot usage mode
 
 - PR #11 merged to `main` (`02acddb`); external exam campaign on default branch
 - Mode switch: **pilot usage** on real projects (not M-EXT6 self-exam chain)
+- PR #12 merged (`45446e0`) — pilot-usage canon docs
 
 ## 0.1.120 — 2026-10-02
 
