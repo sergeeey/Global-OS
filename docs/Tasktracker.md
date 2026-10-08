@@ -9,15 +9,16 @@
 - [x] M-EXT3 prereg LOCKED — GOS vs strong single agent (`M-EXT3-GSA-v1`)
 - [x] M-EXT3 CLOSED TIE — httpx#3614; HG(A)=HG(B)=1; H_GSA NOT CONFIRMED
 - [x] M-EXT4 agent TERMINAL — NOT_NOVEL_IN_CLAIMED_FORM + ILL_POSED (immutable)
-- [x] M-EXT4 POST_HOC_AUDIT + ERRATA — triage success; init novelty UNRESOLVED; empirical NOT TESTED
+- [x] M-EXT4 POST_HOC_AUDIT + ERRATA — triage success; init novelty UNRESOLVED in M-EXT4; empirics → M-EXT5
 - [x] M-EXT5 CAMPAIGN_CLOSED — late REJECTED; early secondary SUPPORTED; H_FISHER REJECTED
 - [x] Honesty sync: report + ACCUMULATED_CLAIM (no OPEN/CLOSED drift)
 - [x] Merge PR #11 to main (`02acddb`); #9/#10/#11 MERGED
 - [x] Merge PR #12 — pilot-usage canon (`45446e0`)
 - [x] Project audit 2026-10-08 (`artifacts/hardening/PROJECT_AUDIT_2026-10-08.md`)
-- [ ] Pilot usage on real projects (not M-EXT6 self-exam chain by default)
-- [ ] Forbidden: rewrite M-EXT4/5; secondary→primary silently; Immune*/ScienceKernel
-- [ ] Y25 (later): verification-budget frontier — only after Y24 terminal result
+- [x] Merge PR #13 — audit report on main (`dc7a428`)
+- [ ] Pilot usage on real projects (not M-EXT6 self-exam chain by default) — needs user Goal Contract
+- [ ] Forbidden (standing): rewrite M-EXT4/5; secondary→primary silently; Immune*/ScienceKernel
+- [ ] Later (optional): verification-budget frontier — Y24/Y25 already CLOSED; new prereg required
 - [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)
 - [x] Freeze SAFE_AUTONOMY_BENCHMARK-v1 + H_TRUST metrics
 - [x] Variance pilot → MCID amendment (synthetic sandbox)
@@ -42,7 +43,7 @@
 - [x] Live attempt: GROQ key valid; blocked by Groq TPD≈200k (`T3_LIVE_ATTEMPT_GROQ_TPD.md`)
 - [x] T3 continuation re-run after TPD recovery → **KEEP** (`LIVE_LLM`) — Trust Kernel not promoted
 - [x] T3 cycle closed: Honesty Map / RUN_STATE / provenance synced; live SHA `3ef3f44` pinned
-- [ ] Next (outside T3): pick next real task from `artifacts/ops/SEPARATE_BACKLOG.md`
+- [ ] Next (outside T3): real user Goal Contract (pilot usage) — `SEPARATE_BACKLOG` remains quarantined ops
 - [ ] Optional later (new experiment, not T3 poke): new prereg + other provider + new sealed holdout + same frozen C2
 
 ## Done — LH-COGNITIVE-v1 (Variant B)
@@ -148,39 +149,20 @@
 
 - [x] `docs/SCIENTIFIC_HONESTY_MAP.md` + `H_TRUST_DRAFT.md` (metrics before Trust Kernel)
 
-## Active — M1.5 formal exam (`M15_EXAM_KICKOFF.md`)
+## Historical — M1.5 exam on `5d15600` (SUPERSEDED)
 
-- [x] Kickoff protocol locked; exam SHA `5d15600`
-- [ ] Windows: detached checkout + clean status
-- [ ] Windows os_kill smoke PASS
-- [ ] EXAM_START.json + 60–120m preflight PASS
-- [ ] Literal wall_seconds>=172800 + real workload → freeze raw artifacts
-- [ ] Independent audit → M1.5 candidate only if all gates PASS
-- [ ] Code FAIL ⇒ new freeze (never patch 5d15600)
+Path superseded by LH-COGNITIVE-v1 close on `7ab345e` (see Done section above).  
+Do not reopen unchecked items below as active work.
 
-## Later — after several real missions
+- [x] Kickoff protocol locked; exam SHA `5d15600` (durability ENV supporting evidence)
+- [~] Remaining `5d15600` cognitive-real checklist — abandoned in favor of Variant B / `7ab345e`
 
-- [ ] R2 (different class)
-- [ ] Re-pin freeze SHA before any LH 96m/48h
+## Later — after several real pilot missions
 
-## Deferred — True 48h / M1.5 (after new freeze)
-
-- [ ] Windows 60–120m wall preflight on **new frozen** SHA
-- [ ] Literal 48h wall on real persistent research workload (`wall_seconds >= 172800`)
-- [ ] Audit → M1.5 candidate decision
+- [ ] Additional real-use class (not M-EXT self-exam)
+- [ ] Re-pin freeze SHA before any new LH 96m/48h claim
 - [ ] Continual SI holdout measurement (still NOT_MEASURED)
 - [ ] H-ORG claim only after larger multi-class + token costs
-
-## Deferred — True 48h / M1.5 (after freeze)
-
-- [ ] Windows 60–120m wall preflight on **frozen** SHA
-- [ ] Literal 48h wall on real persistent research workload (`wall_seconds >= 172800`)
-- [ ] Audit → M1.5 candidate decision
-- [ ] Continual SI holdout measurement (still NOT_MEASURED)
-- [ ] H-ORG claim only after larger multi-class + token costs
-
-## After usable Y-17 missions
-
 - [ ] Close DoD V2 (all items PASS, not PARTIAL) when evidence warrants
 - [ ] M2 H-ORG-1..4 live multi-class
 - [ ] Per-capability PRODUCTION_PROVEN only with expensive evidence

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.123 — 2026-10-08
+
+### Hygiene — status tooling + roadmap/tasktracker sync
+
+- Harden `tools/project_status.py` (PYTHONPATH + collect diagnostics); regenerate IMPLEMENTATION_STATUS
+- ROADMAP CURRENT → PILOT_USAGE; M1.5 section matches CLOSED_SCOPE_LIMITED
+- Tasktracker: supersede stale `5d15600` active checklist; collapse duplicate deferred 48h
+
 ## 0.1.122 — 2026-10-08
 
 ### Project audit (PILOT_USAGE)
