@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.144 — 2026-10-12
+
+### DurableRunner SUCCEEDED resume idempotency
+
+- Count `COMPLETED|SUCCEEDED` so final terminal status does not re-execute last step
+- Regression: `tests/test_durable_recovery.py::test_succeeded_rerun_does_not_reexecute_last_step`
+
 ## 0.1.143 — 2026-10-12
 
 ### Cognitive Core paradigm + Challenge draft

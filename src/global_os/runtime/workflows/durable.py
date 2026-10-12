@@ -67,10 +67,12 @@ class DurableRunner:
         return state
 
     def _completed_count(self, run_id: str) -> int:
+        # SUCCEEDED overwrites the final step's COMPLETED row (same PK).
+        # Count both so a finished run does not re-execute the last step (GOS-I15).
         rows = self._conn.execute(
             """
             SELECT step_index, status FROM workflow_checkpoints
-            WHERE run_id = ? AND status = 'COMPLETED'
+            WHERE run_id = ? AND status IN ('COMPLETED', 'SUCCEEDED')
             ORDER BY step_index
             """,
             (run_id,),
@@ -81,7 +83,8 @@ class DurableRunner:
         row = self._conn.execute(
             """
             SELECT state_json FROM workflow_checkpoints
-            WHERE run_id = ? AND step_index = ? AND status = 'COMPLETED'
+            WHERE run_id = ? AND step_index = ?
+              AND status IN ('COMPLETED', 'SUCCEEDED')
             """,
             (run_id, step_index),
         ).fetchone()
