@@ -1,15 +1,16 @@
 # PREREG — PILOT2-ENG-AB-v1
 
-**Status:** `DRAFT` — lock SHA before arm start  
+**Status:** `TARGET_LOCKED` — arms not started; provider/budget pins TBD  
 **Protocol id:** `PILOT2-ENG-AB-v1`  
-**Primary hypothesis:** `H-PILOT2-001` (see `GOAL_CONTRACT.md`)
+**Primary hypothesis:** `H-PILOT2-001` (see `GOAL_CONTRACT.md`)  
+**Target pin:** `sergeeey/mcp-bouncer@45af092` (`LOCK.json`)
 
 ## Lock sequence
 
 ```text
-1. Choose target repo + pin commit (TARGET_SELECTION.md)
-2. Seal rubrics (this file + FINDING_RUBRIC.md + METRICS.md)
-3. Record provider/model/tool/budget pins
+1. Choose target repo + pin commit (TARGET_SELECTION.md)     ✅ mcp-bouncer@45af092
+2. Seal rubrics (this file + FINDING_RUBRIC.md + METRICS.md) ✅
+3. Record provider/model/tool/budget pins                    ⬜ TBD
 4. Run A and B (order randomized or A-then-B with no cross-leak)
 5. Score with sealed rubric
 6. Publish DECISION.md
