@@ -162,7 +162,9 @@ Next mechanism candidate (NOT SHOWN / NOT BUILT):
   C2 contract SELECTIVE_BOUNDED_RECOVERY-v1 FROZEN_CANDIDATE (pin e6dfd08)
   T3: KEEP — live continuation under Groq LIVE_LLM (same prereg / PACK-v3 / C2)
   Experiment freeze SHA: c6523a6 · Live completed SHA: 3ef3f44
-  Claim strength: live generalization SHOWN once; independent replication NOT YET;
+  Claim strength: live provider invoked once; A/B escape scoring was scenario-scripted
+                  until MEASUREMENT_DEFECT_AB_SCRIPT.md + sensitivity test (2026-10-12);
+                  model-dependent generalization NOT SHOWN; independent replication NOT YET;
                   production security NOT SHOWN; Trust Kernel promotion NO
   Attested: no C2/decision-rule edits after unseal (honesty tooling only: 429/pace/TPD)
   Cycle CLOSED — do not retune C2; do not invent PACK-v4; switch to next real task
