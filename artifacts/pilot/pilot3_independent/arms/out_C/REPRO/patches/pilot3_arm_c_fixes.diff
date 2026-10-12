@@ -1,0 +1,166 @@
+diff --git a/tools/workflow-controller/workflow_controller/artifact_gate.py b/tools/workflow-controller/workflow_controller/artifact_gate.py
+index f260830..eca46dc 100644
+--- a/tools/workflow-controller/workflow_controller/artifact_gate.py
++++ b/tools/workflow-controller/workflow_controller/artifact_gate.py
+@@ -171,7 +171,7 @@ def _check_coverage(path: Path, min_coverage: float) -> CheckResult:
+         )
+ 
+     try:
+-        coverage_percent = float(line_rate_raw) * 100.0
++        line_rate = float(line_rate_raw)
+     except ValueError:
+         return CheckResult(
+             name="coverage.xml",
+@@ -179,6 +179,16 @@ def _check_coverage(path: Path, min_coverage: float) -> CheckResult:
+             message=f"invalid coverage line-rate: {line_rate_raw}",
+         )
+ 
++    if line_rate < 0.0 or line_rate > 1.0:
++        return CheckResult(
++            name="coverage.xml",
++            status="fail",
++            message=f"coverage line-rate out of range [0,1]: {line_rate_raw}",
++            observed={"line_rate": line_rate},
++        )
++
++    coverage_percent = line_rate * 100.0
++
+     observed = {
+         "coverage_percent": round(coverage_percent, 2),
+         "min_coverage": min_coverage,
+diff --git a/tools/workflow-controller/workflow_controller/cli.py b/tools/workflow-controller/workflow_controller/cli.py
+index 421f11f..50a7786 100644
+--- a/tools/workflow-controller/workflow_controller/cli.py
++++ b/tools/workflow-controller/workflow_controller/cli.py
+@@ -42,7 +42,7 @@ def main(argv: list[str] | None = None) -> int:
+             semgrep_config=args.semgrep_config,
+             run_trufflehog=args.run_trufflehog,
+             scan_output_dir=args.scan_output_dir,
+-            semgrep_block_levels=tuple(args.semgrep_block_level),
++            semgrep_block_levels=tuple(args.semgrep_block_level or ["error", "warning"]),
+             block_trufflehog_unknown=not args.allow_trufflehog_unknown,
+             timeout_seconds=args.timeout_seconds,
+         )
+@@ -73,7 +73,7 @@ def main(argv: list[str] | None = None) -> int:
+             semgrep_config=args.semgrep_config,
+             run_trufflehog=args.run_trufflehog,
+             scan_output_dir=args.scan_output_dir,
+-            semgrep_block_levels=tuple(args.semgrep_block_level),
++            semgrep_block_levels=tuple(args.semgrep_block_level or ["error", "warning"]),
+             block_trufflehog_unknown=not args.allow_trufflehog_unknown,
+             timeout_seconds=args.timeout_seconds,
+             event_log=args.event_log,
+@@ -207,9 +207,9 @@ def _build_parser() -> argparse.ArgumentParser:
+     security_parser.add_argument(
+         "--semgrep-block-level",
+         action="append",
+-        default=["error", "warning"],
++        default=None,
+         choices=("error", "warning", "note", "none"),
+-        help="SARIF level that fails the gate. Can be passed multiple times.",
++        help="SARIF level that fails the gate. Can be passed multiple times. Defaults to error,warning.",
+     )
+     security_parser.add_argument(
+         "--allow-trufflehog-unknown",
+@@ -304,9 +304,9 @@ def _build_parser() -> argparse.ArgumentParser:
+     run_parser.add_argument(
+         "--semgrep-block-level",
+         action="append",
+-        default=["error", "warning"],
++        default=None,
+         choices=("error", "warning", "note", "none"),
+-        help="SARIF level that fails the gate. Can be passed multiple times.",
++        help="SARIF level that fails the gate. Can be passed multiple times. Defaults to error,warning.",
+     )
+     run_parser.add_argument(
+         "--allow-trufflehog-unknown",
+diff --git a/tools/workflow-controller/workflow_controller/event_log.py b/tools/workflow-controller/workflow_controller/event_log.py
+index a3a54a9..8f92121 100644
+--- a/tools/workflow-controller/workflow_controller/event_log.py
++++ b/tools/workflow-controller/workflow_controller/event_log.py
+@@ -165,10 +165,14 @@ def _validate_consistency(events: list[EventModel]) -> str | None:
+         artifact = prior_events[0]
+         if final_event.status != artifact.status:
+             return "final status does not match artifact gate"
+-        if final_event.reason != "artifact gate blocked":
++        expected_reason = f"artifact gate {final_event.status}"
++        if final_event.reason != expected_reason:
+             return "artifact-gate final reason mismatch"
+-        if final_event.status != "blocked" or final_event.blocked_reason != "artifact gate blocked":
+-            return "artifact-gate blocked_reason mismatch"
++        if final_event.status == "blocked":
++            if final_event.blocked_reason != expected_reason:
++                return "artifact-gate blocked_reason mismatch"
++        elif final_event.blocked_reason is not None:
++            return "non-blocked final event should not include blocked_reason"
+         return None
+ 
+     security = prior_events[-1]
+diff --git a/tools/workflow-controller/workflow_controller/tool_policy.py b/tools/workflow-controller/workflow_controller/tool_policy.py
+index 98cefab..d515cc1 100644
+--- a/tools/workflow-controller/workflow_controller/tool_policy.py
++++ b/tools/workflow-controller/workflow_controller/tool_policy.py
+@@ -24,9 +24,15 @@ PATH_ARGUMENT_NAMES = {
+     "trufflehog_json",
+     "scan_output_dir",
+     "output_dir",
++    "output_file",
+     "event_log",
+ }
+ 
++# Checked only when the value looks like a filesystem path (not registry ids like "auto").
++CONDITIONAL_PATH_ARGUMENT_NAMES = {
++    "semgrep_config",
++}
++
+ 
+ class ToolPolicy(BaseModel):
+     model_config = ConfigDict(extra="forbid", frozen=True)
+@@ -67,7 +73,7 @@ def evaluate_tool_request(
+             matched_rule="blocked_tools",
+         )
+ 
+-    if policy.allowed_tools and tool_name not in policy.allowed_tools:
++    if tool_name not in policy.allowed_tools:
+         return PolicyDecision(
+             tool_name=tool_name,
+             action="block",
+@@ -109,7 +115,7 @@ def _evaluate_paths(
+     checked_paths: list[str] = []
+ 
+     for name, value in arguments.items():
+-        if name not in PATH_ARGUMENT_NAMES or value in (None, ""):
++        if value in (None, "") or not _is_path_argument(name, value):
+             continue
+ 
+         path = _resolve_path(Path(value))
+@@ -130,11 +136,28 @@ def _evaluate_paths(
+ def _stringify_checked_paths(arguments: dict[str, Any]) -> list[str]:
+     paths: list[str] = []
+     for name, value in arguments.items():
+-        if name in PATH_ARGUMENT_NAMES and value not in (None, ""):
++        if value not in (None, "") and _is_path_argument(name, value):
+             paths.append(str(_resolve_path(Path(value))))
+     return paths
+ 
+ 
++def _is_path_argument(name: str, value: Any) -> bool:
++    if name in PATH_ARGUMENT_NAMES:
++        return True
++    if name in CONDITIONAL_PATH_ARGUMENT_NAMES and isinstance(value, str):
++        return _looks_like_filesystem_path(value)
++    return False
++
++
++def _looks_like_filesystem_path(value: str) -> bool:
++    path = Path(value)
++    if path.is_absolute() or value.startswith("~"):
++        return True
++    if path.suffix.lower() in {".yml", ".yaml", ".json"}:
++        return True
++    return path.expanduser().exists()
++
++
+ def _is_under_allowed_root(path: Path, allowed_roots: tuple[Path, ...]) -> bool:
+     return any(_is_relative_to(path, root) for root in allowed_roots)
+ 
