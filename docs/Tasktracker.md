@@ -22,6 +22,8 @@
 - [x] P1a progressive memory commit; P1b LLM fair scheduler
 - [x] P2 SOP + grounding + CLI time-travel; P3 research factory template
 - [x] Merge PR #15 to main (`4b7224c`) — borrow primitives canonical
+- [x] Merge PR #16 — canon sync (`2cc25a2`); tip split repo_head≠code_head (DOC-007)
+- [x] P0 hardening: AUTH-001/002, FairLlmScheduler resume deadlock, real continue_as_new, run_id registries
 - [ ] Pilot usage on real projects (not M-EXT6 self-exam chain by default) — needs user Goal Contract
 - [ ] Forbidden (standing): rewrite M-EXT4/5; secondary→primary silently; Immune*/ScienceKernel
 - [ ] Later (optional): verification-budget frontier — Y24/Y25 already CLOSED; new prereg required

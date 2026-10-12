@@ -21,6 +21,10 @@ How to default production to Rust Authority while keeping CI/dev ergonomic?
 - Production defaults `GOS_AUTHORITY_BACKEND=rust` and probes `gos-authority` at `RuntimeContext` init  
 - Production + python backend is rejected  
 - Missing binary → `ProductionProfileError` (never silent Python allow)
+- Production requires `GOS_EXECUTION_TOKEN_SECRET` and `GOS_APPROVAL_SIGNING_SECRET`
+  (non-empty, not known dev defaults) — AUTH-002
+- Production `ToolGateway(allow_legacy_tokens=False)` — opaque `accept_token`
+  deposit path forbidden (AUTH-001)
 
 ## Evidence
 
@@ -29,4 +33,4 @@ How to default production to Rust Authority while keeping CI/dev ergonomic?
 ## Trade-offs
 
 + Honest production posture  
-− Operators must ship `gos-authority` before enabling production profile
+− Operators must ship `gos-authority` and real HMAC secrets before enabling production profile

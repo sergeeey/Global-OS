@@ -46,7 +46,8 @@ def test_approval_signal_gate() -> None:
     assert out.get("last_approver") == "harness"
 
 
-def test_continue_as_new_bound() -> None:
+def test_continue_as_new_real_chain() -> None:
+    """RUN-004: real workflow.continue_as_new — final result completes remaining steps."""
     bridge = TemporalPatternBridge()
     out = bridge.start_or_resume(
         "pat_can_1",
@@ -54,6 +55,26 @@ def test_continue_as_new_bound() -> None:
         {"goal_id": "g"},
         continue_as_new_after=2,
     )
-    assert out.get("continued_as_new") is True
-    assert out["steps_completed_before_can"] == 2
-    assert out["remaining_steps"] == ["c"]
+    assert out["phase"] == "c"
+    assert int(out.get("continue_as_new_epochs") or 0) >= 1
+    hb = heartbeats("pat_can_1")
+    assert any(h["step"] == "c" for h in hb)
+
+
+def test_harness_registry_isolated_by_run_id() -> None:
+    """RUN-005: step/heartbeat registries are keyed by run_id (not a single global bag)."""
+    from global_os.adapters.workflows.temporal_patterns import (
+        register_pattern_steps,
+        reset_pattern_harness,
+        _STEP_FNS,
+    )
+
+    reset_pattern_harness()
+    register_pattern_steps("run_a", _tiny_def())
+    register_pattern_steps("run_b", _tiny_def())
+    assert "run_a" in _STEP_FNS and "run_b" in _STEP_FNS
+    assert set(_STEP_FNS["run_a"]) == {"a", "b", "c"}
+    reset_pattern_harness("run_a")
+    assert "run_a" not in _STEP_FNS
+    assert "run_b" in _STEP_FNS
+    reset_pattern_harness()

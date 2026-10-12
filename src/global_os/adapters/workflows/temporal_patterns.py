@@ -2,6 +2,11 @@
 
 Authority approvals remain in ApprovalService; Temporal only waits on a signal.
 Workflow/activity classes are module-level (Temporal requirement).
+
+Harness registries (``_STEP_FNS`` / ``_HEARTBEATS``) are process-local and keyed
+by ``run_id`` for isolation between concurrent harness runs (RUN-005). They are
+not Temporal's durable workflow registry and must not be treated as production
+cross-process state.
 """
 
 from __future__ import annotations
@@ -18,34 +23,52 @@ from temporalio.common import RetryPolicy
 from global_os.adapters.workflows.port import TemporalAdapterUnavailable
 from global_os.runtime.workflows.durable import WorkflowDefinition
 
-_STEP_FNS: dict[str, Callable[[dict[str, Any]], dict[str, Any]]] = {}
-_HEARTBEATS: list[dict[str, Any]] = []
+# run_id -> step_name -> fn  (harness-only; not durable Temporal state)
+_STEP_FNS: dict[str, dict[str, Callable[[dict[str, Any]], dict[str, Any]]]] = {}
+_HEARTBEATS: dict[str, list[dict[str, Any]]] = {}
 
 
-def reset_pattern_harness() -> None:
-    global _STEP_FNS, _HEARTBEATS
-    _STEP_FNS = {}
-    _HEARTBEATS = []
+def reset_pattern_harness(run_id: str | None = None) -> None:
+    """Clear harness registries. ``run_id=None`` clears all runs."""
+    if run_id is None:
+        _STEP_FNS.clear()
+        _HEARTBEATS.clear()
+        return
+    _STEP_FNS.pop(run_id, None)
+    _HEARTBEATS.pop(run_id, None)
 
 
-def register_pattern_steps(definition: WorkflowDefinition) -> None:
-    for step in definition.steps:
-        _STEP_FNS[step.name] = step.fn
+def register_pattern_steps(run_id: str, definition: WorkflowDefinition) -> None:
+    _STEP_FNS[run_id] = {step.name: step.fn for step in definition.steps}
+    _HEARTBEATS.setdefault(run_id, [])
 
 
-def heartbeats() -> list[dict[str, Any]]:
-    return list(_HEARTBEATS)
+def heartbeats(run_id: str | None = None) -> list[dict[str, Any]]:
+    """Return heartbeats for one run, or flattened across runs if ``run_id`` is None."""
+    if run_id is not None:
+        return list(_HEARTBEATS.get(run_id, []))
+    out: list[dict[str, Any]] = []
+    for items in _HEARTBEATS.values():
+        out.extend(items)
+    return out
 
 
 @activity.defn(name="gos_run_step_heartbeat")
 async def run_step_with_heartbeat(step_name: str, state: dict[str, Any]) -> dict[str, Any]:
     """Long-step activity: emit heartbeats then run domain fn."""
+    run_id = str(state.get("_gos_run_id") or "_default")
     for i in range(3):
-        details = {"step": step_name, "progress": i, "goal_id": state.get("goal_id")}
-        _HEARTBEATS.append(details)
+        details = {
+            "step": step_name,
+            "progress": i,
+            "goal_id": state.get("goal_id"),
+            "run_id": run_id,
+        }
+        _HEARTBEATS.setdefault(run_id, []).append(details)
         activity.heartbeat(details)
         await asyncio.sleep(0.01)
-    fn = _STEP_FNS[step_name]
+    fns = _STEP_FNS.get(run_id) or {}
+    fn = fns[step_name]
     return fn(dict(state))
 
 
@@ -67,7 +90,11 @@ class GosGoalExecutionPatterns:
 
     @workflow.run
     async def run(self, payload: dict[str, Any]) -> dict[str, Any]:
-        """payload: state, step_names, approval_gates, continue_as_new_after."""
+        """payload: state, step_names, approval_gates, continue_as_new_after.
+
+        When ``continue_as_new_after`` is set, uses Temporal ``workflow.continue_as_new``
+        (real CAN — not a fake early-return flag).
+        """
         state = dict(payload.get("state") or {})
         step_names: list[str] = list(payload.get("step_names") or [])
         gates = set(payload.get("approval_gates") or [])
@@ -98,12 +125,23 @@ class GosGoalExecutionPatterns:
             )
             if can_after is not None and completed >= int(can_after):
                 rest = step_names[step_names.index(name) + 1 :]
-                return {
-                    **state,
-                    "continued_as_new": True,
-                    "steps_completed_before_can": completed,
-                    "remaining_steps": rest,
-                }
+                if not rest:
+                    return state
+                epochs = int(state.get("continue_as_new_epochs") or 0)
+                workflow.continue_as_new(
+                    args=[
+                        {
+                            "state": {
+                                **state,
+                                "continue_as_new_epochs": epochs + 1,
+                            },
+                            "step_names": rest,
+                            "approval_gates": sorted(gates),
+                            # Bound history again on the continued run.
+                            "continue_as_new_after": can_after,
+                        }
+                    ]
+                )
         return state
 
 
@@ -152,8 +190,8 @@ class TemporalPatternBridge:
                 "temporalio not installed; refusing silent LocalDurable fallback"
             ) from exc
 
-        reset_pattern_harness()
-        register_pattern_steps(definition)
+        reset_pattern_harness(run_id)
+        register_pattern_steps(run_id, definition)
         step_names = [s.name for s in definition.steps]
         gates = sorted(approval_gates or [])
         payload = {

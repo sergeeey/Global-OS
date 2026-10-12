@@ -3,7 +3,9 @@
 Profiles:
 - ``dev`` (default): Python Authority OK for local/tests
 - ``production``: requires ``GOS_AUTHORITY_BACKEND=rust`` (or defaults to rust)
-  and probes ``gos-authority`` at startup — never silent Python allow
+  and probes ``gos-authority`` at startup — never silent Python allow;
+  requires ``GOS_EXECUTION_TOKEN_SECRET`` + ``GOS_APPROVAL_SIGNING_SECRET``
+  (AUTH-002); forbids legacy opaque gateway tokens (AUTH-001 via ToolGateway).
 """
 
 from __future__ import annotations
@@ -15,6 +17,10 @@ from global_os.adapters.authority.rust_client import RustAuthorityError, find_go
 from global_os.kernel.authority.kernel import AuthorityBackend
 
 RuntimeProfile = Literal["dev", "production"]
+
+# Must match ExecutionTokenService / ApprovalService dev defaults.
+_DEV_EXECUTION_TOKEN_KEY = "gos-dev-execution-token-key-not-for-prod"
+_DEV_APPROVAL_SIGNING_KEY = "gos-dev-approval-key"
 
 
 class ProductionProfileError(Exception):
@@ -56,6 +62,32 @@ def probe_production_authority() -> None:
         )
 
 
+def require_production_secrets() -> None:
+    """Fail closed if production HMAC secrets are missing or are known dev defaults."""
+    exec_secret = (os.environ.get("GOS_EXECUTION_TOKEN_SECRET") or "").strip()
+    if not exec_secret:
+        raise ProductionProfileError(
+            "GOS_PROFILE=production requires GOS_EXECUTION_TOKEN_SECRET; "
+            "refusing default HMAC key"
+        )
+    if exec_secret == _DEV_EXECUTION_TOKEN_KEY:
+        raise ProductionProfileError(
+            "GOS_PROFILE=production forbids GOS_EXECUTION_TOKEN_SECRET="
+            "dev default value"
+        )
+    approval_secret = (os.environ.get("GOS_APPROVAL_SIGNING_SECRET") or "").strip()
+    if not approval_secret:
+        raise ProductionProfileError(
+            "GOS_PROFILE=production requires GOS_APPROVAL_SIGNING_SECRET; "
+            "refusing default approval HMAC key"
+        )
+    if approval_secret == _DEV_APPROVAL_SIGNING_KEY:
+        raise ProductionProfileError(
+            "GOS_PROFILE=production forbids GOS_APPROVAL_SIGNING_SECRET="
+            "dev default value"
+        )
+
+
 def apply_production_guards(*, profile: RuntimeProfile, backend: AuthorityBackend) -> None:
     """Enforce production invariants at RuntimeContext construction."""
     if profile != "production":
@@ -69,3 +101,4 @@ def apply_production_guards(*, profile: RuntimeProfile, backend: AuthorityBacken
         probe_production_authority()
     except RustAuthorityError as exc:
         raise ProductionProfileError(str(exc)) from exc
+    require_production_secrets()

@@ -1,8 +1,15 @@
 {
   "sprint": "PILOT_USAGE",
-  "updated_at": "2026-10-12T09:50:00Z",
+  "updated_at": "2026-10-12T10:30:00Z",
   "current_goal": "REAL_USER_PROJECTS_PILOT_USAGE",
-  "phase_statement": "main tip 4b7224c (PR #15 borrow primitives MERGED). ADR-0013 P0–P3 on default branch. DoD V2 closed=false (5 PARTIAL). Mode: PILOT_USAGE — real user Goal Contracts; not M-EXT6; 0 PRODUCTION_PROVEN.",
+  "tip": {
+    "repo_head": "2cc25a2",
+    "repo_head_note": "PR #16 canon-sync docs tip on main (merge)",
+    "code_head": "4b7224c",
+    "code_head_note": "PR #15 borrow primitives — last substantive code merge before P0 hardening branch",
+    "split_reason": "DOC-007: docs/canon tip may advance without new runtime code; never conflate"
+  },
+  "phase_statement": "Tip split (DOC-007): repo_head=2cc25a2 (#16 canon) vs code_head=4b7224c (#15 borrow). P0 hardening (AUTH/sched/Temporal honesty) in flight on cursor/p0-hardening-auth-sched-2907. DoD V2 closed=false (5 PARTIAL). Mode: PILOT_USAGE — real user Goal Contracts; not M-EXT6; 0 PRODUCTION_PROVEN.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y20": {
@@ -336,11 +343,14 @@
     "EW4": "MPEMBA_TRIAGE_AUDITED",
     "EW5": "INIT_MPEMBA_CLOSED",
     "main_canonical": true,
-    "merged_pr": 15,
-    "merge_sha": "4b7224c",
+    "merged_pr": 16,
+    "merge_sha": "2cc25a2",
+    "code_merge_pr": 15,
+    "code_merge_sha": "4b7224c",
     "campaign_merge_pr": 11,
     "campaign_merge_sha": "02acddb",
     "pilot_usage_canon_pr": 12,
-    "borrow_primitives_pr": 15
+    "borrow_primitives_pr": 15,
+    "canon_sync_pr": 16
   }
 }

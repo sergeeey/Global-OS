@@ -35,6 +35,10 @@ class DeniedActionReachedGateway(ToolGatewayError):
     """Raised when a DENY path somehow reaches the gateway — invariant break."""
 
 
+class LegacyExecutionTokenForbidden(ToolGatewayError):
+    """Raised when opaque accept_token path is used under production profile."""
+
+
 class EffectReconciliationStatus(str, Enum):
     EXECUTED = "EXECUTED"
     OBSERVATION_PENDING = "OBSERVATION_PENDING"
@@ -81,13 +85,16 @@ class ToolGateway:
         token_service: ExecutionTokenService | None = None,
         *,
         confirmation_policy: ConfirmationPolicy = ConfirmationPolicy.NEVER,
+        allow_legacy_tokens: bool = True,
     ) -> None:
         self._ledger = ledger
         self._token_service = token_service or ExecutionTokenService()
         self._tools: dict[str, ToolHandler] = {}
         self._idempotency: dict[str, dict[str, Any]] = {}
         # Legacy deposit set — transitional only; prefer mint via ExecutionTokenService.
+        # Production profile sets allow_legacy_tokens=False (AUTH-001).
         self._legacy_tokens: set[str] = set()
+        self._allow_legacy_tokens = allow_legacy_tokens
         self._confirmation_policy = confirmation_policy
 
     def register_tool(self, tool_id: str, handler: ToolHandler) -> None:
@@ -95,6 +102,11 @@ class ToolGateway:
 
     def accept_token(self, token: str) -> None:
         """DEPRECATED: deposit opaque string. Prefer proposal-bound ExecutionToken mint."""
+        if not self._allow_legacy_tokens:
+            raise LegacyExecutionTokenForbidden(
+                "legacy accept_token forbidden (GOS_PROFILE=production); "
+                "mint proposal-bound ExecutionToken"
+            )
         self._legacy_tokens.add(token)
 
     def execute(
@@ -149,6 +161,11 @@ class ToolGateway:
                 ),
             }
         except ExecutionTokenError:
+            if not self._allow_legacy_tokens:
+                raise LegacyExecutionTokenForbidden(
+                    "legacy execution token path forbidden in production; "
+                    "invalid or unbound proposal-bound token"
+                ) from None
             if execution_token not in self._legacy_tokens:
                 raise MissingExecutionToken(
                     "invalid, unbound, or already consumed execution token"

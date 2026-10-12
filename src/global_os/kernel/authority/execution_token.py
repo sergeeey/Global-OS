@@ -87,6 +87,9 @@ class MintedExecutionToken:
         return content_hash({"token_id": self.token_id, "jti": self.claims.jti})
 
 
+DEV_EXECUTION_TOKEN_KEY = b"gos-dev-execution-token-key-not-for-prod"
+
+
 class ExecutionTokenService:
     """HMAC-signed proposal-bound tokens. Secret never enters prompts/events."""
 
@@ -94,7 +97,15 @@ class ExecutionTokenService:
         key = signing_key
         if key is None:
             env = os.environ.get("GOS_EXECUTION_TOKEN_SECRET")
-            key = env.encode("utf-8") if env else b"gos-dev-execution-token-key-not-for-prod"
+            if env:
+                key = env.encode("utf-8")
+            else:
+                profile = (os.environ.get("GOS_PROFILE") or "dev").strip().lower()
+                if profile == "production":
+                    raise ExecutionTokenError(
+                        "GOS_PROFILE=production requires GOS_EXECUTION_TOKEN_SECRET"
+                    )
+                key = DEV_EXECUTION_TOKEN_KEY
         self._key = key
         self._default_ttl_s = default_ttl_s
         self._consumed_jti: set[str] = set()
