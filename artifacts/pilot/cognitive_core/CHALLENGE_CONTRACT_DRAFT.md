@@ -1,7 +1,10 @@
-# CHALLENGE-GA-v1 — Open Goal-Achievement Challenge (DRAFT)
+# CHALLENGE-GA-v1 — Open Goal-Achievement Challenge (DRAFT → superseded)
 
-**Status:** `PREREG_DRAFT` — **not locked for execution**  
-**Fidelity target (when locked):** isolated arms, sealed budget, blind or independent score  
+**Status:** superseded by **`PREREG_LOCKED`** pack  
+**Locked pack:** `artifacts/pilot/challenge_ga/` (`LOCK.json`, `CHALLENGE_GA_CONTRACT.md`)  
+**Execution:** still **NOT_STARTED** until human requests a run  
+
+**Fidelity target:** isolated arms, sealed budget, blind or independent score  
 **Substrate:** MINIMAL-STACK DEFAULT (G1+G2+G3); Gfull OPT-IN if long horizon requires it
 
 ## Intent class (example — pin concrete target at lock)
