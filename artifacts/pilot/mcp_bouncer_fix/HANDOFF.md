@@ -1,18 +1,12 @@
-# Human handoff — mcp-bouncer sealed fixes
+# Human handoff — mcp-bouncer
 
-**Blocked:** `git push` to `sergeeey/mcp-bouncer` returns **403** for `cursor[bot]`  
-(same class as PhaseBreak hygiene).
+## Status — CLOSED
 
-## Minimal operator steps
+| Item | State |
+|------|-------|
+| F01–F07 external merge | **RECONCILED** — PR #6 → `33030e3` |
+| CI Ruff repair | **CI_VERIFIED** — PR #7 → `6ccce71`; master push Tests **success** (`38261957403`) |
+| Pytest | **62 passed** |
+| Bot push/PR/merge | still 403 (not needed further for this cycle) |
 
-1. Apply `mcp-bouncer-pilot2-sealed-fixes.patch` on top of `45af092`.
-2. Run `python -m pytest tests/ -q` → expect 62 passed.
-3. Optionally re-run Global-OS sealed repro against the checkout → expect 8 passed.
-4. Push branch + open PR (or paste patch into GitHub UI).
-5. After merge, reply with PR URL + merge SHA so GOS can mark `EFFECT_RECEIPT` → `RECONCILED`.
-
-## Non-claims until RECONCILED
-
-- External acceptance
-- Production readiness of mcp-bouncer
-- Full F07 FP remediation (`sudo` in backticks still HIGH)
+No further operator action on mcp-bouncer for Pilot 2 WorldInteraction.

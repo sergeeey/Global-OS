@@ -1,25 +1,27 @@
 # mcp-bouncer — Pilot 2 sealed-findings fix (WorldInteraction)
 
-**Status:** `PROPOSED` — patch ready; external push blocked (`cursor[bot]` 403)  
-**Base pin:** `sergeeey/mcp-bouncer@45af092`  
-**Local fix commit:** `c0d493dfd6580d50d73d92d26a9056792904bbb9` (branch `gos/pilot2-sealed-fixes`)  
+**Status:** F01–F07 **RECONCILED** + CI repair **CI_VERIFIED**  
+**Base pin (pre-fix):** `sergeeey/mcp-bouncer@45af092`  
+**Final master tip:** `6ccce718ba8c0361806269e9d7a29e4f0842c6fc` (#7)  
 **Date (UTC):** 2026-10-12
 
 ## Why
 
-Pilot 2 sealed repro (`artifacts/pilot/pilot2_eng_ab/repro/`) documented material defects.  
-This pack turns audit findings into a **regression-safe external correction proposal**.
+Pilot 2 sealed repro → external correction → CI debt closed.
 
 ```text
-Proposal ≠ Effect — effect not yet observed (awaiting human push/PR/merge)
+Proposal ≠ Effect — closed (#6)
+CI debt after #6  — closed (#7 + green master push)
 ```
 
-## Local verification (this environment)
+## Verification
 
 | Suite | Result |
 |-------|--------|
-| `tests/` (post-fix) | **62 passed** — see `PYTEST_OUT.txt` |
-| Sealed Pilot 2 repro | **8 passed** (was 7 fail + 1 pass) — see `SEALED_REPRO_POST_FIX.txt` |
+| `tests/` | **62 passed** |
+| Sealed Pilot 2 repro (pre-merge local) | **8 passed** — `SEALED_REPRO_POST_FIX.txt` |
+| PR #7 checks | 3.11/3.12/3.13 PASS |
+| master push after #7 | **success** run `38261957403` |
 
 ## Fixes included
 
@@ -33,23 +35,6 @@ Proposal ≠ Effect — effect not yet observed (awaiting human push/PR/merge)
 | F06 | `$(…)` only with dangerous command (bare `$(date)` allowed) |
 | F07 | `bash\|sh\|python` in backticks blocked (FP on routine `sudo` docs **not** fully resolved) |
 
-## Human apply (same path as PhaseBreak)
+## Closed
 
-```powershell
-cd D:\path\to\mcp-bouncer   # or clone fresh @ 45af092
-git checkout -b gos/pilot2-sealed-fixes
-git apply path\to\mcp-bouncer-pilot2-sealed-fixes.patch
-# or: git am < patch
-python -m pytest tests/ -q
-git add -A
-git commit -m "fix: close Pilot 2 sealed findings (F01-F07 core)"
-git push -u origin gos/pilot2-sealed-fixes
-# open PR → merge → reply with PR URL + merge SHA
-```
-
-Patch file: `mcp-bouncer-pilot2-sealed-fixes.patch`
-
-## After external merge
-
-Update `EFFECT_RECEIPT.md` → `RECONCILED` with PR URL + merge SHA + post-merge pytest on target main.  
-Until then status stays `PROPOSED`.
+See `EFFECT_RECEIPT.md`. Historical apply notes remain in `WINDOWS_APPLY.md` / `WINDOWS_APPLY_CI_RUFF.md`.

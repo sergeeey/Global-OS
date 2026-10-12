@@ -14,9 +14,10 @@
 | Field | Required |
 |-------|----------|
 | Label | `INDEPENDENT_EXECUTORS_PLUS_ABLATION` |
-| Arms | A, B, C isolated |
-| Evaluator | E blind, separate |
+| Experimental arms | A, B, C isolated |
+| Evaluator | D blind, separate |
 | Cross-leak | forbidden until after score seal |
+| Decisive comparison | C vs B |
 
 ## Acceptable executor separation
 
@@ -31,7 +32,7 @@ Not acceptable:
 ```text
 same continuous chat switching “now you are Arm A / Arm B”
 shared scratchpad / branch with prior arm findings
-evaluator who authored an arm under score
+evaluator D who authored an arm under score
 ```
 
 ## Contaminated targets

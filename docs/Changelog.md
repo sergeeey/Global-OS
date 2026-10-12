@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.1.137 — 2026-10-12
+
+### mcp-bouncer WorldInteraction closed — CI_VERIFIED
+
+- PR #7 merged (`6ccce718ba8c0361806269e9d7a29e4f0842c6fc`)
+- master push Tests **success** (`38261957403`)
+- Claims: F01–F07 RECONCILED; CI repair CI_VERIFIED; Pilot 2 external cycle CLOSED
+- Still ≠ PRODUCTION_PROVEN; next = Pilot 3
+
+## 0.1.136 — 2026-10-12
+
+### mcp-bouncer EffectReceipt RECONCILED + CI Ruff debt
+
+- External PR sergeeey/mcp-bouncer#6 merged (`33030e3`) — F01–F07 effect RECONCILED
+- Post-merge pytest 62; GitHub CI FAILED on Ruff (not tests)
+- Local CI-fix prepared (`mcp-bouncer-ci-ruff-fix.patch`); bot push still 403
+- Split claims: merge ≠ full CI green; PRODUCTION_PROVEN still 0
+
+## 0.1.135 — 2026-10-12
+
+### Pilot 3 arms A/B/C/D + Windows patch handoff
+
+- PR #24 merged to main (`57c2938`)
+- Pilot 3 labels: A=strong, B=discipline, C=GOS, D=blind eval; decisive **C vs B**
+- mcp-bouncer: bot still 403; `WINDOWS_APPLY.md` with exact raw URL + curl.exe steps
+- EffectReceipt remains `PROPOSED` until external merge + re-verify
+
 ## 0.1.134 — 2026-10-12
 
 ### Pilot 3 prereg + mcp-bouncer sealed-fix proposal

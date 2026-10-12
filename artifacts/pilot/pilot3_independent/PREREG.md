@@ -3,7 +3,7 @@
 **Status:** `PREREG_DRAFT`  
 **Protocol id:** `PILOT3-IND-ENG-v1`  
 **Primary hypotheses:** `H-PILOT3-EPI`, `H-PILOT3-ENG`, `H-PILOT3-EFF`  
-**Attribution:** `H-PILOT3-ATTR` (see `ABLATION.md`)
+**Attribution:** `H-PILOT3-ATTR` (see `ABLATION.md`) — **key comparison C vs B**
 
 ## Why this pilot exists
 
@@ -11,17 +11,17 @@ Pilot 2 fidelity was `SAME_EXECUTOR_DUAL_PROTOCOL`. One executor running two
 protocols can transfer knowledge across arms. Therefore Pilot 2 supports
 **process advantage** only — not independent proof of architecture superiority.
 
-Pilot 3 upgrades fidelity to independent validation + ablation baseline.
+Pilot 3 upgrades fidelity to independent validation + disciplined ablation (Arm B).
 
 ## Lock sequence
 
 ```text
-1. Choose target repo + pin SHA (prefer fresh pin ≠ Pilot 2 post-fix tip)
+1. Choose target repo + pin SHA (prefer fresh pin ≠ Pilot 2 contaminated tip)
 2. Seal rubrics (this file + FINDING_RUBRIC + METRICS + ABLATION)
-3. Assign distinct executors/sessions for A, B, C, E (record ids in LOCK.json)
+3. Assign distinct executors/sessions for A, B, C, D (record ids in LOCK.json)
 4. Seal provider/model/tool/budget pins
 5. Run A, B, C in isolation (order randomized; no shared scratch)
-6. Blind eval by E on anonymized finding packs
+6. Blind eval by D on anonymized finding packs
 7. Unseal scores → DECISION.md
 ```
 
@@ -35,7 +35,7 @@ Amendments after lock require `PREREG_AMENDMENT.md` **before** score unseal.
 | Same SHA | All arms clone identical commit |
 | Same information set | Shared task brief only; no arm sees another's findings |
 | Pre-registered budget | Wall + token/API caps sealed; overrun → arm `BUDGET_EXCEEDED` |
-| Blind evaluation | Evaluator E sees anonymized packs (labels shuffled); no chat memory from A/B/C |
+| Blind evaluation | Evaluator D sees anonymized packs (labels shuffled); no chat memory from A/B/C |
 | No self-certification | Arm author ≠ scorer for that arm's primary metrics |
 
 Violation of any row → that comparison is `INCONCLUSIVE` for architecture claims.
@@ -56,25 +56,25 @@ Violation of any row → that comparison is `INCONCLUSIVE` for architecture clai
 
 Do **not** collapse to a single magic number.
 
-### H-PILOT3-EPI (epistemic quality)
+### H-PILOT3-EPI (epistemic quality) — C vs A
 
 ```text
 1. No critical invariant / safety regression in proposed fixes
-2. Lower unsupported_claim_rate (B vs A)
-3. Lower false_positive_finding_rate (B vs A)
+2. Lower unsupported_claim_rate (C vs A)
+3. Lower false_positive_finding_rate (C vs A)
 4. Negative results retained (no silent drop)
 ```
 
-### H-PILOT3-ENG (engineering value)
+### H-PILOT3-ENG (engineering value) — C vs A
 
 ```text
 1. Gate (1) from EPI
 2. More confirmed material findings (severity-weighted)
 3. More correct regression-safe fixes (failing→passing tests)
-4. Independent repro rate by E ≥ sealed threshold
+4. Independent repro rate by D ≥ sealed threshold
 ```
 
-### H-PILOT3-EFF (effort)
+### H-PILOT3-EFF (effort) — C vs A
 
 ```text
 1. Quality floor: ENG quality not worse than A beyond sealed tolerance
@@ -83,13 +83,15 @@ Do **not** collapse to a single magic number.
 4. Cost reported; not sole win criterion
 ```
 
-### H-PILOT3-ATTR (ablation)
+### H-PILOT3-ATTR (decisive) — C vs B
 
 ```text
-If C ≥ B − tolerance on EPI and ENG and EFF,
+If B ≥ C − tolerance on EPI and ENG and EFF,
   → ATTR = PROCESS_DISCIPLINE_SUFFICES (GOS incremental NOT_SHOWN)
-If B > C on ≥2 of {EPI, ENG, EFF} with sealed deltas,
+If C > B on ≥2 of {EPI, ENG, EFF} with sealed deltas and comparable cost,
   → ATTR = GOS_INCREMENTAL_SUPPORTED (under this fidelity)
+If C > A but C ≯ B,
+  → ATTR = PROCESS_DISCIPLINE_SUFFICES (do not claim architecture win)
 Else → ATTR = INCONCLUSIVE
 ```
 
@@ -107,11 +109,11 @@ Else → ATTR = INCONCLUSIVE
 
 ```text
 change primary metrics
-weaken A or C tools/docs
-give B extra secrets or GOS-only private context about the target
+weaken A or B tools/docs to flatter C
+give C extra secrets or private context about the target
 retune OrgCompiler mid-run for score
 discard negative findings
-unblind evaluator before score seal
+unblind evaluator D before score seal
 same-agent self-certification of primary scores
 ```
 
@@ -128,6 +130,6 @@ project — recorded in `LOCK.json` at lock time with rejection reasons.
 Candidate product = evidence-backed repository auditing
   with reproducible findings + controlled corrections.
 
-Pilot 3 asks: how much of that value needs Global OS runtime
-  versus a thin discipline checklist (Arm C)?
+Pilot 3 asks: how much of that value needs Global OS runtime (C)
+  versus a thin discipline checklist (B)?
 ```

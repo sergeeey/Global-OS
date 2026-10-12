@@ -427,8 +427,10 @@
       "protocol_id": "PILOT3-IND-ENG-v1",
       "hypotheses": ["H-PILOT3-EPI", "H-PILOT3-ENG", "H-PILOT3-EFF"],
       "attribution": "H-PILOT3-ATTR",
+      "arms": {"A": "strong", "B": "discipline", "C": "gos", "D": "blind_eval"},
+      "decisive_comparison": "C_vs_B",
       "fidelity_target": "INDEPENDENT_EXECUTORS_PLUS_ABLATION",
-      "note": "Not locked; not M2; answers GOS vs process-discipline alone"
+      "note": "Not locked; not M2; C>A alone insufficient — need C>B for GOS incremental"
     }
   }
 }

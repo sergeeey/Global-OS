@@ -33,9 +33,13 @@
 - [x] Lock Pilot 2 target `mcp-bouncer@45af092` (`LOCK.json`)
 - [x] Pilot 2 A/B TERMINAL (`PARTIAL_SUPPORT_PROCESS_ONLY`; intelligence NOT_SHOWN)
 - [x] mcp-bouncer sealed-fix local + handoff pack (`PROPOSED`; push 403)
-- [x] Pilot 3 prereg draft (`PILOT3-IND-ENG-v1` + ablation Arm C)
-- [ ] Human: apply mcp-bouncer patch → PR/merge → EFFECT_RECEIPT RECONCILED
-- [ ] Lock + execute Pilot 3 (independent executors; blind eval; no M2)
+- [x] Pilot 3 prereg draft (`PILOT3-IND-ENG-v1`)
+- [x] Merge PR #24 to main (`57c2938`)
+- [x] Pilot 3 arm labels A/B/C/D + `WINDOWS_APPLY.md` exact patch URL
+- [x] Human: mcp-bouncer F01–F07 PR #6 merged (`33030e3`) → EffectReceipt RECONCILED
+- [x] Human: mcp-bouncer CI Ruff branch pushed (`fix/pilot2-ci-ruff` @ `dbbe68b`)
+- [x] Human: mcp-bouncer PR #7 merged (`6ccce71`) + master CI success → CI_VERIFIED
+- [ ] Lock + execute Pilot 3 (A/B/C + blind D; key C vs B; no M2)
 - [ ] Forbidden (standing): rewrite M-EXT4/5; secondary→primary silently; Immune*/ScienceKernel
 - [ ] Later (optional): verification-budget frontier — Y24/Y25 already CLOSED; new prereg required
 - [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)

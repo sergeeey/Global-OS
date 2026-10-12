@@ -65,8 +65,11 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 16. **Done:** PhaseBreak effect RECONCILED; Pilot 2 target LOCKED (`mcp-bouncer@45af092`).  
 17. **Done:** Pilot 2 A/B TERMINAL on mcp-bouncer — process advantage partial; intelligence NOT_SHOWN.  
 18. **Done (local):** mcp-bouncer sealed-fix patch + pytest green; external effect `PROPOSED` (bot 403).  
-19. **Done (draft):** Pilot 3 prereg — independent A/B + ablation (`PILOT3-IND-ENG-v1`).  
-20. **Now:** human apply mcp-bouncer patch → RECONCILED; then lock/execute Pilot 3. Not M2. DoD V2 PARTIAL (0 PRODUCTION_PROVEN).
+19. **Done:** PR #24 merged (`57c2938`); Pilot 3 draft on main.  
+20. **Done (draft labels):** Pilot 3 arms A/B/C/D; decisive C vs B.  
+21. **Done:** mcp-bouncer F01–F07 external merge `#6` / `33030e3` → EffectReceipt RECONCILED.  
+22. **Done:** mcp-bouncer CI #7 / `6ccce71` + master Tests green → CI_VERIFIED; Pilot 2 external cycle CLOSED.  
+23. **Now:** Pilot 3 lock/execute (A/B/C + D; key C vs B). Not M2. `PRODUCTION_PROVEN = 0`.
 
 ## Документы
 

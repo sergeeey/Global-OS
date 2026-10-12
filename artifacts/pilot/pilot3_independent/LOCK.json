@@ -2,6 +2,7 @@
   "protocol_id": "PILOT3-IND-ENG-v1",
   "status": "PREREG_DRAFT",
   "created_at": "2026-10-12T12:00:00Z",
+  "arms_relabeled_at": "2026-10-12T12:40:00Z",
   "predecessor": {
     "protocol_id": "PILOT2-ENG-AB-v1",
     "verdict": "PARTIAL_SUPPORT_PROCESS_ONLY",
@@ -14,12 +15,14 @@
     "H-PILOT3-EFF"
   ],
   "attribution_hypothesis": "H-PILOT3-ATTR",
+  "decisive_comparison": "C_vs_B",
   "arms": {
     "A": "strong_single_agent",
-    "B": "full_global_os_process",
-    "C": "ablation_discipline_without_gos_runtime",
-    "E": "blind_evaluator"
+    "B": "disciplined_single_agent_checklist_ledger_repro",
+    "C": "full_global_os_process_runtime",
+    "D": "blind_evaluator"
   },
+  "arm_label_note": "B=discipline ablation (was draft 'C'); C=GOS (was draft 'B'); D=evaluator (was draft 'E')",
   "target": {
     "repo": null,
     "pin_sha": null,
@@ -38,7 +41,7 @@
     "A": null,
     "B": null,
     "C": null,
-    "E": null
+    "D": null
   },
   "attr_tolerance": null,
   "arms_started": false,
