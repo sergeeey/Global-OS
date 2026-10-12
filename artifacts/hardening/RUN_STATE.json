@@ -1,15 +1,15 @@
 {
   "sprint": "PILOT_USAGE",
-  "updated_at": "2026-10-12T14:45:00Z",
+  "updated_at": "2026-10-12T14:55:00Z",
   "current_goal": "REAL_USER_PROJECTS_PILOT_USAGE",
   "tip": {
-    "repo_head": "fb63092",
-    "repo_head_note": "PR #26 on main; Pilot 3 TERMINAL on PR #27",
+    "repo_head": "a4fc558",
+    "repo_head_note": "PR #27 Pilot 3 TERMINAL MERGED",
     "code_head": "c851246",
-    "code_head_note": "last runtime code merge #20; #21\u2013#26 docs/pilot",
+    "code_head_note": "last runtime code merge #20; #21\u2013#27 docs/pilot",
     "split_reason": "DOC-007: repo_head (pilot docs) ahead of code_head"
   },
-  "phase_statement": "Pilot 2 CLOSED. Pilot 3 TERMINAL Paperclip@47c232b: EPI/ENG SUPPORTED (C>A); ATTR PROCESS_DISCIPLINE_SUFFICES (C\u226fB); GOS incremental NOT_SHOWN. PhaseBreak RECONCILED. 0 PRODUCTION_PROVEN. Not M2.",
+  "phase_statement": "Pilot 3 TERMINAL accepted: ATTR NOT_SHOWN; M2 CLOSED. Next=architecture ablation (not M2). Pilot 2 external CLOSED. PhaseBreak RECONCILED. PRODUCTION_PROVEN=0.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y20": {

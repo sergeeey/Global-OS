@@ -70,7 +70,8 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 21. **Done:** mcp-bouncer F01–F07 external merge `#6` / `33030e3` → EffectReceipt RECONCILED.  
 22. **Done:** mcp-bouncer CI #7 / `6ccce71` + master Tests green → CI_VERIFIED; Pilot 2 external cycle CLOSED.  
 23. **Done:** Pilot 3 TERMINAL — EPI/ENG SUPPORTED (C>A); ATTR process-discipline suffices (C≯B); GOS incremental NOT_SHOWN.  
-24. **Now:** optional Paperclip fix cycle; higher-fidelity replication. Not M2. `PRODUCTION_PROVEN = 0`.
+24. **Accepted:** ATTR NOT_SHOWN preserved; **M2 CLOSED** on current evidence.  
+25. **Now:** architecture ablation (B0 vs minimal GOS subsets) — not M2 scale-up. `PRODUCTION_PROVEN = 0`.
 
 ## Документы
 
