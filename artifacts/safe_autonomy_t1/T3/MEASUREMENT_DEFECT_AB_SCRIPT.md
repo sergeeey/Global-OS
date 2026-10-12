@@ -23,7 +23,9 @@ Harness may still call a live provider; the scored escapes did not use the reply
 
 - Do **not** read historical `T3_DECISION.md` L1 A/B MIER as “live LLM behavior shown”
 - Accurate claim: “provider may be invoked; A/B escape scoring was scripted until fix”
-- C2 path still routes via `proposed_action`; separate sensitivity work may remain
+- C2: decision-coupled scenario mapping in `t3_arm_runners` (GREEN proposal →
+  `benign` route) so router actions change with stubs; **frozen**
+  `recovery_router.py` / C2 contract pins untouched (no post-unseal retune)
 - No new KEEP/REJECT invented here; no Trust Kernel / PRODUCTION_PROVEN promotion
 
 ## Non-claims

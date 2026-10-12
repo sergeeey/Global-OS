@@ -164,9 +164,11 @@ Next mechanism candidate (NOT SHOWN / NOT BUILT):
   Experiment freeze SHA: c6523a6 · Live completed SHA: 3ef3f44
   Claim strength: live provider invoked once; A/B escape scoring was scenario-scripted
                   until MEASUREMENT_DEFECT_AB_SCRIPT.md + sensitivity test (2026-10-12);
+                  C2 decision-coupled in t3_arm_runners (frozen recovery_router.py untouched);
                   model-dependent generalization NOT SHOWN; independent replication NOT YET;
                   production security NOT SHOWN; Trust Kernel promotion NO
-  Attested: no C2/decision-rule edits after unseal (honesty tooling only: 429/pace/TPD)
+  Attested: no C2/decision-rule edits after unseal (honesty tooling only: 429/pace/TPD;
+            C2 sensitivity = harness mapping, not contract retune)
   Cycle CLOSED — do not retune C2; do not invent PACK-v4; switch to next real task
   Later confidence (optional): NEW prereg + other provider + new sealed holdout + same C2
   Forbidden: proven universal H_TRUST / Trust Kernel / production from this KEEP
@@ -213,8 +215,10 @@ EXTERNAL REAL WORK
   Architecture ablation ARCH-ABLATION-MECH-v1 TERMINAL: H-ABL-G1/G2/G3/Gfull SUPPORTED
     at SCRIPTED_MECHANISM_ABLATION; ATTR/M2 frozen; ≠ LLM field ATTR overturn
   MINIMAL-STACK-v1 = reliability foundation (stop micro-reproving); ≠ the building
-  Cognitive Core paradigm: Autonomous Goal Achiever primary; Challenge-GA PREREG_DRAFT
-  Intelligence advantage still NOT_SHOWN until Challenge locks+runs; ATTR/M2 frozen
+  Cognitive Core paradigm: Autonomous Goal Achiever primary
+  Organs: CONTRACTS_LOCKED · Challenge-GA: PREREG_LOCKED (exec NOT_STARTED)
+  Authority P0 bind + T3 A/B sensitivity: stacked for merge (#32–#34); see MERGE_STACK_32_35.md
+  Intelligence advantage still NOT_SHOWN until Challenge runs; ATTR/M2 frozen
   VERIFIED_CURRENT_VALUE = disciplined audit workflow (+ Pilot 2 external cycle)
   NOT_SHOWN = complex GOS required vs checklist+ledger+verify
   Phase quality ≠ product maturity; PRODUCTION_PROVEN = 0

@@ -68,7 +68,7 @@
     {
       "id": "citation_grounding",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "claim→citation→passage; citation-less promotion rejected; tests/test_borrow_grounding_sop_research.py"
+      "evidence": "claim→citation→passage with claim⊆passage (GOS-I08); citation-less and unsupported-passage promotion rejected; tests/test_borrow_grounding_sop_research.py"
     },
     {
       "id": "sop_skill_packs_t2",
@@ -521,8 +521,9 @@
       "lock": "artifacts/pilot/challenge_ga/LOCK.json",
       "contract": "artifacts/pilot/challenge_ga/CHALLENGE_GA_CONTRACT.md",
       "target": "artifacts/pilot/challenge_ga/TARGET.md",
-      "evidence": "tests/test_challenge_ga_lock.py",
-      "forbidden_until_human_request": "execute_challenge"
+      "evidence": "tests/test_challenge_ga_lock.py; tests/test_challenge_ga_harness.py (organ loop + scorer + exec gate)",
+      "forbidden_until_human_request": "execute_challenge",
+      "harness": "src/global_os/evals/challenge_ga/"
     }
   }
 }

@@ -36,6 +36,23 @@ def test_grounded_claim_with_passage(tmp_path: Path) -> None:
     assert may_promote_claim(r) is True
 
 
+def test_passage_in_source_without_claim_support_rejected(tmp_path: Path) -> None:
+    """GOS-I08: source substring ≠ claim support (passage must cover the claim)."""
+    src = tmp_path / "paper.md"
+    src.write_text(
+        "We observe that water boils at 100C. Unrelated aside about cats.\n",
+        encoding="utf-8",
+    )
+    r = ground_claim(
+        statement="cats are mammals that fly unaided",
+        citations=[{"source_path": "paper.md", "passage": "water boils at 100C"}],
+        root=tmp_path,
+    )
+    assert r.grounded is False
+    assert r.reason == "claim_not_supported_by_passage"
+    assert may_promote_claim(r) is False
+
+
 def test_sop_pack_typed_handoff_and_no_hierarchy_axiom() -> None:
     pack = load_sop_pack("sop.software.v1")
     assert hierarchy_not_default_axiom(pack)

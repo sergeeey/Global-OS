@@ -199,15 +199,32 @@ def load_manifest(*, root: Path | None = None) -> dict[str, Any]:
 
 
 def assert_pack_v3_integrity(*, root: Path | None = None) -> dict[str, Any]:
+    """Fail closed if sealed blob/dir drifted from freeze manifest (5 checks)."""
     out = pack_v3_root(root)
     manifest = load_manifest(root=root)
-    sealed_path = out / "sealed" / "sealed_pack.json"
+    sealed_dir = out / "sealed"
+    sealed_path = sealed_dir / "sealed_pack.json"
+    warning_path = sealed_dir / "WARNING.txt"
     if not sealed_path.is_file():
         raise FileNotFoundError("PACK-v3 sealed_pack.json missing")
+    if not warning_path.is_file():
+        raise FileNotFoundError("PACK-v3 sealed WARNING.txt missing")
     content_sha = hashlib.sha256(sealed_path.read_bytes()).hexdigest()
-    expected = str(manifest.get("sealed_pack_sha256") or "")
-    if content_sha != expected:
-        raise ValueError(f"PACK-v3 sealed content drift: {content_sha} != {expected}")
+    expected_content = str(manifest.get("sealed_pack_sha256") or "")
+    if content_sha != expected_content:
+        raise ValueError(f"PACK-v3 sealed content drift: {content_sha} != {expected_content}")
+    dir_sha = _dir_sha256(sealed_dir)
+    expected_dir = str(manifest.get("sealed_dir_sha256") or "")
+    if dir_sha != expected_dir:
+        raise ValueError(f"PACK-v3 sealed dir drift: {dir_sha} != {expected_dir}")
+    sealed_obj = json.loads(sealed_path.read_text(encoding="utf-8"))
+    if not isinstance(sealed_obj, dict):
+        raise TypeError("sealed_pack.json must be object")
+    built = build_pack_v3_sealed()
+    if built != sealed_obj:
+        raise ValueError("PACK-v3 builder output drifted from sealed_pack.json")
+    if sealed_obj.get("pack_id") != PACK_V3_ID:
+        raise ValueError("PACK-v3 sealed pack_id drift")
     return manifest
 
 

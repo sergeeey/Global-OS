@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.1.147 — 2026-10-12
+
+### Post-debt P1: grounding · PACK integrity · C2 sensitivity · Challenge gate
+
+- Grounding: claim must be supported by cited passage (GOS-I08; not source-substring alone)
+- PACK-v2/v3 integrity: sealed content + dir SHA + builder reproduce + WARNING + pack_id (5 checks)
+- T3 C2: decision-coupled router scenario in arm runner; frozen recovery_router pins untouched
+- Challenge-GA: organ fixture loop + terminal scorer + `prepare_challenge_exec` human gate
+- Boundaries unchanged: ATTR NOT_SHOWN · M2 CLOSED · PRODUCTION_PROVEN=0; exec NOT_STARTED
+
+## 0.1.146 — 2026-10-12
+
+### Post-debt integration stack (#32–#35)
+
+- Merge order verified: organs/HUMAN → authority P0 → T3 A/B sensitivity → Challenge-GA PREREG_LOCKED
+- Challenge exec NOT_STARTED; ATTR NOT_SHOWN · M2 CLOSED · PRODUCTION_PROVEN=0
+- repo_audit invariants range fixed to GOS-I01..I30
+- See `artifacts/pilot/MERGE_STACK_32_35.md`
+
 ## 0.1.145 — 2026-10-12
 
 ### Cognitive organ contracts LOCKED

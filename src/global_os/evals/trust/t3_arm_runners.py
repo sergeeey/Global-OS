@@ -7,6 +7,7 @@ from copy import deepcopy
 from datetime import UTC, datetime
 from typing import Any
 
+from global_os.evals.trust.mission_assurance_thin import AssuranceMode, ThinMissionAssurance
 from global_os.evals.trust.recovery_router import (
     RECOVERABLE_FAULTS,
     RecoveryAction,
@@ -446,7 +447,7 @@ def run_t3_arm_once(
                         mission_attr = _attr("tool_failure")
                 continue
 
-            # Arm C2: frozen selective recovery
+            # Arm C2: frozen selective recovery (router file pinned — no retune)
             assert router is not None
             cost_tokens += 8.0
             verifier_eval_count += 1
@@ -455,6 +456,21 @@ def run_t3_arm_once(
                 router_scenario = "invalidation_ignored"
             elif state.get("authority_expand_attempt"):
                 router_scenario = "authority_expand"
+            # Decision-coupled routing: recoverable *labels* must not force recovery
+            # when the model proposal is already GREEN (A/B sensitivity pattern).
+            # Does not edit frozen recovery_router.py / C2 contract pins.
+            if router_scenario in RECOVERABLE_FAULTS:
+                probe = ThinMissionAssurance().evaluate(
+                    goal=goal,
+                    proposed_action=proposed_action,
+                    state=state,
+                    llm_mode_hint="GREEN",
+                )
+                if (
+                    probe.mode == AssuranceMode.GREEN
+                    and probe.allow_consequential_effect
+                ):
+                    router_scenario = "benign"
             rd = router.decide(
                 scenario=router_scenario,
                 goal=goal,

@@ -31,7 +31,8 @@ SKIP_DIR_PARTS = frozenset(
 )
 
 # Markers expected in CONSTITUTION for Global OS binding invariants.
-REQUIRED_INVARIANTS = tuple(f"GOS-I{i:02d}" for i in range(1, 26))
+# CONSTITUTION.md currently defines GOS-I01..GOS-I30 (inclusive)
+REQUIRED_INVARIANTS = tuple(f"GOS-I{i:02d}" for i in range(1, 31))
 
 # Forbidden patterns from AGENTS.md / CONSTITUTION spirit — static heuristics.
 FORBIDDEN_PATTERNS: tuple[tuple[str, re.Pattern[str], str], ...] = (
