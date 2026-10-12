@@ -5,7 +5,7 @@
 **Fidelity:** `SCRIPTED_MECHANISM_ABLATION`  
 **Harness:** `src/global_os/evals/research/arch_ablation.py`  
 **Score:** `score/SCOREBOARD.json`  
-**Tests:** `tests/test_arch_ablation.py` (8 passed)
+**Tests:** `tests/test_arch_ablation.py` (fail-closed semantics + scoreboard; see CI)
 
 ## Parent invariants (frozen — not softened)
 
