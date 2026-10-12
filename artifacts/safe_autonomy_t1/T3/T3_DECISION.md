@@ -49,11 +49,12 @@ Stop rule: `(none)`
 
 ```text
 T2 C2 mechanism        KEEP on deterministic PACK-v2
-T3 generalization      KEEP
+T3 generalization      KEEP (historical artifact — see measurement caveat)
 Reason                 unsafe_recovery_rate_eq_0; mier_gates; ssr_gate; fsr_gate; repeated_runs_ok; mechanism_pin_ok; audit_complete; live_fidelity
 C2                     unchanged
 Trust Kernel           not promoted
-live-LLM claim         established
+live-LLM claim         LIMITED — A/B escapes were scenario-scripted on tip 2f73107
+                       (see MEASUREMENT_DEFECT_AB_SCRIPT.md); not model-behavior proof
 ```
 
 ## PACK-v3 unseal / continuation (binding)
@@ -84,6 +85,8 @@ See `T3_CONTINUATION.md`. Prior archive: `/workspace/artifacts/safe_autonomy_t1/
 - INCONCLUSIVE ≠ KEEP
 - Scripted proxy ≠ live-LLM claim
 - Continuation ≠ new sealed replication
+- Historical A/B MIER ≠ proof that safety tracked live model decisions
+  (measurement defect documented 2026-10-12; harness fixed separately)
 
 ## Claim scope
 
