@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.124 — 2026-10-12
+
+### Borrow competitor primitives (ADR-0013) — Phase 0→P3
+
+- ADR-0013 + ADR-0009 amendment; `artifacts/hardening/BORROW_ROADMAP.md`
+- P0a TemporalPatternBridge: heartbeats, approval Signals, continue-as-new bound
+- P0b deterministic RiskAssessment + ConfirmPolicy (no LLM security); sandbox ops profile doc
+- P1a ProgressiveMemoryStore commit boundary + root-only context
+- P1b FairLlmScheduler FIFO/RR (quota fail-closed)
+- P2 SOP packs T2 + citation grounding + `gos events replay --at`
+- P3 research_factory MissionContract template (LLM review advisory only)
+- DoD V2 still `closed=false` (PARTIAL evidence updated; no PRODUCTION_PROVEN)
+
 ## 0.1.123 — 2026-10-08
 
 ### Hygiene — status tooling + roadmap/tasktracker sync

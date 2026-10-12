@@ -34,6 +34,28 @@ def cmd_events_tail(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_events_replay(args: argparse.Namespace) -> int:
+    """Time-travel: rebuild status projection at event index (ADR-0013 / LangGraph UX)."""
+    from global_os.runtime.events.replay import EventReplayEngine
+
+    rt = FileRuntime()
+    engine = EventReplayEngine(rt.ledger)
+    if args.compare is not None:
+        out = engine.compare_at(
+            index_a=args.at,
+            index_b=args.compare,
+            goal_id=args.goal_id,
+        )
+    else:
+        out = engine.rebuild_status_projection(
+            goal_id=args.goal_id,
+            until_index=args.at,
+            record_rebuild_event=False,
+        )
+    print(dump_json(out))
+    return 0
+
+
 def cmd_audit_repo(args: argparse.Namespace) -> int:
     from global_os.world.tools import run_repo_audit
 
@@ -64,6 +86,21 @@ def build_parser() -> argparse.ArgumentParser:
     tail.add_argument("--goal-id", dest="goal_id", default=None)
     tail.add_argument("-n", type=int, default=20)
     tail.set_defaults(func=cmd_events_tail)
+
+    replay = events_sub.add_parser(
+        "replay", help="Rebuild status projection at --at index (time-travel)"
+    )
+    replay.add_argument("--goal-id", dest="goal_id", default=None)
+    replay.add_argument(
+        "--at", type=int, required=True, help="Exclusive end event index"
+    )
+    replay.add_argument(
+        "--compare",
+        type=int,
+        default=None,
+        help="Optional second index to diff projections",
+    )
+    replay.set_defaults(func=cmd_events_replay)
 
     audit = sub.add_parser("audit", help="Read-only repository audit")
     audit.add_argument("path", nargs="?", default=".", help="Repo path to audit")

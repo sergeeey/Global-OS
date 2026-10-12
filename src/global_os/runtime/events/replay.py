@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from typing import Any
 
 from global_os.runtime.events.ledger import EventLedger
 
@@ -28,8 +29,13 @@ class EventReplayEngine:
         goal_id: str | None = None,
         tenant_id: str = "system",
         workspace_id: str = "system",
+        until_index: int | None = None,
+        record_rebuild_event: bool = True,
     ) -> dict[str, dict[str, str]]:
-        """Return {kind: {id: status}} after replaying invalidation/stale events."""
+        """Return {kind: {id: status}} after replaying invalidation/stale events.
+
+        until_index: exclusive end index into list_events (time-travel / LangGraph UX).
+        """
         projection: dict[str, dict[str, str]] = {
             "evidence": {},
             "claim": {},
@@ -46,7 +52,15 @@ class EventReplayEngine:
                     raise EventReplayError(f"unknown projection kind: {kind}")
                 projection[kind] = dict(items)
 
-        for event in self._ledger.list_events(goal_id=goal_id):
+        events = self._ledger.list_events(goal_id=goal_id)
+        if until_index is not None:
+            if until_index < 0 or until_index > len(events):
+                raise EventReplayError(
+                    f"until_index out of range: {until_index} (n={len(events)})"
+                )
+            events = events[:until_index]
+
+        for event in events:
             et = event["event_type"]
             payload = event.get("payload", {})
             if et == "evidence.invalidated" and "evidence_id" in payload:
@@ -73,15 +87,34 @@ class EventReplayEngine:
             elif et == "assumption.staled":
                 projection["assumption"][payload["assumption_id"]] = "STALE"
 
-        self._ledger.append(
-            event_type="projection.rebuilt",
-            tenant_id=tenant_id,
-            workspace_id=workspace_id,
-            goal_id=goal_id,
-            payload={
-                "kinds": sorted(projection.keys()),
-                "counts": {k: len(v) for k, v in projection.items()},
-            },
-            producer="event.replay",
-        )
+        if record_rebuild_event:
+            self._ledger.append(
+                event_type="projection.rebuilt",
+                tenant_id=tenant_id,
+                workspace_id=workspace_id,
+                goal_id=goal_id,
+                payload={
+                    "kinds": sorted(projection.keys()),
+                    "counts": {k: len(v) for k, v in projection.items()},
+                    "until_index": until_index,
+                },
+                producer="event.replay",
+            )
         return deepcopy(projection)
+
+    def compare_at(
+        self,
+        *,
+        index_a: int,
+        index_b: int,
+        goal_id: str | None = None,
+        seed: dict[str, dict[str, str]] | None = None,
+    ) -> dict[str, Any]:
+        """Compare status projections at two event indices (operator time-travel)."""
+        a = self.rebuild_status_projection(
+            seed=seed, goal_id=goal_id, until_index=index_a, record_rebuild_event=False
+        )
+        b = self.rebuild_status_projection(
+            seed=seed, goal_id=goal_id, until_index=index_b, record_rebuild_event=False
+        )
+        return {"at_a": a, "at_b": b, "index_a": index_a, "index_b": index_b}

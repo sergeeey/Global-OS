@@ -2,8 +2,8 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **319**
-- capabilities tracked: **64**
+- pytest collected: **336**
+- capabilities tracked: **71**
 
 | Capability | State | Evidence |
 | ---------- | ----- | -------- |
@@ -14,7 +14,14 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | effect_receipt | RUNTIME_VERIFIED_LOCAL | tests/test_authority.py |
 | claim_invalidation | RUNTIME_VERIFIED_LOCAL | tests/test_epistemic.py |
 | durable_runner_process_kill | RUNTIME_VERIFIED_HARNESS | tests/test_durable_recovery.py; tests/test_survival_multi.py |
-| temporal_durability | RUNTIME_VERIFIED_HARNESS | TemporalBridge + time-skipping env; kill/retry without duplicate material effects; tests/test_temporal_bridge.py (≠ LocalDurable) |
+| temporal_durability | RUNTIME_VERIFIED_HARNESS | TemporalBridge + TemporalPatternBridge (heartbeats, approval Signals, continue-as-new bound); kill/retry no duplicate effects; tests/test_temporal_bridge.py; tests/test_borrow_temporal_patterns.py (≠ LocalDurable) |
+| confirm_policy_deterministic | RUNTIME_VERIFIED_LOCAL | RiskAssessment≠ConfirmationPolicy; LLM security_risk ignored; ToolGateway confirm gate; tests/test_borrow_confirm_policy.py; ADR-0013; ≠ live adversarial long-horizon |
+| progressive_memory_commit | RUNTIME_VERIFIED_LOCAL | ProgressiveMemoryStore draft→propose→commit; root-only context default; silent tool promote forbidden; tests/test_borrow_memory_progressive.py |
+| llm_fair_scheduler | RUNTIME_VERIFIED_LOCAL | FairLlmScheduler FIFO/RR across missions; TPD/quota fail-closed stops drain; tests/test_borrow_fair_scheduler.py; resource OS only (≠ Authority) |
+| citation_grounding | RUNTIME_VERIFIED_LOCAL | claim→citation→passage; citation-less promotion rejected; tests/test_borrow_grounding_sop_research.py |
+| sop_skill_packs_t2 | RUNTIME_VERIFIED_LOCAL | T2 SOP packs typed handoffs; hierarchy not default axiom (GOS-I30); tests/test_borrow_grounding_sop_research.py |
+| research_factory_template | RUNTIME_VERIFIED_LOCAL | Mission stage template idea→…→write; REJECT terminal allowed; self-cert DENY; LLM review advisory only; tests/test_borrow_grounding_sop_research.py |
+| cli_event_timetravel | RUNTIME_VERIFIED_LOCAL | EventReplayEngine until_index + compare_at; gos events replay --at; tests/test_borrow_cli_replay.py; full entity-body snapshot still not claimed |
 | postgres_durable_state | RUNTIME_VERIFIED_HARNESS | PostgresEventLedger reconnect + concurrent writers; tests/test_postgres_acceptance.py; CI postgres:16 service |
 | sql_sqlite_adapter | RUNTIME_VERIFIED_LOCAL | tests/test_sql_store.py |
 | otel_traces | RUNTIME_VERIFIED_LOCAL | tests/test_otel.py (in-memory exporter + OTLP fail-closed without endpoint/package; live collector export not claimed) |
@@ -32,14 +39,14 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | environment_compiler | RUNTIME_VERIFIED_LOCAL | tests/test_environment_compiler.py (deterministic compile; no model calls) |
 | environment_compiler_dynamic | RUNTIME_VERIFIED_LOCAL | EnvironmentChangeGate PROPOSED→…→ACTIVE with authority gate; no silent rewrite (GOS-I20); tests/test_epistemic_graph_env_replay.py |
 | sandbox_mvp | RUNTIME_VERIFIED_LOCAL | tests/test_sandbox.py (local process, not container) |
-| sandbox_strong | RUNTIME_VERIFIED_HARNESS | run_sandboxed_task network=none + memory limits + destroy; tests/test_sandbox_docker_live.py; CI GOS_REQUIRE_DOCKER=1; nested-overlay hosts may skip |
-| source_verification | RUNTIME_VERIFIED_LOCAL | tests/test_source_verification.py (local file resolve) |
+| sandbox_strong | RUNTIME_VERIFIED_HARNESS | run_sandboxed_task network=none + memory limits + destroy; ops profile artifacts/hardening/SANDBOX_OPS_PROFILE.md; tests/test_sandbox_docker_live.py; CI GOS_REQUIRE_DOCKER=1; nested-overlay hosts may skip |
+| source_verification | RUNTIME_VERIFIED_LOCAL | tests/test_source_verification.py (local file resolve); grounding layer tests/test_borrow_grounding_sop_research.py |
+| event_replay_engine | RUNTIME_VERIFIED_LOCAL | EventReplayEngine status projection + until_index/compare_at; tests/test_epistemic_graph_env_replay.py; tests/test_borrow_cli_replay.py; not full entity-body snapshot restore |
 | independent_verification_diversity | RUNTIME_VERIFIED_HARNESS | IndependentVerificationStack multi-method consensus; rejects same-model-family LLM judges (GOS-I10); numeric dual stack + remote openai/anthropic judge adapters; tests/test_independent_verification_stack.py; tests/test_multi_provider_verification.py |
 | rust_authority_boundary | RUNTIME_VERIFIED_HARNESS | crates/authority_kernel + gos-authority CLI process boundary; GOS-I01/I04/I05; tests/test_rust_authority.py; cargo test |
 | repo_audit_structure | RUNTIME_VERIFIED_LOCAL | tests/test_repo_audit.py; gos audit |
 | repo_audit_deep | RUNTIME_VERIFIED_LOCAL | deterministic deep static: invariant coverage GOS-I01..I25, forbidden patterns, schema inventory, provider boundary; tests/test_repo_audit.py; not LLM/security pentest |
 | hypothesis_lifecycle | RUNTIME_VERIFIED_LOCAL | tests/test_hypotheses.py |
-| event_replay_engine | RUNTIME_VERIFIED_LOCAL | EventReplayEngine status projection rebuild from ledger; not full entity-body snapshot restore; tests/test_epistemic_graph_env_replay.py |
 | mission_outcome_contract | RUNTIME_VERIFIED_LOCAL | MissionAssigner outcome-level MissionContract; rejects microstep objectives; tests/test_epistemic_graph_env_replay.py |
 | materiality_engine | RUNTIME_VERIFIED_LOCAL | tests/test_materiality_clarification_budget.py |
 | clarification_assumption_recording | RUNTIME_VERIFIED_LOCAL | ClarificationEngine → EpistemicStore + assumption STALE on claim/evidence invalidation; tests/test_materiality_clarification_budget.py; tests/test_assumption_and_workflow_port.py |

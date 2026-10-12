@@ -48,7 +48,42 @@
     {
       "id": "temporal_durability",
       "state": "RUNTIME_VERIFIED_HARNESS",
-      "evidence": "TemporalBridge + time-skipping env; kill/retry without duplicate material effects; tests/test_temporal_bridge.py (≠ LocalDurable)"
+      "evidence": "TemporalBridge + TemporalPatternBridge (heartbeats, approval Signals, continue-as-new bound); kill/retry no duplicate effects; tests/test_temporal_bridge.py; tests/test_borrow_temporal_patterns.py (≠ LocalDurable)"
+    },
+    {
+      "id": "confirm_policy_deterministic",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "RiskAssessment≠ConfirmationPolicy; LLM security_risk ignored; ToolGateway confirm gate; tests/test_borrow_confirm_policy.py; ADR-0013; ≠ live adversarial long-horizon"
+    },
+    {
+      "id": "progressive_memory_commit",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "ProgressiveMemoryStore draft→propose→commit; root-only context default; silent tool promote forbidden; tests/test_borrow_memory_progressive.py"
+    },
+    {
+      "id": "llm_fair_scheduler",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "FairLlmScheduler FIFO/RR across missions; TPD/quota fail-closed stops drain; tests/test_borrow_fair_scheduler.py; resource OS only (≠ Authority)"
+    },
+    {
+      "id": "citation_grounding",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "claim→citation→passage; citation-less promotion rejected; tests/test_borrow_grounding_sop_research.py"
+    },
+    {
+      "id": "sop_skill_packs_t2",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "T2 SOP packs typed handoffs; hierarchy not default axiom (GOS-I30); tests/test_borrow_grounding_sop_research.py"
+    },
+    {
+      "id": "research_factory_template",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "Mission stage template idea→…→write; REJECT terminal allowed; self-cert DENY; LLM review advisory only; tests/test_borrow_grounding_sop_research.py"
+    },
+    {
+      "id": "cli_event_timetravel",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "EventReplayEngine until_index + compare_at; gos events replay --at; tests/test_borrow_cli_replay.py; full entity-body snapshot still not claimed"
     },
     {
       "id": "postgres_durable_state",
@@ -138,12 +173,17 @@
     {
       "id": "sandbox_strong",
       "state": "RUNTIME_VERIFIED_HARNESS",
-      "evidence": "run_sandboxed_task network=none + memory limits + destroy; tests/test_sandbox_docker_live.py; CI GOS_REQUIRE_DOCKER=1; nested-overlay hosts may skip"
+      "evidence": "run_sandboxed_task network=none + memory limits + destroy; ops profile artifacts/hardening/SANDBOX_OPS_PROFILE.md; tests/test_sandbox_docker_live.py; CI GOS_REQUIRE_DOCKER=1; nested-overlay hosts may skip"
     },
     {
       "id": "source_verification",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "tests/test_source_verification.py (local file resolve)"
+      "evidence": "tests/test_source_verification.py (local file resolve); grounding layer tests/test_borrow_grounding_sop_research.py"
+    },
+    {
+      "id": "event_replay_engine",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "EventReplayEngine status projection + until_index/compare_at; tests/test_epistemic_graph_env_replay.py; tests/test_borrow_cli_replay.py; not full entity-body snapshot restore"
     },
     {
       "id": "independent_verification_diversity",
@@ -169,11 +209,6 @@
       "id": "hypothesis_lifecycle",
       "state": "RUNTIME_VERIFIED_LOCAL",
       "evidence": "tests/test_hypotheses.py"
-    },
-    {
-      "id": "event_replay_engine",
-      "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "EventReplayEngine status projection rebuild from ledger; not full entity-body snapshot restore; tests/test_epistemic_graph_env_replay.py"
     },
     {
       "id": "mission_outcome_contract",
