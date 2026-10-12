@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.1.131 — 2026-10-12
+
+### PhaseBreak WorldInteraction closed
+
+- External PR sergeeey/PhaseBreak-2026#1 merged (`0161463`)
+- `EFFECT_RECEIPT.md` RECONCILED; Codex P2 follow-ups logged (non-blocking)
+
+## 0.1.130 — 2026-10-12
+
+### Pilot 2 eng A/B prereg + tip after #20
+
+- PR #20 merged (`c851246`) — AUTH-001b / RUN-004b on main
+- Draft prereg pack `artifacts/pilot/pilot2_eng_ab/` (H-PILOT2-001, rubrics, metrics, target rules)
+- PhaseBreak hygiene remains human handoff (`PHASEBREAK_HYGIENE_HANDOFF.md`)
+
 ## 0.1.129 — 2026-10-12
 
 ### Residual P0 — AUTH-001b + RUN-004b

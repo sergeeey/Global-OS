@@ -1,15 +1,15 @@
 {
   "sprint": "PILOT_USAGE",
-  "updated_at": "2026-10-12T10:37:00Z",
+  "updated_at": "2026-10-12T11:15:00Z",
   "current_goal": "REAL_USER_PROJECTS_PILOT_USAGE",
   "tip": {
-    "repo_head": "3150725",
-    "repo_head_note": "PR #18 PhaseBreak pilot pack MERGED",
-    "code_head": "3e4de13",
-    "code_head_note": "PR #17 P0 hardening — last substantive runtime code",
-    "split_reason": "DOC-007: #18 is pilot/docs/evidence; runtime code tip remains #17"
+    "repo_head": "c851246",
+    "repo_head_note": "PR #20 residual AUTH-001b/RUN-004b MERGED",
+    "code_head": "c851246",
+    "code_head_note": "same — residual hardening is runtime code",
+    "split_reason": "DOC-007: heads equal after #20 code merge"
   },
-  "phase_statement": "main @ 3150725 (#18 PhaseBreak pilot MERGED). Tip split: repo_head=3150725 docs/pilot vs code_head=3e4de13 (#17). PILOT-PB-CLAIMS-v1 TERMINAL. Apply PROPOSED_HYGIENE.patch on PhaseBreak (bot push 403). DoD V2 closed=false. 0 PRODUCTION_PROVEN. Not M-EXT6.",
+  "phase_statement": "main awaiting #21 (Pilot 2 prereg). PhaseBreak WorldInteraction CLOSED: PR #1 merged 0161463 — EFFECT_RECEIPT RECONCILED. Codex P2 follow-ups optional. Next: lock Pilot 2 eng target + A/B. 0 PRODUCTION_PROVEN.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y20": {
@@ -79,7 +79,7 @@
       "note": "successful run is the post-reboot full restart; interrupted partial run does not count"
     }
   },
-  "next_exact_action": "Optional: PhaseBreak hygiene PRs (README commodities recall, production-usable downgrade, Nikkei provenance). Or next real user Goal Contract. No M-EXT6; no Immune*/ScienceKernel.",
+  "next_exact_action": "Merge Global-OS #21 if green; choose Pilot 2 engineering target; lock prereg. Optional PhaseBreak Codex P2 (paper/Nikkei/crypto). No new T0/T1 architecture.",
   "t3_continuation": {
     "path": "artifacts/safe_autonomy_t1/T3/T3_CONTINUATION.md",
     "is_new_sealed_replication": false,
@@ -343,8 +343,8 @@
     "EW4": "MPEMBA_TRIAGE_AUDITED",
     "EW5": "INIT_MPEMBA_CLOSED",
     "main_canonical": true,
-    "merged_pr": 18,
-    "merge_sha": "3150725",
+    "merged_pr": 20,
+    "merge_sha": "c851246",
     "code_merge_pr": 17,
     "code_merge_sha": "3e4de13",
     "campaign_merge_pr": 11,
@@ -353,18 +353,32 @@
     "borrow_primitives_pr": 15,
     "canon_sync_pr": 16,
     "p0_hardening_pr": 17,
-    "pilot_phasebreak": "TERMINAL_CLAIMS_AUDIT",
-    "pilot_phasebreak_pr": 18
+    "pilot_phasebreak": "TERMINAL_EFFECT_RECONCILED",
+    "pilot_phasebreak_pr": 18,
+    "p0_residual_pr": 20,
+    "phasebreak_hygiene_pr": 1,
+    "phasebreak_hygiene_merge": "0161463"
   },
   "pilot": {
     "id": "PILOT-PB-CLAIMS-v1",
     "target": "sergeeey/PhaseBreak-2026",
     "target_sha": "fd1e55c5fad7bfdcb88dd844ccafe95275bebddd",
-    "status": "TERMINAL",
+    "status": "TERMINAL_EFFECT_RECONCILED",
     "pack": "artifacts/pilot/phasebreak/",
     "decision": "artifacts/pilot/phasebreak/DECISION.md",
     "product_maturity_claim": "REJECTED",
     "finance_metrics_vs_json": "SUPPORTED",
-    "gos_advantage": "NOT_MEASURED"
+    "gos_advantage": "NOT_MEASURED",
+    "phasebreak_pr": 1,
+    "phasebreak_merge_sha": "01614631c01cf97cdcf99248f6bd7327f4f3302a",
+    "hygiene_commit": "87b358620804ce6d8f32b06674b498b7975e05a0",
+    "effect_receipt": "artifacts/pilot/phasebreak/EFFECT_RECEIPT.md"
+  },
+  "pilot2": {
+    "id": "PILOT2-ENG-AB-v1",
+    "status": "PREREG_DRAFT",
+    "pack": "artifacts/pilot/pilot2_eng_ab/",
+    "hypothesis": "H-PILOT2-001",
+    "gos_advantage": "NOT_YET_MEASURED"
   }
 }
