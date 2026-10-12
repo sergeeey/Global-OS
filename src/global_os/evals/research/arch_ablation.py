@@ -446,11 +446,12 @@ def _aggregate(rows: list[ScenarioResult]) -> dict[str, Any]:
 
 def _hyp_g1(arms: dict[str, Any]) -> str:
     unique = set(arms["G1"]["unique_holds"])
-    if {"S1", "S2"}.issubset(unique) or (
-        arms["G1"]["wins_vs_B0"] and unique & {"S1", "S2"}
-    ):
-        if "S1" in arms["G1"]["scenarios_held"] and "S2" in arms["G1"]["scenarios_held"]:
-            return "SUPPORTED"
+    held = set(arms["G1"]["scenarios_held"])
+    layer_ok = {"S1", "S2"}.issubset(held) and (
+        {"S1", "S2"}.issubset(unique) or (arms["G1"]["wins_vs_B0"] and unique & {"S1", "S2"})
+    )
+    if layer_ok:
+        return "SUPPORTED"
     if arms["G1"]["delta_vs_B0"] <= 0:
         return "NOT_SHOWN"
     return "INCONCLUSIVE"
