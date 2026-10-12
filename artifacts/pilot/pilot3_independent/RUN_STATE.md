@@ -1,6 +1,6 @@
 # RUN_STATE — PILOT3-IND-ENG-v1
 
-**Lifecycle:** `LOCKED`
+**Lifecycle:** `RUNNING`
 
 | State | Meaning |
 |-------|---------|

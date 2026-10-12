@@ -1,6 +1,6 @@
 {
   "protocol_id": "PILOT3-IND-ENG-v1",
-  "status": "LOCKED",
+  "status": "RUNNING",
   "created_at": "2026-10-12T12:00:00Z",
   "locked_at": "2026-10-12T14:35:00Z",
   "arms_relabeled_at": "2026-10-12T12:40:00Z",
@@ -9,7 +9,7 @@
     "protocol_id": "PILOT2-ENG-AB-v1",
     "verdict": "PARTIAL_SUPPORT_PROCESS_ONLY",
     "fidelity": "SAME_EXECUTOR_DUAL_PROTOCOL",
-    "limitation": "SAME_EXECUTOR knowledge transfer — not independent architecture proof"
+    "limitation": "SAME_EXECUTOR knowledge transfer \u2014 not independent architecture proof"
   },
   "hypotheses": [
     "H-PILOT3-EPI",
@@ -79,6 +79,7 @@
     "result": "54 passed in 0.53s"
   },
   "blind_eval_procedure": "Operator renames arm packs to P1/P2/P3 with shuffled mapping recorded in BLIND_MAP.json (sealed until after EVAL_SEAL.json).",
-  "arms_started": false,
-  "decision": null
+  "arms_started": true,
+  "decision": null,
+  "arms_started_at": "2026-10-12T14:40:00Z"
 }
