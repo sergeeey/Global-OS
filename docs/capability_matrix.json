@@ -423,14 +423,20 @@
       "target": "sergeeey/mcp-bouncer@45af092"
     },
     "PILOT3_IND_ENG": {
-      "status": "PREREG_DRAFT",
+      "status": "TERMINAL",
       "protocol_id": "PILOT3-IND-ENG-v1",
-      "hypotheses": ["H-PILOT3-EPI", "H-PILOT3-ENG", "H-PILOT3-EFF"],
-      "attribution": "H-PILOT3-ATTR",
+      "target": "sergeeey/Paperclip-AI---2026@47c232b",
+      "hypotheses": {
+        "H-PILOT3-EPI": "SUPPORTED",
+        "H-PILOT3-ENG": "SUPPORTED",
+        "H-PILOT3-EFF": "INCONCLUSIVE"
+      },
+      "attribution": "PROCESS_DISCIPLINE_SUFFICES",
+      "gos_incremental": "NOT_SHOWN",
       "arms": {"A": "strong", "B": "discipline", "C": "gos", "D": "blind_eval"},
       "decisive_comparison": "C_vs_B",
-      "fidelity_target": "INDEPENDENT_EXECUTORS_PLUS_ABLATION",
-      "note": "Not locked; not M2; C>A alone insufficient — need C>B for GOS incremental"
+      "fidelity": "ISOLATED_SUBAGENT_ARMS_SAME_ORCHESTRATOR",
+      "decision": "artifacts/pilot/pilot3_independent/DECISION.md"
     }
   }
 }

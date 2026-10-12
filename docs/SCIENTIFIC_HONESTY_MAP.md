@@ -205,7 +205,8 @@ EXTERNAL REAL WORK
   Audit: artifacts/hardening/PROJECT_AUDIT_2026-10-08.md
   Pilot 2: PARTIAL_SUPPORT_PROCESS_ONLY (SAME_EXECUTOR); intel NOT_SHOWN
   mcp-bouncer: F01–F07 RECONCILED (#6) + CI_VERIFIED (#7/6ccce71 master green)
-  Pilot 3: PREREG_DRAFT — A/B/C + blind D; decisive C vs B
+  Pilot 3 TERMINAL (Paperclip@47c232b): EPI/ENG SUPPORTED (C>A);
+    ATTR PROCESS_DISCIPLINE_SUFFICES (C≯B); GOS incremental NOT_SHOWN
   Phase quality score ≠ product maturity; PRODUCTION_PROVEN = 0
 ```
 

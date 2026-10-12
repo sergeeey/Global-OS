@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.1.140 — 2026-10-12
+
+### Pilot 3 TERMINAL — Paperclip@47c232b
+
+- Blind D sealed (16 confirmed / 5 unsupported / 2 NR); map P1→C P2→A P3→B
+- H-PILOT3-EPI/ENG **SUPPORTED** (C vs A); EFF **INCONCLUSIVE**
+- H-PILOT3-ATTR **PROCESS_DISCIPLINE_SUFFICES** — GOS incremental **NOT_SHOWN**
+- Fidelity `ISOLATED_SUBAGENT_ARMS_SAME_ORCHESTRATOR`; not M2; PRODUCTION_PROVEN=0
+
+## 0.1.139 — 2026-10-12
+
+### Pilot 3 LOCKED — Paperclip workflow-controller
+
+- Target `sergeeey/Paperclip-AI---2026@47c232b` (54 pytest); mcp-bouncer rejected (contamination)
+- Fidelity `ISOLATED_SUBAGENT_ARMS_SAME_ORCHESTRATOR`; decisive C vs B
+- Arms not started at lock commit
+
 ## 0.1.138 — 2026-10-12
 
 ### Canon sync after #25

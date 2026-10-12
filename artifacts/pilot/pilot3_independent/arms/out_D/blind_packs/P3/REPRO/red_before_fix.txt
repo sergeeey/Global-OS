@@ -1,0 +1,53 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /workspace
+configfile: pyproject.toml
+plugins: anyio-4.15.1
+collecting ... collected 7 items
+
+../../../../../workspace/artifacts/pilot/pilot3_independent/arms/out_P/REPRO/test_confirmed_defects.py::B01OutputFilePolicyBypass::test_blocks_output_file_outside_allowed_roots FAILED [ 14%]
+../../../../../workspace/artifacts/pilot/pilot3_independent/arms/out_P/REPRO/test_confirmed_defects.py::B01OutputFilePolicyBypass::test_mcp_sync_does_not_write_outside_roots FAILED [ 28%]
+../../../../../workspace/artifacts/pilot/pilot3_independent/arms/out_P/REPRO/test_confirmed_defects.py::B01OutputFilePolicyBypass::test_output_file_is_a_path_argument FAILED [ 42%]
+../../../../../workspace/artifacts/pilot/pilot3_independent/arms/out_P/REPRO/test_confirmed_defects.py::B02NestedIssuePathBypass::test_sync_blocks_output_location_outside_roots FAILED [ 57%]
+../../../../../workspace/artifacts/pilot/pilot3_independent/arms/out_P/REPRO/test_confirmed_defects.py::B03MissingFailedDefaultsPass::test_missing_failed_field_fails_artifact_gate FAILED [ 71%]
+../../../../../workspace/artifacts/pilot/pilot3_independent/arms/out_P/REPRO/test_confirmed_defects.py::B04EventLogRejectsArtifactFail::test_artifact_fail_event_log_validates FAILED [ 85%]
+../../../../../workspace/artifacts/pilot/pilot3_independent/arms/out_P/REPRO/test_confirmed_defects.py::B05EmptyAllowListAllowsAll::test_empty_allowed_tools_blocks_unknown FAILED [100%]
+
+=================================== FAILURES ===================================
+E   AssertionError: 'allow' != 'block'
+    - allow
+    + block
+/usr/lib/python3.12/unittest/case.py:715: AssertionError: 'allow' != 'block'
+E   AssertionError: 'allow' != 'block'
+    - allow
+    + block
+/usr/lib/python3.12/unittest/case.py:715: AssertionError: 'allow' != 'block'
+E   AssertionError: 'output_file' not found in {'event_log', 'issue_file', 'trufflehog_json', 'project_dir', 'scan_output_dir', 'output_dir', 'semgrep_sarif'}
+/usr/lib/python3.12/unittest/case.py:715: AssertionError: 'output_file' not found in {'event_log', 'issue_file', 'trufflehog_json', 'project_dir', 'scan_output_dir', 'output_dir', 'semgrep_sarif'}
+E   AssertionError: 'allow' != 'block'
+    - allow
+    + block
+/usr/lib/python3.12/unittest/case.py:715: AssertionError: 'allow' != 'block'
+E   AssertionError: 'pass' != 'fail'
+    - pass
+    + fail
+/usr/lib/python3.12/unittest/case.py:715: AssertionError: 'pass' != 'fail'
+E   AssertionError: 'fail' != 'pass'
+    - fail
+    + pass
+     : artifact-gate final reason mismatch
+/usr/lib/python3.12/unittest/case.py:715: AssertionError: 'fail' != 'pass'
+E   AssertionError: 'allow' != 'block'
+    - allow
+    + block
+/usr/lib/python3.12/unittest/case.py:715: AssertionError: 'allow' != 'block'
+=========================== short test summary info ============================
+FAILED ../../../../../workspace/artifacts/pilot/pilot3_independent/arms/out_P/REPRO/test_confirmed_defects.py::B01OutputFilePolicyBypass::test_blocks_output_file_outside_allowed_roots
+FAILED ../../../../../workspace/artifacts/pilot/pilot3_independent/arms/out_P/REPRO/test_confirmed_defects.py::B01OutputFilePolicyBypass::test_mcp_sync_does_not_write_outside_roots
+FAILED ../../../../../workspace/artifacts/pilot/pilot3_independent/arms/out_P/REPRO/test_confirmed_defects.py::B01OutputFilePolicyBypass::test_output_file_is_a_path_argument
+FAILED ../../../../../workspace/artifacts/pilot/pilot3_independent/arms/out_P/REPRO/test_confirmed_defects.py::B02NestedIssuePathBypass::test_sync_blocks_output_location_outside_roots
+FAILED ../../../../../workspace/artifacts/pilot/pilot3_independent/arms/out_P/REPRO/test_confirmed_defects.py::B03MissingFailedDefaultsPass::test_missing_failed_field_fails_artifact_gate
+FAILED ../../../../../workspace/artifacts/pilot/pilot3_independent/arms/out_P/REPRO/test_confirmed_defects.py::B04EventLogRejectsArtifactFail::test_artifact_fail_event_log_validates
+FAILED ../../../../../workspace/artifacts/pilot/pilot3_independent/arms/out_P/REPRO/test_confirmed_defects.py::B05EmptyAllowListAllowsAll::test_empty_allowed_tools_blocks_unknown
+============================== 7 failed in 0.33s ===============================

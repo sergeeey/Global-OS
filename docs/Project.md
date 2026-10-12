@@ -69,7 +69,8 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 20. **Done (draft labels):** Pilot 3 arms A/B/C/D; decisive C vs B.  
 21. **Done:** mcp-bouncer F01–F07 external merge `#6` / `33030e3` → EffectReceipt RECONCILED.  
 22. **Done:** mcp-bouncer CI #7 / `6ccce71` + master Tests green → CI_VERIFIED; Pilot 2 external cycle CLOSED.  
-23. **Now:** Pilot 3 lock/execute (A/B/C + D; key C vs B). Not M2. `PRODUCTION_PROVEN = 0`.
+23. **Done:** Pilot 3 TERMINAL — EPI/ENG SUPPORTED (C>A); ATTR process-discipline suffices (C≯B); GOS incremental NOT_SHOWN.  
+24. **Now:** optional Paperclip fix cycle; higher-fidelity replication. Not M2. `PRODUCTION_PROVEN = 0`.
 
 ## Документы
 

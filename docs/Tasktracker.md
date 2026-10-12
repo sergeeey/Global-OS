@@ -40,7 +40,10 @@
 - [x] Human: mcp-bouncer CI Ruff branch pushed (`fix/pilot2-ci-ruff` @ `dbbe68b`)
 - [x] Human: mcp-bouncer PR #7 merged (`6ccce71`) + master CI success → CI_VERIFIED
 - [x] Merge PR #25 to main (`4cd868c`) — Pilot 3 canon + CI_VERIFIED receipt
-- [ ] Lock + execute Pilot 3 (A/B/C + blind D; key C vs B; no M2)
+- [x] Lock + execute Pilot 3 (Paperclip@47c232b; A/B/C + blind D)
+- [x] Pilot 3 TERMINAL — ATTR PROCESS_DISCIPLINE_SUFFICES; GOS incremental NOT_SHOWN
+- [ ] Optional: Paperclip external fix WorldInteraction (human gate)
+- [ ] Not M2 until stronger ATTR evidence / higher fidelity
 - [ ] Forbidden (standing): rewrite M-EXT4/5; secondary→primary silently; Immune*/ScienceKernel
 - [ ] Later (optional): verification-budget frontier — Y24/Y25 already CLOSED; new prereg required
 - [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)

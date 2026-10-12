@@ -1,0 +1,51 @@
+# Pre-fix sealed repro stdout (SHA 47c232b, unmodified sources)
+# Captured before applying local patches in /tmp/pilot/p3-arm-C
+
+===== repro_C01_eventlog_artifact_fail.py =====
+run.final.status= fail
+run.final.reason= artifact gate fail
+verify_event_log.status= fail
+verify_event_log.reason= artifact-gate final reason mismatch
+CONFIRMED: event log rejects authentic artifact-gate fail sequence
+exit:0
+
+===== repro_C02_output_file_path_bypass.py =====
+evaluate_tool_request.action= allow
+evaluate_tool_request.reason= tool request allowed by policy
+mcp.status_or_policy= allow
+wrote_outside= True
+written_issue_id= FIX-1
+CONFIRMED: output_file outside allowed_roots not blocked
+exit:0
+
+===== repro_C03_empty_allowlist_bypass.py =====
+action= allow
+reason= tool request allowed by policy
+matched_rule= allowed_tools
+CONFIRMED: empty allowed_tools permits unknown tool
+exit:0
+
+===== repro_C04_semgrep_config_path_unchecked.py =====
+PATH_ARGUMENT_NAMES= ['event_log', 'issue_file', 'output_dir', 'project_dir', 'scan_output_dir', 'semgrep_sarif', 'trufflehog_json']
+action= allow
+reason= tool request allowed by policy
+checked_paths= ('/tmp/tmp5vbig7zn/project',)
+CONFIRMED: outside semgrep_config path not policy-checked
+exit:0
+
+===== repro_C05_cli_block_level_append_default.py =====
+parsed_levels= ['error', 'warning', 'error']
+CONFIRMED: cannot override default block levels via CLI append
+exit:0
+
+===== repro_C06_coverage_percent_as_rate.py =====
+status= pass
+coverage_check= pass coverage 8000.00% >= 80.00% {'coverage_percent': 8000.0, 'min_coverage': 80.0}
+CONFIRMED: percent-shaped line-rate false-passes
+exit:0
+
+===== negative_C07_sync_done_vs_reporter.py =====
+synced.status= done plan.next= None
+in_progress+pass plan.next= reporter
+REJECTED_AS_DEFECT: dual-path is test-covered intentional behavior
+exit:0

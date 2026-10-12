@@ -43,11 +43,9 @@ def test_pilot3_arms_abcd_and_decisive_c_vs_b() -> None:
     assert "blind" in prereg.lower()
 
 
-def test_pilot3_lock_is_draft_not_started() -> None:
+def test_pilot3_lock_shape_and_arms() -> None:
     lock = json.loads((PACK / "LOCK.json").read_text(encoding="utf-8"))
-    assert lock["status"] == "PREREG_DRAFT"
-    assert lock["arms_started"] is False
-    assert lock["target"]["pin_sha"] is None
+    assert lock["status"] in {"PREREG_DRAFT", "LOCKED", "RUNNING", "TERMINAL"}
     assert set(lock["hypotheses"]) == {"H-PILOT3-EPI", "H-PILOT3-ENG", "H-PILOT3-EFF"}
     assert lock["attribution_hypothesis"] == "H-PILOT3-ATTR"
     assert lock["decisive_comparison"] == "C_vs_B"

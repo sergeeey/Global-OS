@@ -1,0 +1,102 @@
+{
+  "arm": "C",
+  "sha": "47c232b67c0113b44051c3e6d4c690f4522a895a",
+  "focus": "tools/workflow-controller/",
+  "statuses_allowed": ["ASSERTED", "REJECTED", "UNSUPPORTED", "NOT_REPRODUCED"],
+  "claims": [
+    {
+      "id": "C01",
+      "title": "verify_event_log rejects authentic artifact-gate FAIL sequence",
+      "status": "ASSERTED",
+      "surface": "event_log",
+      "severity": "high",
+      "repro": "REPRO/repro_C01_eventlog_artifact_fail.py",
+      "evidence": "REPRO/evidence/pre_fix_repro_stdout.txt",
+      "fix": "REPRO/patches/pilot3_arm_c_fixes.diff",
+      "notes": "Producer writes 'artifact gate fail'; validator required only 'artifact gate blocked'."
+    },
+    {
+      "id": "C02",
+      "title": "MCP sync output_file bypasses allowed_roots path policy",
+      "status": "ASSERTED",
+      "surface": "tool_policy/mcp",
+      "severity": "high",
+      "repro": "REPRO/repro_C02_output_file_path_bypass.py",
+      "evidence": "REPRO/evidence/pre_fix_repro_stdout.txt",
+      "fix": "REPRO/patches/pilot3_arm_c_fixes.diff",
+      "notes": "ToolCallSuccess(allow+write) != WorldSuccess(path containment)."
+    },
+    {
+      "id": "C03",
+      "title": "Empty allowed_tools falsy-bypass permits unknown tools",
+      "status": "ASSERTED",
+      "surface": "tool_policy",
+      "severity": "high",
+      "repro": "REPRO/repro_C03_empty_allowlist_bypass.py",
+      "evidence": "REPRO/evidence/pre_fix_repro_stdout.txt",
+      "fix": "REPRO/patches/pilot3_arm_c_fixes.diff"
+    },
+    {
+      "id": "C04",
+      "title": "Filesystem semgrep_config not constrained by path policy",
+      "status": "ASSERTED",
+      "surface": "tool_policy/mcp",
+      "severity": "medium",
+      "repro": "REPRO/repro_C04_semgrep_config_path_unchecked.py",
+      "evidence": "REPRO/evidence/pre_fix_repro_stdout.txt",
+      "fix": "REPRO/patches/pilot3_arm_c_fixes.diff",
+      "notes": "Asserted at policy surface only; scanner I/O WorldSuccess not claimed without semgrep binary."
+    },
+    {
+      "id": "C05",
+      "title": "CLI --semgrep-block-level append retains sticky defaults",
+      "status": "ASSERTED",
+      "surface": "cli",
+      "severity": "medium",
+      "repro": "REPRO/repro_C05_cli_block_level_append_default.py",
+      "evidence": "REPRO/evidence/pre_fix_repro_stdout.txt",
+      "fix": "REPRO/patches/pilot3_arm_c_fixes.diff"
+    },
+    {
+      "id": "C06",
+      "title": "Percent-shaped coverage line-rate false-passes artifact gate",
+      "status": "ASSERTED",
+      "surface": "artifact_gate",
+      "severity": "medium",
+      "repro": "REPRO/repro_C06_coverage_percent_as_rate.py",
+      "evidence": "REPRO/evidence/pre_fix_repro_stdout.txt",
+      "fix": "REPRO/patches/pilot3_arm_c_fixes.diff"
+    },
+    {
+      "id": "C07",
+      "title": "sync pass→done vs flow pass→reporter is material defect",
+      "status": "REJECTED",
+      "surface": "issue_state/issue_flow",
+      "severity": "n/a",
+      "repro": "REPRO/negative_C07_sync_done_vs_reporter.py",
+      "notes": "Both behaviors covered by existing unit tests as intentional dual-path; retained as negative."
+    },
+    {
+      "id": "C08",
+      "title": "Smoke 54-pass implies production readiness",
+      "status": "UNSUPPORTED",
+      "surface": "epistemic",
+      "severity": "n/a",
+      "notes": "Explicitly rejected epistemic shortcut; smoke ≠ verification of fail-path/policy surfaces."
+    }
+  ],
+  "counts": {
+    "ASSERTED": 6,
+    "REJECTED": 1,
+    "UNSUPPORTED": 1,
+    "NOT_REPRODUCED": 0
+  },
+  "summary": {
+    "confirmed_useful_findings": 6,
+    "unsupported_claims": 1,
+    "rejected_negatives_retained": 1,
+    "not_reproduced": 0,
+    "local_fix_pytest": "60 passed",
+    "external_effect": "none (proposal only)"
+  }
+}

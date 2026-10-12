@@ -1,0 +1,55 @@
+test_event_log_accepts_artifact_gate_fail (__main__.Pilot3ArmARegressions.test_event_log_accepts_artifact_gate_fail)
+F1: legitimate artifact-gate FAIL must verify_event_log as pass. ... FAIL
+test_output_file_is_policy_enforced (__main__.Pilot3ArmARegressions.test_output_file_is_policy_enforced)
+F2: output_file outside allowed roots must be blocked (and not written). ... FAIL
+test_semgrep_run_exit_1_with_note_only_does_not_fail_gate (__main__.Pilot3ArmARegressions.test_semgrep_run_exit_1_with_note_only_does_not_fail_gate)
+F3: semgrep exit 1 + note-only SARIF must not fail when block_levels exclude note. ... FAIL
+test_sync_pass_does_not_skip_reporter_devops (__main__.Pilot3ArmARegressions.test_sync_pass_does_not_skip_reporter_devops)
+F4: gate pass must not mark issue done (skips Reporter/DevOps in plan). ... FAIL
+
+======================================================================
+FAIL: test_event_log_accepts_artifact_gate_fail (__main__.Pilot3ArmARegressions.test_event_log_accepts_artifact_gate_fail)
+F1: legitimate artifact-gate FAIL must verify_event_log as pass.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/artifacts/pilot/pilot3_independent/arms/out_A/REPRO/test_pilot3_arm_a_regressions.py", line 58, in test_event_log_accepts_artifact_gate_fail
+    self.assertEqual(
+AssertionError: 'fail' != 'pass'
+- fail
++ pass
+ : verify_event_log false-failed legitimate traffic: artifact-gate final reason mismatch
+
+======================================================================
+FAIL: test_output_file_is_policy_enforced (__main__.Pilot3ArmARegressions.test_output_file_is_policy_enforced)
+F2: output_file outside allowed roots must be blocked (and not written).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/artifacts/pilot/pilot3_independent/arms/out_A/REPRO/test_pilot3_arm_a_regressions.py", line 66, in test_output_file_is_policy_enforced
+    self.assertIn("output_file", PATH_ARGUMENT_NAMES)
+AssertionError: 'output_file' not found in {'output_dir', 'trufflehog_json', 'semgrep_sarif', 'issue_file', 'scan_output_dir', 'event_log', 'project_dir'}
+
+======================================================================
+FAIL: test_semgrep_run_exit_1_with_note_only_does_not_fail_gate (__main__.Pilot3ArmARegressions.test_semgrep_run_exit_1_with_note_only_does_not_fail_gate)
+F3: semgrep exit 1 + note-only SARIF must not fail when block_levels exclude note.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/artifacts/pilot/pilot3_independent/arms/out_A/REPRO/test_pilot3_arm_a_regressions.py", line 136, in test_semgrep_run_exit_1_with_note_only_does_not_fail_gate
+    self.assertEqual(
+AssertionError: 'fail' != 'pass'
+- fail
++ pass
+ : false-positive security fail: security scan checks failed checks=[('project_dir', 'pass'), ('semgrep.run', 'fail'), ('semgrep.sarif', 'pass'), ('trufflehog.jsonl', 'pass')]
+
+======================================================================
+FAIL: test_sync_pass_does_not_skip_reporter_devops (__main__.Pilot3ArmARegressions.test_sync_pass_does_not_skip_reporter_devops)
+F4: gate pass must not mark issue done (skips Reporter/DevOps in plan).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/artifacts/pilot/pilot3_independent/arms/out_A/REPRO/test_pilot3_arm_a_regressions.py", line 153, in test_sync_pass_does_not_skip_reporter_devops
+    self.assertNotEqual(
+AssertionError: 'done' == 'done' : sync_issue_state must not jump to done before Reporter/DevOps
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.004s
+
+FAILED (failures=4)

@@ -1,0 +1,21 @@
+{
+  "arm": "A",
+  "protocol": "A",
+  "checkout": "/tmp/pilot/p3-arm-A",
+  "commit": "47c232b67c0113b44051c3e6d4c690f4522a895a",
+  "focus": "tools/workflow-controller",
+  "smoke_passed": 54,
+  "smoke_counted_as_findings": false,
+  "findings": [
+    {"id": "F1", "severity": "major", "title": "event_log false-fails artifact-gate FAIL", "repro": "REPRO/test_pilot3_arm_a_regressions.py::test_event_log_accepts_artifact_gate_fail"},
+    {"id": "F2", "severity": "critical", "title": "output_file path-policy bypass (arbitrary write)", "repro": "REPRO/test_pilot3_arm_a_regressions.py::test_output_file_is_policy_enforced"},
+    {"id": "F3", "severity": "major", "title": "semgrep exit 1 false-fails note-only SARIF", "repro": "REPRO/test_pilot3_arm_a_regressions.py::test_semgrep_run_exit_1_with_note_only_does_not_fail_gate"},
+    {"id": "F4", "severity": "major", "title": "sync_issue_state pass marks done skips reporter/devops", "repro": "REPRO/test_pilot3_arm_a_regressions.py::test_sync_pass_does_not_skip_reporter_devops"},
+    {"id": "F5", "severity": "major", "title": "trufflehog nonzero exit ignores block_unknown=False", "repro": "REPRO/test_pilot3_arm_a_regressions.py::test_trufflehog_run_exit_nonzero_defers_to_jsonl_policy"}
+  ],
+  "severity_counts": {"critical": 1, "major": 4, "minor": 0, "hygiene": 0},
+  "fixes_proposed": true,
+  "regressions_pre_fix": "5 failed",
+  "regressions_post_fix": "5 passed",
+  "unittest_post_fix": "55 passed"
+}

@@ -1,0 +1,9 @@
+{
+  "fidelity": "ISOLATED_SUBAGENT_ARMS_SAME_ORCHESTRATOR",
+  "A": "bc-6c0e363c-8e41-5ac5-9700-d8e7c547eb48",
+  "B": "bc-4922f179-fe25-57df-b0de-54ba4390e84f",
+  "C": "bc-41dff748-0823-5946-8609-752edd488e6f",
+  "D": "bc-4f0e1ef9-9cf3-5785-8d86-5b4f14ecb804",
+  "abc_packs_sealed_at": "2026-10-12T14:38:30Z",
+  "note": "D evaluates only arms/out_D/blind_packs/{P1,P2,P3}; BLIND_MAP sealed"
+}
