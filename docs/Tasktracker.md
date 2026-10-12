@@ -39,6 +39,7 @@
 - [x] Human: mcp-bouncer F01–F07 PR #6 merged (`33030e3`) → EffectReceipt RECONCILED
 - [x] Human: mcp-bouncer CI Ruff branch pushed (`fix/pilot2-ci-ruff` @ `dbbe68b`)
 - [x] Human: mcp-bouncer PR #7 merged (`6ccce71`) + master CI success → CI_VERIFIED
+- [x] Merge PR #25 to main (`4cd868c`) — Pilot 3 canon + CI_VERIFIED receipt
 - [ ] Lock + execute Pilot 3 (A/B/C + blind D; key C vs B; no M2)
 - [ ] Forbidden (standing): rewrite M-EXT4/5; secondary→primary silently; Immune*/ScienceKernel
 - [ ] Later (optional): verification-budget frontier — Y24/Y25 already CLOSED; new prereg required
