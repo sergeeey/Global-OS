@@ -56,6 +56,17 @@ synthetic fraud/landslide ≠ real-world performance
 pilot audit ≠ GOS PRODUCTION_PROVEN
 ```
 
+## WorldInteraction (post-decision)
+
+```text
+PROPOSED_HYGIENE.patch
+  → human branch gos/phasebreak-evidence-hygiene @ 87b3586
+  → PhaseBreak PR #1 MERGED @ 0161463
+  → EFFECT_RECEIPT.md RECONCILED
+```
+
+Codex P2 residuals: `CODEX_FOLLOWUPS.md` (paper/Nikkei/crypto) — non-blocking.
+
 ## Artifacts
 
 - `GOAL_CONTRACT.md`
@@ -63,4 +74,7 @@ pilot audit ≠ GOS PRODUCTION_PROVEN
 - `VERIFIED_NUMBERS.json`
 - `DECISION.md` (this file)
 - `INTERVENTIONS.json`
+- `PROPOSED_HYGIENE.patch`
+- `EFFECT_RECEIPT.md`
+- `CODEX_FOLLOWUPS.md`
 - `README.md`

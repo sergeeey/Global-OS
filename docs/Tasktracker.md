@@ -29,7 +29,7 @@
 - [x] Merge PR #18 to main (`3150725`)
 - [x] Merge PR #19 canon sync (`9dbd83c`)
 - [x] Merge PR #20 residual AUTH-001b + RUN-004b (`c851246`)
-- [ ] Human PhaseBreak hygiene PR from `PROPOSED_HYGIENE.patch` (bot 403)
+- [x] Human PhaseBreak hygiene PR #1 merged (`0161463`); EFFECT_RECEIPT RECONCILED
 - [ ] Lock Pilot 2 eng A/B prereg + choose target (`artifacts/pilot/pilot2_eng_ab/`)
 - [ ] Execute Pilot 2 A/B → DECISION (GOS advantage measured or honest REJECT/TIE)
 - [ ] Forbidden (standing): rewrite M-EXT4/5; secondary→primary silently; Immune*/ScienceKernel

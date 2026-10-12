@@ -16,8 +16,17 @@ def test_pilot_pack_files_exist() -> None:
         "DECISION.md",
         "INTERVENTIONS.json",
         "README.md",
+        "EFFECT_RECEIPT.md",
+        "CODEX_FOLLOWUPS.md",
     ):
         assert (PACK / name).is_file(), name
+
+
+def test_effect_receipt_reconciled() -> None:
+    text = (PACK / "EFFECT_RECEIPT.md").read_text(encoding="utf-8")
+    assert "RECONCILED" in text
+    assert "0161463" in text
+    assert "PhaseBreak-2026/pull/1" in text
 
 
 def test_verified_finance_matches_ledger_support() -> None:

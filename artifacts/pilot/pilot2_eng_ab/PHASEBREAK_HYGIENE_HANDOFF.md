@@ -1,6 +1,8 @@
+**Status:** `DONE` — PhaseBreak PR #1 merged `0161463` (see `artifacts/pilot/phasebreak/EFFECT_RECEIPT.md`)
+
 # PhaseBreak hygiene — human handoff
 
-**Status:** waiting on human (bot push 403)  
+**Status:** ~~waiting on human~~ → completed  
 **Source pack:** `artifacts/pilot/phasebreak/PROPOSED_HYGIENE.patch`  
 **After:** Global-OS #20 merged (`c851246`)
 

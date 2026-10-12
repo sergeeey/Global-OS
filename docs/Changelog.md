@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.131 — 2026-10-12
+
+### PhaseBreak WorldInteraction closed
+
+- External PR sergeeey/PhaseBreak-2026#1 merged (`0161463`)
+- `EFFECT_RECEIPT.md` RECONCILED; Codex P2 follow-ups logged (non-blocking)
+
 ## 0.1.130 — 2026-10-12
 
 ### Pilot 2 eng A/B prereg + tip after #20
