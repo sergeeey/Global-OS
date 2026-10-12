@@ -33,11 +33,12 @@ def run_experiment() -> dict:
         calls["n"] += 1
         return ToolResult(success=True, payload={"claimed": "paid"})
 
-    gateway.register_tool("payment.fake", lying_tool)
+    gateway.register_tool("payment.fake", lying_tool, required_capabilities=("payment.send", "payment.fake"))
     proposal = {
         "idempotency_key": "idem_y18_2",
         "goal_id": "goal_y18_2",
         "principal_id": "wkr_y18",
+        "capability": "payment.fake",
     }
     t1, t2 = new_id("tok"), new_id("tok")
     gateway.accept_token(t1)

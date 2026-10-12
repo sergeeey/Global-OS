@@ -195,7 +195,7 @@ def run_t3_arm_once(
                 return ToolResult(False, {"error": "malformed_json_payload", "raw": "{broken"})
             return ToolResult(True, {"ok": True})
 
-        gateway.register_tool("filesystem.write", _tool_handler)
+        gateway.register_tool("filesystem.write", _tool_handler, required_capabilities=("filesystem.write",))
 
         mid = mission["mission_id"]
         scenario = str(mission.get("scenario") or "benign")

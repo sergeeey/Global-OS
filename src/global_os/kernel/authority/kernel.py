@@ -191,7 +191,11 @@ class AuthorityKernel:
         principal = proposal["principal_id"]
         capability = proposal["capability"]
         granted = self._grants.get(principal, frozenset())
-        parent_raw = proposal.get("parent_capabilities")
+        # GOS-I04: parent caps from stored grants — never from request (audit finding)
+        parent_id = self._parents.get(principal)
+        parent_caps = (
+            sorted(self._grants.get(parent_id, frozenset())) if parent_id is not None else None
+        )
         proposal_hash = content_hash(proposal)
         approval_present = self._extract_approval_token(proposal) is not None
         # Capability / parent checks first (approval alone must not unlock missing grants)
@@ -201,7 +205,7 @@ class AuthorityKernel:
             "capability": capability,
             "resource": str(proposal.get("resource", "")),
             "granted_capabilities": sorted(granted),
-            "parent_capabilities": list(parent_raw) if parent_raw is not None else None,
+            "parent_capabilities": parent_caps,
             "approval_id": "verified" if approval_present else None,
         }
         raw = decide_via_rust(request, proposal)
@@ -260,8 +264,11 @@ class AuthorityKernel:
         principal = proposal["principal_id"]
         capability = proposal["capability"]
         granted = self._grants.get(principal, frozenset())
-        parent_raw = proposal.get("parent_capabilities")
-        parent_set = frozenset(parent_raw) if parent_raw is not None else None
+        # GOS-I04: parent caps from stored grants — never from request (audit finding)
+        parent_id = self._parents.get(principal)
+        parent_set = (
+            self._grants.get(parent_id, frozenset()) if parent_id is not None else None
+        )
         # Presence flag only for policy engine; hard verify happens separately
         approval_present = self._extract_approval_token(proposal) is not None
 

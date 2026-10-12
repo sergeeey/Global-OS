@@ -30,7 +30,7 @@ def test_denied_action_never_reaches_tool(sample_proposal):
     ledger = EventLedger()
     auth = AuthorityKernel(ledger)
     gateway = ToolGateway(ledger)
-    gateway.register_tool("web.fetch", lambda p: ToolResult(True, {}))
+    gateway.register_tool("web.fetch", lambda p: ToolResult(True, {}), required_capabilities=("web.read",))
 
     auth.grant(
         principal_id="worker_research_1",
@@ -58,7 +58,7 @@ def test_allow_issues_token_and_effect_receipt(sample_proposal):
     ledger = EventLedger()
     auth = AuthorityKernel(ledger)
     gateway = ToolGateway(ledger)
-    gateway.register_tool("web.fetch", lambda p: ToolResult(True, {"bytes": 10}))
+    gateway.register_tool("web.fetch", lambda p: ToolResult(True, {"bytes": 10}), required_capabilities=("web.read",))
 
     auth.grant(
         principal_id="worker_research_1",
@@ -115,7 +115,7 @@ def test_idempotency_single_effect(sample_proposal):
         calls["n"] += 1
         return ToolResult(True, {})
 
-    gateway.register_tool("web.fetch", handler)
+    gateway.register_tool("web.fetch", handler, required_capabilities=("web.read",))
     auth.grant(
         principal_id="worker_research_1",
         capabilities={"web.read"},
