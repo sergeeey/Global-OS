@@ -24,7 +24,10 @@ class ChallengeExecForbidden(RuntimeError):
 
 
 def load_challenge_lock(path: Path | None = None) -> dict[str, Any]:
-    return json.loads((path or LOCK_PATH).read_text(encoding="utf-8"))
+    raw = json.loads((path or LOCK_PATH).read_text(encoding="utf-8"))
+    if not isinstance(raw, dict):
+        raise TypeError("CHALLENGE-GA LOCK.json must be an object")
+    return raw
 
 
 def assert_challenge_exec_authorized(
