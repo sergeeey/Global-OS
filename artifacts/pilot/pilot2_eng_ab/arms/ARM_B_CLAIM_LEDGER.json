@@ -1,0 +1,126 @@
+{
+  "arm": "B",
+  "protocol": "PILOT2-ENG-AB-v1 / GOS Goal Contract + ledger + sealed repro",
+  "target": "sergeeey/mcp-bouncer@45af092",
+  "hypotheses": [
+    {
+      "id": "H1",
+      "text": "HIGH-severity regex classes have trivial spacing/paraphrase bypasses",
+      "verdict": "SUPPORTED"
+    },
+    {
+      "id": "H2",
+      "text": "sanitize()+scan() composition is safe by default",
+      "verdict": "REJECTED"
+    },
+    {
+      "id": "H3",
+      "text": "Drop-in Claude hook blocks all 8 advertised classes",
+      "verdict": "REJECTED"
+    },
+    {
+      "id": "H4",
+      "text": "Filter is production-ready as sole HIGH pre-filter",
+      "verdict": "REJECTED"
+    }
+  ],
+  "claims": [
+    {
+      "id": "B-F01",
+      "severity": "major",
+      "claim": "command_injection bypasses without space after ;|&&",
+      "evidence": "repro/test_confirmed_findings.py::test_f01_* + matrix",
+      "verdict": "SUPPORTED",
+      "independent_check": "PASS_CONFIRMED_DEFECT"
+    },
+    {
+      "id": "B-F02",
+      "severity": "major",
+      "claim": "system_override misses 'ignore your previous'",
+      "evidence": "test_f02 + matrix",
+      "verdict": "SUPPORTED",
+      "independent_check": "PASS_CONFIRMED_DEFECT"
+    },
+    {
+      "id": "B-F03",
+      "severity": "critical",
+      "claim": "sanitize then scan neutralizes ZWSP-split ignore previous",
+      "evidence": "test_f03 + matrix cleaned='ignoreprevious instructions'",
+      "verdict": "SUPPORTED",
+      "independent_check": "PASS_CONFIRMED_DEFECT"
+    },
+    {
+      "id": "B-F05",
+      "severity": "major",
+      "claim": "jailbreak misses 'bypass all safety'",
+      "evidence": "test_f05",
+      "verdict": "SUPPORTED",
+      "independent_check": "PASS_CONFIRMED_DEFECT"
+    },
+    {
+      "id": "B-F06",
+      "severity": "major",
+      "claim": "bare $(date) is false-positive HIGH command_injection",
+      "evidence": "test_f06 expects True, observed False",
+      "verdict": "SUPPORTED",
+      "independent_check": "PASS_CONFIRMED_DEFECT"
+    },
+    {
+      "id": "B-F07",
+      "severity": "major",
+      "claim": "`sudo` backticks FP; `bash -c` backtick bypass",
+      "evidence": "matrix F07fp/F07by",
+      "verdict": "SUPPORTED",
+      "independent_check": "PASS_CONFIRMED_DEFECT"
+    },
+    {
+      "id": "B-F08",
+      "severity": "major",
+      "claim": "benign 'new instructions:' changelog is HIGH FP",
+      "evidence": "matrix F08",
+      "verdict": "SUPPORTED",
+      "independent_check": "PASS_CONFIRMED_DEFECT"
+    },
+    {
+      "id": "B-F09",
+      "severity": "major",
+      "claim": "benign ZWSP hello\\u200bworld is HIGH encoding FP",
+      "evidence": "matrix F09",
+      "verdict": "SUPPORTED",
+      "independent_check": "PASS_CONFIRMED_DEFECT"
+    },
+    {
+      "id": "B-F10",
+      "severity": "major",
+      "claim": "hook policy only blocks HIGH — 4/8 classes logged not blocked",
+      "evidence": "README hook vs scan severity; F10a/b LOW/role",
+      "verdict": "SUPPORTED",
+      "independent_check": "PASS_DOC_BEHAVIOR"
+    },
+    {
+      "id": "B-UC01",
+      "severity": "hygiene",
+      "claim": "README '~90% of automated low-effort injections'",
+      "evidence": "no sealed corpus/harness in repo",
+      "verdict": "UNSUPPORTED_PRODUCT_CLAIM",
+      "independent_check": "N/A"
+    }
+  ],
+  "negative_results_retained": [
+    "H2 REJECTED",
+    "H3 REJECTED",
+    "H4 REJECTED",
+    "CTRL benign remains safe (repro control passed)"
+  ],
+  "process_metrics": {
+    "confirmed_useful_findings": 9,
+    "false_positives_catalogued": 5,
+    "unsupported_product_claims": 1,
+    "repro_tests_added_in_gos_pack": 7,
+    "repro_failures_confirming_defects": 7,
+    "repro_controls_passed": 1,
+    "human_interventions": 0,
+    "mcp_bouncer_prs_opened": 0,
+    "provenance": "full pack under artifacts/pilot/pilot2_eng_ab/"
+  }
+}

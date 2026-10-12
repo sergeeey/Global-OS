@@ -1,8 +1,10 @@
 {
   "protocol_id": "PILOT2-ENG-AB-v1",
-  "status": "TARGET_LOCKED",
+  "status": "ARMS_COMPLETE",
   "locked_at": "2026-10-12T11:21:00Z",
+  "arms_completed_at": "2026-10-12T11:30:00Z",
   "gos_tip_at_lock": "4507051cbded1c43a07808663105bf78b5c8d576",
+  "gos_tip_at_decision": "9fa1fd6a398c3d71bf9d209d990562fd821481af",
   "hypothesis": "H-PILOT2-001",
   "target": {
     "repo": "https://github.com/sergeeey/mcp-bouncer",
@@ -24,17 +26,20 @@
   ],
   "task_framing": "Determine production readiness of mcp-bouncer: find material correctness/security defects in the 8 attack-class filter, reproduce confirmable bypasses or false-positive breakage of legitimate MCP/JSON-RPC traffic, propose minimal regression-safe fixes with failing-then-passing tests.",
   "provider_budget_pins": {
-    "model_family": "TBD_BEFORE_ARM_START",
-    "provider": "TBD_BEFORE_ARM_START",
-    "tool_set": "TBD_BEFORE_ARM_START",
-    "wall_budget": "TBD_BEFORE_ARM_START",
-    "token_api_budget": "TBD_BEFORE_ARM_START",
-    "network_policy": "same for A and B; prefer offline after clone",
-    "note": "Target repo LOCKED; provider/budget pins still required before arm execution (see LOCK_CHECKLIST.md)"
+    "model_family": "cursor-cloud-agent / composer-family",
+    "provider": "cursor-cloud",
+    "tool_set": "repo-read + local pytest + no network after clone",
+    "wall_budget": "single continuous session (<2h)",
+    "token_api_budget": "unmetered-in-session (INCONCLUSIVE for cost cmp)",
+    "network_policy": "clone once; offline pytest thereafter",
+    "fidelity": "SAME_EXECUTOR_DUAL_PROTOCOL",
+    "note": "Pins sealed at arm start; separate-provider replication still future work"
   },
   "smoke_at_lock": {
     "pytest": "50 passed in 0.04s",
     "dependencies": []
   },
-  "arms_started": false
+  "arms_started": true,
+  "decision": "artifacts/pilot/pilot2_eng_ab/DECISION.md",
+  "primary_verdict": "PARTIAL_SUPPORT_PROCESS_ONLY"
 }

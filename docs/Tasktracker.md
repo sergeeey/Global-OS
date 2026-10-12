@@ -31,7 +31,7 @@
 - [x] Merge PR #20 residual AUTH-001b + RUN-004b (`c851246`)
 - [x] Human PhaseBreak hygiene PR #1 merged (`0161463`); EFFECT_RECEIPT RECONCILED
 - [x] Lock Pilot 2 target `mcp-bouncer@45af092` (`LOCK.json`)
-- [ ] Fill Pilot 2 provider/budget pins → execute A/B → DECISION
+- [x] Pilot 2 A/B TERMINAL (`PARTIAL_SUPPORT_PROCESS_ONLY`; intelligence NOT_SHOWN)
 - [ ] Forbidden (standing): rewrite M-EXT4/5; secondary→primary silently; Immune*/ScienceKernel
 - [ ] Later (optional): verification-budget frontier — Y24/Y25 already CLOSED; new prereg required
 - [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.133 — 2026-10-12
+
+### Pilot 2 eng A/B TERMINAL — mcp-bouncer
+
+- Executed A/B on `sergeeey/mcp-bouncer@45af092` (SAME_EXECUTOR_DUAL_PROTOCOL)
+- H-PILOT2-001 → **PARTIAL_SUPPORT_PROCESS_ONLY**; intelligence advantage **NOT_SHOWN**
+- Sealed repro: 7 failing defect tests + 1 control; Decision + scoreboard in pack
+
 ## 0.1.132 — 2026-10-12
 
 ### Pilot 2 target locked — mcp-bouncer
