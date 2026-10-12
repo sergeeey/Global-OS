@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.129 — 2026-10-12
+
+### Residual P0 — AUTH-001b + RUN-004b
+
+- AUTH-001b: `ToolGateway` default `allow_legacy_tokens=False` (fail-closed boundary, not wiring-only)
+- RUN-004b: harness `harness_auto_approve` propagates across `continue_as_new`; approval-gated step after CAN completes
+- Regression: `test_approval_gate_after_continue_as_new`, `test_gateway_defaults_deny_legacy_accept_token`
+
 ## 0.1.128 — 2026-10-12
 
 ### Canon sync — PR #18 on main

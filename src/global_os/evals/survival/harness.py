@@ -46,7 +46,7 @@ def _run_process_kill() -> SurvivalScenario:
 def _run_false_tool_success() -> SurvivalScenario:
     """Tool success ≠ world effect; discrepancy must surface (GOS-I13/I22)."""
     ledger = EventLedger()
-    gateway = ToolGateway(ledger)
+    gateway = ToolGateway(ledger, allow_legacy_tokens=True)
     calls = {"n": 0}
 
     def lying_tool(_proposal: dict[str, Any]) -> ToolResult:
@@ -97,7 +97,7 @@ def _run_false_tool_success() -> SurvivalScenario:
 
 def _run_duplicate_action() -> SurvivalScenario:
     ledger = EventLedger()
-    gateway = ToolGateway(ledger)
+    gateway = ToolGateway(ledger, allow_legacy_tokens=True)
     calls = {"n": 0}
 
     def once(_proposal: dict[str, Any]) -> ToolResult:

@@ -10,11 +10,11 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | goal_contract_immutable | RUNTIME_VERIFIED_LOCAL | tests/test_goal_and_events.py |
 | event_ledger_append_only | RUNTIME_VERIFIED_LOCAL | tests/test_goal_and_events.py; tests/test_sql_store.py |
 | authority_default_deny | RUNTIME_VERIFIED_LOCAL | tests/test_authority.py; tests/test_policy.py |
-| tool_gateway_token_gate | RUNTIME_VERIFIED_LOCAL | tests/test_authority.py; production forbids legacy accept_token + requires GOS_EXECUTION_TOKEN_SECRET/GOS_APPROVAL_SIGNING_SECRET; tests/test_runtime_profile.py |
+| tool_gateway_token_gate | RUNTIME_VERIFIED_LOCAL | tests/test_authority.py; ToolGateway defaults DENY legacy accept_token (AUTH-001b); production requires GOS_EXECUTION_TOKEN_SECRET/GOS_APPROVAL_SIGNING_SECRET; tests/test_runtime_profile.py |
 | effect_receipt | RUNTIME_VERIFIED_LOCAL | tests/test_authority.py |
 | claim_invalidation | RUNTIME_VERIFIED_LOCAL | tests/test_epistemic.py |
 | durable_runner_process_kill | RUNTIME_VERIFIED_HARNESS | tests/test_durable_recovery.py; tests/test_survival_multi.py |
-| temporal_durability | RUNTIME_VERIFIED_HARNESS | TemporalBridge + TemporalPatternBridge (heartbeats, approval Signals, real workflow.continue_as_new); harness registries keyed by run_id; kill/retry no duplicate effects; tests/test_temporal_bridge.py; tests/test_borrow_temporal_patterns.py (≠ LocalDurable; harness registries ≠ durable Temporal registry) |
+| temporal_durability | RUNTIME_VERIFIED_HARNESS | TemporalBridge + TemporalPatternBridge (heartbeats, approval Signals, real workflow.continue_as_new); harness_auto_approve survives CAN (RUN-004b); harness registries keyed by run_id; kill/retry no duplicate effects; tests/test_temporal_bridge.py; tests/test_borrow_temporal_patterns.py (≠ LocalDurable; harness registries ≠ durable Temporal registry) |
 | confirm_policy_deterministic | RUNTIME_VERIFIED_LOCAL | RiskAssessment≠ConfirmationPolicy; LLM security_risk ignored; ToolGateway confirm gate; tests/test_borrow_confirm_policy.py; ADR-0013; ≠ live adversarial long-horizon |
 | progressive_memory_commit | RUNTIME_VERIFIED_LOCAL | ProgressiveMemoryStore draft→propose→commit; root-only context default; silent tool promote forbidden; process-local in-memory bodies (≠ durable production store); tests/test_borrow_memory_progressive.py |
 | llm_fair_scheduler | RUNTIME_VERIFIED_LOCAL | FairLlmScheduler FIFO/RR across missions; TPD/quota fail-closed stops drain; resume without nested-Lock deadlock; tests/test_borrow_fair_scheduler.py; resource OS only (≠ Authority) |

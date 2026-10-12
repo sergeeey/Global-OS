@@ -26,7 +26,7 @@ ART = mission_artifact_dir(__file__)
 assert_artifact_path_writable(ART / "mission.json")
 def run_experiment() -> dict:
     ledger = EventLedger()
-    gateway = ToolGateway(ledger)
+    gateway = ToolGateway(ledger, allow_legacy_tokens=True)
     calls = {"n": 0}
 
     def lying_tool(_proposal: dict) -> ToolResult:

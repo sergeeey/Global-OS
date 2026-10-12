@@ -44,7 +44,11 @@ def test_confirm_risky_allows_high_with_approval() -> None:
 
 def test_gateway_confirm_gate_before_execute() -> None:
     ledger = EventLedger()
-    gw = ToolGateway(ledger, confirmation_policy=ConfirmationPolicy.CONFIRM_RISKY)
+    gw = ToolGateway(
+        ledger,
+        confirmation_policy=ConfirmationPolicy.CONFIRM_RISKY,
+        allow_legacy_tokens=True,
+    )
     called = {"n": 0}
 
     def _tool(_p: dict) -> ToolResult:

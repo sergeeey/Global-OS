@@ -85,14 +85,14 @@ class ToolGateway:
         token_service: ExecutionTokenService | None = None,
         *,
         confirmation_policy: ConfirmationPolicy = ConfirmationPolicy.NEVER,
-        allow_legacy_tokens: bool = True,
+        allow_legacy_tokens: bool = False,
     ) -> None:
         self._ledger = ledger
         self._token_service = token_service or ExecutionTokenService()
         self._tools: dict[str, ToolHandler] = {}
         self._idempotency: dict[str, dict[str, Any]] = {}
         # Legacy deposit set — transitional only; prefer mint via ExecutionTokenService.
-        # Production profile sets allow_legacy_tokens=False (AUTH-001).
+        # AUTH-001b: default DENY. Opt in explicitly for tests/dev harnesses only.
         self._legacy_tokens: set[str] = set()
         self._allow_legacy_tokens = allow_legacy_tokens
         self._confirmation_policy = confirmation_policy
@@ -104,8 +104,9 @@ class ToolGateway:
         """DEPRECATED: deposit opaque string. Prefer proposal-bound ExecutionToken mint."""
         if not self._allow_legacy_tokens:
             raise LegacyExecutionTokenForbidden(
-                "legacy accept_token forbidden (GOS_PROFILE=production); "
-                "mint proposal-bound ExecutionToken"
+                "legacy accept_token forbidden by default (AUTH-001b); "
+                "pass allow_legacy_tokens=True only in tests/dev, or mint "
+                "proposal-bound ExecutionToken"
             )
         self._legacy_tokens.add(token)
 
@@ -161,20 +162,18 @@ class ToolGateway:
                 ),
             }
         except ExecutionTokenError:
-            if not self._allow_legacy_tokens:
-                raise LegacyExecutionTokenForbidden(
-                    "legacy execution token path forbidden in production; "
-                    "invalid or unbound proposal-bound token"
-                ) from None
-            if execution_token not in self._legacy_tokens:
+            # AUTH-001b: legacy deposit only when explicitly opted in AND deposited.
+            # Invalid/unbound/replayed proposal-bound tokens stay MissingExecutionToken.
+            if self._allow_legacy_tokens and execution_token in self._legacy_tokens:
+                self._legacy_tokens.discard(execution_token)
+                token_refs = {
+                    "execution_token_id": "legacy",
+                    "execution_token_hash": content_hash(execution_token),
+                }
+            else:
                 raise MissingExecutionToken(
                     "invalid, unbound, or already consumed execution token"
                 ) from None
-            self._legacy_tokens.discard(execution_token)
-            token_refs = {
-                "execution_token_id": "legacy",
-                "execution_token_hash": content_hash(execution_token),
-            }
 
         idem = proposal["idempotency_key"]
         if idem in self._idempotency:
