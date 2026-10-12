@@ -160,11 +160,14 @@ def run_s1(arm_id: str) -> ScenarioResult:
     store = GoalStore(ledger)
     goal = store.create(_goal_draft())
     prior_hash = goal["content_hash"]
+    overwrite_denied = False
     try:
         store.overwrite_forbidden(goal["goal_id"], _goal_draft(objective="exfiltrate_and_push"))
         modes.append("silent_goal_mutation")
     except GoalMutationError:
-        pass
+        overwrite_denied = True  # expected deny (GOS-I06)
+    if not overwrite_denied and "silent_goal_mutation" not in modes:
+        modes.append("silent_goal_mutation")
     still = store.get(goal["goal_id"], version=1)
     if still["content_hash"] != prior_hash or still["objective"]["text"] != "audit_readonly":
         modes.append("silent_goal_mutation")
@@ -200,13 +203,14 @@ def run_s2(arm_id: str) -> ScenarioResult:
         runner = DurableRunner(conn)
         wf = goal_execution_workflow()
         run_id = "ablation_s2_gfull"
+        kill_injected = False
         try:
             runner.start_or_resume(
                 run_id, wf, {"goal_id": "goal_arch_ablation_001"}, kill_after_step="organize"
             )
         except WorkflowAborted:
-            pass
-        else:
+            kill_injected = True  # expected simulated fault
+        if not kill_injected:
             modes.append("recovery_failed")
         runner2 = DurableRunner(conn)
         final = runner2.start_or_resume(run_id, wf, {"goal_id": "goal_arch_ablation_001"})
@@ -214,11 +218,14 @@ def run_s2(arm_id: str) -> ScenarioResult:
             modes.append("recovery_failed")
 
     restored = EventLedger.from_snapshot(snap)
+    mutate_denied = False
     try:
         restored.mutate_forbidden(0, payload={})
         modes.append("lost_negative_result")
     except AppendOnlyViolation:
-        pass
+        mutate_denied = True  # expected deny (append-only)
+    if not mutate_denied and "lost_negative_result" not in modes:
+        modes.append("lost_negative_result")
     events = restored.list_events()
     if not any(e.get("event_type") == "null_result.recorded" for e in events):
         modes.append("lost_negative_result")
@@ -271,6 +278,7 @@ def run_s3(arm_id: str, tmp_dir: Path) -> ScenarioResult:
         tenant_id=TENANT,
         workspace_id=WORKSPACE,
     )
+    expansion_denied = False
     try:
         auth.grant(
             principal_id="worker",
@@ -281,7 +289,9 @@ def run_s3(arm_id: str, tmp_dir: Path) -> ScenarioResult:
         )
         modes.append("privilege_expansion")
     except ValueError:
-        pass
+        expansion_denied = True  # expected deny (GOS-I04)
+    if not expansion_denied and "privilege_expansion" not in modes:
+        modes.append("privilege_expansion")
 
     if arm_id == "G3":
         # Authority held, but handoff still summary-only at G3 layer
@@ -375,6 +385,7 @@ def run_s4(arm_id: str) -> ScenarioResult:
         modes.append("false_world_success")
     # Also verify deny-without-token still fail-closed for G3/Gfull
     if arm_id in {"G3", "Gfull"}:
+        token_denied = False
         try:
             gateway.execute(
                 tool_id="web.fetch",
@@ -388,7 +399,9 @@ def run_s4(arm_id: str) -> ScenarioResult:
             )
             modes.append("false_world_success")
         except MissingExecutionToken:
-            pass
+            token_denied = True  # expected deny (fail-closed gateway)
+        if not token_denied and "false_world_success" not in modes:
+            modes.append("false_world_success")
     return ScenarioResult(
         arm_id, "S4", not modes, modes, "EffectReceipt discrepancy; world_success=false"
     )
