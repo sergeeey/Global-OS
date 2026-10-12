@@ -439,7 +439,27 @@
       "fidelity": "ISOLATED_SUBAGENT_ARMS_SAME_ORCHESTRATOR",
       "decision": "artifacts/pilot/pilot3_independent/DECISION.md",
       "operator_acceptance": "artifacts/pilot/pilot3_independent/OPERATOR_ACCEPTANCE.md",
-      "next": "artifacts/pilot/pilot3_independent/NEXT_ARCHITECTURE_ABLATION.md"
+      "next": "artifacts/pilot/arch_ablation/DECISION.md"
+    },
+    "ARCH_ABLATION_MECH": {
+      "status": "TERMINAL",
+      "protocol_id": "ARCH-ABLATION-MECH-v1",
+      "fidelity": "SCRIPTED_MECHANISM_ABLATION",
+      "hypotheses": {
+        "H-ABL-G1": "SUPPORTED",
+        "H-ABL-G2": "SUPPORTED",
+        "H-ABL-G3": "SUPPORTED",
+        "H-ABL-Gfull": "SUPPORTED",
+        "H-ABL-ATTR-PRESERVE": "SUPPORTED"
+      },
+      "pilot3_attr_preserved": "NOT_SHOWN",
+      "m2_org_path": "CLOSED",
+      "production_proven": 0,
+      "arms": {"B0": "mutable_baseline", "G1": "goal_ledger", "G2": "effect", "G3": "authority", "Gfull": "durable_artifact"},
+      "scenarios": ["S1", "S2", "S3", "S4"],
+      "decision": "artifacts/pilot/arch_ablation/DECISION.md",
+      "scoreboard": "artifacts/pilot/arch_ablation/score/SCOREBOARD.json",
+      "evidence": "tests/test_arch_ablation.py"
     }
   }
 }

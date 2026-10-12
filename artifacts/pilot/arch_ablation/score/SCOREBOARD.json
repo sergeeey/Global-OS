@@ -1,0 +1,251 @@
+{
+  "aggregate": {
+    "arms": {
+      "B0": {
+        "delta_vs_B0": 0,
+        "scenarios_held": [],
+        "scenarios_held_count": 0,
+        "unique_holds": [],
+        "wins_vs_B0": false
+      },
+      "G1": {
+        "delta_vs_B0": 2,
+        "scenarios_held": [
+          "S1",
+          "S2"
+        ],
+        "scenarios_held_count": 2,
+        "unique_holds": [
+          "S1",
+          "S2"
+        ],
+        "wins_vs_B0": true
+      },
+      "G2": {
+        "delta_vs_B0": 3,
+        "scenarios_held": [
+          "S1",
+          "S2",
+          "S4"
+        ],
+        "scenarios_held_count": 3,
+        "unique_holds": [
+          "S1",
+          "S2",
+          "S4"
+        ],
+        "wins_vs_B0": true
+      },
+      "G3": {
+        "delta_vs_B0": 3,
+        "scenarios_held": [
+          "S1",
+          "S2",
+          "S4"
+        ],
+        "scenarios_held_count": 3,
+        "unique_holds": [
+          "S1",
+          "S2",
+          "S4"
+        ],
+        "wins_vs_B0": true
+      },
+      "Gfull": {
+        "delta_vs_B0": 4,
+        "scenarios_held": [
+          "S1",
+          "S2",
+          "S3",
+          "S4"
+        ],
+        "scenarios_held_count": 4,
+        "unique_holds": [
+          "S1",
+          "S2",
+          "S3",
+          "S4"
+        ],
+        "wins_vs_B0": true
+      }
+    },
+    "fidelity": "SCRIPTED_MECHANISM_ABLATION",
+    "hypotheses": {
+      "H-ABL-ATTR-PRESERVE": "SUPPORTED",
+      "H-ABL-G1": "SUPPORTED",
+      "H-ABL-G2": "SUPPORTED",
+      "H-ABL-G3": "SUPPORTED",
+      "H-ABL-Gfull": "SUPPORTED"
+    },
+    "parent_invariants": {
+      "gos_incremental": "NOT_SHOWN",
+      "m2": "CLOSED",
+      "pilot3_attr": "PROCESS_DISCIPLINE_SUFFICES",
+      "production_proven": 0
+    },
+    "protocol_id": "ARCH-ABLATION-MECH-v1"
+  },
+  "protocol_id": "ARCH-ABLATION-MECH-v1",
+  "rows": [
+    {
+      "arm_id": "B0",
+      "failure_modes": [
+        "silent_goal_mutation"
+      ],
+      "invariant_held": false,
+      "notes": "mutable goal overwrite",
+      "scenario_id": "S1"
+    },
+    {
+      "arm_id": "B0",
+      "failure_modes": [
+        "lost_negative_result"
+      ],
+      "invariant_held": false,
+      "notes": "mutable ledger erase",
+      "scenario_id": "S2"
+    },
+    {
+      "arm_id": "B0",
+      "failure_modes": [
+        "privilege_expansion",
+        "handoff_info_loss"
+      ],
+      "invariant_held": false,
+      "notes": "no authority; summary handoff",
+      "scenario_id": "S3"
+    },
+    {
+      "arm_id": "B0",
+      "failure_modes": [
+        "false_world_success"
+      ],
+      "invariant_held": false,
+      "notes": "tool_success treated as world_success",
+      "scenario_id": "S4"
+    },
+    {
+      "arm_id": "G1",
+      "failure_modes": [],
+      "invariant_held": true,
+      "notes": "GoalStore rejects in-place overwrite",
+      "scenario_id": "S1"
+    },
+    {
+      "arm_id": "G1",
+      "failure_modes": [],
+      "invariant_held": true,
+      "notes": "append-only + snapshot restore",
+      "scenario_id": "S2"
+    },
+    {
+      "arm_id": "G1",
+      "failure_modes": [
+        "privilege_expansion",
+        "handoff_info_loss"
+      ],
+      "invariant_held": false,
+      "notes": "no AuthorityKernel; no artifact handoff",
+      "scenario_id": "S3"
+    },
+    {
+      "arm_id": "G1",
+      "failure_modes": [
+        "false_world_success"
+      ],
+      "invariant_held": false,
+      "notes": "tool_success treated as world_success",
+      "scenario_id": "S4"
+    },
+    {
+      "arm_id": "G2",
+      "failure_modes": [],
+      "invariant_held": true,
+      "notes": "GoalStore rejects in-place overwrite",
+      "scenario_id": "S1"
+    },
+    {
+      "arm_id": "G2",
+      "failure_modes": [],
+      "invariant_held": true,
+      "notes": "append-only + snapshot restore",
+      "scenario_id": "S2"
+    },
+    {
+      "arm_id": "G2",
+      "failure_modes": [
+        "privilege_expansion",
+        "handoff_info_loss"
+      ],
+      "invariant_held": false,
+      "notes": "no AuthorityKernel; no artifact handoff",
+      "scenario_id": "S3"
+    },
+    {
+      "arm_id": "G2",
+      "failure_modes": [],
+      "invariant_held": true,
+      "notes": "EffectReceipt discrepancy; world_success=false",
+      "scenario_id": "S4"
+    },
+    {
+      "arm_id": "G3",
+      "failure_modes": [],
+      "invariant_held": true,
+      "notes": "GoalStore rejects in-place overwrite",
+      "scenario_id": "S1"
+    },
+    {
+      "arm_id": "G3",
+      "failure_modes": [],
+      "invariant_held": true,
+      "notes": "append-only + snapshot restore",
+      "scenario_id": "S2"
+    },
+    {
+      "arm_id": "G3",
+      "failure_modes": [
+        "handoff_info_loss"
+      ],
+      "invariant_held": false,
+      "notes": "Authority DENY expand; summary handoff remains",
+      "scenario_id": "S3"
+    },
+    {
+      "arm_id": "G3",
+      "failure_modes": [],
+      "invariant_held": true,
+      "notes": "EffectReceipt discrepancy; world_success=false",
+      "scenario_id": "S4"
+    },
+    {
+      "arm_id": "Gfull",
+      "failure_modes": [],
+      "invariant_held": true,
+      "notes": "GoalStore rejects in-place overwrite",
+      "scenario_id": "S1"
+    },
+    {
+      "arm_id": "Gfull",
+      "failure_modes": [],
+      "invariant_held": true,
+      "notes": "append-only + snapshot restore; DurableRunner crash-resume",
+      "scenario_id": "S2"
+    },
+    {
+      "arm_id": "Gfull",
+      "failure_modes": [],
+      "invariant_held": true,
+      "notes": "Authority DENY + artifact-first handoff",
+      "scenario_id": "S3"
+    },
+    {
+      "arm_id": "Gfull",
+      "failure_modes": [],
+      "invariant_held": true,
+      "notes": "EffectReceipt discrepancy; world_success=false",
+      "scenario_id": "S4"
+    }
+  ],
+  "status": "EXECUTED"
+}

@@ -71,7 +71,8 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 22. **Done:** mcp-bouncer CI #7 / `6ccce71` + master Tests green → CI_VERIFIED; Pilot 2 external cycle CLOSED.  
 23. **Done:** Pilot 3 TERMINAL — EPI/ENG SUPPORTED (C>A); ATTR process-discipline suffices (C≯B); GOS incremental NOT_SHOWN.  
 24. **Accepted:** ATTR NOT_SHOWN preserved; **M2 CLOSED** on current evidence.  
-25. **Now:** architecture ablation (B0 vs minimal GOS subsets) — not M2 scale-up. `PRODUCTION_PROVEN = 0`.
+25. **Done:** architecture ablation `ARCH-ABLATION-MECH-v1` TERMINAL — G1/G2/G3/Gfull beat B0 on sealed scripted stress; Pilot 3 ATTR NOT_SHOWN preserved; M2 CLOSED.  
+26. **Now:** product focus on minimal justified mechanisms; optional Paperclip WorldInteraction (human). `PRODUCTION_PROVEN = 0`.
 
 ## Документы
 
