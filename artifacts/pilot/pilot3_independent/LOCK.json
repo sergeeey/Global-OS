@@ -81,5 +81,7 @@
   "blind_eval_procedure": "Operator renames arm packs to P1/P2/P3 with shuffled mapping recorded in BLIND_MAP.json (sealed until after EVAL_SEAL.json).",
   "arms_started": true,
   "decision": null,
-  "arms_started_at": "2026-10-12T14:40:00Z"
+  "arms_started_at": "2026-10-12T14:40:00Z",
+  "arms_abc_packs_sealed_at": "2026-10-12T14:38:30Z",
+  "arm_d_started_at": "2026-10-12T14:39:00Z"
 }

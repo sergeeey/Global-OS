@@ -1,0 +1,15 @@
+test_event_log_accepts_artifact_gate_fail (__main__.Pilot3ArmARegressions.test_event_log_accepts_artifact_gate_fail)
+F1: legitimate artifact-gate FAIL must verify_event_log as pass. ... ok
+test_output_file_is_policy_enforced (__main__.Pilot3ArmARegressions.test_output_file_is_policy_enforced)
+F2: output_file outside allowed roots must be blocked (and not written). ... ok
+test_semgrep_run_exit_1_with_note_only_does_not_fail_gate (__main__.Pilot3ArmARegressions.test_semgrep_run_exit_1_with_note_only_does_not_fail_gate)
+F3: semgrep exit 1 + note-only SARIF must not fail when block_levels exclude note. ... ok
+test_sync_pass_does_not_skip_reporter_devops (__main__.Pilot3ArmARegressions.test_sync_pass_does_not_skip_reporter_devops)
+F4: gate pass must not mark issue done (skips Reporter/DevOps in plan). ... ok
+test_trufflehog_run_exit_nonzero_defers_to_jsonl_policy (__main__.Pilot3ArmARegressions.test_trufflehog_run_exit_nonzero_defers_to_jsonl_policy)
+F5: trufflehog non-zero exit with unverified findings must honor block_unknown=False. ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.004s
+
+OK

@@ -1,0 +1,14 @@
+# Post-fix verification (local patches only; Proposal ≠ Effect — no external PR)
+
+$ cd /tmp/pilot/p3-arm-C/tools/workflow-controller && python3 -m pytest -q --cache-clear
+60 passed in 0.43s
+
+# Baseline smoke was 54; +6 Pack regression tests all pass.
+
+# Repro scripts against patched tree now return NOT CONFIRMED (defects closed):
+# C01 verify_event_log.status= pass
+# C02 evaluate_tool_request.action= block; wrote_outside= False
+# C03 action= block (empty allowlist deny-all)
+# C04 action= block (semgrep_config path checked)
+# C05 parsed_levels= ['error']
+# C06 status= fail (line-rate out of range)

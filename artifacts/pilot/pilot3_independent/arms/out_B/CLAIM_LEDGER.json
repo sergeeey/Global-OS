@@ -1,0 +1,162 @@
+{
+  "arm": "B",
+  "protocol": "pilot3_independent",
+  "target": {
+    "repo": "Paperclip-AI---2026",
+    "commit": "47c232b",
+    "focus": "tools/workflow-controller"
+  },
+  "readiness_claim": {
+    "verdict": "NOT_PRODUCTION_READY",
+    "scope": "MCP-exposed gate/policy boundary",
+    "rationale": "Confirmed path-policy bypasses (B-01, B-02) and event-log false-positive on legitimate artifact failures (B-04). Smoke suite green is insufficient for production trust.",
+    "separate_from_defect_list": true
+  },
+  "counts": {
+    "confirmed": 5,
+    "rejected_or_not_reproduced": 5,
+    "unsupported_speculative": 0
+  },
+  "claims": [
+    {
+      "id": "B-01",
+      "status": "CONFIRMED",
+      "severity": "high",
+      "title": "output_file escapes tool policy roots",
+      "paths": [
+        "workflow_controller/tool_policy.py",
+        "workflow_controller/mcp_tools.py"
+      ],
+      "trigger": "workflow_sync_issue_state with output_file outside allowed_roots",
+      "observed": "policy allow; write succeeds outside roots",
+      "expected": "policy block",
+      "repro": "REPRO/test_confirmed_defects.py::B01OutputFilePolicyBypass",
+      "negative_retention": false
+    },
+    {
+      "id": "B-02",
+      "status": "CONFIRMED",
+      "severity": "high",
+      "title": "Nested issue paths bypass policy",
+      "paths": ["workflow_controller/mcp_tools.py"],
+      "trigger": "issue_file inside roots; output_location outside roots",
+      "observed": "gates run on out-of-root project; sync allow",
+      "expected": "policy block on nested resolved paths",
+      "repro": "REPRO/test_confirmed_defects.py::B02NestedIssuePathBypass",
+      "negative_retention": false
+    },
+    {
+      "id": "B-03",
+      "status": "CONFIRMED",
+      "severity": "medium",
+      "title": "Missing summary.failed defaults to 0 and passes",
+      "paths": ["workflow_controller/artifact_gate.py"],
+      "trigger": "test-results.json summary without failed key",
+      "observed": "artifact gate pass",
+      "expected": "artifact gate fail (required field)",
+      "repro": "REPRO/test_confirmed_defects.py::B03MissingFailedDefaultsPass",
+      "negative_retention": false
+    },
+    {
+      "id": "B-04",
+      "status": "CONFIRMED",
+      "severity": "high",
+      "title": "verify_event_log rejects legitimate artifact-gate fail sequences",
+      "paths": [
+        "workflow_controller/event_log.py",
+        "workflow_controller/issue_runner.py"
+      ],
+      "trigger": "run_issue_gates artifact fail + verify_event_log",
+      "observed": "verify_event_log fail: artifact-gate final reason mismatch",
+      "expected": "verify_event_log pass for runner-produced fail logs",
+      "repro": "REPRO/test_confirmed_defects.py::B04EventLogRejectsArtifactFail",
+      "negative_retention": false
+    },
+    {
+      "id": "B-05",
+      "status": "CONFIRMED",
+      "severity": "medium",
+      "title": "Empty allowed_tools silently allows all tools",
+      "paths": ["workflow_controller/tool_policy.py"],
+      "trigger": "ToolPolicy(allowed_tools=()) + unknown tool name",
+      "observed": "action=allow",
+      "expected": "action=block",
+      "repro": "REPRO/test_confirmed_defects.py::B05EmptyAllowListAllowsAll",
+      "negative_retention": false
+    },
+    {
+      "id": "R-01",
+      "status": "REJECTED",
+      "severity": null,
+      "title": "sync marks done skipping reporter/devops vs issue_flow",
+      "paths": [
+        "workflow_controller/issue_state.py",
+        "workflow_controller/issue_flow.py"
+      ],
+      "trigger": "gates pass then sync_issue_state",
+      "observed": "status=done (tests assert this)",
+      "expected": "n/a — dual-mode by design under current tests",
+      "repro": null,
+      "negative_retention": true,
+      "disposition_reason": "Existing acceptance tests explicitly require done-on-pass; flow plan applies when status remains in_progress"
+    },
+    {
+      "id": "R-02",
+      "status": "NOT_REPRODUCED",
+      "severity": null,
+      "title": "allowed_roots prefix confusion",
+      "paths": ["workflow_controller/tool_policy.py"],
+      "trigger": "project_dir=/tmp/projects-evil with root=/tmp/projects",
+      "observed": "policy block",
+      "expected": "block",
+      "repro": "inline control in investigation notes",
+      "negative_retention": true,
+      "disposition_reason": "Path.relative_to correctly rejects sibling prefix paths"
+    },
+    {
+      "id": "R-03",
+      "status": "REJECTED",
+      "severity": null,
+      "title": "Security gate passes with only semgrep artifact",
+      "paths": ["workflow_controller/security_gate.py"],
+      "trigger": "semgrep_sarif set, trufflehog_json=None",
+      "observed": "status=pass",
+      "expected": "optional-per-artifact API contract",
+      "repro": null,
+      "negative_retention": true,
+      "disposition_reason": "Both-null blocks; single-artifact mode is intentional caller configuration"
+    },
+    {
+      "id": "R-04",
+      "status": "NOT_REPRODUCED",
+      "severity": null,
+      "title": "Coverage XML XXE via artifact_gate",
+      "paths": ["workflow_controller/artifact_gate.py"],
+      "trigger": "malicious coverage.xml with external entity",
+      "observed": "no PoC executed; stdlib ElementTree default is safe",
+      "expected": "n/a without PoC",
+      "repro": null,
+      "negative_retention": true,
+      "disposition_reason": "Speculative without PoC; not counted as confirmed finding"
+    },
+    {
+      "id": "R-05",
+      "status": "NOT_REPRODUCED",
+      "severity": null,
+      "title": "run_semgrep nonzero exit vs block_levels false positive",
+      "paths": ["workflow_controller/security_gate.py"],
+      "trigger": "run_semgrep=True with findings outside block_levels",
+      "observed": "not confirmed locally (no scanner install / no network)",
+      "expected": "n/a within budget",
+      "repro": null,
+      "negative_retention": true,
+      "disposition_reason": "Budget stop; plausible but unconfirmed"
+    }
+  ],
+  "evidence": {
+    "red_before_fix": "REPRO/red_before_fix.txt",
+    "green_after_fix": "REPRO/green_after_fix.txt",
+    "smoke_after_fix": "REPRO/smoke_after_fix.txt",
+    "smoke_count": 54
+  }
+}
