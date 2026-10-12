@@ -1,0 +1,143 @@
+{
+  "ablation": {
+    "1. Raw LPPLS (B<0, R\u00b2>0.5)": {
+      "fn": 2,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 0.667,
+      "tp": 4
+    },
+    "2. + Hard Sornette filters": {
+      "fn": 2,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 0.667,
+      "tp": 4
+    },
+    "3. + Soft scoring (quality>0.3)": {
+      "fn": 2,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 0.667,
+      "tp": 4
+    },
+    "4. + tc uncertainty (bootstrap)": {
+      "fn": 2,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 0.667,
+      "tp": 4
+    },
+    "5. + Adaptive windows": {
+      "fn": 2,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 0.667,
+      "tp": 4
+    },
+    "6. Full v2 (+ HMM prior)": {
+      "fn": 2,
+      "fp": 1,
+      "precision": 0.8,
+      "recall": 0.667,
+      "tp": 4
+    }
+  },
+  "content_hash_benchmark_results": "cb143ea6eae4a150",
+  "crash_eval": {
+    "crash_precision": 0.5,
+    "crash_recall": 0.2308,
+    "f1": 0.3158,
+    "total_cases": 34
+  },
+  "domains": {
+    "adversarial": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 1
+    },
+    "commodities": {
+      "fn": 2,
+      "fp": 2,
+      "precision": 0.667,
+      "recall": 0.667,
+      "tp": 4
+    },
+    "finance": {
+      "fn": 4,
+      "fp": 2,
+      "precision": 0.778,
+      "recall": 0.636,
+      "tp": 7
+    },
+    "forward": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 3
+    },
+    "housing": {
+      "fn": 4,
+      "fp": 1,
+      "precision": 0.667,
+      "recall": 0.333,
+      "tp": 2
+    },
+    "housing_monthly": {
+      "fn": 2,
+      "fp": 1,
+      "precision": 0.667,
+      "recall": 0.5,
+      "tp": 2
+    }
+  },
+  "forward_nikkei_episode": {
+    "correct": true,
+    "expected": true,
+    "hmm": "GROWTH",
+    "name": "nikkei_2024",
+    "quality": 0.64,
+    "tc": 452.3,
+    "tc_interval": "[451.3, 452.3]",
+    "verdict": "BUBBLE"
+  },
+  "overall_from_domain_sums": {
+    "fn": 12,
+    "fp": 6,
+    "precision": 0.76,
+    "recall": 0.6129032258064516,
+    "tp": 19
+  },
+  "phasebreak_repo": "https://github.com/sergeeey/PhaseBreak-2026",
+  "phasebreak_sha": "fd1e55c5fad7bfdcb88dd844ccafe95275bebddd",
+  "pilot_id": "PILOT-PB-CLAIMS-v1",
+  "readme_vs_json": {
+    "commodities_json": {
+      "fn": 2,
+      "fp": 2,
+      "precision": 0.667,
+      "recall": 0.667,
+      "tp": 4
+    },
+    "commodities_readme": {
+      "P": 0.67,
+      "R": 0.5
+    },
+    "commodities_recall_match": false,
+    "finance_json": {
+      "fn": 4,
+      "fp": 2,
+      "precision": 0.778,
+      "recall": 0.636,
+      "tp": 7
+    },
+    "finance_readme": {
+      "P": 0.78,
+      "R": 0.64
+    }
+  },
+  "verified_at": "2026-10-12T10:30:39.203639+00:00"
+}

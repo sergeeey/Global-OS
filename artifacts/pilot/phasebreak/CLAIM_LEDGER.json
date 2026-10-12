@@ -1,0 +1,129 @@
+{
+  "pilot_id": "PILOT-PB-CLAIMS-v1",
+  "phasebreak_sha": "fd1e55c5fad7bfdcb88dd844ccafe95275bebddd",
+  "phasebreak_repo": "https://github.com/sergeeey/PhaseBreak-2026",
+  "verified_numbers": "artifacts/pilot/phasebreak/VERIFIED_NUMBERS.json",
+  "claims": [
+    {
+      "id": "C01",
+      "claim": "Finance Precision≈78%, Recall≈64%",
+      "evidence": [
+        "PhaseBreak data/v2_results/benchmark_results.json domains.finance",
+        "artifacts/pilot/phasebreak/VERIFIED_NUMBERS.json"
+      ],
+      "verdict": "SUPPORTED",
+      "note": "JSON P=0.778 R=0.636; README rounded OK; not asserted by pytest"
+    },
+    {
+      "id": "C02",
+      "claim": "Overall Precision≈76%, Recall≈61% across domain sums",
+      "evidence": ["VERIFIED_NUMBERS.json overall_from_domain_sums"],
+      "verdict": "SUPPORTED",
+      "note": "TP=19 FP=6 FN=12 → P=0.76 R≈0.613"
+    },
+    {
+      "id": "C03",
+      "claim": "Commodities Precision=67%, Recall=50% (README table)",
+      "evidence": [
+        "PhaseBreak README.md commodities row",
+        "benchmark_results.json domains.commodities R=0.667"
+      ],
+      "verdict": "REJECTED",
+      "note": "README recall stale; JSON and domain_status use R=0.67"
+    },
+    {
+      "id": "C04",
+      "claim": "Housing Prec=67%, Recall=33–50%",
+      "evidence": ["benchmark_results.json housing + housing_monthly"],
+      "verdict": "SUPPORTED"
+    },
+    {
+      "id": "C05",
+      "claim": "Ablation Full v2 Prec=80%, Recall=67%",
+      "evidence": ["data/v2_results/ablation.json row 6"],
+      "verdict": "SUPPORTED",
+      "note": "12-episode finance subset, not full 20-episode finance set"
+    },
+    {
+      "id": "C08",
+      "claim": "LPPLS (m,ω) drawn from same distribution across finance/geology (universality confirmed)",
+      "evidence": [
+        "README Scientific Hypothesis",
+        "CORRECTIONS.md §2",
+        "paper/main.tex TOST/KS caveats"
+      ],
+      "verdict": "REJECTED",
+      "note": "KS non-rejection ≠ confirmed universal; low power; paper uses Not rejected*"
+    },
+    {
+      "id": "C10",
+      "claim": "Fraud C-index +27%",
+      "evidence": ["CORRECTIONS.md §3", "README Doomsday Bayesian"],
+      "verdict": "INCONCLUSIVE",
+      "note": "Synthetic upper bound after leakage fix; magnitude not locked by tests"
+    },
+    {
+      "id": "C11",
+      "claim": "Finance/Commodities production-usable / production-like operational claims",
+      "evidence": [
+        "README Domain Maturity Supported",
+        "src/contract/domain_status.py production-like",
+        "data/crash_eval_results.json P=0.50 R=0.2308"
+      ],
+      "verdict": "REJECTED",
+      "note": "Crash-oriented eval far below headline bubble-episode metrics; no live P&L proof"
+    },
+    {
+      "id": "C13",
+      "claim": "Forward 2024–25 detections consistent (incl. Nikkei)",
+      "evidence": [
+        "benchmark_results.json forward nikkei_2024 correct=true verdict=BUBBLE",
+        "docs/NIKKEI_FAILURE_ANALYSIS.md NO_BUBBLE complete miss"
+      ],
+      "verdict": "INCONCLUSIVE",
+      "note": "Stored forward JSON contradicts failure analysis doc — unresolved provenance"
+    },
+    {
+      "id": "C15",
+      "claim": "Triple split governs official metrics",
+      "evidence": ["src/validation/splits.py vs v2_benchmark path"],
+      "verdict": "REJECTED",
+      "note": "Split helpers exist; official stored metrics not shown to be governed by them"
+    },
+    {
+      "id": "C16",
+      "claim": "Geology validated on real Sentinel-2 in this tip",
+      "evidence": ["tests/test_geo_real_data.py external D:/ path"],
+      "verdict": "NOT_TESTED",
+      "note": "Real rasters not in-repo; cloud audit did not run external Windows data"
+    },
+    {
+      "id": "C19",
+      "claim": "Landslides 100% as real-event performance",
+      "evidence": ["src/landslide synthetic data markers"],
+      "verdict": "REJECTED",
+      "note": "Synthetic calibration ≠ real landslide events"
+    },
+    {
+      "id": "C20",
+      "claim": "FastAPI/TFS production-ready (HEALTH_CHECK_REPORT)",
+      "evidence": ["HEALTH_CHECK_REPORT.md smoke/unit only"],
+      "verdict": "REJECTED",
+      "note": "Smoke + unit ≠ production proof"
+    },
+    {
+      "id": "C21",
+      "claim": "Product copy '80% precision' for live predictions",
+      "evidence": ["data/predictions/april_2026_predictions.json"],
+      "verdict": "REJECTED",
+      "note": "Stale vs official finance 78% / overall 76%"
+    },
+    {
+      "id": "C23",
+      "claim": "Headline P/R locked by automated tests",
+      "evidence": ["tests/test_official_claims.py inventory/soft gates only"],
+      "verdict": "REJECTED",
+      "note": "Metrics can drift while suite stays green"
+    }
+  ]
+}
