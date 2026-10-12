@@ -35,17 +35,10 @@ Full CI green     — pending mcp-bouncer-ci-ruff-fix.patch (bot 403)
 | F06 | `$(…)` only with dangerous command (bare `$(date)` allowed) |
 | F07 | `bash\|sh\|python` in backticks blocked (FP on routine `sudo` docs **not** fully resolved) |
 
-## Human apply
+## Human apply now (CI debt only)
 
-See **`WINDOWS_APPLY.md`** for encoding-safe PowerShell + exact URLs.
-
-| Field | Value |
-|-------|-------|
-| Raw patch | https://raw.githubusercontent.com/sergeeey/Global-OS/main/artifacts/pilot/mcp_bouncer_fix/mcp-bouncer-pilot2-sealed-fixes.patch |
-| Target pin | `45af092` on https://github.com/sergeeey/mcp-bouncer |
-| Pack on main | since merge `#24` / `57c2938` |
-
-Patch file in-repo: `mcp-bouncer-pilot2-sealed-fixes.patch`
+F01–F07 already on mcp-bouncer `master` via [#6](https://github.com/sergeeey/mcp-bouncer/pull/6).  
+Next: **`WINDOWS_APPLY_CI_RUFF.md`** + `mcp-bouncer-ci-ruff-fix.patch`.
 
 ## After CI-fix merges
 
