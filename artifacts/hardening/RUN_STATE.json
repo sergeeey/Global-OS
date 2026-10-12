@@ -1,8 +1,8 @@
 {
   "sprint": "PILOT_USAGE",
-  "updated_at": "2026-10-08T12:25:00Z",
+  "updated_at": "2026-10-12T09:40:00Z",
   "current_goal": "REAL_USER_PROJECTS_PILOT_USAGE",
-  "phase_statement": "main tip dc7a428 (PR #13 audit). Hygiene pass: project_status + ROADMAP/Tasktracker PILOT_USAGE sync. External exams complete. Mode: pilot usage on real user projects \u2014 not M-EXT6. Waiting on user Goal Contract.",
+  "phase_statement": "ADR-0013 borrow primitives implemented (P0\u2013P3 harness/local). DoD V2 still closed=false. Mode: pilot usage on real user projects \u2014 not M-EXT6. Waiting on user Goal Contract.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y20": {

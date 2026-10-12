@@ -16,6 +16,11 @@
 - [x] Merge PR #12 — pilot-usage canon (`45446e0`)
 - [x] Project audit 2026-10-08 (`artifacts/hardening/PROJECT_AUDIT_2026-10-08.md`)
 - [x] Merge PR #13 — audit report on main (`dc7a428`)
+- [x] ADR-0013 borrow primitives + ADR-0009 amendment + BORROW_ROADMAP
+- [x] P0a Temporal patterns (heartbeats / signals / continue-as-new)
+- [x] P0b ConfirmPolicy deterministic + sandbox ops profile
+- [x] P1a progressive memory commit; P1b LLM fair scheduler
+- [x] P2 SOP + grounding + CLI time-travel; P3 research factory template
 - [ ] Pilot usage on real projects (not M-EXT6 self-exam chain by default) — needs user Goal Contract
 - [ ] Forbidden (standing): rewrite M-EXT4/5; secondary→primary silently; Immune*/ScienceKernel
 - [ ] Later (optional): verification-budget frontier — Y24/Y25 already CLOSED; new prereg required

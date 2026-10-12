@@ -53,7 +53,8 @@ DOD_V2_ITEMS: tuple[DodItem, ...] = (
         "authority_non_bypass",
         "Authority Kernel cannot be bypassed",
         DodStatus.PARTIAL,
-        "default-deny + Rust boundary; live adversarial long-horizon UNPROVEN",
+        "default-deny + Rust boundary + deterministic ConfirmPolicy (LLM risk ignored); "
+        "live adversarial long-horizon still UNPROVEN — tests/test_borrow_confirm_policy.py",
     ),
     DodItem(
         "scoped_execution_token",
@@ -83,7 +84,8 @@ DOD_V2_ITEMS: tuple[DodItem, ...] = (
         "verification_independent",
         "Verification Plane independent from execution",
         DodStatus.PARTIAL,
-        "IndependentVerificationStack + multi-provider adapters; live diversity limited",
+        "IndependentVerificationStack + multi-provider + citation grounding gate; "
+        "live diversity still limited — tests/test_borrow_grounding_sop_research.py",
     ),
     DodItem(
         "external_tainted",
@@ -101,7 +103,8 @@ DOD_V2_ITEMS: tuple[DodItem, ...] = (
         "replay_canonical",
         "Replay reconstructs canonical state",
         DodStatus.PARTIAL,
-        "EventReplayEngine status projection; full entity-body snapshot restore not claimed",
+        "EventReplayEngine status projection + until_index/compare_at CLI time-travel; "
+        "full entity-body snapshot restore not claimed — tests/test_borrow_cli_replay.py",
     ),
     DodItem(
         "maturity_from_evidence",

@@ -35,3 +35,28 @@ org-science (H-ORG-1..4) — not another kernel layer.
 + Prevents premature PRODUCTION_PROVEN / hierarchy-wins claims.
 − Slows feature velocity until live keys + long runs exist.
 − Dogfooding stays propose→branch→human merge (no autonomous merge of T0/T1).
+
+---
+
+## Amendment — post M1.5 CLOSED_SCOPE_LIMITED (2026-10-12)
+
+**Status:** Accepted addendum (does not reopen M1.5 exam).
+
+M1.5 is `CLOSED_SCOPE_LIMITED` (`artifacts/hardening/M15_DECISION.md`). That is
+**not** a license for unbounded T0/T1 kernel growth.
+
+### Now allowed without a new T0/T1 ADR
+
+1. **Adapter deepenings** (TemporalBridge patterns, model HTTP/scheduler, sandbox
+   runner hardening) that preserve fail-closed boundaries.
+2. **T2 skill packs** (SOP templates, mission stage packs) gated by eval.
+3. **Eval / evidence / honesty tooling** (unchanged from original Decision §1).
+
+### Still requires a dedicated ADR + human merge
+
+- New T0/T1 kernel subsystems or capability surfaces (Authority rewrite,
+  Epistemic kernel redesign, new privileged promotion paths).
+- Trust Kernel / production-profile claims.
+- Any `PRODUCTION_PROVEN` maturity bump.
+
+Competitor-primitive borrow policy: **ADR-0013**.

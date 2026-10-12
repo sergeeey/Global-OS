@@ -14,6 +14,12 @@ from global_os.kernel.authority.execution_token import (
     ExecutionTokenError,
     ExecutionTokenService,
 )
+from global_os.kernel.policy.confirm import (
+    ConfirmationPolicy,
+    ConfirmationRequired,
+    RiskAssessment,
+    enforce_confirmation,
+)
 from global_os.runtime.events.ledger import EventLedger
 
 
@@ -73,6 +79,8 @@ class ToolGateway:
         self,
         ledger: EventLedger,
         token_service: ExecutionTokenService | None = None,
+        *,
+        confirmation_policy: ConfirmationPolicy = ConfirmationPolicy.NEVER,
     ) -> None:
         self._ledger = ledger
         self._token_service = token_service or ExecutionTokenService()
@@ -80,6 +88,7 @@ class ToolGateway:
         self._idempotency: dict[str, dict[str, Any]] = {}
         # Legacy deposit set — transitional only; prefer mint via ExecutionTokenService.
         self._legacy_tokens: set[str] = set()
+        self._confirmation_policy = confirmation_policy
 
     def register_tool(self, tool_id: str, handler: ToolHandler) -> None:
         self._tools[tool_id] = handler
@@ -100,9 +109,34 @@ class ToolGateway:
         observation: dict[str, Any] | None = None,
         require_observation: bool = False,
         material: bool = False,
+        approval_present: bool = False,
+        confirmation_policy: ConfirmationPolicy | None = None,
     ) -> dict[str, Any]:
         if not execution_token:
             raise MissingExecutionToken("Tool Gateway requires execution token (GOS-I03)")
+
+        # Confirm gate: assessment ≠ enforcement; LLM security_risk ignored.
+        policy = confirmation_policy or self._confirmation_policy
+        risk: RiskAssessment | None = None
+        try:
+            bound = {**proposal, "tool_id": tool_id}
+            risk = enforce_confirmation(
+                bound, policy, approval_present=approval_present
+            )
+        except ConfirmationRequired:
+            self._ledger.append(
+                event_type="action.confirmation_required",
+                tenant_id=tenant_id,
+                workspace_id=workspace_id,
+                goal_id=proposal.get("goal_id"),
+                principal_id=proposal.get("principal_id"),
+                payload={
+                    "tool_id": tool_id,
+                    "policy": policy.value,
+                },
+                producer="kernel.action_gateway",
+            )
+            raise
 
         token_refs: dict[str, str]
         try:
@@ -134,6 +168,8 @@ class ToolGateway:
             raise ToolGatewayError(f"unknown tool: {tool_id}")
 
         result = handler(proposal)
+        if risk is not None:
+            token_refs = {**token_refs, "risk": risk.risk.value, "risk_source": risk.source}
         action_id = new_id("act")
         self._ledger.append(
             event_type="action.executed",
