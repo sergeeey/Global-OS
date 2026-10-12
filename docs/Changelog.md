@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.139 — 2026-10-12
+
+### Pilot 3 LOCKED — Paperclip workflow-controller
+
+- Target `sergeeey/Paperclip-AI---2026@47c232b` (54 pytest); mcp-bouncer rejected (contamination)
+- Fidelity `ISOLATED_SUBAGENT_ARMS_SAME_ORCHESTRATOR`; decisive C vs B
+- Arms not started at lock commit
+
 ## 0.1.138 — 2026-10-12
 
 ### Canon sync after #25
