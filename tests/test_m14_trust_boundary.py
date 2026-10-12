@@ -350,7 +350,7 @@ def test_effect_reconciliation_tool_success_not_world_success():
     assert pending == EffectReconciliationStatus.OBSERVATION_PENDING
 
     ledger = EventLedger()
-    gateway = ToolGateway(ledger)
+    gateway = ToolGateway(ledger, allow_legacy_tokens=True)
     gateway.register_tool("pay", lambda _p: ToolResult(True, {}))
     gateway.accept_token("legacy_tok")
     receipt = gateway.execute(

@@ -61,6 +61,22 @@ def test_continue_as_new_real_chain() -> None:
     assert any(h["step"] == "c" for h in hb)
 
 
+def test_approval_gate_after_continue_as_new() -> None:
+    """RUN-004b: gated step after CAN must complete under harness auto_approve (no hang)."""
+    bridge = TemporalPatternBridge()
+    out = bridge.start_or_resume(
+        "pat_can_appr_1",
+        _tiny_def(),
+        {"goal_id": "g"},
+        continue_as_new_after=1,
+        approval_gates={"b"},
+        auto_approve=True,
+    )
+    assert out["phase"] == "c"
+    assert out.get("last_approver") == "harness"
+    assert int(out.get("continue_as_new_epochs") or 0) >= 1
+
+
 def test_harness_registry_isolated_by_run_id() -> None:
     """RUN-005: step/heartbeat registries are keyed by run_id (not a single global bag)."""
     from global_os.adapters.workflows.temporal_patterns import (

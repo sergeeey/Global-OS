@@ -90,18 +90,30 @@ class GosGoalExecutionPatterns:
 
     @workflow.run
     async def run(self, payload: dict[str, Any]) -> dict[str, Any]:
-        """payload: state, step_names, approval_gates, continue_as_new_after.
+        """payload: state, step_names, approval_gates, continue_as_new_after,
+        harness_auto_approve.
 
         When ``continue_as_new_after`` is set, uses Temporal ``workflow.continue_as_new``
         (real CAN — not a fake early-return flag).
+
+        RUN-004b: ``self._approval`` does not survive CAN (new workflow object).
+        Production HITL must re-signal the continued run. Harness-only
+        ``harness_auto_approve`` is propagated in the CAN payload so gated steps
+        after the boundary do not hang forever under auto_approve tests.
         """
         state = dict(payload.get("state") or {})
         step_names: list[str] = list(payload.get("step_names") or [])
         gates = set(payload.get("approval_gates") or [])
         can_after = payload.get("continue_as_new_after")
+        harness_auto = bool(payload.get("harness_auto_approve"))
 
         for completed, name in enumerate(step_names, start=1):
             if name in gates:
+                if harness_auto and self._approval is None:
+                    # Deterministic harness path across CAN; not Authority mint.
+                    self._approval = ApprovalSignal(
+                        approved=True, approver="harness", note="auto"
+                    )
                 await workflow.wait_condition(lambda: self._approval is not None)
                 assert self._approval is not None
                 if not self._approval.approved:
@@ -139,6 +151,7 @@ class GosGoalExecutionPatterns:
                             "approval_gates": sorted(gates),
                             # Bound history again on the continued run.
                             "continue_as_new_after": can_after,
+                            "harness_auto_approve": harness_auto,
                         }
                     ]
                 )
@@ -194,11 +207,14 @@ class TemporalPatternBridge:
         register_pattern_steps(run_id, definition)
         step_names = [s.name for s in definition.steps]
         gates = sorted(approval_gates or [])
+        # Propagate across continue_as_new (RUN-004b); production HITL must re-signal.
+        harness_auto = bool(gates and auto_approve)
         payload = {
             "state": {**initial_state, "_gos_run_id": run_id},
             "step_names": step_names,
             "approval_gates": gates,
             "continue_as_new_after": continue_as_new_after,
+            "harness_auto_approve": harness_auto,
         }
 
         async with await WorkflowEnvironment.start_time_skipping() as env:
@@ -217,17 +233,7 @@ class TemporalPatternBridge:
                     task_queue=task_queue,
                     execution_timeout=timedelta(seconds=30),
                 )
-                if gates and auto_approve:
-                    # Signals are buffered; send after start so wait_condition unblocks.
-                    # Avoid fire-and-forget tasks under time-skipping (racey).
-                    for _ in range(50):
-                        desc = await handle.describe()
-                        status = str(getattr(desc, "status", "") or "")
-                        if "RUNNING" in status or status.endswith("1"):
-                            break
-                        await asyncio.sleep(0.01)
-                    await handle.signal(
-                        GosGoalExecutionPatterns.human_approval,
-                        args=[True, "harness", "auto"],
-                    )
+                # Harness approvals ride in payload (survive CAN). Production HITL
+                # signals the continued run separately after each continue_as_new.
+                del auto_approve  # used via harness_auto only
                 return await handle.result()

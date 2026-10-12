@@ -23,8 +23,9 @@ How to default production to Rust Authority while keeping CI/dev ergonomic?
 - Missing binary → `ProductionProfileError` (never silent Python allow)
 - Production requires `GOS_EXECUTION_TOKEN_SECRET` and `GOS_APPROVAL_SIGNING_SECRET`
   (non-empty, not known dev defaults) — AUTH-002
-- Production `ToolGateway(allow_legacy_tokens=False)` — opaque `accept_token`
-  deposit path forbidden (AUTH-001)
+- `ToolGateway` defaults `allow_legacy_tokens=False` (AUTH-001b fail-closed);
+  tests/dev must opt in explicitly; production `RuntimeContext` never opts in
+  (opaque `accept_token` deposit path forbidden)
 
 ## Evidence
 

@@ -72,11 +72,20 @@ def test_production_forbids_dev_default_secrets(monkeypatch: pytest.MonkeyPatch)
         require_production_secrets()
 
 
-def test_production_gateway_forbids_legacy_accept_token():
+def test_gateway_defaults_deny_legacy_accept_token():
+    """AUTH-001b: boundary object defaults DENY; not only RuntimeContext wiring."""
     ledger = EventLedger()
-    gw = ToolGateway(ledger, allow_legacy_tokens=False)
+    gw = ToolGateway(ledger)
+    assert gw._allow_legacy_tokens is False
     with pytest.raises(LegacyExecutionTokenForbidden, match="legacy accept_token forbidden"):
         gw.accept_token("opaque")
+
+
+def test_dev_runtime_context_opts_in_legacy_tokens(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.delenv("GOS_PROFILE", raising=False)
+    ctx = RuntimeContext(profile="dev")
+    assert ctx.gateway._allow_legacy_tokens is True
+    ctx.gateway.accept_token("dev_only_legacy")
 
 
 def test_env_gos_authority_backend_wins_in_dev(monkeypatch: pytest.MonkeyPatch):
