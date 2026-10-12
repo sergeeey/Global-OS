@@ -1,0 +1,190 @@
+From cd0fdc7d2681b9c2b6168735c3351f9899b21902 Mon Sep 17 00:00:00 2001
+From: Cursor Agent <cursoragent@cursor.com>
+Date: Mon, 12 Oct 2026 10:32:50 +0000
+Subject: [PATCH] =?UTF-8?q?docs:=20hygiene=20after=20PILOT-PB-CLAIMS=20?=
+ =?UTF-8?q?=E2=80=94=20recall,=20maturity,=20Nikkei=20provenance?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Align commodities recall with benchmark JSON (67%), downgrade
+production-usable/production-like to benchmark-validated, caveat
+universality, and flag Nikkei forward JSON vs failure-analysis conflict.
+---
+ CORRECTIONS.md                  |  9 +++++++++
+ README.md                       |  8 ++++----
+ docs/NIKKEI_FAILURE_ANALYSIS.md | 11 ++++++++++-
+ predict_all.py                  |  3 ++-
+ src/contract/domain_status.py   | 30 ++++++++++++++++++++----------
+ 5 files changed, 45 insertions(+), 16 deletions(-)
+
+diff --git a/CORRECTIONS.md b/CORRECTIONS.md
+index 87ef54f..53d7022 100644
+--- a/CORRECTIONS.md
++++ b/CORRECTIONS.md
+@@ -25,3 +25,12 @@
+ ## Paper vs. commit history
+ 
+ The paper (`paper/main.tex`) is the authoritative source for all claims. Commit messages reflect state at time of commit and may contain preliminary or subsequently corrected results. When in doubt, trust the paper.
++
++## External pilot hygiene (2026-10-12)
++
++Global OS pilot `PILOT-PB-CLAIMS-v1` (audit only; no metric fishing):
++
++1. README commodities recall **50% → 67%** (matches `benchmark_results.json`).
++2. Maturity tier **production-usable / production-like → benchmark-validated** (crash eval P=50% R≈23% ≠ ops-ready).
++3. Universality wording aligned with this file / paper (“not confirmed”).
++4. Nikkei: forward JSON vs `docs/NIKKEI_FAILURE_ANALYSIS.md` marked **unresolved provenance**.
+diff --git a/README.md b/README.md
+index 44c77b1..218b8eb 100644
+--- a/README.md
++++ b/README.md
+@@ -6,7 +6,7 @@ Framework for detecting phase transitions across 5 domains using LPPLS (Sornette
+ 
+ ## Scientific Hypothesis
+ 
+-> LPPLS parameters (m, ω) from financial bubbles and geological spectral anomalies are drawn from the same distribution — preliminary evidence of universal phase transition signatures.
++> LPPLS parameters (m, ω) from financial bubbles and geological spectral anomalies may share a common distribution — **not confirmed**. KS non-rejection is low-power evidence; paper uses “Not rejected*” (see `CORRECTIONS.md`).
+ 
+ ## Core Math: LPPLS (Sornette 2003)
+ 
+@@ -21,7 +21,7 @@ ln(E[p(t)]) = A + B(tc - t)^m + C(tc - t)^m * cos(ω * ln(tc - t) + φ)
+ | Domain | Data Source | Episodes | v2 Results |
+ |--------|-----------|----------|------------|
+ | **Finance** | Yahoo Finance | 11 bubbles + 9 controls | Precision=78%, Recall=64% |
+-| **Commodities** | Yahoo Finance (futures) | 6 bubbles + 4 controls | Precision=67%, Recall=50% |
++| **Commodities** | Yahoo Finance (futures) | 6 bubbles + 4 controls | Precision=67%, Recall=67% |
+ | **Housing** | FHFA + Zillow | 10+6 episodes | Precision=67%, Recall=33-50% |
+ | **Geology** | Sentinel-2 temporal series | Seismic precursor patterns | KS p>0.05 |
+ | **Fraud** | Transaction timelines | Doomsday Bayesian, C-index +27% | Survival model |
+@@ -30,10 +30,10 @@ ln(E[p(t)]) = A + B(tc - t)^m + C(tc - t)^m * cos(ω * ln(tc - t) + φ)
+ 
+ | Tier | Domains | Meaning |
+ |------|---------|---------|
+-| **Supported** | Finance, Commodities | Validated on real data, forward-tested, production-usable |
++| **Benchmark-validated** | Finance, Commodities | Real-data episode metrics in `data/v2_results/`; **not** production/ops-ready (crash eval P≈50% R≈23%) |
+ | **Experimental** | Housing, Epidemics | Works but limited recall, needs more data/tuning |
+ | **Science-only** | Geology, AI Compute, Landslides | Research validation, not for operational decisions |
+-| **Separate track** | Fraud | Different model (survival), not LPPLS bubble detection |
++| **Separate track** | Fraud | Different model (survival), synthetic upper bound (+27% C-index) |
+ 
+ ## Pipeline Architecture (v2)
+ 
+diff --git a/docs/NIKKEI_FAILURE_ANALYSIS.md b/docs/NIKKEI_FAILURE_ANALYSIS.md
+index bce658b..022b5fa 100644
+--- a/docs/NIKKEI_FAILURE_ANALYSIS.md
++++ b/docs/NIKKEI_FAILURE_ANALYSIS.md
+@@ -3,7 +3,16 @@
+ **Date:** 2026-03-29
+ **Episode:** ^N225 peaked ~41,580 Jul 2024, crashed 26% to ~31,000 on Aug 5
+ 
+-## Pipeline output: NO_BUBBLE (quality=0.21) — complete miss
++## Provenance warning (2026-10-12)
++
++`data/v2_results/benchmark_results.json` → `domains.forward.episodes[nikkei_2024]`
++currently records `verdict=BUBBLE`, `correct=true`, `quality=0.64` on tip `fd1e55c`.
++
++This document records a **different** pipeline run: `NO_BUBBLE` (quality=0.21).
++Until the forward JSON and this analysis are reconciled to the same commit +
++window config, do **not** cite either as the sole authority for Nikkei 2024.
++
++## Pipeline output (this analysis): NO_BUBBLE (quality=0.21) — complete miss
+ 
+ ## Cascade of 3 failures
+ 
+diff --git a/predict_all.py b/predict_all.py
+index 673291e..79512c4 100644
+--- a/predict_all.py
++++ b/predict_all.py
+@@ -493,7 +493,8 @@ def run_all_predictions(
+         n = len([r for r in domain_results if r["verdict"] == "NO_BUBBLE"])
+         status = get_status_label(domain)
+         status_icon = {
+-            "production-like": "✅",
++            "benchmark-validated": "✅",
++            "production-like": "✅",  # legacy alias
+             "experimental": "⚠️",
+             "research-only": "🔬",
+             "synthetic-only": "🧪",
+diff --git a/src/contract/domain_status.py b/src/contract/domain_status.py
+index 3d26840..823b2ea 100644
+--- a/src/contract/domain_status.py
++++ b/src/contract/domain_status.py
+@@ -1,11 +1,14 @@
+ """Domain Maturity Layer — official status for each domain.
+ 
+ Every domain has a status that determines what claims can be made:
+-- production-like: validated on real data, can make operational claims
++- benchmark-validated: real-data episode metrics stored; not ops/production
+ - experimental: works but limited validation, cannot make strong claims
+ - research-only: research validation only, not for operational decisions
+ - synthetic-only: tested on synthetic data only, upper bound estimates
+ - diagnostic: diagnostic tool only, not a prediction system
++
++Legacy alias: ``production-like`` is treated as ``benchmark-validated`` (do not
++make operational claims from it).
+ """
+ 
+ from __future__ import annotations
+@@ -15,35 +18,35 @@ from typing import Any
+ 
+ DOMAIN_MATURITY: dict[str, dict[str, Any]] = {
+     "finance": {
+-        "status": "production-like",
++        "status": "benchmark-validated",
+         "validated": True,
+         "n_episodes": 20,
+         "precision": 0.78,
+         "recall": 0.64,
+-        "description": "Validated on real data, forward-tested",
++        "description": "Validated on real episode set; crash eval weaker — not ops-ready",
+     },
+     "commodities": {
+-        "status": "production-like",
++        "status": "benchmark-validated",
+         "validated": True,
+         "n_episodes": 10,
+         "precision": 0.67,
+         "recall": 0.67,
+-        "description": "Validated on real data, high variance",
++        "description": "Validated on real data, high variance; not ops-ready",
+     },
+     "crypto": {
+-        "status": "production-like",
++        "status": "benchmark-validated",
+         "validated": True,
+         "n_episodes": 8,
+         "precision": None,
+         "recall": None,
+-        "description": "All post-crash, no active bubbles detected",
++        "description": "All post-crash, no active bubbles detected; not ops-ready",
+     },
+     "housing": {
+         "status": "experimental",
+         "validated": False,
+         "n_episodes": 10,
+-        "precision": None,
+-        "recall": None,
++        "precision": 0.67,
++        "recall": 0.33,
+         "description": "Works but limited recall, needs more data/tuning",
+     },
+     "geology": {
+@@ -148,6 +151,13 @@ def format_status_table() -> str:
+     """Format all domain statuses as a readable table."""
+     lines = ["Domain Maturity Status:", "=" * 60]
+     for domain, info in DOMAIN_MATURITY.items():
+-        icon = {"production-like": "✅", "experimental": "⚠️", "research-only": "🔬", "synthetic-only": "🧪", "diagnostic": "📊"}.get(info["status"], "❓")
++        icon = {
++            "benchmark-validated": "✅",
++            "production-like": "✅",  # legacy alias
++            "experimental": "⚠️",
++            "research-only": "🔬",
++            "synthetic-only": "🧪",
++            "diagnostic": "📊",
++        }.get(info["status"], "❓")
+         lines.append(f"  {icon} {domain:15s} | {info['status']:20s} | validated={info['validated']}")
+     return "\n".join(lines)
+-- 
+2.43.0
+
