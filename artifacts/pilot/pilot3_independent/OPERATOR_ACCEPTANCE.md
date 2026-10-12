@@ -30,9 +30,11 @@ C>A on EPI/ENG is accepted. C−B = 0 confirmed delta is accepted as **failure t
 ```text
 Next ≠ M2
 Next ≠ architecture scale-up
-Next = architecture ablation
-  (disciplined B vs minimal GOS component subsets;
-   long tasks, faults, handoffs, external-effect re-verification)
+Done: architecture ablation ARCH-ABLATION-MECH-v1 TERMINAL
+Done: MINIMAL-STACK-v1 LOCKED (DEFAULT=G1+G2+G3; Gfull OPT-IN)
+Next = dogfood DEFAULT stack under claim-boundary checklist
+      (optional: Paperclip WI human; optional: higher-fidelity ATTR prereg)
 ```
 
 ATTR negative result remains a claim-limiting invariant for product messaging.
+See `artifacts/pilot/minimal_stack/MINIMAL_STACK_CONTRACT.md`.

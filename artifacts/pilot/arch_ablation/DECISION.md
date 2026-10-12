@@ -64,6 +64,7 @@ PLAUSIBLE_POTENTIAL:
 
 1. Keep Pilot 3 ATTR as claim-limiting for audit-product messaging.
 2. Prefer **minimal mechanism stack** justified by failure class (not Gfull by default).
+   **Locked:** `artifacts/pilot/minimal_stack/MINIMAL_STACK_CONTRACT.md` (`MINIMAL-STACK-v1`).
 3. Do **not** reopen M2; optional later ablation at higher fidelity (distinct providers)
    requires a new prereg.
 4. Optional separate track: Paperclip external fix WorldInteraction (human gate).

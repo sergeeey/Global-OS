@@ -439,7 +439,7 @@
       "fidelity": "ISOLATED_SUBAGENT_ARMS_SAME_ORCHESTRATOR",
       "decision": "artifacts/pilot/pilot3_independent/DECISION.md",
       "operator_acceptance": "artifacts/pilot/pilot3_independent/OPERATOR_ACCEPTANCE.md",
-      "next": "artifacts/pilot/arch_ablation/DECISION.md"
+      "next": "artifacts/pilot/minimal_stack/MINIMAL_STACK_CONTRACT.md"
     },
     "ARCH_ABLATION_MECH": {
       "status": "TERMINAL",
@@ -459,7 +459,20 @@
       "scenarios": ["S1", "S2", "S3", "S4"],
       "decision": "artifacts/pilot/arch_ablation/DECISION.md",
       "scoreboard": "artifacts/pilot/arch_ablation/score/SCOREBOARD.json",
-      "evidence": "tests/test_arch_ablation.py"
+      "evidence": "tests/test_arch_ablation.py",
+      "next": "artifacts/pilot/minimal_stack/MINIMAL_STACK_CONTRACT.md"
+    },
+    "MINIMAL_STACK_V1": {
+      "status": "LOCKED",
+      "protocol_id": "MINIMAL-STACK-v1",
+      "default_stack": ["G1", "G2", "G3"],
+      "opt_in": ["Gfull.durable_runner", "Gfull.artifact_handoff"],
+      "pilot3_attr_preserved": "NOT_SHOWN",
+      "m2_org_path": "CLOSED",
+      "production_proven": 0,
+      "contract": "artifacts/pilot/minimal_stack/MINIMAL_STACK_CONTRACT.md",
+      "lock": "artifacts/pilot/minimal_stack/LOCK.json",
+      "evidence": "tests/test_minimal_stack_contract.py"
     }
   }
 }

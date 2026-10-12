@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.143 — 2026-10-12
+
+### Minimal Mechanism Product Contract — MINIMAL-STACK-v1 LOCKED
+
+- DEFAULT product stack = G1+G2+G3 (goal/ledger + effect receipt + authority fail-closed)
+- Gfull (DurableRunner / artifact handoff) = OPT-IN by failure class
+- Pilot 3 ATTR NOT_SHOWN / M2 CLOSED / PRODUCTION_PROVEN=0 preserved
+- Pack: `artifacts/pilot/minimal_stack/`; guard: `tests/test_minimal_stack_contract.py`
+
 ## 0.1.142 — 2026-10-12
 
 ### Architecture ablation TERMINAL — ARCH-ABLATION-MECH-v1

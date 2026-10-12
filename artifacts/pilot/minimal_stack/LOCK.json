@@ -1,0 +1,25 @@
+{
+  "protocol_id": "MINIMAL-STACK-v1",
+  "status": "LOCKED",
+  "locked_at_utc": "2026-10-12T15:40:00Z",
+  "locked_on_tip_sha": "9576311440c5f569b54f75e9b051f0937a28b311",
+  "contract": "artifacts/pilot/minimal_stack/MINIMAL_STACK_CONTRACT.md",
+  "parent": {
+    "pilot3_attr": "PROCESS_DISCIPLINE_SUFFICES",
+    "gos_incremental": "NOT_SHOWN",
+    "m2": "CLOSED",
+    "production_proven": 0,
+    "ablation_protocol": "ARCH-ABLATION-MECH-v1",
+    "ablation_fidelity": "SCRIPTED_MECHANISM_ABLATION"
+  },
+  "default_product_stack": ["G1", "G2", "G3"],
+  "opt_in_layers": ["Gfull.durable_runner", "Gfull.artifact_handoff"],
+  "forbidden": [
+    "soften_pilot3_attr",
+    "reopen_m2",
+    "claim_gfull_default",
+    "claim_llm_audit_superiority_vs_discipline_b",
+    "production_proven_bump",
+    "new_t0_t1_surfaces"
+  ]
+}
