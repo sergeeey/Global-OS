@@ -13,6 +13,7 @@ from global_os.adapters.tools.base import FakePaymentTool, FakeReadTool
 from global_os.common.hashing import content_hash
 from global_os.kernel.action_gateway import (
     CapabilityToolMismatch,
+    MissingExecutionToken,
     ToolGateway,
     ToolResult,
 )
@@ -22,6 +23,16 @@ from global_os.kernel.policy.confirm import ConfirmationPolicy, ConfirmationRequ
 from global_os.runtime.events import EventLedger
 
 
+def _no_tool_effect_events(ledger: EventLedger) -> None:
+    """On deny: no tool run and no world-success receipt theater."""
+    kinds = {e["event_type"] for e in ledger.list_events()}
+    assert "action.executed" not in kinds
+    assert "effect.receipted" not in kinds
+    for e in ledger.list_events():
+        payload = e.get("payload") or {}
+        assert payload.get("world_success") is not True
+
+
 def test_web_read_token_cannot_execute_payment_fake(sample_proposal):
     """Finding N1/P1: token for web.read must not run payment.fake (confused deputy)."""
     ledger = EventLedger()
@@ -29,11 +40,13 @@ def test_web_read_token_cannot_execute_payment_fake(sample_proposal):
     auth = AuthorityKernel(ledger, token_service=tokens)
     gateway = ToolGateway(ledger, token_service=tokens)
     pay = FakePaymentTool()
-    gateway.register_tool(
-        pay.spec().tool_id,
-        lambda _p: ToolResult(True, {"paid": True}),
-        spec=pay.spec(),
-    )
+    called = {"n": 0}
+
+    def _pay(_p: dict) -> ToolResult:
+        called["n"] += 1
+        return ToolResult(True, {"paid": True})
+
+    gateway.register_tool(pay.spec().tool_id, _pay, spec=pay.spec())
 
     auth.grant(
         principal_id="worker_research_1",
@@ -55,6 +68,50 @@ def test_web_read_token_cannot_execute_payment_fake(sample_proposal):
             workspace_id="w",
             intended_effect="paid",
         )
+    assert called["n"] == 0
+    _no_tool_effect_events(ledger)
+
+
+def test_wrong_capability_no_tool_and_no_false_receipt(sample_proposal):
+    """Negative: capability mismatch → tool idle + no effect.receipted world_success."""
+    ledger = EventLedger()
+    tokens = ExecutionTokenService()
+    auth = AuthorityKernel(ledger, token_service=tokens)
+    gateway = ToolGateway(ledger, token_service=tokens)
+    called = {"n": 0}
+
+    def _pay(_p: dict) -> ToolResult:
+        called["n"] += 1
+        return ToolResult(True, {})
+
+    gateway.register_tool(
+        "payment.fake",
+        _pay,
+        required_capabilities=("payment.send",),
+    )
+    auth.grant(
+        principal_id="worker_research_1",
+        capabilities={"web.read"},
+        tenant_id="t",
+        workspace_id="w",
+    )
+    proposal = sample_proposal(
+        capability="web.read",
+        idempotency_key="idem-wrong-cap1",
+    )
+    minted = auth.decide(proposal, tenant_id="t", workspace_id="w")
+    with pytest.raises(CapabilityToolMismatch):
+        gateway.execute(
+            tool_id="payment.fake",
+            proposal=proposal,
+            execution_token=minted.execution_token,
+            tenant_id="t",
+            workspace_id="w",
+            intended_effect="paid",
+            observation={"effect": "paid"},
+        )
+    assert called["n"] == 0
+    _no_tool_effect_events(ledger)
 
 
 def test_matching_capability_still_executes(sample_proposal):
@@ -175,6 +232,75 @@ def test_verified_approval_token_allows_confirm_risky():
     assert receipt["world_success"] is True
 
 
+def test_approval_replay_rejected_no_second_effect():
+    """Negative: one-time ApprovalToken cannot be reused; second call idle."""
+    ledger = EventLedger()
+    approvals = memory_approval_service()
+    gw = ToolGateway(
+        ledger,
+        confirmation_policy=ConfirmationPolicy.CONFIRM_RISKY,
+        allow_legacy_tokens=True,
+        approval_service=approvals,
+    )
+    called = {"n": 0}
+
+    def _tool(_p: dict) -> ToolResult:
+        called["n"] += 1
+        return ToolResult(True, {})
+
+    gw.register_tool("shell.exec", _tool, required_capabilities=("shell.exec",))
+    body = {
+        "goal_id": "g1",
+        "principal_id": "p1",
+        "capability": "shell.exec",
+        "resource": "local",
+        "args": {},
+        "tool_id": "shell.exec",
+        "idempotency_key": "idem-replay-1",
+    }
+    action_hash = content_hash(body)
+    token = approvals.issue(
+        approver="human",
+        action_hash=action_hash,
+        goal_id="g1",
+        limits={},
+        valid_until=(datetime.now(UTC) + timedelta(hours=1)).isoformat(),
+        one_time=True,
+    )
+    proposal = {**body, "approval_token": token.to_dict()}
+
+    gw.accept_token("legacy_replay_1")
+    r1 = gw.execute(
+        tool_id="shell.exec",
+        proposal=proposal,
+        execution_token="legacy_replay_1",
+        tenant_id="t",
+        workspace_id="w",
+        intended_effect="ran",
+        observation={"effect": "ran"},
+    )
+    assert called["n"] == 1
+    assert r1["world_success"] is True
+
+    # Replay same one-time ApprovalToken with a fresh execution token
+    gw.accept_token("legacy_replay_2")
+    with pytest.raises(ConfirmationRequired):
+        gw.execute(
+            tool_id="shell.exec",
+            proposal=proposal,
+            execution_token="legacy_replay_2",
+            tenant_id="t",
+            workspace_id="w",
+            intended_effect="ran",
+            observation={"effect": "ran"},
+        )
+    assert called["n"] == 1  # no second tool run
+    executed = [
+        e for e in ledger.list_events() if e["event_type"] == "action.executed"
+    ]
+    assert len(executed) == 1
+
+
 def test_forged_parent_capabilities_in_request_ignored(sample_proposal):
     """Finding: forging parent_capabilities must not expand authority (GOS-I04)."""
     ledger = EventLedger()
@@ -237,4 +363,28 @@ def test_parent_narrowing_enforced_at_decide_time(sample_proposal):
     )
     result = auth.decide(proposal, tenant_id="t", workspace_id="w")
     assert result.decision == Decision.DENY
+    assert result.execution_token is None
     assert "parent" in result.reason.lower() or "GOS-I04" in result.reason
+
+    # Delegation after parent revoke: no mint → gateway idle, no false receipt
+    gw_ledger = EventLedger()
+    gateway = ToolGateway(gw_ledger, token_service=ExecutionTokenService())
+    called = {"n": 0}
+
+    def _fetch(_p: dict) -> ToolResult:
+        called["n"] += 1
+        return ToolResult(True, {})
+
+    gateway.register_tool("web.fetch", _fetch, required_capabilities=("web.read",))
+    with pytest.raises(MissingExecutionToken):
+        gateway.execute(
+            tool_id="web.fetch",
+            proposal=proposal,
+            execution_token=result.execution_token,
+            tenant_id="t",
+            workspace_id="w",
+            intended_effect="page_fetched",
+            observation={"effect": "page_fetched"},
+        )
+    assert called["n"] == 0
+    _no_tool_effect_events(gw_ledger)
