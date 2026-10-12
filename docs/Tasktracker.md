@@ -44,9 +44,12 @@
 - [x] Pilot 3 TERMINAL — ATTR PROCESS_DISCIPLINE_SUFFICES; GOS incremental NOT_SHOWN
 - [x] Operator acceptance: ATTR NOT_SHOWN preserved; M2 CLOSED; ablation next
 - [x] Architecture ablation LOCKED+EXECUTED (`ARCH-ABLATION-MECH-v1`) — H-ABL-* SUPPORTED; ATTR preserved
-- [x] Minimal Mechanism Substrate Contract LOCKED (`MINIMAL-STACK-v1`) — DEFAULT=G1+G2+G3; ≠ mission endgame
-- [ ] Design next goal-achievement mission (Intelligence+Execution+Reliability; substrate inside)
-- [ ] Dogfood DEFAULT substrate inside that mission (claim-boundary; no ATTR soften)
+- [x] Minimal Mechanism Substrate Contract LOCKED (`MINIMAL-STACK-v1`) — foundation; stop micro-reproving
+- [x] Cognitive Core paradigm LOCKED (`artifacts/pilot/cognitive_core/PARADIGM.md`) — Achiever > platform-only
+- [x] Cognitive organs backlog + CHALLENGE-GA-v1 PREREG_DRAFT
+- [ ] Implement Cognitive Core organs (Decomposer → Pivot/Replan → Orchestration) contracts-first
+- [ ] Lock CHALLENGE-GA-v1 (concrete target SHA + metrics) then execute C vs B
+- [ ] Dogfood DEFAULT substrate inside Challenge (background)
 - [ ] Optional: Paperclip external fix WorldInteraction (human gate)
 - [ ] Forbidden: soften Pilot 3 ATTR; reopen M2 without higher-fidelity evidence
 - [ ] Forbidden (standing): rewrite M-EXT4/5; secondary→primary silently; Immune*/ScienceKernel

@@ -28,13 +28,13 @@ CURRENT — post architecture ablation (ARCH-ABLATION-MECH-v1 TERMINAL)
   ATTR (Pilot 3 C vs B): PROCESS_DISCIPLINE_SUFFICES — GOS incremental NOT_SHOWN (frozen)
   Ablation: H-ABL-G1/G2/G3/Gfull SUPPORTED at SCRIPTED_MECHANISM_ABLATION fidelity
             — does not overturn Pilot 3 ATTR; see artifacts/pilot/arch_ablation/DECISION.md
-  Substrate: MINIMAL-STACK-v1 LOCKED — DEFAULT=G1+G2+G3 reliability substrate (≠ mission endgame)
+  Substrate: MINIMAL-STACK-v1 LOCKED — DEFAULT=G1+G2+G3 (foundation; stop micro-reproving)
             artifacts/pilot/minimal_stack/MINIMAL_STACK_CONTRACT.md
-  Mission remains: Autonomous Work OS — human goal → plan/tools/agents → adapt → verify → result
-  M2 (org superiority path): CLOSED (do not reopen for optimism)
-  Next: goal-achievement mission design (Intelligence+Execution+Reliability); substrate dogfood inside it
-  Do NOT invent M-EXT6 / ScienceKernel / Trust Kernel promote / soften Pilot 3 ATTR
-  Do NOT replace mission with “verification platform only”
+  Mission: Autonomous Goal Achiever (substrate = inescapable core, not the product)
+  Paradigm: artifacts/pilot/cognitive_core/PARADIGM.md
+  Next: Cognitive Core organs + lock CHALLENGE-GA-v1 (open multi-phase goal)
+  M2 CLOSED; Pilot 3 ATTR NOT_SHOWN (audit); do not soften / do not platform-only swap
+  Do NOT invent M-EXT6 / ScienceKernel / Trust Kernel promote
   Y20–Y22: primary-outcome advantage NOT SHOWN
   External: PhaseBreak RECONCILED; mcp-bouncer RECONCILED+CI_VERIFIED; Pilot 3 TERMINAL
         │

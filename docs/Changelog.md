@@ -2,6 +2,13 @@
 
 ## 0.1.143 — 2026-10-12
 
+### Cognitive Core paradigm + Challenge draft
+
+- Product answer locked: Autonomous Goal Achiever; substrate = inescapable core (not platform-only)
+- Organs backlog: Decomposer / Failure-Driven Replan / Tool-Model Orchestration
+- CHALLENGE-GA-v1 = PREREG_DRAFT (open multi-phase goal; not exec-locked)
+- Pack: `artifacts/pilot/cognitive_core/`
+
 ### Minimal Mechanism Substrate Contract — MINIMAL-STACK-v1 LOCKED
 
 - DEFAULT reliability substrate = G1+G2+G3 (≠ mission endgame / ≠ audit-only product)

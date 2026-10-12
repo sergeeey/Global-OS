@@ -72,9 +72,10 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 23. **Done:** Pilot 3 TERMINAL — EPI/ENG SUPPORTED (C>A); ATTR process-discipline suffices (C≯B); GOS incremental NOT_SHOWN.  
 24. **Accepted:** ATTR NOT_SHOWN preserved; **M2 CLOSED** on current evidence.  
 25. **Done:** architecture ablation `ARCH-ABLATION-MECH-v1` TERMINAL — G1/G2/G3/Gfull beat B0 on sealed scripted stress; Pilot 3 ATTR NOT_SHOWN preserved; M2 CLOSED.  
-26. **Done (draft #30):** `MINIMAL-STACK-v1` LOCKED as **reliability substrate** (DEFAULT=G1+G2+G3; Gfull OPT-IN) — **not** mission replacement.  
-27. **Now:** reaffirm Autonomous Work OS mission; next = goal-achievement mission (Intelligence+Execution+Reliability) using substrate; optional Paperclip WI. `PRODUCTION_PROVEN = 0`.  
-28. **Forbidden drift:** treat audit/discipline infrastructure as the whole product.
+26. **Done (draft #30):** `MINIMAL-STACK-v1` LOCKED as reliability **foundation** (≠ building).  
+27. **Done (draft #30):** Cognitive Core paradigm — primary product = Autonomous Goal Achiever; substrate = core.  
+28. **Now:** build Cognitive organs + lock/run open Challenge-GA (not micro audit ATTR re-runs). `PRODUCTION_PROVEN = 0`.  
+29. **Forbidden drift:** platform-only product; soften Pilot 3 ATTR; reopen M2 without Challenge-class evidence.
 
 ## Документы
 

@@ -134,12 +134,10 @@ E — do not do now:
 
 ## 8. Next (after this lock)
 
-Ordered by mission reaffirmation — substrate is necessary, not sufficient:
+Substrate micro-proofs are **done**. Program continues in Cognitive Core:
 
-1. **A1 / frog:** design the next **goal-achievement mission** (not audit-only ATTR re-run)
-   that stresses Intelligence + Execution + Reliability together under a Goal Contract
-   (plan → tools/agents → adapt → verify → terminal result). Keep ATTR/M2 honesty.
-2. Dogfood DEFAULT substrate *inside* that mission (claim-boundary checklist; no ATTR softens).
-3. Optional human: Paperclip WorldInteraction (Execution track).
-4. Optional later: higher-fidelity field ablation — only if seeking ATTR-class evidence;
-   does not replace goal-achievement R&D.
+1. **A1:** `artifacts/pilot/cognitive_core/PARADIGM.md` — Autonomous Goal Achiever
+2. **Organs backlog:** `COGNITIVE_ORGANS.md` (Decomposer, Pivot/Replan, Orchestration)
+3. **Challenge draft:** `CHALLENGE_CONTRACT_DRAFT.md` (open multi-phase goal; lock before exec)
+4. Dogfood DEFAULT substrate *inside* Challenges (background; stop micro-reproving G1–G3)
+5. Optional human: Paperclip WorldInteraction (Execution track)

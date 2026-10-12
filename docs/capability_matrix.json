@@ -474,7 +474,23 @@
       "production_proven": 0,
       "contract": "artifacts/pilot/minimal_stack/MINIMAL_STACK_CONTRACT.md",
       "lock": "artifacts/pilot/minimal_stack/LOCK.json",
-      "evidence": "tests/test_minimal_stack_contract.py"
+      "evidence": "tests/test_minimal_stack_contract.py",
+      "next": "artifacts/pilot/cognitive_core/PARADIGM.md"
+    },
+    "COGNITIVE_CORE_PARADIGM": {
+      "status": "PARADIGM_LOCKED",
+      "primary_product": "autonomous_goal_achiever",
+      "substrate": "MINIMAL-STACK-v1",
+      "challenge": "CHALLENGE-GA-v1",
+      "challenge_status": "PREREG_DRAFT",
+      "intelligence_advantage": "NOT_SHOWN",
+      "pilot3_attr_preserved": "NOT_SHOWN",
+      "m2_org_path": "CLOSED",
+      "production_proven": 0,
+      "paradigm": "artifacts/pilot/cognitive_core/PARADIGM.md",
+      "organs": "artifacts/pilot/cognitive_core/COGNITIVE_ORGANS.md",
+      "challenge_draft": "artifacts/pilot/cognitive_core/CHALLENGE_CONTRACT_DRAFT.md",
+      "evidence": "tests/test_cognitive_core_paradigm.py"
     }
   }
 }
