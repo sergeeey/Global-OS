@@ -159,6 +159,7 @@ def _enforce_tier_evidence(
             details={
                 **dict(outcome.details),
                 "reason": "HUMAN tier requires human_reference evidence — not a label upgrade",
+                "awaiting_human": True,
                 "claimed_factors": list(outcome.diversity_factors),
             },
             diversity_factors=outcome.diversity_factors,

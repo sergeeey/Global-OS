@@ -45,6 +45,7 @@ def test_human_tier_does_not_pass_by_label_alone():
     out = router.route(req)
     assert out.tier == VerificationTier.HUMAN
     assert out.passed is False
+    assert out.details.get("awaiting_human") is True
     assert "human_reference" in out.details.get("reason", "")
 
 

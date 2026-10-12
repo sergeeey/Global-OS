@@ -80,6 +80,7 @@ Handoff must be artifact-first when payload is large (Gfull OPT-IN / artifact_ha
 
 ```text
 ≠ general-domain intelligence proven
+≠ working Autonomous Goal Achiever
 ≠ Challenge ready
 ≠ replaces OrgCompiler topology choice
 ```

@@ -77,6 +77,7 @@ Pivot is not “make another plan.” It must:
 
 ```text
 ≠ optimal search proven
+≠ working Autonomous Goal Achiever
 ≠ unbounded autonomy
 ≠ full exactly-once external effects
 ```

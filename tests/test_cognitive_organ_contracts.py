@@ -55,6 +55,7 @@ def test_organ_lock_and_six_fields():
     assert lock["parent"]["pilot3_attr"] == "NOT_SHOWN"
     assert lock["parent"]["m2"] == "CLOSED"
     assert lock["parent"]["production_proven"] == 0
+    assert lock["challenge_status"] == "PREREG_DRAFT"
     assert "exactly_once" in lock["durable_runner_claim"] or "not_full_exactly_once" in lock[
         "durable_runner_claim"
     ]
@@ -63,6 +64,9 @@ def test_organ_lock_and_six_fields():
         for header in MANDATORY:
             assert header in text, f"{name} missing {header}"
         assert "Control-transfer" in text or "Control transfer" in text or "handoff" in text.lower()
+        # Spec/contracts ≠ working Autonomous Goal Achiever
+        assert "Non-claims" in text, f"{name} must declare Non-claims"
+        assert "≠ working Autonomous Goal Achiever" in text
 
 
 def test_decomposer_binds_goal_hash_and_refuses_mutation():
