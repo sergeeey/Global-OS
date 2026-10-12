@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.134 — 2026-10-12
+
+### Pilot 3 prereg + mcp-bouncer sealed-fix proposal
+
+- Operator clarification accepted: phase quality ≠ product maturity; 8.2/10 is phase score only
+- mcp-bouncer sealed findings fixed locally (62 unit + 8 sealed repro passed); external push **403** → pack `artifacts/pilot/mcp_bouncer_fix/` status `PROPOSED`
+- Pilot 3 draft `artifacts/pilot/pilot3_independent/`: H-PILOT3-EPI/ENG/EFF + ablation Arm C + blind evaluator; fidelity `INDEPENDENT_EXECUTORS_PLUS_ABLATION`
+- Not M2; 0 PRODUCTION_PROVEN; ATTR asks GOS vs process discipline alone
+
 ## 0.1.133 — 2026-10-12
 
 ### Pilot 2 eng A/B TERMINAL — mcp-bouncer
