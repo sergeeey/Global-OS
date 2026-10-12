@@ -1,15 +1,15 @@
 {
   "sprint": "PILOT_USAGE",
-  "updated_at": "2026-10-12T10:35:00Z",
+  "updated_at": "2026-10-12T10:37:00Z",
   "current_goal": "REAL_USER_PROJECTS_PILOT_USAGE",
   "tip": {
-    "repo_head": "3e4de13",
-    "repo_head_note": "PR #17 P0 hardening MERGED to main",
+    "repo_head": "3150725",
+    "repo_head_note": "PR #18 PhaseBreak pilot pack MERGED",
     "code_head": "3e4de13",
-    "code_head_note": "same as repo_head after #17 (AUTH/sched/Temporal)",
-    "split_reason": "DOC-007: heads equal after code merge; prior split was #16 docs vs #15 code"
+    "code_head_note": "PR #17 P0 hardening — last substantive runtime code",
+    "split_reason": "DOC-007: #18 is pilot/docs/evidence; runtime code tip remains #17"
   },
-  "phase_statement": "main @ 3e4de13 (#17 P0 hardening MERGED). Tip split closed (repo_head=code_head). PILOT_USAGE: PhaseBreak-2026 claims audit TERMINAL (PILOT-PB-CLAIMS-v1). DoD V2 closed=false (5 PARTIAL). 0 PRODUCTION_PROVEN. Not M-EXT6.",
+  "phase_statement": "main @ 3150725 (#18 PhaseBreak pilot MERGED). Tip split: repo_head=3150725 docs/pilot vs code_head=3e4de13 (#17). PILOT-PB-CLAIMS-v1 TERMINAL. Apply PROPOSED_HYGIENE.patch on PhaseBreak (bot push 403). DoD V2 closed=false. 0 PRODUCTION_PROVEN. Not M-EXT6.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y20": {
@@ -343,17 +343,18 @@
     "EW4": "MPEMBA_TRIAGE_AUDITED",
     "EW5": "INIT_MPEMBA_CLOSED",
     "main_canonical": true,
-    "merged_pr": 17,
-    "merge_sha": "3e4de13",
-    "code_merge_pr": 15,
-    "code_merge_sha": "4b7224c",
+    "merged_pr": 18,
+    "merge_sha": "3150725",
+    "code_merge_pr": 17,
+    "code_merge_sha": "3e4de13",
     "campaign_merge_pr": 11,
     "campaign_merge_sha": "02acddb",
     "pilot_usage_canon_pr": 12,
     "borrow_primitives_pr": 15,
     "canon_sync_pr": 16,
     "p0_hardening_pr": 17,
-    "pilot_phasebreak": "TERMINAL_CLAIMS_AUDIT"
+    "pilot_phasebreak": "TERMINAL_CLAIMS_AUDIT",
+    "pilot_phasebreak_pr": 18
   },
   "pilot": {
     "id": "PILOT-PB-CLAIMS-v1",
