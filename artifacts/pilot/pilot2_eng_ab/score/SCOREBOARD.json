@@ -1,0 +1,42 @@
+{
+  "protocol_id": "PILOT2-ENG-AB-v1",
+  "target": "sergeeey/mcp-bouncer@45af092",
+  "fidelity": "SAME_EXECUTOR_DUAL_PROTOCOL",
+  "ordered_eval": {
+    "1_invariant_regression": {
+      "A": "PASS",
+      "B": "PASS",
+      "note": "no Authority/safety invariant of Global-OS exercised destructively; target audit-only"
+    },
+    "2_confirmed_useful_findings": {
+      "A": 8,
+      "B": 9,
+      "note": "B adds systematized hook-policy/HIGH-vs-8-classes finding; shared core bypasses equal"
+    },
+    "3_unsupported_or_false": {
+      "A": 1,
+      "B": 1,
+      "note": "both flag ~90%; B labels explicitly UNSUPPORTED_PRODUCT_CLAIM"
+    },
+    "4_human_attention": {
+      "A": "lower process overhead",
+      "B": "higher artifact overhead",
+      "winner": "A_for_speed",
+      "note": "under same executor; B pack richer for operator review later"
+    },
+    "5_cost_if_quality_equal": {
+      "winner": "INCONCLUSIVE",
+      "note": "same session; no separate token meters"
+    }
+  },
+  "process_deltas_B_over_A": [
+    "explicit competing hypotheses with REJECTED retained",
+    "sealed pytest repro pack (7 failing + 1 control)",
+    "FP catalog + hook policy mismatch as first-class claim",
+    "fidelity caveat prevents overclaiming intelligence advantage"
+  ],
+  "primary_hypothesis_H_PILOT2_001": {
+    "verdict": "PARTIAL_SUPPORT_PROCESS_ONLY",
+    "explanation": "Not a raw finding-count blowout. B shows higher verified-process quality (ledger, repro, negative retention) at similar confirmed defect core; A is faster/lighter. Under SAME_EXECUTOR fidelity, intelligence advantage NOT_SHOWN."
+  }
+}

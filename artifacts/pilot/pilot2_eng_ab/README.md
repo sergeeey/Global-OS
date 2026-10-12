@@ -1,20 +1,16 @@
 # Pilot 2 — Engineering A/B prereg
 
 **Id:** `PILOT2-ENG-AB-v1`  
-**Status:** `TARGET_LOCKED`  
+**Status:** `TERMINAL` — see `DECISION.md`  
 **Target:** [`sergeeey/mcp-bouncer`](https://github.com/sergeeey/mcp-bouncer) @ `45af092`  
-**Question:** Does Global OS deliver more *verified useful engineering work* per cost/attention than a strong single agent?
+**Verdict:** `PARTIAL_SUPPORT_PROCESS_ONLY` (intelligence advantage NOT_SHOWN)
 
 ```text
-PhaseBreak effect RECONCILED ✅
+target LOCKED ✅
         ↓
-target LOCKED = mcp-bouncer@45af092 ✅
+A/B executed (SAME_EXECUTOR_DUAL_PROTOCOL)
         ↓
-fill provider/budget pins
-        ↓
-A/B execution
-        ↓
-DECISION.md
+DECISION.md TERMINAL
 ```
 
 | File | Role |

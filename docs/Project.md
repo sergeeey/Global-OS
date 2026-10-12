@@ -63,7 +63,8 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 14. **Done:** P0 hardening merged (`3e4de13` #17).  
 15. **Done:** PhaseBreak pilot TERMINAL (`3150725` #18); residual hardening (`c851246` #20).  
 16. **Done:** PhaseBreak effect RECONCILED; Pilot 2 target LOCKED (`mcp-bouncer@45af092`).  
-17. **Now:** provider/budget pins → A/B execution. DoD V2 still PARTIAL (0 PRODUCTION_PROVEN). Not: M-EXT6; Trust Kernel; ScienceKernel.
+17. **Done:** Pilot 2 A/B TERMINAL on mcp-bouncer — process advantage partial; intelligence NOT_SHOWN.  
+18. **Now:** optional mcp-bouncer fix PRs / Pilot 3 / higher-fidelity A/B. DoD V2 still PARTIAL (0 PRODUCTION_PROVEN). Not: M-EXT6; Trust Kernel; ScienceKernel.
 
 ## Документы
 
