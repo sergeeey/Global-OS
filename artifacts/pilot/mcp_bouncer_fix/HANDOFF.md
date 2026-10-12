@@ -7,20 +7,16 @@
 | F01–F07 external merge | **DONE** — PR #6 → `33030e3` → EffectReceipt **RECONCILED** |
 | Pytest | **62 passed** |
 | GitHub CI on merge tip | **FAILED** (Ruff) |
-| CI-fix PR | **YOUR ACTION** — bot 403; patch ready |
+| CI-fix branch pushed | **DONE** — `fix/pilot2-ci-ruff` @ `dbbe68b` |
+| CI-fix PR | **YOUR ACTION** — bot 403 on create; one-click below |
 
 ## Your P0 now
 
-1. Apply `mcp-bouncer-ci-ruff-fix.patch` from current `master` (see `WINDOWS_APPLY_CI_RUFF.md`).
-2. Open PR `ci: restore green Ruff checks after Pilot 2 fixes`.
-3. Wait for **green** GitHub CI, then merge.
-4. Reply with CI-fix PR URL + merge SHA → we clear `CI_DEBT` / mark CI `VERIFIED`.
-
-## Exact raw URL (CI-fix; branch until GOS #25 merges)
-
-```
-https://raw.githubusercontent.com/sergeeey/Global-OS/cursor/pilot3-abcd-handoff-2907/artifacts/pilot/mcp_bouncer_fix/mcp-bouncer-ci-ruff-fix.patch
-```
+1. Open PR (one click): https://github.com/sergeeey/mcp-bouncer/compare/master...fix/pilot2-ci-ruff?expand=1  
+   Title: `ci: fix Ruff errors after Pilot 2 merge`
+2. Wait for green Actions on Python 3.11 / 3.12 / 3.13.
+3. Merge only when green.
+4. Reply with PR number + merge SHA → we set CI → `CI_VERIFIED`.
 
 ## Non-claims
 
