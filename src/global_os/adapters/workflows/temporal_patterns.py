@@ -235,5 +235,5 @@ class TemporalPatternBridge:
                 )
                 # Harness approvals ride in payload (survive CAN). Production HITL
                 # signals the continued run separately after each continue_as_new.
-                del auto_approve  # used via harness_auto only
+                _ = auto_approve  # folded into harness_auto above
                 return await handle.result()
