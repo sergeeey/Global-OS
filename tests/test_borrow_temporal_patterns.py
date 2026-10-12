@@ -64,9 +64,9 @@ def test_continue_as_new_real_chain() -> None:
 def test_harness_registry_isolated_by_run_id() -> None:
     """RUN-005: step/heartbeat registries are keyed by run_id (not a single global bag)."""
     from global_os.adapters.workflows.temporal_patterns import (
+        _STEP_FNS,
         register_pattern_steps,
         reset_pattern_harness,
-        _STEP_FNS,
     )
 
     reset_pattern_harness()
