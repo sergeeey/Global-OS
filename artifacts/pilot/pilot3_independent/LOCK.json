@@ -1,8 +1,10 @@
 {
   "protocol_id": "PILOT3-IND-ENG-v1",
-  "status": "PREREG_DRAFT",
+  "status": "LOCKED",
   "created_at": "2026-10-12T12:00:00Z",
+  "locked_at": "2026-10-12T14:35:00Z",
   "arms_relabeled_at": "2026-10-12T12:40:00Z",
+  "gos_tip_at_lock": "fb630924a3c4f69f97c355319bb463bfdbc54a64",
   "predecessor": {
     "protocol_id": "PILOT2-ENG-AB-v1",
     "verdict": "PARTIAL_SUPPORT_PROCESS_ONLY",
@@ -22,28 +24,61 @@
     "C": "full_global_os_process_runtime",
     "D": "blind_evaluator"
   },
-  "arm_label_note": "B=discipline ablation (was draft 'C'); C=GOS (was draft 'B'); D=evaluator (was draft 'E')",
+  "arm_label_note": "B=discipline ablation; C=GOS process; D=blind evaluator",
   "target": {
-    "repo": null,
-    "pin_sha": null,
-    "note": "Fill at lock. Prefer non-contaminated SHA for assigned executors."
+    "repo": "https://github.com/sergeeey/Paperclip-AI---2026",
+    "full_name": "sergeeey/Paperclip-AI---2026",
+    "pin_sha": "47c232b67c0113b44051c3e6d4c690f4522a895a",
+    "tree_oid": "bde02dc5a9059a62e46db6b382606787d184250b",
+    "focus_path": "tools/workflow-controller",
+    "why": "stdlib-adjacent workflow/security gates; 54 pytest/0.53s; not Pilot-2 contaminated; runnable offline after pip install -e ."
   },
+  "rejected_alternatives": [
+    {
+      "repo": "sergeeey/mcp-bouncer",
+      "reason": "Pilot 2 contamination for this executor family"
+    },
+    {
+      "repo": "sergeeey/Claude-cod-top-2026",
+      "reason": "prior campaign exposure + heavy suite"
+    },
+    {
+      "repo": "sergeeey/Skeptic-Engine-2026-",
+      "reason": "high data/cost; metric-fishing risk"
+    },
+    {
+      "repo": "sergeeey/ContextProof-2026",
+      "reason": "repository not found (404)"
+    }
+  ],
+  "task_framing": "Determine production readiness of Paperclip workflow-controller: material defects in artifact/security/tool-policy/issue/MCP surfaces with sealed repro; minimal regression-safe fixes.",
   "provider_budget_pins": {
-    "model_family": null,
-    "provider": null,
-    "tool_set": null,
-    "wall_budget": null,
-    "token_api_budget": null,
+    "model_family": "cursor-cloud-agent / composer-family",
+    "provider": "cursor-cloud",
+    "tool_set": "repo-read + pip install -e . once + local pytest; no network after deps",
+    "wall_budget": "45 minutes per experimental arm",
+    "token_api_budget": "unmetered-in-session (EFF cost cmp may be INCONCLUSIVE)",
     "network_policy": "clone once; offline pytest thereafter",
-    "fidelity": "INDEPENDENT_EXECUTORS_PLUS_ABLATION"
+    "fidelity": "ISOLATED_SUBAGENT_ARMS_SAME_ORCHESTRATOR",
+    "fidelity_note": "Arms A/B/C/D run as separate subagent sessions with sealed briefs only; parent orchestrator must not leak findings across arms before D seal. Not independent two-lab / distinct-provider replication."
   },
   "executors": {
-    "A": null,
-    "B": null,
-    "C": null,
-    "D": null
+    "A": "subagent:pilot3-arm-A",
+    "B": "subagent:pilot3-arm-B",
+    "C": "subagent:pilot3-arm-C",
+    "D": "subagent:pilot3-arm-D"
   },
-  "attr_tolerance": null,
+  "ablation_checklist_sha256": "c7ffa3070319a47ae6c70cfee5918da745cc961b7d8204377a7e662751750511",
+  "ablation_file_sha256": "9be70605a91c2f10ce6250381c497fbb701a71ef50c8182f1e45ed595ad6f9fa",
+  "attr_tolerance": {
+    "relative_delta": 0.15,
+    "note": "C vs B; if n small, dual qualitative PASS/FAIL allowed with disclosure"
+  },
+  "smoke_at_lock": {
+    "command": "cd tools/workflow-controller && pip install -e . && python -m pytest -q",
+    "result": "54 passed in 0.53s"
+  },
+  "blind_eval_procedure": "Operator renames arm packs to P1/P2/P3 with shuffled mapping recorded in BLIND_MAP.json (sealed until after EVAL_SEAL.json).",
   "arms_started": false,
   "decision": null
 }
