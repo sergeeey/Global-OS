@@ -523,7 +523,9 @@
       "target": "artifacts/pilot/challenge_ga/TARGET.md",
       "evidence": "tests/test_challenge_ga_lock.py; tests/test_challenge_ga_harness.py (organ loop + scorer + exec gate)",
       "forbidden_until_human_request": "execute_challenge",
-      "harness": "src/global_os/evals/challenge_ga/"
+      "harness": "src/global_os/evals/challenge_ga/",
+      "prep": "artifacts/pilot/challenge_ga/CHALLENGE_PREP.md",
+      "honesty": "mechanisms_and_fixture_loop_≠_autonomous_goal_achiever"
     }
   }
 }

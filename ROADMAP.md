@@ -34,9 +34,12 @@ CURRENT — post architecture ablation (ARCH-ABLATION-MECH-v1 TERMINAL)
   Paradigm: artifacts/pilot/cognitive_core/PARADIGM.md
   Organs: CONTRACTS_LOCKED (Decomposer→Pivot→Orchestration); stubs only
   Challenge-GA: PREREG_LOCKED (exec NOT_STARTED) — artifacts/pilot/challenge_ga/LOCK.json
-  Next: deepen organs → human-requested Challenge-GA exec (C vs B on terminal Goal)
+  Honesty layers (do not collapse):
+    mechanisms implemented ≠ fixture loop working ≠ Autonomous Goal Achiever shown
+  Next process: coherent main via #36 (preferred) or #32→#35 then unique #36 delta
+  Next mission: deepen organs → Challenge prep → exec only on explicit human request
   M2 CLOSED; Pilot 3 ATTR NOT_SHOWN (audit); do not soften / do not platform-only swap
-  Do NOT invent M-EXT6 / ScienceKernel / Trust Kernel promote
+  Do NOT invent M-EXT6 / ScienceKernel / Trust Kernel promote / Challenge-before-merge
   Y20–Y22: primary-outcome advantage NOT SHOWN
   External: PhaseBreak RECONCILED; mcp-bouncer RECONCILED+CI_VERIFIED; Pilot 3 TERMINAL
         │

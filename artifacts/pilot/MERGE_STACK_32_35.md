@@ -1,21 +1,50 @@
-# Merge stack #32–#35 (request merge)
+# Merge stack #32–#35 → integration #36 (operator strategy)
 
-**Status:** Stack verified locally — human merge required (ADR dogfood: no autonomous T0/T1 merge)  
+**Status:** CI green on integration tip — **human merge required**  
+(ADR dogfood: no autonomous T0/T1 merge)  
 **Integration branch:** `cursor/post-debt-integration-2907`  
-**Verified tip:** merge commits 32→33→34→35 onto `main` @ `2f73107` — **clean**
+**Integration PR:** [#36](https://github.com/sergeeey/Global-OS/pull/36) (Draft until human accepts)  
+**Base tip:** `main` @ `2f73107` (DurableRunner #31)
 
-## Order
+## Operator recommendation (2026-10-12)
 
-1. [#32](https://github.com/sergeeey/Global-OS/pull/32) — organs + HUMAN  
-2. [#33](https://github.com/sergeeey/Global-OS/pull/33) — authority token↔tool  
-3. [#34](https://github.com/sergeeey/Global-OS/pull/34) — T3 A/B sensitivity  
-4. [#35](https://github.com/sergeeey/Global-OS/pull/35) — Challenge-GA PREREG_LOCKED  
+Do **not** start Challenge-GA exec now. Do **not** open a new wide architecture campaign.
 
-## Boundaries
+Most valuable step: bring already-ready changes to a **coherent `main`**.
 
-`ATTR=NOT_SHOWN` · `M2=CLOSED` · `PRODUCTION_PROVEN=0`
+### Single merge strategy (pick one — not both)
 
-## Post-stack P1 (this integration branch)
+| Strategy | Action | Notes |
+|----------|--------|-------|
+| **A — preferred** | Merge **#36** only | Already contains #32→#35 stack + post-debt P1. Close #32–#35 as superseded after #36 lands. |
+| **B — sequential** | Merge #32→#33→#34→#35, then rebase #36 for **unique** P1-only delta | Do not treat #32–#35 and #36 as independent deliveries of the same organs/authority/Challenge lock. |
 
-- Grounding claim ⊆ passage (GOS-I08) · PACK-v2/v3 5-check integrity · C2 decision-coupled sensitivity
-- Challenge organ fixture loop + exec gate (`NOT_STARTED`; no WIN without human request)
+**Default for this pack:** Strategy A.
+
+## What #36 includes
+
+1. Cognitive organ contracts + HUMAN `awaiting_human` (#32)
+2. Authority P0: token↔tool, approval token, parent grants (#33)
+3. T3 A/B model-sensitivity + honesty (#34)
+4. CHALLENGE-GA `PREREG_LOCKED` (#35)
+5. Post-debt P1: grounding claim⊆passage · PACK-v2/v3 5-check integrity · C2 decision-coupled sensitivity · Challenge organ fixture loop + exec gate
+
+## Honesty layers (must stay distinct after merge)
+
+| Layer | Claim strength |
+|-------|----------------|
+| Implemented mechanisms | Authority bind, organ *contracts*, HUMAN routing, PACK integrity |
+| Working fixture loop | Decomposer→route→pivot + terminal scorer on naive fixture — **not** live Achiever |
+| Full Autonomous Goal Achiever | **NOT SHOWN** until Challenge-GA terminal evidence |
+
+Green CI on #36 proves the checks CI runs — **not** that organs can autonomously finish a hard real Goal.
+
+## Post-merge checklist (human)
+
+1. Combined tip verification: authority negatives + T3 sensitivity + Challenge harness/gate
+2. Canon sync: ROADMAP / honesty map / capability_matrix / README distinguish the three layers above
+3. Challenge prep only (`artifacts/pilot/challenge_ga/CHALLENGE_PREP.md`) — **exec only after explicit human request**
+
+## Boundaries (unchanged)
+
+`ATTR=NOT_SHOWN` · `M2=CLOSED` · `PRODUCTION_PROVEN=0` · `CHALLENGE_EXEC=NOT_STARTED`

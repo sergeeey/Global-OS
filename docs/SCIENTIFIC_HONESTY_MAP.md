@@ -217,11 +217,16 @@ EXTERNAL REAL WORK
   MINIMAL-STACK-v1 = reliability foundation (stop micro-reproving); ≠ the building
   Cognitive Core paradigm: Autonomous Goal Achiever primary
   Organs: CONTRACTS_LOCKED · Challenge-GA: PREREG_LOCKED (exec NOT_STARTED)
-  Authority P0 bind + T3 A/B sensitivity: stacked for merge (#32–#34); see MERGE_STACK_32_35.md
-  Intelligence advantage still NOT_SHOWN until Challenge runs; ATTR/M2 frozen
+  Integration #36 (preferred single merge): organs + authority P0 + T3 sensitivity
+    + Challenge lock + P1 grounding/PACK/C2 + fixture harness — see MERGE_STACK_32_35.md
+  Honesty layers (do not collapse):
+    mechanisms implemented ≠ fixture loop working ≠ Autonomous Goal Achiever shown
+  Green CI ≠ organs can finish a hard real Goal; Challenge prep ≠ Challenge exec
+  Intelligence advantage still NOT_SHOWN until Challenge terminal evidence; ATTR/M2 frozen
   VERIFIED_CURRENT_VALUE = disciplined audit workflow (+ Pilot 2 external cycle)
   NOT_SHOWN = complex GOS required vs checklist+ledger+verify
   Phase quality ≠ product maturity; PRODUCTION_PROVEN = 0
+  Boundaries: ATTR=NOT_SHOWN · M2=CLOSED · PRODUCTION_PROVEN=0 · CHALLENGE_EXEC=NOT_STARTED
 ```
 
 

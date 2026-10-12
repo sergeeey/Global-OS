@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.148 — 2026-10-12
+
+### Operator merge strategy + Challenge prep (no exec)
+
+- Single-merge preference: accept #36 (contains #32–#35 + P1); do not double-deliver via #32–#35 and #36
+- Honesty layers locked in ROADMAP / honesty map: mechanisms ≠ fixture loop ≠ Achiever
+- Challenge prep checklist only: `artifacts/pilot/challenge_ga/CHALLENGE_PREP.md`
+- Boundaries: ATTR NOT_SHOWN · M2 CLOSED · PRODUCTION_PROVEN=0 · CHALLENGE_EXEC=NOT_STARTED
+
 ## 0.1.147 — 2026-10-12
 
 ### Post-debt P1: grounding · PACK integrity · C2 sensitivity · Challenge gate
