@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.125 — 2026-10-12
+
+### Canon sync — PR #15 on main
+
+- PR #15 merged (`4b7224c`); borrow primitives on default branch
+- RUN_STATE tip/merge metadata synced; mode remains PILOT_USAGE
+
 ## 0.1.124 — 2026-10-12
 
 ### Borrow competitor primitives (ADR-0013) — Phase 0→P3

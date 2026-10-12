@@ -60,7 +60,7 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 11. **Closed:** M-EXT3 TIE on httpx#3614 — both arms hard-gated; H_GSA NOT CONFIRMED.  
 12. **Audited:** M-EXT4 triage success + errata; init Mpemba UNRESOLVED / NOT TESTED.  
 13. **Closed:** M-EXT5 CAMPAIGN_CLOSED — late REJECTED; early secondary SUPPORTED; Fisher REJECTED.  
-14. **Now:** **pilot usage** + ADR-0013 borrow primitives (P0–P3 local/harness). DoD V2 still PARTIAL. Not: M-EXT6; Trust Kernel; PRODUCTION_PROVEN; ScienceKernel.
+14. **Now:** `main` @ `4b7224c` (#15); **pilot usage** + ADR-0013 borrow (P0–P3). DoD V2 still PARTIAL (0 PRODUCTION_PROVEN). Not: M-EXT6; Trust Kernel; ScienceKernel.
 
 ## Документы
 

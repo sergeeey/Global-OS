@@ -21,6 +21,7 @@
 - [x] P0b ConfirmPolicy deterministic + sandbox ops profile
 - [x] P1a progressive memory commit; P1b LLM fair scheduler
 - [x] P2 SOP + grounding + CLI time-travel; P3 research factory template
+- [x] Merge PR #15 to main (`4b7224c`) — borrow primitives canonical
 - [ ] Pilot usage on real projects (not M-EXT6 self-exam chain by default) — needs user Goal Contract
 - [ ] Forbidden (standing): rewrite M-EXT4/5; secondary→primary silently; Immune*/ScienceKernel
 - [ ] Later (optional): verification-budget frontier — Y24/Y25 already CLOSED; new prereg required
