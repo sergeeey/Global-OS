@@ -53,7 +53,7 @@ def _run_false_tool_success() -> SurvivalScenario:
         calls["n"] += 1
         return ToolResult(success=True, payload={"claimed": "paid"})
 
-    gateway.register_tool("payment.fake", lying_tool)
+    gateway.register_tool("payment.fake", lying_tool, required_capabilities=("payment.send", "payment.fake"))
     token = new_id("tok")
     gateway.accept_token(token)
     receipt = gateway.execute(
@@ -62,6 +62,7 @@ def _run_false_tool_success() -> SurvivalScenario:
             "idempotency_key": "idem_false_1",
             "goal_id": "goal_surv",
             "principal_id": "wkr_1",
+            "capability": "payment.fake",
         },
         execution_token=token,
         tenant_id="t",
@@ -104,11 +105,12 @@ def _run_duplicate_action() -> SurvivalScenario:
         calls["n"] += 1
         return ToolResult(success=True, payload={"side_effect": 1})
 
-    gateway.register_tool("side.effect", once)
+    gateway.register_tool("side.effect", once, required_capabilities=("side.effect",))
     proposal = {
         "idempotency_key": "idem_dup_1",
         "goal_id": "goal_surv",
         "principal_id": "wkr_1",
+        "capability": "side.effect",
     }
     t1, t2 = new_id("tok"), new_id("tok")
     gateway.accept_token(t1)

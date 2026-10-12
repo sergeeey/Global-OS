@@ -30,7 +30,7 @@ def test_execution_token_bound_to_proposal_and_consumed(sample_proposal):
     tokens = ExecutionTokenService(signing_key=b"m14-test-key")
     auth = AuthorityKernel(ledger, token_service=tokens)
     gateway = ToolGateway(ledger, token_service=tokens)
-    gateway.register_tool("web.fetch", lambda _p: ToolResult(True, {}))
+    gateway.register_tool("web.fetch", lambda _p: ToolResult(True, {}), required_capabilities=("web.read",))
     auth.grant(
         principal_id="worker_research_1",
         capabilities={"web.read"},
@@ -351,7 +351,7 @@ def test_effect_reconciliation_tool_success_not_world_success():
 
     ledger = EventLedger()
     gateway = ToolGateway(ledger, allow_legacy_tokens=True)
-    gateway.register_tool("pay", lambda _p: ToolResult(True, {}))
+    gateway.register_tool("pay", lambda _p: ToolResult(True, {}), required_capabilities=("payment.send",))
     gateway.accept_token("legacy_tok")
     receipt = gateway.execute(
         tool_id="pay",
@@ -359,6 +359,7 @@ def test_effect_reconciliation_tool_success_not_world_success():
             "idempotency_key": "idem-recon-1",
             "goal_id": "goal_x",
             "principal_id": "w1",
+            "capability": "payment.send",
         },
         execution_token="legacy_tok",
         tenant_id="t",

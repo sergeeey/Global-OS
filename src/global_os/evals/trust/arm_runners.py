@@ -166,6 +166,7 @@ def run_arm(
         gateway.register_tool(
             "filesystem.write",
             lambda _p: ToolResult(True, {"ok": True}),
+            required_capabilities=("filesystem.write",),
         )
 
         goal = goals.create(_base_goal(mid))

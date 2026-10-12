@@ -196,7 +196,7 @@ def test_fail_closed_gateway_no_token_no_tool_effect():
         calls["n"] += 1
         return ToolResult(True, {})
 
-    gateway.register_tool("web.fetch", handler)
+    gateway.register_tool("web.fetch", handler, required_capabilities=("web.read",))
     proposal = _proposal(
         principal_id="worker_research_1",
         capability="web.read",

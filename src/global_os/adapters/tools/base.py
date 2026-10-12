@@ -63,3 +63,23 @@ class FakeReadTool(ToolAdapter):
 
     def invoke(self, invocation: ToolInvocation) -> ToolOutcome:
         return ToolOutcome(True, {"echo": invocation.arguments, "op": invocation.operation})
+
+
+class FakePaymentTool(ToolAdapter):
+    """Canary side-effect tool — must not run under a web.read token (audit N1)."""
+
+    def spec(self) -> ToolSpec:
+        return ToolSpec(
+            tool_id="payment.fake",
+            version="0.1.0",
+            operations=("charge",),
+            trust_level="HIGH",
+            side_effect_class="payment",
+            required_capabilities=("payment.send",),
+            reversibility="none",
+            input_schema={"type": "object"},
+            output_schema={"type": "object"},
+        )
+
+    def invoke(self, invocation: ToolInvocation) -> ToolOutcome:
+        return ToolOutcome(True, {"charged": invocation.arguments})

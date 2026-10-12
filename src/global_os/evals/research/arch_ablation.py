@@ -338,7 +338,7 @@ def run_s4(arm_id: str) -> ScenarioResult:
     ledger = EventLedger()
     tokens = ExecutionTokenService(signing_key=b"arch-ablation-test-key")
     gateway = ToolGateway(ledger, token_service=tokens)
-    gateway.register_tool("web.fetch", lambda _p: ToolResult(True, {"bytes": 1}))
+    gateway.register_tool("web.fetch", lambda _p: ToolResult(True, {"bytes": 1}), required_capabilities=("web.read",))
 
     proposal = _proposal(
         principal_id="worker_research_1",
