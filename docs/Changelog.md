@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.138 — 2026-10-12
+
+### Canon sync after #25
+
+- PR #25 merged (`4cd868c`) — Pilot 3 A/B/C/D + mcp-bouncer CI_VERIFIED on main
+- Pilot 2 external WorldInteraction CLOSED; next = Pilot 3 lock (not M2)
+
 ## 0.1.137 — 2026-10-12
 
 ### mcp-bouncer WorldInteraction closed — CI_VERIFIED
