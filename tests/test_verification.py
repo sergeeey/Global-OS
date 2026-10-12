@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from global_os.verification import (
     ResultClass,
+    VerificationOutcome,
     VerificationRequest,
     VerificationRouter,
-    VerificationOutcome,
     VerificationTier,
     required_tier,
 )

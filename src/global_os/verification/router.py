@@ -148,17 +148,19 @@ def _enforce_tier_evidence(
     tier: VerificationTier, outcome: VerificationOutcome
 ) -> VerificationOutcome:
     """Higher tiers must not pass by label alone (GOS-I08 / GOS-I10)."""
-    if tier.value >= VerificationTier.HUMAN.value:
-        if "human_reference" not in outcome.diversity_factors:
-            return VerificationOutcome(
-                protocol=outcome.protocol,
-                tier=tier,
-                passed=False,
-                details={
-                    **dict(outcome.details),
-                    "reason": "HUMAN tier requires human_reference evidence — not a label upgrade",
-                    "claimed_factors": list(outcome.diversity_factors),
-                },
-                diversity_factors=outcome.diversity_factors,
-            )
+    if (
+        tier.value >= VerificationTier.HUMAN.value
+        and "human_reference" not in outcome.diversity_factors
+    ):
+        return VerificationOutcome(
+            protocol=outcome.protocol,
+            tier=tier,
+            passed=False,
+            details={
+                **dict(outcome.details),
+                "reason": "HUMAN tier requires human_reference evidence — not a label upgrade",
+                "claimed_factors": list(outcome.diversity_factors),
+            },
+            diversity_factors=outcome.diversity_factors,
+        )
     return outcome
