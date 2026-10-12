@@ -1,0 +1,40 @@
+{
+  "protocol_id": "PILOT2-ENG-AB-v1",
+  "status": "TARGET_LOCKED",
+  "locked_at": "2026-10-12T11:21:00Z",
+  "gos_tip_at_lock": "4507051cbded1c43a07808663105bf78b5c8d576",
+  "hypothesis": "H-PILOT2-001",
+  "target": {
+    "repo": "https://github.com/sergeeey/mcp-bouncer",
+    "full_name": "sergeeey/mcp-bouncer",
+    "pin_sha": "45af09215daf106c74a21764290082a5c54583d4",
+    "tree_oid": "d85460b73de96aed6a8b71615577416b385e3bca",
+    "version_at_pin": "0.2.0",
+    "why": "zero dependencies; 50 pytest in <0.1s; MCP prompt-injection engineering surface; not Global-OS/PhaseBreak; strong baseline can still break MCP compatibility"
+  },
+  "rejected_alternatives": [
+    {
+      "repo": "sergeeey/ContextProof-2026",
+      "reason": "heavier FastAPI/Streamlit deps; slower identical-env A/B; keep as Pilot 2b candidate"
+    },
+    {
+      "repo": "sergeeey/Skeptic-Engine-2026-",
+      "reason": "high data/scipy cost; metric-fishing risk; better for Pilot 3 research/evidence class"
+    }
+  ],
+  "task_framing": "Determine production readiness of mcp-bouncer: find material correctness/security defects in the 8 attack-class filter, reproduce confirmable bypasses or false-positive breakage of legitimate MCP/JSON-RPC traffic, propose minimal regression-safe fixes with failing-then-passing tests.",
+  "provider_budget_pins": {
+    "model_family": "TBD_BEFORE_ARM_START",
+    "provider": "TBD_BEFORE_ARM_START",
+    "tool_set": "TBD_BEFORE_ARM_START",
+    "wall_budget": "TBD_BEFORE_ARM_START",
+    "token_api_budget": "TBD_BEFORE_ARM_START",
+    "network_policy": "same for A and B; prefer offline after clone",
+    "note": "Target repo LOCKED; provider/budget pins still required before arm execution (see LOCK_CHECKLIST.md)"
+  },
+  "smoke_at_lock": {
+    "pytest": "50 passed in 0.04s",
+    "dependencies": []
+  },
+  "arms_started": false
+}

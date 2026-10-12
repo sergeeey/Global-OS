@@ -62,7 +62,8 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 13. **Closed:** M-EXT5 CAMPAIGN_CLOSED — late REJECTED; early secondary SUPPORTED; Fisher REJECTED.  
 14. **Done:** P0 hardening merged (`3e4de13` #17).  
 15. **Done:** PhaseBreak pilot TERMINAL (`3150725` #18); residual hardening (`c851246` #20).  
-16. **Now:** human PhaseBreak hygiene PR + lock Pilot 2 eng A/B prereg (`artifacts/pilot/pilot2_eng_ab/`). DoD V2 still PARTIAL (0 PRODUCTION_PROVEN). Not: M-EXT6; Trust Kernel; ScienceKernel.
+16. **Done:** PhaseBreak effect RECONCILED; Pilot 2 target LOCKED (`mcp-bouncer@45af092`).  
+17. **Now:** provider/budget pins → A/B execution. DoD V2 still PARTIAL (0 PRODUCTION_PROVEN). Not: M-EXT6; Trust Kernel; ScienceKernel.
 
 ## Документы
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.132 — 2026-10-12
+
+### Pilot 2 target locked — mcp-bouncer
+
+- Selected `sergeeey/mcp-bouncer@45af092` (stdlib-only; 50 tests / 0.04s)
+- Deferred ContextProof / Skeptic-Engine with reasons in LOCK.json
+- Provider/budget pins still TBD before arm start
+
 ## 0.1.131 — 2026-10-12
 
 ### PhaseBreak WorldInteraction closed

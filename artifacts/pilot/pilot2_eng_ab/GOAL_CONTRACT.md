@@ -1,9 +1,10 @@
 # Goal Contract — PILOT2-ENG-AB-v1
 
-**Status:** `PREREG_DRAFT` (lock before arm execution)  
+**Status:** `TARGET_LOCKED` (provider/budget pins still TBD before arms)  
 **Date (UTC):** 2026-10-12  
 **Mode:** PILOT_USAGE — engineering A/B (not M-EXT6)  
-**Depends on:** main @ `c851246` (#20); PhaseBreak hygiene may proceed in parallel
+**Depends on:** main @ `4507051` (#21); PhaseBreak effect reconciled (`0161463`)  
+**Target:** `sergeeey/mcp-bouncer` @ `45af092` — see `LOCK.json`
 
 ## Goal
 
@@ -31,11 +32,14 @@ than a strong single-agent baseline.
 
 ## Task framing (same for A and B)
 
-> Determine production readiness of the target project: find material
-> correctness/runtime defects, reproduce confirmable problems, and propose
-> minimal regression-safe fixes.
+> Determine production readiness of **mcp-bouncer**: find material
+> correctness/security defects in the 8 attack-class prompt-injection filter,
+> reproduce confirmable bypasses **or** false-positive breakage of legitimate
+> MCP/JSON-RPC traffic, and propose minimal regression-safe fixes with
+> failing-then-passing tests.
 
-Not: “find as many bugs as possible.”
+Not: “find as many bugs as possible.”  
+Not: silently tighten filters until all tests pass while breaking MCP payloads.
 
 ## Arms
 

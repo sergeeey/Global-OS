@@ -22,27 +22,26 @@ not PhaseBreak (already used for Pilot 1 claims audit)
 | Unrunnable / no tests | cannot verify findings |
 | Secrets-heavy prod systems | unsafe |
 
-## Candidate shortlist (fill at lock)
+## Candidate shortlist (evaluated 2026-10-12)
 
-| # | Repo | Pin SHA | Why fit | Risk |
-|---|------|---------|---------|------|
-| 1 | _TBD_ | | | |
-| 2 | _TBD_ | | | |
-| 3 | _TBD_ | | | |
+| # | Repo | Pin SHA | Why fit | Risk | Decision |
+|---|------|---------|---------|------|----------|
+| 1 | `sergeeey/mcp-bouncer` | `45af092` | stdlib-only; 50 tests / 0.04s; MCP injection filter; clear A/B failure modes | agent over-blocks MCP JSON-RPC | **SELECTED** |
+| 2 | `sergeeey/ContextProof-2026` | — | API/RAG numeric invariants | heavier deps; stub-test risk | deferred (Pilot 2b) |
+| 3 | `sergeeey/Skeptic-Engine-2026-` | — | adversarial metrics / leakage | high data cost; metric fishing | deferred (Pilot 3 class) |
 
 ## Selection rule
 
-Prefer the candidate with the best **runnability × unfamiliarity × defect surface** score under dual review.  
-Document rejected candidates with one-line reason (no silent cherry-pick after peeking at results).
+Prefer best **runnability × unfamiliarity × defect surface** under dual review.  
+Document rejected candidates (no silent cherry-pick after peeking at results).
 
 ## Freeze
 
-Once chosen:
-
 ```text
-git clone --filter=blob:none <url>
-git checkout <pin_sha>
-record tree OID + pin in LOCK.json
+git clone https://github.com/sergeeey/mcp-bouncer
+git checkout 45af09215daf106c74a21764290082a5c54583d4
+tree OID d85460b73de96aed6a8b71615577416b385e3bca
+recorded in LOCK.json
 ```
 
-Both arms receive an identical tarball / worktree snapshot.
+Both arms receive an identical worktree at this pin. See `LOCK.json`.
