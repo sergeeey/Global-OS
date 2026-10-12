@@ -210,7 +210,8 @@ EXTERNAL REAL WORK
   Operator acceptance: ATTR NOT_SHOWN preserved; M2 CLOSED
   Architecture ablation ARCH-ABLATION-MECH-v1 TERMINAL: H-ABL-G1/G2/G3/Gfull SUPPORTED
     at SCRIPTED_MECHANISM_ABLATION; ATTR/M2 frozen; ≠ LLM field ATTR overturn
-  MINIMAL-STACK-v1 LOCKED: DEFAULT=G1+G2+G3; Gfull OPT-IN; product claims bounded by ATTR NOT_SHOWN
+  MINIMAL-STACK-v1 LOCKED as reliability substrate (≠ mission endgame); DEFAULT=G1+G2+G3;
+    mission remains Autonomous Work OS; ATTR NOT_SHOWN / M2 CLOSED preserved
   VERIFIED_CURRENT_VALUE = disciplined audit workflow (+ Pilot 2 external cycle)
   NOT_SHOWN = complex GOS required vs checklist+ledger+verify
   Phase quality ≠ product maturity; PRODUCTION_PROVEN = 0

@@ -1,4 +1,4 @@
-# MINIMAL-STACK-v1 — Product Contract
+# MINIMAL-STACK-v1 — Substrate Contract (not the project endgame)
 
 **Status:** `LOCKED`  
 **Date (UTC):** 2026-10-12  
@@ -7,14 +7,45 @@
 - Pilot 3 TERMINAL — ATTR = PROCESS_DISCIPLINE_SUFFICES / GOS incremental NOT_SHOWN
 - ARCH-ABLATION-MECH-v1 TERMINAL — H-ABL-G1/G2/G3/Gfull SUPPORTED at `SCRIPTED_MECHANISM_ABLATION`
 
-## 1. Goal
+## 0. Mission reaffirmation (binding)
 
-Define the **default product mechanism stack** justified by sealed failure classes,
-and the **claim boundary** that marketing / engineering / research must not cross.
+Global OS remains an **Autonomous Work Operating System** (SPEC / README / Project.md):
+
+> Human sets a terminal goal (result, constraints, authority, success criteria).  
+> The system plans, selects tools/agents, executes, adapts, verifies, and drives  
+> toward a checked result — not a chat reply and not “audit-only infrastructure.”
+
+Three capacities (all required for the mission):
+
+| Capacity | Meaning | Current honesty |
+|----------|---------|-----------------|
+| Intelligence | find good strategies toward the goal | largely NOT_SHOWN vs strong baselines on tested classes |
+| Execution | use tools/world and finish work | PARTIAL (pilots, WorldInteraction cycles) |
+| Reliability | hold goal, authority, evidence, recovery | strongest local evidence (G1–Gfull / fail-closed) |
 
 ```text
-Product ≠ “full Global OS beats disciplined agent on audits”
-Product = “minimal fail-closed mechanisms for specific invariant breaks”
+MINIMAL-STACK-v1 = default Reliability substrate for the Autonomous Work OS
+MINIMAL-STACK-v1 ≠ new product mission
+MINIMAL-STACK-v1 ≠ “Global OS is only a permission/verification platform”
+```
+
+Strategic product choice (locked by this reaffirmation):
+
+```text
+Primary product  = autonomous goal-achiever (Intelligence + Execution + Reliability)
+Secondary role   = reliability platform / substrate for that achiever
+Forbidden swap   = replacing the primary mission with substrate-only productization
+```
+
+## 1. Goal of *this* contract
+
+Define the **default reliability substrate** justified by sealed failure classes,
+and the **claim boundary** so substrate wins are not misread as mission completion.
+
+```text
+Substrate ≠ “full Global OS beats disciplined agent on audits”
+Substrate = “minimal fail-closed mechanisms for specific invariant breaks”
+Mission   = autonomous conversion of human intent → verified world result
 ```
 
 ## 2. Frozen parent invariants
@@ -39,7 +70,7 @@ Scripted ablation **does not** overturn Pilot 3 ATTR on LLM audit EPI/ENG.
 | Crash mid-workflow without resume | S2 (durable) | Gfull DurableRunner | OPT-IN |
 | Summary-only handoff info loss | S3 (info) | Gfull artifact-first handoff | OPT-IN |
 
-### Default product stack
+### Default reliability substrate
 
 ```text
 DEFAULT = G1 + G2 + G3
@@ -48,6 +79,9 @@ DEFAULT = G1 + G2 + G3
   + EffectReceipt / Proposal≠Effect gate
   + Authority + ToolGateway fail-closed
 ```
+
+These layers make long autonomous work *safer to run*. They do **not** by themselves
+select strategy, invent plans, or maximize goal quality.
 
 ### Not default
 
@@ -100,8 +134,12 @@ E — do not do now:
 
 ## 8. Next (after this lock)
 
-Ordered options — pick explicitly; do not do all at once:
+Ordered by mission reaffirmation — substrate is necessary, not sufficient:
 
-1. Implement/dogfood DEFAULT stack on a real audit mission with claim-boundary checklist (no ATTR claim).
-2. Optional human: Paperclip WorldInteraction.
-3. Optional new prereg: higher-fidelity field ablation (distinct providers) — only if seeking ATTR-class evidence.
+1. **A1 / frog:** design the next **goal-achievement mission** (not audit-only ATTR re-run)
+   that stresses Intelligence + Execution + Reliability together under a Goal Contract
+   (plan → tools/agents → adapt → verify → terminal result). Keep ATTR/M2 honesty.
+2. Dogfood DEFAULT substrate *inside* that mission (claim-boundary checklist; no ATTR softens).
+3. Optional human: Paperclip WorldInteraction (Execution track).
+4. Optional later: higher-fidelity field ablation — only if seeking ATTR-class evidence;
+   does not replace goal-achievement R&D.

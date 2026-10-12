@@ -44,8 +44,9 @@
 - [x] Pilot 3 TERMINAL — ATTR PROCESS_DISCIPLINE_SUFFICES; GOS incremental NOT_SHOWN
 - [x] Operator acceptance: ATTR NOT_SHOWN preserved; M2 CLOSED; ablation next
 - [x] Architecture ablation LOCKED+EXECUTED (`ARCH-ABLATION-MECH-v1`) — H-ABL-* SUPPORTED; ATTR preserved
-- [x] Minimal Mechanism Product Contract LOCKED (`MINIMAL-STACK-v1`) — DEFAULT=G1+G2+G3; Gfull OPT-IN
-- [ ] Dogfood DEFAULT stack on real audit mission (claim-boundary checklist; no ATTR claim)
+- [x] Minimal Mechanism Substrate Contract LOCKED (`MINIMAL-STACK-v1`) — DEFAULT=G1+G2+G3; ≠ mission endgame
+- [ ] Design next goal-achievement mission (Intelligence+Execution+Reliability; substrate inside)
+- [ ] Dogfood DEFAULT substrate inside that mission (claim-boundary; no ATTR soften)
 - [ ] Optional: Paperclip external fix WorldInteraction (human gate)
 - [ ] Forbidden: soften Pilot 3 ATTR; reopen M2 without higher-fidelity evidence
 - [ ] Forbidden (standing): rewrite M-EXT4/5; secondary→primary silently; Immune*/ScienceKernel

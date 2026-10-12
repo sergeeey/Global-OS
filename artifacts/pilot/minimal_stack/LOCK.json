@@ -12,6 +12,8 @@
     "ablation_protocol": "ARCH-ABLATION-MECH-v1",
     "ablation_fidelity": "SCRIPTED_MECHANISM_ABLATION"
   },
+  "role": "reliability_substrate_not_mission_endgame",
+  "primary_mission": "autonomous_goal_achiever",
   "default_product_stack": ["G1", "G2", "G3"],
   "opt_in_layers": ["Gfull.durable_runner", "Gfull.artifact_handoff"],
   "forbidden": [
@@ -19,6 +21,7 @@
     "reopen_m2",
     "claim_gfull_default",
     "claim_llm_audit_superiority_vs_discipline_b",
+    "replace_mission_with_substrate_only_product",
     "production_proven_bump",
     "new_t0_t1_surfaces"
   ]

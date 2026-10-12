@@ -19,11 +19,14 @@ def test_minimal_stack_lock_sealed():
     assert lock["parent"]["m2"] == "CLOSED"
     assert lock["parent"]["production_proven"] == 0
     assert lock["parent"]["ablation_protocol"] == "ARCH-ABLATION-MECH-v1"
+    assert lock["role"] == "reliability_substrate_not_mission_endgame"
+    assert lock["primary_mission"] == "autonomous_goal_achiever"
     assert lock["default_product_stack"] == ["G1", "G2", "G3"]
     assert "Gfull.durable_runner" in lock["opt_in_layers"]
     assert "soften_pilot3_attr" in lock["forbidden"]
     assert "reopen_m2" in lock["forbidden"]
     assert "claim_gfull_default" in lock["forbidden"]
+    assert "replace_mission_with_substrate_only_product" in lock["forbidden"]
 
 
 def test_contract_maps_failure_classes_and_default_stack():
@@ -42,10 +45,15 @@ def test_contract_maps_failure_classes_and_default_stack():
         "M2 (org superiority)",
         "CLOSED",
         "PRODUCTION_PROVEN",
+        "Autonomous Work Operating System",
+        "reliability substrate",
+        "≠ new product mission",
+        "autonomous goal-achiever",
     ):
         assert needle in text, needle
-    # Must not claim ATTR overturn
+    # Must not claim ATTR overturn; must not swap mission for substrate
     assert "overturn Pilot 3 ATTR" in text or "does not** overturn" in text or "do not** overturn" in text
+    assert "Forbidden swap" in text or "replace the primary mission" in text
 
 
 def test_roadmap_points_to_minimal_stack():

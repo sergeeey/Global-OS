@@ -465,6 +465,8 @@
     "MINIMAL_STACK_V1": {
       "status": "LOCKED",
       "protocol_id": "MINIMAL-STACK-v1",
+      "role": "reliability_substrate_not_mission_endgame",
+      "primary_mission": "autonomous_goal_achiever",
       "default_stack": ["G1", "G2", "G3"],
       "opt_in": ["Gfull.durable_runner", "Gfull.artifact_handoff"],
       "pilot3_attr_preserved": "NOT_SHOWN",
