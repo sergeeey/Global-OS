@@ -43,9 +43,9 @@
 - [x] Lock + execute Pilot 3 (Paperclip@47c232b; A/B/C + blind D)
 - [x] Pilot 3 TERMINAL — ATTR PROCESS_DISCIPLINE_SUFFICES; GOS incremental NOT_SHOWN
 - [x] Operator acceptance: ATTR NOT_SHOWN preserved; M2 CLOSED; ablation next
-- [ ] Architecture ablation prereg lock (B0 vs G1/G2/G3/Gfull)
+- [x] Architecture ablation LOCKED+EXECUTED (`ARCH-ABLATION-MECH-v1`) — H-ABL-* SUPPORTED; ATTR preserved
 - [ ] Optional: Paperclip external fix WorldInteraction (human gate)
-- [ ] Forbidden: soften Pilot 3 ATTR; reopen M2 without ablation evidence
+- [ ] Forbidden: soften Pilot 3 ATTR; reopen M2 without higher-fidelity evidence
 - [ ] Forbidden (standing): rewrite M-EXT4/5; secondary→primary silently; Immune*/ScienceKernel
 - [ ] Later (optional): verification-budget frontier — Y24/Y25 already CLOSED; new prereg required
 - [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.142 — 2026-10-12
+
+### Architecture ablation TERMINAL — ARCH-ABLATION-MECH-v1
+
+- Locked + executed scripted mechanism ablation (`artifacts/pilot/arch_ablation/`)
+- Arms B0/G1/G2/G3/Gfull × scenarios S1–S4; harness + 8 acceptance tests
+- H-ABL-G1/G2/G3/Gfull **SUPPORTED**; Pilot 3 ATTR **NOT_SHOWN** preserved; M2 **CLOSED**
+- Fidelity `SCRIPTED_MECHANISM_ABLATION` ≠ LLM field ATTR overturn; PRODUCTION_PROVEN=0
+
 ## 0.1.141 — 2026-10-12
 
 ### Operator acceptance after Pilot 3 — M2 CLOSED

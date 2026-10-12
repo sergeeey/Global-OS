@@ -1,0 +1,38 @@
+{
+  "protocol_id": "ARCH-ABLATION-MECH-v1",
+  "status": "LOCKED",
+  "locked_at_utc": "2026-10-12T15:10:00Z",
+  "locked_on_tip_sha": "5a50730fa314eda96a1da95b70dfb7c9187e71aa",
+  "parent": {
+    "pilot3_protocol": "PILOT3-IND-ENG-v1",
+    "pilot3_terminal": "TERMINAL",
+    "attr": "PROCESS_DISCIPLINE_SUFFICES",
+    "gos_incremental": "NOT_SHOWN",
+    "m2": "CLOSED",
+    "production_proven": 0
+  },
+  "fidelity": "SCRIPTED_MECHANISM_ABLATION",
+  "arms": {
+    "B0": "mutable_goal_mutable_ledger_direct_tool_trust",
+    "G1": "goal_store_event_ledger",
+    "G2": "g1_plus_effect_receipt_gateway",
+    "G3": "g2_plus_authority_fail_closed",
+    "Gfull": "g3_plus_durable_runner_artifact_handoff"
+  },
+  "scenarios": ["S1", "S2", "S3", "S4"],
+  "primary_comparisons": ["G1_vs_B0", "G2_vs_B0", "G3_vs_B0", "Gfull_vs_B0"],
+  "tolerance": {
+    "type": "absolute_scenario_count",
+    "min_delta_vs_b0_to_win": 1
+  },
+  "harness": "src/global_os/evals/research/arch_ablation.py",
+  "tests": "tests/test_arch_ablation.py",
+  "forbidden": [
+    "soften_pilot3_attr",
+    "reopen_m2_without_ablation_evidence_gate",
+    "production_proven_bump",
+    "new_t0_t1_surfaces",
+    "llm_boolean_security"
+  ],
+  "adr_0009": "eval_harness_only_no_new_architecture_surfaces"
+}

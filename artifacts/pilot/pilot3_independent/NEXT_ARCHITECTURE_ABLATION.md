@@ -1,42 +1,33 @@
 # NEXT — Architecture Ablation (post–Pilot 3)
 
-**Status:** `PREREG_DRAFT`  
+**Status:** `SUPERSEDED_BY_EXECUTION`  
+**Active pack:** `artifacts/pilot/arch_ablation/` (`ARCH-ABLATION-MECH-v1` TERMINAL)  
 **Depends on:** PILOT3 TERMINAL · ATTR = NOT_SHOWN / PROCESS_DISCIPLINE_SUFFICES  
 **Forbidden:** reopening M2; softening Pilot 3 ATTR; maturity bumps without new evidence
 
-## Question
+## Outcome (scripted mechanism ablation)
 
-Which **minimal** Global OS mechanisms add measurable value beyond Arm B
-(checklist + ledger + sealed repro), especially under:
+See `artifacts/pilot/arch_ablation/DECISION.md`.
 
 ```text
-long-running tasks
-faults / restarts
-control handoffs
-external-effect re-verification (Proposal ≠ Effect)
+H-ABL-G1/G2/G3/Gfull = SUPPORTED (SCRIPTED_MECHANISM_ABLATION)
+Pilot 3 ATTR         = NOT_SHOWN (preserved)
+M2                   = CLOSED (preserved)
+PRODUCTION_PROVEN    = 0
 ```
 
-## Suggested arms (draft — lock later)
+Mechanism layers catch sealed invariant breaks B0 misses (goal/ledger → effect →
+authority → durable+artifact handoff). This does **not** overturn Pilot 3 ATTR
+on LLM audit quality.
+
+## Historical draft arms (now locked in arch_ablation/)
 
 | Arm | Stack |
 |-----|--------|
-| B0 | Disciplined baseline (Pilot 3 Arm B protocol) |
-| G1 | B0 + immutable Goal Contract + append-only ledger only |
+| B0 | Disciplined baseline (mutable goal/ledger stand-in) |
+| G1 | Immutable Goal Contract + append-only ledger |
 | G2 | G1 + effect receipt / WorldInteraction gate |
-| G3 | G2 + Authority/ToolGateway fail-closed path |
-| Gfull | Full GOS process (Pilot 3 Arm C) |
+| G3 | G2 + Authority/ToolGateway fail-closed |
+| Gfull | G3 + DurableRunner + artifact-first handoff |
 
 Primary comparisons: **G\* vs B0**, not Gfull vs strong-A alone.
-
-## Success rule
-
-A G-arm wins only if it beats B0 on sealed EPI/ENG (and EFF if metered) beyond ATTR tolerance **without** fidelity breaks.  
-Ties and B0 wins are valid scientific outcomes.
-
-## Non-claims until locked/executed
-
-```text
-≠ component X is valuable
-≠ M2 reopened
-≠ PRODUCTION_PROVEN
-```

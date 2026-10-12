@@ -207,7 +207,9 @@ EXTERNAL REAL WORK
   mcp-bouncer: F01–F07 RECONCILED (#6) + CI_VERIFIED (#7/6ccce71 master green)
   Pilot 3 TERMINAL (Paperclip@47c232b): EPI/ENG SUPPORTED (C>A);
     ATTR PROCESS_DISCIPLINE_SUFFICES (C≯B); GOS incremental NOT_SHOWN
-  Operator acceptance: ATTR NOT_SHOWN preserved; M2 CLOSED; next=architecture ablation
+  Operator acceptance: ATTR NOT_SHOWN preserved; M2 CLOSED
+  Architecture ablation ARCH-ABLATION-MECH-v1 TERMINAL: H-ABL-G1/G2/G3/Gfull SUPPORTED
+    at SCRIPTED_MECHANISM_ABLATION; ATTR/M2 frozen; ≠ LLM field ATTR overturn
   VERIFIED_CURRENT_VALUE = disciplined audit workflow (+ Pilot 2 external cycle)
   NOT_SHOWN = complex GOS required vs checklist+ledger+verify
   Phase quality ≠ product maturity; PRODUCTION_PROVEN = 0

@@ -21,13 +21,15 @@ Binding claim language: `docs/SCIENTIFIC_HONESTY_MAP.md`.
 **NULL ≠ zero effect.** Raw-capability amplification is **NOT SHOWN** (not “proven impossible”).
 
 ```text
-CURRENT — PILOT_USAGE after Pilot 3 TERMINAL (main @ a4fc558 / #27)
+CURRENT — post architecture ablation (ARCH-ABLATION-MECH-v1 TERMINAL)
   VERIFIED: disciplined audit workflow > strong baseline A; GOS can run it;
-            Pilot 2 external merge + CI_VERIFIED
-  ATTR (C vs B): PROCESS_DISCIPLINE_SUFFICES — GOS incremental NOT_SHOWN
-  M2 (org superiority path): CLOSED on current evidence (do not reopen for optimism)
-  Next: architecture ablation (B0 vs minimal GOS subsets) — see
-        artifacts/pilot/pilot3_independent/NEXT_ARCHITECTURE_ABLATION.md
+            Pilot 2 external merge + CI_VERIFIED;
+            scripted mechanism layers (G1→Gfull) beat mutable B0 on S1–S4
+  ATTR (Pilot 3 C vs B): PROCESS_DISCIPLINE_SUFFICES — GOS incremental NOT_SHOWN (frozen)
+  Ablation: H-ABL-G1/G2/G3/Gfull SUPPORTED at SCRIPTED_MECHANISM_ABLATION fidelity
+            — does not overturn Pilot 3 ATTR; see artifacts/pilot/arch_ablation/DECISION.md
+  M2 (org superiority path): CLOSED (do not reopen for optimism)
+  Next: minimal mechanism product focus; optional Paperclip WorldInteraction (human)
   Do NOT invent M-EXT6 / ScienceKernel / Trust Kernel promote / soften Pilot 3 ATTR
   Y20–Y22: primary-outcome advantage NOT SHOWN
   External: PhaseBreak RECONCILED; mcp-bouncer RECONCILED+CI_VERIFIED; Pilot 3 TERMINAL
