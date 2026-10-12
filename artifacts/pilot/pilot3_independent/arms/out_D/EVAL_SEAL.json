@@ -1,0 +1,233 @@
+{
+  "evaluator": "pilot3-arm-D",
+  "target_pin": "47c232b67c0113b44051c3e6d4c690f4522a895a",
+  "focus": "tools/workflow-controller",
+  "pin_checkout": "/tmp/pilot/p3-arm-D",
+  "smoke_baseline": "54 passed",
+  "packs": {
+    "P1": {
+      "findings": [
+        {
+          "id": "C01",
+          "score": "CONFIRMED",
+          "notes": "repro_C01: run_issue_gates emits artifact gate fail; verify_event_log returns artifact-gate final reason mismatch"
+        },
+        {
+          "id": "C02",
+          "score": "CONFIRMED",
+          "notes": "repro_C02: output_file omitted from PATH_ARGUMENT_NAMES; policy allow + write outside roots"
+        },
+        {
+          "id": "C03",
+          "score": "CONFIRMED",
+          "notes": "repro_C03: ToolPolicy(allowed_tools=()) + unknown tool → action=allow via falsy short-circuit"
+        },
+        {
+          "id": "C04",
+          "score": "CONFIRMED",
+          "notes": "repro_C04: filesystem semgrep_config outside roots not in checked_paths; policy allow at policy surface"
+        },
+        {
+          "id": "C05",
+          "score": "CONFIRMED",
+          "notes": "repro_C05: argparse append+default yields ['error','warning','error']; cannot replace defaults"
+        },
+        {
+          "id": "C06",
+          "score": "CONFIRMED",
+          "notes": "repro_C06: line-rate=\"80\" → coverage_percent 8000 and artifact gate pass"
+        },
+        {
+          "id": "C07",
+          "score": "UNSUPPORTED",
+          "notes": "sync pass→done vs flow pass→reporter is dual-path locked by existing unit tests; not a material defect"
+        },
+        {
+          "id": "C08",
+          "score": "UNSUPPORTED",
+          "notes": "smoke 54-pass does not imply production readiness; epistemic non-claim retained"
+        }
+      ],
+      "fixes": [
+        {
+          "id": "C01",
+          "score": "CORRECT",
+          "notes": "patch accepts artifact gate {status}; regressions + smoke 60 passed after adding regression module"
+        },
+        {
+          "id": "C02",
+          "score": "CORRECT",
+          "notes": "output_file added to PATH_ARGUMENT_NAMES; blocks outside-root write"
+        },
+        {
+          "id": "C03",
+          "score": "CORRECT",
+          "notes": "empty allowlist deny-all; default DEFAULT_ALLOWED_TOOLS keeps smoke green"
+        },
+        {
+          "id": "C04",
+          "score": "CORRECT",
+          "notes": "conditional path check for filesystem-like semgrep_config; registry ids untouched"
+        },
+        {
+          "id": "C05",
+          "score": "CORRECT",
+          "notes": "default=None + post-parse or ['error','warning'] restores override semantics"
+        },
+        {
+          "id": "C06",
+          "score": "CORRECT",
+          "notes": "rejects line-rate outside [0,1] before percent scaling"
+        }
+      ]
+    },
+    "P2": {
+      "findings": [
+        {
+          "id": "F1",
+          "score": "CONFIRMED",
+          "notes": "regression red on pin: verify_event_log false-fails legitimate artifact-gate FAIL"
+        },
+        {
+          "id": "F2",
+          "score": "CONFIRMED",
+          "notes": "output_file absent from PATH_ARGUMENT_NAMES; MCP sync writes outside roots"
+        },
+        {
+          "id": "F3",
+          "score": "CONFIRMED",
+          "notes": "mocked semgrep exit 1 + note-only SARIF → semgrep.run fail overrides non-blocking SARIF pass"
+        },
+        {
+          "id": "F4",
+          "score": "UNSUPPORTED",
+          "notes": "observed sync→done is real but intentional; tests assert done-on-pass; dual-path with plan_issue_flow"
+        },
+        {
+          "id": "F5",
+          "score": "CONFIRMED",
+          "notes": "mocked trufflehog nonzero exit with unverified JSONL fails runner despite block_trufflehog_unknown=False"
+        }
+      ],
+      "fixes": [
+        {
+          "id": "F1",
+          "score": "CORRECT",
+          "notes": "aligns producer/validator via status verb; regression green; in-tree suite 55 passed"
+        },
+        {
+          "id": "F2",
+          "score": "CORRECT",
+          "notes": "adds output_file to PATH_ARGUMENT_NAMES; policy+MCP block verified"
+        },
+        {
+          "id": "F3",
+          "score": "CORRECT",
+          "notes": "treats semgrep exit 0/1 as runner pass; defers to SARIF block levels"
+        },
+        {
+          "id": "F4",
+          "score": "INCORRECT",
+          "notes": "rewrites intentional done-on-pass contract and acceptance tests; design change not a defect fix"
+        },
+        {
+          "id": "F5",
+          "score": "CORRECT",
+          "notes": "nonzero exit with empty stdout fails; otherwise defers to JSONL policy"
+        }
+      ]
+    },
+    "P3": {
+      "findings": [
+        {
+          "id": "B-01",
+          "score": "CONFIRMED",
+          "notes": "7 red on pin: output_file path bypass on MCP sync"
+        },
+        {
+          "id": "B-02",
+          "score": "CONFIRMED",
+          "notes": "issue_file inside roots with output_location outside → gates run without nested path policy check"
+        },
+        {
+          "id": "B-03",
+          "score": "CONFIRMED",
+          "notes": "missing summary.failed defaults to 0 and passes; README requires summary.failed"
+        },
+        {
+          "id": "B-04",
+          "score": "CONFIRMED",
+          "notes": "verify_event_log rejects authentic artifact-gate fail sequences"
+        },
+        {
+          "id": "B-05",
+          "score": "CONFIRMED",
+          "notes": "empty allowed_tools silently allows unknown tools"
+        },
+        {
+          "id": "R-01",
+          "score": "UNSUPPORTED",
+          "notes": "sync→done vs flow reporter dual-path is by design under existing acceptance tests"
+        },
+        {
+          "id": "R-02",
+          "score": "NOT_REPRODUCED",
+          "notes": "Path.relative_to correctly blocks sibling prefix roots (projects vs projects-evil)"
+        },
+        {
+          "id": "R-03",
+          "score": "UNSUPPORTED",
+          "notes": "single-artifact security mode is intentional API contract; both-null blocks"
+        },
+        {
+          "id": "R-04",
+          "score": "NOT_REPRODUCED",
+          "notes": "no XXE PoC; stdlib ElementTree does not expand external entities by default"
+        },
+        {
+          "id": "R-05",
+          "score": "CONFIRMED",
+          "notes": "independently reproduced with mocked semgrep exit 1 + note-only SARIF; pack under-claimed as NOT_REPRODUCED"
+        }
+      ],
+      "fixes": [
+        {
+          "id": "B-01",
+          "score": "CORRECT",
+          "notes": "PATH_ARGUMENT_NAMES includes output_file; B01* green"
+        },
+        {
+          "id": "B-02",
+          "score": "CORRECT",
+          "notes": "nested re-check after issue-relative resolve; B02* green and smoke 54 passed (no machine patch in pack; reconstructed from FIXES.md)"
+        },
+        {
+          "id": "B-03",
+          "score": "CORRECT",
+          "notes": "require summary.failed present/integer; B03* green"
+        },
+        {
+          "id": "B-04",
+          "score": "CORRECT",
+          "notes": "accept artifact gate {status}; blocked_reason only when blocked"
+        },
+        {
+          "id": "B-05",
+          "score": "CORRECT",
+          "notes": "empty allowlist deny-all; smoke remains 54"
+        }
+      ]
+    }
+  },
+  "summary": {
+    "confirmed": 16,
+    "not_reproduced": 2,
+    "unsupported": 5,
+    "duplicate": 0
+  },
+  "fix_summary": {
+    "correct": 15,
+    "incorrect": 1,
+    "untested": 0
+  }
+}

@@ -1,7 +1,7 @@
 # Pilot 3 — Independent Engineering Validation
 
 **Id:** `PILOT3-IND-ENG-v1`  
-**Status:** `LOCKED` — target Paperclip@47c232b; arms not started  
+**Status:** `TERMINAL` — target Paperclip@47c232b; see DECISION.md  
 
 **Predecessor:** Pilot 2 `PARTIAL_SUPPORT_PROCESS_ONLY` under `SAME_EXECUTOR_DUAL_PROTOCOL`  
 **Product thesis under test:** evidence-backed repository auditing — **which value is GOS runtime vs process discipline alone?**

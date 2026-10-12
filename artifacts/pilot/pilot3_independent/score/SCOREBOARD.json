@@ -1,0 +1,71 @@
+{
+  "protocol_id": "PILOT3-IND-ENG-v1",
+  "scored_at": "2026-10-12T14:45:00Z",
+  "fidelity": "ISOLATED_SUBAGENT_ARMS_SAME_ORCHESTRATOR",
+  "target": "sergeeey/Paperclip-AI---2026@47c232b",
+  "blind_map": {"P1": "C", "P2": "A", "P3": "B"},
+  "evaluator": "bc-4f0e1ef9-9cf3-5785-8d86-5b4f14ecb804",
+  "by_arm": {
+    "A": {
+      "pack": "P2",
+      "confirmed": 4,
+      "unsupported": 1,
+      "not_reproduced": 0,
+      "asserted_defect_claims": 5,
+      "unsupported_among_asserted_defects": 1,
+      "unsupported_claim_rate": 0.2,
+      "correct_fixes": 4,
+      "incorrect_fixes": 1,
+      "notes": "F4 sync→done scored UNSUPPORTED; proposed fix INCORRECT (design rewrite)"
+    },
+    "B": {
+      "pack": "P3",
+      "confirmed": 6,
+      "unsupported": 2,
+      "not_reproduced": 2,
+      "asserted_confirmed_by_arm": 5,
+      "d_upgraded_from_arm_nr": ["R-05"],
+      "unsupported_claim_rate_scored_rows": 0.2,
+      "correct_fixes": 5,
+      "incorrect_fixes": 0,
+      "negative_retention": "PASS",
+      "notes": "Strong checklist discipline; R-05 under-claimed as NR but D confirmed"
+    },
+    "C": {
+      "pack": "P1",
+      "confirmed": 6,
+      "unsupported": 2,
+      "not_reproduced": 0,
+      "asserted_defect_claims": 6,
+      "unsupported_among_asserted_defects": 0,
+      "unsupported_claim_rate": 0.0,
+      "correct_fixes": 6,
+      "incorrect_fixes": 0,
+      "negative_retention": "PASS",
+      "notes": "C07 REJECTED by arm (D UNSUPPORTED); C08 readiness non-claim retained"
+    }
+  },
+  "hypotheses": {
+    "H-PILOT3-EPI": {
+      "comparison": "C_vs_A",
+      "verdict": "SUPPORTED",
+      "rationale": "C unsupported_among_asserted_defects=0/6 vs A 1/5; both retain negatives"
+    },
+    "H-PILOT3-ENG": {
+      "comparison": "C_vs_A",
+      "verdict": "SUPPORTED",
+      "rationale": "C confirmed 6 + 6 correct fixes vs A confirmed 4 + 4 correct / 1 incorrect"
+    },
+    "H-PILOT3-EFF": {
+      "comparison": "C_vs_A",
+      "verdict": "INCONCLUSIVE",
+      "rationale": "human_review_minutes / interventions not metered; same orchestrator family"
+    },
+    "H-PILOT3-ATTR": {
+      "comparison": "C_vs_B",
+      "verdict": "PROCESS_DISCIPLINE_SUFFICES",
+      "gos_incremental": "NOT_SHOWN",
+      "rationale": "Confirmed counts C=6 vs B=6 (within 15% tolerance). C unique medium findings (C04–C06) and 6/6 correct fixes; B unique B-02/B-03 and superior negative ledger including honest NR rows. No sealed ≥15% C>B on EPI+ENG+EFF simultaneously."
+    }
+  }
+}

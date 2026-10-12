@@ -1,6 +1,6 @@
 {
   "protocol_id": "PILOT3-IND-ENG-v1",
-  "status": "RUNNING",
+  "status": "TERMINAL",
   "created_at": "2026-10-12T12:00:00Z",
   "locked_at": "2026-10-12T14:35:00Z",
   "arms_relabeled_at": "2026-10-12T12:40:00Z",
@@ -80,8 +80,11 @@
   },
   "blind_eval_procedure": "Operator renames arm packs to P1/P2/P3 with shuffled mapping recorded in BLIND_MAP.json (sealed until after EVAL_SEAL.json).",
   "arms_started": true,
-  "decision": null,
+  "decision": "artifacts/pilot/pilot3_independent/DECISION.md",
   "arms_started_at": "2026-10-12T14:40:00Z",
   "arms_abc_packs_sealed_at": "2026-10-12T14:38:30Z",
-  "arm_d_started_at": "2026-10-12T14:39:00Z"
+  "arm_d_started_at": "2026-10-12T14:39:00Z",
+  "terminal_at": "2026-10-12T14:45:00Z",
+  "primary_attr_verdict": "PROCESS_DISCIPLINE_SUFFICES",
+  "gos_incremental": "NOT_SHOWN"
 }

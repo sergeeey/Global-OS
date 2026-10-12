@@ -1,30 +1,20 @@
 # RUN_STATE — PILOT3-IND-ENG-v1
 
-**Lifecycle:** `RUNNING`
+**Lifecycle:** `TERMINAL`
 
 | State | Meaning |
 |-------|---------|
-| `PREREG_DRAFT` | Pack authored; not locked |
-| `LOCKED` | Pins + executors sealed; arms may start (**current**) |
-| `RUNNING` | ≥1 arm in progress |
-| `EVAL_SEALED` | Blind evaluator D submitted scores |
-| `TERMINAL` | DECISION.md published |
+| `PREREG_DRAFT` | Pack authored |
+| `LOCKED` | Pins sealed |
+| `RUNNING` | Arms in progress |
+| `EVAL_SEALED` | D submitted scores |
+| `TERMINAL` | DECISION.md published (**current**) |
 
-## Locked target
-
-`sergeeey/Paperclip-AI---2026@47c232b` — focus `tools/workflow-controller`
-
-## Next actions (ordered)
-
-1. Execute Arms A, B, C in isolated subagent sessions (no cross-leak).
-2. Anonymize → Arm D blind eval → `EVAL_SEAL.json`.
-3. Unseal mapping → score EPI/ENG/EFF + ATTR (C vs B) → `DECISION.md`.
-
-## Standing non-claims
+## Result (short)
 
 ```text
-≠ M2 started
-≠ PRODUCTION_PROVEN
-≠ Trust Kernel promote
-≠ fully independent two-lab replication (fidelity = ISOLATED_SUBAGENT_ARMS_SAME_ORCHESTRATOR)
+EPI SUPPORTED · ENG SUPPORTED · EFF INCONCLUSIVE
+ATTR = PROCESS_DISCIPLINE_SUFFICES (GOS incremental NOT_SHOWN)
 ```
+
+See `DECISION.md`.
