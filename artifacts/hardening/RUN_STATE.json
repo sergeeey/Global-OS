@@ -1,15 +1,15 @@
 {
   "sprint": "PILOT_USAGE",
-  "updated_at": "2026-10-12T11:32:00Z",
+  "updated_at": "2026-10-12T12:05:00Z",
   "current_goal": "REAL_USER_PROJECTS_PILOT_USAGE",
   "tip": {
-    "repo_head": "c851246",
-    "repo_head_note": "PR #20 residual AUTH-001b/RUN-004b MERGED",
+    "repo_head": "413d726",
+    "repo_head_note": "PR #23 Pilot 2 A/B TERMINAL MERGED",
     "code_head": "c851246",
-    "code_head_note": "same — residual hardening is runtime code",
-    "split_reason": "DOC-007: heads equal after #20 code merge"
+    "code_head_note": "last runtime code merge #20; #21–#23 docs/pilot",
+    "split_reason": "DOC-007: repo_head (pilot docs) ahead of code_head"
   },
-  "phase_statement": "main @ 9fa1fd6 (#22). Pilot 2 TERMINAL on mcp-bouncer@45af092: H-PILOT2-001 PARTIAL_SUPPORT_PROCESS_ONLY; intelligence advantage NOT_SHOWN. Fidelity SAME_EXECUTOR_DUAL_PROTOCOL. PhaseBreak effect RECONCILED. 0 PRODUCTION_PROVEN.",
+  "phase_statement": "Pilot 2 TERMINAL (process-only). mcp-bouncer sealed-fix PROPOSED (local 62+8 green; push 403). Pilot 3 PREREG_DRAFT (independent A/B+ablation). Phase quality ≠ product maturity. PhaseBreak RECONCILED. 0 PRODUCTION_PROVEN. Not M2.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y20": {

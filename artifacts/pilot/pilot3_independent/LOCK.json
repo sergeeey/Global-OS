@@ -1,0 +1,46 @@
+{
+  "protocol_id": "PILOT3-IND-ENG-v1",
+  "status": "PREREG_DRAFT",
+  "created_at": "2026-10-12T12:00:00Z",
+  "predecessor": {
+    "protocol_id": "PILOT2-ENG-AB-v1",
+    "verdict": "PARTIAL_SUPPORT_PROCESS_ONLY",
+    "fidelity": "SAME_EXECUTOR_DUAL_PROTOCOL",
+    "limitation": "SAME_EXECUTOR knowledge transfer — not independent architecture proof"
+  },
+  "hypotheses": [
+    "H-PILOT3-EPI",
+    "H-PILOT3-ENG",
+    "H-PILOT3-EFF"
+  ],
+  "attribution_hypothesis": "H-PILOT3-ATTR",
+  "arms": {
+    "A": "strong_single_agent",
+    "B": "full_global_os_process",
+    "C": "ablation_discipline_without_gos_runtime",
+    "E": "blind_evaluator"
+  },
+  "target": {
+    "repo": null,
+    "pin_sha": null,
+    "note": "Fill at lock. Prefer non-contaminated SHA for assigned executors."
+  },
+  "provider_budget_pins": {
+    "model_family": null,
+    "provider": null,
+    "tool_set": null,
+    "wall_budget": null,
+    "token_api_budget": null,
+    "network_policy": "clone once; offline pytest thereafter",
+    "fidelity": "INDEPENDENT_EXECUTORS_PLUS_ABLATION"
+  },
+  "executors": {
+    "A": null,
+    "B": null,
+    "C": null,
+    "E": null
+  },
+  "attr_tolerance": null,
+  "arms_started": false,
+  "decision": null
+}

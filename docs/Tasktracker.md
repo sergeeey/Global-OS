@@ -32,6 +32,10 @@
 - [x] Human PhaseBreak hygiene PR #1 merged (`0161463`); EFFECT_RECEIPT RECONCILED
 - [x] Lock Pilot 2 target `mcp-bouncer@45af092` (`LOCK.json`)
 - [x] Pilot 2 A/B TERMINAL (`PARTIAL_SUPPORT_PROCESS_ONLY`; intelligence NOT_SHOWN)
+- [x] mcp-bouncer sealed-fix local + handoff pack (`PROPOSED`; push 403)
+- [x] Pilot 3 prereg draft (`PILOT3-IND-ENG-v1` + ablation Arm C)
+- [ ] Human: apply mcp-bouncer patch → PR/merge → EFFECT_RECEIPT RECONCILED
+- [ ] Lock + execute Pilot 3 (independent executors; blind eval; no M2)
 - [ ] Forbidden (standing): rewrite M-EXT4/5; secondary→primary silently; Immune*/ScienceKernel
 - [ ] Later (optional): verification-budget frontier — Y24/Y25 already CLOSED; new prereg required
 - [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)

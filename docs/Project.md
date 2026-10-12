@@ -64,7 +64,9 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 15. **Done:** PhaseBreak pilot TERMINAL (`3150725` #18); residual hardening (`c851246` #20).  
 16. **Done:** PhaseBreak effect RECONCILED; Pilot 2 target LOCKED (`mcp-bouncer@45af092`).  
 17. **Done:** Pilot 2 A/B TERMINAL on mcp-bouncer — process advantage partial; intelligence NOT_SHOWN.  
-18. **Now:** optional mcp-bouncer fix PRs / Pilot 3 / higher-fidelity A/B. DoD V2 still PARTIAL (0 PRODUCTION_PROVEN). Not: M-EXT6; Trust Kernel; ScienceKernel.
+18. **Done (local):** mcp-bouncer sealed-fix patch + pytest green; external effect `PROPOSED` (bot 403).  
+19. **Done (draft):** Pilot 3 prereg — independent A/B + ablation (`PILOT3-IND-ENG-v1`).  
+20. **Now:** human apply mcp-bouncer patch → RECONCILED; then lock/execute Pilot 3. Not M2. DoD V2 PARTIAL (0 PRODUCTION_PROVEN).
 
 ## Документы
 

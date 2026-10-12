@@ -203,6 +203,10 @@ EXTERNAL REAL WORK
   Process: agent terminal → independent post-hoc audit → headline
   Forbidden: Immune*/ScienceKernel / rewrite M-EXT4/5 / secondary→headline
   Audit: artifacts/hardening/PROJECT_AUDIT_2026-10-08.md
+  Pilot 2: PARTIAL_SUPPORT_PROCESS_ONLY (SAME_EXECUTOR); intel NOT_SHOWN
+  mcp-bouncer fixes: PROPOSED (local green; external merge pending)
+  Pilot 3: PREREG_DRAFT — independent executors + ablation vs discipline-only
+  Phase quality score ≠ product maturity; PRODUCTION_PROVEN = 0
 ```
 
 

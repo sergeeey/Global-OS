@@ -413,6 +413,22 @@
       "H_EFFECT_EARLY_SECONDARY": "SUPPORTED_WITHIN_SCOPE",
       "H_FISHER": "REJECTED",
       "scope": "synthetic_mlp_cpu"
+    },
+    "PILOT2_ENG_AB": {
+      "status": "TERMINAL",
+      "protocol_id": "PILOT2-ENG-AB-v1",
+      "verdict": "PARTIAL_SUPPORT_PROCESS_ONLY",
+      "intelligence_advantage": "NOT_SHOWN",
+      "fidelity": "SAME_EXECUTOR_DUAL_PROTOCOL",
+      "target": "sergeeey/mcp-bouncer@45af092"
+    },
+    "PILOT3_IND_ENG": {
+      "status": "PREREG_DRAFT",
+      "protocol_id": "PILOT3-IND-ENG-v1",
+      "hypotheses": ["H-PILOT3-EPI", "H-PILOT3-ENG", "H-PILOT3-EFF"],
+      "attribution": "H-PILOT3-ATTR",
+      "fidelity_target": "INDEPENDENT_EXECUTORS_PLUS_ABLATION",
+      "note": "Not locked; not M2; answers GOS vs process-discipline alone"
     }
   }
 }
