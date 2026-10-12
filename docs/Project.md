@@ -74,8 +74,9 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 25. **Done:** architecture ablation `ARCH-ABLATION-MECH-v1` TERMINAL — G1/G2/G3/Gfull beat B0 on sealed scripted stress; Pilot 3 ATTR NOT_SHOWN preserved; M2 CLOSED.  
 26. **Done (draft #30):** `MINIMAL-STACK-v1` LOCKED as reliability **foundation** (≠ building).  
 27. **Done (draft #30):** Cognitive Core paradigm — primary product = Autonomous Goal Achiever; substrate = core.  
-28. **Now:** build Cognitive organs + lock/run open Challenge-GA (not micro audit ATTR re-runs). `PRODUCTION_PROVEN = 0`.  
-29. **Forbidden drift:** platform-only product; soften Pilot 3 ATTR; reopen M2 without Challenge-class evidence.
+28. **Done:** DurableRunner #31; Cognitive organ **contracts** LOCKED (stubs + control-transfer rules).  
+29. **Now:** lock Challenge-GA terminal criteria + deepen organs; then execute. `PRODUCTION_PROVEN = 0`.  
+30. **Forbidden drift:** platform-only product; soften Pilot 3 ATTR; reopen M2; score Challenge on intermediate plans alone.
 
 ## Документы
 

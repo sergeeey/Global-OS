@@ -21,14 +21,17 @@ def test_paradigm_locks_achiever_over_platform_only():
 def test_organs_and_challenge_draft_present():
     organs = (PACK / "COGNITIVE_ORGANS.md").read_text(encoding="utf-8")
     challenge = (PACK / "CHALLENGE_CONTRACT_DRAFT.md").read_text(encoding="utf-8")
-    assert "Strategic Goal Decomposer" in organs
-    assert "Failure-Driven Re-Planning" in organs or "Closed-Loop" in organs
-    assert "Dynamic Tool" in organs or "Orchestration" in organs
+    assert "CONTRACTS_LOCKED" in organs
+    assert "Decomposer" in organs
+    assert "Pivot" in organs
+    assert "Orchestration" in organs
     assert "ADR-0009" in organs
     assert "PREREG_DRAFT" in challenge
     assert "not locked for execution" in challenge.lower() or "not locked for exec" in challenge.lower()
     assert "H-GA-ATTR" in challenge
     assert "C vs B" in challenge
+    assert "Terminal goal criterion" in challenge
+    assert "Stop conditions" in challenge
 
 
 def test_roadmap_points_to_cognitive_core():

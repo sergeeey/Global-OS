@@ -32,7 +32,12 @@ class WorkflowDefinition:
 
 
 class DurableRunner:
-    """Checkpoint after each step; resume skips completed steps (GOS-I15)."""
+    """Checkpoint after each step; resume skips completed steps (GOS-I15).
+
+    Verified: resume after SUCCEEDED does not re-invoke the last step handler.
+    Not claimed: full exactly-once for external effects, nor crash between a
+    non-idempotent side effect and the COMPLETED checkpoint write.
+    """
 
     def __init__(self, conn: sqlite3.Connection) -> None:
         self._conn = conn

@@ -110,7 +110,8 @@ class VerificationRouter:
         stack = self._stacks.get(request.result_class)
         if stack is not None and tier.value >= VerificationTier.INDEPENDENT.value:
             stack_out = stack.verify(request.payload, required_tier=tier.value)
-            return stack_out.as_verification_outcome(tier=tier)
+            outcome = stack_out.as_verification_outcome(tier=tier)
+            return _enforce_tier_evidence(tier, outcome)
 
         verifier = self._verifiers.get(request.result_class)
         if verifier is None:
@@ -133,10 +134,34 @@ class VerificationRouter:
                 },
                 diversity_factors=outcome.diversity_factors,
             )
-        return VerificationOutcome(
+        labeled = VerificationOutcome(
             protocol=outcome.protocol,
             tier=tier,
             passed=outcome.passed,
             details=outcome.details,
             diversity_factors=outcome.diversity_factors,
         )
+        return _enforce_tier_evidence(tier, labeled)
+
+
+def _enforce_tier_evidence(
+    tier: VerificationTier, outcome: VerificationOutcome
+) -> VerificationOutcome:
+    """Higher tiers must not pass by label alone (GOS-I08 / GOS-I10)."""
+    if (
+        tier.value >= VerificationTier.HUMAN.value
+        and "human_reference" not in outcome.diversity_factors
+    ):
+        return VerificationOutcome(
+            protocol=outcome.protocol,
+            tier=tier,
+            passed=False,
+            details={
+                **dict(outcome.details),
+                "reason": "HUMAN tier requires human_reference evidence — not a label upgrade",
+                "awaiting_human": True,
+                "claimed_factors": list(outcome.diversity_factors),
+            },
+            diversity_factors=outcome.diversity_factors,
+        )
+    return outcome

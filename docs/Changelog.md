@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.145 — 2026-10-12
+
+### Cognitive organ contracts LOCKED
+
+- Decomposer / Pivot-Replan / Orchestration: I/O, authority, quality, errors, control-transfer, tests
+- Stubs under `src/global_os/cognition/organs/`; Challenge still PREREG_DRAFT with terminal/stop criteria
+- DurableRunner honesty: no last-step rerun verified ≠ full exactly-once
+
 ## 0.1.144 — 2026-10-12
 
 ### DurableRunner SUCCEEDED resume idempotency
