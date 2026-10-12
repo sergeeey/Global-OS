@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.128 — 2026-10-12
+
+### Canon sync — PR #18 on main
+
+- PR #18 merged (`3150725`); PhaseBreak pilot pack on default branch
+- Tip split: repo_head=3150725 vs code_head=3e4de13 (#17)
+
 ## 0.1.127 — 2026-10-12
 
 ### Pilot usage — PhaseBreak-2026 claims audit

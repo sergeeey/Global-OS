@@ -61,7 +61,8 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 12. **Audited:** M-EXT4 triage success + errata; init Mpemba UNRESOLVED / NOT TESTED.  
 13. **Closed:** M-EXT5 CAMPAIGN_CLOSED — late REJECTED; early secondary SUPPORTED; Fisher REJECTED.  
 14. **Done:** P0 hardening merged (`3e4de13` #17).  
-15. **Now:** PILOT_USAGE — PhaseBreak claims audit TERMINAL (`artifacts/pilot/phasebreak/`); next optional PhaseBreak hygiene or new user Goal Contract. DoD V2 still PARTIAL (0 PRODUCTION_PROVEN). Not: M-EXT6; Trust Kernel; ScienceKernel.
+15. **Done:** PhaseBreak pilot TERMINAL on main (`3150725` #18).  
+16. **Now:** apply `PROPOSED_HYGIENE.patch` on PhaseBreak (or next Goal Contract). DoD V2 still PARTIAL (0 PRODUCTION_PROVEN). Not: M-EXT6; Trust Kernel; ScienceKernel.
 
 ## Документы
 

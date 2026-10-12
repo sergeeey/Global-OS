@@ -26,6 +26,7 @@
 - [x] P0 hardening: AUTH-001/002, FairLlmScheduler resume deadlock, real continue_as_new, run_id registries
 - [x] Merge PR #17 to main (`3e4de13`)
 - [x] Pilot PILOT-PB-CLAIMS-v1 on PhaseBreak-2026 — TERMINAL pack `artifacts/pilot/phasebreak/`
+- [x] Merge PR #18 to main (`3150725`)
 - [ ] Optional PhaseBreak hygiene (README recall, production-usable downgrade, Nikkei provenance) — separate repo
 - [ ] Further pilot usage Goal Contracts as user provides them
 - [ ] Forbidden (standing): rewrite M-EXT4/5; secondary→primary silently; Immune*/ScienceKernel
