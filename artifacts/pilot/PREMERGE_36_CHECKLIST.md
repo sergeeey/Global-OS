@@ -1,14 +1,15 @@
 # Pre-merge checklist — PR #36 @ `bbd30c5`
 
 **Operator strategy:** single integration merge via #36; #32–#35 superseded, not parallel deliveries.  
-**Checked at:** 2026-10-12 (agent verification on tip `bbd30c53bd33478dc4610ad206ebfdd9f515e1a2`)  
-**Human merge still required.**
+**Checked at:** 2026-10-12  
+**Tip ready for human merge:** `8a74021` (checklist docs on top of verified `bbd30c5`)  
+**Human merge still required** (dogfood: no autonomous T0/T1 merge).
 
 ## Four final conditions
 
 | # | Condition | Result |
 |---|-----------|--------|
-| 1 | CI green **on `bbd30c5`** (not only older commits) | **PASS** — both `schemas-and-tests` success on head `bbd30c5` ([PR checks](https://github.com/sergeeey/Global-OS/pull/36)) |
+| 1 | CI green **on tip** (not only older commits) | **PASS** — both `schemas-and-tests` success on `8a74021` (and previously on `bbd30c5`) |
 | 2 | Diff reviewed: stack once + no unwanted side deliveries | **PASS with notes** — see below |
 | 3 | Authority + runtime regressions on integrated tip | **PASS** — 53 targeted tests green |
 | 4 | Challenge blocked; no auto-exec on merge | **PASS** — `execution_status=NOT_STARTED`; gate fail-closed; no workflow hooks |
