@@ -28,9 +28,10 @@
 - [x] Pilot PILOT-PB-CLAIMS-v1 on PhaseBreak-2026 — TERMINAL pack `artifacts/pilot/phasebreak/`
 - [x] Merge PR #18 to main (`3150725`)
 - [x] Merge PR #19 canon sync (`9dbd83c`)
-- [ ] PR residual AUTH-001b + RUN-004b (ToolGateway default DENY; CAN approval propagate)
-- [ ] Optional PhaseBreak hygiene (README recall, production-usable downgrade, Nikkei provenance) — separate repo / human push
-- [ ] Further pilot usage Goal Contracts as user provides them (Pilot 2 = eng A/B)
+- [x] Merge PR #20 residual AUTH-001b + RUN-004b (`c851246`)
+- [ ] Human PhaseBreak hygiene PR from `PROPOSED_HYGIENE.patch` (bot 403)
+- [ ] Lock Pilot 2 eng A/B prereg + choose target (`artifacts/pilot/pilot2_eng_ab/`)
+- [ ] Execute Pilot 2 A/B → DECISION (GOS advantage measured or honest REJECT/TIE)
 - [ ] Forbidden (standing): rewrite M-EXT4/5; secondary→primary silently; Immune*/ScienceKernel
 - [ ] Later (optional): verification-budget frontier — Y24/Y25 already CLOSED; new prereg required
 - [x] M1.5 CLOSED_SCOPE_LIMITED (`M15_DECISION.md`)
