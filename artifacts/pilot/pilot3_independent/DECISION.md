@@ -75,6 +75,14 @@ Parent orchestrator could still bias via shared model family / repo familiarity.
 2. Product-shaped value remains **evidence-backed repo auditing**; much of Pilot 3’s engineering yield is reproducible with Arm B discipline alone.
 3. Next upgrades: distinct providers/executors; meter EFF; optional external fix WorldInteraction on Paperclip (human gate).
 
+## Operator acceptance (2026-10-12)
+
+Accepted without softening ATTR. Binding note:
+
+- `artifacts/pilot/pilot3_independent/OPERATOR_ACCEPTANCE.md`
+- Next program draft: `NEXT_ARCHITECTURE_ABLATION.md`
+- Final status line: `PILOT3=TERMINAL` · `ATTR=NOT_SHOWN` · `M2=CLOSED` · `PRODUCTION_PROVEN=0`
+
 ## Artifacts
 
 - `LOCK.json` / `TASK_BRIEF.md` / `TARGET_SELECTION.md`

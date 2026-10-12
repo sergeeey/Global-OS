@@ -21,27 +21,28 @@ Binding claim language: `docs/SCIENTIFIC_HONESTY_MAP.md`.
 **NULL ≠ zero effect.** Raw-capability amplification is **NOT SHOWN** (not “proven impossible”).
 
 ```text
-CURRENT — PILOT_USAGE (main tip after #13 audit)
-  Accept real user Goal Contracts → checkable deliverable + audit
-  Do NOT invent M-EXT6 self-exam chain / ScienceKernel / Trust Kernel promote
+CURRENT — PILOT_USAGE after Pilot 3 TERMINAL (main @ a4fc558 / #27)
+  VERIFIED: disciplined audit workflow > strong baseline A; GOS can run it;
+            Pilot 2 external merge + CI_VERIFIED
+  ATTR (C vs B): PROCESS_DISCIPLINE_SUFFICES — GOS incremental NOT_SHOWN
+  M2 (org superiority path): CLOSED on current evidence (do not reopen for optimism)
+  Next: architecture ablation (B0 vs minimal GOS subsets) — see
+        artifacts/pilot/pilot3_independent/NEXT_ARCHITECTURE_ABLATION.md
+  Do NOT invent M-EXT6 / ScienceKernel / Trust Kernel promote / soften Pilot 3 ATTR
   Y20–Y22: primary-outcome advantage NOT SHOWN
-  R1–R3: useful autonomous checkable work EARLY YES (bundle); causal GOS NOT MEASURED
-  External: M-EXT1 IMMUTABLE; M-EXT2 INCONCLUSIVE; M-EXT3 TIE; M-EXT4 triage; M-EXT5 CLOSED
-  Scorers Y20–Y22 FROZEN; Y24/Y25 CLOSED; no Y23 as IQ-rescue
+  External: PhaseBreak RECONCILED; mcp-bouncer RECONCILED+CI_VERIFIED; Pilot 3 TERMINAL
         │
         ▲ historical path (complete) ▼
 M1.5 CLOSED_SCOPE_LIMITED (LH-COGNITIVE-v1)
   EXAM_SHA 7ab345e · AUDIT_SHA a7960d9 · wall_seconds≥172800 · audit all_gates_passed
   Decision: artifacts/hardening/M15_DECISION.md
-  5d15600 durability ENV PASS = supporting evidence only (not cognitive-real claim)
         │
         ▼
 Post-M1.5 — T1 REJECT · T2 KEEP · T3 KEEP once (LIVE_LLM) · Trust Kernel NOT promoted
-  H_TRUST metrics FROZEN; C2 SELECTIVE_BOUNDED_RECOVERY-v1 FROZEN_CANDIDATE
-  Forbidden: MCID rewrite for T1; reopen M1.5; Y23 IQ-rescue; PACK-v4 invent
         │
         ▼
-Later (evidence-gated): DoD V2 full PASS · M2 H-ORG · Continual SI · PRODUCTION_PROVEN
+Later (evidence-gated only): DoD V2 · Continual SI · PRODUCTION_PROVEN
+  M2 H-ORG remains CLOSED until ATTR-class evidence shows incremental value beyond discipline
 ```
 
 ## M0 — Trustworthy Skeleton — done
@@ -87,11 +88,16 @@ See `docs/SCIENTIFIC_HONESTY_MAP.md`. H-ORG / Continual SI / Trust Kernel remain
 Checklist in `global_os.evals.maturity.dod_v2` — closed only when every item is PASS
 (integration + adversarial), not merely “code exists”. Currently `closed=false`.
 
-## M2 — Cognitive Organization (after DoD V2)
+## M2 — Cognitive Organization — CLOSED (current evidence)
 
+**Status after Pilot 3:** `CLOSED` — not “paused pending enthusiasm.”  
+Pilot 3 ATTR = GOS incremental **NOT_SHOWN** vs disciplined baseline B.  
+Reopening M2 requires new sealed evidence that specific org/runtime mechanisms beat B0
+under architecture-ablation protocols — not another A/B that only beats undirected strong agents.
+
+Historical intent (frozen text, not an active program):  
 Strong single → manager-workers → 2-level → recursive → +independent verification → adaptive.  
-H-ORG-1 specialization · H-ORG-2 hierarchy · H-ORG-3 independent plane · H-ORG-4 adaptive on distribution.  
-Success = compiler learns **which topology for which task class**, not “hierarchy wins”.
+H-ORG-1..4 remain research contracts, not proven superiority axioms.
 
 ## M3 — Adaptive / Recursive
 

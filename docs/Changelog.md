@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.141 — 2026-10-12
+
+### Operator acceptance after Pilot 3 — M2 CLOSED
+
+- ATTR / GOS incremental **NOT_SHOWN** preserved (no softening)
+- M2 org-superiority path **CLOSED** on current evidence
+- Next: architecture ablation draft (`NEXT_ARCHITECTURE_ABLATION.md`)
+- Claim taxonomy: VERIFIED_CURRENT_VALUE / PLAUSIBLE / NOT_SHOWN / SPECULATIVE
+
 ## 0.1.140 — 2026-10-12
 
 ### Pilot 3 TERMINAL — Paperclip@47c232b

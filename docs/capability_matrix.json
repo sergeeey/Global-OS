@@ -433,10 +433,13 @@
       },
       "attribution": "PROCESS_DISCIPLINE_SUFFICES",
       "gos_incremental": "NOT_SHOWN",
+      "m2_org_path": "CLOSED",
       "arms": {"A": "strong", "B": "discipline", "C": "gos", "D": "blind_eval"},
       "decisive_comparison": "C_vs_B",
       "fidelity": "ISOLATED_SUBAGENT_ARMS_SAME_ORCHESTRATOR",
-      "decision": "artifacts/pilot/pilot3_independent/DECISION.md"
+      "decision": "artifacts/pilot/pilot3_independent/DECISION.md",
+      "operator_acceptance": "artifacts/pilot/pilot3_independent/OPERATOR_ACCEPTANCE.md",
+      "next": "artifacts/pilot/pilot3_independent/NEXT_ARCHITECTURE_ABLATION.md"
     }
   }
 }

@@ -26,3 +26,8 @@ def test_pilot3_decision_terminal() -> None:
     assert (PACK / "arms/out_A/FINDINGS.md").is_file()
     assert (PACK / "arms/out_B/FINDINGS.md").is_file()
     assert (PACK / "arms/out_C/FINDINGS.md").is_file()
+    accept = (PACK / "OPERATOR_ACCEPTANCE.md").read_text(encoding="utf-8")
+    assert "NOT_SHOWN" in accept
+    assert "CLOSED" in accept and "M2" in accept
+    assert (PACK / "NEXT_ARCHITECTURE_ABLATION.md").is_file()
+    assert "M2=CLOSED" in decision or "M2 = CLOSED" in decision
