@@ -1,8 +1,8 @@
 {
   "sprint": "PILOT_USAGE",
-  "updated_at": "2026-10-12T09:40:00Z",
+  "updated_at": "2026-10-12T09:50:00Z",
   "current_goal": "REAL_USER_PROJECTS_PILOT_USAGE",
-  "phase_statement": "ADR-0013 borrow primitives implemented (P0\u2013P3 harness/local). DoD V2 still closed=false. Mode: pilot usage on real user projects \u2014 not M-EXT6. Waiting on user Goal Contract.",
+  "phase_statement": "main tip 4b7224c (PR #15 borrow primitives MERGED). ADR-0013 P0–P3 on default branch. DoD V2 closed=false (5 PARTIAL). Mode: PILOT_USAGE — real user Goal Contracts; not M-EXT6; 0 PRODUCTION_PROVEN.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y20": {
@@ -187,7 +187,7 @@
     "patch_in_place_forbidden": true,
     "wall_seconds_hard_gate": 172800,
     "m15_claimed": false,
-    "next_keystrokes": "Windows detach 7ab345e \u2192 smoke \u2192 cognitive preflight"
+    "next_keystrokes": "Windows detach 7ab345e → smoke → cognitive preflight"
   },
   "scientific_honesty_map": "docs/SCIENTIFIC_HONESTY_MAP.md",
   "h_trust_draft": "artifacts/hardening/H_TRUST_DRAFT.md",
@@ -336,10 +336,11 @@
     "EW4": "MPEMBA_TRIAGE_AUDITED",
     "EW5": "INIT_MPEMBA_CLOSED",
     "main_canonical": true,
-    "merged_pr": 12,
-    "merge_sha": "45446e0",
+    "merged_pr": 15,
+    "merge_sha": "4b7224c",
     "campaign_merge_pr": 11,
     "campaign_merge_sha": "02acddb",
-    "pilot_usage_canon_pr": 12
+    "pilot_usage_canon_pr": 12,
+    "borrow_primitives_pr": 15
   }
 }
