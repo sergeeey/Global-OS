@@ -34,6 +34,15 @@
 | Q-P3 | No re-selection of an approach marked failed for same task without new evidence |
 | Q-P4 | `attempt_budget` decrements; at 0 → ESCALATE or STOP (not infinite loop) |
 | Q-P5 | Goal `content_hash` unchanged unless explicit amend protocol completed |
+| Q-P6 | **Failure-informed selection:** pivot rationale must cite `why_failed` and how the new approach avoids that failure mode |
+
+### Selection mechanism (goal progress)
+
+Pivot is not “make another plan.” It must:
+
+- bind `why_failed` → excluded approaches  
+- name the new approach and why it better serves terminal success_criteria  
+- stop when no remaining approach can advance the Goal (STOP_NO_STRATEGY)  
 
 ## 4. Error handling
 

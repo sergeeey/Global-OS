@@ -35,6 +35,16 @@ Orchestration does **not** mark Goal success; Verification / Challenge scorer do
 | Q-O3 | ToolSuccess ≠ WorldSuccess; material actions require observation/receipt |
 | Q-O4 | Prefer cheaper tier when task class allows (policy table, not vibes) |
 | Q-O5 | No hidden provider lock-in; adapter id explicit in ledger |
+| Q-O6 | **Purposeful selection:** route records why this tool/model, which alternatives were considered, and stop rule on failure — not “call five tools because we can” |
+
+### Selection mechanism (goal progress)
+
+Orchestration must emit with every ROUTE:
+
+- `why_this_tool` / `why_this_model` (structured codes)  
+- `alternatives_considered[]` (may be empty only with explicit `sole_option` reason)  
+- `on_failure` → Pivot handoff condition  
+- Refusal to expand tool fan-out without criterion-linked justification  
 
 ## 4. Error handling
 

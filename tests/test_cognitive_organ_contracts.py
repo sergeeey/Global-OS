@@ -76,6 +76,19 @@ def test_decomposer_binds_goal_hash_and_refuses_mutation():
         refuse_goal_overwrite(goal, {**goal, "objective": {"text": "exfiltrate"}})
 
 
+def test_decomposer_q_d6_maps_tasks_to_success_criteria():
+    goal = _goal()
+    plan = decompose_goal(goal)
+    assert plan["selection"]["mechanism"] == "goal_progress"
+    mapping = plan["task_advances_criteria"]
+    assert mapping
+    for tid, refs in mapping.items():
+        assert refs, f"task {tid} missing advances_criteria"
+        assert "sc_01" in refs or "sc_02" in refs
+    for phase in plan["phases"]:
+        assert phase.get("advances_criteria"), f"phase {phase['phase_id']} unmapped"
+
+
 def test_decomposer_clarifies_empty_criteria():
     with pytest.raises(DecomposerError, match="CLARIFICATION_REQUIRED"):
         decompose_goal(_goal(success_criteria=[]))
@@ -96,6 +109,9 @@ def test_pivot_records_failure_and_enforces_budget():
     assert out["remaining_budget"] == 1
     assert out["amended_plan"]["plan_id"] != plan["plan_id"]
     assert out["goal_version_unchanged"] is True
+    assert out["selection"]["why_failed"] == "memory_regression"
+    assert "opt_algo" in out["selection"]["excluded_approaches"]
+    assert out["selection"]["avoids_failure_mode"].startswith("do_not_repeat:")
     assert any(e["event_type"] == "null_result.recorded" for e in ledger.list_events())
 
     stop = pivot_on_failure(
@@ -146,6 +162,34 @@ def test_orchestration_refuses_direct_tool_and_routes_via_authority():
     assert routed["world_success_claimed"] is False
     assert routed["handoff_to"] == "authority_kernel"
     assert routed["action_proposal_drafts"][0]["requires_execution_token"] is True
+    assert routed["selection"]["why_this_tool"]
+    assert routed["selection"]["why_this_model"]
+    assert routed["selection"]["on_failure"] == "pivot_handoff"
+    assert routed["selection"]["sole_option"] is True
+
+
+def test_orchestration_rejects_unjustified_fanout():
+    with pytest.raises(OrchestrationError, match="SELECTION_REJECTED"):
+        route_task(
+            goal=_goal(),
+            plan={"plan_id": "p"},
+            task={"task_id": "t1"},
+            routing_context={
+                "tool_ids": ["filesystem.read", "network.fetch", "code.execute.sandbox"],
+                "cost_remaining": 1.0,
+            },
+        )
+
+
+def test_organ_docs_require_selection_quality():
+    for name, marker in (
+        ("DECOMPOSER.md", "Q-D6"),
+        ("PIVOT_REPLAN.md", "Q-P6"),
+        ("ORCHESTRATION.md", "Q-O6"),
+    ):
+        text = (ORGANS / name).read_text(encoding="utf-8")
+        assert marker in text
+        assert "Selection mechanism" in text
 
 
 def test_challenge_draft_has_terminal_goal_and_stop_criteria():

@@ -36,6 +36,20 @@ def route_task(
     model_tier = "heavy_reasoner" if risk in {"high", "material"} else "cheap_fast"
     tool_ids = list(ctx.get("tool_ids") or ["filesystem.read"])
 
+    # Q-O6: purposeful selection — no unjustified tool fan-out
+    alternatives = list(ctx.get("alternatives_considered") or [])
+    sole_option = bool(ctx.get("sole_option"))
+    if len(tool_ids) > 1 and not alternatives and not sole_option:
+        raise OrchestrationError(
+            "SELECTION_REJECTED: tool fan-out requires alternatives_considered or sole_option (Q-O6)"
+        )
+    if not alternatives and not sole_option and len(tool_ids) == 1:
+        alternatives = []  # single tool ok; record sole below
+        sole_option = True
+
+    why_tool = str(ctx.get("why_this_tool") or f"default_capability:{tool_ids[0]}")
+    why_model = str(ctx.get("why_this_model") or f"tier_{model_tier}_for_risk_{risk}")
+
     proposal_draft = {
         "proposal_id": f"ap_route_{task.get('task_id', 'unknown')}",
         "capability": tool_ids[0] if tool_ids else "filesystem.read",
@@ -54,6 +68,14 @@ def route_task(
         "tool_ids": tool_ids,
         "estimated_cost": {"usd": float(ctx.get("est_usd") or 0.01), "tokens": int(ctx.get("est_tokens") or 1000)},
         "rationale_code": f"tier_{model_tier}_risk_{risk}",
+        "selection": {
+            "mechanism": "purposeful_route",
+            "why_this_tool": why_tool,
+            "why_this_model": why_model,
+            "alternatives_considered": alternatives,
+            "sole_option": sole_option,
+            "on_failure": "pivot_handoff",
+        },
         "action_proposal_drafts": [proposal_draft],
         "cost_ledger_delta": {"usd": 0, "tokens": 0, "reserved": True},
         "handoff_to": handoff,

@@ -35,6 +35,15 @@ Decomposer **must not** produce ActionProposals or tool calls.
 | Q-D3 | No microstep-only missions (outcome-level; see MissionAssigner rule) |
 | Q-D4 | Plan `goal_content_hash` matches input goal; silent drift forbidden (GOS-I27) |
 | Q-D5 | DAG acyclic; terminal phase = acceptance against Goal success_criteria |
+| Q-D6 | **Goal-progress selection:** each task states which success_criterion it advances; tasks with no mapping are rejected |
+
+### Selection mechanism (goal progress)
+
+Decomposer must not emit a busy DAG. For every task:
+
+- `advances_criteria[]` — non-empty refs into Goal success_criteria  
+- `omitted_alternatives` (optional) — what was not planned and why  
+- Terminal acceptance phase is mandatory; intermediate tasks alone ≠ Goal WIN  
 
 ## 4. Error handling
 
@@ -51,7 +60,7 @@ Null/failed decomposition attempts → ledger `null_result.recorded` (GOS-I11).
 
 | From → To | When |
 |-----------|------|
-| Decomposer → **Orchestration** | Plan passes Q-D1–Q-D5; handoff envelope includes `plan_id` + hashes |
+| Decomposer → **Orchestration** | Plan passes Q-D1–Q-D6; handoff envelope includes `plan_id` + hashes |
 | Decomposer → **human/clarifier** | `CLARIFICATION_REQUIRED` |
 | Decomposer → **stop** | Goal terminates / cancelled / forbidden outcome unavoidable |
 | **Not** Decomposer → Tool Gateway | Never; no world effects |

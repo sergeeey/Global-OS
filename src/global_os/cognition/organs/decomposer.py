@@ -31,24 +31,35 @@ def decompose_goal(goal: dict[str, Any], *, context: dict[str, Any] | None = Non
     if not criteria:
         raise DecomposerError("CLARIFICATION_REQUIRED: empty success_criteria")
 
+    criterion_ids = [
+        c if isinstance(c, str) else str(c.get("id") or c.get("description") or c)
+        for c in criteria
+    ]
     phases = [
         {
             "phase_id": "phase_audit",
             "intent": "discover defects against goal criteria",
             "exit_criteria": [c if isinstance(c, str) else c.get("description", str(c)) for c in criteria],
+            "advances_criteria": list(criterion_ids),
         },
         {
             "phase_id": "phase_fix",
             "intent": "apply bounded fixes under invariants",
             "exit_criteria": list(goal.get("invariants") or []),
+            "advances_criteria": list(criterion_ids),
         },
         {
             "phase_id": "phase_accept",
             "intent": "accept against Goal success_criteria",
             "exit_criteria": [c if isinstance(c, str) else c.get("description", str(c)) for c in criteria],
+            "advances_criteria": list(criterion_ids),
         },
     ]
     tasks = build_repo_audit_dag(str(goal["goal_id"]))
+    # Q-D6: plan-level map (task schema additionalProperties:false — no silent field inject)
+    task_advances = {t["task_id"]: list(criterion_ids) for t in tasks}
+    if any(not refs for refs in task_advances.values()):
+        raise DecomposerError("PLAN_REJECTED: task with empty advances_criteria (Q-D6)")
     body = {
         "plan_id": new_id("plan"),
         "goal_id": goal["goal_id"],
@@ -56,6 +67,12 @@ def decompose_goal(goal: dict[str, Any], *, context: dict[str, Any] | None = Non
         "goal_content_hash": goal_hash,
         "phases": phases,
         "tasks": tasks,
+        "task_advances_criteria": task_advances,
+        "omitted_alternatives": [],
+        "selection": {
+            "mechanism": "goal_progress",
+            "rule": "every_task_maps_to_success_criteria",
+        },
         "priority_scores": {"default": "risk_x_value_stub"},
         "handoff_to": "orchestration",
         "world_effects": False,

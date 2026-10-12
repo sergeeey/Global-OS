@@ -64,12 +64,15 @@ def pivot_on_failure(
             "remaining_budget": attempt_budget,
         }
 
-    # Material pivot: change strategy field vs active plan
+    # Material pivot: change strategy field vs active plan (Q-P6 failure-informed)
+    excluded = sorted(failed | {approach})
+    new_approach = f"alt_after_{approach}"
     new_plan = deepcopy(active_plan)
     new_plan["plan_id"] = new_id("plan")
     new_plan["supersedes_plan_id"] = active_plan.get("plan_id")
     new_plan["pivot_from_failure"] = why
-    new_plan["strategy_variant"] = f"alt_after_{approach}"
+    new_plan["strategy_variant"] = new_approach
+    new_plan["excluded_approaches"] = excluded
     new_plan.pop("content_hash", None)
     new_plan["content_hash"] = content_hash(
         {k: v for k, v in new_plan.items() if k != "content_hash"}
@@ -78,6 +81,14 @@ def pivot_on_failure(
     return {
         "decision": "PIVOT",
         "amended_plan": new_plan,
+        "selection": {
+            "mechanism": "failure_informed",
+            "why_failed": why,
+            "excluded_approaches": excluded,
+            "new_approach": new_approach,
+            "avoids_failure_mode": f"do_not_repeat:{approach}:{why}",
+            "serves_criteria": "terminal_success_criteria",
+        },
         "handoff_to": "orchestration",
         "remaining_budget": attempt_budget - 1,
         "goal_content_hash": goal.get("content_hash"),
