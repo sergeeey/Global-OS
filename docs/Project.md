@@ -67,7 +67,8 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 18. **Done (local):** mcp-bouncer sealed-fix patch + pytest green; external effect `PROPOSED` (bot 403).  
 19. **Done:** PR #24 merged (`57c2938`); Pilot 3 draft on main.  
 20. **Done (draft labels):** Pilot 3 arms A/B/C/D; decisive C vs B.  
-21. **Now:** human apply mcp-bouncer patch (`WINDOWS_APPLY.md`) → RECONCILED; then lock Pilot 3. Not M2. `PRODUCTION_PROVEN = 0`.
+21. **Done:** mcp-bouncer F01–F07 external merge `#6` / `33030e3` → EffectReceipt RECONCILED.  
+22. **Now:** human CI Ruff fix PR (`WINDOWS_APPLY_CI_RUFF.md`); then Pilot 3 lock. Not M2. `PRODUCTION_PROVEN = 0`.
 
 ## Документы
 

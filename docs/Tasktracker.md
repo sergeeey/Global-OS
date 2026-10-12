@@ -36,7 +36,8 @@
 - [x] Pilot 3 prereg draft (`PILOT3-IND-ENG-v1`)
 - [x] Merge PR #24 to main (`57c2938`)
 - [x] Pilot 3 arm labels A/B/C/D + `WINDOWS_APPLY.md` exact patch URL
-- [ ] Human: apply mcp-bouncer patch → PR/merge → EFFECT_RECEIPT RECONCILED
+- [x] Human: mcp-bouncer F01–F07 PR #6 merged (`33030e3`) → EffectReceipt RECONCILED
+- [ ] Human: mcp-bouncer CI Ruff fix PR (patch ready; wait green CI) → clear CI_DEBT
 - [ ] Lock + execute Pilot 3 (A/B/C + blind D; key C vs B; no M2)
 - [ ] Forbidden (standing): rewrite M-EXT4/5; secondary→primary silently; Immune*/ScienceKernel
 - [ ] Later (optional): verification-budget frontier — Y24/Y25 already CLOSED; new prereg required

@@ -64,20 +64,20 @@ def test_pilot3_forbids_self_certification() -> None:
     assert "No M2" in (PACK / "GOAL_CONTRACT.md").read_text(encoding="utf-8") or "No M2" in prereg
 
 
-def test_mcp_bouncer_fix_proposed_with_patch_and_windows_apply() -> None:
+def test_mcp_bouncer_fix_reconciled_with_ci_debt() -> None:
     assert (FIX / "mcp-bouncer-pilot2-sealed-fixes.patch").is_file()
+    assert (FIX / "mcp-bouncer-ci-ruff-fix.patch").is_file()
     assert (FIX / "WINDOWS_APPLY.md").is_file()
+    assert (FIX / "WINDOWS_APPLY_CI_RUFF.md").is_file()
     receipt = (FIX / "EFFECT_RECEIPT.md").read_text(encoding="utf-8")
-    assert "PROPOSED" in receipt
-    status_line = receipt.split("Status:")[1].splitlines()[0]
-    assert "RECONCILED" not in status_line or "not RECONCILED" in status_line
-    pytest_out = (FIX / "PYTEST_OUT.txt").read_text(encoding="utf-8")
-    assert "62 passed" in pytest_out
-    sealed = (FIX / "SEALED_REPRO_POST_FIX.txt").read_text(encoding="utf-8")
-    assert "8 passed" in sealed
+    assert "RECONCILED" in receipt
+    assert "33030e3" in receipt
+    assert "CI_DEBT" in receipt or "FAILED" in receipt
+    assert "PENDING" in receipt
+    assert (FIX / "PYTEST_POST_MERGE.txt").read_text(encoding="utf-8").count("62 passed") >= 1
+    assert "All checks passed" in (FIX / "RUFF_POST_FIX.txt").read_text(encoding="utf-8")
     handoff = (FIX / "HANDOFF.md").read_text(encoding="utf-8")
     assert "403" in handoff
-    windows = (FIX / "WINDOWS_APPLY.md").read_text(encoding="utf-8")
-    assert "raw.githubusercontent.com/sergeeey/Global-OS/main/artifacts/pilot/mcp_bouncer_fix/" in windows
-    assert "curl.exe" in windows
-    assert "45af092" in windows
+    ci_win = (FIX / "WINDOWS_APPLY_CI_RUFF.md").read_text(encoding="utf-8")
+    assert "curl.exe" in ci_win
+    assert "mcp-bouncer-ci-ruff-fix.patch" in ci_win

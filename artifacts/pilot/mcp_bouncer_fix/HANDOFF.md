@@ -1,30 +1,29 @@
-# Human handoff — mcp-bouncer sealed fixes
+# Human handoff — mcp-bouncer
 
-**Blocked:** `git push` / fork / PR-from-bot to `sergeeey/mcp-bouncer` returns **403** for `cursor[bot]`  
-(same class as PhaseBreak hygiene). Local fix commit exists; external effect still `PROPOSED`.
+## Status
 
-## Exact patch location (after Global-OS #24 merge)
+| Item | State |
+|------|-------|
+| F01–F07 external merge | **DONE** — PR #6 → `33030e3` → EffectReceipt **RECONCILED** |
+| Pytest | **62 passed** |
+| GitHub CI on merge tip | **FAILED** (Ruff) |
+| CI-fix PR | **YOUR ACTION** — bot 403; patch ready |
 
-| Field | Value |
-|-------|-------|
-| Global-OS main | `57c29388077f7a96a8ba850c8affd15cd4f1ebb7` |
-| Path | `artifacts/pilot/mcp_bouncer_fix/mcp-bouncer-pilot2-sealed-fixes.patch` |
-| Raw URL | https://raw.githubusercontent.com/sergeeey/Global-OS/main/artifacts/pilot/mcp_bouncer_fix/mcp-bouncer-pilot2-sealed-fixes.patch |
-| Target | https://github.com/sergeeey/mcp-bouncer @ `45af092` |
+## Your P0 now
 
-Full PowerShell steps: **`WINDOWS_APPLY.md`** (encoding-safe download via `curl.exe`).
+1. Apply `mcp-bouncer-ci-ruff-fix.patch` from current `master` (see `WINDOWS_APPLY_CI_RUFF.md`).
+2. Open PR `ci: restore green Ruff checks after Pilot 2 fixes`.
+3. Wait for **green** GitHub CI, then merge.
+4. Reply with CI-fix PR URL + merge SHA → we clear `CI_DEBT` / mark CI `VERIFIED`.
 
-## Minimal operator steps
+## Exact raw URL (CI-fix; branch until GOS #25 merges)
 
-1. Download patch from Raw URL above (do not search disk for F01 / random `.diff`).
-2. Apply on `45af092`; run `pytest tests/ -q` → **62 passed**.
-3. Optional: sealed repro → **8 passed**.
-4. Push branch + open PR; note sanitize space-substitution + detection changes in PR body.
-5. After **merge**, reply with PR URL + merge SHA → then `EFFECT_RECEIPT` → `RECONCILED`.
+```
+https://raw.githubusercontent.com/sergeeey/Global-OS/cursor/pilot3-abcd-handoff-2907/artifacts/pilot/mcp_bouncer_fix/mcp-bouncer-ci-ruff-fix.patch
+```
 
-## Non-claims until RECONCILED
+## Non-claims
 
-- External acceptance
-- Production readiness of mcp-bouncer
-- Full F07 FP remediation (`sudo` in backticks still HIGH)
-- Effect from push alone (merge + re-verify required)
+- Full green CI until the new PR merges
+- PRODUCTION_PROVEN
+- Rollback of F01–F07 (not warranted)

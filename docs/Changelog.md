@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.136 — 2026-10-12
+
+### mcp-bouncer EffectReceipt RECONCILED + CI Ruff debt
+
+- External PR sergeeey/mcp-bouncer#6 merged (`33030e3`) — F01–F07 effect RECONCILED
+- Post-merge pytest 62; GitHub CI FAILED on Ruff (not tests)
+- Local CI-fix prepared (`mcp-bouncer-ci-ruff-fix.patch`); bot push still 403
+- Split claims: merge ≠ full CI green; PRODUCTION_PROVEN still 0
+
 ## 0.1.135 — 2026-10-12
 
 ### Pilot 3 arms A/B/C/D + Windows patch handoff

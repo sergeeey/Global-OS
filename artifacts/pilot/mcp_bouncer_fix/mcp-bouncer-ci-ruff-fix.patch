@@ -1,0 +1,76 @@
+From 4492416112f72c02d98d29c24a1d625c4c766aee Mon Sep 17 00:00:00 2001
+From: Cursor Agent <cursoragent@cursor.com>
+Date: Mon, 12 Oct 2026 13:47:16 +0000
+Subject: [PATCH] ci: fix Ruff errors after Pilot 2 merge
+
+Sort __all__ and imports; escape ZWSP/soft-hyphen/word-joiner/RLO
+in sanitize tests so PLE2515/PLE2502 pass without behavior change.
+---
+ mcp_bouncer/__init__.py | 10 +++++-----
+ tests/test_guard.py     | 10 +++++-----
+ 2 files changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/mcp_bouncer/__init__.py b/mcp_bouncer/__init__.py
+index 9d04722..6c18b39 100644
+--- a/mcp_bouncer/__init__.py
++++ b/mcp_bouncer/__init__.py
+@@ -23,13 +23,13 @@ from mcp_bouncer.guard import (
+ )
+ 
+ __all__ = [
+-    "is_safe",
+-    "scan",
+-    "sanitize",
+-    "collect_strings",
+-    "PATTERNS",
+     "HIGH_PRIORITY_CATEGORIES",
++    "PATTERNS",
+     "ScanResult",
++    "collect_strings",
++    "is_safe",
++    "sanitize",
++    "scan",
+ ]
+ 
+ __version__ = "0.2.0"
+diff --git a/tests/test_guard.py b/tests/test_guard.py
+index 411c007..5ac3708 100644
+--- a/tests/test_guard.py
++++ b/tests/test_guard.py
+@@ -1,6 +1,6 @@
+ """Tests for mcp_bouncer core detection engine."""
+ 
+-from mcp_bouncer import is_safe, scan, sanitize, collect_strings, ScanResult
++from mcp_bouncer import ScanResult, collect_strings, is_safe, sanitize, scan
+ from mcp_bouncer.guard import HIGH_PRIORITY_CATEGORIES
+ 
+ 
+@@ -102,7 +102,7 @@ class TestSanitize:
+ 
+     def test_maps_zero_width_chars_to_space(self):
+         # Spaces (not deletion) prevent sanitize()+scan() keyword fusion (Pilot 2 F03).
+-        assert sanitize("hello​world") == "hello world"
++        assert sanitize("hello\u200bworld") == "hello world"
+ 
+     def test_clean_string_unchanged(self):
+         assert sanitize("clean string") == "clean string"
+@@ -112,13 +112,13 @@ class TestSanitize:
+         assert result == {"key": "value"}
+ 
+     def test_maps_soft_hyphen_to_space(self):
+-        assert sanitize("a­b") == "a b"
++        assert sanitize("a\u00adb") == "a b"
+ 
+     def test_maps_word_joiner_to_space(self):
+-        assert sanitize("a⁠b") == "a b"
++        assert sanitize("a\u2060b") == "a b"
+ 
+     def test_maps_bidi_override_to_space(self):
+-        assert sanitize("a‮b") == "a b"
++        assert sanitize("a\u202eb") == "a b"
+ 
+     def test_maps_unicode_tag_char_to_space(self):
+         assert sanitize("a\U000e0069b") == "a b"
+-- 
+2.43.0
+

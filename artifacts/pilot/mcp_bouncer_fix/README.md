@@ -1,25 +1,27 @@
 # mcp-bouncer — Pilot 2 sealed-findings fix (WorldInteraction)
 
-**Status:** `PROPOSED` — patch ready; external push blocked (`cursor[bot]` 403)  
-**Base pin:** `sergeeey/mcp-bouncer@45af092`  
-**Local fix commit:** `c0d493dfd6580d50d73d92d26a9056792904bbb9` (branch `gos/pilot2-sealed-fixes`)  
+**Status:** F01–F07 **RECONCILED** (PR #6 / `33030e3`); CI Ruff debt **PENDING**  
+**Base pin (pre-fix):** `sergeeey/mcp-bouncer@45af092`  
+**Merged tip:** `33030e35d9c7546cb263092da37b4f17ccb366e8`  
 **Date (UTC):** 2026-10-12
 
 ## Why
 
-Pilot 2 sealed repro (`artifacts/pilot/pilot2_eng_ab/repro/`) documented material defects.  
-This pack turns audit findings into a **regression-safe external correction proposal**.
+Pilot 2 sealed repro → external correction. Merge landed; style CI still red.
 
 ```text
-Proposal ≠ Effect — effect not yet observed (awaiting human push/PR/merge)
+Proposal ≠ Effect — closed for F01–F07
+Full CI green     — pending mcp-bouncer-ci-ruff-fix.patch (bot 403)
 ```
 
-## Local verification (this environment)
+## Verification
 
 | Suite | Result |
 |-------|--------|
-| `tests/` (post-fix) | **62 passed** — see `PYTEST_OUT.txt` |
-| Sealed Pilot 2 repro | **8 passed** (was 7 fail + 1 pass) — see `SEALED_REPRO_POST_FIX.txt` |
+| `tests/` post-merge tip | **62 passed** — `PYTEST_POST_MERGE.txt` |
+| Sealed Pilot 2 repro (pre-merge local) | **8 passed** — `SEALED_REPRO_POST_FIX.txt` |
+| Ruff on merge tip | **FAIL** (4 errors) |
+| Ruff after CI-fix patch (local) | **All checks passed** — `RUFF_POST_FIX.txt` |
 
 ## Fixes included
 
@@ -45,7 +47,6 @@ See **`WINDOWS_APPLY.md`** for encoding-safe PowerShell + exact URLs.
 
 Patch file in-repo: `mcp-bouncer-pilot2-sealed-fixes.patch`
 
-## After external merge
+## After CI-fix merges
 
-Update `EFFECT_RECEIPT.md` → `RECONCILED` with PR URL + merge SHA + post-merge pytest on target main.  
-Until then status stays `PROPOSED`.
+Clear `CI_DEBT` in `EFFECT_RECEIPT.md` with CI-fix PR URL + merge SHA + green Actions.
