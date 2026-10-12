@@ -1,0 +1,206 @@
+diff --git a/tools/workflow-controller/tests/fixtures/clean-project/events.jsonl b/tools/workflow-controller/tests/fixtures/clean-project/events.jsonl
+index 40078d9..8cc0622 100644
+--- a/tools/workflow-controller/tests/fixtures/clean-project/events.jsonl
++++ b/tools/workflow-controller/tests/fixtures/clean-project/events.jsonl
+@@ -4,3 +4,6 @@
+ {"checks": {"README.md": {"message": "README.md includes install, run, and test guidance", "name": "README.md", "status": "pass"}, "coverage.xml": {"message": "coverage 85.00% >= 80.00%", "name": "coverage.xml", "observed": {"coverage_percent": 85.0, "min_coverage": 80.0}, "status": "pass"}, "project_dir": {"message": "directory exists: E:\\Paperclip AI - 2026\\tools\\workflow-controller\\tests\\fixtures\\clean-project", "name": "project_dir", "status": "pass"}, "test-results.json": {"message": "tests passed: passed=15 failed=0", "name": "test-results.json", "observed": {"failed": 0, "min_tests": 15, "passed": 15}, "status": "pass"}}, "issue_id": "FIX-1", "project_dir": "E:\\Paperclip AI - 2026\\tools\\workflow-controller\\tests\\fixtures\\clean-project", "reason": "all artifact checks passed", "stage": "artifact_gate", "status": "pass", "timestamp": "2026-05-10T19:55:24.827595Z"}
+ {"checks": {"project_dir": {"message": "directory exists: E:\\Paperclip AI - 2026\\tools\\workflow-controller\\tests\\fixtures\\clean-project", "name": "project_dir", "status": "pass"}, "semgrep.sarif": {"message": "semgrep SARIF has no blocking findings", "name": "semgrep.sarif", "observed": {"block_levels": ["error", "warning"], "blocking_results": 0, "rule_ids": [], "total_results": 0}, "status": "pass"}, "trufflehog.jsonl": {"message": "trufflehog JSONL has no blocking secret findings", "name": "trufflehog.jsonl", "observed": {"block_unknown": true, "total_results": 0, "unknown_results": 0, "verified_results": 0}, "status": "pass"}}, "issue_id": "FIX-1", "project_dir": "E:\\Paperclip AI - 2026\\tools\\workflow-controller\\tests\\fixtures\\clean-project", "reason": "all security checks passed", "stage": "security_gate", "status": "pass", "timestamp": "2026-05-10T19:55:24.828595Z"}
+ {"checks": {"artifact_gate": {"message": "all artifact checks passed", "name": "artifact_gate", "observed": {"check_count": 4, "reason": "all artifact checks passed", "status": "pass"}, "status": "pass"}, "security_gate": {"message": "all security checks passed", "name": "security_gate", "observed": {"check_count": 3, "reason": "all security checks passed", "status": "pass"}, "status": "pass"}}, "issue_id": "FIX-1", "project_dir": "E:\\Paperclip AI - 2026\\tools\\workflow-controller\\tests\\fixtures\\clean-project", "reason": "all issue gates passed", "stage": "issue_gates", "status": "pass", "timestamp": "2026-05-10T19:55:24.828595Z"}
++{"checks": {"README.md": {"message": "README.md includes install, run, and test guidance", "name": "README.md", "status": "pass"}, "coverage.xml": {"message": "coverage 85.00% >= 80.00%", "name": "coverage.xml", "observed": {"coverage_percent": 85.0, "min_coverage": 80.0}, "status": "pass"}, "project_dir": {"message": "directory exists: /tmp/pilot/p3-arm-A/tools/workflow-controller/tests/fixtures/clean-project", "name": "project_dir", "status": "pass"}, "test-results.json": {"message": "tests passed: passed=15 failed=0", "name": "test-results.json", "observed": {"failed": 0, "min_tests": 15, "passed": 15}, "status": "pass"}}, "issue_id": "FIX-1", "project_dir": "/tmp/pilot/p3-arm-A/tools/workflow-controller/tests/fixtures/clean-project", "reason": "all artifact checks passed", "stage": "artifact_gate", "status": "pass", "timestamp": "2026-10-12T14:34:23.400811Z"}
++{"checks": {"project_dir": {"message": "directory exists: /tmp/pilot/p3-arm-A/tools/workflow-controller/tests/fixtures/clean-project", "name": "project_dir", "status": "pass"}, "semgrep.sarif": {"message": "semgrep SARIF has no blocking findings", "name": "semgrep.sarif", "observed": {"block_levels": ["error", "warning"], "blocking_results": 0, "rule_ids": [], "total_results": 0}, "status": "pass"}, "trufflehog.jsonl": {"message": "trufflehog JSONL has no blocking secret findings", "name": "trufflehog.jsonl", "observed": {"block_unknown": true, "total_results": 0, "unknown_results": 0, "verified_results": 0}, "status": "pass"}}, "issue_id": "FIX-1", "project_dir": "/tmp/pilot/p3-arm-A/tools/workflow-controller/tests/fixtures/clean-project", "reason": "all security checks passed", "stage": "security_gate", "status": "pass", "timestamp": "2026-10-12T14:34:23.401018Z"}
++{"checks": {"artifact_gate": {"message": "all artifact checks passed", "name": "artifact_gate", "observed": {"check_count": 4, "reason": "all artifact checks passed", "status": "pass"}, "status": "pass"}, "security_gate": {"message": "all security checks passed", "name": "security_gate", "observed": {"check_count": 3, "reason": "all security checks passed", "status": "pass"}, "status": "pass"}}, "issue_id": "FIX-1", "project_dir": "/tmp/pilot/p3-arm-A/tools/workflow-controller/tests/fixtures/clean-project", "reason": "all issue gates passed", "stage": "issue_gates", "status": "pass", "timestamp": "2026-10-12T14:34:23.401087Z"}
+diff --git a/tools/workflow-controller/tests/test_issue_state.py b/tools/workflow-controller/tests/test_issue_state.py
+index aa06132..f12ad18 100644
+--- a/tools/workflow-controller/tests/test_issue_state.py
++++ b/tools/workflow-controller/tests/test_issue_state.py
+@@ -19,7 +19,7 @@ FIXTURES = Path(__file__).resolve().parent / "fixtures" / "issues"
+ 
+ 
+ class IssueStateTests(unittest.TestCase):
+-    def test_sync_issue_state_marks_done_on_pass(self) -> None:
++    def test_sync_issue_state_keeps_in_progress_on_pass(self) -> None:
+         issue_file = FIXTURES / "clean-issue.json"
+         issue = IssueModel.model_validate_json(issue_file.read_text(encoding="utf-8"))
+ 
+@@ -28,7 +28,7 @@ class IssueStateTests(unittest.TestCase):
+             run = run_issue_gates_from_issue(issue, issue_file=issue_file, event_log=event_log)
+             updated = sync_issue_state(issue, final_run=run, event_log=event_log)
+ 
+-        self.assertEqual(updated.status, "done")
++        self.assertEqual(updated.status, "in_progress")
+         self.assertEqual(updated.execution.last_run_status, "pass")
+         self.assertEqual(updated.execution.last_event_log, str(event_log))
+ 
+@@ -85,7 +85,7 @@ class IssueStateTests(unittest.TestCase):
+             synced = IssueModel.model_validate_json(output_file.read_text(encoding="utf-8"))
+ 
+         self.assertEqual(exit_code, 0)
+-        self.assertEqual(synced.status, "done")
++        self.assertEqual(synced.status, "in_progress")
+         self.assertEqual(synced.execution.last_run_status, "pass")
+ 
+ 
+diff --git a/tools/workflow-controller/tests/test_mcp_tools.py b/tools/workflow-controller/tests/test_mcp_tools.py
+index 2c2da51..c725bf5 100644
+--- a/tools/workflow-controller/tests/test_mcp_tools.py
++++ b/tools/workflow-controller/tests/test_mcp_tools.py
+@@ -73,8 +73,9 @@ class MCPToolTests(unittest.TestCase):
+             synced = json.loads(output_file.read_text(encoding="utf-8"))
+ 
+         self.assertEqual(response["policy"]["action"], "allow")
+-        self.assertEqual(response["result"]["issue"]["status"], "done")
+-        self.assertEqual(synced["status"], "done")
++        self.assertEqual(response["result"]["issue"]["status"], "in_progress")
++        self.assertEqual(synced["status"], "in_progress")
++        self.assertEqual(synced["execution"]["last_run_status"], "pass")
+ 
+     def test_plan_issue_flow_tool_runs_when_policy_allows(self) -> None:
+         issue_file = FIXTURES / "issues" / "clean-issue.json"
+@@ -108,7 +109,8 @@ class MCPToolTests(unittest.TestCase):
+             structured = asyncio.run(run_check(root))
+ 
+         self.assertEqual(structured["policy"]["action"], "allow")
+-        self.assertEqual(structured["result"]["issue"]["status"], "done")
++        self.assertEqual(structured["result"]["issue"]["status"], "in_progress")
++        self.assertEqual(structured["result"]["issue"]["execution"]["last_run_status"], "pass")
+ 
+     def test_mcp_server_can_call_plan_issue_flow_tool(self) -> None:
+         issue_file = FIXTURES / "issues" / "clean-issue.json"
+diff --git a/tools/workflow-controller/tests/test_tool_policy.py b/tools/workflow-controller/tests/test_tool_policy.py
+index 19c1b5d..0b0409b 100644
+--- a/tools/workflow-controller/tests/test_tool_policy.py
++++ b/tools/workflow-controller/tests/test_tool_policy.py
+@@ -67,6 +67,23 @@ class ToolPolicyTests(unittest.TestCase):
+         self.assertEqual(decision.action, "require_approval")
+         self.assertIn("requires approval", decision.reason)
+ 
++    def test_blocks_output_file_outside_allowed_roots(self) -> None:
++        with tempfile.TemporaryDirectory() as allowed_tmp:
++            with tempfile.TemporaryDirectory() as denied_tmp:
++                policy = ToolPolicy(allowed_roots=(Path(allowed_tmp),))
++
++                decision = evaluate_tool_request(
++                    "workflow_sync_issue_state",
++                    {
++                        "issue_file": str(Path(allowed_tmp) / "issue.json"),
++                        "output_file": str(Path(denied_tmp) / "escaped.json"),
++                    },
++                    policy=policy,
++                )
++
++        self.assertEqual(decision.action, "block")
++        self.assertIn("outside allowed roots", decision.reason)
++
+ 
+ if __name__ == "__main__":
+     unittest.main()
+diff --git a/tools/workflow-controller/workflow_controller/event_log.py b/tools/workflow-controller/workflow_controller/event_log.py
+index a3a54a9..aad4749 100644
+--- a/tools/workflow-controller/workflow_controller/event_log.py
++++ b/tools/workflow-controller/workflow_controller/event_log.py
+@@ -165,10 +165,13 @@ def _validate_consistency(events: list[EventModel]) -> str | None:
+         artifact = prior_events[0]
+         if final_event.status != artifact.status:
+             return "final status does not match artifact gate"
+-        if final_event.reason != "artifact gate blocked":
++        expected_reason = f"artifact gate {_status_verb(final_event.status)}"
++        if final_event.reason != expected_reason:
+             return "artifact-gate final reason mismatch"
+-        if final_event.status != "blocked" or final_event.blocked_reason != "artifact gate blocked":
++        if final_event.status == "blocked" and final_event.blocked_reason != final_event.reason:
+             return "artifact-gate blocked_reason mismatch"
++        if final_event.status != "blocked" and final_event.blocked_reason is not None:
++            return "non-blocked final event should not include blocked_reason"
+         return None
+ 
+     security = prior_events[-1]
+diff --git a/tools/workflow-controller/workflow_controller/issue_runner.py b/tools/workflow-controller/workflow_controller/issue_runner.py
+index ff021fc..813f11b 100644
+--- a/tools/workflow-controller/workflow_controller/issue_runner.py
++++ b/tools/workflow-controller/workflow_controller/issue_runner.py
+@@ -60,7 +60,7 @@ def run_issue_gates(
+             issue_id=issue_id,
+             project_dir=project_dir,
+             status=artifact_verdict.status,
+-            reason=f"artifact gate {artifact_verdict.status}",
++            reason=f"artifact gate {_status_verb(artifact_verdict.status)}",
+             gates=gates,
+         )
+         _write_optional_event(final, event_log)
+diff --git a/tools/workflow-controller/workflow_controller/issue_state.py b/tools/workflow-controller/workflow_controller/issue_state.py
+index 3891c51..b6b4fe8 100644
+--- a/tools/workflow-controller/workflow_controller/issue_state.py
++++ b/tools/workflow-controller/workflow_controller/issue_state.py
+@@ -35,8 +35,10 @@ def write_issue_state(issue: IssueModel, *, issue_file: Path) -> None:
+ 
+ 
+ def _issue_status_from_verdict(status: VerdictStatus) -> IssueStatus:
++    # Gate pass means Builder+Scanner verification succeeded; Reporter/DevOps
++    # still remain. Do not mark the issue done here.
+     if status == "pass":
+-        return "done"
++        return "in_progress"
+     if status == "blocked":
+         return "blocked"
+     return "in_progress"
+diff --git a/tools/workflow-controller/workflow_controller/security_gate.py b/tools/workflow-controller/workflow_controller/security_gate.py
+index 8c6aa4b..9db514b 100644
+--- a/tools/workflow-controller/workflow_controller/security_gate.py
++++ b/tools/workflow-controller/workflow_controller/security_gate.py
+@@ -175,10 +175,19 @@ def _run_semgrep(
+             observed=observed,
+         )
+ 
+-    status = "pass" if completed.returncode == 0 else "fail"
++    # Semgrep uses exit 1 when findings exist; SARIF parsing decides block levels.
++    # Only treat other non-zero codes as runner failures (tool/config errors).
++    if completed.returncode not in (0, 1):
++        return CheckResult(
++            name="semgrep.run",
++            status="fail",
++            message=f"semgrep completed with exit code {completed.returncode}",
++            observed=observed,
++        )
++
+     return CheckResult(
+         name="semgrep.run",
+-        status=status,
++        status="pass",
+         message=f"semgrep completed with exit code {completed.returncode}",
+         observed=observed,
+     )
+@@ -213,10 +222,20 @@ def _run_trufflehog(
+         "returncode": completed.returncode,
+         "output_path": str(output_path),
+     }
+-    status = "pass" if completed.returncode == 0 else "fail"
++    # Non-zero often means findings were emitted. Finding policy is enforced by
++    # _check_trufflehog_jsonl (including block_trufflehog_unknown). Fail the
++    # runner only when the process produced no usable output (crash/timeout).
++    if completed.returncode != 0 and not completed.stdout.strip():
++        return CheckResult(
++            name="trufflehog.run",
++            status="fail",
++            message=f"trufflehog completed with exit code {completed.returncode} and empty output",
++            observed=observed,
++        )
++
+     return CheckResult(
+         name="trufflehog.run",
+-        status=status,
++        status="pass",
+         message=f"trufflehog completed with exit code {completed.returncode}",
+         observed=observed,
+     )
+diff --git a/tools/workflow-controller/workflow_controller/tool_policy.py b/tools/workflow-controller/workflow_controller/tool_policy.py
+index 98cefab..6396261 100644
+--- a/tools/workflow-controller/workflow_controller/tool_policy.py
++++ b/tools/workflow-controller/workflow_controller/tool_policy.py
+@@ -19,6 +19,7 @@ DEFAULT_ALLOWED_TOOLS = (
+ 
+ PATH_ARGUMENT_NAMES = {
+     "issue_file",
++    "output_file",
+     "project_dir",
+     "semgrep_sarif",
+     "trufflehog_json",
