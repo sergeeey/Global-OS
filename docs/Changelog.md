@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.126 — 2026-10-12
+
+### P0 hardening — AUTH / scheduler / Temporal honesty
+
+- AUTH-001: production `ToolGateway(allow_legacy_tokens=False)` — opaque `accept_token` forbidden
+- AUTH-002: production requires `GOS_EXECUTION_TOKEN_SECRET` + `GOS_APPROVAL_SIGNING_SECRET` (no dev defaults)
+- IMPL-003: `FairLlmScheduler.resume` no longer nests `enqueue` under Lock (deadlock fix + timeout test)
+- RUN-004: Temporal patterns use real `workflow.continue_as_new` (not fake early-return flag)
+- RUN-005: harness step/heartbeat registries keyed by `run_id` (process-local honesty note)
+- DOC-007: RUN_STATE tip split `repo_head` vs `code_head`
+- ADR-0007 amended; MEM-006 progressive memory process-local honesty note
+
 ## 0.1.125 — 2026-10-12
 
 ### Canon sync — PR #15 on main

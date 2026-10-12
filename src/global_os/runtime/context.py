@@ -31,6 +31,10 @@ class RuntimeContext:
         self.ledger = EventLedger()
         self.goals = GoalStore(self.ledger)
         self.authority = AuthorityKernel(self.ledger, backend=backend)
-        self.gateway = ToolGateway(self.ledger)
+        # AUTH-001: production never accepts opaque legacy deposit tokens.
+        self.gateway = ToolGateway(
+            self.ledger,
+            allow_legacy_tokens=self.profile != "production",
+        )
         self.epistemic = EpistemicStore(self.ledger)
         self.null_results = NullResultStore(self.ledger)

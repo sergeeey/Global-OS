@@ -28,7 +28,7 @@
     {
       "id": "tool_gateway_token_gate",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "tests/test_authority.py"
+      "evidence": "tests/test_authority.py; production forbids legacy accept_token + requires GOS_EXECUTION_TOKEN_SECRET/GOS_APPROVAL_SIGNING_SECRET; tests/test_runtime_profile.py"
     },
     {
       "id": "effect_receipt",
@@ -48,7 +48,7 @@
     {
       "id": "temporal_durability",
       "state": "RUNTIME_VERIFIED_HARNESS",
-      "evidence": "TemporalBridge + TemporalPatternBridge (heartbeats, approval Signals, continue-as-new bound); kill/retry no duplicate effects; tests/test_temporal_bridge.py; tests/test_borrow_temporal_patterns.py (≠ LocalDurable)"
+      "evidence": "TemporalBridge + TemporalPatternBridge (heartbeats, approval Signals, real workflow.continue_as_new); harness registries keyed by run_id; kill/retry no duplicate effects; tests/test_temporal_bridge.py; tests/test_borrow_temporal_patterns.py (≠ LocalDurable; harness registries ≠ durable Temporal registry)"
     },
     {
       "id": "confirm_policy_deterministic",
@@ -58,12 +58,12 @@
     {
       "id": "progressive_memory_commit",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "ProgressiveMemoryStore draft→propose→commit; root-only context default; silent tool promote forbidden; tests/test_borrow_memory_progressive.py"
+      "evidence": "ProgressiveMemoryStore draft→propose→commit; root-only context default; silent tool promote forbidden; process-local in-memory bodies (≠ durable production store); tests/test_borrow_memory_progressive.py"
     },
     {
       "id": "llm_fair_scheduler",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "FairLlmScheduler FIFO/RR across missions; TPD/quota fail-closed stops drain; tests/test_borrow_fair_scheduler.py; resource OS only (≠ Authority)"
+      "evidence": "FairLlmScheduler FIFO/RR across missions; TPD/quota fail-closed stops drain; resume without nested-Lock deadlock; tests/test_borrow_fair_scheduler.py; resource OS only (≠ Authority)"
     },
     {
       "id": "citation_grounding",

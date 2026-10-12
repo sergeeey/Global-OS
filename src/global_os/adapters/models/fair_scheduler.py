@@ -62,14 +62,18 @@ class FairLlmScheduler:
         self._suspended: dict[str, LlmRequest] = {}
         self._completed: list[LlmResult] = []
 
+    def _enqueue_unlocked(self, req: LlmRequest) -> None:
+        """Must be called while holding ``_lock`` (non-reentrant)."""
+        if self.policy is SchedulerPolicy.FIFO:
+            self._fifo.setdefault(req.provider, deque()).append(req)
+            return
+        by_mission = self._queues.setdefault(req.provider, {})
+        by_mission.setdefault(req.mission_id, deque()).append(req)
+        self._mission_cycle[req.provider] = None  # rebuild on next pop
+
     def enqueue(self, req: LlmRequest) -> None:
         with self._lock:
-            if self.policy is SchedulerPolicy.FIFO:
-                self._fifo.setdefault(req.provider, deque()).append(req)
-                return
-            by_mission = self._queues.setdefault(req.provider, {})
-            by_mission.setdefault(req.mission_id, deque()).append(req)
-            self._mission_cycle[req.provider] = None  # rebuild on next pop
+            self._enqueue_unlocked(req)
 
     def pending_count(self, provider: str | None = None) -> int:
         with self._lock:
@@ -131,10 +135,11 @@ class FairLlmScheduler:
         return result
 
     def resume(self, request_id: str) -> LlmRequest | None:
+        """Re-queue a suspended request. Must not nest ``enqueue`` (Lock deadlock)."""
         with self._lock:
             req = self._suspended.pop(request_id, None)
             if req is not None:
-                self.enqueue(req)
+                self._enqueue_unlocked(req)
             return req
 
     def drain(

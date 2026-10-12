@@ -3,6 +3,10 @@
 Root index stays in context; path bodies load on demand. Durable promotion only
 via explicit draft → proposed → committed (ledger event). Tool success never
 silently becomes committed memory.
+
+Honesty (MEM-006): this store is process-local in-memory. Ledger events record
+commit provenance; the entry bodies themselves are not a durable cross-process
+truth store. Do not claim PRODUCTION_PROVEN persistence from this module alone.
 """
 
 from __future__ import annotations

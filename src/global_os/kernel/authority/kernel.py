@@ -336,7 +336,14 @@ class AuthorityKernel:
 
 
 def memory_approval_service(signing_key: bytes | None = None) -> ApprovalService:
-    """Test/helper: sqlite :memory: ApprovalService ready for AuthorityKernel."""
+    """Test/helper: sqlite :memory: ApprovalService ready for AuthorityKernel.
+
+    Production must set ``GOS_APPROVAL_SIGNING_SECRET`` (enforced by
+    ``apply_production_guards``); this helper still defaults to a dev key when
+    neither argument nor env is provided.
+    """
+    import os
+
     conn = sqlite3.connect(":memory:")
     conn.row_factory = sqlite3.Row
     conn.execute(
@@ -355,7 +362,10 @@ def memory_approval_service(signing_key: bytes | None = None) -> ApprovalService
         """
     )
     conn.commit()
-    return ApprovalService(conn, signing_key or b"gos-dev-approval-key")
+    if signing_key is None:
+        env = os.environ.get("GOS_APPROVAL_SIGNING_SECRET")
+        signing_key = env.encode("utf-8") if env else b"gos-dev-approval-key"
+    return ApprovalService(conn, signing_key)
 
 
 def assert_no_model_imports() -> None:

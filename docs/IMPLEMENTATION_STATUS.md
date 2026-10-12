@@ -10,14 +10,14 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | goal_contract_immutable | RUNTIME_VERIFIED_LOCAL | tests/test_goal_and_events.py |
 | event_ledger_append_only | RUNTIME_VERIFIED_LOCAL | tests/test_goal_and_events.py; tests/test_sql_store.py |
 | authority_default_deny | RUNTIME_VERIFIED_LOCAL | tests/test_authority.py; tests/test_policy.py |
-| tool_gateway_token_gate | RUNTIME_VERIFIED_LOCAL | tests/test_authority.py |
+| tool_gateway_token_gate | RUNTIME_VERIFIED_LOCAL | tests/test_authority.py; production forbids legacy accept_token + requires GOS_EXECUTION_TOKEN_SECRET/GOS_APPROVAL_SIGNING_SECRET; tests/test_runtime_profile.py |
 | effect_receipt | RUNTIME_VERIFIED_LOCAL | tests/test_authority.py |
 | claim_invalidation | RUNTIME_VERIFIED_LOCAL | tests/test_epistemic.py |
 | durable_runner_process_kill | RUNTIME_VERIFIED_HARNESS | tests/test_durable_recovery.py; tests/test_survival_multi.py |
-| temporal_durability | RUNTIME_VERIFIED_HARNESS | TemporalBridge + TemporalPatternBridge (heartbeats, approval Signals, continue-as-new bound); kill/retry no duplicate effects; tests/test_temporal_bridge.py; tests/test_borrow_temporal_patterns.py (≠ LocalDurable) |
+| temporal_durability | RUNTIME_VERIFIED_HARNESS | TemporalBridge + TemporalPatternBridge (heartbeats, approval Signals, real workflow.continue_as_new); harness registries keyed by run_id; kill/retry no duplicate effects; tests/test_temporal_bridge.py; tests/test_borrow_temporal_patterns.py (≠ LocalDurable; harness registries ≠ durable Temporal registry) |
 | confirm_policy_deterministic | RUNTIME_VERIFIED_LOCAL | RiskAssessment≠ConfirmationPolicy; LLM security_risk ignored; ToolGateway confirm gate; tests/test_borrow_confirm_policy.py; ADR-0013; ≠ live adversarial long-horizon |
-| progressive_memory_commit | RUNTIME_VERIFIED_LOCAL | ProgressiveMemoryStore draft→propose→commit; root-only context default; silent tool promote forbidden; tests/test_borrow_memory_progressive.py |
-| llm_fair_scheduler | RUNTIME_VERIFIED_LOCAL | FairLlmScheduler FIFO/RR across missions; TPD/quota fail-closed stops drain; tests/test_borrow_fair_scheduler.py; resource OS only (≠ Authority) |
+| progressive_memory_commit | RUNTIME_VERIFIED_LOCAL | ProgressiveMemoryStore draft→propose→commit; root-only context default; silent tool promote forbidden; process-local in-memory bodies (≠ durable production store); tests/test_borrow_memory_progressive.py |
+| llm_fair_scheduler | RUNTIME_VERIFIED_LOCAL | FairLlmScheduler FIFO/RR across missions; TPD/quota fail-closed stops drain; resume without nested-Lock deadlock; tests/test_borrow_fair_scheduler.py; resource OS only (≠ Authority) |
 | citation_grounding | RUNTIME_VERIFIED_LOCAL | claim→citation→passage; citation-less promotion rejected; tests/test_borrow_grounding_sop_research.py |
 | sop_skill_packs_t2 | RUNTIME_VERIFIED_LOCAL | T2 SOP packs typed handoffs; hierarchy not default axiom (GOS-I30); tests/test_borrow_grounding_sop_research.py |
 | research_factory_template | RUNTIME_VERIFIED_LOCAL | Mission stage template idea→…→write; REJECT terminal allowed; self-cert DENY; LLM review advisory only; tests/test_borrow_grounding_sop_research.py |
