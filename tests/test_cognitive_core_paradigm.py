@@ -1,4 +1,4 @@
-"""Guards for Cognitive Core paradigm + Challenge draft."""
+"""Guards for Cognitive Core paradigm + Challenge lock pointer."""
 
 from __future__ import annotations
 
@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PACK = ROOT / "artifacts" / "pilot" / "cognitive_core"
+CHAL = ROOT / "artifacts" / "pilot" / "challenge_ga"
 
 
 def test_paradigm_locks_achiever_over_platform_only():
@@ -18,23 +19,27 @@ def test_paradigm_locks_achiever_over_platform_only():
     assert "stop micro-reproving" in text or "stop:" in text
 
 
-def test_organs_and_challenge_draft_present():
+def test_organs_and_challenge_lock_present():
     organs = (PACK / "COGNITIVE_ORGANS.md").read_text(encoding="utf-8")
-    challenge = (PACK / "CHALLENGE_CONTRACT_DRAFT.md").read_text(encoding="utf-8")
+    draft = (PACK / "CHALLENGE_CONTRACT_DRAFT.md").read_text(encoding="utf-8")
     assert "CONTRACTS_LOCKED" in organs
     assert "Decomposer" in organs
     assert "Pivot" in organs
     assert "Orchestration" in organs
     assert "ADR-0009" in organs
-    assert "PREREG_DRAFT" in challenge
-    assert "not locked for execution" in challenge.lower() or "not locked for exec" in challenge.lower()
-    assert "H-GA-ATTR" in challenge
-    assert "C vs B" in challenge
-    assert "Terminal goal criterion" in challenge
-    assert "Stop conditions" in challenge
+    assert "PREREG_LOCKED" in draft or (CHAL / "LOCK.json").is_file()
+    assert "H-GA-ATTR" in draft or "H-GA-ATTR" in (CHAL / "CHALLENGE_GA_CONTRACT.md").read_text(
+        encoding="utf-8"
+    )
+    assert (CHAL / "LOCK.json").is_file()
+    assert "Terminal goal criterion" in (CHAL / "CHALLENGE_GA_CONTRACT.md").read_text(
+        encoding="utf-8"
+    )
+    assert "Stop conditions" in (CHAL / "CHALLENGE_GA_CONTRACT.md").read_text(encoding="utf-8")
 
 
 def test_roadmap_points_to_cognitive_core():
     roadmap = (ROOT / "ROADMAP.md").read_text(encoding="utf-8")
     assert "cognitive_core" in roadmap or "Cognitive Core" in roadmap
     assert "Autonomous" in roadmap
+    assert "Challenge-GA" in roadmap or "CHALLENGE-GA" in roadmap

@@ -20,7 +20,7 @@
     "production_proven": 0
   },
   "durable_runner_claim": "no_last_step_rerun_after_SUCCEEDED_verified_not_full_exactly_once",
-  "challenge_status": "PREREG_DRAFT",
+  "challenge_status": "PREREG_LOCKED",
   "forbidden": [
     "execute_challenge_before_lock",
     "bypass_authority_kernel",

@@ -55,7 +55,7 @@ def test_organ_lock_and_six_fields():
     assert lock["parent"]["pilot3_attr"] == "NOT_SHOWN"
     assert lock["parent"]["m2"] == "CLOSED"
     assert lock["parent"]["production_proven"] == 0
-    assert lock["challenge_status"] == "PREREG_DRAFT"
+    assert lock["challenge_status"] == "PREREG_LOCKED"
     assert "exactly_once" in lock["durable_runner_claim"] or "not_full_exactly_once" in lock[
         "durable_runner_claim"
     ]
