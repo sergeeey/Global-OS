@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.127 — 2026-10-12
+
+### Pilot usage — PhaseBreak-2026 claims audit
+
+- PR #17 merged (`3e4de13`); tip split closed (repo_head=code_head)
+- Goal Contract `PILOT-PB-CLAIMS-v1` on `sergeeey/PhaseBreak-2026@fd1e55c`
+- Terminal: product “production-usable” **REJECTED**; finance headline metrics vs JSON **SUPPORTED**; universality confirmed **REJECTED**; Nikkei narrative **INCONCLUSIVE**
+- Pack: `artifacts/pilot/phasebreak/` — no GOS advantage claimed; not M-EXT6
+
 ## 0.1.126 — 2026-10-12
 
 ### P0 hardening — AUTH / scheduler / Temporal honesty

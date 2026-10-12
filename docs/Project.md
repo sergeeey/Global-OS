@@ -60,7 +60,8 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 11. **Closed:** M-EXT3 TIE on httpx#3614 — both arms hard-gated; H_GSA NOT CONFIRMED.  
 12. **Audited:** M-EXT4 triage success + errata; init Mpemba UNRESOLVED / NOT TESTED.  
 13. **Closed:** M-EXT5 CAMPAIGN_CLOSED — late REJECTED; early secondary SUPPORTED; Fisher REJECTED.  
-14. **Now:** tip split — `repo_head` `2cc25a2` (#16 canon) / `code_head` `4b7224c` (#15 borrow); **pilot usage** + ADR-0013 borrow; P0 hardening (AUTH/sched/Temporal). DoD V2 still PARTIAL (0 PRODUCTION_PROVEN). Not: M-EXT6; Trust Kernel; ScienceKernel.
+14. **Done:** P0 hardening merged (`3e4de13` #17).  
+15. **Now:** PILOT_USAGE — PhaseBreak claims audit TERMINAL (`artifacts/pilot/phasebreak/`); next optional PhaseBreak hygiene or new user Goal Contract. DoD V2 still PARTIAL (0 PRODUCTION_PROVEN). Not: M-EXT6; Trust Kernel; ScienceKernel.
 
 ## Документы
 
