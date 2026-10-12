@@ -32,7 +32,8 @@ CURRENT — post architecture ablation (ARCH-ABLATION-MECH-v1 TERMINAL)
             artifacts/pilot/minimal_stack/MINIMAL_STACK_CONTRACT.md
   Mission: Autonomous Goal Achiever (substrate = inescapable core, not the product)
   Paradigm: artifacts/pilot/cognitive_core/PARADIGM.md
-  Next: Cognitive Core organs + lock CHALLENGE-GA-v1 (open multi-phase goal)
+  Organs: CONTRACTS_LOCKED (Decomposer→Pivot→Orchestration); stubs only
+  Next: lock CHALLENGE-GA-v1 terminal goal + stop conditions → deepen organs → exec
   M2 CLOSED; Pilot 3 ATTR NOT_SHOWN (audit); do not soften / do not platform-only swap
   Do NOT invent M-EXT6 / ScienceKernel / Trust Kernel promote
   Y20–Y22: primary-outcome advantage NOT SHOWN

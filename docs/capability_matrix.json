@@ -490,7 +490,21 @@
       "paradigm": "artifacts/pilot/cognitive_core/PARADIGM.md",
       "organs": "artifacts/pilot/cognitive_core/COGNITIVE_ORGANS.md",
       "challenge_draft": "artifacts/pilot/cognitive_core/CHALLENGE_CONTRACT_DRAFT.md",
-      "evidence": "tests/test_cognitive_core_paradigm.py"
+      "evidence": "tests/test_cognitive_core_paradigm.py",
+      "next": "artifacts/pilot/cognitive_core/organs/LOCK.json"
+    },
+    "COGNITIVE_ORGANS_CONTRACTS": {
+      "status": "CONTRACTS_LOCKED",
+      "protocol_id": "COGNITIVE-ORGANS-CONTRACTS-v1",
+      "organs": ["decomposer", "pivot_replan", "orchestration"],
+      "mandatory_fields": 6,
+      "challenge_status": "PREREG_DRAFT",
+      "pilot3_attr_preserved": "NOT_SHOWN",
+      "m2_org_path": "CLOSED",
+      "production_proven": 0,
+      "durable_runner_claim": "no_last_step_rerun_after_SUCCEEDED_verified_not_full_exactly_once",
+      "lock": "artifacts/pilot/cognitive_core/organs/LOCK.json",
+      "evidence": "tests/test_cognitive_organ_contracts.py"
     }
   }
 }
