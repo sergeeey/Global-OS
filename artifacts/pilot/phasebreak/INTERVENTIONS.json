@@ -18,6 +18,17 @@
       "detail": "Did not patch PhaseBreak README or metrics during audit"
     }
   ],
-  "errors": [],
-  "recoveries": []
+  "errors": [
+    {
+      "id": "E1",
+      "kind": "permission",
+      "detail": "Push to sergeeey/PhaseBreak-2026 denied (403 cursor[bot]); hygiene commit kept as PROPOSED_HYGIENE.patch for operator apply on D:\\\\PhaseBreak-2026 or GitHub"
+    }
+  ],
+  "recoveries": [
+    {
+      "id": "R1",
+      "detail": "Wrote artifacts/pilot/phasebreak/PROPOSED_HYGIENE.patch (README recall, maturity, Nikkei provenance, domain_status)"
+    }
+  ]
 }

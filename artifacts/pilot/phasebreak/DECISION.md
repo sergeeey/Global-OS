@@ -44,6 +44,7 @@ GOS_vs_STRONG_AGENT_ADVANTAGE                           = NOT_MEASURED
 | 0 | none intellectual coaching of PhaseBreak mid-run | contract forbids metric fishing |
 | 1 | clone GitHub tip (not D:\ mount) | cloud has no Windows D: |
 | 2 | re-derive numbers via Python JSON only | no full `reproduce.sh` (network/deps) |
+| 3 | hygiene patch prepared; PhaseBreak push **403** | apply `PROPOSED_HYGIENE.patch` on `D:\PhaseBreak-2026` or open PR with your creds |
 
 ## Honesty
 
