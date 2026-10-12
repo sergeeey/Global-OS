@@ -204,8 +204,8 @@ EXTERNAL REAL WORK
   Forbidden: Immune*/ScienceKernel / rewrite M-EXT4/5 / secondary→headline
   Audit: artifacts/hardening/PROJECT_AUDIT_2026-10-08.md
   Pilot 2: PARTIAL_SUPPORT_PROCESS_ONLY (SAME_EXECUTOR); intel NOT_SHOWN
-  mcp-bouncer fixes: PROPOSED (local green; external merge pending)
-  Pilot 3: PREREG_DRAFT — independent executors + ablation vs discipline-only
+  mcp-bouncer: F01–F07 RECONCILED (#6) + CI_VERIFIED (#7/6ccce71 master green)
+  Pilot 3: PREREG_DRAFT — A/B/C + blind D; decisive C vs B
   Phase quality score ≠ product maturity; PRODUCTION_PROVEN = 0
 ```
 

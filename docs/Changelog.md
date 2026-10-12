@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.137 — 2026-10-12
+
+### mcp-bouncer WorldInteraction closed — CI_VERIFIED
+
+- PR #7 merged (`6ccce718ba8c0361806269e9d7a29e4f0842c6fc`)
+- master push Tests **success** (`38261957403`)
+- Claims: F01–F07 RECONCILED; CI repair CI_VERIFIED; Pilot 2 external cycle CLOSED
+- Still ≠ PRODUCTION_PROVEN; next = Pilot 3
+
 ## 0.1.136 — 2026-10-12
 
 ### mcp-bouncer EffectReceipt RECONCILED + CI Ruff debt

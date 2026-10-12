@@ -12,8 +12,8 @@
 
 ## Next actions (ordered)
 
-1. Human: apply mcp-bouncer patch (`WINDOWS_APPLY.md`) → PR → merge → RECONCILED.
-2. Select Pilot 3 target pin (avoid contamination).
+1. ~~mcp-bouncer WorldInteraction~~ — CLOSED (RECONCILED + CI_VERIFIED).
+2. Select Pilot 3 target pin (avoid contamination from Pilot 2 executor/SHA).
 3. Assign distinct executors A/B/C/D; fill `LOCK.json`.
 4. Execute → blind eval (D) → decision → value attribution (**C vs B**).
 

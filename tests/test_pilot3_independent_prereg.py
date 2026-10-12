@@ -64,20 +64,15 @@ def test_pilot3_forbids_self_certification() -> None:
     assert "No M2" in (PACK / "GOAL_CONTRACT.md").read_text(encoding="utf-8") or "No M2" in prereg
 
 
-def test_mcp_bouncer_fix_reconciled_with_ci_debt() -> None:
+def test_mcp_bouncer_fix_reconciled_and_ci_verified() -> None:
     assert (FIX / "mcp-bouncer-pilot2-sealed-fixes.patch").is_file()
     assert (FIX / "mcp-bouncer-ci-ruff-fix.patch").is_file()
-    assert (FIX / "WINDOWS_APPLY.md").is_file()
-    assert (FIX / "WINDOWS_APPLY_CI_RUFF.md").is_file()
     receipt = (FIX / "EFFECT_RECEIPT.md").read_text(encoding="utf-8")
     assert "RECONCILED" in receipt
+    assert "CI_VERIFIED" in receipt
     assert "33030e3" in receipt
-    assert "CI_DEBT" in receipt or "FAILED" in receipt
-    assert "PENDING" in receipt
-    assert (FIX / "PYTEST_POST_MERGE.txt").read_text(encoding="utf-8").count("62 passed") >= 1
-    assert "All checks passed" in (FIX / "RUFF_POST_FIX.txt").read_text(encoding="utf-8")
+    assert "6ccce71" in receipt
+    assert "38261957403" in receipt
     handoff = (FIX / "HANDOFF.md").read_text(encoding="utf-8")
-    assert "403" in handoff
-    ci_win = (FIX / "WINDOWS_APPLY_CI_RUFF.md").read_text(encoding="utf-8")
-    assert "curl.exe" in ci_win
-    assert "mcp-bouncer-ci-ruff-fix.patch" in ci_win
+    assert "CI_VERIFIED" in handoff
+    assert "CLOSED" in handoff
