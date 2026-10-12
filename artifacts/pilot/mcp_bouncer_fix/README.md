@@ -33,21 +33,17 @@ Proposal ≠ Effect — effect not yet observed (awaiting human push/PR/merge)
 | F06 | `$(…)` only with dangerous command (bare `$(date)` allowed) |
 | F07 | `bash\|sh\|python` in backticks blocked (FP on routine `sudo` docs **not** fully resolved) |
 
-## Human apply (same path as PhaseBreak)
+## Human apply
 
-```powershell
-cd D:\path\to\mcp-bouncer   # or clone fresh @ 45af092
-git checkout -b gos/pilot2-sealed-fixes
-git apply path\to\mcp-bouncer-pilot2-sealed-fixes.patch
-# or: git am < patch
-python -m pytest tests/ -q
-git add -A
-git commit -m "fix: close Pilot 2 sealed findings (F01-F07 core)"
-git push -u origin gos/pilot2-sealed-fixes
-# open PR → merge → reply with PR URL + merge SHA
-```
+See **`WINDOWS_APPLY.md`** for encoding-safe PowerShell + exact URLs.
 
-Patch file: `mcp-bouncer-pilot2-sealed-fixes.patch`
+| Field | Value |
+|-------|-------|
+| Raw patch | https://raw.githubusercontent.com/sergeeey/Global-OS/main/artifacts/pilot/mcp_bouncer_fix/mcp-bouncer-pilot2-sealed-fixes.patch |
+| Target pin | `45af092` on https://github.com/sergeeey/mcp-bouncer |
+| Pack on main | since merge `#24` / `57c2938` |
+
+Patch file in-repo: `mcp-bouncer-pilot2-sealed-fixes.patch`
 
 ## After external merge
 

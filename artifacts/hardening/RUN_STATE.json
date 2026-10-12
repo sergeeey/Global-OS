@@ -1,15 +1,15 @@
 {
   "sprint": "PILOT_USAGE",
-  "updated_at": "2026-10-12T12:05:00Z",
+  "updated_at": "2026-10-12T12:45:00Z",
   "current_goal": "REAL_USER_PROJECTS_PILOT_USAGE",
   "tip": {
-    "repo_head": "413d726",
-    "repo_head_note": "PR #23 Pilot 2 A/B TERMINAL MERGED",
+    "repo_head": "57c2938",
+    "repo_head_note": "PR #24 Pilot 3 prereg + bouncer fix proposal MERGED",
     "code_head": "c851246",
-    "code_head_note": "last runtime code merge #20; #21–#23 docs/pilot",
+    "code_head_note": "last runtime code merge #20; #21–#24 docs/pilot",
     "split_reason": "DOC-007: repo_head (pilot docs) ahead of code_head"
   },
-  "phase_statement": "Pilot 2 TERMINAL (process-only). mcp-bouncer sealed-fix PROPOSED (local 62+8 green; push 403). Pilot 3 PREREG_DRAFT (independent A/B+ablation). Phase quality ≠ product maturity. PhaseBreak RECONCILED. 0 PRODUCTION_PROVEN. Not M2.",
+  "phase_statement": "main@57c2938. Pilot 2 TERMINAL. mcp-bouncer EffectReceipt PROPOSED (bot 403; WINDOWS_APPLY.md). Pilot 3 PREREG_DRAFT arms A/B/C/D key C vs B. PhaseBreak RECONCILED. 0 PRODUCTION_PROVEN. Not M2.",
   "operator_action_required": false,
   "operator_dispatch_required": false,
   "y20": {

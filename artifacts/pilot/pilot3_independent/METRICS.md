@@ -15,7 +15,7 @@
 |--------|------|
 | confirmed_useful_findings | count by severity |
 | severity_weighted_score | Critical=4, Major=2, Minor=1 |
-| correct_fixes | count CORRECT by E |
+| correct_fixes | count CORRECT by D |
 | regression_tests_added | count |
 | independent_repro_rate | CONFIRMED / submitted |
 
@@ -28,11 +28,12 @@
 | wall_seconds | seconds |
 | token_api_cost | tokens + USD |
 
-## ATTR (reporting)
+## ATTR (reporting) — decisive C (GOS) vs B (discipline)
 
-Compare B vs C on EPI/ENG/EFF using sealed tolerances at lock
+Compare C vs B on EPI/ENG/EFF using sealed tolerances at lock
 (default: relative Δ ≥ 15% on primary rate/count metrics, or dual-coder qualitative
 PASS if n small — chosen at lock and frozen).
+Beating A alone does not establish GOS incremental value.
 
 ## Ordered decision use
 

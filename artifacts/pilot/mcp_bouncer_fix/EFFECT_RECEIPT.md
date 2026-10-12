@@ -1,8 +1,9 @@
 # Effect Receipt — mcp-bouncer Pilot 2 sealed fixes
 
-**Status:** `PROPOSED`  
+**Status:** `PROPOSED` (not RECONCILED — external merge pending)  
 **Pilot upstream:** `PILOT2-ENG-AB-v1`  
-**Date (UTC):** 2026-10-12
+**Date (UTC):** 2026-10-12  
+**GOS pack on main:** `#24` / `57c2938` — patch discoverable; bot still cannot push to mcp-bouncer
 
 ## Chain
 

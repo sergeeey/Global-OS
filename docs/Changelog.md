@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.135 — 2026-10-12
+
+### Pilot 3 arms A/B/C/D + Windows patch handoff
+
+- PR #24 merged to main (`57c2938`)
+- Pilot 3 labels: A=strong, B=discipline, C=GOS, D=blind eval; decisive **C vs B**
+- mcp-bouncer: bot still 403; `WINDOWS_APPLY.md` with exact raw URL + curl.exe steps
+- EffectReceipt remains `PROPOSED` until external merge + re-verify
+
 ## 0.1.134 — 2026-10-12
 
 ### Pilot 3 prereg + mcp-bouncer sealed-fix proposal

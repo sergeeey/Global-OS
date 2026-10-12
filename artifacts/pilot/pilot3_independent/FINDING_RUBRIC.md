@@ -7,7 +7,7 @@ reproducible
 + material
 + specific
 + supported by code/runtime evidence
-+ independently checked by blind evaluator E
++ independently checked by blind evaluator D
 ```
 
 ## Does NOT count
@@ -33,9 +33,9 @@ reproducible
 ## Blind evaluation protocol
 
 1. Arms submit packs with stable finding ids; operator strips arm labels → packs `P1/P2/P3`.
-2. E scores each finding: `CONFIRMED` / `NOT_REPRODUCED` / `UNSUPPORTED` / `DUPLICATE`.
-3. E scores each proposed fix: `CORRECT` / `INCORRECT` / `UNTESTED` (must run sealed tests when present).
-4. Mapping P→arm unsealed only after E submits `EVAL_SEAL.json`.
+2. D scores each finding: `CONFIRMED` / `NOT_REPRODUCED` / `UNSUPPORTED` / `DUPLICATE`.
+3. D scores each proposed fix: `CORRECT` / `INCORRECT` / `UNTESTED` (must run sealed tests when present).
+4. Mapping P→arm unsealed only after D submits `EVAL_SEAL.json`.
 
 ## Unsupported claim tally
 
