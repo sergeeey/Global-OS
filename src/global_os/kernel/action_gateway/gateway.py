@@ -15,6 +15,10 @@ from global_os.kernel.authority.approvals import (
     ApprovalService,
     ApprovalToken,
 )
+from global_os.kernel.authority.durable_gate import (
+    DurableGateStore,
+    MemoryDurableGateStore,
+)
 from global_os.kernel.authority.execution_token import (
     ExecutionTokenClaims,
     ExecutionTokenError,
@@ -66,6 +70,53 @@ class ToolResult:
 
 ToolHandler = Callable[[dict[str, Any]], ToolResult]
 
+# Sources that may attest WorldSuccess. Caller-asserted strings are never enough.
+TRUSTED_OBSERVATION_SOURCES = frozenset(
+    {
+        "gateway_probe",
+        "independent_scorer",
+        "sensor",
+        "human_attested",
+        "ledger_replay",
+    }
+)
+UNTRUSTED_OBSERVATION_SOURCES = frozenset(
+    {"caller_asserted", "untrusted", "model_claim", "llm", ""}
+)
+
+
+def observation_provenance_trusted(observation: dict[str, Any]) -> bool:
+    """True only when observation carries an explicit trusted source + method."""
+    prov = observation.get("provenance")
+    if isinstance(prov, dict):
+        source = str(prov.get("source") or "")
+        method = str(prov.get("method") or "")
+    else:
+        source = str(observation.get("source") or "")
+        method = str(
+            observation.get("method") or observation.get("verification_method") or ""
+        )
+    if not source or not method:
+        return False
+    if source in UNTRUSTED_OBSERVATION_SOURCES:
+        return False
+    return source in TRUSTED_OBSERVATION_SOURCES
+
+
+def trusted_observation(
+    effect: str,
+    *,
+    source: str = "gateway_probe",
+    method: str = "deterministic_probe",
+) -> dict[str, Any]:
+    """Build an observation dict that is allowed to reconcile to WorldSuccess."""
+    return {
+        "effect": effect,
+        "source": source,
+        "method": method,
+        "provenance": {"source": source, "method": method},
+    }
+
 
 def reconcile_effect(
     *,
@@ -73,7 +124,11 @@ def reconcile_effect(
     intended_effect: str,
     observation: dict[str, Any] | None,
 ) -> tuple[EffectReconciliationStatus, str, str]:
-    """ToolSuccess ≠ WorldSuccess (GOS-I13). Returns status, observed_effect, discrepancy."""
+    """ToolSuccess ≠ WorldSuccess (GOS-I13). Returns status, observed_effect, discrepancy.
+
+    A bare ``{"effect": intended}`` string from the caller cannot prove WorldSuccess —
+    trusted provenance (source+method) is required for RECONCILED.
+    """
     del tool_success  # success alone never implies world success
     if observation is None:
         return (
@@ -82,6 +137,12 @@ def reconcile_effect(
             "observation_pending",
         )
     observed = str(observation.get("effect", "unobserved"))
+    if not observation_provenance_trusted(observation):
+        return (
+            EffectReconciliationStatus.DISCREPANCY,
+            observed,
+            "untrusted_observation_provenance",
+        )
     if observed == intended_effect:
         return EffectReconciliationStatus.RECONCILED, observed, "none"
     discrepancy = f"expected={intended_effect} got={observed}"
@@ -115,9 +176,19 @@ class ToolGateway:
         confirmation_policy: ConfirmationPolicy = ConfirmationPolicy.NEVER,
         allow_legacy_tokens: bool = False,
         approval_service: ApprovalService | None = None,
+        gate_store: DurableGateStore | None = None,
     ) -> None:
         self._ledger = ledger
-        self._token_service = token_service or ExecutionTokenService()
+        # Share durable store between token jti consume and gateway idempotency
+        self._gate_store: DurableGateStore = gate_store or MemoryDurableGateStore()
+        if token_service is None:
+            self._token_service = ExecutionTokenService(gate_store=self._gate_store)
+        else:
+            self._token_service = token_service
+            # Prefer gateway store when caller shared none; keep token service's store
+            token_store = getattr(token_service, "_gate_store", None)
+            if token_store is not None:
+                self._gate_store = token_store
         self._tools: dict[str, ToolHandler] = {}
         self._tool_caps: dict[str, tuple[str, ...]] = {}
         self._idempotency: dict[str, dict[str, Any]] = {}
@@ -267,8 +338,21 @@ class ToolGateway:
         self._enforce_capability_for_tool(tool_id=tool_id, capability=capability)
 
         idem = proposal["idempotency_key"]
+        cached = self._gate_store.get_idempotent_receipt(idem)
+        if cached is not None:
+            self._idempotency[idem] = cached
+            return cached
         if idem in self._idempotency:
             return self._idempotency[idem]
+        # Claim before side effect so crash/restart cannot silently re-run
+        if not self._gate_store.claim_idempotency(idem):
+            cached2 = self._gate_store.get_idempotent_receipt(idem)
+            if cached2 is not None:
+                self._idempotency[idem] = cached2
+                return cached2
+            raise ToolGatewayError(
+                f"idempotency_key {idem!r} claimed but receipt incomplete — escalate"
+            )
 
         handler = self._tools.get(tool_id)
         if handler is None:
@@ -316,11 +400,18 @@ class ToolGateway:
             "observed_effect": observed,
             "discrepancy": discrepancy,
             "verified_at": datetime.now(UTC).isoformat(),
-            "verification_method": "observation_method" if observation else "tool_response_only",
+            "verification_method": (
+                "trusted_observation"
+                if observation and observation_provenance_trusted(observation)
+                else ("observation_untrusted" if observation else "tool_response_only")
+            ),
             "reconciliation_status": recon_status.value,
             "world_success": world_success,
         }
         validate(receipt, "effect_receipt.schema.json")
+        # Persist receipt before return so restart can short-circuit re-execution
+        self._gate_store.put_idempotent_receipt(idem, receipt)
+        self._idempotency[idem] = receipt
         self._ledger.append(
             event_type="effect.receipted",
             tenant_id=tenant_id,
@@ -350,5 +441,4 @@ class ToolGateway:
                 },
                 producer="kernel.action_gateway",
             )
-        self._idempotency[idem] = receipt
         return receipt

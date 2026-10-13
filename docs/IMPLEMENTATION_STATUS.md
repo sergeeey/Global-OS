@@ -2,8 +2,8 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **441**
-- capabilities tracked: **75**
+- pytest collected: **452**
+- capabilities tracked: **77**
 
 | Capability | State | Evidence |
 | ---------- | ----- | -------- |
@@ -72,7 +72,9 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | dod_v2_gate | RUNTIME_VERIFIED_LOCAL | summarize_dod_v2 closed=false while PARTIALs remain; tests/test_path_lock_m15.py |
 | dogfood_mission | RUNTIME_VERIFIED_LOCAL | DogfoodMission ordered stages; autonomous merge forbidden; tests/test_path_lock_m15.py; Y18 failure-mode suite; Y19-H1 sealed-holdout science dogfood artifacts/y19/; Y24-AVCT prereg LOCKED artifacts/y24/ + tests/test_y24_prereg.py (arms not started; T3 not evidence) |
 | mission_learning_loop_v0 | RUNTIME_VERIFIED_LOCAL | Goal-conditioned improvement tournament (eval only): mission archive → 2 unprivileged candidates + baseline → independent scorer → archive wins/losses; auto-promote denied; Challenge-GA ≠ train; Continual SI NOT_MEASURED; ADR-0014; artifacts/pilot/mission_learning/; tests/test_mission_learning_loop_v0.py |
-| goal_completion_gate | RUNTIME_VERIFIED_LOCAL | Executable ACHIEVED/PARTIAL/FAILED/UNKNOWN from Goal+EffectReceipt+invariants; tool_success alone ≠ ACHIEVED; LLM claim ignored; no second LLM oracle; src/global_os/verification/completion_gate.py; tests/test_completion_gate.py; Continual SI NOT_MEASURED |
+| goal_completion_gate | RUNTIME_VERIFIED_LOCAL | Executable ACHIEVED/PARTIAL/FAILED/UNKNOWN from Goal+EffectReceipt+invariants; tool_success alone ≠ ACHIEVED; LLM claim ignored; wired into Challenge fixture via completion_bind; src/global_os/verification/completion_gate.py; tests/test_completion_gate.py; tests/test_achiever_organ_loop.py; Continual SI NOT_MEASURED |
+| achiever_organ_loop_contour_a | RUNTIME_VERIFIED_LOCAL | Contour A control loop Decomposer→Orchestration→Pivot→Completion Gate; no world effects; challenge_win_claimed=false; src/global_os/cognition/organs/achiever_loop.py; tests/test_achiever_organ_loop.py; ≠ PRODUCTION_PROVEN / Challenge exec |
+| skill_transfer_trial_prep | RUNTIME_VERIFIED_LOCAL | prepare_skill_transfer_trial fail-closed while Challenge≠COMPLETED; forced override cannot claim Continual SI; src/global_os/evals/mission_learning/skill_transfer_trial.py; tests/test_achiever_organ_loop.py; CONTINUAL_SI=NOT_MEASURED |
 | contrastive_failure_miner_v0 | RUNTIME_VERIFIED_LOCAL | Analyze-only multi-trajectory contrast (success vs fail); failure_class proposals; mutates_runtime=false; src/global_os/evals/mission_learning/contrastive.py; tests/test_contrastive_miner.py |
 | evidence_backed_skill_library | RUNTIME_VERIFIED_LOCAL | SKILL provenance+applicability+negative evidence; EXPERIMENTAL until human; 7/10 admission rejected; disjoint transfer_eval; src/global_os/cognition/skills/evidence_library.py; transfer_eval.py; tests/test_evidence_skills.py; Continual SI NOT_MEASURED |
 | autonomous_research_loop_poc | RUNTIME_VERIFIED_LOCAL | Y19 H5→H7 without operator dispatch; terminal_scientific_result; durable state + CLAIMS.md split (science ≠ GOS loop); milestone 4378005; artifacts/y19/; tests/test_y19_transient_early_warning.py — bundle autonomy only; Y20–Y22 scored: primary advantage NOT SHOWN; NOT continual SI / general transfer / PRODUCTION_PROVEN |

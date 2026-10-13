@@ -15,6 +15,7 @@ from global_os.kernel.action_gateway import (
     ToolGateway,
     ToolResult,
     reconcile_effect,
+    trusted_observation,
 )
 from global_os.kernel.authority import (
     AuthorityKernel,
@@ -51,7 +52,7 @@ def test_execution_token_bound_to_proposal_and_consumed(sample_proposal):
             tenant_id="t",
             workspace_id="w",
             intended_effect="page_fetched",
-            observation={"effect": "page_fetched"},
+            observation=trusted_observation("page_fetched"),
         )
 
     allowed2_proposal = {
@@ -67,7 +68,7 @@ def test_execution_token_bound_to_proposal_and_consumed(sample_proposal):
         tenant_id="t",
         workspace_id="w",
         intended_effect="page_fetched",
-        observation={"effect": "page_fetched"},
+        observation=trusted_observation("page_fetched"),
     )
     assert receipt["reconciliation_status"] == EffectReconciliationStatus.RECONCILED.value
 
