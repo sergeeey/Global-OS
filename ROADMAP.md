@@ -40,7 +40,7 @@ CURRENT — post architecture ablation (ARCH-ABLATION-MECH-v1 TERMINAL)
                → Gen3 coevolution (NOT STARTED); Continual SI NOT_MEASURED
   Contours: A Goal Achievement · B Experience Evolution (MLLv0) · C Challenge Evolution
             Challenge-GA ≠ train set; auto-promote forbidden (ADR-0014)
-  Next process: human merge #36 → tip CI → then MLLv0 PR / stacked branch
+  Next process: human merge #37 (single delivery; #32–#36 closed superseded)
   Next mission: deepen Achiever (P1 gate) before any MLLv0 runtime promotion;
                 Challenge exec only on explicit human request
   M2 CLOSED; Pilot 3 ATTR NOT_SHOWN (audit); do not soften / do not platform-only swap

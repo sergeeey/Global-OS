@@ -74,9 +74,10 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 25. **Done:** architecture ablation `ARCH-ABLATION-MECH-v1` TERMINAL — G1/G2/G3/Gfull beat B0 on sealed scripted stress; Pilot 3 ATTR NOT_SHOWN preserved; M2 CLOSED.  
 26. **Done (draft #30):** `MINIMAL-STACK-v1` LOCKED as reliability **foundation** (≠ building).  
 27. **Done (draft #30):** Cognitive Core paradigm — primary product = Autonomous Goal Achiever; substrate = core.  
-28. **Done:** DurableRunner #31; Cognitive organ **contracts** LOCKED (stubs + control-transfer rules).  
-29. **Now:** lock Challenge-GA terminal criteria + deepen organs; then execute. `PRODUCTION_PROVEN = 0`.  
-30. **Forbidden drift:** platform-only product; soften Pilot 3 ATTR; reopen M2; score Challenge on intermediate plans alone.
+28. **Done on main:** DurableRunner #31 (`2f73107`).  
+29. **Pending human merge [#37](https://github.com/sergeeey/Global-OS/pull/37)** (`da563ce`): organs+HUMAN, authority P0, T3 sensitivity, Challenge-GA PREREG_LOCKED, post-debt P1, Mission Learning Loop v0 (ADR-0014). #32–#36 closed as superseded.  
+30. **Now (after #37):** deepen Achiever (P1 gate) before any MLLv0 runtime promotion; Challenge exec only on explicit human request. `PRODUCTION_PROVEN=0` · `CONTINUAL_SI=NOT_MEASURED`.  
+31. **Forbidden drift:** platform-only product; soften Pilot 3 ATTR; reopen M2; score Challenge on intermediate plans alone; claim L4/L5 RSI from MLLv0 harness.
 
 ## Документы
 

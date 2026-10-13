@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.150 — 2026-10-13
+
+### Repo sync — single delivery #37
+
+- Closed superseded open PRs #32–#36; sole integration vehicle = #37 (`da563ce`)
+- `main` still `2f73107` until human merge; RUN_STATE tip + Project/ROADMAP aligned
+- Challenge exec remains NOT_STARTED; Continual SI NOT_MEASURED
+
 ## 0.1.149 — 2026-10-13
 
 ### ADR-0014 Mission Learning Loop v0 (goal-conditioned RSI slice)

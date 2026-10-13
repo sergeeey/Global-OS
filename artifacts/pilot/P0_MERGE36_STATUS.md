@@ -1,9 +1,10 @@
-# P0 — Coherent main via #36 (request merge)
+# P0 — Coherent main (updated)
 
-**Status:** Agent-side P0 complete; **human merge still required**  
-**Integration tip:** `45bd62f` on `cursor/post-debt-integration-2907` / stacked in `cursor/mission-learning-loop-v0-2907`  
-**PR:** [#36](https://github.com/sergeeey/Global-OS/pull/36) — Ready · MERGEABLE · CI green on tip  
-**Dogfood:** no autonomous T0/T1 merge
+**Status:** Delivery vehicle is now **[#37](https://github.com/sergeeey/Global-OS/pull/37)** (`da563ce`)  
+**#36:** closed as superseded by #37 (same stack + MLLv0)  
+**#32–#35:** closed as superseded  
+**`main` tip:** still `2f73107` — **human merge of #37 required**  
+**Dogfood:** no autonomous T0/T1 merge  
 
 ## Agent-verified
 
@@ -11,15 +12,16 @@
 |-------|--------|
 | Challenge `execution_status` | `NOT_STARTED` |
 | Challenge `status` | `PREREG_LOCKED` |
-| Pre-merge four conditions | See `PREMERGE_36_CHECKLIST.md` |
-| Single delivery strategy | Merge #36 only; close #32–#35 as superseded |
+| CI on `da563ce` | green (`schemas-and-tests` ×2) |
+| Duplicate open stack PRs | closed |
 
-## After human merge
+## After human merge #37
 
 1. Record actual `main` SHA + CI  
-2. Canon already prepared on this stack (ROADMAP / honesty / MLLv0 pack)  
+2. Update `REPO_SYNC_STATUS.md` + `RUN_STATE.tip`  
 3. Do **not** start Challenge exec  
 
 ## Boundaries
 
-`ATTR=NOT_SHOWN` · `M2=CLOSED` · `PRODUCTION_PROVEN=0` · `CHALLENGE_EXEC=NOT_STARTED` · `CONTINUAL_SI=NOT_MEASURED`
+`ATTR=NOT_SHOWN` · `M2=CLOSED` · `PRODUCTION_PROVEN=0` ·  
+`CHALLENGE_EXEC=NOT_STARTED` · `CONTINUAL_SI=NOT_MEASURED`

@@ -1,16 +1,26 @@
 {
   "sprint": "PILOT_USAGE",
-  "updated_at": "2026-10-12T14:55:00Z",
+  "updated_at": "2026-10-13T14:30:00Z",
   "current_goal": "REAL_USER_PROJECTS_PILOT_USAGE",
   "tip": {
-    "repo_head": "a4fc558",
-    "repo_head_note": "PR #27 Pilot 3 TERMINAL MERGED",
-    "code_head": "c851246",
-    "code_head_note": "last runtime code merge #20; #21\u2013#27 docs/pilot",
-    "split_reason": "DOC-007: repo_head (pilot docs) ahead of code_head"
+    "repo_head": "2f73107",
+    "repo_head_note": "main = DurableRunner #31; integration+#37 NOT MERGED yet",
+    "code_head": "2f73107",
+    "code_head_note": "runtime on main ends at #31 until #37 lands",
+    "pending_integration": {
+      "pr": 37,
+      "branch": "cursor/mission-learning-loop-v0-2907",
+      "sha": "da563ce",
+      "includes": "organs+authority_P0+T3_sensitivity+Challenge_lock+P1+MLLv0",
+      "supersedes_closed_prs": [32, 33, 34, 35, 36],
+      "challenge_exec": "NOT_STARTED",
+      "continual_si": "NOT_MEASURED"
+    },
+    "split_reason": "DOC-007: pending_integration tip ahead of main until human merge #37"
   },
-  "phase_statement": "Pilot 3 TERMINAL accepted: ATTR NOT_SHOWN; M2 CLOSED. Next=architecture ablation (not M2). Pilot 2 external CLOSED. PhaseBreak RECONCILED. PRODUCTION_PROVEN=0.",
-  "operator_action_required": false,
+  "phase_statement": "Pilot 3 ATTR NOT_SHOWN; M2 CLOSED; PRODUCTION_PROVEN=0. Pending human merge #37 (stack+MLLv0). Challenge exec NOT_STARTED. Continual SI NOT_MEASURED.",
+  "operator_action_required": true,
+  "operator_action": "human_merge_pr_37",
   "operator_dispatch_required": false,
   "y20": {
     "sealed_science_gain": false
