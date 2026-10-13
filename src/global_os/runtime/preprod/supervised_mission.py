@@ -155,8 +155,16 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
     hooks = dict(state.get("hooks") or {})
     ledger = EventLedger.from_snapshot(state.get("events") or [])
     budget = dict(state.get("budget") or {})
-    tool_cost = float(hooks.get("tool_cost_usd", 0.01))
-    remaining = float(budget.get("remaining_usd", budget.get("usd", 0.0)))
+    def _as_float(value: Any, default: float) -> float:
+        if value is None:
+            return default
+        return float(value)
+
+    tool_cost = _as_float(hooks.get("tool_cost_usd"), 0.01)
+    remaining = _as_float(
+        budget.get("remaining_usd", budget.get("usd")),
+        0.0,
+    )
 
     # Pre-tool budget gate (fail closed — no SUCCESS via skipped evidence).
     if remaining < tool_cost:
