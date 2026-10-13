@@ -19,6 +19,7 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | progressive_memory_commit | RUNTIME_VERIFIED_LOCAL | ProgressiveMemoryStore draft→propose→commit; root-only context default; silent tool promote forbidden; process-local in-memory bodies (≠ durable production store); tests/test_borrow_memory_progressive.py |
 | llm_fair_scheduler | RUNTIME_VERIFIED_LOCAL | FairLlmScheduler FIFO/RR across missions; TPD/quota fail-closed stops drain; resume without nested-Lock deadlock; tests/test_borrow_fair_scheduler.py; resource OS only (≠ Authority) |
 | citation_grounding | RUNTIME_VERIFIED_LOCAL | claim→citation→passage with claim⊆passage (GOS-I08); citation-less/unsupported-passage rejected; tests/test_borrow_grounding_sop_research.py |
+| mission_learning_loop_v0 | RUNTIME_VERIFIED_LOCAL | Goal-conditioned tournament (eval): archive→2 candidates+baseline→independent score; no auto-promote; Challenge≠train; Continual SI NOT_MEASURED; ADR-0014; tests/test_mission_learning_loop_v0.py |
 | sop_skill_packs_t2 | RUNTIME_VERIFIED_LOCAL | T2 SOP packs typed handoffs; hierarchy not default axiom (GOS-I30); tests/test_borrow_grounding_sop_research.py |
 | research_factory_template | RUNTIME_VERIFIED_LOCAL | Mission stage template idea→…→write; REJECT terminal allowed; self-cert DENY; LLM review advisory only; tests/test_borrow_grounding_sop_research.py |
 | cli_event_timetravel | RUNTIME_VERIFIED_LOCAL | EventReplayEngine until_index + compare_at; gos events replay --at; tests/test_borrow_cli_replay.py; full entity-body snapshot still not claimed |

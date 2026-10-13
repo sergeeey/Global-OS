@@ -227,6 +227,10 @@ EXTERNAL REAL WORK
   NOT_SHOWN = complex GOS required vs checklist+ledger+verify
   Phase quality ≠ product maturity; PRODUCTION_PROVEN = 0
   Boundaries: ATTR=NOT_SHOWN · M2=CLOSED · PRODUCTION_PROVEN=0 · CHALLENGE_EXEC=NOT_STARTED
+              · CONTINUAL_SI=NOT_MEASURED
+  ADR-0014 Goal-conditioned continual improvement (Mission Learning Loop v0):
+    Gen1 Achiever priority · Gen2 harness-only tournament · Gen3 coevolution NOT STARTED
+    Challenge-GA ≠ training suite · auto-promote forbidden · ≠ L4/L5 RSI claim
 ```
 
 

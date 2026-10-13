@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.149 — 2026-10-13
+
+### ADR-0014 Mission Learning Loop v0 (goal-conditioned RSI slice)
+
+- Contours A/B/C + Gen1→Gen2→Gen3 honesty; Continual SI remains NOT_MEASURED
+- Pack + schemas + eval harness: mission archive → 2 unprivileged candidates + baseline
+- Independent scorer; archive wins/losses; auto-promote denied; Challenge-GA ≠ train
+- P1 Achiever gate tracked separately before any runtime promotion
+- P0: #36 still requires human merge (`artifacts/pilot/P0_MERGE36_STATUS.md`)
+
 ## 0.1.148 — 2026-10-12
 
 ### Operator merge strategy + Challenge prep (no exec)

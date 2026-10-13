@@ -331,6 +331,11 @@
       "evidence": "DogfoodMission ordered stages; autonomous merge forbidden; tests/test_path_lock_m15.py; Y18 failure-mode suite; Y19-H1 sealed-holdout science dogfood artifacts/y19/; Y24-AVCT prereg LOCKED artifacts/y24/ + tests/test_y24_prereg.py (arms not started; T3 not evidence)"
     },
     {
+      "id": "mission_learning_loop_v0",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "Goal-conditioned improvement tournament (eval only): mission archive → 2 unprivileged candidates + baseline → independent scorer → archive wins/losses; auto-promote denied; Challenge-GA ≠ train; Continual SI NOT_MEASURED; ADR-0014; artifacts/pilot/mission_learning/; tests/test_mission_learning_loop_v0.py"
+    },
+    {
       "id": "autonomous_research_loop_poc",
       "state": "RUNTIME_VERIFIED_LOCAL",
       "evidence": "Y19 H5→H7 without operator dispatch; terminal_scientific_result; durable state + CLAIMS.md split (science ≠ GOS loop); milestone 4378005; artifacts/y19/; tests/test_y19_transient_early_warning.py — bundle autonomy only; Y20–Y22 scored: primary advantage NOT SHOWN; NOT continual SI / general transfer / PRODUCTION_PROVEN"
@@ -526,6 +531,21 @@
       "harness": "src/global_os/evals/challenge_ga/",
       "prep": "artifacts/pilot/challenge_ga/CHALLENGE_PREP.md",
       "honesty": "mechanisms_and_fixture_loop_≠_autonomous_goal_achiever"
+    },
+    "MISSION_LEARNING_LOOP_V0": {
+      "status": "HARNESS_ONLY",
+      "adr": "ADR-0014",
+      "generation": "Gen2_slice_not_Continual_SI",
+      "continual_si": "NOT_MEASURED",
+      "auto_promote": false,
+      "challenge_ga_as_train": "forbidden",
+      "p1_achiever_gate": "artifacts/pilot/mission_learning/P1_ACHIEVER_GATE.md",
+      "pack": "artifacts/pilot/mission_learning/",
+      "harness": "src/global_os/evals/mission_learning/",
+      "evidence": "tests/test_mission_learning_loop_v0.py",
+      "pilot3_attr_preserved": "NOT_SHOWN",
+      "m2_org_path": "CLOSED",
+      "production_proven": 0
     }
   }
 }
