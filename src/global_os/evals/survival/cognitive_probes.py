@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import numpy as np
 from numpy.typing import NDArray
@@ -225,7 +225,8 @@ def terminal_review_pack(root: Path, *, ticks: list[dict[str, Any]]) -> dict[str
 def _softmax(x: NDArray[np.floating]) -> NDArray[np.floating]:
     z = x - np.max(x, axis=-1, keepdims=True)
     e = np.exp(z)
-    return e / np.sum(e, axis=-1, keepdims=True)
+    # cast: numpy stubs may type this division as Any (CI) or concrete (local)
+    return cast(NDArray[np.floating], e / np.sum(e, axis=-1, keepdims=True))
 
 
 def _dump(path: Path, payload: Any) -> None:
