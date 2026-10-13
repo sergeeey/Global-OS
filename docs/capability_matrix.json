@@ -554,10 +554,12 @@
       "continual_si": "NOT_MEASURED",
       "auto_promote": false,
       "challenge_ga_as_train": "forbidden",
+      "p0_completion_gate": "artifacts/pilot/mission_learning/P0_COMPLETION_GATE.md",
       "p1_achiever_gate": "artifacts/pilot/mission_learning/P1_ACHIEVER_GATE.md",
+      "p1_contrastive_skills": "artifacts/pilot/mission_learning/P1_CONTRASTIVE_AND_SKILLS.md",
       "pack": "artifacts/pilot/mission_learning/",
       "harness": "src/global_os/evals/mission_learning/",
-      "evidence": "tests/test_mission_learning_loop_v0.py",
+      "evidence": "tests/test_mission_learning_loop_v0.py;tests/test_completion_gate.py;tests/test_contrastive_miner.py;tests/test_evidence_skills.py",
       "pilot3_attr_preserved": "NOT_SHOWN",
       "m2_org_path": "CLOSED",
       "production_proven": 0

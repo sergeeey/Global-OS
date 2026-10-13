@@ -5,8 +5,9 @@ Baseline vs candidate under identical budget; Challenge-GA holdout never used as
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any, Callable
+from typing import Any
 
 
 @dataclass(frozen=True)

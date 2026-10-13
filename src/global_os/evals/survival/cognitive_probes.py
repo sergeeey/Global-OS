@@ -225,7 +225,7 @@ def terminal_review_pack(root: Path, *, ticks: list[dict[str, Any]]) -> dict[str
 def _softmax(x: NDArray[np.floating]) -> NDArray[np.floating]:
     z = x - np.max(x, axis=-1, keepdims=True)
     e = np.exp(z)
-    return e / np.sum(e, axis=-1, keepdims=True)  # type: ignore[no-any-return]
+    return e / np.sum(e, axis=-1, keepdims=True)
 
 
 def _dump(path: Path, payload: Any) -> None:

@@ -11,7 +11,6 @@ from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from typing import Any
 
-
 ALLOWED_STATUSES = frozenset(
     {"EXPERIMENTAL", "TRANSFER_PENDING", "REJECTED", "PROMOTED_BY_HUMAN", "DEPRECATED"}
 )
