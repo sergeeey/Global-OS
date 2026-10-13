@@ -131,8 +131,7 @@ def _criterion_entries(goal: dict[str, Any]) -> list[tuple[str, str]]:
     return entries
 
 
-# Explicit allowlist: repo.audit may evidence these criterion ids only.
-_REPO_AUDIT_CRITERION_IDS = frozenset({"sc_01"})
+# Semantic markers only — never trust bare criterion ids (e.g. sc_01 alone).
 # Description markers this verifier can honestly support (substring, lowercased).
 _REPO_AUDIT_DESC_MARKERS = (
     "engineering report",
@@ -140,18 +139,27 @@ _REPO_AUDIT_DESC_MARKERS = (
     "repo audit",
     "verified engineering report",
 )
+# If present, criterion is out of scope for repo.audit even when id looks familiar.
+_REPO_AUDIT_EXCLUDE_MARKERS = (
+    "integration test",
+    "интеграционн",
+    "tests passed",
+    "тесты прошли",
+    "e2e passed",
+    "pytest",
+)
 
 
 def criteria_supported_by_repo_audit(goal: dict[str, Any]) -> list[str]:
-    """Criteria this verifier can independently evidence — never all goal criteria.
+    """Criteria this verifier can independently evidence — by description semantics.
 
-    Unrelated criteria (e.g. \"integration tests passed\") stay unbound → UNKNOWN.
+    Never bind solely because ``id == sc_01``. Unrelated criteria (e.g. integration
+    tests passed) stay unbound → UNKNOWN at Completion Gate.
     """
     supported: list[str] = []
     for cid, desc in _criterion_entries(goal):
         lowered = desc.lower()
-        if cid in _REPO_AUDIT_CRITERION_IDS:
-            supported.append(cid)
+        if any(marker in lowered for marker in _REPO_AUDIT_EXCLUDE_MARKERS):
             continue
         if any(marker in lowered for marker in _REPO_AUDIT_DESC_MARKERS):
             supported.append(cid)

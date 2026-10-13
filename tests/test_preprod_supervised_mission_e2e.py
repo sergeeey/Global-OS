@@ -253,6 +253,34 @@ def test_repo_audit_verifier_does_not_claim_all_goal_criteria() -> None:
     assert "sc_integration_tests" not in supported
 
 
+def test_sc_01_id_does_not_bypass_semantic_mismatch() -> None:
+    """P0: id sc_01 with integration-test semantics must not be repo.audit-supported."""
+    goal = _goal("goal_sc01_semantic_trap")
+    goal["success_criteria"] = [
+        {
+            "id": "sc_01",
+            "description": "интеграционные тесты прошли",
+        }
+    ]
+    assert criteria_supported_by_repo_audit(goal) == []
+
+
+def test_successful_audit_does_not_meet_sc01_integration_semantics(
+    tmp_path: Path,
+) -> None:
+    """Successful audit must not ACHIEVE when sc_01 means integration tests."""
+    gos = tmp_path / ".gos"
+    target = Path(__file__).resolve().parents[1]
+    draft = _goal("goal_sc01_means_tests")
+    draft["success_criteria"] = [
+        {"id": "sc_01", "description": "интеграционные тесты прошли"}
+    ]
+    delivery = start_mission(draft, target_path=target, gos_root=gos)
+    assert delivery["terminal_status"] != "SUCCEEDED"
+    assert delivery["completion"]["status"] != CompletionStatus.ACHIEVED.value
+    assert "sc_01" in delivery["completion"]["criteria_unknown"]
+
+
 def test_successful_audit_does_not_satisfy_unrelated_criterion(tmp_path: Path) -> None:
     """P0: one repo.audit receipt must not bind every Goal criterion by default."""
     gos = tmp_path / ".gos"

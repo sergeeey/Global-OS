@@ -7,6 +7,7 @@
 - `repo.audit` binds only `criteria_supported_by_repo_audit`, never all Goal criteria
 - Unrelated criteria (e.g. integration tests) stay UNKNOWN → not SUCCEEDED
 - Negative e2e without `binds_criteria_override`
+- Semantic match only: bare `sc_01` id does not evidence integration-test criteria
 
 ## 0.1.159 — 2026-10-13
 
