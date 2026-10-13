@@ -9,6 +9,7 @@ from global_os.kernel.action_gateway.gateway import (
     ToolResult,
     observation_provenance_trusted,
     reconcile_effect,
+    require_durable_gate_store,
     trusted_observation,
 )
 from global_os.kernel.authority.durable_gate import (
@@ -31,5 +32,6 @@ __all__ = [
     "ToolResult",
     "observation_provenance_trusted",
     "reconcile_effect",
+    "require_durable_gate_store",
     "trusted_observation",
 ]

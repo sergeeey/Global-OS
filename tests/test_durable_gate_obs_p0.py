@@ -54,6 +54,93 @@ def test_model_claim_source_rejected() -> None:
     assert disc == "untrusted_observation_provenance"
 
 
+def test_forged_allowlisted_source_without_attestation_rejected() -> None:
+    """Adversarial: attacker copies source=gateway_probe without HMAC."""
+    forged = {
+        "effect": "paid",
+        "source": "gateway_probe",
+        "method": "deterministic_probe",
+        "provenance": {
+            "source": "gateway_probe",
+            "method": "deterministic_probe",
+        },
+        # no attestation
+    }
+    status, _, disc = reconcile_effect(
+        tool_success=True,
+        intended_effect="paid",
+        observation=forged,
+    )
+    assert status == EffectReconciliationStatus.DISCREPANCY
+    assert disc == "untrusted_observation_provenance"
+
+
+def test_forged_allowlisted_source_with_bogus_attestation_rejected() -> None:
+    forged = {
+        "effect": "paid",
+        "source": "gateway_probe",
+        "method": "deterministic_probe",
+        "provenance": {
+            "source": "gateway_probe",
+            "method": "deterministic_probe",
+        },
+        "attestation": "not-a-valid-hmac",
+    }
+    status, _, disc = reconcile_effect(
+        tool_success=True,
+        intended_effect="paid",
+        observation=forged,
+    )
+    assert status == EffectReconciliationStatus.DISCREPANCY
+    assert disc == "untrusted_observation_provenance"
+
+
+def test_strict_profile_rejects_memory_gate_store(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from global_os.kernel.action_gateway import (
+        MemoryDurableGateStore,
+        ToolGatewayError,
+        require_durable_gate_store,
+    )
+
+    monkeypatch.setenv("GOS_REQUIRE_DURABLE_GATE", "1")
+    with pytest.raises(ToolGatewayError, match="non-durable"):
+        require_durable_gate_store(MemoryDurableGateStore())
+
+
+def test_strict_profile_rejects_sqlite_memory(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from global_os.kernel.action_gateway import ToolGatewayError, require_durable_gate_store
+
+    monkeypatch.setenv("GOS_REQUIRE_DURABLE_GATE", "1")
+    with pytest.raises(ToolGatewayError, match="non-durable"):
+        require_durable_gate_store(SqliteDurableGateStore(":memory:"))
+
+
+def test_strict_profile_accepts_on_disk_sqlite(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from global_os.kernel.action_gateway import require_durable_gate_store
+
+    monkeypatch.setenv("GOS_REQUIRE_DURABLE_GATE", "1")
+    store = SqliteDurableGateStore(tmp_path / "strict.sqlite")
+    require_durable_gate_store(store)  # must not raise
+    store.close()
+
+
+def test_strict_gateway_default_requires_path(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from global_os.kernel.action_gateway import ToolGateway, ToolGatewayError
+
+    monkeypatch.setenv("GOS_REQUIRE_DURABLE_GATE", "1")
+    monkeypatch.delenv("GOS_DURABLE_GATE_PATH", raising=False)
+    with pytest.raises(ToolGatewayError, match="GOS_DURABLE_GATE_PATH"):
+        ToolGateway(EventLedger())
+
+
 def test_jti_replay_survives_process_restart(tmp_path: Path, sample_proposal) -> None:
     db = tmp_path / "gate.sqlite"
     store1 = SqliteDurableGateStore(db)
