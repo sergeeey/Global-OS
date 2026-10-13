@@ -1,0 +1,25 @@
+{
+  "schema_version": "0.1.0",
+  "goal_id": "goal_fixture_hypothesis",
+  "version": 1,
+  "tenant_id": "tenant_fixture",
+  "workspace_id": "ws_fixture",
+  "objective": {
+    "text": "Test a stated hypothesis with reproducible evidence; allow honest INCONCLUSIVE."
+  },
+  "success_criteria": [
+    {"id": "sc_01", "description": "verified engineering report with evidence"},
+    {"id": "sc_hypothesis", "description": "hypothesis accept/reject/inconclusive with method"}
+  ],
+  "invariants": ["read_only_target_repo"],
+  "non_goals": ["claim_production_proven"],
+  "forbidden_outcomes": ["false_success_without_evidence"],
+  "risk": {"tolerance": "low", "maximum_irreversibility": "none"},
+  "authority": {
+    "delegation_depth_max": 2,
+    "capabilities": ["filesystem.read", "web.read"]
+  },
+  "evidence_requirements": {"major_finding": {"verification_tier": 1}},
+  "termination": ["success_criteria_met", "user_cancelled"],
+  "created_at": "2026-10-13T00:00:00+00:00"
+}
