@@ -83,6 +83,18 @@
         "content_hash": 2
       },
       "note": "Lower is better. Relative microbenchmark mix, not production QPS."
+    },
+    "_composite_safe": {
+      "weighted_cost_s": 0.015213935243540214,
+      "weights": {
+        "ledger_append": 40,
+        "ledger_list_events_200": 15,
+        "validate_event": 15,
+        "execution_token_mint_consume": 5,
+        "completion_gate": 3,
+        "content_hash": 2
+      },
+      "note": "Excludes durable_gate (authority stays FULL). Backfilled for compare."
     }
   }
 }

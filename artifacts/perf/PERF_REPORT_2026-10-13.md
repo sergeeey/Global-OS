@@ -5,6 +5,26 @@
 **Harness:** `PYTHONPATH=src python3 tools/perf_bench.py`  
 **Artifacts:** `artifacts/perf/baseline_pre_opt.json`, `artifacts/perf/after_opt.json`
 
+## Durability decision (merge blocker resolved)
+
+Review feedback on PR #42: weakening `PRAGMA synchronous` from **FULL → NORMAL** on the
+Authority durable gate (jti / idempotency) trades power-loss durability for speed and can
+allow **replay of an already-executed external action** after OS/power failure.
+
+**Policy now:**
+
+| Store | `synchronous` | Rationale |
+|-------|---------------|-----------|
+| `SqliteDurableGateStore` (jti, idempotency) | **FULL** (mandatory) | Authority Kernel — lost commit ⇒ double execution |
+| `connect_sqlite(...)` default (event / action journal) | **FULL** | Journal of executed actions is recovery-critical |
+| `connect_sqlite(..., synchronous="NORMAL")` | NORMAL (opt-in) | Rebuildable caches/projections only |
+
+Regression guards: `tests/test_perf_jsonable_ledger.py`
+(`test_durable_gate_keeps_full_synchronous`, `test_connect_sqlite_defaults_to_full_synchronous`).
+
+An earlier draft of this PR used NORMAL on the durable gate for a ~7× composite score.
+**That figure is withdrawn** as a merge metric; it depended on an unacceptable durability trade-off.
+
 ## Scope
 
 Hot-path microbenchmarks for core runtime (not end-to-end LLM missions):
@@ -15,86 +35,67 @@ Hot-path microbenchmarks for core runtime (not end-to-end LLM missions):
 | `validate(event/receipt)` | Contract gate on critical paths |
 | `EventLedger.append` / `list_events` | Epistemic + gateway event volume |
 | `ExecutionToken` mint+consume | Authority hot path |
-| `SqliteDurableGate` claim+put+get | P0 durable replay gate |
+| `SqliteDurableGate` claim+put+get | P0 durable replay gate (**FULL sync**) |
 | `completion_gate` | Contour A terminal check |
 
 **Non-goals:** model/provider latency, Temporal cluster, network I/O, Challenge-GA exec.
 
-**Interface rule:** public call signatures unchanged; behavior preserved (isolation of returned event copies; schema validation still rejects invalid instances).
+**Interface rule:** public call signatures unchanged (additive kw-only `synchronous=` on
+`connect_sqlite`); schema validation / event isolation preserved.
 
-## Bottlenecks found (baseline)
+## Optimizations kept (durability-preserving)
 
-| Hot path | µs/op (baseline) | Diagnosis |
-|----------|------------------|-----------|
-| `durable_gate_claim_put_get` | **2568** | SQLite default `synchronous=FULL` + WAL; 3 commits/op |
-| `ledger_list_events_200` | **756** | `copy.deepcopy` of 200 JSON events |
-| `ledger_append` | **74** | hash + new `Draft202012Validator` + deepcopy return |
-| `validate_*` | **47–50** | Validator reconstructed every call |
-| `content_hash` / `completion_gate` | **3–11** | Already cheap |
-
-## Optimizations (no API breaks)
-
-1. **Cache compiled JSON Schema validators** — `contracts/validate.py` `_validator_for` + `lru_cache`
-2. **`jsonable_copy`** — recursive copy for JSON-shaped trees; used by `EventLedger` append/list/from_snapshot and `SqlEventLedger.append`
-3. **SQLite durability profile** — `PRAGMA synchronous=NORMAL` + `temp_store=MEMORY` on `SqliteDurableGateStore`; same WAL+NORMAL on on-disk `connect_sqlite`
-
-Durability note: `NORMAL` with WAL remains process-crash safe for jti/idempotency; it is not a claim of battery-backed FULL fsync semantics. Documented in code comments.
+1. **Cache compiled JSON Schema validators** — `contracts/validate.py`
+2. **`jsonable_copy`** — ledger / SQL event return isolation without `deepcopy`
+3. **Opt-in NORMAL** only via `connect_sqlite(..., synchronous="NORMAL")` for rebuildable stores
 
 ## Measurements (reproducible)
 
-Environment recorded in JSON `meta` (Python 3.12, Linux).
+### Headline: durability-preserving score
 
-### Composite (weighted micro mix)
+| Metric | Baseline | After | Change |
+|--------|----------|-------|--------|
+| `_composite_safe` (excludes durable gate) | 0.015214 | 0.007386 | **+51.5% (2.06×)** |
+| `_composite` (includes durable FULL) | 0.066574 | 0.068190 | ~noise (−2.4%) |
 
-| | weighted_cost_s | vs baseline |
-|--|-----------------|-------------|
-| Baseline | 0.066574 | — |
-| After | 0.008999 | **86.5% faster (7.40×)** |
-
-Weights (see harness): ledger_append×40, durable×20, list×15, validate×15, token×5, gate×3, hash×2.
-
-> Composite is dominated by the durable-gate fix. Per-path table is the honest breakdown.
+Durable gate intentionally stays FULL; including it in the mix **must not** be “won” by
+weakening sync. Use `_composite_safe` as the optimization KPI.
 
 ### Per-path
 
 | Bench | Baseline µs | After µs | Improvement |
 |-------|------------:|---------:|------------:|
-| durable_gate_claim_put_get | 2568.0 | 77.4 | **97.0%** |
-| ledger_list_events_200 | 755.8 | 280.5 | **62.9%** |
-| ledger_append | 74.3 | 60.4 | **18.7%** |
-| validate_effect_receipt | 50.5 | 43.9 | **13.1%** |
-| validate_event | 47.2 | 41.7 | **11.6%** |
+| ledger_list_events_200 | 755.8 | 279.6 | **63.0%** |
+| ledger_append | 74.3 | 59.8 | **19.5%** |
+| validate_event | 47.2 | 40.0 | **15.3%** |
+| validate_effect_receipt | 50.5 | 44.6 | **11.7%** |
 | content_hash | 10.7 | 10.7 | ~0% |
-| execution_token_mint_consume | 33.5 | 34.4 | noise |
+| execution_token_mint_consume | 33.5 | 34.1 | noise |
 | completion_gate | 3.1 | 3.1 | ~0% |
-
-**Excluding durable_gate from the weighted mix**, remaining hot paths improve ~**35%** (ledger list + append + validate dominate).
+| durable_gate_claim_put_get | 2568 | ~3040 | noise / FULL preserved (not optimized via NORMAL) |
 
 ## Reproduce
 
 ```bash
-# from repo root, same machine class
-PYTHONPATH=src python3 tools/perf_bench.py --out /tmp/gos_perf.json
 PYTHONPATH=src python3 tools/perf_bench.py \
   --compare artifacts/perf/baseline_pre_opt.json \
-  --out /tmp/gos_perf_cmp.json
+  --out artifacts/perf/after_opt.json
+# or: make perf-bench
 ```
-
-Regression guards: `tests/test_perf_jsonable_ledger.py` (isolation + validator still rejects bad events).
 
 ## Honesty
 
-- Microbench ≠ production mission wall-clock.
-- Not PRODUCTION_PROVEN throughput.
-- Challenge-GA / Continual SI unchanged / not started.
-- No public interface removals or schema changes.
+- Microbench ≠ production mission wall-clock; not an “OS is 7× faster” claim.
+- Withdrawn: composite 7.4× that relied on `synchronous=NORMAL` for authority.
+- Not PRODUCTION_PROVEN throughput. Challenge-GA unchanged / NOT_STARTED.
 
 ## Status
 
 ```
-Perf audit              DONE
-Benchmarks              tools/perf_bench.py + artifacts/perf/*.json
-Opt progress            >30% (composite 86%; non-sqlite mix ~35%)
-Interfaces              UNCHANGED
-pytest                  449 passed / 12 skipped (local)
+Perf audit                 DONE
+Durability policy          FULL for authority + default event journal
+Safe-path improvement      ~51% (_composite_safe)
+NORMAL                     opt-in only for rebuildable caches
+Interfaces                 UNCHANGED (additive connect_sqlite kw)
+Challenge-GA               NOT_STARTED
 ```

@@ -30,13 +30,26 @@ def apply_migrations(conn: sqlite3.Connection, migrations_dir: Path | None = Non
     conn.commit()
 
 
-def connect_sqlite(path: str | Path = ":memory:") -> sqlite3.Connection:
+def connect_sqlite(
+    path: str | Path = ":memory:",
+    *,
+    synchronous: str = "FULL",
+) -> sqlite3.Connection:
+    """Open SQLite and apply migrations.
+
+    ``synchronous`` defaults to FULL for event/action journals (losing the last
+    committed row can imply double-execution after recovery). Pass
+    ``synchronous=\"NORMAL\"`` only for rebuildable caches/projections where
+    truncating the last transactions is acceptable — never for authority gates.
+    """
+    mode = synchronous.upper()
+    if mode not in {"FULL", "NORMAL", "OFF", "EXTRA"}:
+        raise ValueError(f"unsupported sqlite synchronous mode: {synchronous}")
     conn = sqlite3.connect(str(path))
     conn.row_factory = sqlite3.Row
-    # Align with durable gate: WAL + NORMAL is the supported local durability profile
     if str(path) != ":memory:":
         conn.execute("PRAGMA journal_mode=WAL")
-        conn.execute("PRAGMA synchronous=NORMAL")
+        conn.execute(f"PRAGMA synchronous={mode}")
     apply_migrations(conn)
     return conn
 

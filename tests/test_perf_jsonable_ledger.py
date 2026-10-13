@@ -1,8 +1,16 @@
-"""Isolation + interface stability for jsonable_copy ledger returns."""
+"""Isolation + durability profile guards for perf-safe copies / sqlite sync."""
 
 from __future__ import annotations
 
+from pathlib import Path
+
+import pytest
+from jsonschema import ValidationError
+
+from global_os.adapters.storage.sql import connect_sqlite
 from global_os.common.jsonable import jsonable_copy
+from global_os.contracts.validate import validate
+from global_os.kernel.authority.durable_gate import SqliteDurableGateStore
 from global_os.runtime.events.ledger import EventLedger
 
 
@@ -30,10 +38,34 @@ def test_ledger_append_return_isolated() -> None:
 
 
 def test_validator_cache_still_rejects_bad_event() -> None:
-    import pytest
-    from jsonschema import ValidationError
-
-    from global_os.contracts.validate import validate
-
     with pytest.raises(ValidationError):
         validate({"event_id": "bad"}, "event.schema.json")
+
+
+def test_durable_gate_keeps_full_synchronous(tmp_path: Path) -> None:
+    """Authority jti/idempotency must not silently weaken to NORMAL."""
+    store = SqliteDurableGateStore(tmp_path / "gate.sqlite")
+    try:
+        mode = store._conn.execute("PRAGMA synchronous").fetchone()[0]
+        # SQLite: 0=OFF, 1=NORMAL, 2=FULL, 3=EXTRA
+        assert int(mode) == 2
+    finally:
+        store.close()
+
+
+def test_connect_sqlite_defaults_to_full_synchronous(tmp_path: Path) -> None:
+    conn = connect_sqlite(tmp_path / "events.sqlite")
+    try:
+        mode = conn.execute("PRAGMA synchronous").fetchone()[0]
+        assert int(mode) == 2
+    finally:
+        conn.close()
+
+
+def test_connect_sqlite_allows_normal_for_rebuildable_cache(tmp_path: Path) -> None:
+    conn = connect_sqlite(tmp_path / "cache.sqlite", synchronous="NORMAL")
+    try:
+        mode = conn.execute("PRAGMA synchronous").fetchone()[0]
+        assert int(mode) == 1
+    finally:
+        conn.close()

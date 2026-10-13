@@ -209,6 +209,17 @@ def run_suite() -> dict[str, Any]:
         "weights": weights,
         "note": "Lower is better. Relative microbenchmark mix, not production QPS.",
     }
+    # Safe mix excludes durable_gate: that path must stay synchronous=FULL.
+    safe_weights = {k: v for k, v in weights.items() if k != "durable_gate_claim_put_get"}
+    safe = sum(results[name]["per_s"] * w for name, w in safe_weights.items())
+    results["_composite_safe"] = {
+        "weighted_cost_s": safe,
+        "weights": safe_weights,
+        "note": (
+            "Excludes durable_gate (authority jti/idempotency stays FULL sync). "
+            "This is the durability-preserving optimization score."
+        ),
+    }
     return results
 
 
@@ -228,15 +239,16 @@ def compare(baseline: dict[str, Any], current: dict[str, Any]) -> dict[str, Any]
             "speedup_x": speedup,
             "improvement_pct": improvement_pct,
         }
-    if "_composite" in baseline and "_composite" in current:
-        b = baseline["_composite"]["weighted_cost_s"]
-        c = current["_composite"]["weighted_cost_s"]
-        out["_composite"] = {
-            "baseline_weighted_cost_s": b,
-            "current_weighted_cost_s": c,
-            "speedup_x": b / c if c else float("inf"),
-            "improvement_pct": (1.0 - c / b) * 100.0 if b else 0.0,
-        }
+    for ckey in ("_composite", "_composite_safe"):
+        if ckey in baseline and ckey in current:
+            b = baseline[ckey]["weighted_cost_s"]
+            c = current[ckey]["weighted_cost_s"]
+            out[ckey] = {
+                "baseline_weighted_cost_s": b,
+                "current_weighted_cost_s": c,
+                "speedup_x": b / c if c else float("inf"),
+                "improvement_pct": (1.0 - c / b) * 100.0 if b else 0.0,
+            }
     return out
 
 
@@ -270,12 +282,21 @@ def main() -> int:
             continue
         print(f"  {k:32s} {v['per_us']:9.1f} µs/op  ({v['rate_per_s']:.0f}/s)")
     print(f"  COMPOSITE weighted_cost_s={suite['_composite']['weighted_cost_s']:.6f}")
-    if "compare" in doc and "_composite" in doc["compare"]:
-        c = doc["compare"]["_composite"]
-        print(
-            f"  vs baseline: {c['improvement_pct']:.1f}% faster "
-            f"({c['speedup_x']:.2f}x) composite"
-        )
+    print(
+        f"  COMPOSITE_SAFE (no durable gate)="
+        f"{suite['_composite_safe']['weighted_cost_s']:.6f}"
+    )
+    if "compare" in doc:
+        for label, ckey in (
+            ("composite (incl. durable FULL)", "_composite"),
+            ("composite_safe (durability-preserving)", "_composite_safe"),
+        ):
+            if ckey in doc["compare"]:
+                c = doc["compare"][ckey]
+                print(
+                    f"  vs baseline {label}: {c['improvement_pct']:+.1f}% "
+                    f"({c['speedup_x']:.2f}x)"
+                )
     return 0
 
 

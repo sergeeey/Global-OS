@@ -73,11 +73,10 @@ class SqliteDurableGateStore:
         self._conn = sqlite3.connect(self.path, check_same_thread=False)
         self._conn.row_factory = sqlite3.Row
         self._conn.execute("PRAGMA journal_mode=WAL")
-        # NORMAL: fsync at critical moments; with WAL still crash-safe for process
-        # kill. FULL (sqlite default) is ~30–40× slower on this path and is not
-        # required for GOS durable gate semantics (jti/idempotency durability).
-        self._conn.execute("PRAGMA synchronous=NORMAL")
-        self._conn.execute("PRAGMA temp_store=MEMORY")
+        # FULL is mandatory for authority jti / idempotency: a lost commit after a
+        # world side-effect can replay an external action. Do NOT weaken to NORMAL
+        # for speed — see artifacts/perf/PERF_REPORT (durability trade-off).
+        self._conn.execute("PRAGMA synchronous=FULL")
         self._conn.executescript(
             """
             CREATE TABLE IF NOT EXISTS consumed_jti (
