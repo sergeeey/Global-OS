@@ -8,13 +8,31 @@
 | Gap | Fix |
 |-----|-----|
 | `_consumed_jti` / idempotency only in RAM | `SqliteDurableGateStore` survives process restart |
-| Bare `observation.effect` → WorldSuccess | Requires trusted `source`+`method`; else DISCREPANCY |
+| Bare `observation.effect` → WorldSuccess | HMAC attestation + allowlisted source; forged labels rejected |
+| Silent Memory / `:memory:` in strict mode | `GOS_REQUIRE_DURABLE_GATE=1` or `GOS_PROFILE=production` fail-closed without on-disk `GOS_DURABLE_GATE_PATH` |
+
+## Adversarial coverage
+
+- Forged `source=gateway_probe` without attestation → DISCREPANCY
+- Bogus attestation HMAC → DISCREPANCY
+- Strict profile rejects MemoryDurableGateStore and sqlite `:memory:`
+
+## Residual — observation binding / freshness (future)
+
+HMAC currently signs `effect|source|method` only. A valid signature does **not**
+yet bind `action_id`, `goal_id`, or observation time — cross-context replay of a
+genuine observation remains an open production-audit item. Separate from the two
+closed gaps (forged allowlist label; silent RAM-only store).
 
 ## Not claimed
 
 - Multi-region distributed lock / consensus
+- Hardware/TPM sensor attestation (HMAC shared-secret model only)
+- Observation action/goal/time binding (see residual above)
 - PRODUCTION_PROVEN
 - Challenge exec
+- Code on canonical `main` until human merge stack #37→#38→#39
+  (see `STACK_MERGE_37_39.md`)
 
 ## Code
 
