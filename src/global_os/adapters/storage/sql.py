@@ -4,12 +4,12 @@ from __future__ import annotations
 
 import json
 import sqlite3
-from copy import deepcopy
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, cast
 
 from global_os.common.hashing import content_hash, new_id
+from global_os.common.jsonable import jsonable_copy
 from global_os.contracts.validate import validate
 from global_os.runtime.events.ledger import AppendOnlyViolation, EventLedger
 
@@ -33,6 +33,10 @@ def apply_migrations(conn: sqlite3.Connection, migrations_dir: Path | None = Non
 def connect_sqlite(path: str | Path = ":memory:") -> sqlite3.Connection:
     conn = sqlite3.connect(str(path))
     conn.row_factory = sqlite3.Row
+    # Align with durable gate: WAL + NORMAL is the supported local durability profile
+    if str(path) != ":memory:":
+        conn.execute("PRAGMA journal_mode=WAL")
+        conn.execute("PRAGMA synchronous=NORMAL")
     apply_migrations(conn)
     return conn
 
@@ -120,7 +124,7 @@ class SqlEventLedger(EventLedger):
             ),
         )
         self._conn.commit()
-        return deepcopy(event)
+        return jsonable_copy(event)
 
     def __len__(self) -> int:
         row = self._conn.execute("SELECT COUNT(*) AS c FROM events").fetchone()

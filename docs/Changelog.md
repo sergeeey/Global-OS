@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.157 — 2026-10-13
+
+### Perf: hot-path audit + optimizations (no API breaks)
+
+- Cache JSON Schema validators; `jsonable_copy` for ledger event isolation
+- SQLite durable gate / on-disk connect: `synchronous=NORMAL` (WAL)
+- Reproducible harness `tools/perf_bench.py` + report `artifacts/perf/`
+- Composite microbench ~7.4× vs pre-opt baseline; interfaces unchanged
+
 ## 0.1.156 — 2026-10-13
 
 ### Challenge prep after integration (no exec)

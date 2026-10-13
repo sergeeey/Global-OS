@@ -1,0 +1,144 @@
+{
+  "meta": {
+    "python": "3.12.3",
+    "platform": "Linux-6.12.94+-x86_64-with-glibc2.39",
+    "cwd": "/workspace",
+    "gos_profile": "dev",
+    "integration_sha_hint": "see git rev-parse HEAD"
+  },
+  "results": {
+    "content_hash": {
+      "n": 4000.0,
+      "total_s": 0.042698610996012576,
+      "per_s": 1.0674652749003144e-05,
+      "per_us": 10.674652749003144,
+      "rate_per_s": 93679.86233494905,
+      "stdev_us": 0.0323502505736787
+    },
+    "validate_event": {
+      "n": 2500.0,
+      "total_s": 0.10423245499987388,
+      "per_s": 4.169298199994955e-05,
+      "per_us": 41.69298199994955,
+      "rate_per_s": 23984.851935062117,
+      "stdev_us": 0.26273035050463184
+    },
+    "validate_effect_receipt": {
+      "n": 2500.0,
+      "total_s": 0.10974958499718923,
+      "per_s": 4.389983399887569e-05,
+      "per_us": 43.89983399887569,
+      "rate_per_s": 22779.129415970245,
+      "stdev_us": 0.6298030410932408
+    },
+    "ledger_append": {
+      "n": 900.0,
+      "total_s": 0.054320388997439295,
+      "per_s": 6.035598777493255e-05,
+      "per_us": 60.35598777493255,
+      "rate_per_s": 16568.364413635307,
+      "stdev_us": 2.035165233951132
+    },
+    "ledger_list_events_200": {
+      "n": 250.0,
+      "total_s": 0.07013442700554151,
+      "per_s": 0.00028053770802216604,
+      "per_us": 280.53770802216604,
+      "rate_per_s": 3564.5831964984445,
+      "stdev_us": 2.7753119734907905
+    },
+    "execution_token_mint_consume": {
+      "n": 900.0,
+      "total_s": 0.03098936699825572,
+      "per_s": 3.443262999806191e-05,
+      "per_us": 34.432629998061905,
+      "rate_per_s": 29042.219547455028,
+      "stdev_us": 1.1535114871550067
+    },
+    "completion_gate": {
+      "n": 3000.0,
+      "total_s": 0.009229510993463919,
+      "per_s": 3.076503664487973e-06,
+      "per_us": 3.076503664487973,
+      "rate_per_s": 325044.3064778314,
+      "stdev_us": 0.03640716829211019
+    },
+    "durable_gate_claim_put_get": {
+      "n": 350.0,
+      "total_s": 0.0271042220047093,
+      "per_s": 7.744063429916943e-05,
+      "per_us": 77.44063429916943,
+      "rate_per_s": 12913.117371130898,
+      "stdev_us": 92.17386544823859
+    },
+    "_composite": {
+      "weighted_cost_s": 0.008999254513794203,
+      "weights": {
+        "ledger_append": 40,
+        "ledger_list_events_200": 15,
+        "validate_event": 15,
+        "durable_gate_claim_put_get": 20,
+        "execution_token_mint_consume": 5,
+        "completion_gate": 3,
+        "content_hash": 2
+      },
+      "note": "Lower is better. Relative microbenchmark mix, not production QPS."
+    }
+  },
+  "compare": {
+    "content_hash": {
+      "baseline_per_us": 10.690260749470326,
+      "current_per_us": 10.674652749003144,
+      "speedup_x": 1.0014621553350893,
+      "improvement_pct": 0.14600205582407932
+    },
+    "validate_event": {
+      "baseline_per_us": 47.18168599938508,
+      "current_per_us": 41.69298199994955,
+      "speedup_x": 1.1316457527418444,
+      "improvement_pct": 11.633123919113576
+    },
+    "validate_effect_receipt": {
+      "baseline_per_us": 50.47129360027611,
+      "current_per_us": 43.89983399887569,
+      "speedup_x": 1.1496921287121205,
+      "improvement_pct": 13.020192534483543
+    },
+    "ledger_append": {
+      "baseline_per_us": 74.28168555230108,
+      "current_per_us": 60.35598777493255,
+      "speedup_x": 1.2307260354895933,
+      "improvement_pct": 18.747148336535226
+    },
+    "ledger_list_events_200": {
+      "baseline_per_us": 755.7762479991652,
+      "current_per_us": 280.53770802216604,
+      "speedup_x": 2.694027313930466,
+      "improvement_pct": 62.88085147358642
+    },
+    "execution_token_mint_consume": {
+      "baseline_per_us": 33.53754999504114,
+      "current_per_us": 34.432629998061905,
+      "speedup_x": 0.9740048900397342,
+      "improvement_pct": -2.668889060629387
+    },
+    "completion_gate": {
+      "baseline_per_us": 3.0768466652565016,
+      "current_per_us": 3.076503664487973,
+      "speedup_x": 1.0001114904469277,
+      "improvement_pct": 0.011147801819366698
+    },
+    "durable_gate_claim_put_get": {
+      "baseline_per_us": 2568.0197285795916,
+      "current_per_us": 77.44063429916943,
+      "speedup_x": 33.16114016652798,
+      "improvement_pct": 96.98442214297151
+    },
+    "_composite": {
+      "baseline_weighted_cost_s": 0.06657432981513205,
+      "current_weighted_cost_s": 0.008999254513794203,
+      "speedup_x": 7.3977605270620845,
+      "improvement_pct": 86.48239563389684
+    }
+  }
+}
