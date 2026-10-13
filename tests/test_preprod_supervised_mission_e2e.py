@@ -10,6 +10,7 @@ import pytest
 from global_os.runtime.preprod import (
     SupervisedMissionError,
     cancel_mission,
+    criteria_supported_by_repo_audit,
     deliver_mission,
     pause_mission,
     resume_mission,
@@ -222,20 +223,58 @@ def test_negative_empty_artifact_not_succeeded(tmp_path: Path) -> None:
 
 
 def test_negative_partial_criteria_not_full_success(tmp_path: Path) -> None:
+    """Unrelated criterion stays UNKNOWN — no binds_criteria_override required."""
     gos = tmp_path / ".gos"
     target = Path(__file__).resolve().parents[1]
     delivery = start_mission(
         _goal(
             "goal_partial",
-            extra_criteria=[{"id": "sc_02", "description": "second unmet criterion"}],
+            extra_criteria=[
+                {"id": "sc_02", "description": "second unmet criterion unrelated to audit"}
+            ],
         ),
         target_path=target,
         gos_root=gos,
-        hooks={"binds_criteria_override": ["sc_01"]},
     )
     assert delivery["terminal_status"] != "SUCCEEDED"
     assert delivery["completion"]["status"] == CompletionStatus.PARTIAL.value
     assert "sc_02" in delivery["completion"]["criteria_unknown"]
+
+
+def test_repo_audit_verifier_does_not_claim_all_goal_criteria() -> None:
+    goal = _goal(
+        "goal_support_set",
+        extra_criteria=[
+            {"id": "sc_integration_tests", "description": "интеграционные тесты прошли"}
+        ],
+    )
+    supported = criteria_supported_by_repo_audit(goal)
+    assert supported == ["sc_01"]
+    assert "sc_integration_tests" not in supported
+
+
+def test_successful_audit_does_not_satisfy_unrelated_criterion(tmp_path: Path) -> None:
+    """P0: one repo.audit receipt must not bind every Goal criterion by default."""
+    gos = tmp_path / ".gos"
+    target = Path(__file__).resolve().parents[1]
+    delivery = start_mission(
+        _goal(
+            "goal_unrelated_criterion",
+            extra_criteria=[
+                {
+                    "id": "sc_integration_tests",
+                    "description": "интеграционные тесты прошли",
+                }
+            ],
+        ),
+        target_path=target,
+        gos_root=gos,
+        # Explicitly no binds_criteria_override — default binding must stay narrow.
+    )
+    assert delivery["terminal_status"] != "SUCCEEDED"
+    assert delivery["completion"]["status"] != CompletionStatus.ACHIEVED.value
+    assert "sc_integration_tests" in delivery["completion"]["criteria_unknown"]
+    assert "sc_01" in delivery["completion"]["criteria_met"]
 
 
 def test_negative_insufficient_budget_not_succeeded(tmp_path: Path) -> None:

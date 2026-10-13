@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.160 — 2026-10-13
+
+### PREPROD_V0_1 — verifier-scoped criterion binding (P0)
+
+- `repo.audit` binds only `criteria_supported_by_repo_audit`, never all Goal criteria
+- Unrelated criteria (e.g. integration tests) stay UNKNOWN → not SUCCEEDED
+- Negative e2e without `binds_criteria_override`
+
 ## 0.1.159 — 2026-10-13
 
 ### PREPROD_V0_1 — Completion binding honesty (P0)

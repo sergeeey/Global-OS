@@ -47,6 +47,7 @@ Completion Gate → `delivery.json`.
 - Live multi-hour LLM coding missions: **not** claimed by this e2e.
 - Mid-progress ≠ SUCCESS enforced by Completion Gate (empty receipts ≠ ACHIEVED).
 - **P0 fix:** never blanket `criterion_checks=True` from non-empty receipts; attest observation only after independent `verify_repo_audit_report`; negative e2e covers DISCREPANCY / corrupt / empty / partial / budget.
+- **P0 fix:** `repo.audit` binds only `criteria_supported_by_repo_audit` (never all Goal criteria); unrelated criteria stay UNKNOWN (e2e without override).
 - Challenge-GA remains NOT_STARTED.
 
 ## Release gate (manual checklist — 0/10 until human marks)

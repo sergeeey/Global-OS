@@ -7,6 +7,7 @@ Profile label: PREPROD_SUPERVISED (mission metadata; not a GOS_PROFILE enum).
 from global_os.runtime.preprod.supervised_mission import (
     SupervisedMissionError,
     cancel_mission,
+    criteria_supported_by_repo_audit,
     deliver_mission,
     pause_mission,
     resume_mission,
@@ -18,6 +19,7 @@ from global_os.runtime.preprod.supervised_mission import (
 __all__ = [
     "SupervisedMissionError",
     "cancel_mission",
+    "criteria_supported_by_repo_audit",
     "deliver_mission",
     "pause_mission",
     "resume_mission",

@@ -117,6 +117,47 @@ def _criterion_ids(goal: dict[str, Any]) -> list[str]:
     return out
 
 
+def _criterion_entries(goal: dict[str, Any]) -> list[tuple[str, str]]:
+    """Return (criterion_id, description) pairs from the Goal Contract."""
+    entries: list[tuple[str, str]] = []
+    for c in goal.get("success_criteria") or []:
+        if isinstance(c, str):
+            entries.append((c, c))
+            continue
+        cid = str(c.get("id") or c.get("description") or "")
+        desc = str(c.get("description") or c.get("id") or "")
+        if cid:
+            entries.append((cid, desc))
+    return entries
+
+
+# Explicit allowlist: repo.audit may evidence these criterion ids only.
+_REPO_AUDIT_CRITERION_IDS = frozenset({"sc_01"})
+# Description markers this verifier can honestly support (substring, lowercased).
+_REPO_AUDIT_DESC_MARKERS = (
+    "engineering report",
+    "audit report",
+    "repo audit",
+    "verified engineering report",
+)
+
+
+def criteria_supported_by_repo_audit(goal: dict[str, Any]) -> list[str]:
+    """Criteria this verifier can independently evidence — never all goal criteria.
+
+    Unrelated criteria (e.g. \"integration tests passed\") stay unbound → UNKNOWN.
+    """
+    supported: list[str] = []
+    for cid, desc in _criterion_entries(goal):
+        lowered = desc.lower()
+        if cid in _REPO_AUDIT_CRITERION_IDS:
+            supported.append(cid)
+            continue
+        if any(marker in lowered for marker in _REPO_AUDIT_DESC_MARKERS):
+            supported.append(cid)
+    return supported
+
+
 def verify_repo_audit_report(report: Any) -> dict[str, Any]:
     """Deterministic independent check of a repo-audit artifact (read-only pilot)."""
     if not isinstance(report, dict):
@@ -281,14 +322,21 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
             observation=observation,
         )
 
-        cids = _criterion_ids(goal)
-        bind_ids = list(hooks.get("binds_criteria_override") or cids)
-        # Bind criteria for evidence routing; world_success/recon still decide met/unmet.
+        # Bind only criteria this verifier supports — never all Goal criteria by default.
+        supported = criteria_supported_by_repo_audit(goal)
+        override = hooks.get("binds_criteria_override")
+        if override is not None:
+            # Test hook may only narrow the supported set, never expand it.
+            bind_ids = [cid for cid in list(override) if cid in supported]
+        else:
+            bind_ids = list(supported)
         enriched = {
             **receipt,
             "binds_criteria": bind_ids,
             "success_criteria_ids": bind_ids,
             "artifact_verify": artifact_verify,
+            "verifier": "repo_audit",
+            "criteria_supported": supported,
         }
         # Only claim criterion support when verify + reconciliation both pass.
         if not (
