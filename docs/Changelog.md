@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.157 — 2026-10-13
+
+### Perf: hot-path audit + optimizations (durability-preserving)
+
+- Cache JSON Schema validators; `jsonable_copy` for ledger event isolation
+- Authority durable gate + default `connect_sqlite`: **`synchronous=FULL`** (no NORMAL weaken)
+- Opt-in `connect_sqlite(..., synchronous="NORMAL")` only for rebuildable caches
+- Harness reports `_composite_safe` (~2×) excluding durable gate; withdrawn 7.4× NORMAL score
+- Report: `artifacts/perf/PERF_REPORT_2026-10-13.md`
+
 ## 0.1.156 — 2026-10-13
 
 ### Challenge prep after integration (no exec)

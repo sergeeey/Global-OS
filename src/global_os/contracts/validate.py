@@ -23,7 +23,7 @@ REPO_ROOT = _find_repo_root()
 SCHEMAS_DIR = REPO_ROOT / "contracts" / "schemas"
 
 
-@lru_cache(maxsize=32)
+@lru_cache(maxsize=64)
 def load_schema(name: str) -> dict[str, Any]:
     path = SCHEMAS_DIR / name
     if not path.exists():
@@ -32,9 +32,14 @@ def load_schema(name: str) -> dict[str, Any]:
         return cast(dict[str, Any], json.load(fh))
 
 
+@lru_cache(maxsize=64)
+def _validator_for(schema_name: str) -> Draft202012Validator:
+    """Reuse compiled validators — constructing Draft202012Validator each call is hot."""
+    return Draft202012Validator(load_schema(schema_name))
+
+
 def validate(instance: dict[str, Any], schema_name: str) -> None:
-    schema = load_schema(schema_name)
-    Draft202012Validator(schema).validate(instance)
+    _validator_for(schema_name).validate(instance)
 
 
 def list_schema_files() -> list[Path]:

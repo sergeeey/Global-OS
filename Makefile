@@ -1,4 +1,8 @@
-.PHONY: lint test schemas pins status check preflight-48h
+.PHONY: lint test schemas pins status check preflight-48h perf-bench
+
+perf-bench:
+	PYTHONPATH=src python3 tools/perf_bench.py --out artifacts/perf/latest.json \
+		--compare artifacts/perf/baseline_pre_opt.json
 
 schemas:
 	python3 -m tools.validate_schemas

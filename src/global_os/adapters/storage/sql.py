@@ -4,12 +4,12 @@ from __future__ import annotations
 
 import json
 import sqlite3
-from copy import deepcopy
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, cast
 
 from global_os.common.hashing import content_hash, new_id
+from global_os.common.jsonable import jsonable_copy
 from global_os.contracts.validate import validate
 from global_os.runtime.events.ledger import AppendOnlyViolation, EventLedger
 
@@ -30,9 +30,26 @@ def apply_migrations(conn: sqlite3.Connection, migrations_dir: Path | None = Non
     conn.commit()
 
 
-def connect_sqlite(path: str | Path = ":memory:") -> sqlite3.Connection:
+def connect_sqlite(
+    path: str | Path = ":memory:",
+    *,
+    synchronous: str = "FULL",
+) -> sqlite3.Connection:
+    """Open SQLite and apply migrations.
+
+    ``synchronous`` defaults to FULL for event/action journals (losing the last
+    committed row can imply double-execution after recovery). Pass
+    ``synchronous=\"NORMAL\"`` only for rebuildable caches/projections where
+    truncating the last transactions is acceptable — never for authority gates.
+    """
+    mode = synchronous.upper()
+    if mode not in {"FULL", "NORMAL", "OFF", "EXTRA"}:
+        raise ValueError(f"unsupported sqlite synchronous mode: {synchronous}")
     conn = sqlite3.connect(str(path))
     conn.row_factory = sqlite3.Row
+    if str(path) != ":memory:":
+        conn.execute("PRAGMA journal_mode=WAL")
+        conn.execute(f"PRAGMA synchronous={mode}")
     apply_migrations(conn)
     return conn
 
@@ -120,7 +137,7 @@ class SqlEventLedger(EventLedger):
             ),
         )
         self._conn.commit()
-        return deepcopy(event)
+        return jsonable_copy(event)
 
     def __len__(self) -> int:
         row = self._conn.execute("SELECT COUNT(*) AS c FROM events").fetchone()

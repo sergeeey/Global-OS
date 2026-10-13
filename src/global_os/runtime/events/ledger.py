@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from copy import deepcopy
 from datetime import UTC, datetime
 from typing import Any
 
 from global_os.common.hashing import content_hash, new_id
+from global_os.common.jsonable import jsonable_copy
 from global_os.contracts.validate import validate
 
 
@@ -68,7 +68,7 @@ class EventLedger:
         event = {k: v for k, v in event.items() if v is not None}
         validate(event, "event.schema.json")
         self._events.append(event)
-        return deepcopy(event)
+        return jsonable_copy(event)
 
     def __len__(self) -> int:
         return len(self._events)
@@ -77,7 +77,7 @@ class EventLedger:
         events = self._events
         if goal_id is not None:
             events = [e for e in events if e.get("goal_id") == goal_id]
-        return deepcopy(events)
+        return jsonable_copy(events)
 
     def mutate_forbidden(self, index: int, **_kwargs: Any) -> None:
         """Guard for tests — ledger entries are immutable."""
@@ -92,5 +92,5 @@ class EventLedger:
         """Rebuild ledger RAM from durable snapshot — does not re-hash/re-validate producer."""
         ledger = cls()
         for event in events:
-            ledger._events.append(deepcopy(event))
+            ledger._events.append(jsonable_copy(event))
         return ledger

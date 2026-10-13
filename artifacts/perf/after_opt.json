@@ -1,0 +1,162 @@
+{
+  "meta": {
+    "python": "3.12.3",
+    "platform": "Linux-6.12.94+-x86_64-with-glibc2.39",
+    "cwd": "/workspace",
+    "gos_profile": "dev",
+    "integration_sha_hint": "see git rev-parse HEAD"
+  },
+  "results": {
+    "content_hash": {
+      "n": 4000.0,
+      "total_s": 0.04274120199988829,
+      "per_s": 1.0685300499972072e-05,
+      "per_us": 10.685300499972072,
+      "rate_per_s": 93586.51167579365,
+      "stdev_us": 0.037499792720407155
+    },
+    "validate_event": {
+      "n": 2500.0,
+      "total_s": 0.10003102100017713,
+      "per_s": 4.001240840007085e-05,
+      "per_us": 40.01240840007085,
+      "rate_per_s": 24992.24715496579,
+      "stdev_us": 0.2551054087389653
+    },
+    "validate_effect_receipt": {
+      "n": 2500.0,
+      "total_s": 0.11142141799791716,
+      "per_s": 4.4568567199166864e-05,
+      "per_us": 44.568567199166864,
+      "rate_per_s": 22437.33785587555,
+      "stdev_us": 0.26072508950519824
+    },
+    "ledger_append": {
+      "n": 900.0,
+      "total_s": 0.05378419300541282,
+      "per_s": 5.976021445045868e-05,
+      "per_us": 59.76021445045868,
+      "rate_per_s": 16733.54102216286,
+      "stdev_us": 1.9037670858686964
+    },
+    "ledger_list_events_200": {
+      "n": 250.0,
+      "total_s": 0.06989942499785684,
+      "per_s": 0.00027959769999142737,
+      "per_us": 279.59769999142736,
+      "rate_per_s": 3576.567332387429,
+      "stdev_us": 6.526117404749044
+    },
+    "execution_token_mint_consume": {
+      "n": 900.0,
+      "total_s": 0.03071337699657306,
+      "per_s": 3.412597444063673e-05,
+      "per_us": 34.12597444063673,
+      "rate_per_s": 29303.192550282576,
+      "stdev_us": 0.4533780732028262
+    },
+    "completion_gate": {
+      "n": 3000.0,
+      "total_s": 0.009182128997053951,
+      "per_s": 3.0607096656846504e-06,
+      "per_us": 3.06070966568465,
+      "rate_per_s": 326721.6133603152,
+      "stdev_us": 0.017330479709110565
+    },
+    "durable_gate_claim_put_get": {
+      "n": 350.0,
+      "total_s": 1.0640761260001455,
+      "per_s": 0.0030402175028575586,
+      "per_us": 3040.2175028575584,
+      "rate_per_s": 328.92383490986447,
+      "stdev_us": 310.99377486581466
+    },
+    "_composite": {
+      "weighted_cost_s": 0.0681900928632422,
+      "weights": {
+        "ledger_append": 40,
+        "ledger_list_events_200": 15,
+        "validate_event": 15,
+        "durable_gate_claim_put_get": 20,
+        "execution_token_mint_consume": 5,
+        "completion_gate": 3,
+        "content_hash": 2
+      },
+      "note": "Lower is better. Relative microbenchmark mix, not production QPS."
+    },
+    "_composite_safe": {
+      "weighted_cost_s": 0.007385742806091003,
+      "weights": {
+        "ledger_append": 40,
+        "ledger_list_events_200": 15,
+        "validate_event": 15,
+        "execution_token_mint_consume": 5,
+        "completion_gate": 3,
+        "content_hash": 2
+      },
+      "note": "Excludes durable_gate (authority jti/idempotency stays FULL sync). This is the durability-preserving optimization score."
+    }
+  },
+  "compare": {
+    "content_hash": {
+      "baseline_per_us": 10.690260749470326,
+      "current_per_us": 10.685300499972072,
+      "speedup_x": 1.000464212447583,
+      "improvement_pct": 0.046399705437483174
+    },
+    "validate_event": {
+      "baseline_per_us": 47.18168599938508,
+      "current_per_us": 40.01240840007085,
+      "speedup_x": 1.179176357684621,
+      "improvement_pct": 15.195043261929353
+    },
+    "validate_effect_receipt": {
+      "baseline_per_us": 50.47129360027611,
+      "current_per_us": 44.568567199166864,
+      "speedup_x": 1.1324414665324847,
+      "improvement_pct": 11.695215200660048
+    },
+    "ledger_append": {
+      "baseline_per_us": 74.28168555230108,
+      "current_per_us": 59.76021445045868,
+      "speedup_x": 1.2429956323848323,
+      "improvement_pct": 19.549194386034717
+    },
+    "ledger_list_events_200": {
+      "baseline_per_us": 755.7762479991652,
+      "current_per_us": 279.59769999142736,
+      "speedup_x": 2.7030846391881544,
+      "improvement_pct": 63.00522797168717
+    },
+    "execution_token_mint_consume": {
+      "baseline_per_us": 33.53754999504114,
+      "current_per_us": 34.12597444063673,
+      "speedup_x": 0.9827572851694192,
+      "improvement_pct": -1.7545242442652764
+    },
+    "completion_gate": {
+      "baseline_per_us": 3.0768466652565016,
+      "current_per_us": 3.06070966568465,
+      "speedup_x": 1.0052723065349098,
+      "improvement_pct": 0.5244655105523743
+    },
+    "durable_gate_claim_put_get": {
+      "baseline_per_us": 2568.0197285795916,
+      "current_per_us": 3040.2175028575584,
+      "speedup_x": 0.8446828972485886,
+      "improvement_pct": -18.38762253353663
+    },
+    "_composite": {
+      "baseline_weighted_cost_s": 0.06657432981513205,
+      "current_weighted_cost_s": 0.0681900928632422,
+      "speedup_x": 0.9763050176313645,
+      "improvement_pct": -2.4270061036992807
+    },
+    "_composite_safe": {
+      "baseline_weighted_cost_s": 0.015213935243540214,
+      "current_weighted_cost_s": 0.007385742806091003,
+      "speedup_x": 2.0599059083120688,
+      "improvement_pct": 51.45409331732915
+    }
+  }
+}

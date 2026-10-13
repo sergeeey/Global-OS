@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "python": "3.12.3",
+    "platform": "Linux-6.12.94+-x86_64-with-glibc2.39",
+    "cwd": "/workspace",
+    "gos_profile": "dev",
+    "integration_sha_hint": "see git rev-parse HEAD"
+  },
+  "results": {
+    "content_hash": {
+      "n": 4000.0,
+      "total_s": 0.042761042997881304,
+      "per_s": 1.0690260749470326e-05,
+      "per_us": 10.690260749470326,
+      "rate_per_s": 93543.08781004685,
+      "stdev_us": 0.037298604564537235
+    },
+    "validate_event": {
+      "n": 2500.0,
+      "total_s": 0.1179542149984627,
+      "per_s": 4.718168599938508e-05,
+      "per_us": 47.18168599938508,
+      "rate_per_s": 21194.66438764043,
+      "stdev_us": 0.11273362861826002
+    },
+    "validate_effect_receipt": {
+      "n": 2500.0,
+      "total_s": 0.12617823400069028,
+      "per_s": 5.0471293600276115e-05,
+      "per_us": 50.47129360027611,
+      "rate_per_s": 19813.242908331744,
+      "stdev_us": 0.44628812207279417
+    },
+    "ledger_append": {
+      "n": 900.0,
+      "total_s": 0.06685351699707098,
+      "per_s": 7.428168555230109e-05,
+      "per_us": 74.28168555230108,
+      "rate_per_s": 13462.26856007338,
+      "stdev_us": 2.1881690116571786
+    },
+    "ledger_list_events_200": {
+      "n": 250.0,
+      "total_s": 0.1889440619997913,
+      "per_s": 0.0007557762479991653,
+      "per_us": 755.7762479991652,
+      "rate_per_s": 1323.1429310558387,
+      "stdev_us": 5.99630920050596
+    },
+    "execution_token_mint_consume": {
+      "n": 900.0,
+      "total_s": 0.030183794995537028,
+      "per_s": 3.353754999504114e-05,
+      "per_us": 33.53754999504114,
+      "rate_per_s": 29817.32416792103,
+      "stdev_us": 0.6821690913415906
+    },
+    "completion_gate": {
+      "n": 3000.0,
+      "total_s": 0.009230539995769504,
+      "per_s": 3.0768466652565016e-06,
+      "per_us": 3.0768466652565016,
+      "rate_per_s": 325008.0711827201,
+      "stdev_us": 0.013981305354302186
+    },
+    "durable_gate_claim_put_get": {
+      "n": 350.0,
+      "total_s": 0.8988069050028571,
+      "per_s": 0.0025680197285795916,
+      "per_us": 2568.0197285795916,
+      "rate_per_s": 389.4051080959235,
+      "stdev_us": 467.7043054209954
+    },
+    "_composite": {
+      "weighted_cost_s": 0.06657432981513205,
+      "weights": {
+        "ledger_append": 40,
+        "ledger_list_events_200": 15,
+        "validate_event": 15,
+        "durable_gate_claim_put_get": 20,
+        "execution_token_mint_consume": 5,
+        "completion_gate": 3,
+        "content_hash": 2
+      },
+      "note": "Lower is better. Relative microbenchmark mix, not production QPS."
+    },
+    "_composite_safe": {
+      "weighted_cost_s": 0.015213935243540214,
+      "weights": {
+        "ledger_append": 40,
+        "ledger_list_events_200": 15,
+        "validate_event": 15,
+        "execution_token_mint_consume": 5,
+        "completion_gate": 3,
+        "content_hash": 2
+      },
+      "note": "Excludes durable_gate (authority stays FULL). Backfilled for compare."
+    }
+  }
+}
