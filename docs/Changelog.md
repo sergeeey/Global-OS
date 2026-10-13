@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.1.160 — 2026-10-13
+
+### PREPROD_V0_1 — verifier-scoped criterion binding (P0)
+
+- `repo.audit` binds only `criteria_supported_by_repo_audit`, never all Goal criteria
+- Unrelated criteria (e.g. integration tests) stay UNKNOWN → not SUCCEEDED
+- Negative e2e without `binds_criteria_override`
+- Semantic match only: bare `sc_01` id does not evidence integration-test criteria
+
+## 0.1.159 — 2026-10-13
+
+### PREPROD_V0_1 — Completion binding honesty (P0)
+
+- Stop blanketing `criterion_checks=True` when any receipt exists
+- Audit → independent `verify_repo_audit_report` → then success attestation
+- Pre-tool budget fail-closed; negative e2e (tool fail, DISCREPANCY, corrupt/empty, partial, budget)
+- Challenge-GA still NOT_STARTED
+
+## 0.1.158 — 2026-10-13
+
+### PREPROD_V0_1 — supervised Operator path (composition only)
+
+- Integration-gap audit: `artifacts/preprod/INTEGRATION_GAP_AUDIT.md`
+- `gos mission start|status|pause|resume|cancel|deliver` over existing kernels
+- E2E acceptance: `tests/test_preprod_supervised_mission_e2e.py`
+- Operator guide + manual release gate; Challenge-GA still NOT_STARTED
+- No new Authority/Verification/scheduler surfaces (ADR-0009)
+
 ## 0.1.156 — 2026-10-13
 
 ### Challenge prep after integration (no exec)

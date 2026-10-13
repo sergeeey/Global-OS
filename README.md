@@ -43,9 +43,16 @@ gos goal create examples/goal_repo_audit.json
 gos goal show goal_repo_audit_001
 gos events tail --goal-id goal_repo_audit_001
 gos audit .
+
+# PREPROD_SUPERVISED: Goal → Gateway observe → Achiever → delivery
+gos mission start --goal examples/goal_repo_audit.json --target . --budget-usd 15
+gos mission status
+gos mission deliver
 ```
 
 Локальное состояние CLI пишется в `.gos/` (не production store).
+Operator guide: [artifacts/preprod/OPERATOR.md](artifacts/preprod/OPERATOR.md).
+Challenge-GA остаётся `NOT_STARTED` без отдельного разрешения.
 
 ## Принцип разработки
 
