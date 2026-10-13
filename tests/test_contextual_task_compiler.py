@@ -7,6 +7,7 @@ from copy import deepcopy
 import pytest
 
 from global_os.cognition.organs import (
+    AchieverLoopError,
     TaskCompilerError,
     compile_execution_brief,
     resolve_brief_criterion_ids,
@@ -176,6 +177,37 @@ def test_achiever_emits_brief_without_self_certifying() -> None:
     assert result.completion.status == CompletionStatus.ACHIEVED
     # Brief is not a completion certificate
     assert "completion" not in result.briefs[0]
+
+
+def test_empty_allowed_tools_fail_closed_no_filesystem_default() -> None:
+    """P0: brief with allowed_tools=[] must not route as filesystem.read."""
+    goal = _goal(
+        success_criteria=[{"id": "sc_01", "description": "verified engineering report"}],
+        authority={
+            "delegation_depth_max": 2,
+            "capabilities": [],  # EnvironmentCompiler → empty allow
+        },
+    )
+    # Goal with empty caps still needs ⊆ check via org
+    goal["authority"]["capabilities"] = []
+
+    def attempt_fn(g, plan, route):  # type: ignore[no-untyped-def]
+        del g, plan, route
+        raise AssertionError("attempt_fn must not run when tools are empty")
+
+    with pytest.raises(AchieverLoopError, match="empty allowed_tools"):
+        run_achiever_organ_loop(
+            goal,
+            attempt_fn=attempt_fn,
+            attempt_budget=1,
+            org_unit={
+                "id": "org_empty",
+                "authority": {"capabilities": []},
+                "budget": {"usd": 1.0, "tokens": 100},
+                "output_contract": "artifact_and_evidence",
+            },
+            routing_context={"brief_criterion_ids": ["sc_01"]},
+        )
 
 
 def test_abc_harness_stub_structural_only() -> None:

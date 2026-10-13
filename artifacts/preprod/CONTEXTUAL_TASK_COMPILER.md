@@ -21,6 +21,11 @@ Briefs emit on material reasons only (`first_attempt`, `pivot`, …). They never
 
 `delivery.json` may include `last_execution_brief` for audit. Treat it as a work order, not proof of goal achievement.
 
+## Fail-closed routing
+
+If an Execution Brief has `allowed_tools=[]`, Achiever **stops** with an error.
+It must not invent `filesystem.read` (or any other capability) to continue.
+
 ## Non-claims
 
 - Not PromptKernel / PromptOS

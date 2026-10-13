@@ -146,10 +146,16 @@ def run_achiever_organ_loop(
             if brief is not None:
                 briefs.append(brief)
                 events.append(f"brief:{brief['brief_id']}")
-                allow = list(brief.get("allowed_tools") or ctx.get("tool_ids") or [])
+                allow = list(brief.get("allowed_tools") or [])
+                # Fail closed: never invent filesystem.read when the brief grants nothing.
+                if not allow:
+                    raise AchieverLoopError(
+                        "execution brief has empty allowed_tools — "
+                        "fail closed (no implicit filesystem.read)"
+                    )
                 # Route uses a single primary tool; full allowlist stays on the brief.
                 ctx["brief_allowed_tools"] = allow
-                ctx["tool_ids"] = allow[:1] if allow else ["filesystem.read"]
+                ctx["tool_ids"] = allow[:1]
                 ctx["sole_option"] = True
                 usd = float(brief.get("budget", {}).get("usd", 0) or 0)
                 # None disables route budget gate when org has zero USD (control-plane OK).
