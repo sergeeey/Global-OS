@@ -338,7 +338,17 @@
     {
       "id": "goal_completion_gate",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "Executable ACHIEVED/PARTIAL/FAILED/UNKNOWN from Goal+EffectReceipt+invariants; tool_success alone ≠ ACHIEVED; LLM claim ignored; no second LLM oracle; src/global_os/verification/completion_gate.py; tests/test_completion_gate.py; Continual SI NOT_MEASURED"
+      "evidence": "Executable ACHIEVED/PARTIAL/FAILED/UNKNOWN from Goal+EffectReceipt+invariants; tool_success alone ≠ ACHIEVED; LLM claim ignored; wired into Challenge fixture via completion_bind; src/global_os/verification/completion_gate.py; tests/test_completion_gate.py; tests/test_achiever_organ_loop.py; Continual SI NOT_MEASURED"
+    },
+    {
+      "id": "achiever_organ_loop_contour_a",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "Contour A control loop Decomposer→Orchestration→Pivot→Completion Gate; no world effects; challenge_win_claimed=false; src/global_os/cognition/organs/achiever_loop.py; tests/test_achiever_organ_loop.py; ≠ PRODUCTION_PROVEN / Challenge exec"
+    },
+    {
+      "id": "skill_transfer_trial_prep",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "prepare_skill_transfer_trial fail-closed while Challenge≠COMPLETED; forced override cannot claim Continual SI; src/global_os/evals/mission_learning/skill_transfer_trial.py; tests/test_achiever_organ_loop.py; CONTINUAL_SI=NOT_MEASURED"
     },
     {
       "id": "contrastive_failure_miner_v0",

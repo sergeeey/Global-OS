@@ -15,6 +15,7 @@ from global_os.cognition.organs import (
     route_task,
 )
 from global_os.common.hashing import content_hash
+from global_os.evals.challenge_ga.completion_bind import evaluate_challenge_completion
 from global_os.evals.challenge_ga.scorer import score_terminal_fixture
 from global_os.runtime.events import EventLedger
 
@@ -116,6 +117,10 @@ def run_organ_fixture_loop(
     else:
         score = score_terminal_fixture()
 
+    completion = evaluate_challenge_completion(goal, score)
+    events.append(f"completion:{completion.status.value}")
+    # Completion ACHIEVED ≠ authorized Challenge WIN (exec gate separate).
+
     return {
         "goal_content_hash": goal["content_hash"],
         "plan_id": plan["plan_id"],
@@ -123,6 +128,7 @@ def run_organ_fixture_loop(
         "route": routed,
         "pivot": pivot_out,
         "terminal_score": score,
+        "completion_gate": completion.to_dict(),
         "challenge_win_claimed": False,  # harness must never self-certify WIN
         "stop": stop,
         "events": events,
