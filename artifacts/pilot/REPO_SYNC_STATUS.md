@@ -1,30 +1,25 @@
 # Repository sync status
 
 **Updated:** 2026-10-13  
-**Working tip (unmerged):** `da563ce` — `cursor/mission-learning-loop-v0-2907` · [#37](https://github.com/sergeeey/Global-OS/pull/37)  
-**Canonical `main` tip:** `2f73107` — DurableRunner #31 only  
+**Integration SHA (`main`):** `232022c` — Merge #39 (includes #37 stack + #38 Achiever + #39 P0 durable/obs)  
+**CI on integration SHA:** SUCCESS (`schemas-and-tests`)
 
 ## Truth
 
 | Surface | State |
 |---------|--------|
-| `main` | Behind integration + MLLv0 (human merge required) |
-| Open delivery PR | **#37 only** (Ready when undrafted; CI green on `da563ce`) |
-| Superseded closed | #32, #33, #34, #35, #36 — do not merge separately |
+| `main` | Integrated: #37 + Achiever loop (#38 content) + P0 durable/HMAC (#39) |
+| Delivery PRs | #37 MERGED · #38 MERGED (into old base; content via #39) · #39 MERGED → main |
 | Challenge-GA | `PREREG_LOCKED` · `execution_status=NOT_STARTED` |
 | Continual SI | `NOT_MEASURED` |
+| Production | `NOT_PROVEN` |
 
-## Why #36 was closed
+## After integration
 
-#37 already contains the full #32→#35 stack + post-debt P1 + Mission Learning Loop v0.  
-Keeping both open would duplicate the same delivery. Single vehicle = **#37**.
-
-## After human merges #37
-
-1. Confirm new `main` SHA + CI  
-2. Refresh this file + `RUN_STATE.tip` to that SHA  
-3. Close any leftover draft noise  
-4. Still no Challenge exec without explicit human request  
+1. Integration SHA + main CI recorded — **done** (`232022c`, CI green)
+2. Challenge-GA still requires **explicit** human authorize — not implied by merge
+3. Skill Transfer Trial blocked until Challenge COMPLETED
+4. HMAC residual (action/goal/time binding) remains documented — not claimed proven
 
 ## Boundaries
 
