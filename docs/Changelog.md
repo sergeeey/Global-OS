@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.159 — 2026-10-13
+
+### PREPROD_V0_1 — Completion binding honesty (P0)
+
+- Stop blanketing `criterion_checks=True` when any receipt exists
+- Audit → independent `verify_repo_audit_report` → then success attestation
+- Pre-tool budget fail-closed; negative e2e (tool fail, DISCREPANCY, corrupt/empty, partial, budget)
+- Challenge-GA still NOT_STARTED
+
 ## 0.1.158 — 2026-10-13
 
 ### PREPROD_V0_1 — supervised Operator path (composition only)

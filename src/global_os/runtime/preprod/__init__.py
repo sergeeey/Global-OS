@@ -12,6 +12,7 @@ from global_os.runtime.preprod.supervised_mission import (
     resume_mission,
     start_mission,
     status_mission,
+    verify_repo_audit_report,
 )
 
 __all__ = [
@@ -22,4 +23,5 @@ __all__ = [
     "resume_mission",
     "start_mission",
     "status_mission",
+    "verify_repo_audit_report",
 ]

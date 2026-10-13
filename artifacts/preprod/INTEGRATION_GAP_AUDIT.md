@@ -46,6 +46,7 @@ Completion Gate → `delivery.json`.
 - HMAC action_id/goal_id/freshness residual: **NOT claimed solved** (documented in delivery.limits).
 - Live multi-hour LLM coding missions: **not** claimed by this e2e.
 - Mid-progress ≠ SUCCESS enforced by Completion Gate (empty receipts ≠ ACHIEVED).
+- **P0 fix:** never blanket `criterion_checks=True` from non-empty receipts; attest observation only after independent `verify_repo_audit_report`; negative e2e covers DISCREPANCY / corrupt / empty / partial / budget.
 - Challenge-GA remains NOT_STARTED.
 
 ## Release gate (manual checklist — 0/10 until human marks)

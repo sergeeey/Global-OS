@@ -117,18 +117,30 @@ def _criterion_ids(goal: dict[str, Any]) -> list[str]:
     return out
 
 
-def _build_attempt_fn(
-    *,
-    receipts: list[dict[str, Any]],
-    criterion_checks: dict[str, bool | None],
-) -> Any:
+def verify_repo_audit_report(report: Any) -> dict[str, Any]:
+    """Deterministic independent check of a repo-audit artifact (read-only pilot)."""
+    if not isinstance(report, dict):
+        return {"ok": False, "reason": "report_not_object"}
+    if report.get("modified_target") is not False:
+        return {"ok": False, "reason": "modified_target_not_false"}
+    if report.get("read_only") is not True:
+        return {"ok": False, "reason": "read_only_not_true"}
+    findings = report.get("findings")
+    if not isinstance(findings, list) or len(findings) < 1:
+        return {"ok": False, "reason": "empty_or_missing_findings"}
+    if not isinstance(report.get("scan"), dict):
+        return {"ok": False, "reason": "missing_scan"}
+    return {"ok": True, "reason": "deterministic_structure_ok", "finding_count": len(findings)}
+
+
+def _build_attempt_fn(*, receipts: list[dict[str, Any]]) -> Any:
     def attempt_fn(
         _goal: dict[str, Any], _plan: dict[str, Any], _route: dict[str, Any]
     ) -> dict[str, Any]:
-        # Achiever is control-only: Gateway already produced receipts in prior step.
+        # Achiever is control-only. Never blanket criterion_checks=True —
+        # Completion Gate must derive met/unmet/unknown from receipts.
         return {
             "effect_receipts": receipts,
-            "criterion_checks": criterion_checks,
             "world_effects": False,
             "challenge_win_claimed": False,
         }
@@ -140,7 +152,53 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
     run_dir = Path(state["run_dir"])
     _require_control(run_dir)
     goal = state["goal"]
+    hooks = dict(state.get("hooks") or {})
     ledger = EventLedger.from_snapshot(state.get("events") or [])
+    budget = dict(state.get("budget") or {})
+    tool_cost = float(hooks.get("tool_cost_usd", 0.01))
+    remaining = float(budget.get("remaining_usd", budget.get("usd", 0.0)))
+
+    # Pre-tool budget gate (fail closed — no SUCCESS via skipped evidence).
+    if remaining < tool_cost:
+        state = {
+            **state,
+            "effect_receipts": [],
+            "artifact_digest": None,
+            "budget": budget,
+            "tool_calls": state.get("tool_calls") or {"repo.audit": 0},
+            "phase": "observed",
+            "observe_block": "budget_insufficient",
+            "artifact_verify": {"ok": False, "reason": "budget_insufficient"},
+        }
+        _write_json(_state_path(run_dir), {k: v for k, v in state.items() if k != "events"})
+        return state
+
+    target = Path(state["target_path"])
+    call_count_path = run_dir / "tool_calls.json"
+    prior = _read_json(call_count_path) if call_count_path.exists() else {"repo.audit": 0}
+
+    # 1) Produce audit first (or inject corrupt / empty body for negative tests).
+    if hooks.get("inject_corrupt_report"):
+        report: dict[str, Any] = {"findings": [], "modified_target": True}
+    elif hooks.get("inject_empty_report"):
+        report = {"findings": [], "read_only": True, "modified_target": False, "scan": {}}
+    else:
+        report = run_repo_audit(target)
+
+    # 2) Independent deterministic verification BEFORE success attestation.
+    artifact_verify = verify_repo_audit_report(report)
+    art = ArtifactStore(run_dir / "artifacts")
+    digest = art.put_json(
+        {
+            "kind": "repo_audit_report",
+            "run_id": state["run_id"],
+            "goal_id": goal["goal_id"],
+            "report": report,
+            "artifact_verify": artifact_verify,
+            "produced_at": _now(),
+        }
+    ).digest
+
     gate_path = run_dir / "durable_gate.sqlite"
     gate = SqliteDurableGateStore(gate_path)
     try:
@@ -155,14 +213,11 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
             workspace_id=goal["workspace_id"],
         )
 
-        target = Path(state["target_path"])
-        call_count_path = run_dir / "tool_calls.json"
-        prior = _read_json(call_count_path) if call_count_path.exists() else {"repo.audit": 0}
-
         def handler(_payload: dict[str, Any]) -> ToolResult:
             prior["repo.audit"] = int(prior.get("repo.audit", 0)) + 1
             _write_json(call_count_path, prior)
-            report = run_repo_audit(target)
+            if hooks.get("inject_tool_failure"):
+                return ToolResult(False, {"error": "injected_tool_failure", "report": report})
             return ToolResult(True, report)
 
         gateway.register_tool(
@@ -171,7 +226,6 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
             required_capabilities=("filesystem.read",),
         )
 
-        # Stable idempotency: resume must not re-fire after successful Gateway commit.
         idem = f"preprod-{state['run_id']}-repo-audit"
         proposal = {
             "proposal_id": f"ap_{state['run_id']}_audit",
@@ -184,16 +238,30 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
             "maximum_effect": "repo_audit_report",
             "reversible": True,
             "information_disclosure": "none",
-            "monetary_cost": 0.01,
+            "monetary_cost": tool_cost,
             "idempotency_key": idem,
             "evidence_refs": [],
             "approval_refs": [],
             "context": {"profile": PROFILE},
             "parent_capabilities": sorted(caps),
         }
-        decision = auth.decide(proposal, tenant_id=goal["tenant_id"], workspace_id=goal["workspace_id"])
+        decision = auth.decide(
+            proposal, tenant_id=goal["tenant_id"], workspace_id=goal["workspace_id"]
+        )
         if decision.execution_token is None:
             raise SupervisedMissionError(f"authority denied observe: {decision.decision}")
+
+        # 3) Attest success only after independent verify; else force DISCREPANCY
+        # or leave observation pending — never pre-sign SUCCESS for unverified work.
+        observation = None
+        if (
+            artifact_verify.get("ok")
+            and not hooks.get("inject_tool_failure")
+            and not hooks.get("inject_discrepancy_observation")
+        ):
+            observation = trusted_observation("repo_audit_report")
+        elif hooks.get("inject_discrepancy_observation") or not artifact_verify.get("ok"):
+            observation = trusted_observation("repo_audit_failed")
 
         receipt = gateway.execute(
             tool_id="repo.audit",
@@ -202,26 +270,28 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
             tenant_id=goal["tenant_id"],
             workspace_id=goal["workspace_id"],
             intended_effect="repo_audit_report",
-            observation=trusted_observation("repo_audit_report"),
+            observation=observation,
         )
+
         cids = _criterion_ids(goal)
+        bind_ids = list(hooks.get("binds_criteria_override") or cids)
+        # Bind criteria for evidence routing; world_success/recon still decide met/unmet.
         enriched = {
             **receipt,
-            "binds_criteria": cids,
-            "success_criteria_ids": cids,
+            "binds_criteria": bind_ids,
+            "success_criteria_ids": bind_ids,
+            "artifact_verify": artifact_verify,
         }
-        art = ArtifactStore(run_dir / "artifacts")
-        digest = art.put_json(
-            {
-                "kind": "repo_audit_report",
-                "run_id": state["run_id"],
-                "goal_id": goal["goal_id"],
-                "tool_response": enriched.get("tool_response"),
-                "produced_at": _now(),
-            }
-        ).digest
-        budget = dict(state.get("budget") or {})
-        spent = float(budget.get("spent_usd", 0.0)) + float(proposal["monetary_cost"])
+        # Only claim criterion support when verify + reconciliation both pass.
+        if not (
+            artifact_verify.get("ok")
+            and enriched.get("world_success") is True
+            and enriched.get("reconciliation_status") == "RECONCILED"
+        ):
+            # Explicit negative map so Completion Gate cannot treat blank as True.
+            enriched["criterion_results"] = {cid: False for cid in bind_ids}
+
+        spent = float(budget.get("spent_usd", 0.0)) + tool_cost
         budget["spent_usd"] = spent
         budget["remaining_usd"] = float(budget.get("usd", 0.0)) - spent
 
@@ -230,9 +300,11 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
             "events": ledger.export_snapshot(),
             "effect_receipts": [enriched],
             "artifact_digest": digest,
+            "artifact_verify": artifact_verify,
             "budget": budget,
             "tool_calls": prior,
             "phase": "observed",
+            "observe_block": None,
         }
         _persist_events(run_dir, ledger)
         _write_json(_state_path(run_dir), {k: v for k, v in state.items() if k != "events"})
@@ -247,17 +319,10 @@ def _achiever_settle_step(state: dict[str, Any]) -> dict[str, Any]:
     goal = state["goal"]
     ledger = EventLedger.from_snapshot(state.get("events") or [])
     receipts = list(state.get("effect_receipts") or [])
-    cids = _criterion_ids(goal)
-    # Mid-progress without receipts must not look like SUCCESS — enforce empty→unknown.
-    checks: dict[str, bool | None]
-    if not receipts:
-        checks = {cid: None for cid in cids}
-    else:
-        checks = {cid: True for cid in cids}
     try:
         result = run_achiever_organ_loop(
             goal,
-            attempt_fn=_build_attempt_fn(receipts=receipts, criterion_checks=checks),
+            attempt_fn=_build_attempt_fn(receipts=receipts),
             attempt_budget=1,
             ledger=ledger,
         )
@@ -350,8 +415,13 @@ def start_mission(
     budget_tokens: int = 50_000,
     kill_after_step: str | None = None,
     run_id: str | None = None,
+    hooks: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Create Goal + Mission and run supervised workflow (or resume by run_id)."""
+    """Create Goal + Mission and run supervised workflow (or resume by run_id).
+
+    ``hooks`` is for adversarial/acceptance tests only (inject failures). Production
+    operators should leave it unset.
+    """
     gos_root = gos_root or (Path.cwd() / ".gos")
     gos_root.mkdir(parents=True, exist_ok=True)
     index = _load_index(gos_root)
@@ -378,7 +448,11 @@ def start_mission(
         worker = org["workers"][0]
         mission = MissionAssigner(ledger).assign(
             org_unit=worker,
-            objective=str(goal["objective"].get("text") if isinstance(goal["objective"], dict) else goal["objective"]),
+            objective=str(
+                goal["objective"].get("text")
+                if isinstance(goal["objective"], dict)
+                else goal["objective"]
+            ),
             success_criteria=_criterion_ids(goal),
             evidence_required=["effect_receipt", "artifact_digest"],
             constraints=list(goal.get("invariants") or []),
@@ -399,6 +473,7 @@ def start_mission(
                 "spent_usd": 0.0,
                 "remaining_usd": budget_usd,
             },
+            "hooks": dict(hooks or {}),
             "events": ledger.export_snapshot(),
             "phase": "started",
             "started_at": _now(),
