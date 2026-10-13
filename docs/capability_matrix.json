@@ -346,6 +346,11 @@
       "evidence": "Contour A control loop Decomposer→Orchestration→Pivot→Completion Gate; no world effects; challenge_win_claimed=false; src/global_os/cognition/organs/achiever_loop.py; tests/test_achiever_organ_loop.py; ≠ PRODUCTION_PROVEN / Challenge exec"
     },
     {
+      "id": "preprod_supervised_mission_v0",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "PREPROD_SUPERVISED Operator path: gos mission start|status|pause|resume|cancel|deliver; Goal→Mission→Gateway repo.audit→Achiever settle→delivery.json; durable gate on disk; crash resume without silent tool replay; artifacts/preprod/; tests/test_preprod_supervised_mission_e2e.py; ≠ PRODUCTION_PROVEN / Challenge-GA NOT_STARTED / live multi-hour LLM missions not claimed"
+    },
+    {
       "id": "skill_transfer_trial_prep",
       "state": "RUNTIME_VERIFIED_LOCAL",
       "evidence": "prepare_skill_transfer_trial fail-closed while Challenge≠COMPLETED; forced override cannot claim Continual SI; src/global_os/evals/mission_learning/skill_transfer_trial.py; tests/test_achiever_organ_loop.py; CONTINUAL_SI=NOT_MEASURED"

@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.158 — 2026-10-13
+
+### PREPROD_V0_1 — supervised Operator path (composition only)
+
+- Integration-gap audit: `artifacts/preprod/INTEGRATION_GAP_AUDIT.md`
+- `gos mission start|status|pause|resume|cancel|deliver` over existing kernels
+- E2E acceptance: `tests/test_preprod_supervised_mission_e2e.py`
+- Operator guide + manual release gate; Challenge-GA still NOT_STARTED
+- No new Authority/Verification/scheduler surfaces (ADR-0009)
+
 ## 0.1.156 — 2026-10-13
 
 ### Challenge prep after integration (no exec)
