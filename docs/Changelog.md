@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.1.155 — 2026-10-13
+
+### Integration — stack #37–#39 on main
+
+- Integration SHA: `232022c` (Merge #39; includes #37 + Achiever loop + P0 durable/HMAC)
+- CI on `main` @ `232022c`: SUCCESS (`schemas-and-tests`)
+- Challenge-GA still NOT_STARTED; Continual SI NOT_MEASURED; PRODUCTION_PROVEN=0
+- HMAC action/goal/time binding residual remains documented (not claimed proven)
+
+## 0.1.154 — 2026-10-13
+
+### P0 harden: observation HMAC + strict durable gate
+
+- Observations require HMAC attestation (forged allowlist `source` rejected)
+- `GOS_REQUIRE_DURABLE_GATE` / production: forbid Memory and sqlite `:memory:`
+- Adversarial tests in `tests/test_durable_gate_obs_p0.py`
+
 ## 0.1.153 — 2026-10-13
 
 ### P0 durable gate + observation provenance (audit close)

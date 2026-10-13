@@ -1,26 +1,26 @@
 {
   "sprint": "PILOT_USAGE",
-  "updated_at": "2026-10-13T14:30:00Z",
+  "updated_at": "2026-10-13T16:44:00Z",
   "current_goal": "REAL_USER_PROJECTS_PILOT_USAGE",
   "tip": {
-    "repo_head": "2f73107",
-    "repo_head_note": "main = DurableRunner #31; integration+#37 NOT MERGED yet",
-    "code_head": "2f73107",
-    "code_head_note": "runtime on main ends at #31 until #37 lands",
-    "pending_integration": {
-      "pr": 37,
-      "branch": "cursor/mission-learning-loop-v0-2907",
-      "sha": "da563ce",
-      "includes": "organs+authority_P0+T3_sensitivity+Challenge_lock+P1+MLLv0",
-      "supersedes_closed_prs": [32, 33, 34, 35, 36],
+    "repo_head": "232022c",
+    "repo_head_note": "main integration: #37+#38 content+#39 (Achiever+MLLv0+P0 durable/HMAC)",
+    "code_head": "232022c",
+    "code_head_note": "integration SHA; CI schemas-and-tests SUCCESS on 232022c",
+    "integration": {
+      "sha": "232022ce9020c056552a171d390fb6ccbd9019bc",
+      "merged_prs": [37, 38, 39],
+      "includes": "MLLv0+CompletionGate+AchieverLoop+durable_gate+HMAC_obs",
+      "ci": "SUCCESS",
       "challenge_exec": "NOT_STARTED",
-      "continual_si": "NOT_MEASURED"
+      "continual_si": "NOT_MEASURED",
+      "production_proven": 0
     },
-    "split_reason": "DOC-007: pending_integration tip ahead of main until human merge #37"
+    "split_reason": null
   },
-  "phase_statement": "Pilot 3 ATTR NOT_SHOWN; M2 CLOSED; PRODUCTION_PROVEN=0. Pending human merge #37 (stack+MLLv0). Challenge exec NOT_STARTED. Continual SI NOT_MEASURED.",
-  "operator_action_required": true,
-  "operator_action": "human_merge_pr_37",
+  "phase_statement": "Pilot 3 ATTR NOT_SHOWN; M2 CLOSED; PRODUCTION_PROVEN=0. Stack #37–#39 on main @ 232022c (CI green). Challenge exec NOT_STARTED. Continual SI NOT_MEASURED.",
+  "operator_action_required": false,
+  "operator_action": "await_explicit_challenge_ga_authorize",
   "operator_dispatch_required": false,
   "y20": {
     "sealed_science_gain": false

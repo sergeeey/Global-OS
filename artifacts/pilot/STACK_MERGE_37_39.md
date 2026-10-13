@@ -1,43 +1,35 @@
-# Human merge stack — #37 → #38 → #39
+# Merge stack — #37 → #38 → #39 — COMPLETE
 
-**Status:** REQUEST_MERGE (agent does not merge)  
-**Updated:** 2026-10-13 after CI green on `59d2b40`
+**Status:** MERGED_ON_MAIN  
+**Integration SHA:** `232022ce9020c056552a171d390fb6ccbd9019bc` (`232022c`)  
+**CI on integration SHA:** SUCCESS (`schemas-and-tests`, run 38432567001)
 
-## Order (dependencies)
+## What landed
 
-| Step | PR | Base | Head tip (approx) | Draft | CI |
-|------|----|------|-------------------|-------|-----|
-| 1 | [#37](https://github.com/sergeeey/Global-OS/pull/37) MLLv0 + Completion Gate | `main` | mission-learning tip | ready | green |
-| 2 | [#38](https://github.com/sergeeey/Global-OS/pull/38) Achiever organ loop | #37 branch | `3153710` | ready | green |
-| 3 | [#39](https://github.com/sergeeey/Global-OS/pull/39) durable gate + HMAC obs | #38 branch | `59d2b40` | ready | green |
+| PR | Role | Result |
+|----|------|--------|
+| #37 | MLLv0 + Completion Gate + authority P0 bind | MERGED → main (`36781b5`) |
+| #38 | Achiever organ loop | MERGED (initially into old base); **content on main via #39** |
+| #39 | Durable gate + HMAC obs + stack remainder | MERGED → main (`232022c`) |
 
-Do **not** merge #38/#39 into `main` before #37. Prefer merge #38 into #37 tip (or retarget after #37 lands), then #39.
-
-## After full stack on `main`
-
-1. Record **integration SHA** = `main` tip after #39  
-2. Confirm `main` CI green  
-3. Update `RUN_STATE.tip` / `REPO_SYNC_STATUS.md`  
-4. Challenge-GA only after explicit human authorize — not implied by merge  
-5. Skill Transfer Trial only after Challenge COMPLETED  
-
-## Honest status (pre-merge)
+## Honest status (post-integration)
 
 ```
-P0 implementation       fixed in PR stack (59d2b40)
-CI 59d2b40              PASS
-P0 integrated on main   NOT YET
+P0 implementation       on main @ 232022c
+CI main 232022c         PASS
+P0 integrated on main   YES (implementation; not PRODUCTION_PROVEN)
 Achiever loop           IMPLEMENTED / NOT CHALLENGED
 Challenge-GA            NOT_STARTED
 Continual SI            NOT_MEASURED
 Production              NOT_PROVEN
+HMAC residual           DOCUMENTED (no action/goal/time binding yet)
 ```
 
-## Residual (future production audit — not blocking this stack)
+## Next (explicit human only)
 
-HMAC observation attestation binds `effect|source|method` only.  
-Does **not** yet bind `action_id` / `goal_id` / observation timestamp (replay across contexts).  
-Track separately; do not claim freshness/binding proven.
+1. Decide whether to authorize Challenge-GA  
+2. Do **not** treat merge as Challenge authorization  
+3. Skill Transfer Trial only after Challenge COMPLETED  
 
 ## Boundaries
 
