@@ -1,6 +1,6 @@
 """Contour A Achiever organ loop — beyond Challenge fixture-only wiring.
 
-Decomposer → Orchestration → (optional Pivot) → Completion Gate.
+Decomposer → Contextual Task Compiler → Orchestration → (optional Pivot) → Completion Gate.
 No world effects without Gateway; no Challenge exec; no LLM completion oracle.
 ADR-0009: T2 cognition surface only.
 """
@@ -14,6 +14,7 @@ from typing import Any
 from global_os.cognition.organs.decomposer import DecomposerError, decompose_goal
 from global_os.cognition.organs.orchestration import OrchestrationError, route_task
 from global_os.cognition.organs.pivot_replan import PivotError, pivot_on_failure
+from global_os.cognition.organs.task_compiler import TaskCompilerError, compile_execution_brief
 from global_os.runtime.events import EventLedger
 from global_os.verification.completion_gate import (
     CompletionDecision,
@@ -36,6 +37,7 @@ class AchieverLoopResult:
     challenge_win_claimed: bool
     world_effects: bool
     route_decisions: tuple[str, ...]
+    briefs: tuple[dict[str, Any], ...] = ()
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -48,6 +50,8 @@ class AchieverLoopResult:
             "challenge_win_claimed": self.challenge_win_claimed,
             "world_effects": self.world_effects,
             "route_decisions": list(self.route_decisions),
+            "briefs": list(self.briefs),
+            "last_brief": self.briefs[-1] if self.briefs else None,
             "achieved": self.completion.status == CompletionStatus.ACHIEVED,
         }
 
@@ -64,6 +68,8 @@ def run_achiever_organ_loop(
     ledger: EventLedger | None = None,
     routing_context: dict[str, Any] | None = None,
     authority_expanded: bool = False,
+    org_unit: dict[str, Any] | None = None,
+    compile_briefs: bool = True,
 ) -> AchieverLoopResult:
     """Run Contour A control flow until Completion Gate settles or budget ends.
 
@@ -74,6 +80,10 @@ def run_achiever_organ_loop(
       - invariant_break_flags: optional list[str]
       - forbidden_outcomes_observed: optional list[str]
     It must NOT execute Challenge arms or claim WIN.
+
+    When ``compile_briefs`` is True, a Contextual Task Compiler Execution Brief
+    is emitted on each material attempt (first / pivot) and injected into
+    ``routing_context`` (tools/budget). Briefs never certify completion.
     """
     if attempt_budget < 0:
         raise AchieverLoopError("attempt_budget must be >= 0")
@@ -85,10 +95,12 @@ def run_achiever_organ_loop(
 
     events: list[str] = ["decomposed"]
     route_decisions: list[str] = []
+    briefs: list[dict[str, Any]] = []
     pivots = 0
     remaining = attempt_budget
     failed_approaches: set[str] = set()
     last_completion: CompletionDecision | None = None
+    prior_failure_class: str | None = None
     ctx = dict(routing_context or {})
     if "tool_ids" not in ctx:
         ctx["tool_ids"] = ["filesystem.read"]
@@ -98,7 +110,56 @@ def run_achiever_organ_loop(
         ctx["why_this_model"] = "cheap_fast_for_plan_bound_work"
 
     while remaining >= 0:
-        task = {"task_id": f"t_attempt_{pivots}", "title": "advance_success_criteria"}
+        plan_tasks = list(plan.get("tasks") or [])
+        if plan_tasks:
+            base_task = plan_tasks[min(pivots, len(plan_tasks) - 1)]
+            task = {
+                "task_id": str(base_task.get("task_id") or f"t_attempt_{pivots}"),
+                "title": str(base_task.get("title") or "advance_success_criteria"),
+            }
+        else:
+            task = {"task_id": f"t_attempt_{pivots}", "title": "advance_success_criteria"}
+        material_reason = "first_attempt" if pivots == 0 else "pivot"
+        if compile_briefs:
+            try:
+                brief = compile_execution_brief(
+                    goal=goal,
+                    plan=plan,
+                    task=task,
+                    org_unit=org_unit,
+                    ledger_tail=ledger.list_events()[-8:],
+                    material_reason=material_reason,
+                    prior_brief=briefs[-1] if briefs else None,
+                    prior_failure_class=prior_failure_class,
+                    new_failure_class=(
+                        last_completion.reason if last_completion is not None else None
+                    ),
+                    # Explicit criterion scoping via routing_context if provided
+                    criterion_ids=(
+                        list(ctx["brief_criterion_ids"])
+                        if "brief_criterion_ids" in ctx
+                        else None
+                    ),
+                )
+            except TaskCompilerError as exc:
+                raise AchieverLoopError(str(exc)) from exc
+            if brief is not None:
+                briefs.append(brief)
+                events.append(f"brief:{brief['brief_id']}")
+                allow = list(brief.get("allowed_tools") or ctx.get("tool_ids") or [])
+                # Route uses a single primary tool; full allowlist stays on the brief.
+                ctx["brief_allowed_tools"] = allow
+                ctx["tool_ids"] = allow[:1] if allow else ["filesystem.read"]
+                ctx["sole_option"] = True
+                usd = float(brief.get("budget", {}).get("usd", 0) or 0)
+                # None disables route budget gate when org has zero USD (control-plane OK).
+                ctx["cost_remaining"] = usd if usd > 0 else None
+                ctx["est_usd"] = usd
+                ctx["est_tokens"] = int(brief.get("budget", {}).get("tokens", 0) or 0)
+                ctx["why_this_tool"] = "execution_brief_allowed_tools"
+                ctx["execution_brief_id"] = brief["brief_id"]
+                ctx["execution_brief_criteria"] = list(brief.get("criterion_ids") or [])
+
         try:
             routed = route_task(
                 goal=goal,
@@ -149,6 +210,7 @@ def run_achiever_organ_loop(
                 challenge_win_claimed=False,
                 world_effects=False,
                 route_decisions=tuple(route_decisions),
+                briefs=tuple(briefs),
             )
 
         failure = attempt.get("failure")
@@ -185,6 +247,7 @@ def run_achiever_organ_loop(
         events.append(f"pivot:{pivot_out['decision']}")
         approach = str(failure.get("approach") or "primary")
         failed_approaches.add(approach)
+        prior_failure_class = str(failure.get("why_failed") or completion.reason)
 
         if pivot_out["decision"] == "STOP":
             return AchieverLoopResult(
@@ -197,6 +260,7 @@ def run_achiever_organ_loop(
                 challenge_win_claimed=False,
                 world_effects=False,
                 route_decisions=tuple(route_decisions),
+                briefs=tuple(briefs),
             )
         if pivot_out["decision"] == "ESCALATE":
             return AchieverLoopResult(
@@ -209,6 +273,7 @@ def run_achiever_organ_loop(
                 challenge_win_claimed=False,
                 world_effects=False,
                 route_decisions=tuple(route_decisions),
+                briefs=tuple(briefs),
             )
 
         plan = pivot_out.get("amended_plan") or plan
@@ -231,4 +296,5 @@ def run_achiever_organ_loop(
         challenge_win_claimed=False,
         world_effects=False,
         route_decisions=tuple(route_decisions),
+        briefs=tuple(briefs),
     )

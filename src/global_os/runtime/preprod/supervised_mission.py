@@ -383,12 +383,26 @@ def _achiever_settle_step(state: dict[str, Any]) -> dict[str, Any]:
     goal = state["goal"]
     ledger = EventLedger.from_snapshot(state.get("events") or [])
     receipts = list(state.get("effect_receipts") or [])
+    budget = dict(state.get("budget") or {})
+    org_unit = {
+        "id": str(state.get("org_unit_id") or "org_preprod"),
+        "authority": {"capabilities": list(goal["authority"]["capabilities"])},
+        "budget": {
+            "usd": float(budget.get("usd", 0) or 0),
+            "tokens": int(budget.get("tokens", 0) or 0),
+        },
+        "output_contract": "artifact_and_evidence",
+    }
+    # Scope brief criteria to verifier-supported ids (same honesty as receipt bind).
+    supported = criteria_supported_by_repo_audit(goal)
     try:
         result = run_achiever_organ_loop(
             goal,
             attempt_fn=_build_attempt_fn(receipts=receipts),
             attempt_budget=1,
             ledger=ledger,
+            org_unit=org_unit,
+            routing_context={"brief_criterion_ids": supported},
         )
     except AchieverLoopError as exc:
         raise SupervisedMissionError(str(exc)) from exc
@@ -398,6 +412,7 @@ def _achiever_settle_step(state: dict[str, Any]) -> dict[str, Any]:
         "events": ledger.export_snapshot(),
         "achiever": result.to_dict(),
         "completion": result.completion.to_dict(),
+        "last_brief": result.to_dict().get("last_brief"),
         "phase": "settled",
         "stop": result.stop,
     }
@@ -442,11 +457,13 @@ def _deliver_step(state: dict[str, Any]) -> dict[str, Any]:
             "artifact_digest": state.get("artifact_digest"),
         },
         "history_summary": (state.get("achiever") or {}).get("events") or [],
+        "last_execution_brief": state.get("last_brief"),
         "delivered_at": _now(),
         "honesty": {
             "production_proven": 0,
             "continual_si": "NOT_MEASURED",
             "end_to_end_os_speedup": "NOT_CLAIMED",
+            "execution_brief": "ephemeral_work_order_not_completion",
         },
     }
     _write_json(_delivery_path(run_dir), delivery)

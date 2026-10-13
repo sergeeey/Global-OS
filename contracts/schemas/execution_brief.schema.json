@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.dev/schemas/execution_brief.schema.json",
+  "title": "ExecutionBrief",
+  "description": "Ephemeral Contextual Task Compiler work order for one Achiever step. Not a Goal mutation; not a completion certificate.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "brief_id",
+    "schema_version",
+    "goal_id",
+    "goal_version",
+    "plan_id",
+    "task_id",
+    "objective_text",
+    "criterion_ids",
+    "allowed_tools",
+    "budget",
+    "expected_artifacts",
+    "verification_method",
+    "constraints",
+    "human_approval_required",
+    "context_refs",
+    "authority_check",
+    "material_reason",
+    "env_id"
+  ],
+  "properties": {
+    "brief_id": { "type": "string", "pattern": "^brf_[a-zA-Z0-9_\\-]+$" },
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "goal_id": { "type": "string", "minLength": 1 },
+    "goal_version": { "type": "integer", "minimum": 1 },
+    "plan_id": { "type": "string", "minLength": 1 },
+    "task_id": { "type": "string", "minLength": 1 },
+    "objective_text": { "type": "string", "minLength": 1 },
+    "criterion_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "allowed_tools": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z0-9_]+(\\.[a-z0-9_]+)+$" }
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["usd", "tokens"],
+      "properties": {
+        "usd": { "type": "number", "minimum": 0 },
+        "tokens": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "expected_artifacts": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "verification_method": { "type": "string", "minLength": 1 },
+    "constraints": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "human_approval_required": { "type": "boolean" },
+    "context_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "authority_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["caps_subset"],
+      "properties": {
+        "caps_subset": { "type": "boolean", "const": true }
+      }
+    },
+    "material_reason": {
+      "type": "string",
+      "enum": [
+        "first_attempt",
+        "pivot",
+        "partial_unknown",
+        "operator_resume",
+        "blocker",
+        "executor_change"
+      ]
+    },
+    "env_id": { "type": "string", "pattern": "^env_[a-zA-Z0-9_\\-]+$" },
+    "org_unit_id": { "type": "string" },
+    "content_hash": { "type": "string" }
+  }
+}

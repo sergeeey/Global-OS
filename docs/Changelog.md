@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.161 — 2026-10-13
+
+### Contextual Task Compiler v0 (T2 composition)
+
+- Schema `execution_brief.schema.json` + `compile_execution_brief` (deterministic)
+- Wire into Achiever Contour A; PREPROD delivery may carry `last_execution_brief`
+- Eval fixtures under `artifacts/preprod/task_compiler_fixtures/` (not runtime templates)
+- A/B/C outcome metrics NOT_MEASURED; Challenge-GA NOT_STARTED
+
 ## 0.1.160 — 2026-10-13
 
 ### PREPROD_V0_1 — verifier-scoped criterion binding (P0)

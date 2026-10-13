@@ -1,0 +1,25 @@
+{
+  "schema_version": "0.1.0",
+  "goal_id": "goal_fixture_bug_hunt",
+  "version": 1,
+  "tenant_id": "tenant_fixture",
+  "workspace_id": "ws_fixture",
+  "objective": {
+    "text": "Find and document a reproducible defect with evidence-linked report."
+  },
+  "success_criteria": [
+    {"id": "sc_01", "description": "verified engineering report with evidence"},
+    {"id": "sc_repro", "description": "defect reproduced under stated steps"}
+  ],
+  "invariants": ["read_only_target_repo"],
+  "non_goals": ["push_commits"],
+  "forbidden_outcomes": ["write_to_target_repo"],
+  "risk": {"tolerance": "low", "maximum_irreversibility": "none"},
+  "authority": {
+    "delegation_depth_max": 3,
+    "capabilities": ["filesystem.read", "git.read", "code.execute.sandbox"]
+  },
+  "evidence_requirements": {"major_finding": {"verification_tier": 2}},
+  "termination": ["success_criteria_met", "user_cancelled"],
+  "created_at": "2026-10-13T00:00:00+00:00"
+}
