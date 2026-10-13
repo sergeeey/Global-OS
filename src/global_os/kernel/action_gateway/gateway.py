@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from enum import Enum
@@ -10,7 +10,13 @@ from typing import Any
 
 from global_os.common.hashing import content_hash, new_id
 from global_os.contracts.validate import validate
+from global_os.kernel.authority.approvals import (
+    ApprovalInvalid,
+    ApprovalService,
+    ApprovalToken,
+)
 from global_os.kernel.authority.execution_token import (
+    ExecutionTokenClaims,
     ExecutionTokenError,
     ExecutionTokenService,
 )
@@ -29,6 +35,10 @@ class ToolGatewayError(Exception):
 
 class MissingExecutionToken(ToolGatewayError):
     pass
+
+
+class CapabilityToolMismatch(ToolGatewayError):
+    """Token/proposal capability does not satisfy tool required_capabilities (GOS-I03)."""
 
 
 class DeniedActionReachedGateway(ToolGatewayError):
@@ -78,6 +88,24 @@ def reconcile_effect(
     return EffectReconciliationStatus.DISCREPANCY, observed, discrepancy
 
 
+def _extract_approval_token(proposal: dict[str, Any]) -> ApprovalToken | None:
+    raw = proposal.get("approval_token")
+    if isinstance(raw, ApprovalToken):
+        return raw
+    if isinstance(raw, dict) and "signature" in raw and "approval_id" in raw:
+        return ApprovalToken(
+            approval_id=str(raw["approval_id"]),
+            approver=str(raw["approver"]),
+            action_hash=str(raw["action_hash"]),
+            goal_id=str(raw["goal_id"]),
+            limits=dict(raw.get("limits") or {}),
+            valid_until=str(raw["valid_until"]),
+            one_time=bool(raw.get("one_time", True)),
+            signature=str(raw["signature"]),
+        )
+    return None
+
+
 class ToolGateway:
     def __init__(
         self,
@@ -86,19 +114,46 @@ class ToolGateway:
         *,
         confirmation_policy: ConfirmationPolicy = ConfirmationPolicy.NEVER,
         allow_legacy_tokens: bool = False,
+        approval_service: ApprovalService | None = None,
     ) -> None:
         self._ledger = ledger
         self._token_service = token_service or ExecutionTokenService()
         self._tools: dict[str, ToolHandler] = {}
+        self._tool_caps: dict[str, tuple[str, ...]] = {}
         self._idempotency: dict[str, dict[str, Any]] = {}
         # Legacy deposit set — transitional only; prefer mint via ExecutionTokenService.
         # AUTH-001b: default DENY. Opt in explicitly for tests/dev harnesses only.
         self._legacy_tokens: set[str] = set()
         self._allow_legacy_tokens = allow_legacy_tokens
         self._confirmation_policy = confirmation_policy
+        self._approval_service = approval_service
 
-    def register_tool(self, tool_id: str, handler: ToolHandler) -> None:
+    def register_tool(
+        self,
+        tool_id: str,
+        handler: ToolHandler,
+        *,
+        required_capabilities: Sequence[str] | None = None,
+        spec: Any | None = None,
+    ) -> None:
+        """Register handler. Caps from ToolSpec-like ``spec`` or required_capabilities (GOS-I03)."""
+        if spec is not None:
+            caps = tuple(spec.required_capabilities)
+            spec_id = str(spec.tool_id)
+            if tool_id != spec_id:
+                raise ToolGatewayError(
+                    f"register tool_id={tool_id!r} != spec.tool_id={spec_id!r}"
+                )
+        elif required_capabilities is not None:
+            caps = tuple(required_capabilities)
+        else:
+            raise ToolGatewayError(
+                f"tool {tool_id!r} registered without required_capabilities/spec (GOS-I03)"
+            )
+        if not caps:
+            raise ToolGatewayError(f"tool {tool_id!r} has empty required_capabilities")
         self._tools[tool_id] = handler
+        self._tool_caps[tool_id] = caps
 
     def accept_token(self, token: str) -> None:
         """DEPRECATED: deposit opaque string. Prefer proposal-bound ExecutionToken mint."""
@@ -109,6 +164,37 @@ class ToolGateway:
                 "proposal-bound ExecutionToken"
             )
         self._legacy_tokens.add(token)
+
+    def _approval_verified(self, proposal: dict[str, Any]) -> bool:
+        """Bare approval_present bool is never trusted — only verified ApprovalToken."""
+        token = _extract_approval_token(proposal)
+        if token is None or self._approval_service is None:
+            return False
+        action_hash = content_hash({k: v for k, v in proposal.items() if k != "approval_token"})
+        try:
+            self._approval_service.verify_and_consume(
+                token,
+                action_hash=action_hash,
+                goal_id=str(proposal.get("goal_id") or ""),
+            )
+        except ApprovalInvalid:
+            return False
+        return True
+
+    def _enforce_capability_for_tool(
+        self,
+        *,
+        tool_id: str,
+        capability: str,
+    ) -> None:
+        required = self._tool_caps.get(tool_id)
+        if required is None:
+            raise ToolGatewayError(f"unknown tool: {tool_id}")
+        if capability not in required:
+            raise CapabilityToolMismatch(
+                f"capability {capability!r} not in tool {tool_id!r} "
+                f"required_capabilities={list(required)} (GOS-I03)"
+            )
 
     def execute(
         self,
@@ -125,6 +211,7 @@ class ToolGateway:
         approval_present: bool = False,
         confirmation_policy: ConfirmationPolicy | None = None,
     ) -> dict[str, Any]:
+        del approval_present  # never trusted; verified ApprovalToken only
         if not execution_token:
             raise MissingExecutionToken("Tool Gateway requires execution token (GOS-I03)")
 
@@ -134,7 +221,7 @@ class ToolGateway:
         try:
             bound = {**proposal, "tool_id": tool_id}
             risk = enforce_confirmation(
-                bound, policy, approval_present=approval_present
+                bound, policy, approval_present=self._approval_verified(proposal)
             )
         except ConfirmationRequired:
             self._ledger.append(
@@ -152,6 +239,7 @@ class ToolGateway:
             raise
 
         token_refs: dict[str, str]
+        claims: ExecutionTokenClaims | None = None
         try:
             claims = self._token_service.verify_and_consume(execution_token, proposal=proposal)
             token_refs = {
@@ -174,6 +262,9 @@ class ToolGateway:
                 raise MissingExecutionToken(
                     "invalid, unbound, or already consumed execution token"
                 ) from None
+
+        capability = claims.capability if claims is not None else str(proposal.get("capability") or "")
+        self._enforce_capability_for_tool(tool_id=tool_id, capability=capability)
 
         idem = proposal["idempotency_key"]
         if idem in self._idempotency:

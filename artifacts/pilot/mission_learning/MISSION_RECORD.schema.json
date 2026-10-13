@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.local/schemas/mission_record_v0.json",
+  "title": "MissionRecord_v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_id",
+    "schema_version",
+    "goal",
+    "initial_plan",
+    "strategy_changes",
+    "failures",
+    "costs",
+    "verified_outcome",
+    "provenance"
+  ],
+  "properties": {
+    "record_id": { "type": "string", "minLength": 1 },
+    "schema_version": { "const": "mission_record_v0" },
+    "goal": {
+      "type": "object",
+      "required": ["goal_id", "objective_text"],
+      "properties": {
+        "goal_id": { "type": "string" },
+        "objective_text": { "type": "string" },
+        "success_criteria_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "initial_plan": {
+      "type": "object",
+      "required": ["plan_id", "tasks"],
+      "properties": {
+        "plan_id": { "type": "string" },
+        "tasks": {
+          "type": "array",
+          "items": { "type": "object" }
+        }
+      }
+    },
+    "strategy_changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["at_step", "from_approach", "to_approach", "why"],
+        "properties": {
+          "at_step": { "type": "string" },
+          "from_approach": { "type": "string" },
+          "to_approach": { "type": "string" },
+          "why": { "type": "string" }
+        }
+      }
+    },
+    "failures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["failure_class", "detail"],
+        "properties": {
+          "failure_class": { "type": "string" },
+          "detail": { "type": "string" },
+          "confirmed": { "type": "boolean" }
+        }
+      }
+    },
+    "costs": {
+      "type": "object",
+      "required": ["tokens", "tool_calls", "wall_seconds"],
+      "properties": {
+        "tokens": { "type": "number", "minimum": 0 },
+        "tool_calls": { "type": "integer", "minimum": 0 },
+        "wall_seconds": { "type": "number", "minimum": 0 },
+        "usd_estimate": { "type": "number", "minimum": 0 }
+      }
+    },
+    "verified_outcome": {
+      "type": "object",
+      "required": ["terminal", "verified"],
+      "properties": {
+        "terminal": {
+          "type": "string",
+          "enum": [
+            "SUCCESS",
+            "PARTIAL",
+            "FAILED",
+            "STOPPED",
+            "INCONCLUSIVE"
+          ]
+        },
+        "verified": { "type": "boolean" },
+        "evidence_refs": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["parent_version", "recorded_at_utc", "source"],
+      "properties": {
+        "parent_version": { "type": "string" },
+        "recorded_at_utc": { "type": "string" },
+        "source": { "type": "string" }
+      }
+    }
+  }
+}

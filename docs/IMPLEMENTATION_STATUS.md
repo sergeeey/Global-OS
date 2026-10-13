@@ -2,8 +2,8 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **336**
-- capabilities tracked: **71**
+- pytest collected: **441**
+- capabilities tracked: **75**
 
 | Capability | State | Evidence |
 | ---------- | ----- | -------- |
@@ -18,7 +18,7 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | confirm_policy_deterministic | RUNTIME_VERIFIED_LOCAL | RiskAssessment≠ConfirmationPolicy; LLM security_risk ignored; ToolGateway confirm gate; tests/test_borrow_confirm_policy.py; ADR-0013; ≠ live adversarial long-horizon |
 | progressive_memory_commit | RUNTIME_VERIFIED_LOCAL | ProgressiveMemoryStore draft→propose→commit; root-only context default; silent tool promote forbidden; process-local in-memory bodies (≠ durable production store); tests/test_borrow_memory_progressive.py |
 | llm_fair_scheduler | RUNTIME_VERIFIED_LOCAL | FairLlmScheduler FIFO/RR across missions; TPD/quota fail-closed stops drain; resume without nested-Lock deadlock; tests/test_borrow_fair_scheduler.py; resource OS only (≠ Authority) |
-| citation_grounding | RUNTIME_VERIFIED_LOCAL | claim→citation→passage; citation-less promotion rejected; tests/test_borrow_grounding_sop_research.py |
+| citation_grounding | RUNTIME_VERIFIED_LOCAL | claim→citation→passage with claim⊆passage (GOS-I08); citation-less and unsupported-passage promotion rejected; tests/test_borrow_grounding_sop_research.py |
 | sop_skill_packs_t2 | RUNTIME_VERIFIED_LOCAL | T2 SOP packs typed handoffs; hierarchy not default axiom (GOS-I30); tests/test_borrow_grounding_sop_research.py |
 | research_factory_template | RUNTIME_VERIFIED_LOCAL | Mission stage template idea→…→write; REJECT terminal allowed; self-cert DENY; LLM review advisory only; tests/test_borrow_grounding_sop_research.py |
 | cli_event_timetravel | RUNTIME_VERIFIED_LOCAL | EventReplayEngine until_index + compare_at; gos events replay --at; tests/test_borrow_cli_replay.py; full entity-body snapshot still not claimed |
@@ -33,7 +33,7 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | real_model_providers | RUNTIME_VERIFIED_HARNESS | OpenAICompat+Anthropic HTTP adapters (no vendor SDK); RecordingModelProvider model.invoked trail (model/version/cost/latency/output); fail-closed without keys; wire mock + optional live keys; tests/test_model_providers_live.py |
 | multi_provider_verification | RUNTIME_VERIFIED_HARNESS | multi_provider_verification_stack openai×anthropic distinct families (GOS-I10); wire HTTP judges + conflicted consensus; tests/test_multi_provider_verification.py |
 | goal_integrity_soak_48h | RUNTIME_VERIFIED_HARNESS | LH-COGNITIVE-v1 Windows wall PASS on EXAM_SHA 7ab345e (wall_seconds=172801.2, COGNITIVE_WALL_CLOCK_48H, EXTERNAL_RESEARCH_OBJECT); independent audit all_gates_passed (AUDIT_SHA a7960d9); M15_DECISION CLOSED_SCOPE_LIMITED; freeze pack artifacts/hardening/freeze_lh_cognitive_7ab345e/; LH-v1 42h early-stop retained as historical; ≠ PRODUCTION_PROVEN; tests/test_long_horizon_program.py; tests/test_cognitive_research_program.py; tests/test_cognitive_48h_independent_audit.py |
-| safe_autonomy_benchmark_v1 | RUNTIME_VERIFIED_HARNESS | T1 REJECT + T2 KEEP + C2 FROZEN_CANDIDATE + T3 KEEP once (LIVE_LLM Groq continuation, experiment SHA c6523a6, live completed SHA 3ef3f44); URR=0 FSR=1 MIER_C2=0 SSR_C2=0.8; independent replication NOT YET; production/Trust Kernel NOT shown; tests/test_t3_safe_autonomy.py; artifacts/safe_autonomy_t1/T3/T3_DECISION.md + LIVE_PROVENANCE.json |
+| safe_autonomy_benchmark_v1 | RUNTIME_VERIFIED_HARNESS | T1 REJECT + T2 KEEP + C2 FROZEN_CANDIDATE + T3 KEEP once (LIVE_LLM Groq continuation, experiment SHA c6523a6, live completed SHA 3ef3f44); URR=0 FSR=1 MIER_C2=0 SSR_C2=0.8; A/B model-sensitivity defect documented+mitigated (MEASUREMENT_DEFECT_AB_SCRIPT.md, tests/test_t3_model_sensitivity.py) — historical A/B MIER ≠ model-behavior proof; independent replication NOT YET; production/Trust Kernel NOT shown; tests/test_t3_safe_autonomy.py; artifacts/safe_autonomy_t1/T3/T3_DECISION.md + LIVE_PROVENANCE.json |
 | full_epistemic_graph | RUNTIME_VERIFIED_LOCAL | tests/test_epistemic.py; Observation→Belief→Claim→Model→Forecast→Decision→Commitment invalidation (GOS-I12) |
 | observation_belief_runtime | RUNTIME_VERIFIED_LOCAL | tests/test_observation_belief.py; GOS-I21 guard |
 | environment_compiler | RUNTIME_VERIFIED_LOCAL | tests/test_environment_compiler.py (deterministic compile; no model calls) |
@@ -71,6 +71,10 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | incident_system | RUNTIME_VERIFIED_LOCAL | IncidentStore postmortem fields + ledger events; tests/test_path_lock_m15.py |
 | dod_v2_gate | RUNTIME_VERIFIED_LOCAL | summarize_dod_v2 closed=false while PARTIALs remain; tests/test_path_lock_m15.py |
 | dogfood_mission | RUNTIME_VERIFIED_LOCAL | DogfoodMission ordered stages; autonomous merge forbidden; tests/test_path_lock_m15.py; Y18 failure-mode suite; Y19-H1 sealed-holdout science dogfood artifacts/y19/; Y24-AVCT prereg LOCKED artifacts/y24/ + tests/test_y24_prereg.py (arms not started; T3 not evidence) |
+| mission_learning_loop_v0 | RUNTIME_VERIFIED_LOCAL | Goal-conditioned improvement tournament (eval only): mission archive → 2 unprivileged candidates + baseline → independent scorer → archive wins/losses; auto-promote denied; Challenge-GA ≠ train; Continual SI NOT_MEASURED; ADR-0014; artifacts/pilot/mission_learning/; tests/test_mission_learning_loop_v0.py |
+| goal_completion_gate | RUNTIME_VERIFIED_LOCAL | Executable ACHIEVED/PARTIAL/FAILED/UNKNOWN from Goal+EffectReceipt+invariants; tool_success alone ≠ ACHIEVED; LLM claim ignored; no second LLM oracle; src/global_os/verification/completion_gate.py; tests/test_completion_gate.py; Continual SI NOT_MEASURED |
+| contrastive_failure_miner_v0 | RUNTIME_VERIFIED_LOCAL | Analyze-only multi-trajectory contrast (success vs fail); failure_class proposals; mutates_runtime=false; src/global_os/evals/mission_learning/contrastive.py; tests/test_contrastive_miner.py |
+| evidence_backed_skill_library | RUNTIME_VERIFIED_LOCAL | SKILL provenance+applicability+negative evidence; EXPERIMENTAL until human; 7/10 admission rejected; disjoint transfer_eval; src/global_os/cognition/skills/evidence_library.py; transfer_eval.py; tests/test_evidence_skills.py; Continual SI NOT_MEASURED |
 | autonomous_research_loop_poc | RUNTIME_VERIFIED_LOCAL | Y19 H5→H7 without operator dispatch; terminal_scientific_result; durable state + CLAIMS.md split (science ≠ GOS loop); milestone 4378005; artifacts/y19/; tests/test_y19_transient_early_warning.py — bundle autonomy only; Y20–Y22 scored: primary advantage NOT SHOWN; NOT continual SI / general transfer / PRODUCTION_PROVEN |
 | y20_causal_ab_prereg | RUNTIME_VERIFIED_HARNESS | Y20 scored; baseline science≥GOS; process richer under GOS; gos_advantage_claimed=false; artifacts/y20/COMPARISON_REPORT.md |
 | free_model_providers | RUNTIME_VERIFIED_HARNESS | OpenRouter/Groq/Gemini adapters; GOS_ZERO_COST_MODE; scientific pin; free catalog+privacy; tests/test_free_providers.py — live keys user-supplied |

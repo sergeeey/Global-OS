@@ -1,4 +1,5 @@
 from global_os.kernel.action_gateway.gateway import (
+    CapabilityToolMismatch,
     DeniedActionReachedGateway,
     EffectReconciliationStatus,
     LegacyExecutionTokenForbidden,
@@ -10,6 +11,7 @@ from global_os.kernel.action_gateway.gateway import (
 )
 
 __all__ = [
+    "CapabilityToolMismatch",
     "DeniedActionReachedGateway",
     "EffectReconciliationStatus",
     "LegacyExecutionTokenForbidden",

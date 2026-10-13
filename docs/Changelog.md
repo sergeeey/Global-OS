@@ -1,5 +1,69 @@
 # Changelog
 
+## 0.1.151 — 2026-10-13
+
+### P0/P1 ModularRSI-informed Achiever slices (independent impl)
+
+- P0 Goal Completion Gate: executable ACHIEVED/PARTIAL/FAILED/UNKNOWN (not LLM judge)
+- P1 Contrastive Failure Miner v0: analyze-only multi-trajectory contrast
+- P1 Evidence-backed Skill Library + protected transfer eval (7/10 admission rejected)
+- ADR-0014 + capability_matrix updated; Continual SI remains NOT_MEASURED
+- Boundaries: ATTR=NOT_SHOWN · M2=CLOSED · PRODUCTION_PROVEN=0 · CHALLENGE_EXEC=NOT_STARTED
+
+## 0.1.150 — 2026-10-13
+
+### Repo sync — single delivery #37
+
+- Closed superseded open PRs #32–#36; sole integration vehicle = #37 (`da563ce`)
+- `main` still `2f73107` until human merge; RUN_STATE tip + Project/ROADMAP aligned
+- Challenge exec remains NOT_STARTED; Continual SI NOT_MEASURED
+
+## 0.1.149 — 2026-10-13
+
+### ADR-0014 Mission Learning Loop v0 (goal-conditioned RSI slice)
+
+- Contours A/B/C + Gen1→Gen2→Gen3 honesty; Continual SI remains NOT_MEASURED
+- Pack + schemas + eval harness: mission archive → 2 unprivileged candidates + baseline
+- Independent scorer; archive wins/losses; auto-promote denied; Challenge-GA ≠ train
+- P1 Achiever gate tracked separately before any runtime promotion
+- P0: #36 still requires human merge (`artifacts/pilot/P0_MERGE36_STATUS.md`)
+
+## 0.1.148 — 2026-10-12
+
+### Operator merge strategy + Challenge prep (no exec)
+
+- Single-merge preference: accept #36 (contains #32–#35 + P1); do not double-deliver via #32–#35 and #36
+- Honesty layers locked in ROADMAP / honesty map: mechanisms ≠ fixture loop ≠ Achiever
+- Challenge prep checklist only: `artifacts/pilot/challenge_ga/CHALLENGE_PREP.md`
+- Boundaries: ATTR NOT_SHOWN · M2 CLOSED · PRODUCTION_PROVEN=0 · CHALLENGE_EXEC=NOT_STARTED
+
+## 0.1.147 — 2026-10-12
+
+### Post-debt P1: grounding · PACK integrity · C2 sensitivity · Challenge gate
+
+- Grounding: claim must be supported by cited passage (GOS-I08; not source-substring alone)
+- PACK-v2/v3 integrity: sealed content + dir SHA + builder reproduce + WARNING + pack_id (5 checks)
+- T3 C2: decision-coupled router scenario in arm runner; frozen recovery_router pins untouched
+- Challenge-GA: organ fixture loop + terminal scorer + `prepare_challenge_exec` human gate
+- Boundaries unchanged: ATTR NOT_SHOWN · M2 CLOSED · PRODUCTION_PROVEN=0; exec NOT_STARTED
+
+## 0.1.146 — 2026-10-12
+
+### Post-debt integration stack (#32–#35)
+
+- Merge order verified: organs/HUMAN → authority P0 → T3 A/B sensitivity → Challenge-GA PREREG_LOCKED
+- Challenge exec NOT_STARTED; ATTR NOT_SHOWN · M2 CLOSED · PRODUCTION_PROVEN=0
+- repo_audit invariants range fixed to GOS-I01..I30
+- See `artifacts/pilot/MERGE_STACK_32_35.md`
+
+## 0.1.145 — 2026-10-12
+
+### Cognitive organ contracts LOCKED
+
+- Decomposer / Pivot-Replan / Orchestration: I/O, authority, quality, errors, control-transfer, tests
+- Stubs under `src/global_os/cognition/organs/`; Challenge still PREREG_DRAFT with terminal/stop criteria
+- DurableRunner honesty: no last-step rerun verified ≠ full exactly-once
+
 ## 0.1.144 — 2026-10-12
 
 ### DurableRunner SUCCEEDED resume idempotency

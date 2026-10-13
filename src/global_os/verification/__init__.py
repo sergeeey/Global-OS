@@ -1,3 +1,8 @@
+from global_os.verification.completion_gate import (
+    CompletionDecision,
+    CompletionStatus,
+    evaluate_goal_completion,
+)
 from global_os.verification.diversity import (
     DiversityAssessment,
     assess_diversity,
@@ -30,6 +35,8 @@ from global_os.verification.router import (
 )
 
 __all__ = [
+    "CompletionDecision",
+    "CompletionStatus",
     "DiversityAssessment",
     "EvidenceCandidateError",
     "EvidenceCandidatePipeline",
@@ -44,6 +51,7 @@ __all__ = [
     "VerificationTier",
     "assess_diversity",
     "deterministic_numeric_verifier",
+    "evaluate_goal_completion",
     "make_provider_judge",
     "meets_tier_diversity",
     "multi_provider_verification_stack",

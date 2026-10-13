@@ -32,9 +32,20 @@ CURRENT — post architecture ablation (ARCH-ABLATION-MECH-v1 TERMINAL)
             artifacts/pilot/minimal_stack/MINIMAL_STACK_CONTRACT.md
   Mission: Autonomous Goal Achiever (substrate = inescapable core, not the product)
   Paradigm: artifacts/pilot/cognitive_core/PARADIGM.md
-  Next: Cognitive Core organs + lock CHALLENGE-GA-v1 (open multi-phase goal)
+  Organs: CONTRACTS_LOCKED (Decomposer→Pivot→Orchestration); stubs only
+  Challenge-GA: PREREG_LOCKED (exec NOT_STARTED) — artifacts/pilot/challenge_ga/LOCK.json
+  Honesty layers (do not collapse):
+    mechanisms implemented ≠ fixture loop working ≠ Autonomous Goal Achiever shown
+  Generations: Gen1 Achiever (priority) → Gen2 Mission Learning Loop v0 (harness)
+               → Gen3 coevolution (NOT STARTED); Continual SI NOT_MEASURED
+  Contours: A Goal Achievement · B Experience Evolution (MLLv0) · C Challenge Evolution
+            Challenge-GA ≠ train set; auto-promote forbidden (ADR-0014)
+  Next process: human merge #37 (single delivery; #32–#36 closed superseded)
+  Next mission: deepen Achiever (P1 gate) before any MLLv0 runtime promotion;
+                Challenge exec only on explicit human request
   M2 CLOSED; Pilot 3 ATTR NOT_SHOWN (audit); do not soften / do not platform-only swap
-  Do NOT invent M-EXT6 / ScienceKernel / Trust Kernel promote
+  Do NOT invent M-EXT6 / ScienceKernel / Trust Kernel promote / Challenge-before-merge
+  Do NOT claim L4/L5 RSI from MLLv0 harness
   Y20–Y22: primary-outcome advantage NOT SHOWN
   External: PhaseBreak RECONCILED; mcp-bouncer RECONCILED+CI_VERIFIED; Pilot 3 TERMINAL
         │

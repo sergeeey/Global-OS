@@ -1,7 +1,10 @@
-# CHALLENGE-GA-v1 — Open Goal-Achievement Challenge (DRAFT)
+# CHALLENGE-GA-v1 — Open Goal-Achievement Challenge (DRAFT → superseded)
 
-**Status:** `PREREG_DRAFT` — **not locked for execution**  
-**Fidelity target (when locked):** isolated arms, sealed budget, blind or independent score  
+**Status:** superseded by **`PREREG_LOCKED`** pack  
+**Locked pack:** `artifacts/pilot/challenge_ga/` (`LOCK.json`, `CHALLENGE_GA_CONTRACT.md`)  
+**Execution:** still **NOT_STARTED** until human requests a run  
+
+**Fidelity target:** isolated arms, sealed budget, blind or independent score  
 **Substrate:** MINIMAL-STACK DEFAULT (G1+G2+G3); Gfull OPT-IN if long horizon requires it
 
 ## Intent class (example — pin concrete target at lock)
@@ -42,6 +45,30 @@ Pilot 3 ATTR on audit EPI/ENG remains NOT_SHOWN until a new protocol explicitly 
 
 Decisive comparison remains **C vs B** when claiming architecture-beyond-discipline.
 
+## Terminal goal criterion (binding at lock)
+
+Challenge **succeeds only** if the sealed **terminal Goal success_criteria** are met
+with required evidence (e.g. before/after benches + interface freeze green).
+
+```text
+WIN  = terminal Goal criteria satisfied + evidence tier met
+LOSE = budget/stop hit without terminal criteria
+```
+
+Correct intermediate plans, ledger rows, pivots, or partial fixes **do not** count as WIN.
+H-GA-ENG is scored on terminal world result, not on process aesthetics.
+
+## Stop conditions (binding at lock)
+
+| Condition | Result |
+|-----------|--------|
+| Terminal success_criteria met | STOP_SUCCESS |
+| Wall / token / USD budget exhausted | STOP_BUDGET |
+| Forbidden outcome attempted or observed | STOP_FORBIDDEN |
+| Pivot attempt_budget exhausted without path | STOP_NO_STRATEGY |
+| Human escalate unresolved at cap | STOP_ESCALATION |
+| Fidelity break (arm contamination, pin drift) | INCONCLUSIVE |
+
 ## Lock gate (must complete before exec)
 
 - [ ] Concrete repo + SHA + interface freeze
@@ -49,6 +76,8 @@ Decisive comparison remains **C vs B** when claiming architecture-beyond-discipl
 - [ ] Forbidden outcomes (API break, unauthorized push, budget overrun)
 - [ ] Provider/model/tool pins + wall/token caps
 - [ ] Arm isolation + scoring rubric sealed
+- [ ] Terminal goal criterion + stop conditions filled with concrete thresholds
+- [ ] Organ contracts CONTRACTS_LOCKED (`artifacts/pilot/cognitive_core/organs/`)
 - [ ] ADR-0009 check: no new T0/T1; organs behind existing kernels/gateways
 
 ## Non-claims until locked+executed
@@ -59,4 +88,5 @@ Decisive comparison remains **C vs B** when claiming architecture-beyond-discipl
 ≠ M2 reopened
 ≠ PRODUCTION_PROVEN
 ≠ Pilot 3 ATTR overturned by draft text
+≠ WIN from intermediate plans alone
 ```

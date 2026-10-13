@@ -1,0 +1,55 @@
+{
+  "protocol_id": "CHALLENGE-GA-v1",
+  "status": "PREREG_LOCKED",
+  "locked_at_utc": "2026-10-12T17:00:00Z",
+  "locked_on_tip_sha": "0c8cc461a379001c10f650c170fb789e895f053a",
+  "execution_status": "NOT_STARTED",
+  "contract": "artifacts/pilot/challenge_ga/CHALLENGE_GA_CONTRACT.md",
+  "target": "artifacts/pilot/challenge_ga/TARGET.md",
+  "rubric": "artifacts/pilot/challenge_ga/SCORE_RUBRIC.md",
+  "fixture": "artifacts/pilot/challenge_ga/target_fixture/workload.py",
+  "parent": {
+    "primary_mission": "autonomous_goal_achiever",
+    "substrate": "MINIMAL-STACK-v1",
+    "organs": "COGNITIVE-ORGANS-CONTRACTS-v1",
+    "pilot3_attr": "NOT_SHOWN",
+    "m2": "CLOSED",
+    "production_proven": 0,
+    "t3_model_sensitivity": "see MEASUREMENT_DEFECT_AB_SCRIPT.md — not Achiever proof"
+  },
+  "arms": ["A", "B", "C"],
+  "decisive_comparison": "C_vs_B",
+  "terminal_success": {
+    "sealed_input": "list(range(400))",
+    "sealed_checksum": 7674672,
+    "ops_budget_max": 80000,
+    "naive_ops_baseline": 160000
+  },
+  "budgets": {
+    "wall_hours_per_arm": 4,
+    "tokens_per_arm": 2000000,
+    "usd_per_arm": 5.0,
+    "pivot_attempts_per_arm": 8,
+    "human_escalations_per_arm": 2
+  },
+  "stop_conditions": [
+    "STOP_SUCCESS",
+    "STOP_BUDGET",
+    "STOP_FORBIDDEN",
+    "STOP_NO_STRATEGY",
+    "STOP_ESCALATION",
+    "INCONCLUSIVE"
+  ],
+  "forbidden": [
+    "execute_before_human_request",
+    "soften_pilot3_attr",
+    "reopen_m2",
+    "production_proven_bump",
+    "new_t0_t1_surfaces",
+    "score_intermediate_plans_as_win",
+    "claim_intelligence_from_lock_alone",
+    "use_t3_historical_mier_as_achiever_proof"
+  ],
+  "adr_0009": "contract_lock_and_fixture_only_no_new_architecture_surfaces",
+  "tests": "tests/test_challenge_ga_lock.py"
+}
