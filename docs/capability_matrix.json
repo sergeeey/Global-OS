@@ -336,6 +336,21 @@
       "evidence": "Goal-conditioned improvement tournament (eval only): mission archive → 2 unprivileged candidates + baseline → independent scorer → archive wins/losses; auto-promote denied; Challenge-GA ≠ train; Continual SI NOT_MEASURED; ADR-0014; artifacts/pilot/mission_learning/; tests/test_mission_learning_loop_v0.py"
     },
     {
+      "id": "goal_completion_gate",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "Executable ACHIEVED/PARTIAL/FAILED/UNKNOWN from Goal+EffectReceipt+invariants; tool_success alone ≠ ACHIEVED; LLM claim ignored; no second LLM oracle; src/global_os/verification/completion_gate.py; tests/test_completion_gate.py; Continual SI NOT_MEASURED"
+    },
+    {
+      "id": "contrastive_failure_miner_v0",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "Analyze-only multi-trajectory contrast (success vs fail); failure_class proposals; mutates_runtime=false; src/global_os/evals/mission_learning/contrastive.py; tests/test_contrastive_miner.py"
+    },
+    {
+      "id": "evidence_backed_skill_library",
+      "state": "RUNTIME_VERIFIED_LOCAL",
+      "evidence": "SKILL provenance+applicability+negative evidence; EXPERIMENTAL until human; 7/10 admission rejected; disjoint transfer_eval; src/global_os/cognition/skills/evidence_library.py; transfer_eval.py; tests/test_evidence_skills.py; Continual SI NOT_MEASURED"
+    },
+    {
       "id": "autonomous_research_loop_poc",
       "state": "RUNTIME_VERIFIED_LOCAL",
       "evidence": "Y19 H5→H7 without operator dispatch; terminal_scientific_result; durable state + CLAIMS.md split (science ≠ GOS loop); milestone 4378005; artifacts/y19/; tests/test_y19_transient_early_warning.py — bundle autonomy only; Y20–Y22 scored: primary advantage NOT SHOWN; NOT continual SI / general transfer / PRODUCTION_PROVEN"

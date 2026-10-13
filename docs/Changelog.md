@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.151 — 2026-10-13
+
+### P0/P1 ModularRSI-informed Achiever slices (independent impl)
+
+- P0 Goal Completion Gate: executable ACHIEVED/PARTIAL/FAILED/UNKNOWN (not LLM judge)
+- P1 Contrastive Failure Miner v0: analyze-only multi-trajectory contrast
+- P1 Evidence-backed Skill Library + protected transfer eval (7/10 admission rejected)
+- ADR-0014 + capability_matrix updated; Continual SI remains NOT_MEASURED
+- Boundaries: ATTR=NOT_SHOWN · M2=CLOSED · PRODUCTION_PROVEN=0 · CHALLENGE_EXEC=NOT_STARTED
+
 ## 0.1.150 — 2026-10-13
 
 ### Repo sync — single delivery #37

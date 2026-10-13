@@ -1,3 +1,8 @@
+from global_os.cognition.skills.evidence_library import (
+    EvidenceSkill,
+    EvidenceSkillLibrary,
+    SkillEvidence,
+)
 from global_os.cognition.skills.sop_pack import (
     SOFTWARE_SOP_V1,
     SopPack,
@@ -8,6 +13,9 @@ from global_os.cognition.skills.sop_pack import (
 
 __all__ = [
     "SOFTWARE_SOP_V1",
+    "EvidenceSkill",
+    "EvidenceSkillLibrary",
+    "SkillEvidence",
     "SopPack",
     "hierarchy_not_default_axiom",
     "load_sop_pack",

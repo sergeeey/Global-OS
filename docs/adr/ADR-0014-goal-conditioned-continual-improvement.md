@@ -53,6 +53,20 @@ T2/eval harness only:
 5. Archive winners, alternatives, and losses.
 6. Promotion status always `REQUIRES_HUMAN` — never auto-apply to runtime.
 
+### ModularRSI-informed additions (independent implementation)
+
+Ideas only — no copy of ModularRSI CC BY-NC artifacts:
+
+| Addition | Priority | Surface |
+|----------|----------|---------|
+| Goal Completion Gate | P0 | `verification/completion_gate.py` — binds Goal+receipts; not LLM judge |
+| Contrastive Failure Miner | P1 | `evals/mission_learning/contrastive.py` — analyze-only |
+| Evidence-backed Skill Library | P1 | `cognition/skills/evidence_library.py` — EXPERIMENTAL until human |
+| Protected Transfer Eval | P1 | `evals/mission_learning/transfer_eval.py` — disjoint suites |
+
+Rejected without grounded model: Chernoff–Koopman RSI depth controller;
+7/10 as universal admission; LLM Test Agent as sole independence.
+
 ### Forbidden now
 
 - Self-modify Authority, success criteria, scorer, or rollback infrastructure
@@ -67,6 +81,7 @@ T2/eval harness only:
 + Clear path from Gen1 Achiever → measurable Gen2 improvement without
   architecture rewrite.
 + Improvement Candidate contract is falsifiable and promotion-gated.
++ Completion Gate closes the “plans done ≠ goal achieved” gap on Contour A.
 − Continual SI remains NOT_MEASURED until transfer evidence exists.
 − Contour C (coevolution) deferred until P1–P3 gates pass.
 
@@ -74,5 +89,7 @@ T2/eval harness only:
 
 - Pack: `artifacts/pilot/mission_learning/`
 - Harness: `src/global_os/evals/mission_learning/`
-- Tests: `tests/test_mission_learning_loop_v0.py`
+- Completion Gate: `src/global_os/verification/completion_gate.py`
+- Tests: `tests/test_mission_learning_loop_v0.py`, `tests/test_completion_gate.py`,
+  `tests/test_contrastive_miner.py`, `tests/test_evidence_skills.py`
 - P1 Achiever deepen: `artifacts/pilot/mission_learning/P1_ACHIEVER_GATE.md`
