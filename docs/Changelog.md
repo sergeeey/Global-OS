@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.1.153 — 2026-10-13
+
+### P0 durable gate + observation provenance (audit close)
+
+- `SqliteDurableGateStore`: durable consumed jti + claim-before-effect idempotency
+- Bare `observation.effect` cannot prove WorldSuccess — trusted source+method required
+- `trusted_observation()` helper for probes/scorers; model_claim/caller_asserted rejected
+- Tests: crash/restart replay + untrusted observation; 440 passed locally
+- Boundaries unchanged: PRODUCTION_PROVEN=0 · CHALLENGE_EXEC=NOT_STARTED
+
+## 0.1.152 — 2026-10-13
+
+### Contour A Achiever organ loop + Completion Gate wiring
+
+- Wire Challenge fixture terminal scorer → Completion Gate (`completion_bind`)
+- `run_achiever_organ_loop`: Decomposer→Orchestration→Pivot→Completion Gate
+- Skill Transfer Trial prep fail-closed until Challenge COMPLETED; Continual SI NOT_MEASURED
+- #37 REQUEST_MERGE (CI green); dogfood: no agent merge to main
+- Boundaries unchanged: ATTR NOT_SHOWN · M2 CLOSED · PRODUCTION_PROVEN=0 · CHALLENGE_EXEC=NOT_STARTED
+
 ## 0.1.151 — 2026-10-13
 
 ### P0/P1 ModularRSI-informed Achiever slices (independent impl)

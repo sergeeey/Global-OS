@@ -16,6 +16,7 @@ from global_os.kernel.action_gateway import (
     MissingExecutionToken,
     ToolGateway,
     ToolResult,
+    trusted_observation,
 )
 from global_os.kernel.authority import AuthorityKernel, Decision, memory_approval_service
 from global_os.kernel.authority.execution_token import ExecutionTokenService
@@ -108,7 +109,7 @@ def test_wrong_capability_no_tool_and_no_false_receipt(sample_proposal):
             tenant_id="t",
             workspace_id="w",
             intended_effect="paid",
-            observation={"effect": "paid"},
+            observation=trusted_observation("paid"),
         )
     assert called["n"] == 0
     _no_tool_effect_events(ledger)
@@ -140,7 +141,7 @@ def test_matching_capability_still_executes(sample_proposal):
         tenant_id="t",
         workspace_id="w",
         intended_effect="page_fetched",
-        observation={"effect": "page_fetched"},
+        observation=trusted_observation("page_fetched"),
     )
     assert receipt["world_success"] is True
 
@@ -226,7 +227,7 @@ def test_verified_approval_token_allows_confirm_risky():
         tenant_id="t",
         workspace_id="w",
         intended_effect="ran",
-        observation={"effect": "ran"},
+        observation=trusted_observation("ran"),
     )
     assert called["n"] == 1
     assert receipt["world_success"] is True
@@ -277,7 +278,7 @@ def test_approval_replay_rejected_no_second_effect():
         tenant_id="t",
         workspace_id="w",
         intended_effect="ran",
-        observation={"effect": "ran"},
+        observation=trusted_observation("ran"),
     )
     assert called["n"] == 1
     assert r1["world_success"] is True
@@ -292,7 +293,7 @@ def test_approval_replay_rejected_no_second_effect():
             tenant_id="t",
             workspace_id="w",
             intended_effect="ran",
-            observation={"effect": "ran"},
+            observation=trusted_observation("ran"),
         )
     assert called["n"] == 1  # no second tool run
     executed = [
@@ -384,7 +385,7 @@ def test_parent_narrowing_enforced_at_decide_time(sample_proposal):
             tenant_id="t",
             workspace_id="w",
             intended_effect="page_fetched",
-            observation={"effect": "page_fetched"},
+            observation=trusted_observation("page_fetched"),
         )
     assert called["n"] == 0
     _no_tool_effect_events(gw_ledger)

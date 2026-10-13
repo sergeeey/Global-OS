@@ -2,7 +2,12 @@ from __future__ import annotations
 
 import pytest
 
-from global_os.kernel.action_gateway import MissingExecutionToken, ToolGateway, ToolResult
+from global_os.kernel.action_gateway import (
+    MissingExecutionToken,
+    ToolGateway,
+    ToolResult,
+    trusted_observation,
+)
 from global_os.kernel.authority import AuthorityKernel, Decision
 from global_os.runtime.events import EventLedger
 
@@ -81,7 +86,7 @@ def test_allow_issues_token_and_effect_receipt(sample_proposal):
         tenant_id="t",
         workspace_id="w",
         intended_effect="page_fetched",
-        observation={"effect": "page_fetched"},
+        observation=trusted_observation("page_fetched"),
     )
     assert receipt["discrepancy"] == "none"
     assert receipt["reconciliation_status"] == "RECONCILED"
@@ -131,7 +136,7 @@ def test_idempotency_single_effect(sample_proposal):
         tenant_id="t",
         workspace_id="w",
         intended_effect="page_fetched",
-        observation={"effect": "page_fetched"},
+        observation=trusted_observation("page_fetched"),
     )
     r2_proposal = {**proposal, "proposal_id": "ap_canary_002"}
     r2 = auth.decide(r2_proposal, tenant_id="t", workspace_id="w")
@@ -142,7 +147,7 @@ def test_idempotency_single_effect(sample_proposal):
         tenant_id="t",
         workspace_id="w",
         intended_effect="page_fetched",
-        observation={"effect": "page_fetched"},
+        observation=trusted_observation("page_fetched"),
     )
     assert receipt1["receipt_id"] == receipt2["receipt_id"]
     assert calls["n"] == 1

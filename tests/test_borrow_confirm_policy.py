@@ -7,7 +7,11 @@ from datetime import UTC, datetime, timedelta
 import pytest
 
 from global_os.common.hashing import content_hash
-from global_os.kernel.action_gateway.gateway import ToolGateway, ToolResult
+from global_os.kernel.action_gateway.gateway import (
+    ToolGateway,
+    ToolResult,
+    trusted_observation,
+)
 from global_os.kernel.authority import memory_approval_service
 from global_os.kernel.policy.confirm import (
     ConfirmationPolicy,
@@ -116,7 +120,7 @@ def test_gateway_confirm_gate_before_execute() -> None:
         tenant_id="t",
         workspace_id="w",
         intended_effect="ran",
-        observation={"effect": "ran"},
+        observation=trusted_observation("ran"),
     )
     assert called["n"] == 1
     assert receipt.get("world_success") is True

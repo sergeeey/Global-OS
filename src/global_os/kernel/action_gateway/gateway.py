@@ -2,6 +2,11 @@
 
 from __future__ import annotations
 
+import base64
+import hashlib
+import hmac
+import json
+import os
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from datetime import UTC, datetime
@@ -14,6 +19,11 @@ from global_os.kernel.authority.approvals import (
     ApprovalInvalid,
     ApprovalService,
     ApprovalToken,
+)
+from global_os.kernel.authority.durable_gate import (
+    DurableGateStore,
+    MemoryDurableGateStore,
+    SqliteDurableGateStore,
 )
 from global_os.kernel.authority.execution_token import (
     ExecutionTokenClaims,
@@ -66,14 +76,157 @@ class ToolResult:
 
 ToolHandler = Callable[[dict[str, Any]], ToolResult]
 
+# Sources that may attest WorldSuccess. Caller-asserted strings are never enough.
+TRUSTED_OBSERVATION_SOURCES = frozenset(
+    {
+        "gateway_probe",
+        "independent_scorer",
+        "sensor",
+        "human_attested",
+        "ledger_replay",
+    }
+)
+UNTRUSTED_OBSERVATION_SOURCES = frozenset(
+    {"caller_asserted", "untrusted", "model_claim", "llm", ""}
+)
+
+# HMAC key for observation attestation (forged allowlist labels without sig fail).
+DEV_OBSERVATION_ATTEST_KEY = b"gos-dev-observation-attest-key-not-for-prod"
+
+
+def resolve_observation_attest_key(signing_key: bytes | None = None) -> bytes:
+    if signing_key is not None:
+        return signing_key
+    env = os.environ.get("GOS_OBSERVATION_ATTEST_SECRET")
+    if env:
+        return env.encode("utf-8")
+    profile = (os.environ.get("GOS_PROFILE") or "dev").strip().lower()
+    if profile == "production":
+        raise ToolGatewayError(
+            "GOS_PROFILE=production requires GOS_OBSERVATION_ATTEST_SECRET"
+        )
+    return DEV_OBSERVATION_ATTEST_KEY
+
+
+def _observation_body(effect: str, source: str, method: str) -> str:
+    return json.dumps(
+        {"effect": effect, "source": source, "method": method},
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+
+
+def _sign_observation(body: str, key: bytes) -> str:
+    dig = hmac.new(key, body.encode("utf-8"), hashlib.sha256).digest()
+    return base64.urlsafe_b64encode(dig).rstrip(b"=").decode("ascii")
+
+
+def _extract_observation_labels(
+    observation: dict[str, Any],
+) -> tuple[str, str, str]:
+    effect = str(observation.get("effect", "unobserved"))
+    prov = observation.get("provenance")
+    if isinstance(prov, dict):
+        source = str(prov.get("source") or "")
+        method = str(prov.get("method") or "")
+    else:
+        source = str(observation.get("source") or "")
+        method = str(
+            observation.get("method") or observation.get("verification_method") or ""
+        )
+    return effect, source, method
+
+
+def observation_provenance_trusted(
+    observation: dict[str, Any],
+    *,
+    signing_key: bytes | None = None,
+) -> bool:
+    """True only with allowlisted source+method **and** valid HMAC attestation.
+
+    Forging ``source=gateway_probe`` without the attest key must fail.
+    """
+    effect, source, method = _extract_observation_labels(observation)
+    if not source or not method:
+        return False
+    if source in UNTRUSTED_OBSERVATION_SOURCES:
+        return False
+    if source not in TRUSTED_OBSERVATION_SOURCES:
+        return False
+    attestation = str(observation.get("attestation") or "")
+    if not attestation:
+        return False
+    try:
+        key = resolve_observation_attest_key(signing_key)
+    except ToolGatewayError:
+        return False
+    body = _observation_body(effect, source, method)
+    expected = _sign_observation(body, key)
+    return hmac.compare_digest(expected, attestation)
+
+
+def trusted_observation(
+    effect: str,
+    *,
+    source: str = "gateway_probe",
+    method: str = "deterministic_probe",
+    signing_key: bytes | None = None,
+) -> dict[str, Any]:
+    """Build an attested observation that may reconcile to WorldSuccess."""
+    if source not in TRUSTED_OBSERVATION_SOURCES:
+        raise ToolGatewayError(f"cannot attest untrusted source {source!r}")
+    key = resolve_observation_attest_key(signing_key)
+    body = _observation_body(effect, source, method)
+    return {
+        "effect": effect,
+        "source": source,
+        "method": method,
+        "provenance": {"source": source, "method": method},
+        "attestation": _sign_observation(body, key),
+    }
+
+
+def require_durable_gate_store(store: DurableGateStore) -> None:
+    """Fail-closed when profile forbids silent RAM-only / :memory: stores."""
+    profile = (os.environ.get("GOS_PROFILE") or "dev").strip().lower()
+    require = profile == "production" or os.environ.get(
+        "GOS_REQUIRE_DURABLE_GATE", ""
+    ).strip() in {"1", "true", "yes"}
+    if not require:
+        return
+    if not bool(getattr(store, "durable", False)):
+        raise ToolGatewayError(
+            "strict/production profile forbids non-durable gate store "
+            "(MemoryDurableGateStore or sqlite :memory:); set GOS_DURABLE_GATE_PATH"
+        )
+
+
+def _default_gate_store() -> DurableGateStore:
+    profile = (os.environ.get("GOS_PROFILE") or "dev").strip().lower()
+    require = profile == "production" or os.environ.get(
+        "GOS_REQUIRE_DURABLE_GATE", ""
+    ).strip() in {"1", "true", "yes"}
+    if not require:
+        return MemoryDurableGateStore()
+    path = (os.environ.get("GOS_DURABLE_GATE_PATH") or "").strip()
+    if not path or path == ":memory:":
+        raise ToolGatewayError(
+            "strict/production profile requires on-disk GOS_DURABLE_GATE_PATH"
+        )
+    return SqliteDurableGateStore(path)
+
 
 def reconcile_effect(
     *,
     tool_success: bool,
     intended_effect: str,
     observation: dict[str, Any] | None,
+    observation_signing_key: bytes | None = None,
 ) -> tuple[EffectReconciliationStatus, str, str]:
-    """ToolSuccess ≠ WorldSuccess (GOS-I13). Returns status, observed_effect, discrepancy."""
+    """ToolSuccess ≠ WorldSuccess (GOS-I13). Returns status, observed_effect, discrepancy.
+
+    Allowlisted source labels alone are insufficient — HMAC attestation required.
+    """
     del tool_success  # success alone never implies world success
     if observation is None:
         return (
@@ -82,6 +235,14 @@ def reconcile_effect(
             "observation_pending",
         )
     observed = str(observation.get("effect", "unobserved"))
+    if not observation_provenance_trusted(
+        observation, signing_key=observation_signing_key
+    ):
+        return (
+            EffectReconciliationStatus.DISCREPANCY,
+            observed,
+            "untrusted_observation_provenance",
+        )
     if observed == intended_effect:
         return EffectReconciliationStatus.RECONCILED, observed, "none"
     discrepancy = f"expected={intended_effect} got={observed}"
@@ -115,9 +276,24 @@ class ToolGateway:
         confirmation_policy: ConfirmationPolicy = ConfirmationPolicy.NEVER,
         allow_legacy_tokens: bool = False,
         approval_service: ApprovalService | None = None,
+        gate_store: DurableGateStore | None = None,
+        observation_signing_key: bytes | None = None,
     ) -> None:
         self._ledger = ledger
-        self._token_service = token_service or ExecutionTokenService()
+        # Share durable store between token jti consume and gateway idempotency
+        self._gate_store: DurableGateStore = (
+            gate_store if gate_store is not None else _default_gate_store()
+        )
+        if token_service is None:
+            self._token_service = ExecutionTokenService(gate_store=self._gate_store)
+        else:
+            self._token_service = token_service
+            # Prefer gateway store when caller shared none; keep token service's store
+            token_store = getattr(token_service, "_gate_store", None)
+            if gate_store is None and token_store is not None:
+                self._gate_store = token_store
+        require_durable_gate_store(self._gate_store)
+        self._observation_key = resolve_observation_attest_key(observation_signing_key)
         self._tools: dict[str, ToolHandler] = {}
         self._tool_caps: dict[str, tuple[str, ...]] = {}
         self._idempotency: dict[str, dict[str, Any]] = {}
@@ -267,8 +443,21 @@ class ToolGateway:
         self._enforce_capability_for_tool(tool_id=tool_id, capability=capability)
 
         idem = proposal["idempotency_key"]
+        cached = self._gate_store.get_idempotent_receipt(idem)
+        if cached is not None:
+            self._idempotency[idem] = cached
+            return cached
         if idem in self._idempotency:
             return self._idempotency[idem]
+        # Claim before side effect so crash/restart cannot silently re-run
+        if not self._gate_store.claim_idempotency(idem):
+            cached2 = self._gate_store.get_idempotent_receipt(idem)
+            if cached2 is not None:
+                self._idempotency[idem] = cached2
+                return cached2
+            raise ToolGatewayError(
+                f"idempotency_key {idem!r} claimed but receipt incomplete — escalate"
+            )
 
         handler = self._tools.get(tool_id)
         if handler is None:
@@ -299,6 +488,7 @@ class ToolGateway:
             tool_success=result.success,
             intended_effect=intended_effect,
             observation=observation,
+            observation_signing_key=self._observation_key,
         )
         if (material or require_observation) and observation is None:
             recon_status = EffectReconciliationStatus.OBSERVATION_PENDING
@@ -316,11 +506,21 @@ class ToolGateway:
             "observed_effect": observed,
             "discrepancy": discrepancy,
             "verified_at": datetime.now(UTC).isoformat(),
-            "verification_method": "observation_method" if observation else "tool_response_only",
+            "verification_method": (
+                "trusted_observation"
+                if observation
+                and observation_provenance_trusted(
+                    observation, signing_key=self._observation_key
+                )
+                else ("observation_untrusted" if observation else "tool_response_only")
+            ),
             "reconciliation_status": recon_status.value,
             "world_success": world_success,
         }
         validate(receipt, "effect_receipt.schema.json")
+        # Persist receipt before return so restart can short-circuit re-execution
+        self._gate_store.put_idempotent_receipt(idem, receipt)
+        self._idempotency[idem] = receipt
         self._ledger.append(
             event_type="effect.receipted",
             tenant_id=tenant_id,
@@ -350,5 +550,4 @@ class ToolGateway:
                 },
                 producer="kernel.action_gateway",
             )
-        self._idempotency[idem] = receipt
         return receipt

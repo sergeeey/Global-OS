@@ -36,6 +36,8 @@ def test_organ_fixture_loop_decomposes_routes_pivots_without_win_claim():
     assert out["terminal_score"]["win"] is False
     assert out["stop"] == "PIVOTED_AWAITING_EXEC"
     assert out["task_advances_criteria"]
+    assert out["completion_gate"]["status"] != "ACHIEVED"
+    assert "sc_ops" in out["completion_gate"]["criteria_unmet"]
 
 
 def test_build_challenge_goal_binds_terminal_criteria():

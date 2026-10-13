@@ -1,21 +1,24 @@
 # P1 Achiever gate — separate track before MLLv0 runtime promotion
 
-**Status:** TRACKED_NOT_STARTED_AS_RUNTIME  
+**Status:** HARNESS_WIRED (organ loop + Completion Gate; not PRODUCTION_PROVEN)  
 **Rule:** No Mission Learning Loop winner may enter **default Achiever runtime**
-until Contour A can finish a Goal with verified terminal evidence.
+until Contour A can finish a Goal with verified terminal evidence **and** human
+promotion. Challenge exec still separate.
 
 ## Required before any MLLv0 promotion into runtime
 
-1. Decomposer → Orchestration → Pivot → verify/stop beyond fixture-only loop
-2. Success = terminal criteria + EffectReceipts (not “plan looked good”)
+1. Decomposer → Orchestration → Pivot → verify/stop beyond fixture-only loop — **harness done**
+2. Success = terminal criteria + EffectReceipts via Completion Gate — **wired**
 3. Challenge-GA exec still only after explicit human request
-4. Separate PR (suggested name): `cursor/achiever-organ-loop-2907` after #36 on main
+4. Branch: `cursor/achiever-organ-loop-2907` (stacks on #37 tip until human merge)
 
 ## What exists today
 
 - Organ **contracts** LOCKED + stubs with guards
-- Challenge fixture loop: decompose→route→pivot, `challenge_win_claimed=False`
-- Not a live Autonomous Goal Achiever
+- Challenge fixture loop: decompose→route→pivot + Completion Gate bind
+- Contour A `run_achiever_organ_loop` (control-only; Gateway for world effects)
+- Skill Transfer Trial prep fail-closed while Challenge ≠ COMPLETED
+- Not a live Autonomous Goal Achiever / not PRODUCTION_PROVEN
 
 ## Non-claims
 

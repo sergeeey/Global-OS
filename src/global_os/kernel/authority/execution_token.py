@@ -16,6 +16,10 @@ from datetime import UTC, datetime, timedelta
 from typing import Any
 
 from global_os.common.hashing import content_hash, new_id
+from global_os.kernel.authority.durable_gate import (
+    DurableGateStore,
+    MemoryDurableGateStore,
+)
 
 
 class ExecutionTokenError(Exception):
@@ -93,7 +97,13 @@ DEV_EXECUTION_TOKEN_KEY = b"gos-dev-execution-token-key-not-for-prod"
 class ExecutionTokenService:
     """HMAC-signed proposal-bound tokens. Secret never enters prompts/events."""
 
-    def __init__(self, signing_key: bytes | None = None, *, default_ttl_s: int = 120) -> None:
+    def __init__(
+        self,
+        signing_key: bytes | None = None,
+        *,
+        default_ttl_s: int = 120,
+        gate_store: DurableGateStore | None = None,
+    ) -> None:
         key = signing_key
         if key is None:
             env = os.environ.get("GOS_EXECUTION_TOKEN_SECRET")
@@ -108,6 +118,9 @@ class ExecutionTokenService:
                 key = DEV_EXECUTION_TOKEN_KEY
         self._key = key
         self._default_ttl_s = default_ttl_s
+        # Durable store preferred; MemoryDurableGateStore is explicit non-durable fallback
+        self._gate_store: DurableGateStore = gate_store or MemoryDurableGateStore()
+        # Legacy in-process set kept in sync for tests that introspect; store is authority
         self._consumed_jti: set[str] = set()
 
     def mint(
@@ -150,7 +163,7 @@ class ExecutionTokenService:
             exp = exp.replace(tzinfo=UTC)
         if exp < clock:
             raise ExecutionTokenExpired("execution token expired")
-        if claims.jti in self._consumed_jti:
+        if self._gate_store.jti_consumed(claims.jti) or claims.jti in self._consumed_jti:
             raise ExecutionTokenReplay("execution token jti already consumed")
 
         expected_hash = proposal_hash or content_hash(proposal)
@@ -173,7 +186,7 @@ class ExecutionTokenService:
         return claims
 
     def consume(self, claims: ExecutionTokenClaims) -> None:
-        if claims.jti in self._consumed_jti:
+        if not self._gate_store.consume_jti(claims.jti):
             raise ExecutionTokenReplay("execution token jti already consumed")
         self._consumed_jti.add(claims.jti)
 
