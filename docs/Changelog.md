@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.162 — 2026-10-13
+
+### Integration — PREPROD_V0_1 + CTC v0 on main
+
+- Merge #43 + #44 → tip `1372671`
+- Challenge-GA still NOT_STARTED; pre-production release not declared
+- See `artifacts/preprod/INTEGRATION.md`
+
 ## 0.1.161 — 2026-10-13
 
 ### Contextual Task Compiler v0 (T2 composition)
