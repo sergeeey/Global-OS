@@ -7,7 +7,6 @@ World effects only via ToolGateway; Achiever remains control-plane (world_effect
 from __future__ import annotations
 
 import json
-import os
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -435,9 +434,8 @@ def start_mission(
         state["events"] = events_doc.get("events") or []
         state["run_dir"] = str(run_dir)
 
-    # Fail closed for this path: durable gate on disk
-    os.environ.setdefault("GOS_REQUIRE_DURABLE_GATE", "1")
-    os.environ["GOS_DURABLE_GATE_PATH"] = str(run_dir / "durable_gate.sqlite")
+    # Durable gate is constructed with an on-disk path inside gateway_observe;
+    # do not mutate process env (pollutes subsequent tests / soak harnesses).
 
     wf_conn = connect_sqlite(run_dir / "workflow.sqlite")
     try:
