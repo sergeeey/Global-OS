@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.156 — 2026-10-13
+
+### Challenge prep after integration (no exec)
+
+- Pin integration SHA `232022c` + CI SUCCESS in `CHALLENGE_PREP.md`
+- Prep checklist: integration gates checked; exec still requires explicit authorize
+- No Challenge arms started; Continual SI NOT_MEASURED; PRODUCTION_PROVEN=0
+
 ## 0.1.155 — 2026-10-13
 
 ### Integration — stack #37–#39 on main
