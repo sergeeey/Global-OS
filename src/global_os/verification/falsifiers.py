@@ -55,9 +55,29 @@ def _criterion_entries(goal: dict[str, Any]) -> list[tuple[str, str]]:
     return out
 
 
-def _exact_line_marker(description: str) -> str | None:
-    m = _EXACT_LINE_RE.search(description or "")
-    return m.group(1) if m else None
+def _objective_text(goal: dict[str, Any]) -> str:
+    obj = goal.get("objective")
+    if isinstance(obj, dict):
+        return str(obj.get("text") or "")
+    return str(obj or "")
+
+
+def goal_contract_text(goal: dict[str, Any]) -> str:
+    """Full Goal Contract text used for filename / exact-line extraction."""
+    parts = [_objective_text(goal)]
+    for _cid, desc in _criterion_entries(goal):
+        parts.append(desc)
+    return "\n".join(p for p in parts if p)
+
+
+def _exact_line_markers(text: str) -> list[str]:
+    # Character class may absorb a trailing sentence period ("… rc1. Inventory").
+    return [m.rstrip(".,;:!?") for m in _EXACT_LINE_RE.findall(text or "") if m.rstrip(".,;:!?")]
+
+
+def _file_has_exact_line(text: str, marker: str) -> bool:
+    """True iff some full line (stripped) equals marker — not a substring match."""
+    return any(line.strip() == marker for line in text.splitlines())
 
 
 def falsify_filesystem_criterion(
@@ -65,9 +85,16 @@ def falsify_filesystem_criterion(
     criterion_id: str,
     description: str,
     target: Path,
+    contract_text: str | None = None,
 ) -> FalsificationResult:
     """Seek a concrete filesystem counterexample for a write/accept criterion."""
-    expected = expected_write_paths_for_criterion(description)
+    search_text = "\n".join(
+        p for p in (description or "", contract_text or "") if p
+    )
+    expected = expected_write_paths_for_criterion(search_text)
+    if not expected:
+        # Fall back to criterion-only filename tokens.
+        expected = expected_write_paths_for_criterion(description)
     if not expected:
         return FalsificationResult(
             criterion_id=criterion_id,
@@ -98,7 +125,7 @@ def falsify_filesystem_criterion(
             observation={"target": str(target), "expected": expected},
         )
 
-    marker = _exact_line_marker(description)
+    markers = _exact_line_markers(search_text)
     for rel in expected:
         path = resolve_under(target, rel)
         if path is None:
@@ -131,19 +158,24 @@ def falsify_filesystem_criterion(
                 reason="required_file_empty",
                 observation={"path": rel},
             )
-        if marker is not None and marker not in text:
-            return FalsificationResult(
-                criterion_id=criterion_id,
-                outcome=FalsificationOutcome.FALSIFIED,
-                reason="exact_line_marker_absent",
-                observation={"path": rel, "marker": marker},
-            )
+        for marker in markers:
+            if not _file_has_exact_line(text, marker):
+                return FalsificationResult(
+                    criterion_id=criterion_id,
+                    outcome=FalsificationOutcome.FALSIFIED,
+                    reason="exact_line_marker_absent",
+                    observation={
+                        "path": rel,
+                        "marker": marker,
+                        "match_mode": "full_line",
+                    },
+                )
 
     return FalsificationResult(
         criterion_id=criterion_id,
         outcome=FalsificationOutcome.NOT_FALSIFIED,
         reason="no_filesystem_counterexample",
-        observation={"expected": expected, "marker": marker},
+        observation={"expected": expected, "markers": markers},
     )
 
 
@@ -161,9 +193,10 @@ def run_filesystem_falsifiers(
 ) -> dict[str, FalsificationResult]:
     """Run filesystem falsifiers for criteria with concrete FIX_*/ACCEPT_* tokens."""
     results: dict[str, FalsificationResult] = {}
+    contract = goal_contract_text(goal)
     if target is None:
         for cid, desc in _criterion_entries(goal):
-            expected = expected_write_paths_for_criterion(desc)
+            expected = expected_write_paths_for_criterion(f"{desc}\n{contract}")
             if expected:
                 results[cid] = FalsificationResult(
                     criterion_id=cid,
@@ -174,11 +207,28 @@ def run_filesystem_falsifiers(
         return results
 
     for cid, desc in _criterion_entries(goal):
+        lowered = desc.lower()
+        keyword_write = any(
+            m in lowered
+            for m in ("write file", "apply fix", "fix_applied", "accept_", "acceptance")
+        )
         expected = expected_write_paths_for_criterion(desc)
-        if not expected:
+        named_write = any(f.upper().startswith(("FIX_", "ACCEPT_")) for f in expected)
+        if not expected and keyword_write:
+            # Filename may live only in objective.text (full Goal Contract).
+            expected = [
+                f
+                for f in expected_write_paths_for_criterion(contract)
+                if f.upper().startswith(("FIX_", "ACCEPT_"))
+            ]
+            named_write = bool(expected)
+        if not expected or not (keyword_write or named_write):
             continue
         results[cid] = falsify_filesystem_criterion(
-            criterion_id=cid, description=desc, target=target
+            criterion_id=cid,
+            description=desc,
+            target=target,
+            contract_text=contract,
         )
     return results
 

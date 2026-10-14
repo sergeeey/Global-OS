@@ -91,11 +91,11 @@ def test_exact_line_marker_mismatch_falsifies(tmp_path: Path) -> None:
     (tmp_path / "ACCEPT_NONCE_RC1.txt").write_text("wrong-marker\n", encoding="utf-8")
     r = falsify_filesystem_criterion(
         criterion_id="sc_accept",
-        description=(
-            "apply fix by write file ACCEPT_NONCE_RC1.txt "
-            "containing the exact line preprod-accept-rc1"
-        ),
+        description="apply fix by write file ACCEPT_NONCE_RC1.txt with acceptance marker",
         target=tmp_path,
+        contract_text=(
+            "create ACCEPT_NONCE_RC1.txt containing the exact line preprod-accept-rc1"
+        ),
     )
     assert r.outcome == FalsificationOutcome.FALSIFIED
     assert r.reason == "exact_line_marker_absent"

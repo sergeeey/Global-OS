@@ -20,6 +20,46 @@ DEFAULT_OPENAI_BASE = "https://api.openai.com/v1"
 DEFAULT_OPENAI_MODEL = "gpt-4o-mini"
 
 
+def extract_json_object(text: str) -> str | None:
+    """Extract a balanced top-level JSON object from raw or fenced model text.
+
+    Non-greedy ``\\{.*?\\}`` is unsafe for nested objects (e.g. call_tool.args).
+    """
+    import re
+
+    blob = (text or "").strip()
+    if not blob:
+        return None
+    fence = re.search(r"```(?:json)?\s*([\s\S]*?)```", blob)
+    if fence:
+        blob = fence.group(1).strip()
+    start = blob.find("{")
+    if start < 0:
+        return None
+    depth = 0
+    in_str = False
+    esc = False
+    for i in range(start, len(blob)):
+        ch = blob[i]
+        if in_str:
+            if esc:
+                esc = False
+            elif ch == "\\":
+                esc = True
+            elif ch == '"':
+                in_str = False
+            continue
+        if ch == '"':
+            in_str = True
+        elif ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                return blob[start : i + 1]
+    return None
+
+
 class OpenAICompatProvider(ModelProvider):
     """Calls /chat/completions. Works with OpenAI or compatible gateways."""
 
@@ -116,7 +156,6 @@ class OpenAICompatProvider(ModelProvider):
         self, request: GenerateRequest, schema: dict[str, Any]
     ) -> dict[str, Any]:
         import json
-        import re
 
         prompt = (
             f"{request.prompt}\n\n"
@@ -138,15 +177,9 @@ class OpenAICompatProvider(ModelProvider):
             last_text = (resp.text or "").strip()
             if not last_text:
                 continue
-            candidate = last_text
-            fence = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", candidate, re.DOTALL)
-            if fence:
-                candidate = fence.group(1)
-            else:
-                start = candidate.find("{")
-                end = candidate.rfind("}")
-                if start >= 0 and end > start:
-                    candidate = candidate[start : end + 1]
+            candidate = extract_json_object(last_text)
+            if not candidate:
+                continue
             try:
                 parsed: object = json.loads(candidate)
             except json.JSONDecodeError:

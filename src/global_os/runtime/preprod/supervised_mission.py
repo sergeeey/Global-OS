@@ -59,6 +59,7 @@ from global_os.verification.falsifiers import (
 )
 from global_os.verification.substrate_health import assess_substrate_health
 from global_os.world.artifacts import ArtifactStore
+from global_os.world.tools.workspace_io import resolve_under
 
 PROFILE = "PREPROD_SUPERVISED"
 CONTROL_RUNNING = "RUNNING"
@@ -328,6 +329,11 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
             raise SupervisedMissionError(
                 "live_model_unavailable: need GROQ/OPENROUTER/GEMINI credentials"
             )
+        # Operator live path is Groq-pinned; refuse if only other free keys exist.
+        if not str(os.environ.get("GROQ_API_KEY") or "").strip():
+            raise SupervisedMissionError(
+                "live_model_unavailable: GROQ_API_KEY required for --model live"
+            )
         live_budget = _as_float(hooks.get("live_budget_usd"), 0.0)
         if live_budget < 0:
             raise SupervisedMissionError("live_budget_usd must be >= 0")
@@ -543,6 +549,13 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
 
             # Stable per-run per-tool idempotency (crash-resume must not re-produce).
             idem = f"preprod-{state['run_id']}-{tool_id.replace('.', '-')}"
+            reversible = True
+            if tool_id == "workspace.write_text":
+                write_rel = str(tool_args.get("path") or "")
+                write_path = resolve_under(target, write_rel)
+                # Overwrite without retained prior contents is irreversible.
+                if write_path is not None and write_path.is_file():
+                    reversible = False
             proposal = {
                 "proposal_id": f"ap_{state['run_id']}_{tool_id.replace('.', '_')}",
                 "schema_version": "0.1.0",
@@ -552,7 +565,7 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                 "resource": str(target),
                 "intended_effect": spec.intended_effect,
                 "maximum_effect": spec.intended_effect,
-                "reversible": True,
+                "reversible": reversible,
                 "information_disclosure": "none",
                 "monetary_cost": tool_cost,
                 "idempotency_key": idem,
@@ -787,9 +800,12 @@ def _achiever_settle_step(state: dict[str, Any]) -> dict[str, Any]:
     supported = criteria_supported_by_tools(goal, executed)
     target_raw = state.get("target_path")
     target_path = Path(str(target_raw)) if target_raw else None
+    hooks_settle = dict(state.get("hooks") or {})
     sandbox_signals = state.get("sandbox_signals")
-    if sandbox_signals is not None and not isinstance(sandbox_signals, dict):
-        sandbox_signals = None
+    if not isinstance(sandbox_signals, dict):
+        # Hooks are the injection / harness channel; also accept nested path.
+        nested = hooks_settle.get("sandbox_signals")
+        sandbox_signals = nested if isinstance(nested, dict) else None
 
     falsifiers = run_filesystem_falsifiers(goal, target_path)
     falsification_results = falsification_results_as_dicts(falsifiers)
