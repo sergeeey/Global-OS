@@ -348,7 +348,7 @@
     {
       "id": "preprod_supervised_mission_v0",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "PREPROD_SUPERVISED Operator path: gos mission start|status|pause|resume|cancel|deliver; Goal→Mission→Gateway repo.audit→Achiever settle→delivery.json; durable gate on disk; crash resume without silent tool replay; artifacts/preprod/; tests/test_preprod_supervised_mission_e2e.py; ≠ PRODUCTION_PROVEN / Challenge-GA NOT_STARTED / live multi-hour LLM missions not claimed"
+      "evidence": "PREPROD_SUPERVISED Operator path: Goal→CTC Brief→capability∩catalog tool_ids→Gateway (repo.audit|repo.inventory)→Achiever→Completion Gate→delivery.json; ScriptedActionProvider≥2 mock cycles; fail-closed unknown/forbidden tools; durable gate; crash resume; artifacts/preprod/FORK_B_PHASE1_REPORT.md; tests/test_preprod_supervised_mission_e2e.py; ≠ PRODUCTION_PROVEN / Challenge-GA NOT_STARTED / live LLM NOT_USED"
     },
     {
       "id": "contextual_task_compiler_v0",
