@@ -1,0 +1,246 @@
+{
+  "schema_version": "0.1.0",
+  "profile": "PREPROD_SUPERVISED",
+  "run_id": "run_9e76f13402224a63",
+  "goal_id": "goal_accept_nonce_001",
+  "mission_id": "msn_43e30a48d5b14080",
+  "terminal_status": "SUCCEEDED",
+  "completion": {
+    "status": "ACHIEVED",
+    "criteria_met": [
+      "sc_inv",
+      "sc_accept"
+    ],
+    "criteria_unmet": [],
+    "criteria_unknown": [],
+    "invariant_violations": [],
+    "authority_ok": true,
+    "evidence_bound": true,
+    "reason": "all_criteria_verified",
+    "llm_used_as_oracle": false
+  },
+  "achiever_stop": "STOP_SUCCESS",
+  "budget": {
+    "usd": 5.0,
+    "tokens": 50000,
+    "spent_usd": 0.02,
+    "remaining_usd": 4.98
+  },
+  "artifact_digest": "sha256:d015306b51c2ff1a4fb1e7b5153a81bd0cc165a710b1b0f5002b797043ad0f08",
+  "report_hash": "sha256:e406df421919a3260cb606a1dbc7a11005c833f23680c45665ffe62e1aad40cd",
+  "tool_calls": {
+    "repo.inventory": 1,
+    "workspace.write_text": 1
+  },
+  "allowed_tool_ids": [
+    "repo.audit",
+    "repo.inventory",
+    "research.scan",
+    "workspace.read_text",
+    "workspace.write_text"
+  ],
+  "executed_tools": [
+    "repo.inventory",
+    "workspace.write_text"
+  ],
+  "model_cycles": 3,
+  "model_calls": 3,
+  "model_mode": "reactive",
+  "model_cost_usd": 0.0,
+  "model_cost_forced": false,
+  "model_input_tokens": 0,
+  "model_output_tokens": 0,
+  "model_latency_ms": 0.0,
+  "observe_block": null,
+  "limits": {
+    "external_write": "human_confirmation_required",
+    "hmac_action_binding_residual": "NOT_CLAIMED_SOLVED",
+    "challenge_ga": "NOT_STARTED",
+    "live_llm": "NOT_USED_MOCK_OR_REACTIVE"
+  },
+  "evidence": {
+    "effect_receipt_ids": [
+      "er_e5ed2142b2dd4659",
+      "er_c42afba94f6f403e"
+    ],
+    "effect_receipts": [
+      {
+        "receipt_id": "er_e5ed2142b2dd4659",
+        "schema_version": "0.1.0",
+        "action_id": "act_39d6c364d9464408",
+        "tool_response": {
+          "success": true
+        },
+        "intended_effect": "repo_inventory_report",
+        "observed_effect": "repo_inventory_report",
+        "discrepancy": "none",
+        "verified_at": "2026-10-14T16:42:51.191408+00:00",
+        "verification_method": "post_execution_artifact_verify",
+        "reconciliation_status": "RECONCILED",
+        "world_success": true,
+        "binds_criteria": [
+          "sc_inv"
+        ],
+        "success_criteria_ids": [
+          "sc_inv"
+        ],
+        "artifact_verify": {
+          "ok": true,
+          "reason": "deterministic_structure_ok",
+          "entry_count": 1
+        },
+        "postcondition": {
+          "ok": true,
+          "reason": "not_applicable"
+        },
+        "artifact_digest": "sha256:b3e6db419ae167c3acc0f2b222d92985a806e04c684cdbd01b7aeee464b52c4d",
+        "report_hash": "sha256:9cb96fe7db0ac2bf3c7d11951071e57f4ba76b651e5c68412250668b2f5da8ae",
+        "verifier": "repo.inventory",
+        "criteria_supported": [
+          "sc_inv"
+        ],
+        "tool_id": "repo.inventory",
+        "gateway_reconciliation_status": "OBSERVATION_PENDING"
+      },
+      {
+        "receipt_id": "er_c42afba94f6f403e",
+        "schema_version": "0.1.0",
+        "action_id": "act_e5e9e93909134562",
+        "tool_response": {
+          "success": true
+        },
+        "intended_effect": "workspace_file_write",
+        "observed_effect": "workspace_file_write",
+        "discrepancy": "none",
+        "verified_at": "2026-10-14T16:42:51.196820+00:00",
+        "verification_method": "post_execution_artifact_verify",
+        "reconciliation_status": "RECONCILED",
+        "world_success": true,
+        "binds_criteria": [
+          "sc_accept"
+        ],
+        "success_criteria_ids": [
+          "sc_accept"
+        ],
+        "artifact_verify": {
+          "ok": true,
+          "reason": "write_ok",
+          "path": "ACCEPT_NONCE_RC1.txt"
+        },
+        "postcondition": {
+          "ok": true,
+          "reason": "disk_matches_report",
+          "path": "ACCEPT_NONCE_RC1.txt",
+          "byte_length": 19
+        },
+        "artifact_digest": "sha256:d015306b51c2ff1a4fb1e7b5153a81bd0cc165a710b1b0f5002b797043ad0f08",
+        "report_hash": "sha256:e406df421919a3260cb606a1dbc7a11005c833f23680c45665ffe62e1aad40cd",
+        "verifier": "workspace.write_text",
+        "criteria_supported": [
+          "sc_accept"
+        ],
+        "tool_id": "workspace.write_text",
+        "gateway_reconciliation_status": "OBSERVATION_PENDING"
+      }
+    ],
+    "events_path": "/tmp/accept_nonce_gos/missions/run_9e76f13402224a63/events.json",
+    "artifact_digest": "sha256:d015306b51c2ff1a4fb1e7b5153a81bd0cc165a710b1b0f5002b797043ad0f08",
+    "report_hash": "sha256:e406df421919a3260cb606a1dbc7a11005c833f23680c45665ffe62e1aad40cd",
+    "model_history": [
+      {
+        "prompt_prefix": "You are the Global OS supervised Operator action selector.\ngoal_id=goal_accept_nonce_001\nobjective=Unfamiliar acceptance Goal: create ACCEPT_NONCE_RC1.txt conta",
+        "observation_status": "none",
+        "executed": [],
+        "step": {
+          "action": "call_tool",
+          "tool_id": "repo.inventory",
+          "args": {}
+        }
+      },
+      {
+        "prompt_prefix": "You are the Global OS supervised Operator action selector.\ngoal_id=goal_accept_nonce_001\nobjective=Unfamiliar acceptance Goal: create ACCEPT_NONCE_RC1.txt conta",
+        "observation_status": "ok",
+        "executed": [
+          "repo.inventory"
+        ],
+        "step": {
+          "action": "call_tool",
+          "tool_id": "workspace.write_text",
+          "args": {
+            "path": "ACCEPT_NONCE_RC1.txt",
+            "content": "preprod-accept-rc1\n"
+          }
+        }
+      },
+      {
+        "prompt_prefix": "You are the Global OS supervised Operator action selector.\ngoal_id=goal_accept_nonce_001\nobjective=Unfamiliar acceptance Goal: create ACCEPT_NONCE_RC1.txt conta",
+        "observation_status": "ok",
+        "executed": [
+          "repo.inventory",
+          "workspace.write_text"
+        ],
+        "step": {
+          "action": "stop"
+        }
+      }
+    ],
+    "last_observation_summary": "tool=workspace.write_text;verify=True;post=True;binds=['sc_accept'];world_success=True;status=RECONCILED"
+  },
+  "history_summary": [
+    "decomposed",
+    "brief:brf_f639eb911b73425d",
+    "routed:ROUTE",
+    "completion:ACHIEVED"
+  ],
+  "last_execution_brief": {
+    "brief_id": "brf_7f3df9308d4f4d1d",
+    "schema_version": "0.1.0",
+    "goal_id": "goal_accept_nonce_001",
+    "goal_version": 1,
+    "plan_id": "plan_run_9e76f13402224a63",
+    "task_id": "task_run_9e76f13402224a63_observe",
+    "objective_text": "Advance Goal goal_accept_nonce_001 via task 'observe' without claiming unverified criteria. Clarify scoped evidence needs. Outcome context: Unfamiliar acceptance Goal: create ACCEPT_NONCE_RC1.txt containing the exact line preprod-accept-rc1. Inventory first, then write the required file.",
+    "criterion_ids": [],
+    "allowed_tools": [
+      "filesystem.read",
+      "filesystem.write"
+    ],
+    "budget": {
+      "usd": 2.5,
+      "tokens": 25000
+    },
+    "expected_artifacts": [
+      "effect_receipt",
+      "artifact_digest"
+    ],
+    "verification_method": "effect_receipt_completion_gate",
+    "constraints": [
+      "sandbox_target_only",
+      "no_goal_mutation",
+      "no_self_certification"
+    ],
+    "human_approval_required": false,
+    "context_refs": [
+      "goal_contract",
+      "task_run_9e76f13402224a63_observe",
+      "plan_run_9e76f13402224a63",
+      "evt_6e2fb30939d94f0f",
+      "evt_3b880e6af2f14890"
+    ],
+    "authority_check": {
+      "caps_subset": true
+    },
+    "material_reason": "first_attempt",
+    "env_id": "env_d60b49e2ce6c4000",
+    "org_unit_id": "org_0b2be549b6c74215",
+    "content_hash": "sha256:a45a5b070f646d19eb51af72227cf4fdb2ae6c1826ca0c949b7ab59ad9c87c84"
+  },
+  "delivered_at": "2026-10-14T16:42:51.219385+00:00",
+  "honesty": {
+    "production_proven": 0,
+    "continual_si": "NOT_MEASURED",
+    "end_to_end_os_speedup": "NOT_CLAIMED",
+    "execution_brief": "ephemeral_work_order_not_completion",
+    "tool_selection": "brief_catalog_gateway_observation_conditioned"
+  }
+}

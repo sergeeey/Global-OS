@@ -4,9 +4,9 @@ Please independently accept or reject **Global OS `v0.1.0-pre`** as Supervised P
 
 ## Ask of the human operator
 
-1. Review branch `cursor/preprod-v01-rc-2907` / associated PR.  
-2. Walk `OPERATOR.md` install + one mission on a clean shell.  
-3. Inspect `final_acceptance/` evidence pack (especially LIVE + RECOVERY).  
+1. Review branch `cursor/preprod-v01-rc-2907` / PR https://github.com/sergeeey/Global-OS/pull/49.  
+2. Walk `OPERATOR.md` install + one mission on a clean shell; optionally confirm `CLEAN_INSTALL.md`.  
+3. Inspect `final_acceptance/` evidence pack (especially LIVE + RECOVERY + RC_ACCEPTANCE_FIXES).  
 4. Confirm or dispute each open ☐ in `PREPROD_RELEASE_GATE.md`.  
 5. Decide: accept RC, request changes, or reject.
 

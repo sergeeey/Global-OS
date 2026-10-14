@@ -8,5 +8,5 @@
   "terminal_status": "SUCCEEDED",
   "resume_returncode": 0,
   "resume_stderr": "",
-  "effect_marker": "/workspace/artifacts/preprod/final_acceptance/recovery/.gos_crash_window/missions/run_7b056592c9004716/effect_pre_checkpoint.json"
+  "effect_marker": "/workspace/artifacts/preprod/final_acceptance/recovery/.gos_crash_window/missions/run_4a749d90a32244f0/effect_pre_checkpoint.json"
 }

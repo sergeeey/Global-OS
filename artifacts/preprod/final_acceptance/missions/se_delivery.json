@@ -1,9 +1,9 @@
 {
   "schema_version": "0.1.0",
   "profile": "PREPROD_SUPERVISED",
-  "run_id": "run_5326c6d417bf4c6b",
+  "run_id": "run_6e4a4ce385be4ec6",
   "goal_id": "goal_se_sandbox_001",
-  "mission_id": "msn_5334ed16a0354bdc",
+  "mission_id": "msn_39997a182ee043c0",
   "terminal_status": "SUCCEEDED",
   "completion": {
     "status": "ACHIEVED",
@@ -28,8 +28,8 @@
     "spent_usd": 0.04,
     "remaining_usd": 4.96
   },
-  "artifact_digest": "sha256:22e1aa1ee5013e905039b9fa21275a42399ddd9e555bb842a936f73e66dc911d",
-  "report_hash": "sha256:f4f7ba84cb781b5c123e9ba9b30e2c23805a40590be4de202a8e249d7b932e8a",
+  "artifact_digest": "sha256:1b4c8fb9fa05a4d67403426d1c4ad33c0ef0eb227d9c0df826608d410dcb4162",
+  "report_hash": "sha256:7be2aee1479770cbab37041ec1392f9fcd107252f33ead1a23c5b7f2738a6969",
   "tool_calls": {
     "repo.audit": 1,
     "repo.inventory": 1,
@@ -53,6 +53,10 @@
   "model_calls": 5,
   "model_mode": "reactive",
   "model_cost_usd": 0.0,
+  "model_cost_forced": false,
+  "model_input_tokens": 0,
+  "model_output_tokens": 0,
+  "model_latency_ms": 0.0,
   "observe_block": null,
   "limits": {
     "external_write": "human_confirmation_required",
@@ -62,23 +66,23 @@
   },
   "evidence": {
     "effect_receipt_ids": [
-      "er_0057822c0e9a4c3a",
-      "er_f24fc22dcb484268",
-      "er_1da95577c298438d",
-      "er_d10e53c45aa44cad"
+      "er_87370c731cbd4223",
+      "er_faab0c888d554af1",
+      "er_9edf84c5fbfc4e83",
+      "er_6e170bf22f5143c2"
     ],
     "effect_receipts": [
       {
-        "receipt_id": "er_0057822c0e9a4c3a",
+        "receipt_id": "er_87370c731cbd4223",
         "schema_version": "0.1.0",
-        "action_id": "act_36aac2090e4c47e7",
+        "action_id": "act_fc493ae402624904",
         "tool_response": {
           "success": true
         },
         "intended_effect": "repo_audit_report",
         "observed_effect": "repo_audit_report",
         "discrepancy": "none",
-        "verified_at": "2026-10-14T11:27:42.922495+00:00",
+        "verified_at": "2026-10-14T16:42:29.987955+00:00",
         "verification_method": "post_execution_artifact_verify",
         "reconciliation_status": "RECONCILED",
         "world_success": true,
@@ -93,7 +97,11 @@
           "reason": "deterministic_structure_ok",
           "finding_count": 4
         },
-        "artifact_digest": "sha256:8759d2509262e3a29d208c1b0dbe8dabfd6156329e6d8a4faf1bb4fab2e71ff5",
+        "postcondition": {
+          "ok": true,
+          "reason": "not_applicable"
+        },
+        "artifact_digest": "sha256:a9268b8b5fc5d8489670d7a991213a4d4aada7fc3ce53bc55752d65e1ddfc6ec",
         "report_hash": "sha256:e75939b41594d92a79b9be0dfc7ee3454ab022db5fbc9c5fca8d5152f43af390",
         "verifier": "repo.audit",
         "criteria_supported": [
@@ -103,16 +111,16 @@
         "gateway_reconciliation_status": "OBSERVATION_PENDING"
       },
       {
-        "receipt_id": "er_f24fc22dcb484268",
+        "receipt_id": "er_faab0c888d554af1",
         "schema_version": "0.1.0",
-        "action_id": "act_3e3491881bc24d1b",
+        "action_id": "act_49536e7b3fea430f",
         "tool_response": {
           "success": true
         },
         "intended_effect": "repo_inventory_report",
         "observed_effect": "repo_inventory_report",
         "discrepancy": "none",
-        "verified_at": "2026-10-14T11:27:42.931385+00:00",
+        "verified_at": "2026-10-14T16:42:29.998523+00:00",
         "verification_method": "post_execution_artifact_verify",
         "reconciliation_status": "RECONCILED",
         "world_success": true,
@@ -127,7 +135,11 @@
           "reason": "deterministic_structure_ok",
           "entry_count": 3
         },
-        "artifact_digest": "sha256:c5aa19c15958dbe0de758a8984ba28dd69f3673c18a2a679e3f7eabd4e5267df",
+        "postcondition": {
+          "ok": true,
+          "reason": "not_applicable"
+        },
+        "artifact_digest": "sha256:aa448a7881beed20fa78150542140dc513590fb8545ca3333d7ffa6619bf791a",
         "report_hash": "sha256:d97812dacc6ad9498e8f311938f4067f7daefdcc4f547db311b980bd794d565e",
         "verifier": "repo.inventory",
         "criteria_supported": [
@@ -137,16 +149,16 @@
         "gateway_reconciliation_status": "OBSERVATION_PENDING"
       },
       {
-        "receipt_id": "er_1da95577c298438d",
+        "receipt_id": "er_9edf84c5fbfc4e83",
         "schema_version": "0.1.0",
-        "action_id": "act_5b43b5c9393b452a",
+        "action_id": "act_90f052eeaf744ad8",
         "tool_response": {
           "success": true
         },
         "intended_effect": "workspace_file_read",
         "observed_effect": "workspace_file_read",
         "discrepancy": "none",
-        "verified_at": "2026-10-14T11:27:42.939890+00:00",
+        "verified_at": "2026-10-14T16:42:30.007141+00:00",
         "verification_method": "post_execution_artifact_verify",
         "reconciliation_status": "RECONCILED",
         "world_success": true,
@@ -161,7 +173,11 @@
           "reason": "read_ok",
           "path": "README.md"
         },
-        "artifact_digest": "sha256:effae6deebf623f449113441b7783b96e67d7e0ed350c47227cebf2c8f695391",
+        "postcondition": {
+          "ok": true,
+          "reason": "not_applicable"
+        },
+        "artifact_digest": "sha256:d3e49e329510e8a6397037a714174400f12629d21e4d604f5adbaae8bc349239",
         "report_hash": "sha256:7d0cc5e2fad656f5aaa8a797441b13342f31210a9d0b9098920b72fb2800f9cf",
         "verifier": "workspace.read_text",
         "criteria_supported": [
@@ -171,16 +187,16 @@
         "gateway_reconciliation_status": "OBSERVATION_PENDING"
       },
       {
-        "receipt_id": "er_d10e53c45aa44cad",
+        "receipt_id": "er_6e170bf22f5143c2",
         "schema_version": "0.1.0",
-        "action_id": "act_4544074b14764cd7",
+        "action_id": "act_e2b8ffb53df14f18",
         "tool_response": {
           "success": true
         },
         "intended_effect": "workspace_file_write",
         "observed_effect": "workspace_file_write",
         "discrepancy": "none",
-        "verified_at": "2026-10-14T11:27:42.945234+00:00",
+        "verified_at": "2026-10-14T16:42:30.013622+00:00",
         "verification_method": "post_execution_artifact_verify",
         "reconciliation_status": "RECONCILED",
         "world_success": true,
@@ -195,8 +211,14 @@
           "reason": "write_ok",
           "path": "FIX_APPLIED.txt"
         },
-        "artifact_digest": "sha256:22e1aa1ee5013e905039b9fa21275a42399ddd9e555bb842a936f73e66dc911d",
-        "report_hash": "sha256:f4f7ba84cb781b5c123e9ba9b30e2c23805a40590be4de202a8e249d7b932e8a",
+        "postcondition": {
+          "ok": true,
+          "reason": "disk_matches_report",
+          "path": "FIX_APPLIED.txt",
+          "byte_length": 30
+        },
+        "artifact_digest": "sha256:1b4c8fb9fa05a4d67403426d1c4ad33c0ef0eb227d9c0df826608d410dcb4162",
+        "report_hash": "sha256:7be2aee1479770cbab37041ec1392f9fcd107252f33ead1a23c5b7f2738a6969",
         "verifier": "workspace.write_text",
         "criteria_supported": [
           "sc_write"
@@ -205,9 +227,9 @@
         "gateway_reconciliation_status": "OBSERVATION_PENDING"
       }
     ],
-    "events_path": "artifacts/preprod/final_acceptance/missions/.gos_missions/se/missions/run_5326c6d417bf4c6b/events.json",
-    "artifact_digest": "sha256:22e1aa1ee5013e905039b9fa21275a42399ddd9e555bb842a936f73e66dc911d",
-    "report_hash": "sha256:f4f7ba84cb781b5c123e9ba9b30e2c23805a40590be4de202a8e249d7b932e8a",
+    "events_path": "artifacts/preprod/final_acceptance/missions/.gos_missions/se/missions/run_6e4a4ce385be4ec6/events.json",
+    "artifact_digest": "sha256:1b4c8fb9fa05a4d67403426d1c4ad33c0ef0eb227d9c0df826608d410dcb4162",
+    "report_hash": "sha256:7be2aee1479770cbab37041ec1392f9fcd107252f33ead1a23c5b7f2738a6969",
     "model_history": [
       {
         "prompt_prefix": "You are the Global OS supervised Operator action selector.\ngoal_id=goal_se_sandbox_001\nobjective=Software engineering sandbox mission: inventory the workspace, ",
@@ -277,21 +299,21 @@
         }
       }
     ],
-    "last_observation_summary": "tool=workspace.write_text;verify=True;world_success=True;status=RECONCILED"
+    "last_observation_summary": "tool=workspace.write_text;verify=True;post=True;binds=['sc_write'];world_success=True;status=RECONCILED"
   },
   "history_summary": [
     "decomposed",
-    "brief:brf_fca29671f0a54418",
+    "brief:brf_40cdf19e457f4e98",
     "routed:ROUTE",
     "completion:ACHIEVED"
   ],
   "last_execution_brief": {
-    "brief_id": "brf_7ebd80025bd6426e",
+    "brief_id": "brf_774f89ff7e6b4fd1",
     "schema_version": "0.1.0",
     "goal_id": "goal_se_sandbox_001",
     "goal_version": 1,
-    "plan_id": "plan_run_5326c6d417bf4c6b",
-    "task_id": "task_run_5326c6d417bf4c6b_observe",
+    "plan_id": "plan_run_6e4a4ce385be4ec6",
+    "task_id": "task_run_6e4a4ce385be4ec6_observe",
     "objective_text": "Advance Goal goal_se_sandbox_001 via task 'observe' without claiming unverified criteria. Clarify scoped evidence needs. Outcome context: Software engineering sandbox mission: inventory the workspace, inspect README.md, apply a fix marker file, and produce a verified engineering audit report.",
     "criterion_ids": [],
     "allowed_tools": [
@@ -317,20 +339,20 @@
     "human_approval_required": false,
     "context_refs": [
       "goal_contract",
-      "task_run_5326c6d417bf4c6b_observe",
-      "plan_run_5326c6d417bf4c6b",
-      "evt_b4dc020d6af1415f",
-      "evt_bd310bdc61394276"
+      "task_run_6e4a4ce385be4ec6_observe",
+      "plan_run_6e4a4ce385be4ec6",
+      "evt_cef88f3b58334110",
+      "evt_82748ddc2f584c7c"
     ],
     "authority_check": {
       "caps_subset": true
     },
     "material_reason": "first_attempt",
-    "env_id": "env_f045ca7fba514da5",
-    "org_unit_id": "org_f3d783b18ba34b7c",
-    "content_hash": "sha256:62180a40da13ff84d7c21520aae821b472bb9e49faede1fe960f65bb1a599df6"
+    "env_id": "env_cb495ca2f54448de",
+    "org_unit_id": "org_d11dce1816be4881",
+    "content_hash": "sha256:1543f4625aec2811d04fa4ae8eb33a77b68a5a24c4e3d0c12f58a32a6df8d75f"
   },
-  "delivered_at": "2026-10-14T11:27:42.964197+00:00",
+  "delivered_at": "2026-10-14T16:42:30.034415+00:00",
   "honesty": {
     "production_proven": 0,
     "continual_si": "NOT_MEASURED",

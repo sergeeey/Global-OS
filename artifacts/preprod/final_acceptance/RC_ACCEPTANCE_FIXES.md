@@ -34,6 +34,20 @@ Delivery now separates:
 - `model_input_tokens` / `model_output_tokens` / `model_latency_ms` (measured from provider)
 - `model_cost_usd` + `model_cost_forced` (Groq still forced `$0` tariff — not claimed as independent spend metering)
 
+## Packaging / clean install (follow-on)
+
+| Item | Evidence |
+|------|----------|
+| Wheel schemas | `pyproject.toml` hatch `force-include` |
+| Resolve path | `validate._find_schemas_dir` (packaged or checkout) |
+| Proof | `CLEAN_INSTALL.md`, `CLEAN_INSTALL_PROOF.json` (29 schemas; CLI help) |
+
+## Re-run after tip `fcc6a70`
+
+- Reactive SE + research + accept-nonce → SUCCEEDED (`missions/`)
+- Crash-window + real-kill → ok (`recovery/`)
+- e2e: 33 passed
+
 ## Human gate
 
-`v0.1.0-pre` remains **not self-accepted**. Re-review requested after these fixes.
+`v0.1.0-pre` remains **not self-accepted**. PR #49 ready for human re-review.

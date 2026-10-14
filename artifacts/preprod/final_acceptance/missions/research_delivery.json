@@ -1,9 +1,9 @@
 {
   "schema_version": "0.1.0",
   "profile": "PREPROD_SUPERVISED",
-  "run_id": "run_fd075386d25e4d7d",
+  "run_id": "run_6ea53a793c2c4541",
   "goal_id": "goal_research_scan_001",
-  "mission_id": "msn_6c2d25c1497b4dff",
+  "mission_id": "msn_da5c94c9735249c7",
   "terminal_status": "SUCCEEDED",
   "completion": {
     "status": "ACHIEVED",
@@ -25,7 +25,7 @@
     "spent_usd": 0.01,
     "remaining_usd": 2.99
   },
-  "artifact_digest": "sha256:12c0e698f37b3aea28fbe769b2e45bd08366710baeb7fd8136d3125c1b538f5d",
+  "artifact_digest": "sha256:f8b4abf25da49dab4ca276dab57a8d3b896f9712440a2f6592b32ffe3661a08d",
   "report_hash": "sha256:7f235002a59260254c8e3203dd4edbd7da0896ca3f34d1be592eba2724e4c211",
   "tool_calls": {
     "research.scan": 1
@@ -43,6 +43,10 @@
   "model_calls": 2,
   "model_mode": "reactive",
   "model_cost_usd": 0.0,
+  "model_cost_forced": false,
+  "model_input_tokens": 0,
+  "model_output_tokens": 0,
+  "model_latency_ms": 0.0,
   "observe_block": null,
   "limits": {
     "external_write": "human_confirmation_required",
@@ -52,20 +56,20 @@
   },
   "evidence": {
     "effect_receipt_ids": [
-      "er_c0da7f5815cd454d"
+      "er_0bd90f6d93ee4627"
     ],
     "effect_receipts": [
       {
-        "receipt_id": "er_c0da7f5815cd454d",
+        "receipt_id": "er_0bd90f6d93ee4627",
         "schema_version": "0.1.0",
-        "action_id": "act_f3115631fbdc42ea",
+        "action_id": "act_ef04990c2cdb4adc",
         "tool_response": {
           "success": true
         },
         "intended_effect": "research_scan_report",
         "observed_effect": "research_scan_report",
         "discrepancy": "none",
-        "verified_at": "2026-10-14T11:27:43.010097+00:00",
+        "verified_at": "2026-10-14T16:42:30.087189+00:00",
         "verification_method": "post_execution_artifact_verify",
         "reconciliation_status": "RECONCILED",
         "world_success": true,
@@ -81,7 +85,11 @@
           "source_count": 2,
           "claim_count": 3
         },
-        "artifact_digest": "sha256:12c0e698f37b3aea28fbe769b2e45bd08366710baeb7fd8136d3125c1b538f5d",
+        "postcondition": {
+          "ok": true,
+          "reason": "not_applicable"
+        },
+        "artifact_digest": "sha256:f8b4abf25da49dab4ca276dab57a8d3b896f9712440a2f6592b32ffe3661a08d",
         "report_hash": "sha256:7f235002a59260254c8e3203dd4edbd7da0896ca3f34d1be592eba2724e4c211",
         "verifier": "research.scan",
         "criteria_supported": [
@@ -91,8 +99,8 @@
         "gateway_reconciliation_status": "OBSERVATION_PENDING"
       }
     ],
-    "events_path": "artifacts/preprod/final_acceptance/missions/.gos_missions/research/missions/run_fd075386d25e4d7d/events.json",
-    "artifact_digest": "sha256:12c0e698f37b3aea28fbe769b2e45bd08366710baeb7fd8136d3125c1b538f5d",
+    "events_path": "artifacts/preprod/final_acceptance/missions/.gos_missions/research/missions/run_6ea53a793c2c4541/events.json",
+    "artifact_digest": "sha256:f8b4abf25da49dab4ca276dab57a8d3b896f9712440a2f6592b32ffe3661a08d",
     "report_hash": "sha256:7f235002a59260254c8e3203dd4edbd7da0896ca3f34d1be592eba2724e4c211",
     "model_history": [
       {
@@ -116,21 +124,21 @@
         }
       }
     ],
-    "last_observation_summary": "tool=research.scan;verify=True;world_success=True;status=RECONCILED"
+    "last_observation_summary": "tool=research.scan;verify=True;post=True;binds=['sc_research_01'];world_success=True;status=RECONCILED"
   },
   "history_summary": [
     "decomposed",
-    "brief:brf_4c0652a7ddf4413a",
+    "brief:brf_87a9f02e2df5446f",
     "routed:ROUTE",
     "completion:ACHIEVED"
   ],
   "last_execution_brief": {
-    "brief_id": "brf_02796908f81d438a",
+    "brief_id": "brf_229fcff4f5104dad",
     "schema_version": "0.1.0",
     "goal_id": "goal_research_scan_001",
     "goal_version": 1,
-    "plan_id": "plan_run_fd075386d25e4d7d",
-    "task_id": "task_run_fd075386d25e4d7d_observe",
+    "plan_id": "plan_run_6ea53a793c2c4541",
+    "task_id": "task_run_6ea53a793c2c4541_observe",
     "objective_text": "Advance Goal goal_research_scan_001 via task 'observe' without claiming unverified criteria. Clarify scoped evidence needs. Outcome context: Perform a local research scan: extract sources and competing claim spans from available materials. Distinguish extracted claims from verified facts.",
     "criterion_ids": [],
     "allowed_tools": [
@@ -154,20 +162,20 @@
     "human_approval_required": false,
     "context_refs": [
       "goal_contract",
-      "task_run_fd075386d25e4d7d_observe",
-      "plan_run_fd075386d25e4d7d",
-      "evt_0d903320ae4947df",
-      "evt_8471d2d255f24626"
+      "task_run_6ea53a793c2c4541_observe",
+      "plan_run_6ea53a793c2c4541",
+      "evt_64c623bb953f4abd",
+      "evt_e810c13c23d24722"
     ],
     "authority_check": {
       "caps_subset": true
     },
     "material_reason": "first_attempt",
-    "env_id": "env_65e09980edb24418",
-    "org_unit_id": "org_3b31ef667ad74f1a",
-    "content_hash": "sha256:83146cfc8909f1435c51eb51518388b283c37892e6b88435dabcf5db403ca669"
+    "env_id": "env_2ef912a62f984988",
+    "org_unit_id": "org_a33f320a3d13456b",
+    "content_hash": "sha256:999473818e1e69620aaef274466f3d07cd74ad344f8e4b0a639ee2f891ba75a0"
   },
-  "delivered_at": "2026-10-14T11:27:43.026935+00:00",
+  "delivered_at": "2026-10-14T16:42:30.105206+00:00",
   "honesty": {
     "production_proven": 0,
     "continual_si": "NOT_MEASURED",

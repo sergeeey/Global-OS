@@ -25,12 +25,15 @@ Goal Contract
 | Reactive mock | `adapters/models/observation_reactive.py` |
 | Live adapter | `adapters/models/{factory,groq,openai_compat}.py` |
 | CLI | `src/global_os/cli.py` (`mission start --model …`) |
-| Tests | `tests/test_preprod_supervised_mission_e2e.py` (30) |
+| Tests | `tests/test_preprod_supervised_mission_e2e.py` (33) |
+| Postconditions | `src/global_os/runtime/preprod/goal_postconditions.py` |
+| Packaging | hatch force-include schemas; `validate._find_schemas_dir` |
 
 ## Integration SHAs
 
 - Base `main` at branch cut: `5a7870b78cec39648521863ce48338709ad0a643`
-- Branch tip evolves on `cursor/preprod-v01-rc-2907` (see git log / PR)
+- Packaging / clean-install tip: `fcc6a70`
+- Branch tip evolves on `cursor/preprod-v01-rc-2907` (PR #49)
 
 ## Boundary invariants verified
 
