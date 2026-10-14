@@ -1,0 +1,39 @@
+{
+  "audit_run_id": "run_7c0f9bec66614613",
+  "terminal_status": "SUCCEEDED",
+  "completion": {
+    "status": "ACHIEVED",
+    "criteria_met": [
+      "sc_01"
+    ],
+    "criteria_unmet": [],
+    "criteria_unknown": [],
+    "invariant_violations": [],
+    "authority_ok": true,
+    "evidence_bound": true,
+    "reason": "all_criteria_verified",
+    "llm_used_as_oracle": false
+  },
+  "tool_calls": {
+    "repo.audit": 1
+  },
+  "budget": {
+    "usd": 5.0,
+    "tokens": 50000,
+    "spent_usd": 0.01,
+    "remaining_usd": 4.99
+  },
+  "honesty": {
+    "production_proven": 0,
+    "continual_si": "NOT_MEASURED",
+    "end_to_end_os_speedup": "NOT_CLAIMED",
+    "execution_brief": "ephemeral_work_order_not_completion"
+  },
+  "limits": {
+    "external_write": "human_confirmation_required",
+    "hmac_action_binding_residual": "NOT_CLAIMED_SOLVED",
+    "challenge_ga": "NOT_STARTED"
+  },
+  "profile": "PREPROD_SUPERVISED",
+  "main_sha": "5a7870b78cec39648521863ce48338709ad0a643"
+}
