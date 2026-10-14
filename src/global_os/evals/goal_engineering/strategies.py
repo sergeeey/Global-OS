@@ -1,8 +1,11 @@
-"""Three tasking strategies under comparison (preregistered).
+"""Tasking strategies under comparison.
 
-S_TRAD   — traditional vague prompt ("do your best")
-S_DETAIL — detailed procedural step-by-step instructions
-S_GE     — Goal Engineering: GoalContract + Definition of Done + EvidenceLedger
+S_TRAD            — traditional vague prompt ("do your best")
+S_DETAIL          — detailed procedural steps (may be incomplete / brittle)
+S_DETAIL_VERIFIED — complete runbook control (verify + retractions + test gate)
+S_GE              — Goal Engineering: GoalContract + DoD + EvidenceLedger
+
+Post-audit: S_DETAIL_VERIFIED is the fair procedural control for GE contrasts.
 """
 
 from __future__ import annotations
@@ -10,9 +13,16 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Literal
 
-StrategyId = Literal["S_TRAD", "S_DETAIL", "S_GE"]
+StrategyId = Literal["S_TRAD", "S_DETAIL", "S_DETAIL_VERIFIED", "S_GE"]
 
-STRATEGY_IDS: tuple[StrategyId, ...] = ("S_TRAD", "S_DETAIL", "S_GE")
+# v1 arms (immutable seal) excluded S_DETAIL_VERIFIED
+STRATEGY_IDS_V1: tuple[StrategyId, ...] = ("S_TRAD", "S_DETAIL", "S_GE")
+STRATEGY_IDS: tuple[StrategyId, ...] = (
+    "S_TRAD",
+    "S_DETAIL",
+    "S_DETAIL_VERIFIED",
+    "S_GE",
+)
 
 
 @dataclass(frozen=True)
@@ -22,7 +32,6 @@ class TaskingPacket:
     strategy_id: StrategyId
     task_id: str
     prompt_text: str
-    # Structured GE fields (empty for non-GE)
     goal_contract: dict[str, Any] = field(default_factory=dict)
     definition_of_done: list[dict[str, str]] = field(default_factory=list)
     evidence_requirements: list[dict[str, str]] = field(default_factory=list)
@@ -51,6 +60,24 @@ def build_detail(task_id: str, objective: str, steps: list[str]) -> TaskingPacke
             f"Objective: {objective}\n\n"
             f"Steps:\n{numbered}\n\n"
             f"After completing all steps in order, report SUCCESS."
+        ),
+        procedural_steps=list(steps),
+    )
+
+
+def build_detail_verified(
+    task_id: str, objective: str, steps: list[str]
+) -> TaskingPacket:
+    numbered = "\n".join(f"{i}. {s}" for i, s in enumerate(steps, 1))
+    return TaskingPacket(
+        strategy_id="S_DETAIL_VERIFIED",
+        task_id=task_id,
+        prompt_text=(
+            f"Follow these verified runbook instructions exactly.\n\n"
+            f"Objective: {objective}\n\n"
+            f"Steps:\n{numbered}\n\n"
+            f"Report SUCCESS only when every verification step has passed. "
+            f"If a check fails, report BLOCKED — do not assert completion."
         ),
         procedural_steps=list(steps),
     )

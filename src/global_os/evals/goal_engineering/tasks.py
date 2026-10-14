@@ -12,6 +12,7 @@ from typing import Any, Literal
 from global_os.evals.goal_engineering.strategies import (
     TaskingPacket,
     build_detail,
+    build_detail_verified,
     build_ge,
     build_trad,
 )
@@ -25,7 +26,7 @@ class World:
     task_id: str
     domain: Domain
     state: dict[str, Any]
-    # Hidden oracle facts (agents must not read these — enforced by runner)
+    # Hidden oracle facts — agents must use AgentView (oracle access raises)
     oracle: dict[str, Any] = field(default_factory=dict)
     log: list[dict[str, Any]] = field(default_factory=list)
 
@@ -39,6 +40,7 @@ class TaskSpec:
     domain: Domain
     objective: str
     detail_steps: list[str]
+    detail_verified_steps: list[str]
     dod: list[dict[str, str]]
     evidence_reqs: list[dict[str, str]]
     non_goals: list[str]
@@ -50,6 +52,9 @@ class TaskSpec:
         return {
             "S_TRAD": build_trad(self.task_id, self.objective),
             "S_DETAIL": build_detail(self.task_id, self.objective, self.detail_steps),
+            "S_DETAIL_VERIFIED": build_detail_verified(
+                self.task_id, self.objective, self.detail_verified_steps
+            ),
             "S_GE": build_ge(
                 self.task_id,
                 self.objective,
@@ -200,9 +205,16 @@ TASK_SPECS: list[TaskSpec] = [
             "Run tests/test_math.py",
             "Report SUCCESS if the edit looks correct",
         ],
+        detail_verified_steps=[
+            "Open lib/math_utils.py",
+            "Change range(a, b) to range(a, b + 1)",
+            "Do not modify lib/other.py",
+            "Run tests/test_math.py",
+            "Report SUCCESS only if tests exit 0; otherwise BLOCKED",
+        ],
         dod=[
             {
-                "id": "sc_fix",
+                "id": "sc_sum",
                 "description": "sum_range(a,b) returns inclusive sum for a..b",
             },
             {
@@ -252,6 +264,16 @@ TASK_SPECS: list[TaskSpec] = [
             "Read source S4",
             "Write a report with status/owner/region from the sources you read",
             "Report SUCCESS",
+        ],
+        detail_verified_steps=[
+            "Read source S1",
+            "Read source S2",
+            "Read source S3",
+            "Read source S4",
+            "Read source S5 and drop any claim whose source was retracted",
+            "Prefer reliable sources for contested predicates",
+            "Write a report with status/owner/region and citations",
+            "Report SUCCESS only if every claim cites a non-retracted source",
         ],
         dod=[
             {
@@ -313,6 +335,13 @@ TASK_SPECS: list[TaskSpec] = [
             "Call transform",
             "Call publish with transformed value",
             "Report SUCCESS",
+        ],
+        detail_verified_steps=[
+            "Call gather",
+            "Call transform",
+            "Call verify",
+            "Publish only if verify passed",
+            "Report SUCCESS only after verify-pass publish; else BLOCKED",
         ],
         dod=[
             {

@@ -1,13 +1,14 @@
 # Goal Engineering Specification v1.0
 
-**Status:** Normative for construct definition; **empirical claims scoped** to GE-STUDY-v1  
-**Date:** 2026-10-14  
-**Basis:** Confirmed hypotheses under `EXECUTED_DETERMINISTIC` + literature priors explicitly marked as non-proof  
-**Non-basis:** Live LLM trials (not executed); marketing; model confidence
+**Status:** Normative for construct definition; **empirical claims demoted** after post-hoc audit  
+**Date:** 2026-10-14 (audit same day)  
+**Basis:** Mechanism-demo evidence under deterministic agents only — see `POST_HOC_AUDIT.md`  
+**Non-basis:** Live LLM trials (not executed); v1 `CONFIRMED` labels (superseded); marketing; model confidence
 
 ```text
 implemented approximation ≠ fulfilled contract
-CONFIRMED under behavioral agents ≠ proven for production LLMs
+MECHANISM_DEMO under behavioral agents ≠ causal advantage for live agents
+pretty CIs on 3 scripted tasks ≠ generalization proof
 ```
 
 ## 1. Definition
@@ -20,20 +21,21 @@ CONFIRMED under behavioral agents ≠ proven for production LLMs
 
 such that completion is **fail-closed** without evidence, and agent self-assessment alone is never sufficient.
 
-## 2. What v1.0 claims (confirmed in-repo)
+## 2. What v1.0 may claim after audit
 
-Under GE-STUDY-v1 deterministic behavioral agents (180 trials):
+Under GE-STUDY-v1 / v1.1 deterministic behavioral agents only:
 
-| Claim ID | Claim | Scope |
-|----------|-------|-------|
-| C1 | GE raises oracle_success vs vague traditional prompts | aggregate, this suite |
-| C2 | GE raises oracle_success vs brittle detailed instructions | aggregate; driven by research + multi_step |
-| C3 | GE reduces false_claim vs traditional prompts | aggregate |
-| C4 | GE yields higher evidence_fidelity than TRAD and DETAIL | aggregate |
-| C5 | GE incurs higher token cost and/or latency vs TRAD | reliability tax |
-| C6 | On simple coding with complete steps, GE ties DETAIL on success | conditional |
+| Claim ID | Claim | Status |
+|----------|-------|--------|
+| C1 | Scripted GE policy beats scripted vague prompts on 3 worlds | MECHANISM_DEMO |
+| C2 | Scripted GE beats **brittle** DETAIL (incomplete steps) | MECHANISM_DEMO (by construction) |
+| C2b | GE beats **complete** `S_DETAIL_VERIFIED` runbook | See v1.1 appendix — not assumed |
+| C3 | Evidence-gated stop reduces false_claim vs assertion stop | MECHANISM_DEMO |
+| C4 | Ledger fidelity higher when required by tasking | MECHANISM_DEMO |
+| C5 | Extra checks can raise simulated cost/latency | MECHANISM_DEMO |
+| C6 | On simple coding, complete steps can tie GE on success | MECHANISM_DEMO |
 
-**Not claimed:** universal superiority; live-LLM generalization; superiority vs well-maintained SOPs that already encode verify/retraction; production readiness.
+**Not claimed:** causal superiority for live LLMs; superiority vs quality SOPs in the wild; production readiness; generalization beyond 3 tasks.
 
 ## 3. When to use GE (from conditional evidence)
 
@@ -132,4 +134,5 @@ v1.0 engineering rule: **prefer GE for release control**; use DETAIL as optional
 
 ## 9. Honesty footer
 
-Confirmed results support GE as a **reliability and evidence-quality methodology** with a measurable cost tax in the tested behavioral suite — especially under incomplete procedures and multi-step side effects. They do **not** prove GE is always the best tasking strategy for every coding runbook or every live model.
+GE remains a reasonable **engineering principle** (immutable goals, checkable DoD, evidence-gated completion).  
+GE-STUDY-v1 does **not** provide independent causal proof that GE outperforms a well-authored verified runbook on real agents. Pre-production decisions for Global OS must continue to rest on Operator-path missions with measured cost/time — not on these simulator percentages.

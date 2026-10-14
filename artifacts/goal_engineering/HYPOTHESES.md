@@ -1,7 +1,11 @@
 # Falsifiable Hypotheses — GE-STUDY-v1
 
-Preregistered before sealing `artifacts/goal_engineering/results/`.  
-Decision rule: 90% bootstrap CI on mean difference; see `runner.hypothesis_verdicts`.
+> **Audit:** v1 seal labels `CONFIRMED` are superseded — see `POST_HOC_AUDIT.md`.  
+> Post-audit runner emits `MECHANISM_*` / `INCONCLUSIVE` only (`causal_status=NOT_CAUSAL`).  
+> Fair procedural contrast is **H2b** vs `S_DETAIL_VERIFIED` (v1.1 appendix).
+
+Preregistered before sealing `artifacts/goal_engineering/results/v1_immutable/`.  
+Decision rule: 90% **paired** bootstrap CI on mean difference; seeds via FNV-1a (not `hash()`).
 
 ## Strategies (independent variable)
 

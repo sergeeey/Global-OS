@@ -1,4 +1,4 @@
-"""GE-STUDY-v1 experiment runner — reproducible, seed-locked."""
+"""GE-STUDY runner — v1 seal immutable; v1.1 post-audit appendix writable."""
 
 from __future__ import annotations
 
@@ -14,9 +14,16 @@ from global_os.evals.goal_engineering.independent_evaluator import (
     EvalVerdict,
     evaluate,
 )
-from global_os.evals.goal_engineering.stats import Interval, bootstrap_diff_ci, bootstrap_mean_ci
+from global_os.evals.goal_engineering.stats import (
+    Interval,
+    bootstrap_mean_ci,
+    bootstrap_paired_diff_ci,
+    fnv1a32,
+)
 from global_os.evals.goal_engineering.strategies import STRATEGY_IDS
 from global_os.evals.goal_engineering.tasks import DOMAIN_IDS, all_task_specs, build_world
+
+APPENDIX_PROTOCOL = "GE-STUDY-v1.1-POST-AUDIT"
 
 
 @dataclass
@@ -30,7 +37,7 @@ class TrialRow:
     claimed_success: float
     false_claim: float
     evidence_fidelity: float
-    autonomy: float  # 1 - interventions/budget proxy
+    autonomy: float
     cost_tokens: int
     latency_ms: int
     steps: int
@@ -38,7 +45,6 @@ class TrialRow:
 
 
 def _autonomy(episode: EpisodeResult, budget: int) -> float:
-    # Higher = more autonomous completion without human intervention
     interventions = float(episode.human_interventions)
     return max(0.0, 1.0 - interventions / max(budget, 1))
 
@@ -96,6 +102,41 @@ def _metric_vectors(
     return out
 
 
+def _aligned_metric_vectors(
+    rows: list[TrialRow],
+    strategy_a: str,
+    strategy_b: str,
+    metric: str,
+    domain: str | None = None,
+) -> tuple[list[float], list[float]]:
+    """Align on (seed, task_id) for paired bootstrap."""
+    index: dict[tuple[int, str], dict[str, TrialRow]] = {}
+    for r in rows:
+        if domain is not None and r.domain != domain:
+            continue
+        key = (r.seed, r.task_id)
+        index.setdefault(key, {})[r.strategy_id] = r
+    aa: list[float] = []
+    bb: list[float] = []
+    for key in sorted(index):
+        cell = index[key]
+        if strategy_a in cell and strategy_b in cell:
+            aa.append(float(getattr(cell[strategy_a], metric)))
+            bb.append(float(getattr(cell[strategy_b], metric)))
+    return aa, bb
+
+
+def _ci_dict(ci: Interval) -> dict[str, Any]:
+    return {
+        "estimate": ci.estimate,
+        "ci90_low": ci.low,
+        "ci90_high": ci.high,
+        "n": ci.n,
+        "level": ci.level,
+        "method": ci.method,
+    }
+
+
 def summarize(rows: list[TrialRow]) -> dict[str, Any]:
     metrics = [
         "oracle_success",
@@ -112,26 +153,31 @@ def summarize(rows: list[TrialRow]) -> dict[str, Any]:
         cell: dict[str, Any] = {"overall": {}, "by_domain": {}}
         for m in metrics:
             xs = _metric_vectors(rows, sid, m)
-            ci = bootstrap_mean_ci(xs, seed=hash(sid + m) & 0xFFFFFFFF)
+            ci = bootstrap_mean_ci(xs, seed=fnv1a32(f"{sid}|{m}|mean"))
             cell["overall"][m] = _ci_dict(ci)
         for dom in DOMAIN_IDS:
             cell["by_domain"][dom] = {}
             for m in metrics:
                 xs = _metric_vectors(rows, sid, m, domain=dom)
-                ci = bootstrap_mean_ci(xs, seed=hash(sid + dom + m) & 0xFFFFFFFF)
+                ci = bootstrap_mean_ci(xs, seed=fnv1a32(f"{sid}|{dom}|{m}|mean"))
                 cell["by_domain"][dom][m] = _ci_dict(ci)
         by_strategy[sid] = cell
 
     contrasts: dict[str, Any] = {}
-    for base in ("S_TRAD", "S_DETAIL"):
-        for m in ("oracle_success", "false_claim", "evidence_fidelity", "cost_tokens", "latency_ms"):
-            a = _metric_vectors(rows, "S_GE", m)
-            b = _metric_vectors(rows, base, m)
-            # For false_claim, lower is better — still report GE - base
-            ci = bootstrap_diff_ci(a, b, seed=hash(f"GE-{base}-{m}") & 0xFFFFFFFF)
+    for base in ("S_TRAD", "S_DETAIL", "S_DETAIL_VERIFIED"):
+        for m in (
+            "oracle_success",
+            "false_claim",
+            "evidence_fidelity",
+            "cost_tokens",
+            "latency_ms",
+        ):
+            a, b = _aligned_metric_vectors(rows, "S_GE", base, m)
+            ci = bootstrap_paired_diff_ci(
+                a, b, seed=fnv1a32(f"GE-{base}-{m}|paired")
+            )
             contrasts[f"S_GE_minus_{base}__{m}"] = _ci_dict(ci)
 
-    # Conditional winners by domain (oracle_success primary; ties listed)
     winners: dict[str, str] = {}
     for dom in DOMAIN_IDS:
         scores: dict[str, float] = {}
@@ -143,117 +189,103 @@ def summarize(rows: list[TrialRow]) -> dict[str, Any]:
         winners[dom] = "=".join(tied) if tied else "NONE"
 
     return {
-        "protocol_version": PROTOCOL_VERSION,
+        "protocol_version": APPENDIX_PROTOCOL,
+        "parent_protocol": PROTOCOL_VERSION,
         "n_trials": len(rows),
+        "n_tasks": len(all_task_specs()),
+        "n_strategies": len(STRATEGY_IDS),
         "by_strategy": by_strategy,
         "contrasts_GE_minus_baseline": contrasts,
         "conditional_winners_oracle_success": winners,
-        "fidelity": "deterministic_behavioral_agents",
+        "fidelity": "deterministic_behavioral_agents_post_audit",
         "live_llm": "NOT_EXECUTED",
-    }
-
-
-def _ci_dict(ci: Interval) -> dict[str, Any]:
-    return {
-        "estimate": ci.estimate,
-        "ci90_low": ci.low,
-        "ci90_high": ci.high,
-        "n": ci.n,
-        "level": ci.level,
+        "ci_scope": (
+            "Within-suite seed variability on fixed 3 tasks; "
+            "NOT generalization uncertainty over new tasks"
+        ),
+        "contrast_method": "paired_bootstrap_on_seed_task_cells",
     }
 
 
 def hypothesis_verdicts(summary: dict[str, Any]) -> dict[str, Any]:
-    """Map preregistered hypotheses to CONFIRMED / REJECTED / INCONCLUSIVE.
-
-    Confirmation requires CI excluding 0 in the predicted direction on the
-    primary metric, under this fidelity class only.
-    """
+    """Post-audit verdicts: mechanism labels, never causal CONFIRMED."""
     c = summary["contrasts_GE_minus_baseline"]
 
-    def _pos(key: str) -> str:
+    def _dir(key: str, *, want_positive: bool) -> str:
         d = c[key]
-        if d["ci90_low"] > 0:
-            return "CONFIRMED"
+        if want_positive:
+            if d["ci90_low"] > 0:
+                return "MECHANISM_SUPPORTED"
+            if d["ci90_high"] < 0:
+                return "MECHANISM_CONTRADICTED"
+            return "INCONCLUSIVE"
         if d["ci90_high"] < 0:
-            return "REJECTED"
+            return "MECHANISM_SUPPORTED"
+        if d["ci90_low"] > 0:
+            return "MECHANISM_CONTRADICTED"
         return "INCONCLUSIVE"
 
-    def _neg(key: str) -> str:
-        """Predicted GE - base < 0 (e.g. false_claim)."""
-        d = c[key]
-        if d["ci90_high"] < 0:
-            return "CONFIRMED"
-        if d["ci90_low"] > 0:
-            return "REJECTED"
-        return "INCONCLUSIVE"
-
-    h = {
+    return {
         "H1_GE_oracle_gt_TRAD": {
-            "statement": (
-                "S_GE oracle_success > S_TRAD on aggregate under GE-STUDY-v1 "
-                "behavioral agents"
-            ),
-            "verdict": _pos("S_GE_minus_S_TRAD__oracle_success"),
+            "statement": "S_GE oracle_success > S_TRAD (paired, this suite)",
+            "verdict": _dir("S_GE_minus_S_TRAD__oracle_success", want_positive=True),
             "estimate": c["S_GE_minus_S_TRAD__oracle_success"],
+            "causal_status": "NOT_CAUSAL",
         },
-        "H2_GE_oracle_gt_DETAIL": {
-            "statement": (
-                "S_GE oracle_success > S_DETAIL on aggregate under GE-STUDY-v1"
-            ),
-            "verdict": _pos("S_GE_minus_S_DETAIL__oracle_success"),
+        "H2_GE_oracle_gt_DETAIL_brittle": {
+            "statement": "S_GE oracle_success > brittle S_DETAIL (paired)",
+            "verdict": _dir("S_GE_minus_S_DETAIL__oracle_success", want_positive=True),
             "estimate": c["S_GE_minus_S_DETAIL__oracle_success"],
+            "causal_status": "NOT_CAUSAL",
+            "note": "S_DETAIL intentionally incomplete — expect GE advantage",
+        },
+        "H2b_GE_oracle_gt_DETAIL_VERIFIED": {
+            "statement": (
+                "S_GE oracle_success > S_DETAIL_VERIFIED complete runbook (paired)"
+            ),
+            "verdict": _dir(
+                "S_GE_minus_S_DETAIL_VERIFIED__oracle_success", want_positive=True
+            ),
+            "estimate": c["S_GE_minus_S_DETAIL_VERIFIED__oracle_success"],
+            "causal_status": "NOT_CAUSAL",
+            "note": "Fair procedural control — primary post-audit contrast",
         },
         "H3_GE_false_claim_lt_TRAD": {
-            "statement": "S_GE false_claim rate < S_TRAD",
-            "verdict": _neg("S_GE_minus_S_TRAD__false_claim"),
+            "statement": "S_GE false_claim < S_TRAD (paired)",
+            "verdict": _dir("S_GE_minus_S_TRAD__false_claim", want_positive=False),
             "estimate": c["S_GE_minus_S_TRAD__false_claim"],
+            "causal_status": "NOT_CAUSAL",
         },
-        "H4_GE_evidence_gt_baselines": {
-            "statement": "S_GE evidence_fidelity > S_TRAD and > S_DETAIL",
-            "verdict": (
-                "CONFIRMED"
-                if (
-                    _pos("S_GE_minus_S_TRAD__evidence_fidelity") == "CONFIRMED"
-                    and _pos("S_GE_minus_S_DETAIL__evidence_fidelity") == "CONFIRMED"
-                )
-                else (
-                    "REJECTED"
-                    if (
-                        _pos("S_GE_minus_S_TRAD__evidence_fidelity") == "REJECTED"
-                        or _pos("S_GE_minus_S_DETAIL__evidence_fidelity") == "REJECTED"
-                    )
-                    else "INCONCLUSIVE"
-                )
+        "H4_GE_evidence_gt_DETAIL_VERIFIED": {
+            "statement": "S_GE evidence_fidelity > S_DETAIL_VERIFIED (paired)",
+            "verdict": _dir(
+                "S_GE_minus_S_DETAIL_VERIFIED__evidence_fidelity", want_positive=True
             ),
-            "estimate_vs_trad": c["S_GE_minus_S_TRAD__evidence_fidelity"],
-            "estimate_vs_detail": c["S_GE_minus_S_DETAIL__evidence_fidelity"],
+            "estimate": c["S_GE_minus_S_DETAIL_VERIFIED__evidence_fidelity"],
+            "causal_status": "NOT_CAUSAL",
         },
-        "H5_GE_not_free": {
-            "statement": (
-                "S_GE has higher cost_tokens or latency_ms than S_TRAD "
-                "(reliability tax)"
-            ),
+        "H5_GE_not_free_vs_TRAD": {
+            "statement": "S_GE cost or latency > S_TRAD (paired)",
             "verdict": (
-                "CONFIRMED"
+                "MECHANISM_SUPPORTED"
                 if (
-                    _pos("S_GE_minus_S_TRAD__cost_tokens") == "CONFIRMED"
-                    or _pos("S_GE_minus_S_TRAD__latency_ms") == "CONFIRMED"
+                    _dir("S_GE_minus_S_TRAD__cost_tokens", want_positive=True)
+                    == "MECHANISM_SUPPORTED"
+                    or _dir("S_GE_minus_S_TRAD__latency_ms", want_positive=True)
+                    == "MECHANISM_SUPPORTED"
                 )
-                else (
-                    "REJECTED"
-                    if (
-                        _pos("S_GE_minus_S_TRAD__cost_tokens") == "REJECTED"
-                        and _pos("S_GE_minus_S_TRAD__latency_ms") == "REJECTED"
-                    )
-                    else "INCONCLUSIVE"
-                )
+                else "INCONCLUSIVE"
             ),
             "estimate_cost": c["S_GE_minus_S_TRAD__cost_tokens"],
             "estimate_latency": c["S_GE_minus_S_TRAD__latency_ms"],
+            "causal_status": "NOT_CAUSAL",
+        },
+        "meta": {
+            "v1_seal_labels": "SUPERSEDED_SEE_POST_HOC_AUDIT",
+            "forbidden_label": "CONFIRMED_as_causal_GE_advantage",
+            "live_llm": "NOT_EXECUTED",
         },
     }
-    return h
 
 
 def run_and_seal(
@@ -262,46 +294,50 @@ def run_and_seal(
     n_seeds: int = 20,
     master_seed: int = MASTER_SEED,
 ) -> dict[str, Any]:
+    """Write appendix seal. Refuses to overwrite v1_immutable/."""
+    resolved = out_dir.resolve()
+    if resolved.name == "v1_immutable" or "v1_immutable" in resolved.parts:
+        raise RuntimeError("refusing to write into immutable v1 seal directory")
     out_dir.mkdir(parents=True, exist_ok=True)
     rows = run_suite(n_seeds=n_seeds, master_seed=master_seed)
     summary = summarize(rows)
     hyps = hypothesis_verdicts(summary)
     report = {
-        "protocol_version": PROTOCOL_VERSION,
+        "protocol_version": APPENDIX_PROTOCOL,
+        "parent_protocol": PROTOCOL_VERSION,
         "master_seed": master_seed,
         "n_seeds": n_seeds,
         "recorded_at": datetime.now(UTC).isoformat(),
-        "execution_class": "EXECUTED_DETERMINISTIC",
+        "execution_class": "EXECUTED_DETERMINISTIC_POST_AUDIT",
         "live_llm_class": "PROTOCOL_ONLY_NOT_EXECUTED",
         "summary": summary,
         "hypotheses": hyps,
         "limitations": [
             "Agents are deterministic behavioral models, not live LLMs",
-            "Task suite is small (3 tasks × 3 domains)",
-            (
-                "DETAIL steps intentionally incomplete on research/multi_step to "
-                "model brittle procedures — not an attack on well-authored runbooks"
-            ),
-            "No network, no provider variance, no human-in-the-loop study",
-            "Independent evaluator shares process but not strategy/agent policy code",
+            "Only 3 task types — CIs are within-suite seed noise, not task generalization",
+            "S_DETAIL remains brittle by design; fair control is S_DETAIL_VERIFIED",
+            "Cost/latency are simulated counters",
+            "Oracle isolated via AgentView; evaluator alone scores against oracle",
+            "See POST_HOC_AUDIT.md — v1 CONFIRMED labels demoted",
         ],
         "rows": [asdict(r) for r in rows],
     }
     (out_dir / "results.json").write_text(
         json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
-    # Compact human table
     lines = [
-        "# GE-STUDY-v1 sealed results",
+        "# GE-STUDY-v1.1 post-audit appendix",
         "",
-        f"- protocol: `{PROTOCOL_VERSION}`",
+        f"- protocol: `{APPENDIX_PROTOCOL}`",
+        f"- parent_immutable: `{PROTOCOL_VERSION}` → `results/v1_immutable/`",
         f"- master_seed: `{master_seed}`",
         f"- n_seeds: `{n_seeds}`",
-        f"- n_trials: `{len(rows)}`",
-        "- execution_class: **EXECUTED_DETERMINISTIC**",
+        f"- n_trials: `{len(rows)}` (4 strategies × 3 tasks × {n_seeds} seeds)",
+        "- execution_class: **EXECUTED_DETERMINISTIC_POST_AUDIT**",
         "- live_llm: **NOT_EXECUTED**",
+        "- causal_status: **NOT_CAUSAL** (mechanism demo only)",
         "",
-        "## Aggregate oracle_success (mean, 90% CI)",
+        "## Aggregate oracle_success (mean, 90% CI; within-suite)",
         "",
     ]
     for sid in STRATEGY_IDS:
@@ -310,23 +346,47 @@ def run_and_seal(
             f"- `{sid}`: {m['estimate']:.3f} "
             f"[{m['ci90_low']:.3f}, {m['ci90_high']:.3f}]"
         )
-    lines.extend(["", "## Hypotheses", ""])
+    lines.extend(["", "## Hypotheses (post-audit labels)", ""])
     for hid, body in hyps.items():
+        if hid == "meta":
+            continue
         lines.append(f"- `{hid}`: **{body['verdict']}** — {body['statement']}")
     lines.extend(["", "## Conditional winners (oracle_success)", ""])
     for dom, sid in summary["conditional_winners_oracle_success"].items():
         lines.append(f"- `{dom}`: `{sid}`")
-    (out_dir / "RESULTS_SEAL.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    lines.extend(
+        [
+            "",
+            "## Fair contrast note",
+            "",
+            "Primary GE-vs-procedure contrast is `S_GE` vs `S_DETAIL_VERIFIED`.",
+            "Advantage vs brittle `S_DETAIL` is expected by construction.",
+            "",
+        ]
+    )
+    (out_dir / "RESULTS_SEAL.md").write_text("\n".join(lines), encoding="utf-8")
     return report
 
 
 def main() -> None:
     root = Path(__file__).resolve().parents[4]
-    out = root / "artifacts" / "goal_engineering" / "results"
+    # Never overwrite immutable v1 seal; write appendix only
+    out = root / "artifacts" / "goal_engineering" / "results" / "v1_1_post_audit"
     report = run_and_seal(out)
-    print(json.dumps({"n_trials": report["summary"]["n_trials"], "hypotheses": {
-        k: v["verdict"] for k, v in report["hypotheses"].items()
-    }}, indent=2))
+    print(
+        json.dumps(
+            {
+                "n_trials": report["summary"]["n_trials"],
+                "hypotheses": {
+                    k: v["verdict"]
+                    for k, v in report["hypotheses"].items()
+                    if k != "meta"
+                },
+                "out": str(out),
+            },
+            indent=2,
+        )
+    )
 
 
 if __name__ == "__main__":

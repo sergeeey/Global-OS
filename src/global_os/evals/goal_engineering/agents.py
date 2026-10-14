@@ -1,12 +1,9 @@
 """Deterministic behavioral agents modulated by tasking strategy.
 
-These are NOT live LLMs. They encode mechanistic stop/evidence policies
-hypothesized to differ by tasking style. Results apply to this behavioral
-model class; live-LLM generalization is protocol-only until executed.
-
-Honesty: strategy effects are implemented as policy differences
-(stop rule, evidence gate, instruction-following), not as hard-coded
-winners.
+Post-audit constraints:
+- Agents operate on AgentView only — World.oracle access raises.
+- Policies follow the tasking packet (steps / DoD), not hidden oracles.
+- Still NOT live LLMs; results are mechanism demos, not causal GE proof.
 """
 
 from __future__ import annotations
@@ -15,6 +12,7 @@ import hashlib
 from dataclasses import dataclass, field
 from typing import Any
 
+from global_os.evals.goal_engineering.agent_view import AgentView
 from global_os.evals.goal_engineering.strategies import TaskingPacket
 from global_os.evals.goal_engineering.tasks import World
 
@@ -35,88 +33,95 @@ class EpisodeResult:
     trajectory: list[dict[str, Any]] = field(default_factory=list)
 
 
-def _tick(world: World, tokens: int = 40, ms: int = 25) -> None:
-    world.state["steps"] += 1
-    world.state["token_cost"] += tokens
-    world.state["wall_ms"] += ms
+def _tick(view: AgentView, tokens: int = 40, ms: int = 25) -> None:
+    view.state["steps"] += 1
+    view.state["token_cost"] += tokens
+    view.state["wall_ms"] += ms
 
 
-def _budget_ok(world: World) -> bool:
-    return int(world.state["steps"]) < int(world.state["budget_steps"])
+def _budget_ok(view: AgentView) -> bool:
+    return int(view.state["steps"]) < int(view.state["budget_steps"])
+
+
+def _patch_inclusive_from_source(buggy: str) -> str:
+    """Derive fix from visible source text only (bug comment / range)."""
+    return buggy.replace("range(a, b)", "range(a, b + 1)").replace(
+        "    # BUG: excludes b\n", ""
+    )
+
+
+def _run_unit_tests(files: dict[str, str]) -> bool:
+    """Simulate tests/test_math.py using only file contents (no oracle)."""
+    body = files.get("lib/math_utils.py", "")
+    # Observable structural check matching the fixture tests' intent
+    return "range(a, b + 1)" in body or "range(a, b+1)" in body
 
 
 def run_episode(world: World, packet: TaskingPacket, seed: int) -> EpisodeResult:
-    """Dispatch by domain × strategy."""
-    if world.domain == "coding":
-        return _run_coding(world, packet, seed)
-    if world.domain == "research":
-        return _run_research(world, packet, seed)
-    if world.domain == "multi_step":
-        return _run_multi_step(world, packet, seed)
-    raise ValueError(world.domain)
+    """Dispatch by domain × strategy using an oracle-isolating view."""
+    view = AgentView(world)
+    if view.domain == "coding":
+        return _run_coding(view, packet, seed)
+    if view.domain == "research":
+        return _run_research(view, packet, seed)
+    if view.domain == "multi_step":
+        return _run_multi_step(view, packet, seed)
+    raise ValueError(view.domain)
 
 
-def _run_coding(world: World, packet: TaskingPacket, seed: int) -> EpisodeResult:
+def _run_coding(view: AgentView, packet: TaskingPacket, seed: int) -> EpisodeResult:
     traj: list[dict[str, Any]] = []
     ledger: list[dict[str, Any]] = []
-    files = world.state["files"]
-    correct = world.oracle["correct_body"]
+    files = view.state["files"]
     other_before = files["lib/other.py"]
+    distract = (seed % 5) == 0
 
-    # Shared competence: with enough signal, agent can produce the correct patch.
-    # Seed bit selects a distractor behavior for vague prompts.
-    distract = (seed % 5) == 0  # 20% — vague agents may touch wrong file
-
-    _tick(world, 60, 30)
+    _tick(view, 60, 30)
     traj.append({"op": "open", "path": "lib/math_utils.py"})
+    candidate = _patch_inclusive_from_source(files["lib/math_utils.py"])
 
     if packet.strategy_id == "S_TRAD":
-        # Vague: often patches correctly, but weak stop/evidence policy.
         if distract:
             files["lib/other.py"] = files["lib/other.py"] + "# touched\n"
             traj.append({"op": "edit", "path": "lib/other.py", "note": "distractor"})
-            _tick(world, 50, 20)
-        files["lib/math_utils.py"] = correct
+            _tick(view, 50, 20)
+        files["lib/math_utils.py"] = candidate
         traj.append({"op": "edit", "path": "lib/math_utils.py"})
-        _tick(world, 80, 40)
-        # Traditional: "looks done" — skip tests ~60% of the time
-        run_tests = (seed % 5) in (1, 2)  # 40% run tests
-        if run_tests and _budget_ok(world):
-            world.state["tests_run"] = True
-            world.state["test_passed"] = files["lib/math_utils.py"] == correct
-            traj.append({"op": "run_tests", "passed": world.state["test_passed"]})
-            _tick(world, 70, 50)
-        claimed = True  # always self-reports success when patch attempted
+        _tick(view, 80, 40)
+        run_tests = (seed % 5) in (1, 2)
+        if run_tests and _budget_ok(view):
+            view.state["tests_run"] = True
+            view.state["test_passed"] = _run_unit_tests(files)
+            traj.append({"op": "run_tests", "passed": view.state["test_passed"]})
+            _tick(view, 70, 50)
         return EpisodeResult(
             strategy_id=packet.strategy_id,
-            task_id=world.task_id,
-            domain=world.domain,
-            claimed_success=claimed,
+            task_id=view.task_id,
+            domain=view.domain,
+            claimed_success=True,
             claimed_blocked=False,
             final_artifacts={
                 "files": dict(files),
-                "tests_run": world.state["tests_run"],
-                "test_passed": world.state["test_passed"],
+                "tests_run": view.state["tests_run"],
+                "test_passed": view.state["test_passed"],
                 "other_unchanged": files["lib/other.py"] == other_before,
             },
-            evidence_ledger=ledger,  # empty — assertion-based
-            steps=world.state["steps"],
-            token_cost=world.state["token_cost"],
-            wall_ms=world.state["wall_ms"],
-            human_interventions=world.state["human_interventions"],
+            evidence_ledger=ledger,
+            steps=view.state["steps"],
+            token_cost=view.state["token_cost"],
+            wall_ms=view.state["wall_ms"],
+            human_interventions=view.state["human_interventions"],
             trajectory=traj,
         )
 
     if packet.strategy_id == "S_DETAIL":
-        # Follow steps: edit math_utils, run tests, claim success if "looks correct"
-        files["lib/math_utils.py"] = correct
+        files["lib/math_utils.py"] = candidate
         traj.append({"op": "edit", "path": "lib/math_utils.py", "via": "step"})
-        _tick(world, 80, 40)
-        world.state["tests_run"] = True
-        world.state["test_passed"] = True
-        traj.append({"op": "run_tests", "passed": True, "via": "step"})
-        _tick(world, 70, 50)
-        # Step text: "Report SUCCESS if the edit looks correct" — does not bind to exit code
+        _tick(view, 80, 40)
+        view.state["tests_run"] = True
+        view.state["test_passed"] = _run_unit_tests(files)
+        traj.append({"op": "run_tests", "passed": view.state["test_passed"], "via": "step"})
+        _tick(view, 70, 50)
         ledger.append(
             {
                 "criterion_id": "informal",
@@ -126,37 +131,76 @@ def _run_coding(world: World, packet: TaskingPacket, seed: int) -> EpisodeResult
         )
         return EpisodeResult(
             strategy_id=packet.strategy_id,
-            task_id=world.task_id,
-            domain=world.domain,
-            claimed_success=True,
+            task_id=view.task_id,
+            domain=view.domain,
+            claimed_success=True,  # step text: success if edit "looks correct"
             claimed_blocked=False,
             final_artifacts={
                 "files": dict(files),
                 "tests_run": True,
-                "test_passed": True,
+                "test_passed": view.state["test_passed"],
                 "other_unchanged": files["lib/other.py"] == other_before,
             },
             evidence_ledger=ledger,
-            steps=world.state["steps"],
-            token_cost=world.state["token_cost"],
-            wall_ms=world.state["wall_ms"],
+            steps=view.state["steps"],
+            token_cost=view.state["token_cost"],
+            wall_ms=view.state["wall_ms"],
             human_interventions=0,
             trajectory=traj,
         )
 
-    # S_GE — DoD + EvidenceLedger gate
-    files["lib/math_utils.py"] = correct
+    if packet.strategy_id == "S_DETAIL_VERIFIED":
+        files["lib/math_utils.py"] = candidate
+        traj.append({"op": "edit", "path": "lib/math_utils.py", "via": "verified_step"})
+        _tick(view, 80, 40)
+        view.state["tests_run"] = True
+        view.state["test_passed"] = _run_unit_tests(files)
+        traj.append(
+            {"op": "run_tests", "passed": view.state["test_passed"], "via": "verified_step"}
+        )
+        _tick(view, 70, 50)
+        other_ok = files["lib/other.py"] == other_before
+        ledger.append(
+            {
+                "criterion_id": "runbook_tests",
+                "kind": "command_output",
+                "value": "exit_0" if view.state["test_passed"] else "exit_1",
+            }
+        )
+        ok = bool(view.state["test_passed"]) and other_ok
+        return EpisodeResult(
+            strategy_id=packet.strategy_id,
+            task_id=view.task_id,
+            domain=view.domain,
+            claimed_success=ok,
+            claimed_blocked=not ok,
+            final_artifacts={
+                "files": dict(files),
+                "tests_run": True,
+                "test_passed": view.state["test_passed"],
+                "other_unchanged": other_ok,
+            },
+            evidence_ledger=ledger,
+            steps=view.state["steps"],
+            token_cost=view.state["token_cost"],
+            wall_ms=view.state["wall_ms"],
+            human_interventions=0,
+            trajectory=traj,
+        )
+
+    # S_GE
+    files["lib/math_utils.py"] = candidate
     traj.append({"op": "edit", "path": "lib/math_utils.py", "via": "dod"})
-    _tick(world, 90, 45)
-    world.state["tests_run"] = True
-    world.state["test_passed"] = files["lib/math_utils.py"] == correct
-    traj.append({"op": "run_tests", "passed": world.state["test_passed"], "via": "dod"})
-    _tick(world, 80, 55)
+    _tick(view, 90, 45)
+    view.state["tests_run"] = True
+    view.state["test_passed"] = _run_unit_tests(files)
+    traj.append({"op": "run_tests", "passed": view.state["test_passed"], "via": "dod"})
+    _tick(view, 80, 55)
     other_ok = files["lib/other.py"] == other_before
     ledger.extend(
         [
             {
-                "criterion_id": "sc_fix",
+                "criterion_id": "sc_sum",
                 "kind": "code_diff",
                 "value": "range(a, b + 1)",
                 "path": "lib/math_utils.py",
@@ -164,7 +208,7 @@ def _run_coding(world: World, packet: TaskingPacket, seed: int) -> EpisodeResult
             {
                 "criterion_id": "sc_tests",
                 "kind": "command_output",
-                "value": "exit_0" if world.state["test_passed"] else "exit_1",
+                "value": "exit_0" if view.state["test_passed"] else "exit_1",
                 "path": "tests/test_math.py",
             },
             {
@@ -175,48 +219,44 @@ def _run_coding(world: World, packet: TaskingPacket, seed: int) -> EpisodeResult
             },
         ]
     )
-    criteria_met = (
-        world.state["test_passed"]
-        and other_ok
-        and all(e["criterion_id"] in {"sc_fix", "sc_tests", "sc_scope"} for e in ledger)
-    )
-    # GE refuses SUCCESS without ledger completeness
     required = {c["id"] for c in packet.definition_of_done}
     have = {e["criterion_id"] for e in ledger}
+    # Claim from observable checks only — never oracle
+    criteria_met = bool(view.state["test_passed"]) and other_ok
     complete = required <= have and criteria_met
     return EpisodeResult(
         strategy_id=packet.strategy_id,
-        task_id=world.task_id,
-        domain=world.domain,
+        task_id=view.task_id,
+        domain=view.domain,
         claimed_success=bool(complete),
         claimed_blocked=not complete,
         final_artifacts={
             "files": dict(files),
-            "tests_run": world.state["tests_run"],
-            "test_passed": world.state["test_passed"],
+            "tests_run": view.state["tests_run"],
+            "test_passed": view.state["test_passed"],
             "other_unchanged": other_ok,
         },
         evidence_ledger=ledger,
-        steps=world.state["steps"],
-        token_cost=world.state["token_cost"],
-        wall_ms=world.state["wall_ms"],
+        steps=view.state["steps"],
+        token_cost=view.state["token_cost"],
+        wall_ms=view.state["wall_ms"],
         human_interventions=0,
         trajectory=traj,
     )
 
 
-def _run_research(world: World, packet: TaskingPacket, seed: int) -> EpisodeResult:
+def _run_research(view: AgentView, packet: TaskingPacket, seed: int) -> EpisodeResult:
     traj: list[dict[str, Any]] = []
     ledger: list[dict[str, Any]] = []
-    sources = {s["id"]: s for s in world.state["sources"] if "id" in s}
+    sources = {s["id"]: s for s in view.state["sources"] if "id" in s}
     retracted: set[str] = set()
 
     def read_source(sid: str) -> None:
-        if not _budget_ok(world):
+        if not _budget_ok(view):
             return
-        world.state["read"].append(sid)
+        view.state["read"].append(sid)
         traj.append({"op": "read", "source": sid})
-        _tick(world, 45, 20)
+        _tick(view, 45, 20)
         s = sources[sid]
         if s.get("kind") == "retraction":
             retracted.add(str(s["retracts"]))
@@ -224,111 +264,153 @@ def _run_research(world: World, packet: TaskingPacket, seed: int) -> EpisodeResu
         else:
             subj, pred, val = s["claim"]
             if sid not in retracted:
-                world.state["beliefs"][(subj, pred)] = {
+                view.state["beliefs"][(subj, pred)] = {
                     "value": val,
                     "source": sid,
                     "reliable": s.get("reliable", False),
                 }
 
+    def apply_retractions() -> None:
+        for k, v in list(view.state["beliefs"].items()):
+            if v["source"] in retracted:
+                del view.state["beliefs"][k]
+
     if packet.strategy_id == "S_TRAD":
-        # Skims a subset; may stop early; may keep retracted rumor
-        order = ["S1", "S2", "S3", "S4"]
-        # 40% skip S5 entirely (never see retraction)
-        read_s5 = (seed % 5) >= 3
-        for sid in order:
+        for sid in ["S1", "S2", "S3", "S4"]:
             read_source(sid)
-        if read_s5:
+        if (seed % 5) >= 3:
             read_source("S5")
-            # apply retraction
-            for k, v in list(world.state["beliefs"].items()):
-                if v["source"] in retracted:
-                    del world.state["beliefs"][k]
+            apply_retractions()
         report = {
-            pred: world.state["beliefs"].get(("Alpha", pred), {}).get("value")
+            pred: view.state["beliefs"].get(("Alpha", pred), {}).get("value")
             for pred in ("status", "owner", "region")
         }
         cites = {
-            pred: world.state["beliefs"].get(("Alpha", pred), {}).get("source")
+            pred: view.state["beliefs"].get(("Alpha", pred), {}).get("source")
             for pred in ("status", "owner", "region")
         }
-        world.state["final_report"] = {"claims": report, "citations": cites}
-        _tick(world, 50, 30)
+        view.state["final_report"] = {"claims": report, "citations": cites}
+        _tick(view, 50, 30)
         return EpisodeResult(
             strategy_id=packet.strategy_id,
-            task_id=world.task_id,
-            domain=world.domain,
+            task_id=view.task_id,
+            domain=view.domain,
             claimed_success=True,
             claimed_blocked=False,
-            final_artifacts=world.state["final_report"],
+            final_artifacts=view.state["final_report"],
             evidence_ledger=[],
-            steps=world.state["steps"],
-            token_cost=world.state["token_cost"],
-            wall_ms=world.state["wall_ms"],
+            steps=view.state["steps"],
+            token_cost=view.state["token_cost"],
+            wall_ms=view.state["wall_ms"],
             human_interventions=0,
             trajectory=traj,
         )
 
     if packet.strategy_id == "S_DETAIL":
-        # Steps list S1–S4 only — no S5 → keeps paused if S3 read last for status
         for sid in ["S1", "S2", "S3", "S4"]:
             read_source(sid)
-        # Procedural overwrite: last write wins without reliability filter
-        report = {}
-        cites = {}
+        report: dict[str, Any] = {}
+        cites: dict[str, Any] = {}
         for sid in ["S1", "S2", "S3", "S4"]:
             s = sources[sid]
             if s.get("kind") == "retraction":
                 continue
-            subj, pred, val = s["claim"]
+            _subj, pred, val = s["claim"]
             report[pred] = val
             cites[pred] = sid
-        world.state["final_report"] = {"claims": report, "citations": cites}
-        _tick(world, 50, 30)
+        view.state["final_report"] = {"claims": report, "citations": cites}
+        _tick(view, 50, 30)
         ledger.append(
             {"criterion_id": "informal", "kind": "steps_complete", "value": "S1-S4"}
         )
         return EpisodeResult(
             strategy_id=packet.strategy_id,
-            task_id=world.task_id,
-            domain=world.domain,
+            task_id=view.task_id,
+            domain=view.domain,
             claimed_success=True,
             claimed_blocked=False,
-            final_artifacts=world.state["final_report"],
+            final_artifacts=view.state["final_report"],
             evidence_ledger=ledger,
-            steps=world.state["steps"],
-            token_cost=world.state["token_cost"],
-            wall_ms=world.state["wall_ms"],
+            steps=view.state["steps"],
+            token_cost=view.state["token_cost"],
+            wall_ms=view.state["wall_ms"],
             human_interventions=0,
             trajectory=traj,
         )
 
-    # S_GE — must satisfy DoD after retractions with citations
+    if packet.strategy_id == "S_DETAIL_VERIFIED":
+        for sid in ["S1", "S2", "S3", "S4", "S5"]:
+            read_source(sid)
+        apply_retractions()
+        for k, v in list(view.state["beliefs"].items()):
+            if not v.get("reliable", False) and k[1] == "status":
+                del view.state["beliefs"][k]
+        for sid in ["S1", "S2", "S4"]:
+            s = sources[sid]
+            subj, pred, val = s["claim"]
+            view.state["beliefs"][(subj, pred)] = {
+                "value": val,
+                "source": sid,
+                "reliable": True,
+            }
+        report = {
+            pred: view.state["beliefs"][("Alpha", pred)]["value"]
+            for pred in ("status", "owner", "region")
+        }
+        cites = {
+            pred: view.state["beliefs"][("Alpha", pred)]["source"]
+            for pred in ("status", "owner", "region")
+        }
+        view.state["final_report"] = {"claims": report, "citations": cites}
+        cite_ok = all(cites.values()) and cites.get("status") != "S3"
+        ledger.append(
+            {
+                "criterion_id": "runbook_citations",
+                "kind": "citation",
+                "value": cites,
+                "non_retracted": cite_ok,
+            }
+        )
+        _tick(view, 70, 40)
+        return EpisodeResult(
+            strategy_id=packet.strategy_id,
+            task_id=view.task_id,
+            domain=view.domain,
+            claimed_success=bool(cite_ok),
+            claimed_blocked=not cite_ok,
+            final_artifacts=view.state["final_report"],
+            evidence_ledger=ledger,
+            steps=view.state["steps"],
+            token_cost=view.state["token_cost"],
+            wall_ms=view.state["wall_ms"],
+            human_interventions=0,
+            trajectory=traj,
+        )
+
+    # S_GE — follow DoD/evidence from packet; claim from observable ledger only
     for sid in ["S1", "S2", "S3", "S4", "S5"]:
         read_source(sid)
-    for k, v in list(world.state["beliefs"].items()):
-        if v["source"] in retracted:
-            del world.state["beliefs"][k]
-        elif not v.get("reliable", False) and k[1] == "status":
-            # Prefer reliable for contested predicates
-            del world.state["beliefs"][k]
-    # Re-assert reliable truths
+    apply_retractions()
+    for k, v in list(view.state["beliefs"].items()):
+        if not v.get("reliable", False) and k[1] == "status":
+            del view.state["beliefs"][k]
     for sid in ["S1", "S2", "S4"]:
         s = sources[sid]
         subj, pred, val = s["claim"]
-        world.state["beliefs"][(subj, pred)] = {
+        view.state["beliefs"][(subj, pred)] = {
             "value": val,
             "source": sid,
             "reliable": True,
         }
     report = {
-        pred: world.state["beliefs"][("Alpha", pred)]["value"]
+        pred: view.state["beliefs"][("Alpha", pred)]["value"]
         for pred in ("status", "owner", "region")
     }
     cites = {
-        pred: world.state["beliefs"][("Alpha", pred)]["source"]
+        pred: view.state["beliefs"][("Alpha", pred)]["source"]
         for pred in ("status", "owner", "region")
     }
-    world.state["final_report"] = {"claims": report, "citations": cites}
+    view.state["final_report"] = {"claims": report, "citations": cites}
     for pred in ("status", "owner", "region"):
         ledger.append(
             {
@@ -346,119 +428,152 @@ def _run_research(world: World, packet: TaskingPacket, seed: int) -> EpisodeResu
             "citations": cites,
         }
     )
-    _tick(world, 70, 40)
-    complete = all(
-        report.get(p) == world.oracle["truth"][("Alpha", p)]
-        for p in ("status", "owner", "region")
-    ) and all(cites.values())
+    _tick(view, 70, 40)
+    required = {c["id"] for c in packet.definition_of_done}
+    have = {e["criterion_id"] for e in ledger}
+    cite_ok = all(cites.values()) and cites.get("status") not in retracted
+    complete = required <= have and cite_ok
     return EpisodeResult(
         strategy_id=packet.strategy_id,
-        task_id=world.task_id,
-        domain=world.domain,
+        task_id=view.task_id,
+        domain=view.domain,
         claimed_success=bool(complete),
         claimed_blocked=not complete,
-        final_artifacts=world.state["final_report"],
+        final_artifacts=view.state["final_report"],
         evidence_ledger=ledger,
-        steps=world.state["steps"],
-        token_cost=world.state["token_cost"],
-        wall_ms=world.state["wall_ms"],
+        steps=view.state["steps"],
+        token_cost=view.state["token_cost"],
+        wall_ms=view.state["wall_ms"],
         human_interventions=0,
         trajectory=traj,
     )
 
 
-def _run_multi_step(world: World, packet: TaskingPacket, seed: int) -> EpisodeResult:
+def _run_multi_step(view: AgentView, packet: TaskingPacket, seed: int) -> EpisodeResult:
     traj: list[dict[str, Any]] = []
     ledger: list[dict[str, Any]] = []
     phases: list[str] = []
 
     def gather() -> None:
-        world.state["gathered"] = True
-        world.state["phase"] = "gathered"
+        view.state["gathered"] = True
+        view.state["phase"] = "gathered"
         phases.append("gather")
-        traj.append({"op": "gather", "raw": world.state["raw_value"]})
-        _tick(world, 40, 25)
+        traj.append({"op": "gather", "raw": view.state["raw_value"]})
+        _tick(view, 40, 25)
 
     def transform() -> None:
-        # If DETAIL is slow / rigid, inject drift after gather on some seeds
-        world.state["transformed"] = True
-        world.state["phase"] = "transformed"
-        world.state["expected_value"] = int(world.state["raw_value"]) * 2
+        view.state["transformed"] = True
+        view.state["phase"] = "transformed"
+        view.state["expected_value"] = int(view.state["raw_value"]) * 2
         phases.append("transform")
-        traj.append({"op": "transform", "value": world.state["expected_value"]})
-        _tick(world, 40, 25)
+        traj.append({"op": "transform", "value": view.state["expected_value"]})
+        _tick(view, 40, 25)
 
     def verify() -> bool:
         ok = (
-            world.state["gathered"]
-            and world.state["transformed"]
-            and int(world.state["expected_value"]) == int(world.state["raw_value"]) * 2
+            view.state["gathered"]
+            and view.state["transformed"]
+            and int(view.state["expected_value"]) == int(view.state["raw_value"]) * 2
         )
-        world.state["verified"] = ok
-        world.state["verify_result"] = "pass" if ok else "fail"
-        world.state["phase"] = "verified"
+        view.state["verified"] = ok
+        view.state["verify_result"] = "pass" if ok else "fail"
+        view.state["phase"] = "verified"
         phases.append("verify")
-        traj.append({"op": "verify", "result": world.state["verify_result"]})
-        _tick(world, 50, 30)
+        traj.append({"op": "verify", "result": view.state["verify_result"]})
+        _tick(view, 50, 30)
         return ok
 
     def publish(value: int) -> None:
-        world.state["published"] = True
-        world.state["publish_payload"] = value
-        world.state["phase"] = "published"
+        view.state["published"] = True
+        view.state["publish_payload"] = value
+        view.state["phase"] = "published"
         phases.append("publish")
         traj.append({"op": "publish", "value": value})
-        _tick(world, 40, 25)
+        _tick(view, 40, 25)
 
     if packet.strategy_id == "S_TRAD":
         gather()
         transform()
-        # Vague agents skip verify ~50%
         if (seed % 2) == 0:
             verify()
-        publish(int(world.state["expected_value"]))
+        publish(int(view.state["expected_value"]))
         return EpisodeResult(
             strategy_id=packet.strategy_id,
-            task_id=world.task_id,
-            domain=world.domain,
+            task_id=view.task_id,
+            domain=view.domain,
             claimed_success=True,
             claimed_blocked=False,
             final_artifacts={
                 "phases": phases,
-                "publish_payload": world.state["publish_payload"],
-                "verify_result": world.state["verify_result"],
+                "publish_payload": view.state["publish_payload"],
+                "verify_result": view.state["verify_result"],
             },
             evidence_ledger=[],
-            steps=world.state["steps"],
-            token_cost=world.state["token_cost"],
-            wall_ms=world.state["wall_ms"],
+            steps=view.state["steps"],
+            token_cost=view.state["token_cost"],
+            wall_ms=view.state["wall_ms"],
             human_interventions=0,
             trajectory=traj,
         )
 
     if packet.strategy_id == "S_DETAIL":
-        # Steps intentionally omit verify — brittle procedure
         gather()
         transform()
-        publish(int(world.state["expected_value"]))
+        publish(int(view.state["expected_value"]))
         ledger.append(
             {"criterion_id": "informal", "kind": "steps_complete", "value": "1-3"}
         )
         return EpisodeResult(
             strategy_id=packet.strategy_id,
-            task_id=world.task_id,
-            domain=world.domain,
+            task_id=view.task_id,
+            domain=view.domain,
             claimed_success=True,
             claimed_blocked=False,
             final_artifacts={
                 "phases": phases,
-                "publish_payload": world.state["publish_payload"],
-                "verify_result": world.state["verify_result"],
+                "publish_payload": view.state["publish_payload"],
+                "verify_result": view.state["verify_result"],
             },
             evidence_ledger=ledger,
-            steps=world.state["steps"],
-            token_cost=world.state["token_cost"],
-            wall_ms=world.state["wall_ms"],
+            steps=view.state["steps"],
+            token_cost=view.state["token_cost"],
+            wall_ms=view.state["wall_ms"],
+            human_interventions=0,
+            trajectory=traj,
+        )
+
+    if packet.strategy_id == "S_DETAIL_VERIFIED":
+        gather()
+        transform()
+        ok = verify()
+        if ok:
+            publish(int(view.state["expected_value"]))
+        ledger.append(
+            {
+                "criterion_id": "runbook_verify",
+                "kind": "verify_receipt",
+                "value": view.state["verify_result"],
+            }
+        )
+        complete = (
+            phases == ["gather", "transform", "verify", "publish"]
+            and view.state["verify_result"] == "pass"
+        )
+        return EpisodeResult(
+            strategy_id=packet.strategy_id,
+            task_id=view.task_id,
+            domain=view.domain,
+            claimed_success=bool(complete),
+            claimed_blocked=not complete,
+            final_artifacts={
+                "phases": phases,
+                "publish_payload": view.state["publish_payload"],
+                "verify_result": view.state["verify_result"],
+            },
+            evidence_ledger=ledger,
+            steps=view.state["steps"],
+            token_cost=view.state["token_cost"],
+            wall_ms=view.state["wall_ms"],
             human_interventions=0,
             trajectory=traj,
         )
@@ -468,45 +583,48 @@ def _run_multi_step(world: World, packet: TaskingPacket, seed: int) -> EpisodeRe
     transform()
     ok = verify()
     if ok:
-        publish(int(world.state["expected_value"]))
+        publish(int(view.state["expected_value"]))
     ledger.extend(
         [
             {"criterion_id": "sc_order", "kind": "event_log", "value": list(phases)},
             {
                 "criterion_id": "sc_verify",
                 "kind": "verify_receipt",
-                "value": world.state["verify_result"],
+                "value": view.state["verify_result"],
             },
         ]
     )
-    if world.state["published"]:
+    if view.state["published"]:
         ledger.append(
             {
                 "criterion_id": "sc_value",
                 "kind": "publish_receipt",
-                "value": world.state["publish_payload"],
+                "value": view.state["publish_payload"],
             }
         )
+    required = {c["id"] for c in packet.definition_of_done}
+    have = {e["criterion_id"] for e in ledger}
     complete = (
-        phases == ["gather", "transform", "verify", "publish"]
-        and world.state["verify_result"] == "pass"
-        and world.state["publish_payload"] == world.oracle["publish_must_equal"]
+        required <= have
+        and phases == ["gather", "transform", "verify", "publish"]
+        and view.state["verify_result"] == "pass"
+        and view.state["publish_payload"] == view.state["expected_value"]
     )
     return EpisodeResult(
         strategy_id=packet.strategy_id,
-        task_id=world.task_id,
-        domain=world.domain,
+        task_id=view.task_id,
+        domain=view.domain,
         claimed_success=bool(complete),
         claimed_blocked=not complete,
         final_artifacts={
             "phases": phases,
-            "publish_payload": world.state["publish_payload"],
-            "verify_result": world.state["verify_result"],
+            "publish_payload": view.state["publish_payload"],
+            "verify_result": view.state["verify_result"],
         },
         evidence_ledger=ledger,
-        steps=world.state["steps"],
-        token_cost=world.state["token_cost"],
-        wall_ms=world.state["wall_ms"],
+        steps=view.state["steps"],
+        token_cost=view.state["token_cost"],
+        wall_ms=view.state["wall_ms"],
         human_interventions=0,
         trajectory=traj,
     )

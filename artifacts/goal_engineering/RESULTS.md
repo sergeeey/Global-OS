@@ -1,15 +1,18 @@
 # Results — GE-STUDY-v1
 
+> **POST-HOC AUDIT:** See `POST_HOC_AUDIT.md`. Original H1–H5 **CONFIRMED** labels are demoted to **MECHANISM_DEMO_NOT_CAUSAL**. Immutable seal: `results/v1_immutable/`. Corrected appendix: `results/v1_1_post_audit/`.
+
 ## Execution boundary (read first)
 
 | What | Status |
 |------|--------|
-| Deterministic behavioral suite (180 trials) | **EXECUTED** — sealed in `results/` |
+| Deterministic behavioral suite (180 trials, 3 strategies) | **EXECUTED** — frozen in `results/v1_immutable/` |
+| Post-audit 4-arm appendix (+ `S_DETAIL_VERIFIED`) | **EXECUTED** — `results/v1_1_post_audit/` |
 | Live LLM comparative trials | **NOT EXECUTED** — see PROTOCOL §7 |
-| Human goal-setting meta-analyses | Literature prior only |
+| Causal GE superiority over good runbooks | **NOT SHOWN** |
 | Production / universal GE superiority | **NOT CLAIMED** |
 
-Machine seal: `results/RESULTS_SEAL.md` · full rows: `results/results.json`.
+Machine seal (immutable): `results/v1_immutable/RESULTS_SEAL.md`.
 
 ## Aggregate (n=60 trials / strategy)
 

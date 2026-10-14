@@ -24,6 +24,7 @@ PYTHONPATH=src python3 -m pytest tests/evals/test_goal_engineering_study.py -q
 
 ## Critical boundary
 
-- **EXECUTED:** deterministic behavioral agents (180 trials).  
+- **EXECUTED:** deterministic behavioral agents (v1: 180 trials; v1.1 appendix: +`S_DETAIL_VERIFIED`).  
 - **NOT EXECUTED:** live LLM A/B/C — protocol in `PROTOCOL.md` §7 only.  
-- Do not treat deterministic CONFIRMED hypotheses as production LLM proof.
+- **POST_HOC_AUDIT.md** demotes v1 `CONFIRMED` → `MECHANISM_DEMO_NOT_CAUSAL`.  
+- Immutable seal: `results/v1_immutable/`. Do not treat simulator % as causal GE proof.
