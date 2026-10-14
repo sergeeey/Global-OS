@@ -583,6 +583,30 @@
       "pilot3_attr_preserved": "NOT_SHOWN",
       "m2_org_path": "CLOSED",
       "production_proven": 0
+    },
+    "GE_STUDY_V1": {
+      "status": "SEALED_DETERMINISTIC",
+      "protocol_id": "GE-STUDY-v1",
+      "execution_class": "EXECUTED_DETERMINISTIC",
+      "live_llm": "NOT_EXECUTED",
+      "arms": {
+        "S_TRAD": "vague_prompt",
+        "S_DETAIL": "procedural_instructions",
+        "S_GE": "goal_contract_dod_evidence_ledger"
+      },
+      "primary": "oracle_success",
+      "H1_GE_gt_TRAD": "CONFIRMED_DETERMINISTIC_ONLY",
+      "H2_GE_gt_DETAIL": "CONFIRMED_DETERMINISTIC_ONLY",
+      "H3_false_claim": "CONFIRMED_DETERMINISTIC_ONLY",
+      "H4_evidence_fidelity": "CONFIRMED_DETERMINISTIC_ONLY",
+      "H5_reliability_tax": "CONFIRMED_DETERMINISTIC_ONLY",
+      "production_proven": 0,
+      "live_llm_advantage": "NOT_MEASURED",
+      "spec": "artifacts/goal_engineering/SPEC_v1.0.md",
+      "pack": "artifacts/goal_engineering/",
+      "harness": "src/global_os/evals/goal_engineering/",
+      "evidence": "tests/evals/test_goal_engineering_study.py; artifacts/goal_engineering/results/RESULTS_SEAL.md",
+      "honesty": "behavioral_CONFIRM≠live_LLM_proof; DETAIL_arm_models_brittle_SOPs"
     }
   }
 }

@@ -1,0 +1,153 @@
+{
+  "protocol": "GE-STUDY-v1",
+  "review_date": "2026-10-14",
+  "method": "Structured search + primary-source extraction; not a PRISMA clinical meta-analysis",
+  "queries": [
+    "goal-conditioned AI agents Definition of Done verification evidence ledger",
+    "SMART goals LLM agents vs detailed instructions benchmark",
+    "Locke Latham goal setting theory specificity feedback meta-analysis",
+    "SWE-bench verification false positive completion claims",
+    "AgentBench GAIA WebArena verification success rate",
+    "agent harness planning verifier erroneous acceptance cost"
+  ],
+  "sources": [
+    {
+      "id": "locke2002",
+      "type": "peer_reviewed",
+      "title": "Building a practically useful theory of goal setting and task motivation: A 35-year odyssey",
+      "authors": "Locke & Latham",
+      "venue": "American Psychologist, 57",
+      "year": 2002,
+      "url": "https://med.stanford.edu/content/dam/sm/s-spire/documents/PD.locke-and-latham-retrospective_Paper.pdf",
+      "relevance": "Specific+difficult goals outperform do-your-best; feedback moderates; d≈0.42–0.80"
+    },
+    {
+      "id": "locke2019",
+      "type": "peer_reviewed",
+      "title": "The Development of Goal Setting Theory: A Half Century Retrospective",
+      "authors": "Locke & Latham",
+      "year": 2019,
+      "url": "https://www.decisionskills.com/uploads/5/1/6/0/5160560/locke_latham_2019_the_development_of_goal_setting_theory_50_years.pdf",
+      "relevance": "Moderators: feedback, commitment, ability, task complexity; learning goals on novel tasks"
+    },
+    {
+      "id": "wood1987",
+      "type": "peer_reviewed",
+      "title": "Task complexity as a moderator of goal effects: A meta-analysis",
+      "authors": "Wood, Mento & Locke",
+      "venue": "Journal of Applied Psychology",
+      "year": 1987,
+      "relevance": "Goal effects shrink on high-complexity tasks without strategy support"
+    },
+    {
+      "id": "harness2026",
+      "type": "preprint",
+      "title": "How Do Agent Harnesses Create Value? Planning Information and Release Control in Stateful LLM Agents",
+      "year": 2026,
+      "url": "https://arxiv.org/pdf/2609.20474",
+      "relevance": "Fixed task-specific plans +7.17pp oracle success vs sham; read-only verifier rejects 61% invalid episodes"
+    },
+    {
+      "id": "agentbench2024",
+      "type": "peer_reviewed",
+      "title": "AgentBench: Evaluating LLMs as Agents",
+      "authors": "Liu et al.",
+      "venue": "ICLR",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2308.03688",
+      "relevance": "Multi-environment agent evaluation; interactive success far below static QA"
+    },
+    {
+      "id": "webarena2024",
+      "type": "peer_reviewed",
+      "title": "WebArena: A Realistic Web Environment for Building Autonomous Agents",
+      "venue": "ICLR",
+      "year": 2024,
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2024/file/4410c0711e9154a7a2d26f9b3816d1ef-Paper-Conference.pdf",
+      "relevance": "Functional-correctness validators; GPT-4 agent 14.41% vs human 78.24%"
+    },
+    {
+      "id": "gaia2024",
+      "type": "peer_reviewed",
+      "title": "GAIA: a benchmark for General AI Assistants",
+      "venue": "ICLR",
+      "year": 2024,
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2024/file/25ae35b5b1738d80f1f03a8713e405ec-Paper-Conference.pdf",
+      "relevance": "Exact-match verification; hard levels near-zero for GPT-4 plugins vs 92% human"
+    },
+    {
+      "id": "swebench_falsepos2025",
+      "type": "peer_reviewed",
+      "title": "Are “Solved Issues” in SWE-bench Really Solved Correctly?",
+      "year": 2025,
+      "url": "https://arxiv.org/html/2503.15223v2",
+      "relevance": "Weak test gates inflate resolution ~4.5–6.4pp; plausible≠correct"
+    },
+    {
+      "id": "sweabs2026",
+      "type": "preprint",
+      "title": "SWE-ABS: Adversarial Benchmark Strengthening Exposes Inflated Success Rates",
+      "year": 2026,
+      "url": "https://www.arxiv.org/pdf/2603.00520",
+      "relevance": "19.78% of accepted patches rejected under strengthened suites; top agent −16.6pp"
+    },
+    {
+      "id": "smart2025",
+      "type": "peer_reviewed",
+      "title": "SMART: Self-Aware Agent for Tool Overuse Mitigation",
+      "venue": "ACL Findings",
+      "year": 2025,
+      "url": "https://aclanthology.org/anthology-files/pdf/findings/2025.findings-acl.239.pdf",
+      "relevance": "Calibrated stop/tool policy can cut tool use and raise accuracy — not the same as GE, but supports stop criteria"
+    },
+    {
+      "id": "autonomy_levels",
+      "type": "essay",
+      "title": "Levels of Autonomy for AI Agents",
+      "venue": "Knight First Amendment Institute",
+      "url": "https://knightcolumbia.org/content/levels-of-autonomy-for-ai-agents-1",
+      "relevance": "Autonomy = minimum user involvement to hit pass threshold; measure involvement, not vibes"
+    },
+    {
+      "id": "goal_to_proof",
+      "type": "engineering_artifact",
+      "title": "Goal to Proof closure contract",
+      "url": "https://github.com/aiopshwang/goal-to-proof",
+      "relevance": "Result/Target/Proof/Boundaries; claim-shaped latest-state evidence"
+    },
+    {
+      "id": "hermes_completion",
+      "type": "engineering_artifact",
+      "title": "Hermes Agent Completion Contracts + evidence ledger",
+      "url": "https://oneplaceforai.com/learn/lesson/completion-contracts",
+      "relevance": "Executable verification gates + evidence ledger before done"
+    },
+    {
+      "id": "goalbuddy_receipt",
+      "type": "engineering_artifact",
+      "title": "GoalBuddy receipt-v1",
+      "url": "https://github.com/tolibear/goalbuddy/blob/main/docs/spec/receipt-v1.md",
+      "relevance": "Machine-readable done/blocked receipts; failing verify cannot be prose-washed to done"
+    },
+    {
+      "id": "unified_eval2026",
+      "type": "preprint",
+      "title": "A Unified Framework for the Evaluation of LLM Agentic Capabilities",
+      "year": 2026,
+      "url": "https://arxiv.org/html/2605.27898",
+      "relevance": "Identical task completion can hide order-of-magnitude cost/latency gaps"
+    },
+    {
+      "id": "gos_goal_contract",
+      "type": "internal",
+      "title": "Global-OS GoalContract schema 0.1.0",
+      "path": "contracts/schemas/goal_contract.schema.json",
+      "relevance": "In-repo immutable goal + success_criteria + evidence_requirements surface"
+    }
+  ],
+  "gaps": [
+    "No published RCT directly labeled 'Goal Engineering vs detailed instructions vs vague prompts' on identical agent stacks",
+    "Engineering blogs dominate 'completion contract' practice literature; treat as design priors, not causal proof",
+    "Human goal-setting meta-analyses do not automatically transfer to LLM agents"
+  ]
+}

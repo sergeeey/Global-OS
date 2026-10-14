@@ -1,0 +1,116 @@
+{
+  "task_id": "coding_sum_range",
+  "domain": "coding",
+  "objective": "Fix sum_range so it includes both endpoints; keep public API; do not break unrelated modules.",
+  "non_goals": [
+    "Rewrite the whole library",
+    "Add new dependencies"
+  ],
+  "forbidden": [
+    "Modify lib/other.py",
+    "Delete tests"
+  ],
+  "packets": {
+    "S_TRAD": {
+      "strategy_id": "S_TRAD",
+      "prompt_text": "Please solve the following task as best you can.\n\nTask: Fix sum_range so it includes both endpoints; keep public API; do not break unrelated modules.\n\nWhen you believe you are done, report SUCCESS and summarize what you did.",
+      "definition_of_done": [],
+      "evidence_requirements": [],
+      "procedural_steps": [],
+      "goal_contract": {}
+    },
+    "S_DETAIL": {
+      "strategy_id": "S_DETAIL",
+      "prompt_text": "Follow these instructions exactly to complete the task.\n\nObjective: Fix sum_range so it includes both endpoints; keep public API; do not break unrelated modules.\n\nSteps:\n1. Open lib/math_utils.py\n2. Change range(a, b) to range(a, b + 1)\n3. Save the file\n4. Run tests/test_math.py\n5. Report SUCCESS if the edit looks correct\n\nAfter completing all steps in order, report SUCCESS.",
+      "definition_of_done": [],
+      "evidence_requirements": [],
+      "procedural_steps": [
+        "Open lib/math_utils.py",
+        "Change range(a, b) to range(a, b + 1)",
+        "Save the file",
+        "Run tests/test_math.py",
+        "Report SUCCESS if the edit looks correct"
+      ],
+      "goal_contract": {}
+    },
+    "S_GE": {
+      "strategy_id": "S_GE",
+      "prompt_text": "You are bound by an immutable GoalContract.\n\nObjective: Fix sum_range so it includes both endpoints; keep public API; do not break unrelated modules.\n\nDefinition of Done (all must hold):\n- [sc_fix] sum_range(a,b) returns inclusive sum for a..b\n- [sc_tests] tests/test_math.py exits 0 after the fix\n- [sc_scope] lib/other.py content unchanged\n\nEvidenceLedger requirements:\n- criterion sc_fix: require code_diff (patch against lib/math_utils.py)\n- criterion sc_tests: require command_output (test runner exit code 0)\n- criterion sc_scope: require file_hash (lib/other.py unchanged)\n\nDo not claim SUCCESS until every DoD criterion has a ledger entry with direct, scope-matched evidence. If evidence is missing, continue or report BLOCKED \u2014 never assert completion from confidence alone.",
+      "definition_of_done": [
+        {
+          "id": "sc_fix",
+          "description": "sum_range(a,b) returns inclusive sum for a..b"
+        },
+        {
+          "id": "sc_tests",
+          "description": "tests/test_math.py exits 0 after the fix"
+        },
+        {
+          "id": "sc_scope",
+          "description": "lib/other.py content unchanged"
+        }
+      ],
+      "evidence_requirements": [
+        {
+          "criterion_id": "sc_fix",
+          "kind": "code_diff",
+          "note": "patch against lib/math_utils.py",
+          "tier": "2"
+        },
+        {
+          "criterion_id": "sc_tests",
+          "kind": "command_output",
+          "note": "test runner exit code 0",
+          "tier": "3"
+        },
+        {
+          "criterion_id": "sc_scope",
+          "kind": "file_hash",
+          "note": "lib/other.py unchanged",
+          "tier": "2"
+        }
+      ],
+      "procedural_steps": [],
+      "goal_contract": {
+        "goal_id": "goal_coding_sum_range",
+        "version": 1,
+        "objective": {
+          "text": "Fix sum_range so it includes both endpoints; keep public API; do not break unrelated modules."
+        },
+        "success_criteria": [
+          {
+            "id": "sc_fix",
+            "description": "sum_range(a,b) returns inclusive sum for a..b"
+          },
+          {
+            "id": "sc_tests",
+            "description": "tests/test_math.py exits 0 after the fix"
+          },
+          {
+            "id": "sc_scope",
+            "description": "lib/other.py content unchanged"
+          }
+        ],
+        "non_goals": [
+          "Rewrite the whole library",
+          "Add new dependencies"
+        ],
+        "forbidden_outcomes": [
+          "Modify lib/other.py",
+          "Delete tests"
+        ],
+        "evidence_requirements": {
+          "sc_fix": {
+            "verification_tier": 2
+          },
+          "sc_tests": {
+            "verification_tier": 3
+          },
+          "sc_scope": {
+            "verification_tier": 2
+          }
+        }
+      }
+    }
+  }
+}
