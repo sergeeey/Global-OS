@@ -9,11 +9,14 @@ not from a hardcoded tool id in the observe step.
 from __future__ import annotations
 
 import json
+import os
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from global_os.adapters.models.base import GenerateRequest
+from global_os.adapters.models.base import GenerateRequest, ModelProvider, ModelProviderError
+from global_os.adapters.models.factory import free_live_ready, open_model_provider
+from global_os.adapters.models.observation_reactive import ObservationReactiveProvider
 from global_os.adapters.models.recording import RecordingModelProvider
 from global_os.adapters.models.scripted_action import (
     ScriptedActionProvider,
@@ -36,6 +39,7 @@ from global_os.runtime.preprod.tool_catalog import (
     criteria_supported_by_tools,
     produce_tool_artifact,
     resolve_allowed_tool_ids,
+    validate_tool_args,
     verify_tool_artifact,
 )
 from global_os.runtime.workflows.durable import (
@@ -281,6 +285,8 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
 
     target = Path(state["target_path"])
     call_count_path = run_dir / "tool_calls.json"
+    reports_dir = run_dir / "tool_reports"
+    reports_dir.mkdir(parents=True, exist_ok=True)
     last_report_path = run_dir / "last_tool_report.json"
     prior = _read_json(call_count_path) if call_count_path.exists() else {}
 
@@ -288,30 +294,68 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
     preferred = [
         tid for tid in allowed_tool_ids if criteria_supported_by_tool(goal, tid)
     ]
-    script = hooks.get("model_script")
-    if script is None:
-        script = default_tool_script(
-            allowed_tool_ids, preferred_tool_ids=preferred or None
-        )
-    # Adversarial: force an unknown/forbidden tool proposal.
-    if hooks.get("inject_forbidden_tool_id"):
-        script = [
-            {
-                "action": "call_tool",
-                "tool_id": str(hooks["inject_forbidden_tool_id"]),
-                "args": {},
-            },
-            {"action": "stop"},
-        ]
+    model_mode = str(
+        hooks.get("model_mode")
+        or os.environ.get("GOS_OPERATOR_MODEL")
+        or "reactive"
+    ).strip().lower()
+    # Backward-compatible default for legacy scripted single-tool e2e.
+    if hooks.get("model_script") is not None or hooks.get("inject_forbidden_tool_id"):
+        model_mode = "scripted"
+    if hooks.get("force_model_mode"):
+        model_mode = str(hooks["force_model_mode"]).strip().lower()
 
-    inner = ScriptedActionProvider(list(script))
+    inner: ModelProvider
+    if model_mode == "live":
+        if not free_live_ready():
+            raise SupervisedMissionError(
+                "live_model_unavailable: need GROQ/OPENROUTER/GEMINI credentials"
+            )
+        live_budget = _as_float(hooks.get("live_budget_usd"), 0.0)
+        if live_budget < 0:
+            raise SupervisedMissionError("live_budget_usd must be >= 0")
+        # Groq adapter forces cost_usd=0.0 (free tier). Explicit opt-in required.
+        if not hooks.get("authorize_live_llm") and os.environ.get(
+            "GOS_AUTHORIZE_LIVE_LLM", ""
+        ).strip() not in {"1", "true", "yes"}:
+            raise SupervisedMissionError(
+                "live_llm_not_authorized: set hooks.authorize_live_llm or "
+                "GOS_AUTHORIZE_LIVE_LLM=1 (Groq free tier; still operator-gated)"
+            )
+        # Prefer the smaller OSS pin for Operator JSON actions when available.
+        live_model = str(
+            hooks.get("live_model")
+            or os.environ.get("GOS_OPERATOR_LIVE_MODEL")
+            or "openai/gpt-oss-20b"
+        )
+        inner = open_model_provider("groq", model=live_model)
+    elif model_mode == "scripted":
+        script = hooks.get("model_script")
+        if script is None:
+            script = default_tool_script(
+                allowed_tool_ids, preferred_tool_ids=preferred or None
+            )
+        if hooks.get("inject_forbidden_tool_id"):
+            script = [
+                {
+                    "action": "call_tool",
+                    "tool_id": str(hooks["inject_forbidden_tool_id"]),
+                    "args": {},
+                },
+                {"action": "stop"},
+            ]
+        inner = ScriptedActionProvider(list(script))
+    else:
+        # Default: observation-reactive mock (multi-step, no network).
+        inner = ObservationReactiveProvider()
+
     model = RecordingModelProvider(
         inner,
         ledger,
         tenant_id=str(goal["tenant_id"]),
         workspace_id=str(goal["workspace_id"]),
         goal_id=str(goal["goal_id"]),
-        producer="preprod.scripted_action",
+        producer=f"preprod.model.{model_mode}",
     )
 
     receipts: list[dict[str, Any]] = []
@@ -320,7 +364,11 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
     last_report_hash: str | None = None
     executed_tools: list[str] = []
     observe_block: str | None = None
-    max_cycles = int(hooks.get("max_model_cycles") or 4)
+    observation_status = "none"
+    last_observation_summary = "none"
+    model_calls = 0
+    model_cost_usd = 0.0
+    max_cycles = int(hooks.get("max_model_cycles") or 8)
 
     gate_path = run_dir / "durable_gate.sqlite"
     gate = SqliteDurableGateStore(gate_path)
@@ -344,19 +392,22 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                 raise SupervisedMissionError(str(exc)) from exc
 
             def _make_handler(tool_id: str) -> Any:
-                def handler(_payload: dict[str, Any]) -> ToolResult:
-                    report = produce_tool_artifact(tool_id, target, hooks)
+                def handler(payload: dict[str, Any]) -> ToolResult:
+                    tool_args = dict((payload.get("context") or {}).get("tool_args") or {})
+                    report = produce_tool_artifact(
+                        tool_id, target, hooks, args=tool_args
+                    )
                     prior[tool_id] = int(prior.get(tool_id, 0)) + 1
                     _write_json(call_count_path, prior)
-                    _write_json(
-                        last_report_path,
-                        {
-                            "tool_id": tool_id,
-                            "report": report,
-                            "report_hash": content_hash(report),
-                            "produced_at": _now(),
-                        },
-                    )
+                    payload_doc = {
+                        "tool_id": tool_id,
+                        "report": report,
+                        "report_hash": content_hash(report),
+                        "produced_at": _now(),
+                    }
+                    _write_json(last_report_path, payload_doc)
+                    safe_name = tool_id.replace(".", "_")
+                    _write_json(reports_dir / f"{safe_name}.json", payload_doc)
                     if hooks.get("inject_tool_failure"):
                         return ToolResult(
                             False, {"error": "injected_tool_failure", "report": report}
@@ -377,18 +428,56 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                 observe_block = "budget_insufficient"
                 break
 
-            decision_doc = model.structured_generate(
-                GenerateRequest(
-                    prompt=(
-                        f"Select next Operator action for goal {goal['goal_id']}. "
-                        f"allowed_tool_ids={allowed_tool_ids}. "
-                        f"executed={executed_tools}."
-                    ),
-                    max_tokens=256,
-                    metadata={"profile": PROFILE},
-                ),
-                schema={"title": "OperatorAction", "type": "object"},
+            obj = goal.get("objective")
+            obj_text = (
+                obj.get("text") if isinstance(obj, dict) else str(obj or "")
             )
+            prompt = (
+                "You are the Global OS supervised Operator action selector.\n"
+                f"goal_id={goal['goal_id']}\n"
+                f"objective={str(obj_text)[:400]}\n"
+                f"allowed_tool_ids={allowed_tool_ids}\n"
+                f"preferred_tool_ids={preferred}\n"
+                f"executed={executed_tools}\n"
+                f"observation_status={observation_status}\n"
+                f"last_observation={last_observation_summary}\n"
+                "Choose the next action as JSON: "
+                '{"action":"call_tool","tool_id":"...","args":{...}} '
+                'or {"action":"stop"}. '
+                "Use only allowed_tool_ids. Do not invent capabilities. "
+                "Never repeat a tool_id already present in executed. "
+                "Prefer preferred_tool_ids that are not yet executed. "
+                "Base the next decision on last_observation when present. "
+                "Emit JSON text only — do not use native tool-calling APIs."
+            )
+            # Reasoning models (Groq OSS) need headroom beyond the JSON object.
+            live_max = int(hooks.get("live_max_tokens") or 1024)
+            try:
+                decision_doc = model.structured_generate(
+                    GenerateRequest(
+                        prompt=prompt,
+                        max_tokens=live_max if model_mode == "live" else 256,
+                        temperature=0.0,
+                        metadata={
+                            "profile": PROFILE,
+                            "model_mode": model_mode,
+                            "json_object": True,
+                        },
+                    ),
+                    schema={"title": "OperatorAction", "type": "object"},
+                )
+            except ModelProviderError as exc:
+                observe_block = f"model_error:{exc}"
+                observation_status = "error"
+                last_observation_summary = str(exc)[:400]
+                model_calls += 1
+                # Keep prior evidence; stop the decision loop fail-closed.
+                break
+            model_calls += 1
+            # RecordingModelProvider does not surface cost; live Groq is $0 forced.
+            if model_mode == "live":
+                model_cost_usd += 0.0
+
             action = str(decision_doc.get("action") or "")
             if action == "stop":
                 break
@@ -401,21 +490,30 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                 spec = assert_tool_permitted(tool_id, allowed_tool_ids=allowed_tool_ids)
             except ToolCatalogError as exc:
                 observe_block = str(exc)
-                break
+                observation_status = "error"
+                last_observation_summary = str(exc)
+                continue
 
-            # Pilot tools take no model args — reject anything except {}.
-            raw_args = decision_doc.get("args", {})
-            if raw_args is None:
-                raw_args = {}
-            if not isinstance(raw_args, dict) or raw_args != {}:
-                observe_block = "invalid_tool_args"
-                break
+            if tool_id in executed_tools:
+                observation_status = "error"
+                last_observation_summary = f"tool_already_executed:{tool_id}"
+                continue
+
+            try:
+                tool_args = validate_tool_args(tool_id, decision_doc.get("args", {}))
+            except ToolCatalogError as exc:
+                # Do not execute; feed the error back so the next cycle can adapt.
+                observe_block = str(exc)
+                observation_status = "error"
+                last_observation_summary = str(exc)
+                continue
 
             # Fail-closed before Gateway: no produce on deny paths.
             if hooks.get("deny_capability"):
                 observe_block = "authority_capability_denied"
                 break
 
+            # Stable per-run per-tool idempotency (crash-resume must not re-produce).
             idem = f"preprod-{state['run_id']}-{tool_id.replace('.', '-')}"
             proposal = {
                 "proposal_id": f"ap_{state['run_id']}_{tool_id.replace('.', '_')}",
@@ -432,7 +530,11 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                 "idempotency_key": idem,
                 "evidence_refs": [],
                 "approval_refs": [],
-                "context": {"profile": PROFILE, "tool_id": tool_id},
+                "context": {
+                    "profile": PROFILE,
+                    "tool_id": tool_id,
+                    "tool_args": tool_args,
+                },
                 "parent_capabilities": sorted(caps),
             }
             decision = auth.decide(
@@ -454,10 +556,13 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                 observation=None,
             )
 
-            if not last_report_path.exists():
+            safe_name = tool_id.replace(".", "_")
+            per_tool_report = reports_dir / f"{safe_name}.json"
+            report_path = per_tool_report if per_tool_report.exists() else last_report_path
+            if not report_path.exists():
                 observe_block = "missing_tool_report_after_gateway"
                 break
-            saved = _read_json(last_report_path)
+            saved = _read_json(report_path)
             if str(saved.get("tool_id") or "") != tool_id:
                 observe_block = "tool_report_mismatch"
                 break
@@ -511,22 +616,31 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                 enriched["world_success"] = False
                 enriched["discrepancy"] = "injected_discrepancy_observation"
                 enriched["verification_method"] = "post_execution_artifact_verify"
+                observation_status = "discrepancy"
             elif tool_ok and artifact_verify.get("ok"):
                 enriched["reconciliation_status"] = "RECONCILED"
                 enriched["world_success"] = True
                 enriched["observed_effect"] = spec.intended_effect
                 enriched["discrepancy"] = "none"
                 enriched["verification_method"] = "post_execution_artifact_verify"
+                observation_status = "ok"
             else:
                 enriched["reconciliation_status"] = "DISCREPANCY"
                 enriched["world_success"] = False
                 enriched["verification_method"] = "post_execution_artifact_verify"
+                observation_status = "fail"
                 if not artifact_verify.get("ok"):
                     enriched["discrepancy"] = (
                         f"artifact_verify:{artifact_verify.get('reason')}"
                     )
                 elif not tool_ok:
                     enriched["discrepancy"] = "tool_response_not_success"
+
+            last_observation_summary = (
+                f"tool={tool_id};verify={artifact_verify.get('ok')};"
+                f"world_success={enriched.get('world_success')};"
+                f"status={enriched.get('reconciliation_status')}"
+            )
 
             if not (
                 artifact_verify.get("ok")
@@ -541,10 +655,10 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
             budget["spent_usd"] = spent
             budget["remaining_usd"] = float(budget.get("usd", 0.0)) - spent
 
-            # One successful tool is enough for pilot Goals; model cycle 2 issues stop.
-            if artifact_verify.get("ok") and enriched.get("world_success") is True:
-                continue
+            # Continue loop so the model can react to observation (or scripted stop).
 
+        model_cycles = int(getattr(inner, "cycles", model_calls) or model_calls)
+        model_history = list(getattr(inner, "history", []) or [])
         state = {
             **state,
             "events": ledger.export_snapshot(),
@@ -555,8 +669,13 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
             "budget": budget,
             "tool_calls": prior,
             "executed_tools": executed_tools,
-            "model_cycles": inner.cycles,
-            "model_history": list(inner.history),
+            "model_mode": model_mode,
+            "model_cycles": model_cycles,
+            "model_calls": model_calls,
+            "model_cost_usd": model_cost_usd,
+            "model_history": model_history,
+            "observation_status": observation_status,
+            "last_observation_summary": last_observation_summary,
             "phase": "observed",
             "observe_block": observe_block,
         }
@@ -640,12 +759,19 @@ def _deliver_step(state: dict[str, Any]) -> dict[str, Any]:
         "allowed_tool_ids": state.get("allowed_tool_ids"),
         "executed_tools": state.get("executed_tools"),
         "model_cycles": state.get("model_cycles"),
+        "model_calls": state.get("model_calls"),
+        "model_mode": state.get("model_mode"),
+        "model_cost_usd": state.get("model_cost_usd"),
         "observe_block": state.get("observe_block"),
         "limits": {
             "external_write": "human_confirmation_required",
             "hmac_action_binding_residual": "NOT_CLAIMED_SOLVED",
             "challenge_ga": "NOT_STARTED",
-            "live_llm": "NOT_USED_MOCK_SCRIPTED_ONLY",
+            "live_llm": (
+                "AUTHORIZED_GROQ_FREE_TIER"
+                if state.get("model_mode") == "live"
+                else "NOT_USED_MOCK_OR_REACTIVE"
+            ),
         },
         "evidence": {
             "effect_receipt_ids": [
@@ -655,6 +781,8 @@ def _deliver_step(state: dict[str, Any]) -> dict[str, Any]:
             "events_path": str(run_dir / "events.json"),
             "artifact_digest": state.get("artifact_digest"),
             "report_hash": state.get("report_hash"),
+            "model_history": list(state.get("model_history") or []),
+            "last_observation_summary": state.get("last_observation_summary"),
         },
         "history_summary": (state.get("achiever") or {}).get("events") or [],
         "last_execution_brief": state.get("last_brief"),
@@ -664,7 +792,7 @@ def _deliver_step(state: dict[str, Any]) -> dict[str, Any]:
             "continual_si": "NOT_MEASURED",
             "end_to_end_os_speedup": "NOT_CLAIMED",
             "execution_brief": "ephemeral_work_order_not_completion",
-            "tool_selection": "brief_catalog_gateway_not_hardcoded",
+            "tool_selection": "brief_catalog_gateway_observation_conditioned",
         },
     }
     _write_json(_delivery_path(run_dir), delivery)

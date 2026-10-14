@@ -84,6 +84,10 @@ def cmd_mission_start(args: argparse.Namespace) -> int:
     from global_os.runtime.preprod import SupervisedMissionError, start_mission
 
     draft = _load_goal_json(Path(args.goal))
+    hooks: dict = {"force_model_mode": str(args.model)}
+    if getattr(args, "authorize_live_llm", False):
+        hooks["authorize_live_llm"] = True
+        hooks["live_budget_usd"] = float(args.budget_usd)
     try:
         out = start_mission(
             draft,
@@ -91,6 +95,7 @@ def cmd_mission_start(args: argparse.Namespace) -> int:
             gos_root=_gos_root(args),
             budget_usd=float(args.budget_usd),
             budget_tokens=int(args.budget_tokens),
+            hooks=hooks,
         )
     except SupervisedMissionError as exc:
         print(f"error: {exc}")
@@ -217,10 +222,21 @@ def build_parser() -> argparse.ArgumentParser:
     m_start.add_argument(
         "--target",
         default=".",
-        help="Read-only workspace path for sandbox observe tools",
+        help="Workspace path for sandbox observe/write tools",
     )
     m_start.add_argument("--budget-usd", default="15.0")
     m_start.add_argument("--budget-tokens", default="50000")
+    m_start.add_argument(
+        "--model",
+        choices=("reactive", "scripted", "live"),
+        default="reactive",
+        help="Action selector: observation-reactive mock (default), scripted, or live Groq",
+    )
+    m_start.add_argument(
+        "--authorize-live-llm",
+        action="store_true",
+        help="Required for --model live (operator gate; Groq free tier still gated)",
+    )
     m_start.set_defaults(func=cmd_mission_start)
 
     for name, fn, help_text in (

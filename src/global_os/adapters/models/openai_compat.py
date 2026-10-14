@@ -84,6 +84,10 @@ class OpenAICompatProvider(ModelProvider):
             "max_tokens": request.max_tokens,
             "temperature": request.temperature,
         }
+        # Operator JSON mode: never advertise native tools (Groq OSS may otherwise
+        # emit tool-calls that fail with tool_use_failed when tool_choice is none).
+        if (request.metadata or {}).get("json_object"):
+            payload["response_format"] = {"type": "json_object"}
         headers = {"Authorization": f"Bearer {self._api_key}", **self._extra_headers}
         started = time.perf_counter()
         try:
@@ -105,30 +109,46 @@ class OpenAICompatProvider(ModelProvider):
         self, request: GenerateRequest, schema: dict[str, Any]
     ) -> dict[str, Any]:
         import json
+        import re
 
         prompt = (
-            f"{request.prompt}\n\nRespond with JSON matching schema title="
-            f"{schema.get('title', 'object')}."
+            f"{request.prompt}\n\n"
+            f"Return ONLY one JSON object matching schema title="
+            f"{schema.get('title', 'object')}. No markdown fences. No prose."
         )
-        resp = self.generate(
-            GenerateRequest(
-                prompt=prompt,
-                max_tokens=request.max_tokens,
-                temperature=request.temperature,
-                metadata=request.metadata,
+        last_text = ""
+        for _attempt in range(2):
+            meta = dict(request.metadata or {})
+            meta.setdefault("json_object", True)
+            resp = self.generate(
+                GenerateRequest(
+                    prompt=prompt,
+                    max_tokens=max(int(request.max_tokens or 256), 128),
+                    temperature=0.0 if request.temperature is None else request.temperature,
+                    metadata=meta,
+                )
             )
+            last_text = (resp.text or "").strip()
+            if not last_text:
+                continue
+            candidate = last_text
+            fence = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", candidate, re.DOTALL)
+            if fence:
+                candidate = fence.group(1)
+            else:
+                start = candidate.find("{")
+                end = candidate.rfind("}")
+                if start >= 0 and end > start:
+                    candidate = candidate[start : end + 1]
+            try:
+                parsed: object = json.loads(candidate)
+            except json.JSONDecodeError:
+                continue
+            if isinstance(parsed, dict):
+                return parsed
+        raise ModelProviderError(
+            f"{self._provider_id}: structured response not JSON: {last_text[:200]}"
         )
-        try:
-            parsed: object = json.loads(resp.text)
-        except json.JSONDecodeError as exc:
-            raise ModelProviderError(
-                f"{self._provider_id}: structured response not JSON: {resp.text[:200]}"
-            ) from exc
-        if not isinstance(parsed, dict):
-            raise ModelProviderError(
-                f"{self._provider_id}: structured response must be a JSON object"
-            )
-        return parsed
 
     def _parse_response(self, data: dict[str, Any], *, latency_ms: float) -> GenerateResponse:
         choices = data.get("choices")
@@ -138,8 +158,16 @@ class OpenAICompatProvider(ModelProvider):
         if not isinstance(message, dict):
             raise ModelProviderError(f"{self._provider_id}: missing message in choice")
         text = message.get("content")
-        if not isinstance(text, str):
-            raise ModelProviderError(f"{self._provider_id}: missing content string")
+        if not isinstance(text, str) or not text.strip():
+            # Reasoning-capable models may spend the budget on `reasoning` and
+            # leave `content` empty — recover JSON/text from reasoning when needed.
+            reasoning = message.get("reasoning")
+            if isinstance(reasoning, str) and reasoning.strip():
+                text = reasoning
+            else:
+                raise ModelProviderError(
+                    f"{self._provider_id}: missing content string"
+                )
         usage_raw = data.get("usage")
         usage: dict[str, Any] = usage_raw if isinstance(usage_raw, dict) else {}
         in_tok = int(usage.get("prompt_tokens") or 0)

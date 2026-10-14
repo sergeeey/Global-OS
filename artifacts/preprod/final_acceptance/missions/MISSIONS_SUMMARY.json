@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-10-14T11:27:43.031290+00:00",
+  "model": "reactive",
+  "authorize_live_llm": false,
+  "results": [
+    {
+      "mission": "software_engineering_sandbox",
+      "terminal_status": "SUCCEEDED",
+      "completion": "ACHIEVED",
+      "executed_tools": [
+        "repo.audit",
+        "repo.inventory",
+        "workspace.read_text",
+        "workspace.write_text"
+      ],
+      "model_mode": "reactive",
+      "model_cycles": 5,
+      "model_cost_usd": 0.0,
+      "fix_marker_exists": true,
+      "run_id": "run_5326c6d417bf4c6b",
+      "observe_block": null
+    },
+    {
+      "mission": "research_data_analysis",
+      "terminal_status": "SUCCEEDED",
+      "completion": "ACHIEVED",
+      "executed_tools": [
+        "research.scan"
+      ],
+      "model_mode": "reactive",
+      "model_cycles": 2,
+      "model_cost_usd": 0.0,
+      "run_id": "run_fd075386d25e4d7d",
+      "observe_block": null
+    }
+  ]
+}

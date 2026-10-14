@@ -348,7 +348,7 @@
     {
       "id": "preprod_supervised_mission_v0",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "PREPROD_SUPERVISED: Goal→CTC Brief→catalog tool_ids→Authority→Gateway sole produce (repo.audit|repo.inventory)→post_execution_artifact_verify→Completion Gate; DENY produces 0× / ALLOW 1×; args={} only; ScriptedActionProvider mock cycles; artifacts/preprod/FORK_B_PHASE1_REPORT.md; tests/test_preprod_supervised_mission_e2e.py (28); ≠ PRODUCTION_PROVEN / Challenge-GA / live LLM"
+      "evidence": "PREPROD_SUPERVISED v0.1 RC path: Goal→CTC→catalog→observation-conditioned decisions (reactive|live Groq)→Authority→Gateway sole produce→post_execution_artifact_verify→Completion Gate; tools audit/inventory/read/write/research.scan; real SIGKILL recovery; dual missions; artifacts/preprod/final_acceptance/; PREPROD_RELEASE_GATE.md; tests/test_preprod_supervised_mission_e2e.py (30); ≠ PRODUCTION_PROVEN / Challenge-GA / human acceptance pending"
     },
 
     {

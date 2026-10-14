@@ -1,0 +1,341 @@
+{
+  "schema_version": "0.1.0",
+  "profile": "PREPROD_SUPERVISED",
+  "run_id": "run_5326c6d417bf4c6b",
+  "goal_id": "goal_se_sandbox_001",
+  "mission_id": "msn_5334ed16a0354bdc",
+  "terminal_status": "SUCCEEDED",
+  "completion": {
+    "status": "ACHIEVED",
+    "criteria_met": [
+      "sc_inv",
+      "sc_read",
+      "sc_write",
+      "sc_audit"
+    ],
+    "criteria_unmet": [],
+    "criteria_unknown": [],
+    "invariant_violations": [],
+    "authority_ok": true,
+    "evidence_bound": true,
+    "reason": "all_criteria_verified",
+    "llm_used_as_oracle": false
+  },
+  "achiever_stop": "STOP_SUCCESS",
+  "budget": {
+    "usd": 5.0,
+    "tokens": 50000,
+    "spent_usd": 0.04,
+    "remaining_usd": 4.96
+  },
+  "artifact_digest": "sha256:22e1aa1ee5013e905039b9fa21275a42399ddd9e555bb842a936f73e66dc911d",
+  "report_hash": "sha256:f4f7ba84cb781b5c123e9ba9b30e2c23805a40590be4de202a8e249d7b932e8a",
+  "tool_calls": {
+    "repo.audit": 1,
+    "repo.inventory": 1,
+    "workspace.read_text": 1,
+    "workspace.write_text": 1
+  },
+  "allowed_tool_ids": [
+    "repo.audit",
+    "repo.inventory",
+    "research.scan",
+    "workspace.read_text",
+    "workspace.write_text"
+  ],
+  "executed_tools": [
+    "repo.audit",
+    "repo.inventory",
+    "workspace.read_text",
+    "workspace.write_text"
+  ],
+  "model_cycles": 5,
+  "model_calls": 5,
+  "model_mode": "reactive",
+  "model_cost_usd": 0.0,
+  "observe_block": null,
+  "limits": {
+    "external_write": "human_confirmation_required",
+    "hmac_action_binding_residual": "NOT_CLAIMED_SOLVED",
+    "challenge_ga": "NOT_STARTED",
+    "live_llm": "NOT_USED_MOCK_OR_REACTIVE"
+  },
+  "evidence": {
+    "effect_receipt_ids": [
+      "er_0057822c0e9a4c3a",
+      "er_f24fc22dcb484268",
+      "er_1da95577c298438d",
+      "er_d10e53c45aa44cad"
+    ],
+    "effect_receipts": [
+      {
+        "receipt_id": "er_0057822c0e9a4c3a",
+        "schema_version": "0.1.0",
+        "action_id": "act_36aac2090e4c47e7",
+        "tool_response": {
+          "success": true
+        },
+        "intended_effect": "repo_audit_report",
+        "observed_effect": "repo_audit_report",
+        "discrepancy": "none",
+        "verified_at": "2026-10-14T11:27:42.922495+00:00",
+        "verification_method": "post_execution_artifact_verify",
+        "reconciliation_status": "RECONCILED",
+        "world_success": true,
+        "binds_criteria": [
+          "sc_audit"
+        ],
+        "success_criteria_ids": [
+          "sc_audit"
+        ],
+        "artifact_verify": {
+          "ok": true,
+          "reason": "deterministic_structure_ok",
+          "finding_count": 4
+        },
+        "artifact_digest": "sha256:8759d2509262e3a29d208c1b0dbe8dabfd6156329e6d8a4faf1bb4fab2e71ff5",
+        "report_hash": "sha256:e75939b41594d92a79b9be0dfc7ee3454ab022db5fbc9c5fca8d5152f43af390",
+        "verifier": "repo.audit",
+        "criteria_supported": [
+          "sc_audit"
+        ],
+        "tool_id": "repo.audit",
+        "gateway_reconciliation_status": "OBSERVATION_PENDING"
+      },
+      {
+        "receipt_id": "er_f24fc22dcb484268",
+        "schema_version": "0.1.0",
+        "action_id": "act_3e3491881bc24d1b",
+        "tool_response": {
+          "success": true
+        },
+        "intended_effect": "repo_inventory_report",
+        "observed_effect": "repo_inventory_report",
+        "discrepancy": "none",
+        "verified_at": "2026-10-14T11:27:42.931385+00:00",
+        "verification_method": "post_execution_artifact_verify",
+        "reconciliation_status": "RECONCILED",
+        "world_success": true,
+        "binds_criteria": [
+          "sc_inv"
+        ],
+        "success_criteria_ids": [
+          "sc_inv"
+        ],
+        "artifact_verify": {
+          "ok": true,
+          "reason": "deterministic_structure_ok",
+          "entry_count": 3
+        },
+        "artifact_digest": "sha256:c5aa19c15958dbe0de758a8984ba28dd69f3673c18a2a679e3f7eabd4e5267df",
+        "report_hash": "sha256:d97812dacc6ad9498e8f311938f4067f7daefdcc4f547db311b980bd794d565e",
+        "verifier": "repo.inventory",
+        "criteria_supported": [
+          "sc_inv"
+        ],
+        "tool_id": "repo.inventory",
+        "gateway_reconciliation_status": "OBSERVATION_PENDING"
+      },
+      {
+        "receipt_id": "er_1da95577c298438d",
+        "schema_version": "0.1.0",
+        "action_id": "act_5b43b5c9393b452a",
+        "tool_response": {
+          "success": true
+        },
+        "intended_effect": "workspace_file_read",
+        "observed_effect": "workspace_file_read",
+        "discrepancy": "none",
+        "verified_at": "2026-10-14T11:27:42.939890+00:00",
+        "verification_method": "post_execution_artifact_verify",
+        "reconciliation_status": "RECONCILED",
+        "world_success": true,
+        "binds_criteria": [
+          "sc_read"
+        ],
+        "success_criteria_ids": [
+          "sc_read"
+        ],
+        "artifact_verify": {
+          "ok": true,
+          "reason": "read_ok",
+          "path": "README.md"
+        },
+        "artifact_digest": "sha256:effae6deebf623f449113441b7783b96e67d7e0ed350c47227cebf2c8f695391",
+        "report_hash": "sha256:7d0cc5e2fad656f5aaa8a797441b13342f31210a9d0b9098920b72fb2800f9cf",
+        "verifier": "workspace.read_text",
+        "criteria_supported": [
+          "sc_read"
+        ],
+        "tool_id": "workspace.read_text",
+        "gateway_reconciliation_status": "OBSERVATION_PENDING"
+      },
+      {
+        "receipt_id": "er_d10e53c45aa44cad",
+        "schema_version": "0.1.0",
+        "action_id": "act_4544074b14764cd7",
+        "tool_response": {
+          "success": true
+        },
+        "intended_effect": "workspace_file_write",
+        "observed_effect": "workspace_file_write",
+        "discrepancy": "none",
+        "verified_at": "2026-10-14T11:27:42.945234+00:00",
+        "verification_method": "post_execution_artifact_verify",
+        "reconciliation_status": "RECONCILED",
+        "world_success": true,
+        "binds_criteria": [
+          "sc_write"
+        ],
+        "success_criteria_ids": [
+          "sc_write"
+        ],
+        "artifact_verify": {
+          "ok": true,
+          "reason": "write_ok",
+          "path": "FIX_APPLIED.txt"
+        },
+        "artifact_digest": "sha256:22e1aa1ee5013e905039b9fa21275a42399ddd9e555bb842a936f73e66dc911d",
+        "report_hash": "sha256:f4f7ba84cb781b5c123e9ba9b30e2c23805a40590be4de202a8e249d7b932e8a",
+        "verifier": "workspace.write_text",
+        "criteria_supported": [
+          "sc_write"
+        ],
+        "tool_id": "workspace.write_text",
+        "gateway_reconciliation_status": "OBSERVATION_PENDING"
+      }
+    ],
+    "events_path": "artifacts/preprod/final_acceptance/missions/.gos_missions/se/missions/run_5326c6d417bf4c6b/events.json",
+    "artifact_digest": "sha256:22e1aa1ee5013e905039b9fa21275a42399ddd9e555bb842a936f73e66dc911d",
+    "report_hash": "sha256:f4f7ba84cb781b5c123e9ba9b30e2c23805a40590be4de202a8e249d7b932e8a",
+    "model_history": [
+      {
+        "prompt_prefix": "You are the Global OS supervised Operator action selector.\ngoal_id=goal_se_sandbox_001\nobjective=Software engineering sandbox mission: inventory the workspace, ",
+        "observation_status": "none",
+        "executed": [],
+        "step": {
+          "action": "call_tool",
+          "tool_id": "repo.audit",
+          "args": {}
+        }
+      },
+      {
+        "prompt_prefix": "You are the Global OS supervised Operator action selector.\ngoal_id=goal_se_sandbox_001\nobjective=Software engineering sandbox mission: inventory the workspace, ",
+        "observation_status": "ok",
+        "executed": [
+          "repo.audit"
+        ],
+        "step": {
+          "action": "call_tool",
+          "tool_id": "repo.inventory",
+          "args": {}
+        }
+      },
+      {
+        "prompt_prefix": "You are the Global OS supervised Operator action selector.\ngoal_id=goal_se_sandbox_001\nobjective=Software engineering sandbox mission: inventory the workspace, ",
+        "observation_status": "ok",
+        "executed": [
+          "repo.audit",
+          "repo.inventory"
+        ],
+        "step": {
+          "action": "call_tool",
+          "tool_id": "workspace.read_text",
+          "args": {
+            "path": "README.md"
+          }
+        }
+      },
+      {
+        "prompt_prefix": "You are the Global OS supervised Operator action selector.\ngoal_id=goal_se_sandbox_001\nobjective=Software engineering sandbox mission: inventory the workspace, ",
+        "observation_status": "ok",
+        "executed": [
+          "repo.audit",
+          "repo.inventory",
+          "workspace.read_text"
+        ],
+        "step": {
+          "action": "call_tool",
+          "tool_id": "workspace.write_text",
+          "args": {
+            "path": "FIX_APPLIED.txt",
+            "content": "preprod_supervised_fix_marker\n"
+          }
+        }
+      },
+      {
+        "prompt_prefix": "You are the Global OS supervised Operator action selector.\ngoal_id=goal_se_sandbox_001\nobjective=Software engineering sandbox mission: inventory the workspace, ",
+        "observation_status": "ok",
+        "executed": [
+          "repo.audit",
+          "repo.inventory",
+          "workspace.read_text",
+          "workspace.write_text"
+        ],
+        "step": {
+          "action": "stop"
+        }
+      }
+    ],
+    "last_observation_summary": "tool=workspace.write_text;verify=True;world_success=True;status=RECONCILED"
+  },
+  "history_summary": [
+    "decomposed",
+    "brief:brf_fca29671f0a54418",
+    "routed:ROUTE",
+    "completion:ACHIEVED"
+  ],
+  "last_execution_brief": {
+    "brief_id": "brf_7ebd80025bd6426e",
+    "schema_version": "0.1.0",
+    "goal_id": "goal_se_sandbox_001",
+    "goal_version": 1,
+    "plan_id": "plan_run_5326c6d417bf4c6b",
+    "task_id": "task_run_5326c6d417bf4c6b_observe",
+    "objective_text": "Advance Goal goal_se_sandbox_001 via task 'observe' without claiming unverified criteria. Clarify scoped evidence needs. Outcome context: Software engineering sandbox mission: inventory the workspace, inspect README.md, apply a fix marker file, and produce a verified engineering audit report.",
+    "criterion_ids": [],
+    "allowed_tools": [
+      "filesystem.read",
+      "filesystem.write",
+      "git.read"
+    ],
+    "budget": {
+      "usd": 2.5,
+      "tokens": 25000
+    },
+    "expected_artifacts": [
+      "effect_receipt",
+      "artifact_digest"
+    ],
+    "verification_method": "effect_receipt_completion_gate",
+    "constraints": [
+      "sandbox_target_only",
+      "no_binding_external_commitments",
+      "no_goal_mutation",
+      "no_self_certification"
+    ],
+    "human_approval_required": false,
+    "context_refs": [
+      "goal_contract",
+      "task_run_5326c6d417bf4c6b_observe",
+      "plan_run_5326c6d417bf4c6b",
+      "evt_b4dc020d6af1415f",
+      "evt_bd310bdc61394276"
+    ],
+    "authority_check": {
+      "caps_subset": true
+    },
+    "material_reason": "first_attempt",
+    "env_id": "env_f045ca7fba514da5",
+    "org_unit_id": "org_f3d783b18ba34b7c",
+    "content_hash": "sha256:62180a40da13ff84d7c21520aae821b472bb9e49faede1fe960f65bb1a599df6"
+  },
+  "delivered_at": "2026-10-14T11:27:42.964197+00:00",
+  "honesty": {
+    "production_proven": 0,
+    "continual_si": "NOT_MEASURED",
+    "end_to_end_os_speedup": "NOT_CLAIMED",
+    "execution_brief": "ephemeral_work_order_not_completion",
+    "tool_selection": "brief_catalog_gateway_observation_conditioned"
+  }
+}
