@@ -1,0 +1,273 @@
+{
+  "schema_version": "0.1.0",
+  "profile": "PREPROD_SUPERVISED",
+  "run_id": "run_d6dbb96a13e84ca0",
+  "goal_id": "goal_se_sandbox_001",
+  "mission_id": "msn_713d49e691294b16",
+  "terminal_status": "SUCCEEDED",
+  "completion": {
+    "status": "ACHIEVED",
+    "criteria_met": [
+      "sc_inv",
+      "sc_read",
+      "sc_write",
+      "sc_audit"
+    ],
+    "criteria_unmet": [],
+    "criteria_unknown": [],
+    "invariant_violations": [],
+    "authority_ok": true,
+    "evidence_bound": true,
+    "reason": "all_criteria_verified",
+    "llm_used_as_oracle": false
+  },
+  "achiever_stop": "STOP_SUCCESS",
+  "budget": {
+    "usd": 5.0,
+    "tokens": 50000,
+    "spent_usd": 0.04,
+    "remaining_usd": 4.96
+  },
+  "artifact_digest": "sha256:299d35c4c69eecb1520f25f00536a1c15613fd8a881573612b4c4b5a1dee12c2",
+  "report_hash": "sha256:37826c7dce2d29469bf94daf283b4fbc67940a5780ec4c78a79ab7c0ccae19f2",
+  "tool_calls": {
+    "repo.inventory": 1,
+    "workspace.read_text": 1,
+    "workspace.write_text": 1,
+    "repo.audit": 1
+  },
+  "allowed_tool_ids": [
+    "repo.audit",
+    "repo.inventory",
+    "research.scan",
+    "workspace.read_text",
+    "workspace.write_text"
+  ],
+  "executed_tools": [
+    "repo.inventory",
+    "workspace.read_text",
+    "workspace.write_text",
+    "repo.audit"
+  ],
+  "model_cycles": 5,
+  "model_calls": 5,
+  "model_mode": "live",
+  "model_cost_usd": 0.0,
+  "observe_block": null,
+  "limits": {
+    "external_write": "human_confirmation_required",
+    "hmac_action_binding_residual": "NOT_CLAIMED_SOLVED",
+    "challenge_ga": "NOT_STARTED",
+    "live_llm": "AUTHORIZED_GROQ_FREE_TIER"
+  },
+  "evidence": {
+    "effect_receipt_ids": [
+      "er_541b984947f14953",
+      "er_3b8d8de388014c01",
+      "er_542f07718b7548f2",
+      "er_417224a0f6db4d1b"
+    ],
+    "effect_receipts": [
+      {
+        "receipt_id": "er_541b984947f14953",
+        "schema_version": "0.1.0",
+        "action_id": "act_161a19489aab4b44",
+        "tool_response": {
+          "success": true
+        },
+        "intended_effect": "repo_inventory_report",
+        "observed_effect": "repo_inventory_report",
+        "discrepancy": "none",
+        "verified_at": "2026-10-14T11:28:28.427108+00:00",
+        "verification_method": "post_execution_artifact_verify",
+        "reconciliation_status": "RECONCILED",
+        "world_success": true,
+        "binds_criteria": [
+          "sc_inv"
+        ],
+        "success_criteria_ids": [
+          "sc_inv"
+        ],
+        "artifact_verify": {
+          "ok": true,
+          "reason": "deterministic_structure_ok",
+          "entry_count": 3
+        },
+        "artifact_digest": "sha256:418b546dc034c999674ab732f7ba59400183be0150c7590a663c89024c826fad",
+        "report_hash": "sha256:9da7e1ec2c8b860d931b1dd031099c16c26bd2a6eca46e7155b7661e79eebaee",
+        "verifier": "repo.inventory",
+        "criteria_supported": [
+          "sc_inv"
+        ],
+        "tool_id": "repo.inventory",
+        "gateway_reconciliation_status": "OBSERVATION_PENDING"
+      },
+      {
+        "receipt_id": "er_3b8d8de388014c01",
+        "schema_version": "0.1.0",
+        "action_id": "act_2e5ca53e64da4b9c",
+        "tool_response": {
+          "success": true
+        },
+        "intended_effect": "workspace_file_read",
+        "observed_effect": "workspace_file_read",
+        "discrepancy": "none",
+        "verified_at": "2026-10-14T11:28:30.545851+00:00",
+        "verification_method": "post_execution_artifact_verify",
+        "reconciliation_status": "RECONCILED",
+        "world_success": true,
+        "binds_criteria": [
+          "sc_read"
+        ],
+        "success_criteria_ids": [
+          "sc_read"
+        ],
+        "artifact_verify": {
+          "ok": true,
+          "reason": "read_ok",
+          "path": "README.md"
+        },
+        "artifact_digest": "sha256:66d2f66f9539c5650645b2ecb7e85f2b30a9d886c8390f747748574ef914c08f",
+        "report_hash": "sha256:7d0cc5e2fad656f5aaa8a797441b13342f31210a9d0b9098920b72fb2800f9cf",
+        "verifier": "workspace.read_text",
+        "criteria_supported": [
+          "sc_read"
+        ],
+        "tool_id": "workspace.read_text",
+        "gateway_reconciliation_status": "OBSERVATION_PENDING"
+      },
+      {
+        "receipt_id": "er_542f07718b7548f2",
+        "schema_version": "0.1.0",
+        "action_id": "act_ccde8449ce2d4abc",
+        "tool_response": {
+          "success": true
+        },
+        "intended_effect": "workspace_file_write",
+        "observed_effect": "workspace_file_write",
+        "discrepancy": "none",
+        "verified_at": "2026-10-14T11:28:33.095779+00:00",
+        "verification_method": "post_execution_artifact_verify",
+        "reconciliation_status": "RECONCILED",
+        "world_success": true,
+        "binds_criteria": [
+          "sc_write"
+        ],
+        "success_criteria_ids": [
+          "sc_write"
+        ],
+        "artifact_verify": {
+          "ok": true,
+          "reason": "write_ok",
+          "path": "fix_marker.txt"
+        },
+        "artifact_digest": "sha256:0627169625af8e9d839941d924be61cd74ea9dc731a7bbaa1abe1dc39e14b192",
+        "report_hash": "sha256:e708a235533dc903398b406efc2884a1fb224bc2645a575f9c14485bb2606261",
+        "verifier": "workspace.write_text",
+        "criteria_supported": [
+          "sc_write"
+        ],
+        "tool_id": "workspace.write_text",
+        "gateway_reconciliation_status": "OBSERVATION_PENDING"
+      },
+      {
+        "receipt_id": "er_417224a0f6db4d1b",
+        "schema_version": "0.1.0",
+        "action_id": "act_7820a9d555474e5f",
+        "tool_response": {
+          "success": true
+        },
+        "intended_effect": "repo_audit_report",
+        "observed_effect": "repo_audit_report",
+        "discrepancy": "none",
+        "verified_at": "2026-10-14T11:28:34.916714+00:00",
+        "verification_method": "post_execution_artifact_verify",
+        "reconciliation_status": "RECONCILED",
+        "world_success": true,
+        "binds_criteria": [
+          "sc_audit"
+        ],
+        "success_criteria_ids": [
+          "sc_audit"
+        ],
+        "artifact_verify": {
+          "ok": true,
+          "reason": "deterministic_structure_ok",
+          "finding_count": 4
+        },
+        "artifact_digest": "sha256:299d35c4c69eecb1520f25f00536a1c15613fd8a881573612b4c4b5a1dee12c2",
+        "report_hash": "sha256:37826c7dce2d29469bf94daf283b4fbc67940a5780ec4c78a79ab7c0ccae19f2",
+        "verifier": "repo.audit",
+        "criteria_supported": [
+          "sc_audit"
+        ],
+        "tool_id": "repo.audit",
+        "gateway_reconciliation_status": "OBSERVATION_PENDING"
+      }
+    ],
+    "events_path": "artifacts/preprod/final_acceptance/missions_live/.gos_missions/se/missions/run_d6dbb96a13e84ca0/events.json",
+    "artifact_digest": "sha256:299d35c4c69eecb1520f25f00536a1c15613fd8a881573612b4c4b5a1dee12c2",
+    "report_hash": "sha256:37826c7dce2d29469bf94daf283b4fbc67940a5780ec4c78a79ab7c0ccae19f2",
+    "model_history": [],
+    "last_observation_summary": "tool=repo.audit;verify=True;world_success=True;status=RECONCILED"
+  },
+  "history_summary": [
+    "decomposed",
+    "brief:brf_c0d752e0e9b34e4d",
+    "routed:ROUTE",
+    "completion:ACHIEVED"
+  ],
+  "last_execution_brief": {
+    "brief_id": "brf_f656ca896b0f4c6a",
+    "schema_version": "0.1.0",
+    "goal_id": "goal_se_sandbox_001",
+    "goal_version": 1,
+    "plan_id": "plan_run_d6dbb96a13e84ca0",
+    "task_id": "task_run_d6dbb96a13e84ca0_observe",
+    "objective_text": "Advance Goal goal_se_sandbox_001 via task 'observe' without claiming unverified criteria. Clarify scoped evidence needs. Outcome context: Software engineering sandbox mission: inventory the workspace, inspect README.md, apply a fix marker file, and produce a verified engineering audit report.",
+    "criterion_ids": [],
+    "allowed_tools": [
+      "filesystem.read",
+      "filesystem.write",
+      "git.read"
+    ],
+    "budget": {
+      "usd": 2.5,
+      "tokens": 25000
+    },
+    "expected_artifacts": [
+      "effect_receipt",
+      "artifact_digest"
+    ],
+    "verification_method": "effect_receipt_completion_gate",
+    "constraints": [
+      "sandbox_target_only",
+      "no_binding_external_commitments",
+      "no_goal_mutation",
+      "no_self_certification"
+    ],
+    "human_approval_required": false,
+    "context_refs": [
+      "goal_contract",
+      "task_run_d6dbb96a13e84ca0_observe",
+      "plan_run_d6dbb96a13e84ca0",
+      "evt_2c9b4d5a74244856",
+      "evt_c90435dcd65c476e"
+    ],
+    "authority_check": {
+      "caps_subset": true
+    },
+    "material_reason": "first_attempt",
+    "env_id": "env_84dbeb50f0ac429e",
+    "org_unit_id": "org_ccb0d5e991d148d8",
+    "content_hash": "sha256:b3500333cb6e6724f31b9a81282f4ee0684daca5a2a8ea9ec90a67687066e074"
+  },
+  "delivered_at": "2026-10-14T11:28:37.030724+00:00",
+  "honesty": {
+    "production_proven": 0,
+    "continual_si": "NOT_MEASURED",
+    "end_to_end_os_speedup": "NOT_CLAIMED",
+    "execution_brief": "ephemeral_work_order_not_completion",
+    "tool_selection": "brief_catalog_gateway_observation_conditioned"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "generated_at": "2026-10-14T11:28:49.470771+00:00",
+  "model": "live",
+  "authorize_live_llm": true,
+  "results": [
+    {
+      "mission": "software_engineering_sandbox",
+      "terminal_status": "SUCCEEDED",
+      "completion": "ACHIEVED",
+      "executed_tools": [
+        "repo.inventory",
+        "workspace.read_text",
+        "workspace.write_text",
+        "repo.audit"
+      ],
+      "model_mode": "live",
+      "model_cycles": 5,
+      "model_cost_usd": 0.0,
+      "fix_marker_exists": false,
+      "run_id": "run_d6dbb96a13e84ca0",
+      "observe_block": null
+    },
+    {
+      "mission": "research_data_analysis",
+      "terminal_status": "SUCCEEDED",
+      "completion": "ACHIEVED",
+      "executed_tools": [
+        "research.scan",
+        "repo.inventory",
+        "repo.audit",
+        "workspace.read_text"
+      ],
+      "model_mode": "live",
+      "model_cycles": 6,
+      "model_cost_usd": 0.0,
+      "run_id": "run_d5c6d3468f554c0f",
+      "observe_block": "invalid_tool_args:expected_empty"
+    }
+  ]
+}

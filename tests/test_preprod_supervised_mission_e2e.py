@@ -13,13 +13,22 @@ from global_os.runtime.preprod import (
     criteria_supported_by_repo_audit,
     deliver_mission,
     pause_mission,
+    registered_tool_ids,
+    resolve_allowed_tool_ids,
     resume_mission,
     start_mission,
     status_mission,
     verify_repo_audit_report,
 )
 from global_os.runtime.preprod.supervised_mission import start_mission as start_raw
+from global_os.runtime.preprod.tool_catalog import (
+    ToolCatalogError,
+    assert_tool_permitted,
+    criteria_supported_by_tool,
+    verify_tool_artifact,
+)
 from global_os.verification.completion_gate import CompletionStatus, evaluate_goal_completion
+from global_os.world.tools.repo_inventory import verify_repo_inventory_report
 
 
 def _goal(
@@ -56,6 +65,13 @@ def _goal(
     }
 
 
+def _inventory_goal(goal_id: str = "goal_inventory_e2e_001") -> dict:
+    path = Path(__file__).resolve().parents[1] / "examples" / "goal_repo_inventory.json"
+    draft = json.loads(path.read_text(encoding="utf-8"))
+    draft["goal_id"] = goal_id
+    return draft
+
+
 def test_supervised_mission_end_to_end_delivery(tmp_path: Path) -> None:
     gos = tmp_path / ".gos"
     target = Path(__file__).resolve().parents[1]
@@ -74,11 +90,42 @@ def test_supervised_mission_end_to_end_delivery(tmp_path: Path) -> None:
     assert delivery["budget"]["spent_usd"] > 0
     assert delivery["honesty"]["production_proven"] == 0
     assert delivery["limits"]["challenge_ga"] == "NOT_STARTED"
+    assert delivery["honesty"]["tool_selection"] == (
+        "brief_catalog_gateway_observation_conditioned"
+    )
+    assert "repo.audit" in (delivery.get("executed_tools") or [])
+    assert "repo.audit" in (delivery.get("allowed_tool_ids") or [])
+    assert int(delivery.get("model_cycles") or 0) >= 2
+    assert delivery["limits"]["live_llm"] in {
+        "NOT_USED_MOCK_OR_REACTIVE",
+        "AUTHORIZED_GROQ_FREE_TIER",
+    }
 
     st = status_mission(gos_root=gos, run_id=delivery["run_id"])
     assert st["status"] == "SUCCEEDED"
     assert st["delivery_available"] is True
     assert deliver_mission(gos_root=gos, run_id=delivery["run_id"])["run_id"] == delivery["run_id"]
+
+
+def test_inventory_goal_same_operator_path(tmp_path: Path) -> None:
+    """Second Goal Contract: repo.inventory via identical Operator workflow."""
+    gos = tmp_path / ".gos"
+    target = Path(__file__).resolve().parents[1]
+    delivery = start_mission(
+        _inventory_goal(),
+        target_path=target,
+        gos_root=gos,
+        budget_usd=5.0,
+        budget_tokens=1000,
+    )
+    assert delivery["terminal_status"] == "SUCCEEDED"
+    assert delivery["completion"]["status"] == CompletionStatus.ACHIEVED.value
+    assert delivery["executed_tools"] == ["repo.inventory"]
+    assert "repo.inventory" in delivery["allowed_tool_ids"]
+    assert "repo.audit" not in delivery["executed_tools"]
+    assert int(delivery["model_cycles"]) >= 2
+    assert delivery["tool_calls"].get("repo.inventory") == 1
+    assert "sc_inv_01" in delivery["completion"]["criteria_met"]
 
 
 def test_crash_resume_does_not_silently_replay_tool(tmp_path: Path) -> None:
@@ -317,3 +364,386 @@ def test_negative_insufficient_budget_not_succeeded(tmp_path: Path) -> None:
     )
     assert delivery["terminal_status"] != "SUCCEEDED"
     assert delivery["completion"]["status"] != CompletionStatus.ACHIEVED.value
+
+
+def test_negative_forbidden_tool_fail_closed(tmp_path: Path) -> None:
+    gos = tmp_path / ".gos"
+    target = Path(__file__).resolve().parents[1]
+    delivery = start_mission(
+        _goal("goal_forbidden_tool"),
+        target_path=target,
+        gos_root=gos,
+        hooks={"inject_forbidden_tool_id": "shell.exec"},
+    )
+    assert delivery["terminal_status"] != "SUCCEEDED"
+    assert delivery["completion"]["status"] != CompletionStatus.ACHIEVED.value
+    assert not delivery.get("executed_tools")
+
+
+def test_negative_unknown_tool_catalog_fail_closed() -> None:
+    with pytest.raises(ToolCatalogError, match="unknown_tool_id"):
+        assert_tool_permitted("shell.exec", allowed_tool_ids=["repo.audit"])
+    with pytest.raises(ToolCatalogError, match="forbidden_tool_id"):
+        assert_tool_permitted("repo.inventory", allowed_tool_ids=["repo.audit"])
+
+
+def test_negative_deny_capability_not_succeeded(tmp_path: Path) -> None:
+    gos = tmp_path / ".gos"
+    target = Path(__file__).resolve().parents[1]
+    delivery = start_mission(
+        _goal("goal_deny_cap"),
+        target_path=target,
+        gos_root=gos,
+        hooks={"deny_capability": True},
+    )
+    assert delivery["terminal_status"] != "SUCCEEDED"
+    assert delivery["completion"]["status"] != CompletionStatus.ACHIEVED.value
+    # DENY must not invoke producer (execution boundary).
+    calls_path = gos / "missions" / delivery["run_id"] / "tool_calls.json"
+    assert not calls_path.exists() or json.loads(calls_path.read_text()) == {}
+    assert delivery.get("observe_block") == "authority_capability_denied"
+
+
+def test_deny_path_never_produces_tool_artifact(tmp_path: Path) -> None:
+    """Regression: Authority DENY → produce_tool_artifact not called."""
+    gos = tmp_path / ".gos"
+    target = Path(__file__).resolve().parents[1]
+    delivery = start_mission(
+        _goal("goal_deny_no_produce"),
+        target_path=target,
+        gos_root=gos,
+        hooks={"deny_capability": True},
+    )
+    run_dir = gos / "missions" / delivery["run_id"]
+    assert not (run_dir / "last_tool_report.json").exists()
+    assert not (run_dir / "tool_calls.json").exists()
+    assert delivery["evidence"]["effect_receipts"] == []
+
+
+def test_allow_path_produces_exactly_once_and_coherent_evidence(tmp_path: Path) -> None:
+    """ALLOW → producer once; artifact hash, verifier, receipt share one result."""
+    gos = tmp_path / ".gos"
+    target = Path(__file__).resolve().parents[1]
+    delivery = start_mission(
+        _goal("goal_allow_once"),
+        target_path=target,
+        gos_root=gos,
+    )
+    assert delivery["terminal_status"] == "SUCCEEDED"
+    assert delivery["tool_calls"].get("repo.audit") == 1
+    receipts = delivery["evidence"]["effect_receipts"]
+    assert len(receipts) == 1
+    rec = receipts[0]
+    assert rec["report_hash"] == delivery["report_hash"]
+    assert rec["artifact_digest"] == delivery["artifact_digest"]
+    assert rec["artifact_verify"]["ok"] is True
+    assert rec["gateway_reconciliation_status"] == "OBSERVATION_PENDING"
+    assert rec["reconciliation_status"] == "RECONCILED"
+    assert rec["verification_method"] == "post_execution_artifact_verify"
+    assert rec["world_success"] is True
+    # Persisted Gateway produce must match delivery hash.
+    saved = json.loads(
+        (gos / "missions" / delivery["run_id"] / "last_tool_report.json").read_text()
+    )
+    assert saved["report_hash"] == delivery["report_hash"]
+    assert saved["tool_id"] == "repo.audit"
+
+
+def test_negative_nonempty_args_rejected(tmp_path: Path) -> None:
+    gos = tmp_path / ".gos"
+    target = Path(__file__).resolve().parents[1]
+    delivery = start_mission(
+        _goal("goal_bad_args"),
+        target_path=target,
+        gos_root=gos,
+        hooks={
+            "model_script": [
+                {
+                    "action": "call_tool",
+                    "tool_id": "repo.audit",
+                    "args": {"path": "/etc/passwd"},
+                },
+                {"action": "stop"},
+            ]
+        },
+    )
+    assert delivery["terminal_status"] != "SUCCEEDED"
+    assert str(delivery.get("observe_block") or "").startswith("invalid_tool_args")
+    calls_path = gos / "missions" / delivery["run_id"] / "tool_calls.json"
+    assert not calls_path.exists()
+
+
+def test_tool_catalog_capability_intersection() -> None:
+    assert "repo.audit" in registered_tool_ids()
+    assert "repo.inventory" in registered_tool_ids()
+    allowed = resolve_allowed_tool_ids(
+        goal_capabilities=["filesystem.read", "git.read"],
+        brief_allowed_capabilities=["filesystem.read"],
+    )
+    assert "repo.audit" in allowed
+    assert "repo.inventory" in allowed
+    assert "workspace.read_text" in allowed
+    assert "research.scan" in allowed
+    assert "workspace.write_text" not in allowed
+    none = resolve_allowed_tool_ids(
+        goal_capabilities=["web.read"],
+        brief_allowed_capabilities=["web.read"],
+    )
+    assert none == []
+
+
+def test_inventory_criteria_not_bound_by_audit_verifier() -> None:
+    goal = _inventory_goal("goal_inv_support")
+    assert criteria_supported_by_tool(goal, "repo.inventory") == ["sc_inv_01"]
+    assert criteria_supported_by_tool(goal, "repo.audit") == []
+    assert criteria_supported_by_repo_audit(goal) == []
+
+
+def test_inventory_verifier_rejects_corrupt() -> None:
+    assert (
+        verify_repo_inventory_report(
+            {"kind": "repo_inventory", "entries": [], "modified_target": True}
+        )["ok"]
+        is False
+    )
+    assert verify_tool_artifact("repo.inventory", {"kind": "nope"})["ok"] is False
+
+
+def test_completion_gate_independent_of_tool_catalog() -> None:
+    """Completion Gate still refuses empty receipts regardless of catalog wiring."""
+    decision = evaluate_goal_completion(goal=_inventory_goal(), effect_receipts=[])
+    assert decision.status != CompletionStatus.ACHIEVED
+
+
+def test_mock_model_two_action_cycles(tmp_path: Path) -> None:
+    """Recording + ScriptedActionProvider: ≥2 sequential action-selection cycles."""
+    gos = tmp_path / ".gos"
+    target = Path(__file__).resolve().parents[1]
+    delivery = start_mission(
+        _goal("goal_model_cycles"),
+        target_path=target,
+        gos_root=gos,
+        hooks={
+            "model_script": [
+                {"action": "call_tool", "tool_id": "repo.audit", "args": {}},
+                {"action": "stop"},
+            ]
+        },
+    )
+    assert delivery["terminal_status"] == "SUCCEEDED"
+    assert int(delivery["model_cycles"]) >= 2
+
+
+def test_observation_reactive_changes_next_action(tmp_path: Path) -> None:
+    """Next decision depends on observation — multi-step preferred tools."""
+    gos = tmp_path / ".gos"
+    sandbox = tmp_path / "se_box"
+    sandbox.mkdir()
+    (sandbox / "README.md").write_text("# se box\nbuggy=1\n", encoding="utf-8")
+    (sandbox / "app.py").write_text("VALUE = 1\n", encoding="utf-8")
+    draft = {
+        "schema_version": "0.1.0",
+        "goal_id": "goal_reactive_multi",
+        "version": 1,
+        "tenant_id": "tenant_local",
+        "workspace_id": "ws_preprod",
+        "objective": {"text": "Inventory, inspect README, then write a fix marker."},
+        "success_criteria": [
+            {"id": "sc_inv", "description": "workspace inventory with file listing"},
+            {"id": "sc_read", "description": "read workspace file README"},
+            {
+                "id": "sc_write",
+                "description": "apply fix by write file FIX_APPLIED.txt in workspace",
+            },
+        ],
+        "invariants": ["sandbox_target_only"],
+        "non_goals": [],
+        "forbidden_outcomes": [],
+        "risk": {"tolerance": "low", "maximum_irreversibility": "none"},
+        "authority": {
+            "delegation_depth_max": 3,
+            "capabilities": ["filesystem.read", "filesystem.write"],
+        },
+        "evidence_requirements": {"major_finding": {"verification_tier": 2}},
+        "termination": ["success_criteria_met"],
+        "created_at": "2026-10-14T00:00:00+00:00",
+    }
+    delivery = start_mission(
+        draft,
+        target_path=sandbox,
+        gos_root=gos,
+        hooks={"force_model_mode": "reactive", "max_model_cycles": 8},
+        budget_usd=5.0,
+    )
+    assert delivery["terminal_status"] == "SUCCEEDED"
+    assert delivery["model_mode"] == "reactive"
+    assert "repo.inventory" in delivery["executed_tools"]
+    assert "workspace.read_text" in delivery["executed_tools"]
+    assert "workspace.write_text" in delivery["executed_tools"]
+    assert int(delivery["model_cycles"]) >= 4  # 3 tools + stop
+    hist = delivery["evidence"]["model_history"]
+    assert len(hist) >= 3
+    # After first ok observation, later steps must not all be identical.
+    actions = [h.get("step", {}).get("tool_id") for h in hist if h.get("step", {}).get("action") == "call_tool"]
+    assert len(set(actions)) >= 2
+    assert (sandbox / "FIX_APPLIED.txt").exists()
+
+
+def test_wrong_write_filename_does_not_succeed_goal(tmp_path: Path) -> None:
+    """P0: writing fix_marker.txt must not satisfy FIX_APPLIED.txt criterion."""
+    gos = tmp_path / ".gos"
+    sandbox = tmp_path / "box"
+    sandbox.mkdir()
+    (sandbox / "README.md").write_text("# box\n", encoding="utf-8")
+    draft = {
+        "schema_version": "0.1.0",
+        "goal_id": "goal_wrong_write_name",
+        "version": 1,
+        "tenant_id": "tenant_local",
+        "workspace_id": "ws_preprod",
+        "objective": {"text": "Write the required fix file only."},
+        "success_criteria": [
+            {
+                "id": "sc_write",
+                "description": "apply fix by write file FIX_APPLIED.txt in workspace",
+            }
+        ],
+        "invariants": ["sandbox_target_only"],
+        "non_goals": [],
+        "forbidden_outcomes": [],
+        "risk": {"tolerance": "low", "maximum_irreversibility": "none"},
+        "authority": {
+            "delegation_depth_max": 3,
+            "capabilities": ["filesystem.read", "filesystem.write"],
+        },
+        "evidence_requirements": {"major_finding": {"verification_tier": 2}},
+        "termination": ["success_criteria_met"],
+        "created_at": "2026-10-14T00:00:00+00:00",
+    }
+    delivery = start_mission(
+        draft,
+        target_path=sandbox,
+        gos_root=gos,
+        hooks={
+            "model_script": [
+                {
+                    "action": "call_tool",
+                    "tool_id": "workspace.write_text",
+                    "args": {
+                        "path": "fix_marker.txt",
+                        "content": "wrong-name\n",
+                    },
+                },
+                {"action": "stop"},
+            ]
+        },
+    )
+    assert delivery["terminal_status"] != "SUCCEEDED"
+    assert delivery["completion"]["status"] != CompletionStatus.ACHIEVED.value
+    assert "sc_write" in (
+        delivery["completion"].get("criteria_unknown")
+        or []
+    ) or "sc_write" in (delivery["completion"].get("criteria_unmet") or [])
+    assert (sandbox / "fix_marker.txt").exists()
+    assert not (sandbox / "FIX_APPLIED.txt").exists()
+
+
+def test_correct_write_filename_can_succeed(tmp_path: Path) -> None:
+    gos = tmp_path / ".gos"
+    sandbox = tmp_path / "box"
+    sandbox.mkdir()
+    (sandbox / "README.md").write_text("# box\n", encoding="utf-8")
+    draft = {
+        "schema_version": "0.1.0",
+        "goal_id": "goal_correct_write_name",
+        "version": 1,
+        "tenant_id": "tenant_local",
+        "workspace_id": "ws_preprod",
+        "objective": {"text": "Write FIX_APPLIED.txt"},
+        "success_criteria": [
+            {
+                "id": "sc_write",
+                "description": "apply fix by write file FIX_APPLIED.txt in workspace",
+            }
+        ],
+        "invariants": ["sandbox_target_only"],
+        "non_goals": [],
+        "forbidden_outcomes": [],
+        "risk": {"tolerance": "low", "maximum_irreversibility": "none"},
+        "authority": {
+            "delegation_depth_max": 3,
+            "capabilities": ["filesystem.write", "filesystem.read"],
+        },
+        "evidence_requirements": {"major_finding": {"verification_tier": 2}},
+        "termination": ["success_criteria_met"],
+        "created_at": "2026-10-14T00:00:00+00:00",
+    }
+    delivery = start_mission(
+        draft,
+        target_path=sandbox,
+        gos_root=gos,
+        hooks={
+            "model_script": [
+                {
+                    "action": "call_tool",
+                    "tool_id": "workspace.write_text",
+                    "args": {
+                        "path": "FIX_APPLIED.txt",
+                        "content": "ok\n",
+                    },
+                },
+                {"action": "stop"},
+            ]
+        },
+    )
+    assert delivery["terminal_status"] == "SUCCEEDED"
+    assert "sc_write" in delivery["completion"]["criteria_met"]
+    assert (sandbox / "FIX_APPLIED.txt").read_text(encoding="utf-8") == "ok\n"
+
+
+def test_unfamiliar_accept_nonce_goal_independent_oracle(tmp_path: Path) -> None:
+    from global_os.runtime.preprod.goal_postconditions import independent_accept_write_goal
+
+    gos = tmp_path / ".gos"
+    sandbox = tmp_path / "nonce_box"
+    sandbox.mkdir()
+    (sandbox / "README.md").write_text("nonce target\n", encoding="utf-8")
+    draft = json.loads(
+        (
+            Path(__file__).resolve().parents[1] / "examples" / "goal_accept_nonce.json"
+        ).read_text(encoding="utf-8")
+    )
+    delivery = start_mission(
+        draft,
+        target_path=sandbox,
+        gos_root=gos,
+        hooks={"force_model_mode": "reactive", "max_model_cycles": 6},
+        budget_usd=3.0,
+    )
+    assert delivery["terminal_status"] == "SUCCEEDED"
+    oracle = independent_accept_write_goal(draft, sandbox)
+    assert oracle["accept"] is True
+    assert (sandbox / "ACCEPT_NONCE_RC1.txt").read_text(encoding="utf-8").strip() == (
+        "preprod-accept-rc1"
+    )
+
+
+def test_research_scan_goal(tmp_path: Path) -> None:
+    gos = tmp_path / ".gos"
+    corpus = tmp_path / "corpus"
+    corpus.mkdir()
+    (corpus / "paper.md").write_text(
+        "# Notes\nSee [Source](https://example.com/a) and doi:10.1234/abcd.5678\n"
+        "- Hypothesis A is stronger than B under noise.\n",
+        encoding="utf-8",
+    )
+    draft = json.loads(
+        (
+            Path(__file__).resolve().parents[1]
+            / "examples"
+            / "goal_research_scan.json"
+        ).read_text(encoding="utf-8")
+    )
+    delivery = start_mission(draft, target_path=corpus, gos_root=gos, budget_usd=3.0)
+    assert delivery["terminal_status"] == "SUCCEEDED"
+    assert delivery["executed_tools"] == ["research.scan"]

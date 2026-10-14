@@ -1,0 +1,11 @@
+{
+  "ok": true,
+  "wheel_assets": {
+    "schemas": 29,
+    "migrations_sql": ["001_init.sql"],
+    "cedar": "base.cedar"
+  },
+  "cli": "gos mission start --help exit 0",
+  "mission": "accept_nonce SUCCEEDED from installed wheel (see CLEAN_INSTALL_MISSION.json)",
+  "install_method": "python3 -m build --wheel; pip install --target <site> <wheel>"
+}

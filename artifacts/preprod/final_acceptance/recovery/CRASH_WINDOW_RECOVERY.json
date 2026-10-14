@@ -1,0 +1,12 @@
+{
+  "ok": true,
+  "child_returncode": -9,
+  "fix_present_before_resume": true,
+  "fix_present_after_resume": true,
+  "mtime_unchanged": true,
+  "write_calls_after_resume": 1,
+  "terminal_status": "SUCCEEDED",
+  "resume_returncode": 0,
+  "resume_stderr": "",
+  "effect_marker": "/workspace/artifacts/preprod/final_acceptance/recovery/.gos_crash_window/missions/run_4a749d90a32244f0/effect_pre_checkpoint.json"
+}

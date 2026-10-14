@@ -1,0 +1,333 @@
+{
+  "schema_version": "0.1.0",
+  "profile": "PREPROD_SUPERVISED",
+  "run_id": "run_33dee103b4e84163",
+  "goal_id": "goal_se_sandbox_001",
+  "mission_id": "msn_c753966a838f48b9",
+  "terminal_status": "PARTIAL",
+  "completion": {
+    "status": "PARTIAL",
+    "criteria_met": [
+      "sc_inv",
+      "sc_read",
+      "sc_audit"
+    ],
+    "criteria_unmet": [],
+    "criteria_unknown": [
+      "sc_write"
+    ],
+    "invariant_violations": [],
+    "authority_ok": true,
+    "evidence_bound": true,
+    "reason": "some_criteria_unknown",
+    "llm_used_as_oracle": false
+  },
+  "achiever_stop": "STOP_INCONCLUSIVE",
+  "budget": {
+    "usd": 5.0,
+    "tokens": 50000,
+    "spent_usd": 0.05,
+    "remaining_usd": 4.95
+  },
+  "artifact_digest": "sha256:2a0fc574e132ad6607e9734bd6af687b60c3b9012d6df4f3f8520633717139e0",
+  "report_hash": "sha256:218872a006d4118786545627cf9e1e8b9998bc6d8edf26392ea239cac686f026",
+  "tool_calls": {
+    "repo.inventory": 1,
+    "workspace.read_text": 1,
+    "repo.audit": 1,
+    "workspace.write_text": 1,
+    "research.scan": 1
+  },
+  "allowed_tool_ids": [
+    "repo.audit",
+    "repo.inventory",
+    "research.scan",
+    "workspace.read_text",
+    "workspace.write_text"
+  ],
+  "executed_tools": [
+    "repo.inventory",
+    "workspace.read_text",
+    "repo.audit",
+    "workspace.write_text",
+    "research.scan"
+  ],
+  "model_cycles": 7,
+  "model_calls": 7,
+  "model_mode": "live",
+  "model_cost_usd": 0.0,
+  "model_cost_forced": true,
+  "model_input_tokens": 2382,
+  "model_output_tokens": 1862,
+  "model_latency_ms": 12753.95498299622,
+  "observe_block": "invalid_tool_args:expected_empty",
+  "limits": {
+    "external_write": "human_confirmation_required",
+    "hmac_action_binding_residual": "NOT_CLAIMED_SOLVED",
+    "challenge_ga": "NOT_STARTED",
+    "live_llm": "AUTHORIZED_GROQ_FREE_TIER"
+  },
+  "evidence": {
+    "effect_receipt_ids": [
+      "er_40bcff8ae4ed42bf",
+      "er_f1ff31d6412646ca",
+      "er_2d55e934054f4ecd",
+      "er_08a52a0f8bf146e8",
+      "er_b0863065189247d8"
+    ],
+    "effect_receipts": [
+      {
+        "receipt_id": "er_40bcff8ae4ed42bf",
+        "schema_version": "0.1.0",
+        "action_id": "act_47cb7e8b21b24841",
+        "tool_response": {
+          "success": true
+        },
+        "intended_effect": "repo_inventory_report",
+        "observed_effect": "repo_inventory_report",
+        "discrepancy": "none",
+        "verified_at": "2026-10-14T17:02:23.976701+00:00",
+        "verification_method": "post_execution_artifact_verify",
+        "reconciliation_status": "RECONCILED",
+        "world_success": true,
+        "binds_criteria": [
+          "sc_inv"
+        ],
+        "success_criteria_ids": [
+          "sc_inv"
+        ],
+        "artifact_verify": {
+          "ok": true,
+          "reason": "deterministic_structure_ok",
+          "entry_count": 3
+        },
+        "postcondition": {
+          "ok": true,
+          "reason": "not_applicable"
+        },
+        "artifact_digest": "sha256:e8bb2496af2d82e5d107dfcd41c28b5d479db04a3ebe0488c4c01ed6542ae727",
+        "report_hash": "sha256:37bd668170df6801214894856ebfe016bf9f7c8c22192d2c2fd208fde5546141",
+        "verifier": "repo.inventory",
+        "criteria_supported": [
+          "sc_inv"
+        ],
+        "tool_id": "repo.inventory",
+        "gateway_reconciliation_status": "OBSERVATION_PENDING"
+      },
+      {
+        "receipt_id": "er_f1ff31d6412646ca",
+        "schema_version": "0.1.0",
+        "action_id": "act_6c285dc060824e06",
+        "tool_response": {
+          "success": true
+        },
+        "intended_effect": "workspace_file_read",
+        "observed_effect": "workspace_file_read",
+        "discrepancy": "none",
+        "verified_at": "2026-10-14T17:02:25.827575+00:00",
+        "verification_method": "post_execution_artifact_verify",
+        "reconciliation_status": "RECONCILED",
+        "world_success": true,
+        "binds_criteria": [
+          "sc_read"
+        ],
+        "success_criteria_ids": [
+          "sc_read"
+        ],
+        "artifact_verify": {
+          "ok": true,
+          "reason": "read_ok",
+          "path": "README.md"
+        },
+        "postcondition": {
+          "ok": true,
+          "reason": "not_applicable"
+        },
+        "artifact_digest": "sha256:b2fe7d1ee3c1a1f8209c3f6ea6efcf903993814ef0b434336186c3b98d0507bd",
+        "report_hash": "sha256:7d0cc5e2fad656f5aaa8a797441b13342f31210a9d0b9098920b72fb2800f9cf",
+        "verifier": "workspace.read_text",
+        "criteria_supported": [
+          "sc_read"
+        ],
+        "tool_id": "workspace.read_text",
+        "gateway_reconciliation_status": "OBSERVATION_PENDING"
+      },
+      {
+        "receipt_id": "er_2d55e934054f4ecd",
+        "schema_version": "0.1.0",
+        "action_id": "act_bb5c38ab302549c6",
+        "tool_response": {
+          "success": true
+        },
+        "intended_effect": "repo_audit_report",
+        "observed_effect": "repo_audit_report",
+        "discrepancy": "none",
+        "verified_at": "2026-10-14T17:02:28.305346+00:00",
+        "verification_method": "post_execution_artifact_verify",
+        "reconciliation_status": "RECONCILED",
+        "world_success": true,
+        "binds_criteria": [
+          "sc_audit"
+        ],
+        "success_criteria_ids": [
+          "sc_audit"
+        ],
+        "artifact_verify": {
+          "ok": true,
+          "reason": "deterministic_structure_ok",
+          "finding_count": 4
+        },
+        "postcondition": {
+          "ok": true,
+          "reason": "not_applicable"
+        },
+        "artifact_digest": "sha256:df0a628966e97f831bb0fafe3b38f9ebad0c4675153e8b61c61b56f0997c8cfa",
+        "report_hash": "sha256:d313b6f72c15634fafd0737979f5cf8abc0ea180fb24ab334968e18f7e2d5f8c",
+        "verifier": "repo.audit",
+        "criteria_supported": [
+          "sc_audit"
+        ],
+        "tool_id": "repo.audit",
+        "gateway_reconciliation_status": "OBSERVATION_PENDING"
+      },
+      {
+        "receipt_id": "er_08a52a0f8bf146e8",
+        "schema_version": "0.1.0",
+        "action_id": "act_350f7428749b46da",
+        "tool_response": {
+          "success": true
+        },
+        "intended_effect": "workspace_file_write",
+        "observed_effect": "workspace_file_write",
+        "discrepancy": "none",
+        "verified_at": "2026-10-14T17:02:30.347751+00:00",
+        "verification_method": "post_execution_artifact_verify",
+        "reconciliation_status": "RECONCILED",
+        "world_success": true,
+        "binds_criteria": [],
+        "success_criteria_ids": [],
+        "artifact_verify": {
+          "ok": true,
+          "reason": "write_ok",
+          "path": "fix_marker.txt"
+        },
+        "postcondition": {
+          "ok": true,
+          "reason": "disk_matches_report",
+          "path": "fix_marker.txt",
+          "byte_length": 5
+        },
+        "artifact_digest": "sha256:35976b58078d24a5e76ccd321515f9f364a943fe1ca38c69c555cc5fc030ee15",
+        "report_hash": "sha256:22539e281c3c7164b440f7b121b6c76356cb479d73da8bf57e95dfa097a9feb0",
+        "verifier": "workspace.write_text",
+        "criteria_supported": [
+          "sc_write"
+        ],
+        "tool_id": "workspace.write_text",
+        "gateway_reconciliation_status": "OBSERVATION_PENDING"
+      },
+      {
+        "receipt_id": "er_b0863065189247d8",
+        "schema_version": "0.1.0",
+        "action_id": "act_670c2eaca5c14709",
+        "tool_response": {
+          "success": true
+        },
+        "intended_effect": "research_scan_report",
+        "observed_effect": "research_scan_report",
+        "discrepancy": "none",
+        "verified_at": "2026-10-14T17:02:34.622417+00:00",
+        "verification_method": "post_execution_artifact_verify",
+        "reconciliation_status": "RECONCILED",
+        "world_success": true,
+        "binds_criteria": [],
+        "success_criteria_ids": [],
+        "artifact_verify": {
+          "ok": true,
+          "reason": "structure_ok",
+          "source_count": 0,
+          "claim_count": 0
+        },
+        "postcondition": {
+          "ok": true,
+          "reason": "not_applicable"
+        },
+        "artifact_digest": "sha256:2a0fc574e132ad6607e9734bd6af687b60c3b9012d6df4f3f8520633717139e0",
+        "report_hash": "sha256:218872a006d4118786545627cf9e1e8b9998bc6d8edf26392ea239cac686f026",
+        "verifier": "research.scan",
+        "criteria_supported": [],
+        "tool_id": "research.scan",
+        "gateway_reconciliation_status": "OBSERVATION_PENDING"
+      }
+    ],
+    "events_path": "artifacts/preprod/final_acceptance/missions_live_rerun/.gos_missions/se/missions/run_33dee103b4e84163/events.json",
+    "artifact_digest": "sha256:2a0fc574e132ad6607e9734bd6af687b60c3b9012d6df4f3f8520633717139e0",
+    "report_hash": "sha256:218872a006d4118786545627cf9e1e8b9998bc6d8edf26392ea239cac686f026",
+    "model_history": [],
+    "last_observation_summary": "tool=research.scan;verify=True;post=True;binds=[];world_success=True;status=RECONCILED"
+  },
+  "history_summary": [
+    "decomposed",
+    "brief:brf_e0413f785e6c40b5",
+    "routed:ROUTE",
+    "completion:PARTIAL",
+    "pivot:PIVOT",
+    "brief:brf_23f78af56d58493e",
+    "routed:ROUTE",
+    "completion:PARTIAL",
+    "budget_exhausted"
+  ],
+  "last_execution_brief": {
+    "brief_id": "brf_bc29c813f9f942f2",
+    "schema_version": "0.1.0",
+    "goal_id": "goal_se_sandbox_001",
+    "goal_version": 1,
+    "plan_id": "plan_run_33dee103b4e84163",
+    "task_id": "task_run_33dee103b4e84163_observe",
+    "objective_text": "Advance Goal goal_se_sandbox_001 via task 'observe' without claiming unverified criteria. Clarify scoped evidence needs. Outcome context: Software engineering sandbox mission: inventory the workspace, inspect README.md, apply a fix marker file, and produce a verified engineering audit report.",
+    "criterion_ids": [],
+    "allowed_tools": [
+      "filesystem.read",
+      "filesystem.write",
+      "git.read"
+    ],
+    "budget": {
+      "usd": 2.5,
+      "tokens": 25000
+    },
+    "expected_artifacts": [
+      "effect_receipt",
+      "artifact_digest"
+    ],
+    "verification_method": "effect_receipt_completion_gate",
+    "constraints": [
+      "sandbox_target_only",
+      "no_binding_external_commitments",
+      "no_goal_mutation",
+      "no_self_certification"
+    ],
+    "human_approval_required": false,
+    "context_refs": [
+      "goal_contract",
+      "task_run_33dee103b4e84163_observe",
+      "plan_run_33dee103b4e84163",
+      "evt_401ed29c150e4890",
+      "evt_e285f761b0a44596"
+    ],
+    "authority_check": {
+      "caps_subset": true
+    },
+    "material_reason": "first_attempt",
+    "env_id": "env_a69dbbc082744c45",
+    "org_unit_id": "org_1680c0ed2ede45e6",
+    "content_hash": "sha256:ce76085be75e00a1d322510fd8e1179cc1975c855dd386184dd22762816ab89c"
+  },
+  "delivered_at": "2026-10-14T17:02:36.332395+00:00",
+  "honesty": {
+    "production_proven": 0,
+    "continual_si": "NOT_MEASURED",
+    "end_to_end_os_speedup": "NOT_CLAIMED",
+    "execution_brief": "ephemeral_work_order_not_completion",
+    "tool_selection": "brief_catalog_gateway_observation_conditioned"
+  }
+}

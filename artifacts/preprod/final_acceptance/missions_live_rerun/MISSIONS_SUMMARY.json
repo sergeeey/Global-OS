@@ -1,0 +1,40 @@
+{
+  "generated_at": "2026-10-14T17:02:42.928745+00:00",
+  "model": "live",
+  "authorize_live_llm": true,
+  "results": [
+    {
+      "mission": "software_engineering_sandbox",
+      "terminal_status": "PARTIAL",
+      "completion": "PARTIAL",
+      "executed_tools": [
+        "repo.inventory",
+        "workspace.read_text",
+        "repo.audit",
+        "workspace.write_text",
+        "research.scan"
+      ],
+      "model_mode": "live",
+      "model_cycles": 7,
+      "model_cost_usd": 0.0,
+      "fix_marker_exists": false,
+      "run_id": "run_33dee103b4e84163",
+      "observe_block": "invalid_tool_args:expected_empty"
+    },
+    {
+      "mission": "research_data_analysis",
+      "terminal_status": "SUCCEEDED",
+      "completion": "ACHIEVED",
+      "executed_tools": [
+        "research.scan"
+      ],
+      "model_mode": "live",
+      "model_cycles": 3,
+      "model_cost_usd": 0.0,
+      "run_id": "run_ebc8b3a48cf54d36",
+      "observe_block": "invalid_tool_args:expected_empty"
+    }
+  ],
+  "honesty_note": "live SE PARTIAL — not false SUCCESS; research SUCCEEDED",
+  "tip_sha": "pending_commit"
+}

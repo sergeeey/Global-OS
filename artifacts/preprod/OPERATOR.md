@@ -1,31 +1,55 @@
 # Global OS Operator Edition — PREPROD_SUPERVISED v0.1
 
 Supervised pre-production profile: **one operator**, **one active mission**,
-read-only sandbox tools by default. Not multi-tenant SaaS. Not autonomous production.
+sandbox tools via ToolGateway. Not multi-tenant SaaS. Not autonomous production.
 
 ## Prerequisites
 
 ```bash
+# Editable (dev)
 python3 -m pip install -e '.[dev]'
-# from repo root
+# from repo root; or use PYTHONPATH=src without install
+
+# Clean wheel (no checkout PYTHONPATH)
+python3 -m build --wheel
+python3 -m pip install dist/global_os-*.whl   # or: pip install --target <site> …
+# Wheel ships schemas + SQL migrations + Cedar policy bootstrap.
 ```
 
 Runtime data defaults to `./.gos/missions/<run_id>/`.
 
-## One-command mission
+## One-command mission (observation-reactive mock — default)
 
 ```bash
 PYTHONPATH=src python3 -m global_os.cli mission start \
   --goal examples/goal_repo_audit.json \
   --target . \
-  --budget-usd 15
+  --budget-usd 15 \
+  --model reactive
 ```
 
-Or after `pip install -e .`:
+Software-engineering sandbox + research examples:
 
 ```bash
-gos mission start --goal examples/goal_repo_audit.json --target . --budget-usd 15
+PYTHONPATH=src python3 scripts/preprod_run_missions.py --model reactive
 ```
+
+## Live LLM (Groq free tier — operator gated)
+
+Requires `GROQ_API_KEY` and explicit authorization:
+
+```bash
+export GOS_AUTHORIZE_LIVE_LLM=1
+PYTHONPATH=src python3 -m global_os.cli mission start \
+  --goal examples/goal_research_scan.json \
+  --target /path/to/corpus \
+  --model live \
+  --authorize-live-llm \
+  --budget-usd 5
+```
+
+Default live model: `openai/gpt-oss-20b` (`GOS_OPERATOR_LIVE_MODEL` override).  
+Recorded adapter cost is `$0` on Groq free tier. **Do not enable paid providers without a separate budget authorize.**
 
 ## Operator controls
 
@@ -33,35 +57,29 @@ gos mission start --goal examples/goal_repo_audit.json --target . --budget-usd 1
 gos mission status
 gos mission pause --run-id <run_id>
 gos mission resume --run-id <run_id>
-gos mission cancel --run-id <run-id>
+gos mission cancel --run-id <run_id>
 gos mission deliver --run-id <run_id>
 ```
 
 Optional: `gos --root /path/to/.gos …` to isolate state.
 
-## What you get on SUCCESS
+## Recovery probe (real process kill)
 
-`delivery.json` includes:
+```bash
+PYTHONPATH=src python3 scripts/preprod_real_kill_recovery.py
+```
 
-- Completion Gate decision (not an LLM oracle)
-- Budget spent / remaining
-- Effect receipt ids + artifact digest
-- History summary (Achiever control events)
-- Honesty flags (`production_proven=0`, Challenge NOT_STARTED)
+## What you get on delivery
 
-## Recovery
-
-Interruptions checkpoint via DurableRunner + on-disk durable gate.
-Resume with `gos mission resume`. Gateway uses a stable idempotency key per run
-so a completed `repo.audit` is not silently re-executed.
+`delivery.json` includes Completion Gate decision, budget, receipts, model_mode/cycles/cost, honesty flags.
 
 ## Safety
 
-- Irreversible / external write actions: **human confirmation required** (not enabled in this read-only pilot).
-- Secrets must not be pasted into Goal JSON or delivery reports.
-- Do not set `GOS_PROFILE=production` for this pilot unless rust Authority + secrets are provisioned.
+- World effects only via ToolGateway after Authority.  
+- Irreversible external systems: not enabled beyond sandbox target writes.  
+- Challenge-GA: `NOT_STARTED` without separate authorize.  
+- Do not set `GOS_PROFILE=production` unless rust Authority + secrets are provisioned.
 
-## Challenge-GA
+## Acceptance pack
 
-Still `NOT_STARTED`. Requires a separate explicit authorize. This Operator path is
-orthogonal to the Challenge fixture.
+`artifacts/preprod/final_acceptance/` + `artifacts/preprod/PREPROD_RELEASE_GATE.md`

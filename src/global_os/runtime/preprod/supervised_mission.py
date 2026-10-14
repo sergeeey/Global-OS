@@ -1,25 +1,52 @@
-"""Supervised mission path: Goal → Mission → Gateway observe → Achiever → Delivery.
+"""Supervised mission path: Goal → Brief → Gateway tools → Achiever → Delivery.
 
 PREPROD_SUPERVISED: one operator, one active mission, read-only sandbox tools by default.
 World effects only via ToolGateway; Achiever remains control-plane (world_effects=False).
+Tool choice comes from Goal capabilities ∩ Execution Brief ∩ Operator tool catalog —
+not from a hardcoded tool id in the observe step.
 """
 
 from __future__ import annotations
 
 import json
+import os
+import signal
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from global_os.adapters.models.base import GenerateRequest, ModelProvider, ModelProviderError
+from global_os.adapters.models.factory import free_live_ready, open_model_provider
+from global_os.adapters.models.observation_reactive import ObservationReactiveProvider
+from global_os.adapters.models.recording import RecordingModelProvider
+from global_os.adapters.models.scripted_action import (
+    ScriptedActionProvider,
+    default_tool_script,
+)
 from global_os.adapters.storage.sql import connect_sqlite
 from global_os.cognition.organization import MissionAssigner, OrganizationCompiler
 from global_os.cognition.organs.achiever_loop import AchieverLoopError, run_achiever_organ_loop
-from global_os.common.hashing import new_id
-from global_os.kernel.action_gateway import ToolGateway, ToolResult, trusted_observation
+from global_os.cognition.organs.task_compiler import TaskCompilerError, compile_execution_brief
+from global_os.common.hashing import content_hash, new_id
+from global_os.kernel.action_gateway import ToolGateway, ToolResult
 from global_os.kernel.authority import AuthorityKernel
 from global_os.kernel.authority.durable_gate import SqliteDurableGateStore
 from global_os.runtime.events import EventLedger
 from global_os.runtime.goals import GoalStore
+from global_os.runtime.preprod.goal_postconditions import (
+    filter_write_criteria_by_goal,
+    postcondition_workspace_write,
+)
+from global_os.runtime.preprod.tool_catalog import (
+    ToolCatalogError,
+    assert_tool_permitted,
+    criteria_supported_by_tool,
+    criteria_supported_by_tools,
+    produce_tool_artifact,
+    resolve_allowed_tool_ids,
+    validate_tool_args,
+    verify_tool_artifact,
+)
 from global_os.runtime.workflows.durable import (
     DurableRunner,
     WorkflowAborted,
@@ -27,7 +54,6 @@ from global_os.runtime.workflows.durable import (
     WorkflowStep,
 )
 from global_os.world.artifacts import ArtifactStore
-from global_os.world.tools import run_repo_audit
 
 PROFILE = "PREPROD_SUPERVISED"
 CONTROL_RUNNING = "RUNNING"
@@ -117,69 +143,9 @@ def _criterion_ids(goal: dict[str, Any]) -> list[str]:
     return out
 
 
-def _criterion_entries(goal: dict[str, Any]) -> list[tuple[str, str]]:
-    """Return (criterion_id, description) pairs from the Goal Contract."""
-    entries: list[tuple[str, str]] = []
-    for c in goal.get("success_criteria") or []:
-        if isinstance(c, str):
-            entries.append((c, c))
-            continue
-        cid = str(c.get("id") or c.get("description") or "")
-        desc = str(c.get("description") or c.get("id") or "")
-        if cid:
-            entries.append((cid, desc))
-    return entries
-
-
-# Semantic markers only — never trust bare criterion ids (e.g. sc_01 alone).
-# Description markers this verifier can honestly support (substring, lowercased).
-_REPO_AUDIT_DESC_MARKERS = (
-    "engineering report",
-    "audit report",
-    "repo audit",
-    "verified engineering report",
-)
-# If present, criterion is out of scope for repo.audit even when id looks familiar.
-_REPO_AUDIT_EXCLUDE_MARKERS = (
-    "integration test",
-    "интеграционн",
-    "tests passed",
-    "тесты прошли",
-    "e2e passed",
-    "pytest",
-)
-
-
 def criteria_supported_by_repo_audit(goal: dict[str, Any]) -> list[str]:
-    """Criteria this verifier can independently evidence — by description semantics.
-
-    Never bind solely because ``id == sc_01``. Unrelated criteria (e.g. integration
-    tests passed) stay unbound → UNKNOWN at Completion Gate.
-    """
-    supported: list[str] = []
-    for cid, desc in _criterion_entries(goal):
-        lowered = desc.lower()
-        if any(marker in lowered for marker in _REPO_AUDIT_EXCLUDE_MARKERS):
-            continue
-        if any(marker in lowered for marker in _REPO_AUDIT_DESC_MARKERS):
-            supported.append(cid)
-    return supported
-
-
-def verify_repo_audit_report(report: Any) -> dict[str, Any]:
-    """Deterministic independent check of a repo-audit artifact (read-only pilot)."""
-    if not isinstance(report, dict):
-        return {"ok": False, "reason": "report_not_object"}
-    if report.get("modified_target") is not False:
-        return {"ok": False, "reason": "modified_target_not_false"}
-    if report.get("read_only") is not True:
-        return {"ok": False, "reason": "read_only_not_true"}
-    findings = report.get("findings")
-    if not isinstance(findings, list) or len(findings) < 1:
-        return {"ok": False, "reason": "empty_or_missing_findings"}
-    if not isinstance(report.get("scan"), dict):
-        return {"ok": False, "reason": "missing_scan"}
-    return {"ok": True, "reason": "deterministic_structure_ok", "finding_count": len(findings)}
+    """Backward-compatible helper — criteria supportable by ``repo.audit`` only."""
+    return criteria_supported_by_tool(goal, "repo.audit")
 
 
 def _build_attempt_fn(*, receipts: list[dict[str, Any]]) -> Any:
@@ -197,64 +163,221 @@ def _build_attempt_fn(*, receipts: list[dict[str, Any]]) -> Any:
     return attempt_fn
 
 
+def _brief_select_step(state: dict[str, Any]) -> dict[str, Any]:
+    """Compile Execution Brief and resolve allowed Gateway tool IDs (fail-closed)."""
+    run_dir = Path(state["run_dir"])
+    _require_control(run_dir)
+    goal = state["goal"]
+    budget = dict(state.get("budget") or {})
+    ledger = EventLedger.from_snapshot(state.get("events") or [])
+    org_unit = {
+        "id": str(state.get("org_unit_id") or "org_preprod"),
+        "authority": {"capabilities": list(goal["authority"]["capabilities"])},
+        "budget": {
+            "usd": float(budget.get("usd", 0) or 0),
+            "tokens": int(budget.get("tokens", 0) or 0),
+        },
+        "output_contract": "artifact_and_evidence",
+    }
+    plan = {
+        "plan_id": f"plan_{state['run_id']}",
+        "task_advances_criteria": {},
+    }
+    task = {"task_id": f"task_{state['run_id']}_observe", "title": "observe"}
+    # Do not pre-bind all criteria — tool verifiers bind after evidence.
+    try:
+        brief = compile_execution_brief(
+            goal=goal,
+            plan=plan,
+            task=task,
+            org_unit=org_unit,
+            ledger_tail=ledger.list_events(),
+            material_reason="first_attempt",
+            criterion_ids=[],
+            force=True,
+        )
+    except TaskCompilerError as exc:
+        raise SupervisedMissionError(f"brief_compile_failed:{exc}") from exc
+    if brief is None:
+        raise SupervisedMissionError("brief_compile_failed:none")
+
+    goal_caps = list(goal["authority"]["capabilities"])
+    brief_caps = list(brief.get("allowed_tools") or [])
+    allowed_tool_ids = resolve_allowed_tool_ids(
+        goal_capabilities=goal_caps,
+        brief_allowed_capabilities=brief_caps,
+    )
+    # Optional test narrowing of tool set (never expands beyond resolved).
+    hooks = dict(state.get("hooks") or {})
+    override_tools = hooks.get("allowed_tool_ids_override")
+    if override_tools is not None:
+        allowed_tool_ids = [t for t in list(override_tools) if t in allowed_tool_ids]
+
+    if not allowed_tool_ids:
+        state = {
+            **state,
+            "events": ledger.export_snapshot(),
+            "execution_brief": brief,
+            "allowed_tool_ids": [],
+            "phase": "briefed",
+            "observe_block": "no_allowed_tools",
+            "effect_receipts": [],
+        }
+        _persist_events(run_dir, ledger)
+        _write_json(_state_path(run_dir), {k: v for k, v in state.items() if k != "events"})
+        return state
+
+    state = {
+        **state,
+        "events": ledger.export_snapshot(),
+        "execution_brief": brief,
+        "allowed_tool_ids": allowed_tool_ids,
+        "phase": "briefed",
+        "observe_block": None,
+    }
+    _persist_events(run_dir, ledger)
+    _write_json(_state_path(run_dir), {k: v for k, v in state.items() if k != "events"})
+    return state
+
+
 def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
+    """Execute tools selected via mock action cycles through ToolGateway only."""
     run_dir = Path(state["run_dir"])
     _require_control(run_dir)
     goal = state["goal"]
     hooks = dict(state.get("hooks") or {})
     ledger = EventLedger.from_snapshot(state.get("events") or [])
     budget = dict(state.get("budget") or {})
+    allowed_tool_ids = list(state.get("allowed_tool_ids") or [])
+
     def _as_float(value: Any, default: float) -> float:
         if value is None:
             return default
         return float(value)
 
     tool_cost = _as_float(hooks.get("tool_cost_usd"), 0.01)
-    remaining = _as_float(
-        budget.get("remaining_usd", budget.get("usd")),
-        0.0,
-    )
 
-    # Pre-tool budget gate (fail closed — no SUCCESS via skipped evidence).
+    if state.get("observe_block") == "no_allowed_tools" or not allowed_tool_ids:
+        state = {
+            **state,
+            "effect_receipts": [],
+            "artifact_digest": None,
+            "budget": budget,
+            "tool_calls": state.get("tool_calls") or {},
+            "phase": "observed",
+            "observe_block": "no_allowed_tools",
+            "artifact_verify": {"ok": False, "reason": "no_allowed_tools"},
+            "model_cycles": 0,
+        }
+        _write_json(_state_path(run_dir), {k: v for k, v in state.items() if k != "events"})
+        return state
+
+    remaining = _as_float(budget.get("remaining_usd", budget.get("usd")), 0.0)
     if remaining < tool_cost:
         state = {
             **state,
             "effect_receipts": [],
             "artifact_digest": None,
             "budget": budget,
-            "tool_calls": state.get("tool_calls") or {"repo.audit": 0},
+            "tool_calls": state.get("tool_calls") or {},
             "phase": "observed",
             "observe_block": "budget_insufficient",
             "artifact_verify": {"ok": False, "reason": "budget_insufficient"},
+            "model_cycles": 0,
         }
         _write_json(_state_path(run_dir), {k: v for k, v in state.items() if k != "events"})
         return state
 
     target = Path(state["target_path"])
     call_count_path = run_dir / "tool_calls.json"
-    prior = _read_json(call_count_path) if call_count_path.exists() else {"repo.audit": 0}
+    reports_dir = run_dir / "tool_reports"
+    reports_dir.mkdir(parents=True, exist_ok=True)
+    last_report_path = run_dir / "last_tool_report.json"
+    prior = _read_json(call_count_path) if call_count_path.exists() else {}
 
-    # 1) Produce audit first (or inject corrupt / empty body for negative tests).
-    if hooks.get("inject_corrupt_report"):
-        report: dict[str, Any] = {"findings": [], "modified_target": True}
-    elif hooks.get("inject_empty_report"):
-        report = {"findings": [], "read_only": True, "modified_target": False, "scan": {}}
+    # Prefer catalog tools whose verifiers can bind Goal success criteria.
+    preferred = [
+        tid for tid in allowed_tool_ids if criteria_supported_by_tool(goal, tid)
+    ]
+    model_mode = str(
+        hooks.get("model_mode")
+        or os.environ.get("GOS_OPERATOR_MODEL")
+        or "reactive"
+    ).strip().lower()
+    # Backward-compatible default for legacy scripted single-tool e2e.
+    if hooks.get("model_script") is not None or hooks.get("inject_forbidden_tool_id"):
+        model_mode = "scripted"
+    if hooks.get("force_model_mode"):
+        model_mode = str(hooks["force_model_mode"]).strip().lower()
+
+    inner: ModelProvider
+    if model_mode == "live":
+        if not free_live_ready():
+            raise SupervisedMissionError(
+                "live_model_unavailable: need GROQ/OPENROUTER/GEMINI credentials"
+            )
+        live_budget = _as_float(hooks.get("live_budget_usd"), 0.0)
+        if live_budget < 0:
+            raise SupervisedMissionError("live_budget_usd must be >= 0")
+        # Groq adapter forces cost_usd=0.0 (free tier). Explicit opt-in required.
+        if not hooks.get("authorize_live_llm") and os.environ.get(
+            "GOS_AUTHORIZE_LIVE_LLM", ""
+        ).strip() not in {"1", "true", "yes"}:
+            raise SupervisedMissionError(
+                "live_llm_not_authorized: set hooks.authorize_live_llm or "
+                "GOS_AUTHORIZE_LIVE_LLM=1 (Groq free tier; still operator-gated)"
+            )
+        # Prefer the smaller OSS pin for Operator JSON actions when available.
+        live_model = str(
+            hooks.get("live_model")
+            or os.environ.get("GOS_OPERATOR_LIVE_MODEL")
+            or "openai/gpt-oss-20b"
+        )
+        inner = open_model_provider("groq", model=live_model)
+    elif model_mode == "scripted":
+        script = hooks.get("model_script")
+        if script is None:
+            script = default_tool_script(
+                allowed_tool_ids, preferred_tool_ids=preferred or None
+            )
+        if hooks.get("inject_forbidden_tool_id"):
+            script = [
+                {
+                    "action": "call_tool",
+                    "tool_id": str(hooks["inject_forbidden_tool_id"]),
+                    "args": {},
+                },
+                {"action": "stop"},
+            ]
+        inner = ScriptedActionProvider(list(script))
     else:
-        report = run_repo_audit(target)
+        # Default: observation-reactive mock (multi-step, no network).
+        inner = ObservationReactiveProvider()
 
-    # 2) Independent deterministic verification BEFORE success attestation.
-    artifact_verify = verify_repo_audit_report(report)
-    art = ArtifactStore(run_dir / "artifacts")
-    digest = art.put_json(
-        {
-            "kind": "repo_audit_report",
-            "run_id": state["run_id"],
-            "goal_id": goal["goal_id"],
-            "report": report,
-            "artifact_verify": artifact_verify,
-            "produced_at": _now(),
-        }
-    ).digest
+    model = RecordingModelProvider(
+        inner,
+        ledger,
+        tenant_id=str(goal["tenant_id"]),
+        workspace_id=str(goal["workspace_id"]),
+        goal_id=str(goal["goal_id"]),
+        producer=f"preprod.model.{model_mode}",
+    )
+
+    receipts: list[dict[str, Any]] = []
+    last_digest: str | None = None
+    last_verify: dict[str, Any] = {"ok": False, "reason": "no_tool_executed"}
+    last_report_hash: str | None = None
+    executed_tools: list[str] = []
+    observe_block: str | None = None
+    observation_status = "none"
+    last_observation_summary = "none"
+    model_calls = 0
+    model_cost_usd = 0.0
+    model_cost_forced = model_mode == "live"  # Groq adapter forces $0; not measured spend
+    model_input_tokens = 0
+    model_output_tokens = 0
+    model_latency_ms = 0.0
+    max_cycles = int(hooks.get("max_model_cycles") or 8)
 
     gate_path = run_dir / "durable_gate.sqlite"
     gate = SqliteDurableGateStore(gate_path)
@@ -270,105 +393,360 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
             workspace_id=goal["workspace_id"],
         )
 
-        def handler(_payload: dict[str, Any]) -> ToolResult:
-            prior["repo.audit"] = int(prior.get("repo.audit", 0)) + 1
-            _write_json(call_count_path, prior)
-            if hooks.get("inject_tool_failure"):
-                return ToolResult(False, {"error": "injected_tool_failure", "report": report})
-            return ToolResult(True, report)
+        # Register catalog tools. Produce runs ONLY here — after Authority+Gateway.
+        for tid in allowed_tool_ids:
+            try:
+                spec = assert_tool_permitted(tid, allowed_tool_ids=allowed_tool_ids)
+            except ToolCatalogError as exc:
+                raise SupervisedMissionError(str(exc)) from exc
 
-        gateway.register_tool(
-            "repo.audit",
-            handler,
-            required_capabilities=("filesystem.read",),
-        )
+            def _make_handler(tool_id: str) -> Any:
+                def handler(payload: dict[str, Any]) -> ToolResult:
+                    tool_args = dict((payload.get("context") or {}).get("tool_args") or {})
+                    report = produce_tool_artifact(
+                        tool_id, target, hooks, args=tool_args
+                    )
+                    prior[tool_id] = int(prior.get(tool_id, 0)) + 1
+                    _write_json(call_count_path, prior)
+                    payload_doc = {
+                        "tool_id": tool_id,
+                        "report": report,
+                        "report_hash": content_hash(report),
+                        "produced_at": _now(),
+                    }
+                    _write_json(last_report_path, payload_doc)
+                    safe_name = tool_id.replace(".", "_")
+                    _write_json(reports_dir / f"{safe_name}.json", payload_doc)
+                    if hooks.get("inject_tool_failure"):
+                        return ToolResult(
+                            False, {"error": "injected_tool_failure", "report": report}
+                        )
+                    return ToolResult(True, report)
 
-        idem = f"preprod-{state['run_id']}-repo-audit"
-        proposal = {
-            "proposal_id": f"ap_{state['run_id']}_audit",
-            "schema_version": "0.1.0",
-            "principal_id": principal,
-            "goal_id": goal["goal_id"],
-            "capability": "filesystem.read",
-            "resource": str(target),
-            "intended_effect": "repo_audit_report",
-            "maximum_effect": "repo_audit_report",
-            "reversible": True,
-            "information_disclosure": "none",
-            "monetary_cost": tool_cost,
-            "idempotency_key": idem,
-            "evidence_refs": [],
-            "approval_refs": [],
-            "context": {"profile": PROFILE},
-            "parent_capabilities": sorted(caps),
-        }
-        decision = auth.decide(
-            proposal, tenant_id=goal["tenant_id"], workspace_id=goal["workspace_id"]
-        )
-        if decision.execution_token is None:
-            raise SupervisedMissionError(f"authority denied observe: {decision.decision}")
+                return handler
 
-        # 3) Attest success only after independent verify; else force DISCREPANCY
-        # or leave observation pending — never pre-sign SUCCESS for unverified work.
-        observation = None
-        if (
-            artifact_verify.get("ok")
-            and not hooks.get("inject_tool_failure")
-            and not hooks.get("inject_discrepancy_observation")
-        ):
-            observation = trusted_observation("repo_audit_report")
-        elif hooks.get("inject_discrepancy_observation") or not artifact_verify.get("ok"):
-            observation = trusted_observation("repo_audit_failed")
+            gateway.register_tool(
+                tid,
+                _make_handler(tid),
+                required_capabilities=spec.required_capabilities,
+            )
 
-        receipt = gateway.execute(
-            tool_id="repo.audit",
-            proposal=proposal,
-            execution_token=decision.execution_token,
-            tenant_id=goal["tenant_id"],
-            workspace_id=goal["workspace_id"],
-            intended_effect="repo_audit_report",
-            observation=observation,
-        )
+        for _cycle in range(max_cycles):
+            remaining = _as_float(budget.get("remaining_usd", budget.get("usd")), 0.0)
+            if remaining < tool_cost:
+                observe_block = "budget_insufficient"
+                break
 
-        # Bind only criteria this verifier supports — never all Goal criteria by default.
-        supported = criteria_supported_by_repo_audit(goal)
-        override = hooks.get("binds_criteria_override")
-        if override is not None:
-            # Test hook may only narrow the supported set, never expand it.
-            bind_ids = [cid for cid in list(override) if cid in supported]
-        else:
-            bind_ids = list(supported)
-        enriched = {
-            **receipt,
-            "binds_criteria": bind_ids,
-            "success_criteria_ids": bind_ids,
-            "artifact_verify": artifact_verify,
-            "verifier": "repo_audit",
-            "criteria_supported": supported,
-        }
-        # Only claim criterion support when verify + reconciliation both pass.
-        if not (
-            artifact_verify.get("ok")
-            and enriched.get("world_success") is True
-            and enriched.get("reconciliation_status") == "RECONCILED"
-        ):
-            # Explicit negative map so Completion Gate cannot treat blank as True.
-            enriched["criterion_results"] = {cid: False for cid in bind_ids}
+            obj = goal.get("objective")
+            obj_text = (
+                obj.get("text") if isinstance(obj, dict) else str(obj or "")
+            )
+            prompt = (
+                "You are the Global OS supervised Operator action selector.\n"
+                f"goal_id={goal['goal_id']}\n"
+                f"objective={str(obj_text)[:400]}\n"
+                f"allowed_tool_ids={allowed_tool_ids}\n"
+                f"preferred_tool_ids={preferred}\n"
+                f"executed={executed_tools}\n"
+                f"observation_status={observation_status}\n"
+                f"last_observation={last_observation_summary}\n"
+                "Choose the next action as JSON: "
+                '{"action":"call_tool","tool_id":"...","args":{...}} '
+                'or {"action":"stop"}. '
+                "Use only allowed_tool_ids. Do not invent capabilities. "
+                "Never repeat a tool_id already present in executed. "
+                "Prefer preferred_tool_ids that are not yet executed. "
+                "Base the next decision on last_observation when present. "
+                "Emit JSON text only — do not use native tool-calling APIs."
+            )
+            # Reasoning models (Groq OSS) need headroom beyond the JSON object.
+            live_max = int(hooks.get("live_max_tokens") or 1024)
+            try:
+                decision_doc = model.structured_generate(
+                    GenerateRequest(
+                        prompt=prompt,
+                        max_tokens=live_max if model_mode == "live" else 256,
+                        temperature=0.0,
+                        metadata={
+                            "profile": PROFILE,
+                            "model_mode": model_mode,
+                            "json_object": True,
+                        },
+                    ),
+                    schema={"title": "OperatorAction", "type": "object"},
+                )
+            except ModelProviderError as exc:
+                observe_block = f"model_error:{exc}"
+                observation_status = "error"
+                last_observation_summary = str(exc)[:400]
+                model_calls += 1
+                # Keep prior evidence; stop the decision loop fail-closed.
+                break
+            model_calls += 1
+            # Provider usage (tokens/latency) is measured; tariff may still be forced $0.
+            usage = dict(getattr(inner, "last_usage", None) or {})
+            model_input_tokens += int(usage.get("input_tokens") or 0)
+            model_output_tokens += int(usage.get("output_tokens") or 0)
+            model_latency_ms += float(usage.get("latency_ms") or 0.0)
+            if usage.get("cost_usd") is not None:
+                model_cost_usd += float(usage["cost_usd"])
+            elif model_mode == "live":
+                model_cost_usd += 0.0
+                model_cost_forced = True
 
-        spent = float(budget.get("spent_usd", 0.0)) + tool_cost
-        budget["spent_usd"] = spent
-        budget["remaining_usd"] = float(budget.get("usd", 0.0)) - spent
+            action = str(decision_doc.get("action") or "")
+            if action == "stop":
+                break
+            if action != "call_tool":
+                observe_block = f"unknown_model_action:{action}"
+                break
 
+            tool_id = str(decision_doc.get("tool_id") or "")
+            try:
+                spec = assert_tool_permitted(tool_id, allowed_tool_ids=allowed_tool_ids)
+            except ToolCatalogError as exc:
+                observe_block = str(exc)
+                observation_status = "error"
+                last_observation_summary = str(exc)
+                continue
+
+            if tool_id in executed_tools:
+                observation_status = "error"
+                last_observation_summary = f"tool_already_executed:{tool_id}"
+                continue
+
+            try:
+                tool_args = validate_tool_args(tool_id, decision_doc.get("args", {}))
+            except ToolCatalogError as exc:
+                # Do not execute; feed the error back so the next cycle can adapt.
+                observe_block = str(exc)
+                observation_status = "error"
+                last_observation_summary = str(exc)
+                continue
+
+            # Fail-closed before Gateway: no produce on deny paths.
+            if hooks.get("deny_capability"):
+                observe_block = "authority_capability_denied"
+                break
+
+            # Stable per-run per-tool idempotency (crash-resume must not re-produce).
+            idem = f"preprod-{state['run_id']}-{tool_id.replace('.', '-')}"
+            proposal = {
+                "proposal_id": f"ap_{state['run_id']}_{tool_id.replace('.', '_')}",
+                "schema_version": "0.1.0",
+                "principal_id": principal,
+                "goal_id": goal["goal_id"],
+                "capability": spec.required_capabilities[0],
+                "resource": str(target),
+                "intended_effect": spec.intended_effect,
+                "maximum_effect": spec.intended_effect,
+                "reversible": True,
+                "information_disclosure": "none",
+                "monetary_cost": tool_cost,
+                "idempotency_key": idem,
+                "evidence_refs": [],
+                "approval_refs": [],
+                "context": {
+                    "profile": PROFILE,
+                    "tool_id": tool_id,
+                    "tool_args": tool_args,
+                },
+                "parent_capabilities": sorted(caps),
+            }
+            decision = auth.decide(
+                proposal, tenant_id=goal["tenant_id"], workspace_id=goal["workspace_id"]
+            )
+            if decision.execution_token is None:
+                observe_block = f"authority_denied:{decision.decision}"
+                break
+
+            # observation=None → Gateway leaves OBSERVATION_PENDING (no pre-attest).
+            # Single produce happens inside the registered handler after token checks.
+            receipt = gateway.execute(
+                tool_id=tool_id,
+                proposal=proposal,
+                execution_token=decision.execution_token,
+                tenant_id=goal["tenant_id"],
+                workspace_id=goal["workspace_id"],
+                intended_effect=spec.intended_effect,
+                observation=None,
+            )
+
+            safe_name = tool_id.replace(".", "_")
+            per_tool_report = reports_dir / f"{safe_name}.json"
+            report_path = per_tool_report if per_tool_report.exists() else last_report_path
+            if not report_path.exists():
+                observe_block = "missing_tool_report_after_gateway"
+                break
+            saved = _read_json(report_path)
+            if str(saved.get("tool_id") or "") != tool_id:
+                observe_block = "tool_report_mismatch"
+                break
+            report = saved.get("report")
+            if not isinstance(report, dict):
+                observe_block = "tool_report_not_object"
+                break
+            report_hash = str(saved.get("report_hash") or content_hash(report))
+            artifact_verify = verify_tool_artifact(tool_id, report)
+            postcondition: dict[str, Any] = {"ok": True, "reason": "not_applicable"}
+            if tool_id == "workspace.write_text":
+                postcondition = postcondition_workspace_write(target, report)
+                if not postcondition.get("ok"):
+                    artifact_verify = {
+                        "ok": False,
+                        "reason": f"postcondition:{postcondition.get('reason')}",
+                        "postcondition": postcondition,
+                    }
+
+            art = ArtifactStore(run_dir / "artifacts")
+            digest = art.put_json(
+                {
+                    "kind": spec.artifact_kind,
+                    "tool_id": tool_id,
+                    "run_id": state["run_id"],
+                    "goal_id": goal["goal_id"],
+                    "report": report,
+                    "report_hash": report_hash,
+                    "artifact_verify": artifact_verify,
+                    "postcondition": postcondition,
+                    "produced_at": _now(),
+                }
+            ).digest
+            last_digest = digest
+            last_verify = artifact_verify
+            last_report_hash = report_hash
+
+            supported = criteria_supported_by_tool(goal, tool_id)
+            override = hooks.get("binds_criteria_override")
+            if override is not None:
+                candidates = [cid for cid in list(override) if cid in supported]
+            else:
+                candidates = list(supported)
+            # Goal-specific bind: wrong filename cannot satisfy FIX_APPLIED.txt criterion.
+            if tool_id == "workspace.write_text":
+                bind_ids = filter_write_criteria_by_goal(
+                    goal,
+                    candidate_ids=candidates,
+                    report=report,
+                    postcondition=postcondition,
+                )
+            else:
+                bind_ids = list(candidates)
+
+            gateway_status = str(receipt.get("reconciliation_status") or "")
+            tool_ok = (receipt.get("tool_response") or {}).get("success") is True
+            effect_ok = bool(
+                tool_ok and artifact_verify.get("ok") and postcondition.get("ok")
+            )
+            enriched: dict[str, Any] = {
+                **receipt,
+                "binds_criteria": bind_ids,
+                "success_criteria_ids": bind_ids,
+                "artifact_verify": artifact_verify,
+                "postcondition": postcondition,
+                "artifact_digest": digest,
+                "report_hash": report_hash,
+                "verifier": tool_id,
+                "criteria_supported": supported,
+                "tool_id": tool_id,
+                "gateway_reconciliation_status": gateway_status,
+            }
+            # Post-execution attestation of the single Gateway produce — never pre-RECONCILED.
+            if hooks.get("inject_discrepancy_observation"):
+                enriched["reconciliation_status"] = "DISCREPANCY"
+                enriched["world_success"] = False
+                enriched["discrepancy"] = "injected_discrepancy_observation"
+                enriched["verification_method"] = "post_execution_artifact_verify"
+                observation_status = "discrepancy"
+            elif effect_ok:
+                enriched["reconciliation_status"] = "RECONCILED"
+                enriched["world_success"] = True
+                enriched["observed_effect"] = spec.intended_effect
+                enriched["discrepancy"] = "none"
+                enriched["verification_method"] = "post_execution_artifact_verify"
+                observation_status = "ok"
+            else:
+                enriched["reconciliation_status"] = "DISCREPANCY"
+                enriched["world_success"] = False
+                enriched["verification_method"] = "post_execution_artifact_verify"
+                observation_status = "fail"
+                if not artifact_verify.get("ok"):
+                    enriched["discrepancy"] = (
+                        f"artifact_verify:{artifact_verify.get('reason')}"
+                    )
+                elif not tool_ok:
+                    enriched["discrepancy"] = "tool_response_not_success"
+                elif not postcondition.get("ok"):
+                    enriched["discrepancy"] = (
+                        f"postcondition:{postcondition.get('reason')}"
+                    )
+
+            last_observation_summary = (
+                f"tool={tool_id};verify={artifact_verify.get('ok')};"
+                f"post={postcondition.get('ok')};binds={bind_ids};"
+                f"world_success={enriched.get('world_success')};"
+                f"status={enriched.get('reconciliation_status')}"
+            )
+
+            # Explicitly fail bound criteria only when effect/postcondition failed.
+            if bind_ids and not (
+                effect_ok and enriched.get("reconciliation_status") == "RECONCILED"
+            ):
+                enriched["criterion_results"] = {cid: False for cid in bind_ids}
+
+            receipts.append(enriched)
+            executed_tools.append(tool_id)
+            spent = float(budget.get("spent_usd", 0.0)) + tool_cost
+            budget["spent_usd"] = spent
+            budget["remaining_usd"] = float(budget.get("usd", 0.0)) - spent
+
+            # Crash-window probe: after external write effect, before step checkpoint.
+            # Fire once only — resume must not re-kill after durable replay.
+            crash_marker = run_dir / "effect_pre_checkpoint.json"
+            if (
+                hooks.get("crash_after_tool") == tool_id
+                and effect_ok
+                and not crash_marker.exists()
+            ):
+                _write_json(
+                    crash_marker,
+                    {
+                        "tool_id": tool_id,
+                        "path": report.get("path"),
+                        "report_hash": report_hash,
+                        "pid": os.getpid(),
+                        "at": _now(),
+                    },
+                )
+                os.kill(os.getpid(), signal.SIGKILL)
+
+            # Continue loop so the model can react to observation (or scripted stop).
+
+        model_cycles = int(getattr(inner, "cycles", model_calls) or model_calls)
+        model_history = list(getattr(inner, "history", []) or [])
         state = {
             **state,
             "events": ledger.export_snapshot(),
-            "effect_receipts": [enriched],
-            "artifact_digest": digest,
-            "artifact_verify": artifact_verify,
+            "effect_receipts": receipts,
+            "artifact_digest": last_digest,
+            "artifact_verify": last_verify,
+            "report_hash": last_report_hash,
             "budget": budget,
             "tool_calls": prior,
+            "executed_tools": executed_tools,
+            "model_mode": model_mode,
+            "model_cycles": model_cycles,
+            "model_calls": model_calls,
+            "model_cost_usd": model_cost_usd,
+            "model_cost_forced": model_cost_forced,
+            "model_input_tokens": model_input_tokens,
+            "model_output_tokens": model_output_tokens,
+            "model_latency_ms": model_latency_ms,
+            "model_history": model_history,
+            "observation_status": observation_status,
+            "last_observation_summary": last_observation_summary,
             "phase": "observed",
-            "observe_block": None,
+            "observe_block": observe_block,
         }
         _persist_events(run_dir, ledger)
         _write_json(_state_path(run_dir), {k: v for k, v in state.items() if k != "events"})
@@ -393,8 +771,8 @@ def _achiever_settle_step(state: dict[str, Any]) -> dict[str, Any]:
         },
         "output_contract": "artifact_and_evidence",
     }
-    # Scope brief criteria to verifier-supported ids (same honesty as receipt bind).
-    supported = criteria_supported_by_repo_audit(goal)
+    executed = list(state.get("executed_tools") or [])
+    supported = criteria_supported_by_tools(goal, executed)
     try:
         result = run_achiever_organ_loop(
             goal,
@@ -407,12 +785,14 @@ def _achiever_settle_step(state: dict[str, Any]) -> dict[str, Any]:
     except AchieverLoopError as exc:
         raise SupervisedMissionError(str(exc)) from exc
 
+    # Prefer brief from brief_select; Achiever may emit another — keep first for delivery honesty
+    last_brief = state.get("execution_brief") or result.to_dict().get("last_brief")
     state = {
         **state,
         "events": ledger.export_snapshot(),
         "achiever": result.to_dict(),
         "completion": result.completion.to_dict(),
-        "last_brief": result.to_dict().get("last_brief"),
+        "last_brief": last_brief,
         "phase": "settled",
         "stop": result.stop,
     }
@@ -443,18 +823,39 @@ def _deliver_step(state: dict[str, Any]) -> dict[str, Any]:
         "achiever_stop": state.get("stop"),
         "budget": state.get("budget"),
         "artifact_digest": state.get("artifact_digest"),
+        "report_hash": state.get("report_hash"),
         "tool_calls": state.get("tool_calls"),
+        "allowed_tool_ids": state.get("allowed_tool_ids"),
+        "executed_tools": state.get("executed_tools"),
+        "model_cycles": state.get("model_cycles"),
+        "model_calls": state.get("model_calls"),
+        "model_mode": state.get("model_mode"),
+        "model_cost_usd": state.get("model_cost_usd"),
+        "model_cost_forced": state.get("model_cost_forced"),
+        "model_input_tokens": state.get("model_input_tokens"),
+        "model_output_tokens": state.get("model_output_tokens"),
+        "model_latency_ms": state.get("model_latency_ms"),
+        "observe_block": state.get("observe_block"),
         "limits": {
             "external_write": "human_confirmation_required",
             "hmac_action_binding_residual": "NOT_CLAIMED_SOLVED",
             "challenge_ga": "NOT_STARTED",
+            "live_llm": (
+                "AUTHORIZED_GROQ_FREE_TIER"
+                if state.get("model_mode") == "live"
+                else "NOT_USED_MOCK_OR_REACTIVE"
+            ),
         },
         "evidence": {
             "effect_receipt_ids": [
                 r.get("receipt_id") for r in (state.get("effect_receipts") or [])
             ],
+            "effect_receipts": list(state.get("effect_receipts") or []),
             "events_path": str(run_dir / "events.json"),
             "artifact_digest": state.get("artifact_digest"),
+            "report_hash": state.get("report_hash"),
+            "model_history": list(state.get("model_history") or []),
+            "last_observation_summary": state.get("last_observation_summary"),
         },
         "history_summary": (state.get("achiever") or {}).get("events") or [],
         "last_execution_brief": state.get("last_brief"),
@@ -464,6 +865,7 @@ def _deliver_step(state: dict[str, Any]) -> dict[str, Any]:
             "continual_si": "NOT_MEASURED",
             "end_to_end_os_speedup": "NOT_CLAIMED",
             "execution_brief": "ephemeral_work_order_not_completion",
+            "tool_selection": "brief_catalog_gateway_observation_conditioned",
         },
     }
     _write_json(_delivery_path(run_dir), delivery)
@@ -480,6 +882,7 @@ def _workflow() -> WorkflowDefinition:
     return WorkflowDefinition(
         name="preprod_supervised_mission_v0",
         steps=[
+            WorkflowStep("brief_select", _brief_select_step),
             WorkflowStep("gateway_observe", _gateway_observe_step),
             WorkflowStep("achiever_settle", _achiever_settle_step),
             WorkflowStep("deliver", _deliver_step),
@@ -718,8 +1121,10 @@ def _next_hint(status: Any, phase: Any) -> str:
         return "none"
     if status in {"SUCCEEDED", "PARTIAL", "FAILED", "INCONCLUSIVE"}:
         return "deliver / review audit trail"
+    if phase == "briefed":
+        return "gateway_observe → achiever_settle → deliver"
     if phase == "observed":
         return "achiever_settle → deliver"
     if phase == "settled":
         return "deliver"
-    return "gateway_observe → verification → delivery"
+    return "brief_select → gateway_observe → verification → delivery"
