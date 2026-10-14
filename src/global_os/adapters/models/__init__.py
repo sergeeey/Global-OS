@@ -22,11 +22,11 @@ from global_os.adapters.models.free_catalog import (
 )
 from global_os.adapters.models.gemini import GeminiProvider
 from global_os.adapters.models.groq import GroqProvider
+from global_os.adapters.models.observation_reactive import ObservationReactiveProvider
 from global_os.adapters.models.openai_compat import OpenAICompatProvider
 from global_os.adapters.models.openrouter import OpenRouterProvider
 from global_os.adapters.models.pins import GEMINI_FLASH, GROQ_VERIFIER, OPENROUTER_REASONER
 from global_os.adapters.models.recording import RecordingModelProvider
-from global_os.adapters.models.observation_reactive import ObservationReactiveProvider
 from global_os.adapters.models.scripted_action import (
     ScriptedActionProvider,
     default_tool_script,
@@ -51,11 +51,11 @@ __all__ = [
     "ModelProvider",
     "ModelProviderError",
     "ModelRef",
+    "ObservationReactiveProvider",
     "OpenAICompatProvider",
     "OpenRouterProvider",
     "OutageModelProvider",
     "RecordingModelProvider",
-    "ObservationReactiveProvider",
     "ScriptedActionProvider",
     "SlowModelProvider",
     "SwappableModelProvider",

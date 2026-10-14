@@ -348,7 +348,7 @@
     {
       "id": "preprod_supervised_mission_v0",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "PREPROD_SUPERVISED v0.1 RC path: Goal→CTC→catalog→observation-conditioned decisions (reactive|live Groq)→Authority→Gateway sole produce→post_execution_artifact_verify→Completion Gate; tools audit/inventory/read/write/research.scan; real SIGKILL recovery; dual missions; artifacts/preprod/final_acceptance/; PREPROD_RELEASE_GATE.md; tests/test_preprod_supervised_mission_e2e.py (30); ≠ PRODUCTION_PROVEN / Challenge-GA / human acceptance pending"
+      "evidence": "PREPROD_SUPERVISED v0.1 RC path: Goal→CTC→catalog→observation-conditioned decisions (reactive|live Groq)→Authority→Gateway sole produce→goal_postconditions path+disk bind→Completion Gate; tools audit/inventory/read/write/research.scan; real SIGKILL + crash-window recovery; dual missions + accept-nonce; clean wheel schemas (CLEAN_INSTALL); artifacts/preprod/final_acceptance/; PREPROD_RELEASE_GATE.md; tests/test_preprod_supervised_mission_e2e.py (33); PR #49; ≠ PRODUCTION_PROVEN / Challenge-GA / human acceptance pending"
     },
 
     {

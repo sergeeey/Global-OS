@@ -27,13 +27,8 @@ def _find_schemas_dir() -> Path:
 
 
 def _find_repo_root() -> Path:
-    schemas = _find_schemas_dir()
-    # Packaged: .../global_os/contracts/schemas → no repo root required.
-    # Checkout: <repo>/contracts/schemas → repo root is parent of contracts/.
-    if schemas.name == "schemas" and schemas.parent.name == "contracts":
-        if schemas.parent.parent.name != "global_os":
-            return schemas.parent.parent
-    return schemas.parent.parent
+    """Best-effort root above contracts/schemas (checkout) or package parent (wheel)."""
+    return _find_schemas_dir().parent.parent
 
 
 SCHEMAS_DIR = _find_schemas_dir()
