@@ -309,16 +309,16 @@ def _run_research(view: AgentView, packet: TaskingPacket, seed: int) -> EpisodeR
     if packet.strategy_id == "S_DETAIL":
         for sid in ["S1", "S2", "S3", "S4"]:
             read_source(sid)
-        report: dict[str, Any] = {}
-        cites: dict[str, Any] = {}
+        detail_report: dict[str, Any] = {}
+        detail_cites: dict[str, Any] = {}
         for sid in ["S1", "S2", "S3", "S4"]:
             s = sources[sid]
             if s.get("kind") == "retraction":
                 continue
             _subj, pred, val = s["claim"]
-            report[pred] = val
-            cites[pred] = sid
-        view.state["final_report"] = {"claims": report, "citations": cites}
+            detail_report[pred] = val
+            detail_cites[pred] = sid
+        view.state["final_report"] = {"claims": detail_report, "citations": detail_cites}
         _tick(view, 50, 30)
         ledger.append(
             {"criterion_id": "informal", "kind": "steps_complete", "value": "S1-S4"}
