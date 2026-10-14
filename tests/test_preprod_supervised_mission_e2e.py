@@ -13,13 +13,22 @@ from global_os.runtime.preprod import (
     criteria_supported_by_repo_audit,
     deliver_mission,
     pause_mission,
+    registered_tool_ids,
+    resolve_allowed_tool_ids,
     resume_mission,
     start_mission,
     status_mission,
     verify_repo_audit_report,
 )
 from global_os.runtime.preprod.supervised_mission import start_mission as start_raw
+from global_os.runtime.preprod.tool_catalog import (
+    ToolCatalogError,
+    assert_tool_permitted,
+    criteria_supported_by_tool,
+    verify_tool_artifact,
+)
 from global_os.verification.completion_gate import CompletionStatus, evaluate_goal_completion
+from global_os.world.tools.repo_inventory import verify_repo_inventory_report
 
 
 def _goal(
@@ -56,6 +65,13 @@ def _goal(
     }
 
 
+def _inventory_goal(goal_id: str = "goal_inventory_e2e_001") -> dict:
+    path = Path(__file__).resolve().parents[1] / "examples" / "goal_repo_inventory.json"
+    draft = json.loads(path.read_text(encoding="utf-8"))
+    draft["goal_id"] = goal_id
+    return draft
+
+
 def test_supervised_mission_end_to_end_delivery(tmp_path: Path) -> None:
     gos = tmp_path / ".gos"
     target = Path(__file__).resolve().parents[1]
@@ -74,11 +90,37 @@ def test_supervised_mission_end_to_end_delivery(tmp_path: Path) -> None:
     assert delivery["budget"]["spent_usd"] > 0
     assert delivery["honesty"]["production_proven"] == 0
     assert delivery["limits"]["challenge_ga"] == "NOT_STARTED"
+    assert delivery["honesty"]["tool_selection"] == "brief_catalog_gateway_not_hardcoded"
+    assert "repo.audit" in (delivery.get("executed_tools") or [])
+    assert "repo.audit" in (delivery.get("allowed_tool_ids") or [])
+    assert int(delivery.get("model_cycles") or 0) >= 2
+    assert delivery["limits"]["live_llm"] == "NOT_USED_MOCK_SCRIPTED_ONLY"
 
     st = status_mission(gos_root=gos, run_id=delivery["run_id"])
     assert st["status"] == "SUCCEEDED"
     assert st["delivery_available"] is True
     assert deliver_mission(gos_root=gos, run_id=delivery["run_id"])["run_id"] == delivery["run_id"]
+
+
+def test_inventory_goal_same_operator_path(tmp_path: Path) -> None:
+    """Second Goal Contract: repo.inventory via identical Operator workflow."""
+    gos = tmp_path / ".gos"
+    target = Path(__file__).resolve().parents[1]
+    delivery = start_mission(
+        _inventory_goal(),
+        target_path=target,
+        gos_root=gos,
+        budget_usd=5.0,
+        budget_tokens=1000,
+    )
+    assert delivery["terminal_status"] == "SUCCEEDED"
+    assert delivery["completion"]["status"] == CompletionStatus.ACHIEVED.value
+    assert delivery["executed_tools"] == ["repo.inventory"]
+    assert "repo.inventory" in delivery["allowed_tool_ids"]
+    assert "repo.audit" not in delivery["executed_tools"]
+    assert int(delivery["model_cycles"]) >= 2
+    assert delivery["tool_calls"].get("repo.inventory") == 1
+    assert "sc_inv_01" in delivery["completion"]["criteria_met"]
 
 
 def test_crash_resume_does_not_silently_replay_tool(tmp_path: Path) -> None:
@@ -317,3 +359,94 @@ def test_negative_insufficient_budget_not_succeeded(tmp_path: Path) -> None:
     )
     assert delivery["terminal_status"] != "SUCCEEDED"
     assert delivery["completion"]["status"] != CompletionStatus.ACHIEVED.value
+
+
+def test_negative_forbidden_tool_fail_closed(tmp_path: Path) -> None:
+    gos = tmp_path / ".gos"
+    target = Path(__file__).resolve().parents[1]
+    delivery = start_mission(
+        _goal("goal_forbidden_tool"),
+        target_path=target,
+        gos_root=gos,
+        hooks={"inject_forbidden_tool_id": "shell.exec"},
+    )
+    assert delivery["terminal_status"] != "SUCCEEDED"
+    assert delivery["completion"]["status"] != CompletionStatus.ACHIEVED.value
+    assert not delivery.get("executed_tools")
+
+
+def test_negative_unknown_tool_catalog_fail_closed() -> None:
+    with pytest.raises(ToolCatalogError, match="unknown_tool_id"):
+        assert_tool_permitted("shell.exec", allowed_tool_ids=["repo.audit"])
+    with pytest.raises(ToolCatalogError, match="forbidden_tool_id"):
+        assert_tool_permitted("repo.inventory", allowed_tool_ids=["repo.audit"])
+
+
+def test_negative_deny_capability_not_succeeded(tmp_path: Path) -> None:
+    gos = tmp_path / ".gos"
+    target = Path(__file__).resolve().parents[1]
+    delivery = start_mission(
+        _goal("goal_deny_cap"),
+        target_path=target,
+        gos_root=gos,
+        hooks={"deny_capability": True},
+    )
+    assert delivery["terminal_status"] != "SUCCEEDED"
+    assert delivery["completion"]["status"] != CompletionStatus.ACHIEVED.value
+
+
+def test_tool_catalog_capability_intersection() -> None:
+    assert "repo.audit" in registered_tool_ids()
+    assert "repo.inventory" in registered_tool_ids()
+    allowed = resolve_allowed_tool_ids(
+        goal_capabilities=["filesystem.read", "git.read"],
+        brief_allowed_capabilities=["filesystem.read"],
+    )
+    assert allowed == ["repo.audit", "repo.inventory"]
+    none = resolve_allowed_tool_ids(
+        goal_capabilities=["web.read"],
+        brief_allowed_capabilities=["web.read"],
+    )
+    assert none == []
+
+
+def test_inventory_criteria_not_bound_by_audit_verifier() -> None:
+    goal = _inventory_goal("goal_inv_support")
+    assert criteria_supported_by_tool(goal, "repo.inventory") == ["sc_inv_01"]
+    assert criteria_supported_by_tool(goal, "repo.audit") == []
+    assert criteria_supported_by_repo_audit(goal) == []
+
+
+def test_inventory_verifier_rejects_corrupt() -> None:
+    assert (
+        verify_repo_inventory_report(
+            {"kind": "repo_inventory", "entries": [], "modified_target": True}
+        )["ok"]
+        is False
+    )
+    assert verify_tool_artifact("repo.inventory", {"kind": "nope"})["ok"] is False
+
+
+def test_completion_gate_independent_of_tool_catalog() -> None:
+    """Completion Gate still refuses empty receipts regardless of catalog wiring."""
+    decision = evaluate_goal_completion(goal=_inventory_goal(), effect_receipts=[])
+    assert decision.status != CompletionStatus.ACHIEVED
+
+
+def test_mock_model_two_action_cycles(tmp_path: Path) -> None:
+    """Recording + ScriptedActionProvider: ≥2 sequential action-selection cycles."""
+    gos = tmp_path / ".gos"
+    target = Path(__file__).resolve().parents[1]
+    delivery = start_mission(
+        _goal("goal_model_cycles"),
+        target_path=target,
+        gos_root=gos,
+        hooks={
+            "model_script": [
+                {"action": "call_tool", "tool_id": "repo.audit", "args": {}},
+                {"action": "stop"},
+            ]
+        },
+    )
+    assert delivery["terminal_status"] == "SUCCEEDED"
+    assert int(delivery["model_cycles"]) >= 2
