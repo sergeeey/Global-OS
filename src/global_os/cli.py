@@ -84,7 +84,7 @@ def cmd_mission_start(args: argparse.Namespace) -> int:
     from global_os.runtime.preprod import SupervisedMissionError, start_mission
 
     draft = _load_goal_json(Path(args.goal))
-    hooks: dict = {"force_model_mode": str(args.model)}
+    hooks: dict[str, Any] = {"force_model_mode": str(args.model)}
     if getattr(args, "authorize_live_llm", False):
         hooks["authorize_live_llm"] = True
         hooks["live_budget_usd"] = float(args.budget_usd)

@@ -68,19 +68,12 @@ class ObservationReactiveProvider(ModelProvider):
         _ = schema
         self.cycles += 1
         prompt = request.prompt
-        allowed = _parse_list(
-            _ALLOWED_RE.search(prompt).group(1) if _ALLOWED_RE.search(prompt) else None
-        )
-        executed = _parse_list(
-            _EXECUTED_RE.search(prompt).group(1) if _EXECUTED_RE.search(prompt) else None
-        )
-        preferred = _parse_list(
-            
-                _PREFERRED_RE.search(prompt).group(1)
-                if _PREFERRED_RE.search(prompt)
-                else None
-            
-        )
+        allowed_m = _ALLOWED_RE.search(prompt)
+        executed_m = _EXECUTED_RE.search(prompt)
+        preferred_m = _PREFERRED_RE.search(prompt)
+        allowed = _parse_list(allowed_m.group(1) if allowed_m else None)
+        executed = _parse_list(executed_m.group(1) if executed_m else None)
+        preferred = _parse_list(preferred_m.group(1) if preferred_m else None)
         obs_m = _OBS_RE.search(prompt)
         obs = obs_m.group(1) if obs_m else "none"
 
