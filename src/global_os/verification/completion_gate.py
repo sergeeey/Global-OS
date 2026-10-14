@@ -73,6 +73,41 @@ def _receipt_supports_criterion(receipt: dict[str, Any], criterion_id: str) -> b
     return None
 
 
+def _apply_falsification(
+    *,
+    met: list[str],
+    unmet: list[str],
+    unknown_ids: list[str],
+    falsification_results: dict[str, Any] | None,
+) -> tuple[list[str], list[str], list[str], list[str], list[str]]:
+    """Apply active counterexamples. Absence of falsify never upgrades unknown→met."""
+    falsified_ids: list[str] = []
+    unobservable_ids: list[str] = []
+    if not falsification_results:
+        return met, unmet, unknown_ids, falsified_ids, unobservable_ids
+
+    for cid, raw in falsification_results.items():
+        if not isinstance(raw, dict):
+            continue
+        outcome = str(raw.get("outcome") or "")
+        if outcome == "falsified":
+            falsified_ids.append(cid)
+            if cid in met:
+                met.remove(cid)
+            if cid in unknown_ids:
+                unknown_ids.remove(cid)
+            if cid not in unmet:
+                unmet.append(cid)
+        elif outcome == "unobservable":
+            unobservable_ids.append(cid)
+            if cid in met:
+                met.remove(cid)
+                if cid not in unknown_ids:
+                    unknown_ids.append(cid)
+        # not_falsified: no upgrade of unknown/unmet → met
+    return met, unmet, unknown_ids, falsified_ids, unobservable_ids
+
+
 def evaluate_goal_completion(
     *,
     goal: dict[str, Any],
@@ -82,10 +117,14 @@ def evaluate_goal_completion(
     authority_expanded: bool = False,
     forbidden_outcomes_observed: list[str] | None = None,
     llm_completion_claim: str | None = None,
+    falsification_results: dict[str, Any] | None = None,
+    substrate_status: str | None = None,
 ) -> CompletionDecision:
     """Decide ACHIEVED/PARTIAL/FAILED/UNKNOWN from executable evidence only.
 
     ``llm_completion_claim`` is ignored for the decision (recorded as non-oracle).
+    ``falsification_results`` actively seek counterexamples before SUCCESS.
+    ``substrate_status`` ``UNHEALTHY`` forbids ACHIEVED (ENVIRONMENT_GAP).
     """
     del llm_completion_claim  # never sole oracle
     criteria = list(goal.get("success_criteria") or [])
@@ -141,6 +180,13 @@ def evaluate_goal_completion(
         else:
             unknown_ids.append(cid)
 
+    met, unmet, unknown_ids, falsified_ids, unobservable_ids = _apply_falsification(
+        met=met,
+        unmet=unmet,
+        unknown_ids=unknown_ids,
+        falsification_results=falsification_results,
+    )
+
     violations = list(invariant_break_flags or [])
     forbidden = list(forbidden_outcomes_observed or [])
     for f in forbidden:
@@ -149,29 +195,58 @@ def evaluate_goal_completion(
     if authority_expanded:
         violations.append("authority_expanded")
 
-    evidence_bound = bool(receipts) or bool(criterion_checks)
+    evidence_bound = (
+        bool(receipts)
+        or bool(criterion_checks)
+        or bool(falsification_results)
+    )
+
+    substrate_unhealthy = str(substrate_status or "").upper() == "UNHEALTHY"
 
     if violations or not authority_ok:
         status = CompletionStatus.FAILED
         reason = "invariant_or_authority_violation"
     elif unmet and not met and not unknown_ids:
         status = CompletionStatus.FAILED
-        reason = "all_criteria_failed"
+        reason = (
+            f"criterion_falsified:{falsified_ids[0]}"
+            if falsified_ids
+            else "all_criteria_failed"
+        )
     elif unmet and met:
         status = CompletionStatus.PARTIAL
-        reason = "some_criteria_unmet"
+        reason = (
+            f"criterion_falsified:{falsified_ids[0]}"
+            if falsified_ids
+            else "some_criteria_unmet"
+        )
     elif unknown_ids and not unmet and met:
         status = CompletionStatus.PARTIAL
-        reason = "some_criteria_unknown"
+        reason = (
+            "falsification_unobservable"
+            if unobservable_ids
+            else "some_criteria_unknown"
+        )
     elif unknown_ids and not met and not unmet:
         status = CompletionStatus.UNKNOWN
-        reason = "insufficient_evidence"
+        reason = (
+            "falsification_unobservable"
+            if unobservable_ids
+            else "insufficient_evidence"
+        )
     elif met and not unmet and not unknown_ids:
         status = CompletionStatus.ACHIEVED
         reason = "all_criteria_verified"
     else:
         status = CompletionStatus.PARTIAL
         reason = "mixed_or_incomplete"
+
+    # Unhealthy verification procedure cannot certify SUCCESS.
+    if substrate_unhealthy and status == CompletionStatus.ACHIEVED:
+        status = CompletionStatus.UNKNOWN
+        reason = "ENVIRONMENT_GAP:verification_substrate_unhealthy"
+    elif substrate_unhealthy and status == CompletionStatus.PARTIAL and not unmet:
+        reason = "ENVIRONMENT_GAP:verification_substrate_unhealthy"
 
     return CompletionDecision(
         status=status,
