@@ -201,6 +201,8 @@ def run_achiever_organ_loop(
                 attempt.get("forbidden_outcomes_observed") or []
             ),
             llm_completion_claim=attempt.get("llm_completion_claim"),
+            falsification_results=attempt.get("falsification_results"),
+            substrate_status=attempt.get("substrate_status"),
         )
         last_completion = completion
         events.append(f"completion:{completion.status.value}")

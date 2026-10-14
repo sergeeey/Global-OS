@@ -338,7 +338,7 @@
     {
       "id": "goal_completion_gate",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "Executable ACHIEVED/PARTIAL/FAILED/UNKNOWN from Goal+EffectReceipt+invariants; tool_success alone ≠ ACHIEVED; LLM claim ignored; wired into Challenge fixture via completion_bind; src/global_os/verification/completion_gate.py; tests/test_completion_gate.py; tests/test_achiever_organ_loop.py; Continual SI NOT_MEASURED"
+      "evidence": "Executable ACHIEVED/PARTIAL/FAILED/UNKNOWN from Goal+EffectReceipt+invariants; tool_success alone ≠ ACHIEVED; LLM claim ignored; falsification-before-SUCCESS (filesystem FIX_*/ACCEPT_* counterexamples) + substrate UNHEALTHY forbids ACHIEVED (ENVIRONMENT_GAP); src/global_os/verification/{completion_gate,falsifiers,substrate_health}.py; tests/test_completion_gate.py; tests/test_falsification_substrate_gate.py; Continual SI NOT_MEASURED; Cross-Model Critic DEFERRED"
     },
     {
       "id": "achiever_organ_loop_contour_a",
@@ -348,7 +348,7 @@
     {
       "id": "preprod_supervised_mission_v0",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "PREPROD_SUPERVISED v0.1 RC path: Goal→CTC→catalog→observation-conditioned decisions (reactive|live Groq)→Authority→Gateway sole produce→goal_postconditions path+disk bind→Completion Gate; tools audit/inventory/read/write/research.scan; real SIGKILL + crash-window recovery; dual missions + accept-nonce; clean wheel mission (schemas+migrations+cedar); live SE re-run PARTIAL honest; artifacts/preprod/final_acceptance/; PREPROD_RELEASE_GATE.md; tests/test_preprod_supervised_mission_e2e.py + test_packaged_runtime_assets.py; PR #49; ≠ PRODUCTION_PROVEN / Challenge-GA / human acceptance pending"
+      "evidence": "PREPROD_SUPERVISED v0.1 RC path: Goal→CTC→catalog→observation-conditioned decisions (reactive|live Groq)→Authority→Gateway sole produce→goal_postconditions + falsifiers/substrate settle→Completion Gate; tools audit/inventory/read/write/research.scan; real SIGKILL + crash-window recovery; dual missions + accept-nonce; clean wheel mission; live SE re-run PARTIAL honest; artifacts/preprod/final_acceptance/ + falsification_substrate/COMPARISON.md; tests/test_preprod_supervised_mission_e2e.py + test_falsification_substrate_gate.py; ≠ PRODUCTION_PROVEN / Challenge-GA / human acceptance pending"
     },
 
     {

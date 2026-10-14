@@ -70,7 +70,11 @@ def verify_workspace_read_text(report: Any) -> dict[str, Any]:
 
 
 def run_workspace_write_text(
-    root: Path, *, rel_path: str, content: str
+    root: Path,
+    *,
+    rel_path: str,
+    content: str,
+    allow_overwrite: bool = False,
 ) -> dict[str, Any]:
     path = resolve_under(root, rel_path)
     if path is None:
@@ -98,6 +102,19 @@ def run_workspace_write_text(
             "ok": False,
             "error": "content_too_large",
         }
+    existed = path.is_file()
+    if existed and not allow_overwrite:
+        # PREPROD_SUPERVISED / max_irreversibility=none: overwrite without retained
+        # prior contents is irreversible — fail closed (no silent clobber).
+        return {
+            "kind": "workspace_write_text",
+            "read_only": False,
+            "modified_target": False,
+            "ok": False,
+            "error": "overwrite_forbidden",
+            "path": rel_path,
+            "would_overwrite": True,
+        }
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
     return {
@@ -108,6 +125,8 @@ def run_workspace_write_text(
         "path": rel_path,
         "content": content,
         "byte_length": len(raw),
+        "overwrote_existing": existed,
+        "reversible": not existed,
     }
 
 

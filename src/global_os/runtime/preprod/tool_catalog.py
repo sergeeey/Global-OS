@@ -109,7 +109,13 @@ def _produce_workspace_write(
             "modified_target": False,
             "error": "injected_write_failure",
         }
-    return run_workspace_write_text(target, rel_path=path, content=content)
+    allow_overwrite = bool(hooks.get("allow_overwrite"))
+    return run_workspace_write_text(
+        target,
+        rel_path=path,
+        content=content,
+        allow_overwrite=allow_overwrite,
+    )
 
 
 def _produce_research_scan(

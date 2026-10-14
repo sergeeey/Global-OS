@@ -53,7 +53,13 @@ from global_os.runtime.workflows.durable import (
     WorkflowDefinition,
     WorkflowStep,
 )
+from global_os.verification.falsifiers import (
+    falsification_results_as_dicts,
+    run_filesystem_falsifiers,
+)
+from global_os.verification.substrate_health import assess_substrate_health
 from global_os.world.artifacts import ArtifactStore
+from global_os.world.tools.workspace_io import resolve_under
 
 PROFILE = "PREPROD_SUPERVISED"
 CONTROL_RUNNING = "RUNNING"
@@ -148,16 +154,23 @@ def criteria_supported_by_repo_audit(goal: dict[str, Any]) -> list[str]:
     return criteria_supported_by_tool(goal, "repo.audit")
 
 
-def _build_attempt_fn(*, receipts: list[dict[str, Any]]) -> Any:
+def _build_attempt_fn(
+    *,
+    receipts: list[dict[str, Any]],
+    falsification_results: dict[str, Any] | None = None,
+    substrate_status: str | None = None,
+) -> Any:
     def attempt_fn(
         _goal: dict[str, Any], _plan: dict[str, Any], _route: dict[str, Any]
     ) -> dict[str, Any]:
         # Achiever is control-only. Never blanket criterion_checks=True —
-        # Completion Gate must derive met/unmet/unknown from receipts.
+        # Completion Gate must derive met/unmet/unknown from receipts + falsifiers.
         return {
             "effect_receipts": receipts,
             "world_effects": False,
             "challenge_win_claimed": False,
+            "falsification_results": falsification_results or {},
+            "substrate_status": substrate_status,
         }
 
     return attempt_fn
@@ -315,6 +328,11 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
         if not free_live_ready():
             raise SupervisedMissionError(
                 "live_model_unavailable: need GROQ/OPENROUTER/GEMINI credentials"
+            )
+        # Operator live path is Groq-pinned; refuse if only other free keys exist.
+        if not str(os.environ.get("GROQ_API_KEY") or "").strip():
+            raise SupervisedMissionError(
+                "live_model_unavailable: GROQ_API_KEY required for --model live"
             )
         live_budget = _as_float(hooks.get("live_budget_usd"), 0.0)
         if live_budget < 0:
@@ -531,6 +549,13 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
 
             # Stable per-run per-tool idempotency (crash-resume must not re-produce).
             idem = f"preprod-{state['run_id']}-{tool_id.replace('.', '-')}"
+            reversible = True
+            if tool_id == "workspace.write_text":
+                write_rel = str(tool_args.get("path") or "")
+                write_path = resolve_under(target, write_rel)
+                # Overwrite without retained prior contents is irreversible.
+                if write_path is not None and write_path.is_file():
+                    reversible = False
             proposal = {
                 "proposal_id": f"ap_{state['run_id']}_{tool_id.replace('.', '_')}",
                 "schema_version": "0.1.0",
@@ -540,7 +565,7 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                 "resource": str(target),
                 "intended_effect": spec.intended_effect,
                 "maximum_effect": spec.intended_effect,
-                "reversible": True,
+                "reversible": reversible,
                 "information_disclosure": "none",
                 "monetary_cost": tool_cost,
                 "idempotency_key": idem,
@@ -773,10 +798,26 @@ def _achiever_settle_step(state: dict[str, Any]) -> dict[str, Any]:
     }
     executed = list(state.get("executed_tools") or [])
     supported = criteria_supported_by_tools(goal, executed)
+    target_raw = state.get("target_path")
+    target_path = Path(str(target_raw)) if target_raw else None
+    hooks_settle = dict(state.get("hooks") or {})
+    sandbox_signals = state.get("sandbox_signals")
+    if not isinstance(sandbox_signals, dict):
+        # Hooks are the injection / harness channel; also accept nested path.
+        nested = hooks_settle.get("sandbox_signals")
+        sandbox_signals = nested if isinstance(nested, dict) else None
+
+    falsifiers = run_filesystem_falsifiers(goal, target_path)
+    falsification_results = falsification_results_as_dicts(falsifiers)
+    substrate = assess_substrate_health(target=target_path, sandbox=sandbox_signals)
     try:
         result = run_achiever_organ_loop(
             goal,
-            attempt_fn=_build_attempt_fn(receipts=receipts),
+            attempt_fn=_build_attempt_fn(
+                receipts=receipts,
+                falsification_results=falsification_results,
+                substrate_status=substrate.status.value,
+            ),
             attempt_budget=1,
             ledger=ledger,
             org_unit=org_unit,
@@ -795,6 +836,9 @@ def _achiever_settle_step(state: dict[str, Any]) -> dict[str, Any]:
         "last_brief": last_brief,
         "phase": "settled",
         "stop": result.stop,
+        "verification_substrate": substrate.to_dict(),
+        "falsification_results": falsification_results,
+        "falsifier_call_count": len(falsifiers),
     }
     _persist_events(run_dir, ledger)
     _write_json(_state_path(run_dir), {k: v for k, v in state.items() if k != "events"})
@@ -860,12 +904,17 @@ def _deliver_step(state: dict[str, Any]) -> dict[str, Any]:
         "history_summary": (state.get("achiever") or {}).get("events") or [],
         "last_execution_brief": state.get("last_brief"),
         "delivered_at": _now(),
+        "verification_substrate": state.get("verification_substrate"),
+        "falsification_results": state.get("falsification_results"),
         "honesty": {
             "production_proven": 0,
             "continual_si": "NOT_MEASURED",
             "end_to_end_os_speedup": "NOT_CLAIMED",
             "execution_brief": "ephemeral_work_order_not_completion",
             "tool_selection": "brief_catalog_gateway_observation_conditioned",
+            "falsification_before_success": "filesystem_concrete_tokens",
+            "cross_model_critic": "DEFERRED",
+            "falsifier_call_count": state.get("falsifier_call_count"),
         },
     }
     _write_json(_delivery_path(run_dir), delivery)

@@ -99,9 +99,16 @@ def verify_research_scan(report: Any) -> dict[str, Any]:
         return {"ok": False, "reason": "missing_claims"}
     if int(report.get("files_scanned") or 0) < 1:
         return {"ok": False, "reason": "no_files_scanned"}
+    sources = report.get("sources") or []
+    claims = report.get("claims") or []
+    # Empty evidence cannot satisfy research source/claim criteria (false SUCCESS).
+    if len(sources) < 1:
+        return {"ok": False, "reason": "empty_sources", "claim_count": len(claims)}
+    if len(claims) < 1:
+        return {"ok": False, "reason": "empty_claims", "source_count": len(sources)}
     return {
         "ok": True,
         "reason": "structure_ok",
-        "source_count": len(report.get("sources") or []),
-        "claim_count": len(report.get("claims") or []),
+        "source_count": len(sources),
+        "claim_count": len(claims),
     }
