@@ -10,4 +10,4 @@ from __future__ import annotations
 PROTOCOL_VERSION = "GE-STUDY-v1"
 MASTER_SEED = 29_07_2026
 
-__all__ = ["PROTOCOL_VERSION", "MASTER_SEED"]
+__all__ = ["MASTER_SEED", "PROTOCOL_VERSION"]

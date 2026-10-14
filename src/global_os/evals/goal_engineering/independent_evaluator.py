@@ -99,9 +99,12 @@ def _eval_research(world: World, episode: EpisodeResult) -> EvalVerdict:
             if e.get("kind") == "citation":
                 need += 1
                 pred = str(e.get("criterion_id", "")).removeprefix("sc_")
-                if claims.get(pred) == e.get("value") and cites.get(pred) == e.get("source"):
-                    if e.get("source") != "S3":
-                        hits += 1
+                if (
+                    claims.get(pred) == e.get("value")
+                    and cites.get(pred) == e.get("source")
+                    and e.get("source") != "S3"
+                ):
+                    hits += 1
             elif e.get("criterion_id") == "sc_cite":
                 need += 1
                 hits += 1 if cite_ok and cite_clean else 0

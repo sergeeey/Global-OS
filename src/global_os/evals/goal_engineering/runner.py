@@ -278,8 +278,10 @@ def run_and_seal(
         "limitations": [
             "Agents are deterministic behavioral models, not live LLMs",
             "Task suite is small (3 tasks × 3 domains)",
-            "DETAIL steps intentionally incomplete on research/multi_step to "
-            "model brittle procedures — not an attack on well-authored runbooks",
+            (
+                "DETAIL steps intentionally incomplete on research/multi_step to "
+                "model brittle procedures — not an attack on well-authored runbooks"
+            ),
             "No network, no provider variance, no human-in-the-loop study",
             "Independent evaluator shares process but not strategy/agent policy code",
         ],
@@ -290,14 +292,14 @@ def run_and_seal(
     )
     # Compact human table
     lines = [
-        f"# GE-STUDY-v1 sealed results",
+        "# GE-STUDY-v1 sealed results",
         "",
         f"- protocol: `{PROTOCOL_VERSION}`",
         f"- master_seed: `{master_seed}`",
         f"- n_seeds: `{n_seeds}`",
         f"- n_trials: `{len(rows)}`",
-        f"- execution_class: **EXECUTED_DETERMINISTIC**",
-        f"- live_llm: **NOT_EXECUTED**",
+        "- execution_class: **EXECUTED_DETERMINISTIC**",
+        "- live_llm: **NOT_EXECUTED**",
         "",
         "## Aggregate oracle_success (mean, 90% CI)",
         "",
