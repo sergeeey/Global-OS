@@ -6,8 +6,14 @@ sandbox tools via ToolGateway. Not multi-tenant SaaS. Not autonomous production.
 ## Prerequisites
 
 ```bash
+# Editable (dev)
 python3 -m pip install -e '.[dev]'
 # from repo root; or use PYTHONPATH=src without install
+
+# Clean wheel (no checkout PYTHONPATH)
+python3 -m build --wheel
+python3 -m pip install dist/global_os-*.whl   # or: pip install --target <site> …
+# Wheel ships schemas + SQL migrations + Cedar policy bootstrap.
 ```
 
 Runtime data defaults to `./.gos/missions/<run_id>/`.

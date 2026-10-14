@@ -1,9 +1,11 @@
 {
-  "tip_sha": "fcc6a70a784076824926093a087a1fc2192f17b7",
-  "wheel": "/tmp/gos-clean-rc2/dist/global_os-0.1.0-py3-none-any.whl",
-  "schemas_dir": "/tmp/gos-clean-rc2/site/global_os/contracts/schemas",
-  "schema_count": 29,
+  "ok": true,
+  "wheel_assets": {
+    "schemas": 29,
+    "migrations_sql": ["001_init.sql"],
+    "cedar": "base.cedar"
+  },
   "cli": "gos mission start --help exit 0",
-  "install_method": "python3 -m build --wheel; pip install --target <site> <wheel>",
-  "ok": true
+  "mission": "accept_nonce SUCCEEDED from installed wheel (see CLEAN_INSTALL_MISSION.json)",
+  "install_method": "python3 -m build --wheel; pip install --target <site> <wheel>"
 }

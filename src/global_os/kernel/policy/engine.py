@@ -30,20 +30,24 @@ APPROVAL_REQUIRED = frozenset({"email.send", "payment.execute", "contract.sign"}
 FORBIDDEN_ACTIONS = frozenset({"everything", "admin", "Bash(*)", "bash.*"})
 
 
+def _resolve_cedar_path() -> Path:
+    """Resolve base.cedar for editable/repo checkout and installed wheels."""
+    here = Path(__file__).resolve().parent
+    packaged = here / "cedar" / "base.cedar"
+    if packaged.exists():
+        return packaged
+    for parent in Path(__file__).resolve().parents:
+        candidate = parent / "policies" / "cedar" / "base.cedar"
+        if candidate.exists():
+            return candidate
+    return packaged
+
+
 class PolicyEngine:
     """Cedar-aligned subset evaluated in-process until Rust/Cedar service lands."""
 
     def __init__(self, cedar_path: Path | None = None) -> None:
-        self.cedar_path = cedar_path or (
-            Path(__file__).resolve().parents[3] / "policies" / "cedar" / "base.cedar"
-        )
-        # Discover policies dir robustly
-        if not self.cedar_path.exists():
-            for parent in Path(__file__).resolve().parents:
-                candidate = parent / "policies" / "cedar" / "base.cedar"
-                if candidate.exists():
-                    self.cedar_path = candidate
-                    break
+        self.cedar_path = cedar_path or _resolve_cedar_path()
 
     def decide(self, request: PolicyRequest) -> PolicyDecision:
         if request.action in FORBIDDEN_ACTIONS or request.capability in FORBIDDEN_ACTIONS:

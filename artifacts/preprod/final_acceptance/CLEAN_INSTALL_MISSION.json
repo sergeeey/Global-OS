@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "tip_note": "after schemas + migrations + cedar force-include",
+  "terminal_status": "SUCCEEDED",
+  "goal": "examples/goal_accept_nonce.json",
+  "marker": "ACCEPT_NONCE_RC1.txt",
+  "marker_text": "preprod-accept-rc1",
+  "schema_count": 29,
+  "migrations": "global_os/adapters/storage/migrations/001_init.sql",
+  "cedar": "global_os/kernel/policy/cedar/base.cedar",
+  "install_method": "python3 -m build --wheel; pip install --target <site> <wheel>",
+  "cli_help": "gos mission start --help exit 0"
+}

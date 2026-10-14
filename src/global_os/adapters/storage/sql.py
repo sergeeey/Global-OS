@@ -15,12 +15,19 @@ from global_os.runtime.events.ledger import AppendOnlyViolation, EventLedger
 
 
 def _migrations_dir() -> Path:
-    here = Path(__file__).resolve()
+    """Resolve SQL migrations for repo checkout and installed wheels."""
+    here = Path(__file__).resolve().parent
+    packaged = here / "migrations"
+    if packaged.is_dir() and any(packaged.glob("*.sql")):
+        return packaged
     for parent in (here, *here.parents):
         candidate = parent / "migrations"
         if candidate.is_dir() and any(candidate.glob("*.sql")):
             return candidate
-    raise FileNotFoundError("migrations/ not found")
+    raise FileNotFoundError(
+        "migrations/ not found (packaged under global_os/adapters/storage/migrations "
+        "or repo migrations/)"
+    )
 
 
 def apply_migrations(conn: sqlite3.Connection, migrations_dir: Path | None = None) -> None:

@@ -38,16 +38,17 @@ Delivery now separates:
 
 | Item | Evidence |
 |------|----------|
-| Wheel schemas | `pyproject.toml` hatch `force-include` |
-| Resolve path | `validate._find_schemas_dir` (packaged or checkout) |
-| Proof | `CLEAN_INSTALL.md`, `CLEAN_INSTALL_PROOF.json` (29 schemas; CLI help) |
+| Wheel assets | schemas + `migrations/` + `policies/cedar` force-include |
+| Resolvers | `validate._find_schemas_dir`, `sql._migrations_dir`, `policy._resolve_cedar_path` |
+| Proof | `CLEAN_INSTALL.md`, `CLEAN_INSTALL_MISSION.json` (accept-nonce SUCCEEDED from wheel) |
+| Tests | `tests/test_packaged_runtime_assets.py` |
 
-## Re-run after tip `fcc6a70`
+## Re-runs
 
 - Reactive SE + research + accept-nonce → SUCCEEDED (`missions/`)
+- Live re-run → research SUCCEEDED; SE PARTIAL (`LIVE_RERUN_RESULTS.md`)
 - Crash-window + real-kill → ok (`recovery/`)
-- e2e: 33 passed
 
 ## Human gate
 
-`v0.1.0-pre` remains **not self-accepted**. PR #49 ready for human re-review.
+`v0.1.0-pre` remains **not self-accepted**. PR #49 ready for human re-review (not draft).
