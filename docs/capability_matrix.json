@@ -348,8 +348,9 @@
     {
       "id": "preprod_supervised_mission_v0",
       "state": "RUNTIME_VERIFIED_LOCAL",
-      "evidence": "PREPROD_SUPERVISED Operator path: Goal→CTC Brief→capability∩catalog tool_ids→Gateway (repo.audit|repo.inventory)→Achiever→Completion Gate→delivery.json; ScriptedActionProvider≥2 mock cycles; fail-closed unknown/forbidden tools; durable gate; crash resume; artifacts/preprod/FORK_B_PHASE1_REPORT.md; tests/test_preprod_supervised_mission_e2e.py; ≠ PRODUCTION_PROVEN / Challenge-GA NOT_STARTED / live LLM NOT_USED"
+      "evidence": "PREPROD_SUPERVISED: Goal→CTC Brief→catalog tool_ids→Authority→Gateway sole produce (repo.audit|repo.inventory)→post_execution_artifact_verify→Completion Gate; DENY produces 0× / ALLOW 1×; args={} only; ScriptedActionProvider mock cycles; artifacts/preprod/FORK_B_PHASE1_REPORT.md; tests/test_preprod_supervised_mission_e2e.py (28); ≠ PRODUCTION_PROVEN / Challenge-GA / live LLM"
     },
+
     {
       "id": "contextual_task_compiler_v0",
       "state": "RUNTIME_VERIFIED_LOCAL",
