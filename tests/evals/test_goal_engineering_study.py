@@ -192,10 +192,29 @@ def test_episode_uses_agent_view_end_to_end() -> None:
 
 
 def test_v1_immutable_seal_present_and_untouched() -> None:
+    import hashlib
+    import re
+
     root = Path("artifacts/goal_engineering/results/v1_immutable")
-    assert (root / "results.json").is_file()
-    assert (root / "IMMUTABLE.md").is_file()
-    data = json.loads((root / "results.json").read_text(encoding="utf-8"))
+    seal = root / "results.json"
+    marker = root / "IMMUTABLE.md"
+    assert seal.is_file()
+    assert marker.is_file()
+    data = json.loads(seal.read_text(encoding="utf-8"))
     # Original seal kept its historical labels; audit demotes them in docs
     assert data["protocol_version"] == "GE-STUDY-v1"
     assert data["summary"]["n_trials"] == 180
+    # Pre-merge gate: bytes must match SHA pinned in IMMUTABLE.md
+    pinned = re.search(
+        r"SHA-256:\s*`([a-f0-9]{64})`",
+        marker.read_text(encoding="utf-8"),
+    )
+    assert pinned is not None, "IMMUTABLE.md must pin results.json SHA-256"
+    digest = hashlib.sha256(seal.read_bytes()).hexdigest()
+    assert digest == pinned.group(1), (
+        f"v1 immutable seal hash drift: got {digest}, pinned {pinned.group(1)}"
+    )
+    # Root historical copy must match immutable seal if present
+    root_copy = Path("artifacts/goal_engineering/results/results.json")
+    if root_copy.is_file():
+        assert hashlib.sha256(root_copy.read_bytes()).hexdigest() == digest
