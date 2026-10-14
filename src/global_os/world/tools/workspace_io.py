@@ -9,7 +9,7 @@ MAX_READ_BYTES = 64_000
 MAX_WRITE_BYTES = 64_000
 
 
-def _resolve_under(root: Path, rel: str) -> Path | None:
+def resolve_under(root: Path, rel: str) -> Path | None:
     if not rel or rel.startswith("/") or ".." in Path(rel).parts:
         return None
     root = root.resolve()
@@ -22,7 +22,7 @@ def _resolve_under(root: Path, rel: str) -> Path | None:
 
 
 def run_workspace_read_text(root: Path, *, rel_path: str) -> dict[str, Any]:
-    path = _resolve_under(root, rel_path)
+    path = resolve_under(root, rel_path)
     if path is None:
         return {
             "kind": "workspace_read_text",
@@ -72,7 +72,7 @@ def verify_workspace_read_text(report: Any) -> dict[str, Any]:
 def run_workspace_write_text(
     root: Path, *, rel_path: str, content: str
 ) -> dict[str, Any]:
-    path = _resolve_under(root, rel_path)
+    path = resolve_under(root, rel_path)
     if path is None:
         return {
             "kind": "workspace_write_text",
@@ -106,6 +106,7 @@ def run_workspace_write_text(
         "modified_target": True,
         "ok": True,
         "path": rel_path,
+        "content": content,
         "byte_length": len(raw),
     }
 
@@ -119,4 +120,8 @@ def verify_workspace_write_text(report: Any) -> dict[str, Any]:
         return {"ok": False, "reason": str(report.get("error") or "write_failed")}
     if report.get("modified_target") is not True:
         return {"ok": False, "reason": "modified_target_not_true"}
+    if not isinstance(report.get("path"), str) or not report.get("path"):
+        return {"ok": False, "reason": "missing_path"}
+    if not isinstance(report.get("content"), str):
+        return {"ok": False, "reason": "missing_content"}
     return {"ok": True, "reason": "write_ok", "path": report.get("path")}

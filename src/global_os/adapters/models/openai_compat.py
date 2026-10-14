@@ -67,6 +67,13 @@ class OpenAICompatProvider(ModelProvider):
         self._allow_model_substitution = allow_model_substitution
         self._scientific = scientific
         self.last_substitution: dict[str, str] | None = None
+        self.last_usage: dict[str, Any] = {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": 0.0,
+            "cost_usd": None,
+            "cost_forced": force_cost_usd is not None,
+        }
 
     @property
     def model_ref(self) -> ModelRef:
@@ -145,6 +152,7 @@ class OpenAICompatProvider(ModelProvider):
             except json.JSONDecodeError:
                 continue
             if isinstance(parsed, dict):
+                # last_usage already set by generate()
                 return parsed
         raise ModelProviderError(
             f"{self._provider_id}: structured response not JSON: {last_text[:200]}"
@@ -194,6 +202,15 @@ class OpenAICompatProvider(ModelProvider):
         else:
             cost = estimate_cost_usd(self._provider_id, actual_model, in_tok, out_tok)
         ref = ModelRef(provider=self._provider_id, model=actual_model, version=self._version)
+        self.last_usage = {
+            "input_tokens": in_tok,
+            "output_tokens": out_tok,
+            "latency_ms": latency_ms,
+            "cost_usd": cost,
+            "cost_forced": self._force_cost_usd is not None,
+            "model": actual_model,
+            "provider": self._provider_id,
+        }
         return GenerateResponse(
             text=text,
             model=ref,

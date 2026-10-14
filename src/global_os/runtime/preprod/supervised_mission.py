@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import os
+import signal
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -32,6 +33,10 @@ from global_os.kernel.authority import AuthorityKernel
 from global_os.kernel.authority.durable_gate import SqliteDurableGateStore
 from global_os.runtime.events import EventLedger
 from global_os.runtime.goals import GoalStore
+from global_os.runtime.preprod.goal_postconditions import (
+    filter_write_criteria_by_goal,
+    postcondition_workspace_write,
+)
 from global_os.runtime.preprod.tool_catalog import (
     ToolCatalogError,
     assert_tool_permitted,
@@ -368,6 +373,10 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
     last_observation_summary = "none"
     model_calls = 0
     model_cost_usd = 0.0
+    model_cost_forced = model_mode == "live"  # Groq adapter forces $0; not measured spend
+    model_input_tokens = 0
+    model_output_tokens = 0
+    model_latency_ms = 0.0
     max_cycles = int(hooks.get("max_model_cycles") or 8)
 
     gate_path = run_dir / "durable_gate.sqlite"
@@ -474,9 +483,16 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                 # Keep prior evidence; stop the decision loop fail-closed.
                 break
             model_calls += 1
-            # RecordingModelProvider does not surface cost; live Groq is $0 forced.
-            if model_mode == "live":
+            # Provider usage (tokens/latency) is measured; tariff may still be forced $0.
+            usage = dict(getattr(inner, "last_usage", None) or {})
+            model_input_tokens += int(usage.get("input_tokens") or 0)
+            model_output_tokens += int(usage.get("output_tokens") or 0)
+            model_latency_ms += float(usage.get("latency_ms") or 0.0)
+            if usage.get("cost_usd") is not None:
+                model_cost_usd += float(usage["cost_usd"])
+            elif model_mode == "live":
                 model_cost_usd += 0.0
+                model_cost_forced = True
 
             action = str(decision_doc.get("action") or "")
             if action == "stop":
@@ -572,6 +588,16 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                 break
             report_hash = str(saved.get("report_hash") or content_hash(report))
             artifact_verify = verify_tool_artifact(tool_id, report)
+            postcondition: dict[str, Any] = {"ok": True, "reason": "not_applicable"}
+            if tool_id == "workspace.write_text":
+                postcondition = postcondition_workspace_write(target, report)
+                if not postcondition.get("ok"):
+                    artifact_verify = {
+                        "ok": False,
+                        "reason": f"postcondition:{postcondition.get('reason')}",
+                        "postcondition": postcondition,
+                    }
+
             art = ArtifactStore(run_dir / "artifacts")
             digest = art.put_json(
                 {
@@ -582,6 +608,7 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                     "report": report,
                     "report_hash": report_hash,
                     "artifact_verify": artifact_verify,
+                    "postcondition": postcondition,
                     "produced_at": _now(),
                 }
             ).digest
@@ -592,17 +619,31 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
             supported = criteria_supported_by_tool(goal, tool_id)
             override = hooks.get("binds_criteria_override")
             if override is not None:
-                bind_ids = [cid for cid in list(override) if cid in supported]
+                candidates = [cid for cid in list(override) if cid in supported]
             else:
-                bind_ids = list(supported)
+                candidates = list(supported)
+            # Goal-specific bind: wrong filename cannot satisfy FIX_APPLIED.txt criterion.
+            if tool_id == "workspace.write_text":
+                bind_ids = filter_write_criteria_by_goal(
+                    goal,
+                    candidate_ids=candidates,
+                    report=report,
+                    postcondition=postcondition,
+                )
+            else:
+                bind_ids = list(candidates)
 
             gateway_status = str(receipt.get("reconciliation_status") or "")
             tool_ok = (receipt.get("tool_response") or {}).get("success") is True
+            effect_ok = bool(
+                tool_ok and artifact_verify.get("ok") and postcondition.get("ok")
+            )
             enriched: dict[str, Any] = {
                 **receipt,
                 "binds_criteria": bind_ids,
                 "success_criteria_ids": bind_ids,
                 "artifact_verify": artifact_verify,
+                "postcondition": postcondition,
                 "artifact_digest": digest,
                 "report_hash": report_hash,
                 "verifier": tool_id,
@@ -617,7 +658,7 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                 enriched["discrepancy"] = "injected_discrepancy_observation"
                 enriched["verification_method"] = "post_execution_artifact_verify"
                 observation_status = "discrepancy"
-            elif tool_ok and artifact_verify.get("ok"):
+            elif effect_ok:
                 enriched["reconciliation_status"] = "RECONCILED"
                 enriched["world_success"] = True
                 enriched["observed_effect"] = spec.intended_effect
@@ -635,17 +676,21 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                     )
                 elif not tool_ok:
                     enriched["discrepancy"] = "tool_response_not_success"
+                elif not postcondition.get("ok"):
+                    enriched["discrepancy"] = (
+                        f"postcondition:{postcondition.get('reason')}"
+                    )
 
             last_observation_summary = (
                 f"tool={tool_id};verify={artifact_verify.get('ok')};"
+                f"post={postcondition.get('ok')};binds={bind_ids};"
                 f"world_success={enriched.get('world_success')};"
                 f"status={enriched.get('reconciliation_status')}"
             )
 
-            if not (
-                artifact_verify.get("ok")
-                and enriched.get("world_success") is True
-                and enriched.get("reconciliation_status") == "RECONCILED"
+            # Explicitly fail bound criteria only when effect/postcondition failed.
+            if bind_ids and not (
+                effect_ok and enriched.get("reconciliation_status") == "RECONCILED"
             ):
                 enriched["criterion_results"] = {cid: False for cid in bind_ids}
 
@@ -654,6 +699,26 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
             spent = float(budget.get("spent_usd", 0.0)) + tool_cost
             budget["spent_usd"] = spent
             budget["remaining_usd"] = float(budget.get("usd", 0.0)) - spent
+
+            # Crash-window probe: after external write effect, before step checkpoint.
+            # Fire once only — resume must not re-kill after durable replay.
+            crash_marker = run_dir / "effect_pre_checkpoint.json"
+            if (
+                hooks.get("crash_after_tool") == tool_id
+                and effect_ok
+                and not crash_marker.exists()
+            ):
+                _write_json(
+                    crash_marker,
+                    {
+                        "tool_id": tool_id,
+                        "path": report.get("path"),
+                        "report_hash": report_hash,
+                        "pid": os.getpid(),
+                        "at": _now(),
+                    },
+                )
+                os.kill(os.getpid(), signal.SIGKILL)
 
             # Continue loop so the model can react to observation (or scripted stop).
 
@@ -673,6 +738,10 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
             "model_cycles": model_cycles,
             "model_calls": model_calls,
             "model_cost_usd": model_cost_usd,
+            "model_cost_forced": model_cost_forced,
+            "model_input_tokens": model_input_tokens,
+            "model_output_tokens": model_output_tokens,
+            "model_latency_ms": model_latency_ms,
             "model_history": model_history,
             "observation_status": observation_status,
             "last_observation_summary": last_observation_summary,
@@ -762,6 +831,10 @@ def _deliver_step(state: dict[str, Any]) -> dict[str, Any]:
         "model_calls": state.get("model_calls"),
         "model_mode": state.get("model_mode"),
         "model_cost_usd": state.get("model_cost_usd"),
+        "model_cost_forced": state.get("model_cost_forced"),
+        "model_input_tokens": state.get("model_input_tokens"),
+        "model_output_tokens": state.get("model_output_tokens"),
+        "model_latency_ms": state.get("model_latency_ms"),
         "observe_block": state.get("observe_block"),
         "limits": {
             "external_write": "human_confirmation_required",

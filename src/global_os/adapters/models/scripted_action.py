@@ -24,6 +24,13 @@ class ScriptedActionProvider(ModelProvider):
         self._index = 0
         self.cycles = 0
         self.history: list[dict[str, Any]] = []
+        self.last_usage: dict[str, Any] = {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": 0.0,
+            "cost_usd": 0.0,
+            "cost_forced": False,
+        }
 
     def generate(self, request: GenerateRequest) -> GenerateResponse:
         step = self._next()

@@ -1,9 +1,12 @@
 # EXECUTIVE_STATUS — Global OS Pre-Production v0.1 RC
 
 **Terminal outcome:** `RELEASE_CANDIDATE_READY_FOR_HUMAN_ACCEPTANCE`  
+*(after RC_ACCEPTANCE_FIXES; prior independent review was `CHANGES_REQUESTED`)*  
 **Branch:** `cursor/preprod-v01-rc-2907`  
 **Date:** 2026-10-14  
 **Forbidden self-labels:** not `PREPRODUCTION_ACCEPTED`, not `PRODUCTION_READY`
+
+Historical live SE at `d7977f8` remains archived with original `SUCCEEDED` and is **post-hoc rejected** — see `POST_HOC_AUDIT_SE_LIVE_d7977f8.md`.
 
 ## Four answers
 

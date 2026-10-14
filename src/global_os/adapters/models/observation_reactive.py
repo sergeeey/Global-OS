@@ -16,6 +16,8 @@ _ALLOWED_RE = re.compile(r"allowed_tool_ids=(\[[^\]]*\])")
 _EXECUTED_RE = re.compile(r"executed=(\[[^\]]*\])")
 _OBS_RE = re.compile(r"observation_status=([a-z_]+)")
 _PREFERRED_RE = re.compile(r"preferred_tool_ids=(\[[^\]]*\])")
+_WRITE_FILE_RE = re.compile(r"((?:FIX_|ACCEPT_)[A-Za-z0-9_.-]+\.txt)")
+_ACCEPT_LINE_RE = re.compile(r"exact line ([A-Za-z0-9_-]+)")
 
 
 def _parse_list(raw: str | None) -> list[str]:
@@ -42,6 +44,13 @@ class ObservationReactiveProvider(ModelProvider):
     def __init__(self) -> None:
         self.cycles = 0
         self.history: list[dict[str, Any]] = []
+        self.last_usage: dict[str, Any] = {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": 0.0,
+            "cost_usd": 0.0,
+            "cost_forced": False,
+        }
 
     def generate(self, request: GenerateRequest) -> GenerateResponse:
         step = self.structured_generate(request, {"title": "OperatorAction"})
@@ -75,7 +84,7 @@ class ObservationReactiveProvider(ModelProvider):
         obs_m = _OBS_RE.search(prompt)
         obs = obs_m.group(1) if obs_m else "none"
 
-        step = self._decide(allowed, executed, preferred, obs)
+        step = self._decide(allowed, executed, preferred, obs, prompt)
         self.history.append(
             {
                 "prompt_prefix": prompt[:160],
@@ -92,6 +101,7 @@ class ObservationReactiveProvider(ModelProvider):
         executed: list[str],
         preferred: list[str],
         obs: str,
+        prompt: str,
     ) -> dict[str, Any]:
         if not allowed:
             return {"action": "stop"}
@@ -104,6 +114,14 @@ class ObservationReactiveProvider(ModelProvider):
         if not order:
             # No semantic match — one exploratory allowed tool, then stop.
             order = list(allowed[:1])
+        write_name = "FIX_APPLIED.txt"
+        write_hit = _WRITE_FILE_RE.search(prompt)
+        if write_hit:
+            write_name = write_hit.group(1)
+        accept_line = "preprod_supervised_fix_marker"
+        line_hit = _ACCEPT_LINE_RE.search(prompt)
+        if line_hit:
+            accept_line = line_hit.group(1)
         for tid in order:
             if tid not in executed:
                 args: dict[str, Any] = {}
@@ -111,8 +129,8 @@ class ObservationReactiveProvider(ModelProvider):
                     args = {"path": "README.md"}
                 if tid == "workspace.write_text":
                     args = {
-                        "path": "FIX_APPLIED.txt",
-                        "content": "preprod_supervised_fix_marker\n",
+                        "path": write_name,
+                        "content": accept_line + "\n",
                     }
                 return {"action": "call_tool", "tool_id": tid, "args": args}
         return {"action": "stop"}

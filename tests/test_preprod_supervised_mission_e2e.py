@@ -551,7 +551,10 @@ def test_observation_reactive_changes_next_action(tmp_path: Path) -> None:
         "success_criteria": [
             {"id": "sc_inv", "description": "workspace inventory with file listing"},
             {"id": "sc_read", "description": "read workspace file README"},
-            {"id": "sc_write", "description": "apply fix by write file in workspace"},
+            {
+                "id": "sc_write",
+                "description": "apply fix by write file FIX_APPLIED.txt in workspace",
+            },
         ],
         "invariants": ["sandbox_target_only"],
         "non_goals": [],
@@ -584,6 +587,145 @@ def test_observation_reactive_changes_next_action(tmp_path: Path) -> None:
     actions = [h.get("step", {}).get("tool_id") for h in hist if h.get("step", {}).get("action") == "call_tool"]
     assert len(set(actions)) >= 2
     assert (sandbox / "FIX_APPLIED.txt").exists()
+
+
+def test_wrong_write_filename_does_not_succeed_goal(tmp_path: Path) -> None:
+    """P0: writing fix_marker.txt must not satisfy FIX_APPLIED.txt criterion."""
+    gos = tmp_path / ".gos"
+    sandbox = tmp_path / "box"
+    sandbox.mkdir()
+    (sandbox / "README.md").write_text("# box\n", encoding="utf-8")
+    draft = {
+        "schema_version": "0.1.0",
+        "goal_id": "goal_wrong_write_name",
+        "version": 1,
+        "tenant_id": "tenant_local",
+        "workspace_id": "ws_preprod",
+        "objective": {"text": "Write the required fix file only."},
+        "success_criteria": [
+            {
+                "id": "sc_write",
+                "description": "apply fix by write file FIX_APPLIED.txt in workspace",
+            }
+        ],
+        "invariants": ["sandbox_target_only"],
+        "non_goals": [],
+        "forbidden_outcomes": [],
+        "risk": {"tolerance": "low", "maximum_irreversibility": "none"},
+        "authority": {
+            "delegation_depth_max": 3,
+            "capabilities": ["filesystem.read", "filesystem.write"],
+        },
+        "evidence_requirements": {"major_finding": {"verification_tier": 2}},
+        "termination": ["success_criteria_met"],
+        "created_at": "2026-10-14T00:00:00+00:00",
+    }
+    delivery = start_mission(
+        draft,
+        target_path=sandbox,
+        gos_root=gos,
+        hooks={
+            "model_script": [
+                {
+                    "action": "call_tool",
+                    "tool_id": "workspace.write_text",
+                    "args": {
+                        "path": "fix_marker.txt",
+                        "content": "wrong-name\n",
+                    },
+                },
+                {"action": "stop"},
+            ]
+        },
+    )
+    assert delivery["terminal_status"] != "SUCCEEDED"
+    assert delivery["completion"]["status"] != CompletionStatus.ACHIEVED.value
+    assert "sc_write" in (
+        delivery["completion"].get("criteria_unknown")
+        or []
+    ) or "sc_write" in (delivery["completion"].get("criteria_unmet") or [])
+    assert (sandbox / "fix_marker.txt").exists()
+    assert not (sandbox / "FIX_APPLIED.txt").exists()
+
+
+def test_correct_write_filename_can_succeed(tmp_path: Path) -> None:
+    gos = tmp_path / ".gos"
+    sandbox = tmp_path / "box"
+    sandbox.mkdir()
+    (sandbox / "README.md").write_text("# box\n", encoding="utf-8")
+    draft = {
+        "schema_version": "0.1.0",
+        "goal_id": "goal_correct_write_name",
+        "version": 1,
+        "tenant_id": "tenant_local",
+        "workspace_id": "ws_preprod",
+        "objective": {"text": "Write FIX_APPLIED.txt"},
+        "success_criteria": [
+            {
+                "id": "sc_write",
+                "description": "apply fix by write file FIX_APPLIED.txt in workspace",
+            }
+        ],
+        "invariants": ["sandbox_target_only"],
+        "non_goals": [],
+        "forbidden_outcomes": [],
+        "risk": {"tolerance": "low", "maximum_irreversibility": "none"},
+        "authority": {
+            "delegation_depth_max": 3,
+            "capabilities": ["filesystem.write", "filesystem.read"],
+        },
+        "evidence_requirements": {"major_finding": {"verification_tier": 2}},
+        "termination": ["success_criteria_met"],
+        "created_at": "2026-10-14T00:00:00+00:00",
+    }
+    delivery = start_mission(
+        draft,
+        target_path=sandbox,
+        gos_root=gos,
+        hooks={
+            "model_script": [
+                {
+                    "action": "call_tool",
+                    "tool_id": "workspace.write_text",
+                    "args": {
+                        "path": "FIX_APPLIED.txt",
+                        "content": "ok\n",
+                    },
+                },
+                {"action": "stop"},
+            ]
+        },
+    )
+    assert delivery["terminal_status"] == "SUCCEEDED"
+    assert "sc_write" in delivery["completion"]["criteria_met"]
+    assert (sandbox / "FIX_APPLIED.txt").read_text(encoding="utf-8") == "ok\n"
+
+
+def test_unfamiliar_accept_nonce_goal_independent_oracle(tmp_path: Path) -> None:
+    from global_os.runtime.preprod.goal_postconditions import independent_accept_write_goal
+
+    gos = tmp_path / ".gos"
+    sandbox = tmp_path / "nonce_box"
+    sandbox.mkdir()
+    (sandbox / "README.md").write_text("nonce target\n", encoding="utf-8")
+    draft = json.loads(
+        (
+            Path(__file__).resolve().parents[1] / "examples" / "goal_accept_nonce.json"
+        ).read_text(encoding="utf-8")
+    )
+    delivery = start_mission(
+        draft,
+        target_path=sandbox,
+        gos_root=gos,
+        hooks={"force_model_mode": "reactive", "max_model_cycles": 6},
+        budget_usd=3.0,
+    )
+    assert delivery["terminal_status"] == "SUCCEEDED"
+    oracle = independent_accept_write_goal(draft, sandbox)
+    assert oracle["accept"] is True
+    assert (sandbox / "ACCEPT_NONCE_RC1.txt").read_text(encoding="utf-8").strip() == (
+        "preprod-accept-rc1"
+    )
 
 
 def test_research_scan_goal(tmp_path: Path) -> None:
