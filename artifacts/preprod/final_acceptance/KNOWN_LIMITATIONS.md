@@ -11,3 +11,5 @@
 9. **Paid LLM providers** not authorized/used.  
 10. **ADR-0009:** no new T0/T1 kernels added (falsify/substrate = Verification Plane helpers).  
 11. **Substrate health:** only concrete signals (target missing/unreadable; sandbox never-started+timeout). Bare timeout ≠ infrastructure failure.  
+12. **Research evidence ≠ scientific truth:** `research.scan` verify requires non-empty `sources` and `claims` structure; it does **not** validate claim truth.  
+13. **File/exact-line falsifiers are specialized heuristics** over Goal Contract text (`FIX_*`/`ACCEPT_*`, `exact line …`), not a universal semantic verifier for arbitrary criteria.  

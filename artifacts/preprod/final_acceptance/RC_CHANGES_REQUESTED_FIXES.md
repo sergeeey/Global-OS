@@ -13,4 +13,7 @@ Response to human verdict + GitHub review on PR #49 / #50.
 
 Regressions: `tests/test_rc_review_p0_regressions.py`.
 
+**Re-review (`a019c04`):** human confirmed the six findings addressed at implementation level; CI green.  
+Label: **READY FOR HUMAN INTEGRATION REVIEW** — not `PREPRODUCTION_ACCEPTED`.
+
 **Still not claimed:** `PREPRODUCTION_ACCEPTED`, Challenge-GA, PRODUCTION_PROVEN. Human RELEASE_GATE remains 0/10 until second-machine acceptance.
