@@ -41,6 +41,10 @@ dev = [
 [tool.hatch.build.targets.wheel]
 packages = ["src/global_os"]
 
+# Ship JSON Schema contracts with the wheel so clean installs resolve validate().
+[tool.hatch.build.targets.wheel.force-include]
+"contracts/schemas" = "global_os/contracts/schemas"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src", "."]
