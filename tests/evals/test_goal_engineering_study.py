@@ -214,7 +214,7 @@ def test_v1_immutable_seal_present_and_untouched() -> None:
     assert digest == pinned.group(1), (
         f"v1 immutable seal hash drift: got {digest}, pinned {pinned.group(1)}"
     )
-    # Root historical copy must match immutable seal if present
+    # Root historical copy is part of the published contract — must exist and match
     root_copy = Path("artifacts/goal_engineering/results/results.json")
-    if root_copy.is_file():
-        assert hashlib.sha256(root_copy.read_bytes()).hexdigest() == digest
+    assert root_copy.is_file(), "artifacts/goal_engineering/results/results.json missing"
+    assert hashlib.sha256(root_copy.read_bytes()).hexdigest() == digest
