@@ -6,6 +6,21 @@
 **Scope:** Close CTC ↔ ToolGateway gap on PREPROD_SUPERVISED Operator path.  
 **Not claimed:** pre-production ready, Challenge-GA, live LLM, PRODUCTION_PROVEN.
 
+## Review fix (execution boundary)
+
+Human review (`CHANGES_REQUESTED`) found produce-before-Authority. Corrected order:
+
+```text
+model propose → catalog/args check → Authority.decide
+  → Gateway.execute(observation=None)  # sole produce inside handler
+  → verify THAT report → post_execution_artifact_verify → Completion Gate
+```
+
+- DENY / invalid args / unknown tool → producer never called
+- ALLOW → producer exactly once; `report_hash` shared by artifact + receipt
+- Gateway leaves `OBSERVATION_PENDING`; Operator attests only after verifying the Gateway produce (no pre-RECONCILED)
+- Model `args` must be `{}` for these pilot tools (non-empty rejected)
+
 ## Problem (from preprod readiness audit)
 
 Operator observe used a hardcoded `repo.audit` call. Execution Brief / Goal capabilities did not drive tool selection. A second Goal Contract could not share the same path without code edits.
@@ -41,16 +56,19 @@ Goal Contract
 
 ```text
 python3 -m pytest tests/test_preprod_supervised_mission_e2e.py -q
-→ 25 passed
+→ 28 passed
 ```
 
 Covered:
 
 - Audit Goal + Inventory Goal through **one** Operator workflow (no hardcoded tool branch).
 - `model_cycles >= 2` via mock provider (no paid live calls).
-- Negatives: tool failure, discrepancy, corrupt/empty artifact, zero budget, forbidden/unknown tool, capability deny, unsupported criteria → UNKNOWN/PARTIAL (never false SUCCESS).
+- Negatives: tool failure, discrepancy, corrupt/empty artifact, zero budget, forbidden/unknown tool, capability deny, invalid args, unsupported criteria → UNKNOWN/PARTIAL (never false SUCCESS).
+- Execution boundary: DENY → 0 produce; ALLOW → 1 produce; coherent `report_hash`.
 - Pause/cancel; crash-resume after `gateway_observe` without silent tool replay.
 - Completion Gate remains independent of catalog wiring.
+
+**Autonomy note:** default mock cycles are still `call_tool → stop` (interface proof). Observation-conditioned next-action selection is not claimed; reserved for a separately authorized live LLM pilot.
 
 ## Honesty limits
 

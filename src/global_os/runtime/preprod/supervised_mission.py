@@ -23,8 +23,8 @@ from global_os.adapters.storage.sql import connect_sqlite
 from global_os.cognition.organization import MissionAssigner, OrganizationCompiler
 from global_os.cognition.organs.achiever_loop import AchieverLoopError, run_achiever_organ_loop
 from global_os.cognition.organs.task_compiler import TaskCompilerError, compile_execution_brief
-from global_os.common.hashing import new_id
-from global_os.kernel.action_gateway import ToolGateway, ToolResult, trusted_observation
+from global_os.common.hashing import content_hash, new_id
+from global_os.kernel.action_gateway import ToolGateway, ToolResult
 from global_os.kernel.authority import AuthorityKernel
 from global_os.kernel.authority.durable_gate import SqliteDurableGateStore
 from global_os.runtime.events import EventLedger
@@ -281,6 +281,7 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
 
     target = Path(state["target_path"])
     call_count_path = run_dir / "tool_calls.json"
+    last_report_path = run_dir / "last_tool_report.json"
     prior = _read_json(call_count_path) if call_count_path.exists() else {}
 
     # Prefer catalog tools whose verifiers can bind Goal success criteria.
@@ -316,6 +317,7 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
     receipts: list[dict[str, Any]] = []
     last_digest: str | None = None
     last_verify: dict[str, Any] = {"ok": False, "reason": "no_tool_executed"}
+    last_report_hash: str | None = None
     executed_tools: list[str] = []
     observe_block: str | None = None
     max_cycles = int(hooks.get("max_model_cycles") or 4)
@@ -334,7 +336,7 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
             workspace_id=goal["workspace_id"],
         )
 
-        # Register all catalog tools that are in the allowed set (handlers close over tool_id).
+        # Register catalog tools. Produce runs ONLY here — after Authority+Gateway.
         for tid in allowed_tool_ids:
             try:
                 spec = assert_tool_permitted(tid, allowed_tool_ids=allowed_tool_ids)
@@ -346,6 +348,15 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                     report = produce_tool_artifact(tool_id, target, hooks)
                     prior[tool_id] = int(prior.get(tool_id, 0)) + 1
                     _write_json(call_count_path, prior)
+                    _write_json(
+                        last_report_path,
+                        {
+                            "tool_id": tool_id,
+                            "report": report,
+                            "report_hash": content_hash(report),
+                            "produced_at": _now(),
+                        },
+                    )
                     if hooks.get("inject_tool_failure"):
                         return ToolResult(
                             False, {"error": "injected_tool_failure", "report": report}
@@ -392,27 +403,20 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                 observe_block = str(exc)
                 break
 
-            # Produce+verify before attest (independent of Gateway success flag).
-            report = produce_tool_artifact(tool_id, target, hooks)
-            artifact_verify = verify_tool_artifact(tool_id, report)
-            art = ArtifactStore(run_dir / "artifacts")
-            digest = art.put_json(
-                {
-                    "kind": spec.artifact_kind,
-                    "tool_id": tool_id,
-                    "run_id": state["run_id"],
-                    "goal_id": goal["goal_id"],
-                    "report": report,
-                    "artifact_verify": artifact_verify,
-                    "produced_at": _now(),
-                }
-            ).digest
-            last_digest = digest
-            last_verify = artifact_verify
+            # Pilot tools take no model args — reject anything except {}.
+            raw_args = decision_doc.get("args", {})
+            if raw_args is None:
+                raw_args = {}
+            if not isinstance(raw_args, dict) or raw_args != {}:
+                observe_block = "invalid_tool_args"
+                break
+
+            # Fail-closed before Gateway: no produce on deny paths.
+            if hooks.get("deny_capability"):
+                observe_block = "authority_capability_denied"
+                break
 
             idem = f"preprod-{state['run_id']}-{tool_id.replace('.', '-')}"
-            # Handler produces again — durable gate prevents silent double external effect.
-            # For deterministic tools, second produce is cheap; call count increments in handler.
             proposal = {
                 "proposal_id": f"ap_{state['run_id']}_{tool_id.replace('.', '_')}",
                 "schema_version": "0.1.0",
@@ -431,11 +435,6 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                 "context": {"profile": PROFILE, "tool_id": tool_id},
                 "parent_capabilities": sorted(caps),
             }
-            # Capability denial hook: strip grant for negative tests.
-            if hooks.get("deny_capability"):
-                observe_block = "authority_capability_denied"
-                break
-
             decision = auth.decide(
                 proposal, tenant_id=goal["tenant_id"], workspace_id=goal["workspace_id"]
             )
@@ -443,16 +442,8 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                 observe_block = f"authority_denied:{decision.decision}"
                 break
 
-            observation = None
-            if (
-                artifact_verify.get("ok")
-                and not hooks.get("inject_tool_failure")
-                and not hooks.get("inject_discrepancy_observation")
-            ):
-                observation = trusted_observation(spec.intended_effect)
-            elif hooks.get("inject_discrepancy_observation") or not artifact_verify.get("ok"):
-                observation = trusted_observation(f"{spec.intended_effect}_failed")
-
+            # observation=None → Gateway leaves OBSERVATION_PENDING (no pre-attest).
+            # Single produce happens inside the registered handler after token checks.
             receipt = gateway.execute(
                 tool_id=tool_id,
                 proposal=proposal,
@@ -460,8 +451,38 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                 tenant_id=goal["tenant_id"],
                 workspace_id=goal["workspace_id"],
                 intended_effect=spec.intended_effect,
-                observation=observation,
+                observation=None,
             )
+
+            if not last_report_path.exists():
+                observe_block = "missing_tool_report_after_gateway"
+                break
+            saved = _read_json(last_report_path)
+            if str(saved.get("tool_id") or "") != tool_id:
+                observe_block = "tool_report_mismatch"
+                break
+            report = saved.get("report")
+            if not isinstance(report, dict):
+                observe_block = "tool_report_not_object"
+                break
+            report_hash = str(saved.get("report_hash") or content_hash(report))
+            artifact_verify = verify_tool_artifact(tool_id, report)
+            art = ArtifactStore(run_dir / "artifacts")
+            digest = art.put_json(
+                {
+                    "kind": spec.artifact_kind,
+                    "tool_id": tool_id,
+                    "run_id": state["run_id"],
+                    "goal_id": goal["goal_id"],
+                    "report": report,
+                    "report_hash": report_hash,
+                    "artifact_verify": artifact_verify,
+                    "produced_at": _now(),
+                }
+            ).digest
+            last_digest = digest
+            last_verify = artifact_verify
+            last_report_hash = report_hash
 
             supported = criteria_supported_by_tool(goal, tool_id)
             override = hooks.get("binds_criteria_override")
@@ -469,15 +490,44 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                 bind_ids = [cid for cid in list(override) if cid in supported]
             else:
                 bind_ids = list(supported)
-            enriched = {
+
+            gateway_status = str(receipt.get("reconciliation_status") or "")
+            tool_ok = (receipt.get("tool_response") or {}).get("success") is True
+            enriched: dict[str, Any] = {
                 **receipt,
                 "binds_criteria": bind_ids,
                 "success_criteria_ids": bind_ids,
                 "artifact_verify": artifact_verify,
+                "artifact_digest": digest,
+                "report_hash": report_hash,
                 "verifier": tool_id,
                 "criteria_supported": supported,
                 "tool_id": tool_id,
+                "gateway_reconciliation_status": gateway_status,
             }
+            # Post-execution attestation of the single Gateway produce — never pre-RECONCILED.
+            if hooks.get("inject_discrepancy_observation"):
+                enriched["reconciliation_status"] = "DISCREPANCY"
+                enriched["world_success"] = False
+                enriched["discrepancy"] = "injected_discrepancy_observation"
+                enriched["verification_method"] = "post_execution_artifact_verify"
+            elif tool_ok and artifact_verify.get("ok"):
+                enriched["reconciliation_status"] = "RECONCILED"
+                enriched["world_success"] = True
+                enriched["observed_effect"] = spec.intended_effect
+                enriched["discrepancy"] = "none"
+                enriched["verification_method"] = "post_execution_artifact_verify"
+            else:
+                enriched["reconciliation_status"] = "DISCREPANCY"
+                enriched["world_success"] = False
+                enriched["verification_method"] = "post_execution_artifact_verify"
+                if not artifact_verify.get("ok"):
+                    enriched["discrepancy"] = (
+                        f"artifact_verify:{artifact_verify.get('reason')}"
+                    )
+                elif not tool_ok:
+                    enriched["discrepancy"] = "tool_response_not_success"
+
             if not (
                 artifact_verify.get("ok")
                 and enriched.get("world_success") is True
@@ -501,6 +551,7 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
             "effect_receipts": receipts,
             "artifact_digest": last_digest,
             "artifact_verify": last_verify,
+            "report_hash": last_report_hash,
             "budget": budget,
             "tool_calls": prior,
             "executed_tools": executed_tools,
@@ -584,10 +635,12 @@ def _deliver_step(state: dict[str, Any]) -> dict[str, Any]:
         "achiever_stop": state.get("stop"),
         "budget": state.get("budget"),
         "artifact_digest": state.get("artifact_digest"),
+        "report_hash": state.get("report_hash"),
         "tool_calls": state.get("tool_calls"),
         "allowed_tool_ids": state.get("allowed_tool_ids"),
         "executed_tools": state.get("executed_tools"),
         "model_cycles": state.get("model_cycles"),
+        "observe_block": state.get("observe_block"),
         "limits": {
             "external_write": "human_confirmation_required",
             "hmac_action_binding_residual": "NOT_CLAIMED_SOLVED",
@@ -598,8 +651,10 @@ def _deliver_step(state: dict[str, Any]) -> dict[str, Any]:
             "effect_receipt_ids": [
                 r.get("receipt_id") for r in (state.get("effect_receipts") or [])
             ],
+            "effect_receipts": list(state.get("effect_receipts") or []),
             "events_path": str(run_dir / "events.json"),
             "artifact_digest": state.get("artifact_digest"),
+            "report_hash": state.get("report_hash"),
         },
         "history_summary": (state.get("achiever") or {}).get("events") or [],
         "last_execution_brief": state.get("last_brief"),

@@ -393,6 +393,79 @@ def test_negative_deny_capability_not_succeeded(tmp_path: Path) -> None:
     )
     assert delivery["terminal_status"] != "SUCCEEDED"
     assert delivery["completion"]["status"] != CompletionStatus.ACHIEVED.value
+    # DENY must not invoke producer (execution boundary).
+    calls_path = gos / "missions" / delivery["run_id"] / "tool_calls.json"
+    assert not calls_path.exists() or json.loads(calls_path.read_text()) == {}
+    assert delivery.get("observe_block") == "authority_capability_denied"
+
+
+def test_deny_path_never_produces_tool_artifact(tmp_path: Path) -> None:
+    """Regression: Authority DENY → produce_tool_artifact not called."""
+    gos = tmp_path / ".gos"
+    target = Path(__file__).resolve().parents[1]
+    delivery = start_mission(
+        _goal("goal_deny_no_produce"),
+        target_path=target,
+        gos_root=gos,
+        hooks={"deny_capability": True},
+    )
+    run_dir = gos / "missions" / delivery["run_id"]
+    assert not (run_dir / "last_tool_report.json").exists()
+    assert not (run_dir / "tool_calls.json").exists()
+    assert delivery["evidence"]["effect_receipts"] == []
+
+
+def test_allow_path_produces_exactly_once_and_coherent_evidence(tmp_path: Path) -> None:
+    """ALLOW → producer once; artifact hash, verifier, receipt share one result."""
+    gos = tmp_path / ".gos"
+    target = Path(__file__).resolve().parents[1]
+    delivery = start_mission(
+        _goal("goal_allow_once"),
+        target_path=target,
+        gos_root=gos,
+    )
+    assert delivery["terminal_status"] == "SUCCEEDED"
+    assert delivery["tool_calls"].get("repo.audit") == 1
+    receipts = delivery["evidence"]["effect_receipts"]
+    assert len(receipts) == 1
+    rec = receipts[0]
+    assert rec["report_hash"] == delivery["report_hash"]
+    assert rec["artifact_digest"] == delivery["artifact_digest"]
+    assert rec["artifact_verify"]["ok"] is True
+    assert rec["gateway_reconciliation_status"] == "OBSERVATION_PENDING"
+    assert rec["reconciliation_status"] == "RECONCILED"
+    assert rec["verification_method"] == "post_execution_artifact_verify"
+    assert rec["world_success"] is True
+    # Persisted Gateway produce must match delivery hash.
+    saved = json.loads(
+        (gos / "missions" / delivery["run_id"] / "last_tool_report.json").read_text()
+    )
+    assert saved["report_hash"] == delivery["report_hash"]
+    assert saved["tool_id"] == "repo.audit"
+
+
+def test_negative_nonempty_args_rejected(tmp_path: Path) -> None:
+    gos = tmp_path / ".gos"
+    target = Path(__file__).resolve().parents[1]
+    delivery = start_mission(
+        _goal("goal_bad_args"),
+        target_path=target,
+        gos_root=gos,
+        hooks={
+            "model_script": [
+                {
+                    "action": "call_tool",
+                    "tool_id": "repo.audit",
+                    "args": {"path": "/etc/passwd"},
+                },
+                {"action": "stop"},
+            ]
+        },
+    )
+    assert delivery["terminal_status"] != "SUCCEEDED"
+    assert delivery.get("observe_block") == "invalid_tool_args"
+    calls_path = gos / "missions" / delivery["run_id"] / "tool_calls.json"
+    assert not calls_path.exists()
 
 
 def test_tool_catalog_capability_intersection() -> None:
