@@ -1,0 +1,132 @@
+{
+  "task_id": "research_status_owner",
+  "domain": "research",
+  "objective": "Determine Alpha's status, owner, and region from sources; ignore retracted claims; cite evidence.",
+  "non_goals": [
+    "Invent new attributes",
+    "Rank organizational politics"
+  ],
+  "forbidden": [
+    "Treat retracted claims as current"
+  ],
+  "packets": {
+    "S_TRAD": {
+      "strategy_id": "S_TRAD",
+      "prompt_text": "Please solve the following task as best you can.\n\nTask: Determine Alpha's status, owner, and region from sources; ignore retracted claims; cite evidence.\n\nWhen you believe you are done, report SUCCESS and summarize what you did.",
+      "definition_of_done": [],
+      "evidence_requirements": [],
+      "procedural_steps": [],
+      "goal_contract": {}
+    },
+    "S_DETAIL": {
+      "strategy_id": "S_DETAIL",
+      "prompt_text": "Follow these instructions exactly to complete the task.\n\nObjective: Determine Alpha's status, owner, and region from sources; ignore retracted claims; cite evidence.\n\nSteps:\n1. Read source S1\n2. Read source S2\n3. Read source S3\n4. Read source S4\n5. Write a report with status/owner/region from the sources you read\n6. Report SUCCESS\n\nAfter completing all steps in order, report SUCCESS.",
+      "definition_of_done": [],
+      "evidence_requirements": [],
+      "procedural_steps": [
+        "Read source S1",
+        "Read source S2",
+        "Read source S3",
+        "Read source S4",
+        "Write a report with status/owner/region from the sources you read",
+        "Report SUCCESS"
+      ],
+      "goal_contract": {}
+    },
+    "S_GE": {
+      "strategy_id": "S_GE",
+      "prompt_text": "You are bound by an immutable GoalContract.\n\nObjective: Determine Alpha's status, owner, and region from sources; ignore retracted claims; cite evidence.\n\nDefinition of Done (all must hold):\n- [sc_status] Final status equals ground truth after retractions\n- [sc_owner] Final owner equals ground truth\n- [sc_region] Final region equals ground truth\n- [sc_cite] Each claim cites a non-retracted source id\n\nEvidenceLedger requirements:\n- criterion sc_status: require citation (source id + claim)\n- criterion sc_owner: require citation (source id + claim)\n- criterion sc_region: require citation (source id + claim)\n- criterion sc_cite: require ledger (EvidenceLedger with citations)\n\nDo not claim SUCCESS until every DoD criterion has a ledger entry with direct, scope-matched evidence. If evidence is missing, continue or report BLOCKED \u2014 never assert completion from confidence alone.",
+      "definition_of_done": [
+        {
+          "id": "sc_status",
+          "description": "Final status equals ground truth after retractions"
+        },
+        {
+          "id": "sc_owner",
+          "description": "Final owner equals ground truth"
+        },
+        {
+          "id": "sc_region",
+          "description": "Final region equals ground truth"
+        },
+        {
+          "id": "sc_cite",
+          "description": "Each claim cites a non-retracted source id"
+        }
+      ],
+      "evidence_requirements": [
+        {
+          "criterion_id": "sc_status",
+          "kind": "citation",
+          "note": "source id + claim",
+          "tier": "2"
+        },
+        {
+          "criterion_id": "sc_owner",
+          "kind": "citation",
+          "note": "source id + claim",
+          "tier": "2"
+        },
+        {
+          "criterion_id": "sc_region",
+          "kind": "citation",
+          "note": "source id + claim",
+          "tier": "2"
+        },
+        {
+          "criterion_id": "sc_cite",
+          "kind": "ledger",
+          "note": "EvidenceLedger with citations",
+          "tier": "2"
+        }
+      ],
+      "procedural_steps": [],
+      "goal_contract": {
+        "goal_id": "goal_research_status_owner",
+        "version": 1,
+        "objective": {
+          "text": "Determine Alpha's status, owner, and region from sources; ignore retracted claims; cite evidence."
+        },
+        "success_criteria": [
+          {
+            "id": "sc_status",
+            "description": "Final status equals ground truth after retractions"
+          },
+          {
+            "id": "sc_owner",
+            "description": "Final owner equals ground truth"
+          },
+          {
+            "id": "sc_region",
+            "description": "Final region equals ground truth"
+          },
+          {
+            "id": "sc_cite",
+            "description": "Each claim cites a non-retracted source id"
+          }
+        ],
+        "non_goals": [
+          "Invent new attributes",
+          "Rank organizational politics"
+        ],
+        "forbidden_outcomes": [
+          "Treat retracted claims as current"
+        ],
+        "evidence_requirements": {
+          "sc_status": {
+            "verification_tier": 2
+          },
+          "sc_owner": {
+            "verification_tier": 2
+          },
+          "sc_region": {
+            "verification_tier": 2
+          },
+          "sc_cite": {
+            "verification_tier": 2
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "task_id": "multi_step_pipeline",
+  "domain": "multi_step",
+  "objective": "Run gather\u2192transform\u2192verify\u2192publish pipeline so published value matches verified transformed output.",
+  "non_goals": [
+    "Redesign pipeline stages"
+  ],
+  "forbidden": [
+    "Publish without verification"
+  ],
+  "packets": {
+    "S_TRAD": {
+      "strategy_id": "S_TRAD",
+      "prompt_text": "Please solve the following task as best you can.\n\nTask: Run gather\u2192transform\u2192verify\u2192publish pipeline so published value matches verified transformed output.\n\nWhen you believe you are done, report SUCCESS and summarize what you did.",
+      "definition_of_done": [],
+      "evidence_requirements": [],
+      "procedural_steps": [],
+      "goal_contract": {}
+    },
+    "S_DETAIL": {
+      "strategy_id": "S_DETAIL",
+      "prompt_text": "Follow these instructions exactly to complete the task.\n\nObjective: Run gather\u2192transform\u2192verify\u2192publish pipeline so published value matches verified transformed output.\n\nSteps:\n1. Call gather\n2. Call transform\n3. Call publish with transformed value\n4. Report SUCCESS\n\nAfter completing all steps in order, report SUCCESS.",
+      "definition_of_done": [],
+      "evidence_requirements": [],
+      "procedural_steps": [
+        "Call gather",
+        "Call transform",
+        "Call publish with transformed value",
+        "Report SUCCESS"
+      ],
+      "goal_contract": {}
+    },
+    "S_GE": {
+      "strategy_id": "S_GE",
+      "prompt_text": "You are bound by an immutable GoalContract.\n\nObjective: Run gather\u2192transform\u2192verify\u2192publish pipeline so published value matches verified transformed output.\n\nDefinition of Done (all must hold):\n- [sc_order] Phases executed gather\u2192transform\u2192verify\u2192publish\n- [sc_verify] verify passed before publish\n- [sc_value] published payload equals oracle expected value\n\nEvidenceLedger requirements:\n- criterion sc_order: require event_log (phase transition log)\n- criterion sc_verify: require verify_receipt (verify_result==pass)\n- criterion sc_value: require publish_receipt (published payload)\n\nDo not claim SUCCESS until every DoD criterion has a ledger entry with direct, scope-matched evidence. If evidence is missing, continue or report BLOCKED \u2014 never assert completion from confidence alone.",
+      "definition_of_done": [
+        {
+          "id": "sc_order",
+          "description": "Phases executed gather\u2192transform\u2192verify\u2192publish"
+        },
+        {
+          "id": "sc_verify",
+          "description": "verify passed before publish"
+        },
+        {
+          "id": "sc_value",
+          "description": "published payload equals oracle expected value"
+        }
+      ],
+      "evidence_requirements": [
+        {
+          "criterion_id": "sc_order",
+          "kind": "event_log",
+          "note": "phase transition log",
+          "tier": "2"
+        },
+        {
+          "criterion_id": "sc_verify",
+          "kind": "verify_receipt",
+          "note": "verify_result==pass",
+          "tier": "3"
+        },
+        {
+          "criterion_id": "sc_value",
+          "kind": "publish_receipt",
+          "note": "published payload",
+          "tier": "3"
+        }
+      ],
+      "procedural_steps": [],
+      "goal_contract": {
+        "goal_id": "goal_multi_step_pipeline",
+        "version": 1,
+        "objective": {
+          "text": "Run gather\u2192transform\u2192verify\u2192publish pipeline so published value matches verified transformed output."
+        },
+        "success_criteria": [
+          {
+            "id": "sc_order",
+            "description": "Phases executed gather\u2192transform\u2192verify\u2192publish"
+          },
+          {
+            "id": "sc_verify",
+            "description": "verify passed before publish"
+          },
+          {
+            "id": "sc_value",
+            "description": "published payload equals oracle expected value"
+          }
+        ],
+        "non_goals": [
+          "Redesign pipeline stages"
+        ],
+        "forbidden_outcomes": [
+          "Publish without verification"
+        ],
+        "evidence_requirements": {
+          "sc_order": {
+            "verification_tier": 2
+          },
+          "sc_verify": {
+            "verification_tier": 3
+          },
+          "sc_value": {
+            "verification_tier": 3
+          }
+        }
+      }
+    }
+  }
+}

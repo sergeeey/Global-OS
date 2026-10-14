@@ -1,0 +1,5681 @@
+{
+  "execution_class": "EXECUTED_DETERMINISTIC",
+  "hypotheses": {
+    "H1_GE_oracle_gt_TRAD": {
+      "estimate": {
+        "ci90_high": 0.8,
+        "ci90_low": 0.6,
+        "estimate": 0.7,
+        "level": 0.9,
+        "n": 60
+      },
+      "statement": "S_GE oracle_success > S_TRAD on aggregate under GE-STUDY-v1 behavioral agents",
+      "verdict": "CONFIRMED"
+    },
+    "H2_GE_oracle_gt_DETAIL": {
+      "estimate": {
+        "ci90_high": 0.7666666666666666,
+        "ci90_low": 0.5666666666666667,
+        "estimate": 0.6666666666666667,
+        "level": 0.9,
+        "n": 60
+      },
+      "statement": "S_GE oracle_success > S_DETAIL on aggregate under GE-STUDY-v1",
+      "verdict": "CONFIRMED"
+    },
+    "H3_GE_false_claim_lt_TRAD": {
+      "estimate": {
+        "ci90_high": -0.6,
+        "ci90_low": -0.8,
+        "estimate": -0.7,
+        "level": 0.9,
+        "n": 60
+      },
+      "statement": "S_GE false_claim rate < S_TRAD",
+      "verdict": "CONFIRMED"
+    },
+    "H4_GE_evidence_gt_baselines": {
+      "estimate_vs_detail": {
+        "ci90_high": 1.0,
+        "ci90_low": 1.0,
+        "estimate": 1.0,
+        "level": 0.9,
+        "n": 60
+      },
+      "estimate_vs_trad": {
+        "ci90_high": 1.0,
+        "ci90_low": 1.0,
+        "estimate": 1.0,
+        "level": 0.9,
+        "n": 60
+      },
+      "statement": "S_GE evidence_fidelity > S_TRAD and > S_DETAIL",
+      "verdict": "CONFIRMED"
+    },
+    "H5_GE_not_free": {
+      "estimate_cost": {
+        "ci90_high": 56.083333333333314,
+        "ci90_low": 25.5,
+        "estimate": 41.333333333333314,
+        "level": 0.9,
+        "n": 60
+      },
+      "estimate_latency": {
+        "ci90_high": 29.749999999999986,
+        "ci90_low": 19.083333333333343,
+        "estimate": 24.33333333333333,
+        "level": 0.9,
+        "n": 60
+      },
+      "statement": "S_GE has higher cost_tokens or latency_ms than S_TRAD (reliability tax)",
+      "verdict": "CONFIRMED"
+    }
+  },
+  "limitations": [
+    "Agents are deterministic behavioral models, not live LLMs",
+    "Task suite is small (3 tasks \u00d7 3 domains)",
+    "DETAIL steps intentionally incomplete on research/multi_step to model brittle procedures \u2014 not an attack on well-authored runbooks",
+    "No network, no provider variance, no human-in-the-loop study",
+    "Independent evaluator shares process but not strategy/agent policy code"
+  ],
+  "live_llm_class": "PROTOCOL_ONLY_NOT_EXECUTED",
+  "master_seed": 29072026,
+  "n_seeds": 20,
+  "protocol_version": "GE-STUDY-v1",
+  "recorded_at": "2026-10-14T07:34:03.798828+00:00",
+  "rows": [
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29072026,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29072026"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29072026,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29072026"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29072026,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29072026"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29072026,
+      "steps": 5,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29072026"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29072026,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29072026"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29072026,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29072026"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29072026,
+      "steps": 4,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29072026"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29072026,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29072026"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29072026,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29072026"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 140,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 70,
+      "oracle_success": 0.0,
+      "seed": 29072123,
+      "steps": 2,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29072123"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29072123,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29072123"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29072123,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29072123"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 275,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": false,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 130,
+      "oracle_success": 0.0,
+      "seed": 29072123,
+      "steps": 6,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29072123"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29072123,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29072123"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29072123,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29072123"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29072123,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29072123"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29072123,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29072123"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29072123,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29072123"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 190,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": false,
+          "tests_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 90,
+      "oracle_success": 0.0,
+      "seed": 29072220,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29072220"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29072220,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29072220"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29072220,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29072220"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29072220,
+      "steps": 5,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29072220"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29072220,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29072220"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29072220,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29072220"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29072220,
+      "steps": 4,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29072220"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29072220,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29072220"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29072220,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29072220"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29072317,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29072317"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29072317,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29072317"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29072317,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29072317"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29072317,
+      "steps": 5,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29072317"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29072317,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29072317"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29072317,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29072317"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29072317,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29072317"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29072317,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29072317"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29072317,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29072317"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 140,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 70,
+      "oracle_success": 0.0,
+      "seed": 29072414,
+      "steps": 2,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29072414"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29072414,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29072414"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29072414,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29072414"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 275,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": false,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 130,
+      "oracle_success": 0.0,
+      "seed": 29072414,
+      "steps": 6,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29072414"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29072414,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29072414"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29072414,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29072414"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29072414,
+      "steps": 4,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29072414"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29072414,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29072414"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29072414,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29072414"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29072511,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29072511"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29072511,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29072511"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29072511,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29072511"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29072511,
+      "steps": 5,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29072511"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29072511,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29072511"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29072511,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29072511"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29072511,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29072511"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29072511,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29072511"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29072511,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29072511"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 140,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 70,
+      "oracle_success": 0.0,
+      "seed": 29072608,
+      "steps": 2,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29072608"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29072608,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29072608"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29072608,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29072608"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 275,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": false,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 130,
+      "oracle_success": 0.0,
+      "seed": 29072608,
+      "steps": 6,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29072608"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29072608,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29072608"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29072608,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29072608"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29072608,
+      "steps": 4,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29072608"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29072608,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29072608"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29072608,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29072608"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 190,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": false,
+          "tests_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 90,
+      "oracle_success": 0.0,
+      "seed": 29072705,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29072705"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29072705,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29072705"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29072705,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29072705"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29072705,
+      "steps": 5,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29072705"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29072705,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29072705"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29072705,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29072705"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29072705,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29072705"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29072705,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29072705"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29072705,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29072705"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29072802,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29072802"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29072802,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29072802"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29072802,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29072802"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29072802,
+      "steps": 5,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29072802"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29072802,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29072802"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29072802,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29072802"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29072802,
+      "steps": 4,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29072802"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29072802,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29072802"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29072802,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29072802"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 140,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 70,
+      "oracle_success": 0.0,
+      "seed": 29072899,
+      "steps": 2,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29072899"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29072899,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29072899"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29072899,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29072899"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 275,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": false,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 130,
+      "oracle_success": 0.0,
+      "seed": 29072899,
+      "steps": 6,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29072899"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29072899,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29072899"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29072899,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29072899"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29072899,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29072899"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29072899,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29072899"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29072899,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29072899"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29072996,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29072996"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29072996,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29072996"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29072996,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29072996"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29072996,
+      "steps": 5,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29072996"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29072996,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29072996"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29072996,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29072996"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29072996,
+      "steps": 4,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29072996"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29072996,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29072996"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29072996,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29072996"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 140,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 70,
+      "oracle_success": 0.0,
+      "seed": 29073093,
+      "steps": 2,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29073093"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29073093,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29073093"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29073093,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29073093"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 275,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": false,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 130,
+      "oracle_success": 0.0,
+      "seed": 29073093,
+      "steps": 6,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29073093"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29073093,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29073093"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29073093,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29073093"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29073093,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29073093"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29073093,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29073093"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29073093,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29073093"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 190,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": false,
+          "tests_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 90,
+      "oracle_success": 0.0,
+      "seed": 29073190,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29073190"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29073190,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29073190"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29073190,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29073190"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29073190,
+      "steps": 5,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29073190"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29073190,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29073190"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29073190,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29073190"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29073190,
+      "steps": 4,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29073190"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29073190,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29073190"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29073190,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29073190"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29073287,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29073287"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29073287,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29073287"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29073287,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29073287"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29073287,
+      "steps": 5,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29073287"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29073287,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29073287"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29073287,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29073287"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29073287,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29073287"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29073287,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29073287"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29073287,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29073287"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 140,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 70,
+      "oracle_success": 0.0,
+      "seed": 29073384,
+      "steps": 2,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29073384"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29073384,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29073384"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29073384,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29073384"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 275,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": false,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 130,
+      "oracle_success": 0.0,
+      "seed": 29073384,
+      "steps": 6,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29073384"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29073384,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29073384"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29073384,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29073384"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29073384,
+      "steps": 4,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29073384"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29073384,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29073384"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29073384,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29073384"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29073481,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29073481"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29073481,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29073481"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29073481,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29073481"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29073481,
+      "steps": 5,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29073481"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29073481,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29073481"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29073481,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29073481"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29073481,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29073481"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29073481,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29073481"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29073481,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29073481"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 140,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 70,
+      "oracle_success": 0.0,
+      "seed": 29073578,
+      "steps": 2,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29073578"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29073578,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29073578"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29073578,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29073578"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 275,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": false,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 130,
+      "oracle_success": 0.0,
+      "seed": 29073578,
+      "steps": 6,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29073578"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29073578,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29073578"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29073578,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29073578"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29073578,
+      "steps": 4,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29073578"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29073578,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29073578"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29073578,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29073578"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 190,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": false,
+          "tests_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 90,
+      "oracle_success": 0.0,
+      "seed": 29073675,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29073675"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29073675,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29073675"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29073675,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29073675"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29073675,
+      "steps": 5,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29073675"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29073675,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29073675"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29073675,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29073675"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29073675,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29073675"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29073675,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29073675"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29073675,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29073675"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29073772,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29073772"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29073772,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29073772"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29073772,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29073772"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29073772,
+      "steps": 5,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29073772"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29073772,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29073772"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29073772,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29073772"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29073772,
+      "steps": 4,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29073772"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29073772,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29073772"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29073772,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29073772"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 140,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 70,
+      "oracle_success": 0.0,
+      "seed": 29073869,
+      "steps": 2,
+      "strategy_id": "S_TRAD",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_TRAD:coding_sum_range:29073869"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 210,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 0.0,
+      "false_claim": 0.0,
+      "latency_ms": 120,
+      "oracle_success": 1.0,
+      "seed": 29073869,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_DETAIL:coding_sum_range:29073869"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "body_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "scope_ok": true,
+          "tests_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "coding",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 130,
+      "oracle_success": 1.0,
+      "seed": 29073869,
+      "steps": 3,
+      "strategy_id": "S_GE",
+      "task_id": "coding_sum_range",
+      "trial_id": "S_GE:coding_sum_range:29073869"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 275,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": false,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 130,
+      "oracle_success": 0.0,
+      "seed": 29073869,
+      "steps": 6,
+      "strategy_id": "S_TRAD",
+      "task_id": "research_status_owner",
+      "trial_id": "S_TRAD:research_status_owner:29073869"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 230,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": false,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": false,
+          "pred_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 110,
+      "oracle_success": 0.0,
+      "seed": 29073869,
+      "steps": 5,
+      "strategy_id": "S_DETAIL",
+      "task_id": "research_status_owner",
+      "trial_id": "S_DETAIL:research_status_owner:29073869"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 295,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "cite_clean": true,
+          "cite_ok": true,
+          "evaluator": "independent_oracle_v1",
+          "no_bad": true,
+          "pred_ok": true
+        },
+        "ledger_len": 4,
+        "missed_claim": false
+      },
+      "domain": "research",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 140,
+      "oracle_success": 1.0,
+      "seed": 29073869,
+      "steps": 6,
+      "strategy_id": "S_GE",
+      "task_id": "research_status_owner",
+      "trial_id": "S_GE:research_status_owner:29073869"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 0,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29073869,
+      "steps": 3,
+      "strategy_id": "S_TRAD",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_TRAD:multi_step_pipeline:29073869"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 120,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": false,
+          "value_ok": true,
+          "verify_before": false,
+          "verify_ok": false
+        },
+        "ledger_len": 1,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 0.0,
+      "false_claim": 1.0,
+      "latency_ms": 75,
+      "oracle_success": 0.0,
+      "seed": 29073869,
+      "steps": 3,
+      "strategy_id": "S_DETAIL",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_DETAIL:multi_step_pipeline:29073869"
+    },
+    {
+      "autonomy": 1.0,
+      "claimed_success": 1.0,
+      "cost_tokens": 170,
+      "details": {
+        "claimed_blocked": false,
+        "eval": {
+          "evaluator": "independent_oracle_v1",
+          "order_ok": true,
+          "value_ok": true,
+          "verify_before": true,
+          "verify_ok": true
+        },
+        "ledger_len": 3,
+        "missed_claim": false
+      },
+      "domain": "multi_step",
+      "evidence_fidelity": 1.0,
+      "false_claim": 0.0,
+      "latency_ms": 105,
+      "oracle_success": 1.0,
+      "seed": 29073869,
+      "steps": 4,
+      "strategy_id": "S_GE",
+      "task_id": "multi_step_pipeline",
+      "trial_id": "S_GE:multi_step_pipeline:29073869"
+    }
+  ],
+  "summary": {
+    "by_strategy": {
+      "S_DETAIL": {
+        "by_domain": {
+          "coding": {
+            "autonomy": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "claimed_success": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "cost_tokens": {
+              "ci90_high": 210.0,
+              "ci90_low": 210.0,
+              "estimate": 210.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "evidence_fidelity": {
+              "ci90_high": 0.0,
+              "ci90_low": 0.0,
+              "estimate": 0.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "false_claim": {
+              "ci90_high": 0.0,
+              "ci90_low": 0.0,
+              "estimate": 0.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "latency_ms": {
+              "ci90_high": 120.0,
+              "ci90_low": 120.0,
+              "estimate": 120.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "oracle_success": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "steps": {
+              "ci90_high": 3.0,
+              "ci90_low": 3.0,
+              "estimate": 3.0,
+              "level": 0.9,
+              "n": 20
+            }
+          },
+          "multi_step": {
+            "autonomy": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "claimed_success": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "cost_tokens": {
+              "ci90_high": 120.0,
+              "ci90_low": 120.0,
+              "estimate": 120.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "evidence_fidelity": {
+              "ci90_high": 0.0,
+              "ci90_low": 0.0,
+              "estimate": 0.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "false_claim": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "latency_ms": {
+              "ci90_high": 75.0,
+              "ci90_low": 75.0,
+              "estimate": 75.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "oracle_success": {
+              "ci90_high": 0.0,
+              "ci90_low": 0.0,
+              "estimate": 0.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "steps": {
+              "ci90_high": 3.0,
+              "ci90_low": 3.0,
+              "estimate": 3.0,
+              "level": 0.9,
+              "n": 20
+            }
+          },
+          "research": {
+            "autonomy": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "claimed_success": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "cost_tokens": {
+              "ci90_high": 230.0,
+              "ci90_low": 230.0,
+              "estimate": 230.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "evidence_fidelity": {
+              "ci90_high": 0.0,
+              "ci90_low": 0.0,
+              "estimate": 0.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "false_claim": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "latency_ms": {
+              "ci90_high": 110.0,
+              "ci90_low": 110.0,
+              "estimate": 110.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "oracle_success": {
+              "ci90_high": 0.0,
+              "ci90_low": 0.0,
+              "estimate": 0.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "steps": {
+              "ci90_high": 5.0,
+              "ci90_low": 5.0,
+              "estimate": 5.0,
+              "level": 0.9,
+              "n": 20
+            }
+          }
+        },
+        "overall": {
+          "autonomy": {
+            "ci90_high": 1.0,
+            "ci90_low": 1.0,
+            "estimate": 1.0,
+            "level": 0.9,
+            "n": 60
+          },
+          "claimed_success": {
+            "ci90_high": 1.0,
+            "ci90_low": 1.0,
+            "estimate": 1.0,
+            "level": 0.9,
+            "n": 60
+          },
+          "cost_tokens": {
+            "ci90_high": 196.83333333333334,
+            "ci90_low": 176.33333333333334,
+            "estimate": 186.66666666666666,
+            "level": 0.9,
+            "n": 60
+          },
+          "evidence_fidelity": {
+            "ci90_high": 0.0,
+            "ci90_low": 0.0,
+            "estimate": 0.0,
+            "level": 0.9,
+            "n": 60
+          },
+          "false_claim": {
+            "ci90_high": 0.7666666666666667,
+            "ci90_low": 0.5666666666666667,
+            "estimate": 0.6666666666666666,
+            "level": 0.9,
+            "n": 60
+          },
+          "latency_ms": {
+            "ci90_high": 105.83333333333333,
+            "ci90_low": 97.5,
+            "estimate": 101.66666666666667,
+            "level": 0.9,
+            "n": 60
+          },
+          "oracle_success": {
+            "ci90_high": 0.43333333333333335,
+            "ci90_low": 0.23333333333333334,
+            "estimate": 0.3333333333333333,
+            "level": 0.9,
+            "n": 60
+          },
+          "steps": {
+            "ci90_high": 3.8666666666666667,
+            "ci90_low": 3.466666666666667,
+            "estimate": 3.6666666666666665,
+            "level": 0.9,
+            "n": 60
+          }
+        }
+      },
+      "S_GE": {
+        "by_domain": {
+          "coding": {
+            "autonomy": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "claimed_success": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "cost_tokens": {
+              "ci90_high": 230.0,
+              "ci90_low": 230.0,
+              "estimate": 230.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "evidence_fidelity": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "false_claim": {
+              "ci90_high": 0.0,
+              "ci90_low": 0.0,
+              "estimate": 0.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "latency_ms": {
+              "ci90_high": 130.0,
+              "ci90_low": 130.0,
+              "estimate": 130.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "oracle_success": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "steps": {
+              "ci90_high": 3.0,
+              "ci90_low": 3.0,
+              "estimate": 3.0,
+              "level": 0.9,
+              "n": 20
+            }
+          },
+          "multi_step": {
+            "autonomy": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "claimed_success": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "cost_tokens": {
+              "ci90_high": 170.0,
+              "ci90_low": 170.0,
+              "estimate": 170.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "evidence_fidelity": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "false_claim": {
+              "ci90_high": 0.0,
+              "ci90_low": 0.0,
+              "estimate": 0.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "latency_ms": {
+              "ci90_high": 105.0,
+              "ci90_low": 105.0,
+              "estimate": 105.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "oracle_success": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "steps": {
+              "ci90_high": 4.0,
+              "ci90_low": 4.0,
+              "estimate": 4.0,
+              "level": 0.9,
+              "n": 20
+            }
+          },
+          "research": {
+            "autonomy": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "claimed_success": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "cost_tokens": {
+              "ci90_high": 295.0,
+              "ci90_low": 295.0,
+              "estimate": 295.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "evidence_fidelity": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "false_claim": {
+              "ci90_high": 0.0,
+              "ci90_low": 0.0,
+              "estimate": 0.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "latency_ms": {
+              "ci90_high": 140.0,
+              "ci90_low": 140.0,
+              "estimate": 140.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "oracle_success": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "steps": {
+              "ci90_high": 6.0,
+              "ci90_low": 6.0,
+              "estimate": 6.0,
+              "level": 0.9,
+              "n": 20
+            }
+          }
+        },
+        "overall": {
+          "autonomy": {
+            "ci90_high": 1.0,
+            "ci90_low": 1.0,
+            "estimate": 1.0,
+            "level": 0.9,
+            "n": 60
+          },
+          "claimed_success": {
+            "ci90_high": 1.0,
+            "ci90_low": 1.0,
+            "estimate": 1.0,
+            "level": 0.9,
+            "n": 60
+          },
+          "cost_tokens": {
+            "ci90_high": 242.25,
+            "ci90_low": 221.0,
+            "estimate": 231.66666666666666,
+            "level": 0.9,
+            "n": 60
+          },
+          "evidence_fidelity": {
+            "ci90_high": 1.0,
+            "ci90_low": 1.0,
+            "estimate": 1.0,
+            "level": 0.9,
+            "n": 60
+          },
+          "false_claim": {
+            "ci90_high": 0.0,
+            "ci90_low": 0.0,
+            "estimate": 0.0,
+            "level": 0.9,
+            "n": 60
+          },
+          "latency_ms": {
+            "ci90_high": 127.91666666666667,
+            "ci90_low": 121.75,
+            "estimate": 125.0,
+            "level": 0.9,
+            "n": 60
+          },
+          "oracle_success": {
+            "ci90_high": 1.0,
+            "ci90_low": 1.0,
+            "estimate": 1.0,
+            "level": 0.9,
+            "n": 60
+          },
+          "steps": {
+            "ci90_high": 4.6,
+            "ci90_low": 4.066666666666666,
+            "estimate": 4.333333333333333,
+            "level": 0.9,
+            "n": 60
+          }
+        }
+      },
+      "S_TRAD": {
+        "by_domain": {
+          "coding": {
+            "autonomy": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "claimed_success": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "cost_tokens": {
+              "ci90_high": 189.5,
+              "ci90_low": 167.0,
+              "estimate": 178.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "evidence_fidelity": {
+              "ci90_high": 0.0,
+              "ci90_low": 0.0,
+              "estimate": 0.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "false_claim": {
+              "ci90_high": 0.8,
+              "ci90_low": 0.4,
+              "estimate": 0.6,
+              "level": 0.9,
+              "n": 20
+            },
+            "latency_ms": {
+              "ci90_high": 102.5,
+              "ci90_low": 85.5,
+              "estimate": 94.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "oracle_success": {
+              "ci90_high": 0.6,
+              "ci90_low": 0.25,
+              "estimate": 0.4,
+              "level": 0.9,
+              "n": 20
+            },
+            "steps": {
+              "ci90_high": 2.75,
+              "ci90_low": 2.4,
+              "estimate": 2.6,
+              "level": 0.9,
+              "n": 20
+            }
+          },
+          "multi_step": {
+            "autonomy": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "claimed_success": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "cost_tokens": {
+              "ci90_high": 155.0,
+              "ci90_low": 135.0,
+              "estimate": 145.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "evidence_fidelity": {
+              "ci90_high": 0.0,
+              "ci90_low": 0.0,
+              "estimate": 0.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "false_claim": {
+              "ci90_high": 0.7,
+              "ci90_low": 0.3,
+              "estimate": 0.5,
+              "level": 0.9,
+              "n": 20
+            },
+            "latency_ms": {
+              "ci90_high": 96.0,
+              "ci90_low": 84.0,
+              "estimate": 90.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "oracle_success": {
+              "ci90_high": 0.7,
+              "ci90_low": 0.3,
+              "estimate": 0.5,
+              "level": 0.9,
+              "n": 20
+            },
+            "steps": {
+              "ci90_high": 3.7,
+              "ci90_low": 3.3,
+              "estimate": 3.5,
+              "level": 0.9,
+              "n": 20
+            }
+          },
+          "research": {
+            "autonomy": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "claimed_success": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "cost_tokens": {
+              "ci90_high": 257.0,
+              "ci90_low": 239.0,
+              "estimate": 248.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "evidence_fidelity": {
+              "ci90_high": 0.0,
+              "ci90_low": 0.0,
+              "estimate": 0.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "false_claim": {
+              "ci90_high": 1.0,
+              "ci90_low": 1.0,
+              "estimate": 1.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "latency_ms": {
+              "ci90_high": 122.0,
+              "ci90_low": 115.0,
+              "estimate": 118.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "oracle_success": {
+              "ci90_high": 0.0,
+              "ci90_low": 0.0,
+              "estimate": 0.0,
+              "level": 0.9,
+              "n": 20
+            },
+            "steps": {
+              "ci90_high": 5.6,
+              "ci90_low": 5.25,
+              "estimate": 5.4,
+              "level": 0.9,
+              "n": 20
+            }
+          }
+        },
+        "overall": {
+          "autonomy": {
+            "ci90_high": 1.0,
+            "ci90_low": 1.0,
+            "estimate": 1.0,
+            "level": 0.9,
+            "n": 60
+          },
+          "claimed_success": {
+            "ci90_high": 1.0,
+            "ci90_low": 1.0,
+            "estimate": 1.0,
+            "level": 0.9,
+            "n": 60
+          },
+          "cost_tokens": {
+            "ci90_high": 200.91666666666666,
+            "ci90_low": 179.08333333333334,
+            "estimate": 190.33333333333334,
+            "level": 0.9,
+            "n": 60
+          },
+          "evidence_fidelity": {
+            "ci90_high": 0.0,
+            "ci90_low": 0.0,
+            "estimate": 0.0,
+            "level": 0.9,
+            "n": 60
+          },
+          "false_claim": {
+            "ci90_high": 0.8,
+            "ci90_low": 0.6,
+            "estimate": 0.7,
+            "level": 0.9,
+            "n": 60
+          },
+          "latency_ms": {
+            "ci90_high": 105.0,
+            "ci90_low": 96.0,
+            "estimate": 100.66666666666667,
+            "level": 0.9,
+            "n": 60
+          },
+          "oracle_success": {
+            "ci90_high": 0.4,
+            "ci90_low": 0.2,
+            "estimate": 0.3,
+            "level": 0.9,
+            "n": 60
+          },
+          "steps": {
+            "ci90_high": 4.1,
+            "ci90_low": 3.566666666666667,
+            "estimate": 3.8333333333333335,
+            "level": 0.9,
+            "n": 60
+          }
+        }
+      }
+    },
+    "conditional_winners_oracle_success": {
+      "coding": "S_DETAIL=S_GE",
+      "multi_step": "S_GE",
+      "research": "S_GE"
+    },
+    "contrasts_GE_minus_baseline": {
+      "S_GE_minus_S_DETAIL__cost_tokens": {
+        "ci90_high": 60.166666666666686,
+        "ci90_low": 30.416666666666657,
+        "estimate": 45.0,
+        "level": 0.9,
+        "n": 60
+      },
+      "S_GE_minus_S_DETAIL__evidence_fidelity": {
+        "ci90_high": 1.0,
+        "ci90_low": 1.0,
+        "estimate": 1.0,
+        "level": 0.9,
+        "n": 60
+      },
+      "S_GE_minus_S_DETAIL__false_claim": {
+        "ci90_high": -0.5666666666666667,
+        "ci90_low": -0.7666666666666667,
+        "estimate": -0.6666666666666666,
+        "level": 0.9,
+        "n": 60
+      },
+      "S_GE_minus_S_DETAIL__latency_ms": {
+        "ci90_high": 28.58333333333333,
+        "ci90_low": 18.08333333333333,
+        "estimate": 23.33333333333333,
+        "level": 0.9,
+        "n": 60
+      },
+      "S_GE_minus_S_DETAIL__oracle_success": {
+        "ci90_high": 0.7666666666666666,
+        "ci90_low": 0.5666666666666667,
+        "estimate": 0.6666666666666667,
+        "level": 0.9,
+        "n": 60
+      },
+      "S_GE_minus_S_TRAD__cost_tokens": {
+        "ci90_high": 56.083333333333314,
+        "ci90_low": 25.5,
+        "estimate": 41.333333333333314,
+        "level": 0.9,
+        "n": 60
+      },
+      "S_GE_minus_S_TRAD__evidence_fidelity": {
+        "ci90_high": 1.0,
+        "ci90_low": 1.0,
+        "estimate": 1.0,
+        "level": 0.9,
+        "n": 60
+      },
+      "S_GE_minus_S_TRAD__false_claim": {
+        "ci90_high": -0.6,
+        "ci90_low": -0.8,
+        "estimate": -0.7,
+        "level": 0.9,
+        "n": 60
+      },
+      "S_GE_minus_S_TRAD__latency_ms": {
+        "ci90_high": 29.749999999999986,
+        "ci90_low": 19.083333333333343,
+        "estimate": 24.33333333333333,
+        "level": 0.9,
+        "n": 60
+      },
+      "S_GE_minus_S_TRAD__oracle_success": {
+        "ci90_high": 0.8,
+        "ci90_low": 0.6,
+        "estimate": 0.7,
+        "level": 0.9,
+        "n": 60
+      }
+    },
+    "fidelity": "deterministic_behavioral_agents",
+    "live_llm": "NOT_EXECUTED",
+    "n_trials": 180,
+    "protocol_version": "GE-STUDY-v1"
+  }
+}
