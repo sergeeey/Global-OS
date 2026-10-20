@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import os
 import signal
+import time
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -743,7 +744,14 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
                         "at": _now(),
                     },
                 )
-                os.kill(os.getpid(), signal.SIGKILL)
+                if hooks.get("crash_after_tool_wait_for_parent"):
+                    # Deterministic external kill window: keep the process alive
+                    # after the effect until the probe terminates it.  A timeout
+                    # prevents a hung child if the probe never kills.
+                    deadline = time.time() + 60.0
+                    while time.time() < deadline:
+                        time.sleep(0.05)
+                os.kill(os.getpid(), getattr(signal, "SIGKILL", 9))
 
             # Continue loop so the model can react to observation (or scripted stop).
 
