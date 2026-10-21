@@ -108,5 +108,73 @@ jobs:
           TEMPORAL_ADDRESS: 127.0.0.1:7233
         run: pytest -q
 
+      - name: Check standalone crash-probe coverage
+        run: |
+          probe="scripts/preprod_crash_window_recovery.py"
+          if [ -f "$probe" ]; then
+            echo "STANDALONE_PROBE_PRESENT"
+            exit 0
+          fi
+          if [ "${GITHUB_BASE_REF:-}" = "cursor/verify-falsify-substrate-2907" ] || \
+             [ "${GITHUB_HEAD_REF:-}" = "fix/crash-probe-authentic-r2" ] || \
+             [ "${GITHUB_REF_NAME:-}" = "fix/crash-probe-authentic-r2" ]; then
+            echo "::error::standalone crash probe missing on a branch where it is required"
+            exit 1
+          fi
+          echo "EXPECTED_SKIP: standalone crash probe is not part of this branch"
+
+      - name: Clear stale crash-window evidence
+        if: ${{ hashFiles('scripts/preprod_crash_window_recovery.py') != '' }}
+        run: |
+          rm -f artifacts/preprod/final_acceptance/recovery/CRASH_WINDOW_RECOVERY.json
+
+      - name: Standalone crash-window recovery probe
+        if: ${{ hashFiles('scripts/preprod_crash_window_recovery.py') != '' }}
+        timeout-minutes: 5
+        run: |
+          python scripts/preprod_crash_window_recovery.py
+
+      - name: Verify crash-window evidence
+        if: always() && hashFiles('scripts/preprod_crash_window_recovery.py') != ''
+        run: |
+          python - <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          report = Path("artifacts/preprod/final_acceptance/recovery/CRASH_WINDOW_RECOVERY.json")
+          if not report.is_file():
+              print("::error::CRASH_WINDOW_EVIDENCE_MISSING")
+              sys.exit(1)
+
+          data = json.loads(report.read_text(encoding="utf-8"))
+          required = {
+              "ok": True,
+              "pid_match": True,
+              "killed_by_probe": True,
+              "tool_executions_before_crash": 1,
+              "tool_executions_after_resume": 0,
+              "external_effects_total": 1,
+              "write_receipt_count": 1,
+              "observe_completed_before_kill": False,
+              "terminal_status": "SUCCEEDED",
+          }
+          bad = {key: (data.get(key), expected) for key, expected in required.items() if data.get(key) != expected}
+          if bad:
+              print(f"::error::CRASH_WINDOW_EVIDENCE_INVALID {bad}")
+              sys.exit(1)
+          print("CRASH_WINDOW_EVIDENCE_OK")
+          PY
+
+      - name: Publish crash-window probe summary
+        if: always() && hashFiles('scripts/preprod_crash_window_recovery.py') != ''
+        run: |
+          report="artifacts/preprod/final_acceptance/recovery/CRASH_WINDOW_RECOVERY.json"
+          if [ -f "$report" ]; then
+            cat "$report" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "crash-window report not found" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - name: Project status evidence
         run: python -m tools.project_status
