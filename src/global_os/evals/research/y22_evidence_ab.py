@@ -300,7 +300,7 @@ def build_sealed_pack(world: dict[str, Any] | None = None) -> dict[str, Any]:
 
 def _dir_sha256(path: Path) -> str:
     h = hashlib.sha256()
-    for p in sorted(path.rglob("*")):
+    for p in sorted(path.rglob("*"), key=lambda p: p.as_posix()):
         if p.is_file():
             h.update(p.relative_to(path).as_posix().encode())
             h.update(p.read_bytes())
