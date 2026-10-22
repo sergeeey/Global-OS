@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.163 — 2026-10-22
+
+### Canon sync — stale ops docs after PREPROD tip
+
+- Workspace brought onto `main` tip `5a7870b` (was stale M-EXT4 branch, 75 commits behind)
+- `Project.md`: §12 historical M-EXT4 wording; §29–#37 marked MERGED; §30–31 PREPROD+CTC + open RC PRs
+- `ROADMAP.md` / `SCIENTIFIC_HONESTY_MAP.md` / `RUN_STATE.json` tip → `5a7870b` / `1372671`
+- M-EXT4 `STATUS.md`: successor pointer to M-EXT5 (no rewrite of agent DECISION)
+- `ACCUMULATED_CLAIM.md` + campaign report repo table: current tip note
+- Historical `P0_MERGE37_REQUEST.md` banner MERGED
+- No GOS architecture / empirics rewrite; no M-EXT4/5 decision mutation
+
 ## 0.1.162 — 2026-10-13
 
 ### Integration — PREPROD_V0_1 + CTC v0 on main

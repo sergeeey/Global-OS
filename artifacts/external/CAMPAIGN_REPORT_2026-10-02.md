@@ -158,9 +158,10 @@ independent post-hoc scientific audit
 
 | Канал | Состояние |
 |-------|-----------|
-| Канон | **`main` @ `02acddb`** (merge PR #11) |
+| Campaign merge | **`main` @ `02acddb`** (PR #11) — historical campaign tip |
+| Current canon (docs sync) | **`main` @ `5a7870b`** — PREPROD+CTC integrated; CI SUCCESS |
 | #9 / #10 / #11 | MERGED |
-| Mode | **pilot usage** — не цепочка M-EXT* self-exams |
+| Mode | **PREPROD RC / pilot usage** — не цепочка M-EXT* self-exams |
 
 ---
 

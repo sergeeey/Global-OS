@@ -1,8 +1,11 @@
 # P0 — Human merge request for #37
 
-**Status:** REQUEST_MERGE  
-**PR:** [#37](https://github.com/sergeeey/Global-OS/pull/37) — ready for review (draft cleared)  
-**Tip:** `91d1212`  
+> **HISTORICAL (2026-10-13):** #37 **MERGED** into `main` (stack tip `232022c`).  
+> Do not treat this file as an open merge request. Current tip: see `RUN_STATE.json` / `docs/Project.md`.
+
+**Status:** MERGED (supersedes REQUEST_MERGE)  
+**PR:** [#37](https://github.com/sergeeey/Global-OS/pull/37) — merged  
+**Tip at request time:** `91d1212`  
 **CI:** schemas-and-tests ×2 SUCCESS  
 **Dogfood:** agent does **not** merge to `main`
 

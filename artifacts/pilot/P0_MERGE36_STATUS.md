@@ -1,9 +1,11 @@
 # P0 — Coherent main (updated)
 
-**Status:** Delivery vehicle is **[#37](https://github.com/sergeeey/Global-OS/pull/37)** — **REQUEST_MERGE** (see `P0_MERGE37_REQUEST.md`)  
+> **HISTORICAL:** #37 **MERGED** (`232022c` stack). Current tip: `docs/Project.md` / `RUN_STATE.json`.
+
+**Status:** MERGED via [#37](https://github.com/sergeeey/Global-OS/pull/37) (see `P0_MERGE37_REQUEST.md`)  
 **#36:** closed as superseded by #37 (same stack + MLLv0)  
 **#32–#35:** closed as superseded  
-**`main` tip:** still `2f73107` — **human merge of #37 required**  
+**`main` tip at write time:** `2f73107` — merge of #37 was then required (done 2026-10-13)  
 **Dogfood:** no autonomous T0/T1 merge  
 
 ## Agent-verified

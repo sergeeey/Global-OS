@@ -1,8 +1,9 @@
 # PREPROD + CTC integration tip
 
 **Integration SHA:** `1372671`  
+**Main tip after canon sync #45/#46:** `5a7870b`  
 **Status:** MERGED_TO_MAIN — supervised read-only Operator + CTC v0  
-**CI on main:** SUCCESS — [run 38458104914](https://github.com/sergeeey/Global-OS/actions/runs/38458104914)  
+**CI on main:** SUCCESS — [run 38458104914](https://github.com/sergeeey/Global-OS/actions/runs/38458104914) (integration); tip `5a7870b` also SUCCESS  
 **Challenge-GA:** `NOT_STARTED` (unchanged; not authorized)  
 **Pre-production release:** NOT DECLARED
 
