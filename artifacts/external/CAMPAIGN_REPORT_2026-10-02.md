@@ -1,8 +1,9 @@
 # Отчёт: внешняя экзаменационная кампания Global OS
 
-**Дата:** 2026-10-02 (honesty sync)  
-**Ветка:** `main` @ `02acddb` (канон после merge #11)  
-**Sprint:** `PILOT_USAGE` (post-merge)  
+**Дата:** 2026-10-02 (honesty sync); docs tip sync 2026-10-22  
+**Campaign merge:** `main` @ `02acddb` (PR #11)  
+**Current canon tip:** `main` @ `5a7870b` (PREPROD+CTC; see §6)  
+**Sprint:** `PREPROD_RC` / `PILOT_USAGE`  
 **Архитектура Global OS:** без изменений ради optics (ADR-0009 соблюдён)
 
 ---
