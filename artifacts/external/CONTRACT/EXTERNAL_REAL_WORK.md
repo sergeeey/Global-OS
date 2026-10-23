@@ -20,8 +20,8 @@ Value of the answer must exist **independently of Global OS**.
 | **EW1** | Science | Early predictor of escape into long/chaotic transient vs strong baseline |
 | **EW2** | OSS | Live open-source incident investigation with unknown root cause |
 | **M-EXT3 / GSA** | Comparison | GOS assembled workflow vs strong single agent on pinned external OSS task |
-| **M-EXT4 / EW4** | Science | Mpemba triage — TERMINAL + post-hoc audit (broad NOT NOVEL; init UNRESOLVED; empirical NOT TESTED) |
-| **M-EXT5 / EW5** | Science | Initialization-induced Mpemba: H_EFFECT ⊥ H_FISHER (mechanical gate first) |
+| **M-EXT4 / EW4** | Science | Mpemba triage — TERMINAL + post-hoc audit (broad NOT NOVEL; init UNRESOLVED / empirical NOT TESTED **at M-EXT4 audit**); successor M-EXT5 `CAMPAIGN_CLOSED` |
+| **M-EXT5 / EW5** | Science | Initialization-induced Mpemba: `CAMPAIGN_CLOSED` — H_EFFECT(late) REJECTED; early secondary SUPPORTED; H_FISHER REJECTED |
 
 ## Required for each mission
 

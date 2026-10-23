@@ -58,8 +58,8 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 9. **Closed:** Y24/Y25; M-EXT1 IMMUTABLE; M-EXT2/EW1 INCONCLUSIVE; TK UNCHANGED.  
 10. **Evidence:** external OSS eng result + honest science INCONCLUSIVE.  
 11. **Closed:** M-EXT3 TIE on httpx#3614 — both arms hard-gated; H_GSA NOT CONFIRMED.  
-12. **Audited:** M-EXT4 triage success + errata; init Mpemba UNRESOLVED / NOT TESTED.  
-13. **Closed:** M-EXT5 CAMPAIGN_CLOSED — late REJECTED; early secondary SUPPORTED; Fisher REJECTED.  
+12. **Audited (historical M-EXT4):** triage success + errata; at audit time init empirics were UNRESOLVED / NOT TESTED → see §13.  
+13. **Closed:** M-EXT5 CAMPAIGN_CLOSED — late REJECTED (2/20); early secondary SUPPORTED (20/20); Fisher REJECTED; general NN existence NOT ESTABLISHED.  
 14. **Done:** P0 hardening merged (`3e4de13` #17).  
 15. **Done:** PhaseBreak pilot TERMINAL (`3150725` #18); residual hardening (`c851246` #20).  
 16. **Done:** PhaseBreak effect RECONCILED; Pilot 2 target LOCKED (`mcp-bouncer@45af092`).  
@@ -75,9 +75,10 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 26. **Done (draft #30):** `MINIMAL-STACK-v1` LOCKED as reliability **foundation** (≠ building).  
 27. **Done (draft #30):** Cognitive Core paradigm — primary product = Autonomous Goal Achiever; substrate = core.  
 28. **Done on main:** DurableRunner #31 (`2f73107`).  
-29. **Pending human merge [#37](https://github.com/sergeeey/Global-OS/pull/37)** (`da563ce`): organs+HUMAN, authority P0, T3 sensitivity, Challenge-GA PREREG_LOCKED, post-debt P1, Mission Learning Loop v0 (ADR-0014). #32–#36 closed as superseded.  
-30. **Now (after #37):** deepen Achiever (P1 gate) before any MLLv0 runtime promotion; Challenge exec only on explicit human request. `PRODUCTION_PROVEN=0` · `CONTINUAL_SI=NOT_MEASURED`.  
-31. **Forbidden drift:** platform-only product; soften Pilot 3 ATTR; reopen M2; score Challenge on intermediate plans alone; claim L4/L5 RSI from MLLv0 harness.
+29. **Done:** PR #37 merged (`36781b5`); stack #37–#39 tip `232022c` — organs+HUMAN, authority P0, Achiever loop, Completion Gate, Mission Learning Loop v0 (ADR-0014), durable/HMAC obs. #32–#36 superseded.
+30. **Done:** PREPROD_V0_1 (#43 @ `46c47bb`) + Contextual Task Compiler v0 (#44 @ `1372671`) on main; canon sync #45/#46 → tip `5a7870b` (CI SUCCESS).
+31. **Now:** PREPROD RC / honesty follow-ups via open PRs (#49 RC, #50 falsification-before-SUCCESS; drafts #47/#48/#51–53). Challenge-GA exec only on explicit human authorize. `PRODUCTION_PROVEN=0` · `CONTINUAL_SI=NOT_MEASURED`.  
+32. **Forbidden drift:** platform-only product; soften Pilot 3 ATTR; reopen M2; score Challenge on intermediate plans alone; claim L4/L5 RSI from MLLv0 harness; cite M-EXT4 as “empirics NOT TESTED” after M-EXT5; promote early Mpemba secondary→primary without new prereg.
 
 ## Документы
 

@@ -202,8 +202,9 @@ EXTERNAL REAL WORK
     Do NOT silently promote early secondary → primary
   Accumulated: GOS can finish real eng/science terminals; late init-Mpemba
     rejected in this protocol; GOS vs strong agent advantage NOT SHOWN
-  main canonical: tip after PR #13 (`dc7a428`); campaign merge #11 (`02acddb`)
-  Next mode: PILOT_USAGE on real user projects — not M-EXT6 self-exams
+  main canonical tip: `5a7870b` (CI SUCCESS); campaign #11 `02acddb`; audit #13 `dc7a428`
+  Integration DONE: PR #37 `36781b5`; stack #37–#39 `232022c`; #43 `46c47bb`; #44 `1372671` (PREPROD_V0_1+CTC v0)
+  Next mode: PREPROD RC / PILOT_USAGE honesty — not M-EXT6 self-exams
   Process: agent terminal → independent post-hoc audit → headline
   Forbidden: Immune*/ScienceKernel / rewrite M-EXT4/5 / secondary→headline
   Audit: artifacts/hardening/PROJECT_AUDIT_2026-10-08.md
@@ -217,8 +218,8 @@ EXTERNAL REAL WORK
   MINIMAL-STACK-v1 = reliability foundation (stop micro-reproving); ≠ the building
   Cognitive Core paradigm: Autonomous Goal Achiever primary
   Organs: CONTRACTS_LOCKED · Challenge-GA: PREREG_LOCKED (exec NOT_STARTED)
-  Integration #36 (preferred single merge): organs + authority P0 + T3 sensitivity
-    + Challenge lock + P1 grounding/PACK/C2 + fixture harness — see MERGE_STACK_32_35.md
+  Stack #37–#39 MERGED (organs + authority P0 + Achiever + MLLv0 + durable/HMAC)
+  PREPROD_SUPERVISED: composition on main; release NOT DECLARED; ≠ PRODUCTION_PROVEN
   Honesty layers (do not collapse):
     mechanisms implemented ≠ fixture loop working ≠ Autonomous Goal Achiever shown
   Green CI ≠ organs can finish a hard real Goal; Challenge prep ≠ Challenge exec

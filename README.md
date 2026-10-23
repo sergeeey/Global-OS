@@ -21,8 +21,9 @@ $$
 
 ## Статус
 
-Milestone: **M0 — Trustworthy Skeleton** (architecture consolidation).  
-DoD v0.1 **не** claimed complete. Evidence: `docs/capability_matrix.json`, `docs/IMPLEMENTATION_STATUS.md`.
+Milestone: **M1.5 CLOSED_SCOPE_LIMITED**; M2 CLOSED on current evidence.
+PREPROD_V0_1 + CTC v0 are merged on `main`; pre-production release **NOT DECLARED**.
+DoD v0.1 **не** claimed complete; `v0.1.0-pre` **not accepted**; `RELEASE_GATE` 0/10; `PRODUCTION_PROVEN=0`; `CONTINUAL_SI=NOT_MEASURED`. Evidence: `docs/capability_matrix.json`, `docs/IMPLEMENTATION_STATUS.md`.
 
 Правило:
 

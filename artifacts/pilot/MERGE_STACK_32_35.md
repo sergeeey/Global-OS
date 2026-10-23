@@ -1,8 +1,11 @@
 # Merge stack — superseded by #37
 
+> **HISTORICAL:** #37 merged at `36781b5`; stack #37–#39 tip `232022c`. The text below records
+> the pre-merge state (`main` @ `2f73107`) and is not a current merge instruction.
+
 **Status:** #32–#36 **closed as superseded**. Single delivery = [#37](https://github.com/sergeeey/Global-OS/pull/37).  
 **Working tip:** `da563ce` on `cursor/mission-learning-loop-v0-2907`  
-**Base still on `main`:** `2f73107` until human merges #37  
+**Base at write time:** `2f73107`; #37 merged at `36781b5`
 
 ## Contained in #37 (once)
 

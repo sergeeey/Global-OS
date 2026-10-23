@@ -40,14 +40,16 @@ CURRENT — post architecture ablation (ARCH-ABLATION-MECH-v1 TERMINAL)
                → Gen3 coevolution (NOT STARTED); Continual SI NOT_MEASURED
   Contours: A Goal Achievement · B Experience Evolution (MLLv0) · C Challenge Evolution
             Challenge-GA ≠ train set; auto-promote forbidden (ADR-0014)
-  Next process: human merge #37 (single delivery; #32–#36 closed superseded)
+  Integration DONE: PR #37 `36781b5`; stack #37–#39 `232022c`; #43 `46c47bb`; #44/PREPROD+CTC `1372671`; tip `5a7870b`
+  Next process: PREPROD RC honesty (#49/#50 open); Challenge exec only on explicit authorize
   Next mission: deepen Achiever (P1 gate) before any MLLv0 runtime promotion;
-                Challenge exec only on explicit human request
+                clean-install pilot inspects delivery.json (≠ PRODUCTION_PROVEN)
   M2 CLOSED; Pilot 3 ATTR NOT_SHOWN (audit); do not soften / do not platform-only swap
-  Do NOT invent M-EXT6 / ScienceKernel / Trust Kernel promote / Challenge-before-merge
-  Do NOT claim L4/L5 RSI from MLLv0 harness
+  Do NOT invent M-EXT6 / ScienceKernel / Trust Kernel promote / Challenge-before-authorize
+  Do NOT claim L4/L5 RSI from MLLv0 harness; do NOT promote M-EXT5 early secondary→primary
   Y20–Y22: primary-outcome advantage NOT SHOWN
-  External: PhaseBreak RECONCILED; mcp-bouncer RECONCILED+CI_VERIFIED; Pilot 3 TERMINAL
+  External: PhaseBreak RECONCILED; mcp-bouncer RECONCILED+CI_VERIFIED; Pilot 3 TERMINAL;
+            M-EXT5 CAMPAIGN_CLOSED (late REJECTED; early secondary only)
         │
         ▲ historical path (complete) ▼
 M1.5 CLOSED_SCOPE_LIMITED (LH-COGNITIVE-v1)
