@@ -1,0 +1,2 @@
+Method: extract sources and claim spans; do not treat claims as facts.
+See also https://example.com/methods.

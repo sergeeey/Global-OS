@@ -41,6 +41,12 @@ dev = [
 [tool.hatch.build.targets.wheel]
 packages = ["src/global_os"]
 
+# Ship schemas, SQL migrations, and Cedar policy bootstrap with the wheel.
+[tool.hatch.build.targets.wheel.force-include]
+"contracts/schemas" = "global_os/contracts/schemas"
+"migrations" = "global_os/adapters/storage/migrations"
+"policies/cedar" = "global_os/kernel/policy/cedar"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src", "."]

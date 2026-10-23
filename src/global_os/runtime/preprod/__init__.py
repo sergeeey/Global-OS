@@ -13,6 +13,10 @@ from global_os.runtime.preprod.supervised_mission import (
     resume_mission,
     start_mission,
     status_mission,
+)
+from global_os.runtime.preprod.tool_catalog import (
+    registered_tool_ids,
+    resolve_allowed_tool_ids,
     verify_repo_audit_report,
 )
 
@@ -22,6 +26,8 @@ __all__ = [
     "criteria_supported_by_repo_audit",
     "deliver_mission",
     "pause_mission",
+    "registered_tool_ids",
+    "resolve_allowed_tool_ids",
     "resume_mission",
     "start_mission",
     "status_mission",

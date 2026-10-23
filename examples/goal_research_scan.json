@@ -1,0 +1,32 @@
+{
+  "schema_version": "0.1.0",
+  "goal_id": "goal_research_scan_001",
+  "version": 1,
+  "tenant_id": "tenant_local",
+  "workspace_id": "ws_research",
+  "objective": {
+    "text": "Perform a local research scan: extract sources and competing claim spans from available materials. Distinguish extracted claims from verified facts."
+  },
+  "success_criteria": [
+    {
+      "id": "sc_research_01",
+      "description": "verified research scan with source inventory and competing hypotheses extracted"
+    }
+  ],
+  "invariants": ["read_only_target_repo", "no_binding_external_commitments"],
+  "non_goals": ["modify_code", "web_fetch_live"],
+  "forbidden_outcomes": ["write_to_target_repo", "treat_claims_as_facts"],
+  "risk": {
+    "tolerance": "low",
+    "maximum_irreversibility": "none"
+  },
+  "authority": {
+    "delegation_depth_max": 4,
+    "capabilities": ["filesystem.read"]
+  },
+  "evidence_requirements": {
+    "major_finding": { "verification_tier": 2 }
+  },
+  "termination": ["success_criteria_met", "user_cancelled"],
+  "created_at": "2026-10-14T00:00:00+00:00"
+}

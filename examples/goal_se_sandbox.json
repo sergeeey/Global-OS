@@ -1,0 +1,32 @@
+{
+  "schema_version": "0.1.0",
+  "goal_id": "goal_se_sandbox_001",
+  "version": 1,
+  "tenant_id": "tenant_local",
+  "workspace_id": "ws_se",
+  "objective": {
+    "text": "Software engineering sandbox mission: inventory the workspace, inspect README.md, apply a fix marker file, and produce a verified engineering audit report."
+  },
+  "success_criteria": [
+    { "id": "sc_inv", "description": "workspace inventory with top-level file listing" },
+    { "id": "sc_read", "description": "read workspace file README for inspection" },
+    { "id": "sc_write", "description": "apply fix by write file FIX_APPLIED.txt in workspace" },
+    { "id": "sc_audit", "description": "verified engineering report with evidence" }
+  ],
+  "invariants": ["sandbox_target_only", "no_binding_external_commitments"],
+  "non_goals": ["push_commits", "production_deploy"],
+  "forbidden_outcomes": ["path_escape"],
+  "risk": {
+    "tolerance": "low",
+    "maximum_irreversibility": "none"
+  },
+  "authority": {
+    "delegation_depth_max": 4,
+    "capabilities": ["filesystem.read", "filesystem.write", "git.read"]
+  },
+  "evidence_requirements": {
+    "major_finding": { "verification_tier": 2 }
+  },
+  "termination": ["success_criteria_met", "user_cancelled"],
+  "created_at": "2026-10-14T00:00:00+00:00"
+}
