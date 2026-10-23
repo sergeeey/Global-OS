@@ -75,8 +75,8 @@ Y25 verification-budget frontier                             FUTURE (after Y24)
 26. **Done (draft #30):** `MINIMAL-STACK-v1` LOCKED as reliability **foundation** (≠ building).  
 27. **Done (draft #30):** Cognitive Core paradigm — primary product = Autonomous Goal Achiever; substrate = core.  
 28. **Done on main:** DurableRunner #31 (`2f73107`).  
-29. **Done:** stack #37–#39 merged (`232022c`) — organs+HUMAN, authority P0, Achiever loop, Completion Gate, Mission Learning Loop v0 (ADR-0014), durable/HMAC obs. #32–#36 superseded.  
-30. **Done:** PREPROD_V0_1 + Contextual Task Compiler v0 on main (`1372671` = #43+#44); canon sync #45/#46 → tip `5a7870b` (CI SUCCESS).  
+29. **Done:** PR #37 merged (`36781b5`); stack #37–#39 tip `232022c` — organs+HUMAN, authority P0, Achiever loop, Completion Gate, Mission Learning Loop v0 (ADR-0014), durable/HMAC obs. #32–#36 superseded.
+30. **Done:** PREPROD_V0_1 (#43 @ `46c47bb`) + Contextual Task Compiler v0 (#44 @ `1372671`) on main; canon sync #45/#46 → tip `5a7870b` (CI SUCCESS).
 31. **Now:** PREPROD RC / honesty follow-ups via open PRs (#49 RC, #50 falsification-before-SUCCESS; drafts #47/#48/#51–53). Challenge-GA exec only on explicit human authorize. `PRODUCTION_PROVEN=0` · `CONTINUAL_SI=NOT_MEASURED`.  
 32. **Forbidden drift:** platform-only product; soften Pilot 3 ATTR; reopen M2; score Challenge on intermediate plans alone; claim L4/L5 RSI from MLLv0 harness; cite M-EXT4 as “empirics NOT TESTED” after M-EXT5; promote early Mpemba secondary→primary without new prereg.
 

@@ -40,7 +40,7 @@ CURRENT — post architecture ablation (ARCH-ABLATION-MECH-v1 TERMINAL)
                → Gen3 coevolution (NOT STARTED); Continual SI NOT_MEASURED
   Contours: A Goal Achievement · B Experience Evolution (MLLv0) · C Challenge Evolution
             Challenge-GA ≠ train set; auto-promote forbidden (ADR-0014)
-  Integration DONE: #37–#39 @ `232022c`; PREPROD_V0_1+CTC v0 @ `1372671`; tip `5a7870b`
+  Integration DONE: PR #37 `36781b5`; stack #37–#39 `232022c`; #43 `46c47bb`; #44/PREPROD+CTC `1372671`; tip `5a7870b`
   Next process: PREPROD RC honesty (#49/#50 open); Challenge exec only on explicit authorize
   Next mission: deepen Achiever (P1 gate) before any MLLv0 runtime promotion;
                 clean-install pilot inspects delivery.json (≠ PRODUCTION_PROVEN)

@@ -1,6 +1,9 @@
 # P0 — Durable replay gate + observation provenance
 
-**Status:** RUNTIME_VERIFIED_LOCAL (tip branch; awaiting human merge stack)  
+> **HISTORICAL:** merged in stack #37–#39 (tip `232022c`); PR #37 merge `36781b5`.
+> The “awaiting merge” status below is the pre-merge record, not current state.
+
+**Status:** RUNTIME_VERIFIED_LOCAL (historical; merged in stack #37–#39 @ `232022c`)
 **Branch:** `cursor/p0-durable-obs-2907`
 
 ## Closed gaps (audit 2026-10-13)

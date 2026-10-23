@@ -1,6 +1,6 @@
 {
   "sprint": "PILOT_USAGE",
-  "updated_at": "2026-10-22T17:58:00Z",
+  "updated_at": "2026-10-23T06:26:00Z",
   "current_goal": "PREPROD_RC_HONESTY_AND_PILOT_USAGE",
   "tip": {
     "repo_head": "5a7870b",
@@ -9,9 +9,13 @@
     "code_head_note": "CI schemas-and-tests SUCCESS on main tip 5a7870b",
     "integration": {
       "sha": "1372671",
-      "sha_full": "1372671",
+      "sha_full": "1372671f1bcab1fbfe80f95b9741122595d7cc07",
       "merged_prs": [37, 38, 39, 43, 44, 45, 46],
       "includes": "MLLv0+CompletionGate+AchieverLoop+durable_gate+HMAC_obs+PREPROD_V0_1+CTC_v0",
+      "pr37_merge_sha": "36781b53b318ea1131711673289efb071ca19e41",
+      "stack_37_39_sha": "232022ce9020c056552a171d390fb6ccbd9019bc",
+      "pr43_merge_sha": "46c47bb6add865900ae84fe375fbeef8d8051044",
+      "pr44_merge_sha": "1372671f1bcab1fbfe80f95b9741122595d7cc07",
       "prior_stack_sha": "232022ce9020c056552a171d390fb6ccbd9019bc",
       "ci": "SUCCESS",
       "challenge_exec": "NOT_STARTED",

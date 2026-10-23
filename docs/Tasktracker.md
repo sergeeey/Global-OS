@@ -16,8 +16,8 @@
 - [x] Merge PR #12 — pilot-usage canon (`45446e0`)
 - [x] Project audit 2026-10-08 (`artifacts/hardening/PROJECT_AUDIT_2026-10-08.md`)
 - [x] Merge PR #13 — audit report on main (`dc7a428`)
-- [x] Merge #37–#39 → integration `232022c` (Achiever+MLLv0+P0 durable/HMAC)
-- [x] Merge #43+#44 → PREPROD_V0_1+CTC `1372671`; canon sync #45/#46 → tip `5a7870b`
+- [x] PR #37 merge `36781b5`; stack #37–#39 tip `232022c` (Achiever+MLLv0+P0 durable/HMAC)
+- [x] PR #43 merge `46c47bb` + PR #44 merge `1372671` (PREPROD_V0_1+CTC); canon sync #45/#46 → tip `5a7870b`
 - [x] Canon sync 2026-10-22 — stale Project/ROADMAP/RUN_STATE/M-EXT4 STATUS after tip drift
 - [ ] Open (human): PREPROD RC #49; falsification-before-SUCCESS #50; drafts #47/#48/#51–53
 - [ ] Challenge-GA exec only on explicit authorize (still NOT_STARTED)

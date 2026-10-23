@@ -1,5 +1,8 @@
 # P1 Achiever gate — separate track before MLLv0 runtime promotion
 
+> **HISTORICAL (2026-10-13):** branch text below predates merge; PR #37 merged at `36781b5`
+> (stack #37–#39 tip `232022c`). Not a current merge request.
+
 **Status:** HARNESS_WIRED (organ loop + Completion Gate; not PRODUCTION_PROVEN)  
 **Rule:** No Mission Learning Loop winner may enter **default Achiever runtime**
 until Contour A can finish a Goal with verified terminal evidence **and** human
@@ -10,7 +13,7 @@ promotion. Challenge exec still separate.
 1. Decomposer → Orchestration → Pivot → verify/stop beyond fixture-only loop — **harness done**
 2. Success = terminal criteria + EffectReceipts via Completion Gate — **wired**
 3. Challenge-GA exec still only after explicit human request
-4. Branch: `cursor/achiever-organ-loop-2907` (stacks on #37 tip until human merge)
+4. Branch: `cursor/achiever-organ-loop-2907` (historical; #37 merged at `36781b5`)
 
 ## What exists today
 

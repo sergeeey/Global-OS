@@ -203,7 +203,7 @@ EXTERNAL REAL WORK
   Accumulated: GOS can finish real eng/science terminals; late init-Mpemba
     rejected in this protocol; GOS vs strong agent advantage NOT SHOWN
   main canonical tip: `5a7870b` (CI SUCCESS); campaign #11 `02acddb`; audit #13 `dc7a428`
-  Integration DONE: #37–#39 @ `232022c`; PREPROD_V0_1+CTC v0 @ `1372671` (#43+#44)
+  Integration DONE: PR #37 `36781b5`; stack #37–#39 `232022c`; #43 `46c47bb`; #44 `1372671` (PREPROD_V0_1+CTC v0)
   Next mode: PREPROD RC / PILOT_USAGE honesty — not M-EXT6 self-exams
   Process: agent terminal → independent post-hoc audit → headline
   Forbidden: Immune*/ScienceKernel / rewrite M-EXT4/5 / secondary→headline

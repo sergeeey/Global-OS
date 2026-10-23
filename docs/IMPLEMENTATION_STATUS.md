@@ -2,8 +2,8 @@
 
 Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 
-- pytest collected: **458**
-- capabilities tracked: **77**
+- pytest collected: **482**
+- capabilities tracked: **79**
 
 | Capability | State | Evidence |
 | ---------- | ----- | -------- |
@@ -74,6 +74,8 @@ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
 | mission_learning_loop_v0 | RUNTIME_VERIFIED_LOCAL | Goal-conditioned improvement tournament (eval only): mission archive → 2 unprivileged candidates + baseline → independent scorer → archive wins/losses; auto-promote denied; Challenge-GA ≠ train; Continual SI NOT_MEASURED; ADR-0014; artifacts/pilot/mission_learning/; tests/test_mission_learning_loop_v0.py |
 | goal_completion_gate | RUNTIME_VERIFIED_LOCAL | Executable ACHIEVED/PARTIAL/FAILED/UNKNOWN from Goal+EffectReceipt+invariants; tool_success alone ≠ ACHIEVED; LLM claim ignored; wired into Challenge fixture via completion_bind; src/global_os/verification/completion_gate.py; tests/test_completion_gate.py; tests/test_achiever_organ_loop.py; Continual SI NOT_MEASURED |
 | achiever_organ_loop_contour_a | RUNTIME_VERIFIED_LOCAL | Contour A control loop Decomposer→Orchestration→Pivot→Completion Gate; no world effects; challenge_win_claimed=false; src/global_os/cognition/organs/achiever_loop.py; tests/test_achiever_organ_loop.py; ≠ PRODUCTION_PROVEN / Challenge exec |
+| preprod_supervised_mission_v0 | RUNTIME_VERIFIED_LOCAL | PREPROD_SUPERVISED Operator path: gos mission start|status|pause|resume|cancel|deliver; Goal→Mission→Gateway repo.audit→Achiever settle→delivery.json; durable gate on disk; crash resume without silent tool replay; artifacts/preprod/; tests/test_preprod_supervised_mission_e2e.py; ≠ PRODUCTION_PROVEN / Challenge-GA NOT_STARTED / live multi-hour LLM missions not claimed |
+| contextual_task_compiler_v0 | RUNTIME_VERIFIED_LOCAL | Deterministic Execution Brief from Goal+plan+EnvironmentCompiler; criteria scoped (never all-by-default); no Goal mutation; no self-certification; wired into Achiever Contour A; fixtures eval-only; artifacts/preprod/CONTEXTUAL_TASK_COMPILER.md; tests/test_contextual_task_compiler.py; A/B/C outcome metrics NOT_MEASURED; ≠ PromptKernel / Continual SI / Challenge-GA |
 | skill_transfer_trial_prep | RUNTIME_VERIFIED_LOCAL | prepare_skill_transfer_trial fail-closed while Challenge≠COMPLETED; forced override cannot claim Continual SI; src/global_os/evals/mission_learning/skill_transfer_trial.py; tests/test_achiever_organ_loop.py; CONTINUAL_SI=NOT_MEASURED |
 | contrastive_failure_miner_v0 | RUNTIME_VERIFIED_LOCAL | Analyze-only multi-trajectory contrast (success vs fail); failure_class proposals; mutates_runtime=false; src/global_os/evals/mission_learning/contrastive.py; tests/test_contrastive_miner.py |
 | evidence_backed_skill_library | RUNTIME_VERIFIED_LOCAL | SKILL provenance+applicability+negative evidence; EXPERIMENTAL until human; 7/10 admission rejected; disjoint transfer_eval; src/global_os/cognition/skills/evidence_library.py; transfer_eval.py; tests/test_evidence_skills.py; Continual SI NOT_MEASURED |

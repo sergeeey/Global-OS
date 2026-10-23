@@ -1,6 +1,7 @@
 # PREPROD + CTC integration tip
 
-**Integration SHA:** `1372671`  
+**Integration SHA:** `1372671f1bcab1fbfe80f95b9741122595d7cc07` (`1372671`, PR #44)
+**PR #43 merge:** `46c47bb6add865900ae84fe375fbeef8d8051044`
 **Main tip after canon sync #45/#46:** `5a7870b`  
 **Status:** MERGED_TO_MAIN — supervised read-only Operator + CTC v0  
 **CI on main:** SUCCESS — [run 38458104914](https://github.com/sergeeey/Global-OS/actions/runs/38458104914) (integration); tip `5a7870b` also SUCCESS  
@@ -11,8 +12,8 @@
 
 | PR | Content | Tip before merge |
 |----|---------|------------------|
-| #43 | PREPROD_V0_1 Operator path (semantic criterion bind) | `1a77371` |
-| #44 | Contextual Task Compiler v0 (empty-tools fail-closed) | `7fe7309` / merge `1372671` |
+| #43 | PREPROD_V0_1 Operator path (semantic criterion bind) | `1a77371` / merge `46c47bb` |
+| #44 | Contextual Task Compiler v0 (empty-tools fail-closed) | `7fe7309` / merge `1372671f1b` |
 
 ## What this tip claims
 
