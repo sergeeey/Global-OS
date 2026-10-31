@@ -240,7 +240,24 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
     elif hooks.get("inject_empty_report"):
         report = {"findings": [], "read_only": True, "modified_target": False, "scan": {}}
     else:
-        report = run_repo_audit(target)
+        try:
+            report = run_repo_audit(target)
+        except (FileNotFoundError, NotADirectoryError):
+            state = {
+                **state,
+                "effect_receipts": [],
+                "artifact_digest": None,
+                "budget": budget,
+                "tool_calls": state.get("tool_calls") or {"repo.audit": 0},
+                "phase": "observed",
+                "observe_block": "invalid_target",
+                "artifact_verify": {"ok": False, "reason": "invalid_target"},
+            }
+            _write_json(
+                _state_path(run_dir),
+                {k: v for k, v in state.items() if k != "events"},
+            )
+            return state
 
     # 2) Independent deterministic verification BEFORE success attestation.
     artifact_verify = verify_repo_audit_report(report)

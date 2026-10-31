@@ -80,6 +80,10 @@ def _list_files(root: Path) -> list[str]:
 def scan_repo_structure(root: Path) -> dict[str, Any]:
     """Collect structural signals — no writes to target repo."""
     root = root.resolve()
+    if not root.exists():
+        raise FileNotFoundError(f"target directory does not exist: {root}")
+    if not root.is_dir():
+        raise NotADirectoryError(f"target is not a directory: {root}")
     files = _list_files(root)
     return {
         "root": str(root),

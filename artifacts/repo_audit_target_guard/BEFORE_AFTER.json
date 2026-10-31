@@ -1,0 +1,35 @@
+{
+  "schema_version": "repo_audit.target_guard.before_after.v1",
+  "baseline_sha": "085f1acd21404f14ad57d835694c352b7a608622",
+  "before": {
+    "direct_tool": {
+      "target": "missing",
+      "result": "REPORT_RETURNED",
+      "file_count": 0,
+      "findings": ["f_missing_constitution", "f_no_tests", "f_invariants_missing", "f_provider_boundary_clean"]
+    },
+    "preprod": {
+      "terminal_status": "SUCCEEDED",
+      "completion": "ACHIEVED",
+      "criteria_met": ["sc_01"]
+    }
+  },
+  "after": {
+    "direct_tool": {
+      "missing": "FileNotFoundError",
+      "file_instead_of_directory": "NotADirectoryError"
+    },
+    "preprod": {
+      "missing": "INCONCLUSIVE",
+      "completion": "UNKNOWN",
+      "criteria_met": []
+    }
+  },
+  "pilot": {
+    "classification": "IN_HOUSE_PILOT_NOT_INDEPENDENT",
+    "oracle": "6 read-only audit tasks; missing target expected failure",
+    "before_origin": {"correct": 5, "false_success": 1, "wall_seconds": 7.701, "model_cycles": 0},
+    "after_fixed": {"correct": 6, "false_success": 0, "wall_seconds": 7.782, "model_cycles": 0},
+    "candidate_terminal": {"correct": 6, "false_success": 0, "wall_seconds": 7.89, "model_cycles": 12}
+  }
+}

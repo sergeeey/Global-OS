@@ -1,0 +1,625 @@
+{
+  "pilot": "PARETO-PROGRESS-1",
+  "classification": "IN_HOUSE_PILOT_NOT_INDEPENDENT",
+  "task_count": 6,
+  "tasks": [
+    "main_repo",
+    "candidate_repo",
+    "origin_repo",
+    "empty_repo",
+    "tiny_repo",
+    "missing_repo"
+  ],
+  "summary": {
+    "baseline_direct": {
+      "correct": 5,
+      "false_success": 1,
+      "target_unchanged": true,
+      "wall_seconds_total": 4.98,
+      "tool_calls_total": 6,
+      "model_cycles_total": 0
+    },
+    "baseline_guarded": {
+      "correct": 6,
+      "false_success": 0,
+      "target_unchanged": true,
+      "wall_seconds_total": 4.976,
+      "tool_calls_total": 5,
+      "model_cycles_total": 0
+    },
+    "origin_preprod": {
+      "correct": 5,
+      "false_success": 1,
+      "target_unchanged": true,
+      "wall_seconds_total": 7.701,
+      "tool_calls_total": 6,
+      "model_cycles_total": 0
+    },
+    "candidate_terminal": {
+      "correct": 6,
+      "false_success": 0,
+      "target_unchanged": true,
+      "wall_seconds_total": 7.89,
+      "tool_calls_total": 6,
+      "model_cycles_total": 12
+    },
+    "fixed_preprod": {
+      "correct": 6,
+      "false_success": 0,
+      "target_unchanged": true,
+      "wall_seconds_total": 7.782,
+      "tool_calls_total": 5,
+      "model_cycles_total": 0
+    }
+  },
+  "rows": [
+    {
+      "task": "main_repo",
+      "arm": "baseline_direct",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "DIRECT_TOOL",
+        "accepted": true,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 1.649,
+        "error": null
+      }
+    },
+    {
+      "task": "main_repo",
+      "arm": "baseline_guarded",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "DIRECT_TOOL",
+        "accepted": true,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 1.633,
+        "error": null
+      }
+    },
+    {
+      "task": "main_repo",
+      "arm": "origin_preprod",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "SUCCEEDED",
+        "accepted": null,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 2.134,
+        "error": null
+      }
+    },
+    {
+      "task": "main_repo",
+      "arm": "candidate_terminal",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "SUCCEEDED",
+        "accepted": true,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 2,
+        "wall_seconds": 2.09,
+        "error": null
+      }
+    },
+    {
+      "task": "main_repo",
+      "arm": "fixed_preprod",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "SUCCEEDED",
+        "accepted": null,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 2.06,
+        "error": null
+      }
+    },
+    {
+      "task": "candidate_repo",
+      "arm": "baseline_direct",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "DIRECT_TOOL",
+        "accepted": true,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 1.943,
+        "error": null
+      }
+    },
+    {
+      "task": "candidate_repo",
+      "arm": "baseline_guarded",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "DIRECT_TOOL",
+        "accepted": true,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 1.913,
+        "error": null
+      }
+    },
+    {
+      "task": "candidate_repo",
+      "arm": "origin_preprod",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "SUCCEEDED",
+        "accepted": null,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 2.435,
+        "error": null
+      }
+    },
+    {
+      "task": "candidate_repo",
+      "arm": "candidate_terminal",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "SUCCEEDED",
+        "accepted": true,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 2,
+        "wall_seconds": 2.396,
+        "error": null
+      }
+    },
+    {
+      "task": "candidate_repo",
+      "arm": "fixed_preprod",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "SUCCEEDED",
+        "accepted": null,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 2.389,
+        "error": null
+      }
+    },
+    {
+      "task": "origin_repo",
+      "arm": "baseline_direct",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "DIRECT_TOOL",
+        "accepted": true,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 1.013,
+        "error": null
+      }
+    },
+    {
+      "task": "origin_repo",
+      "arm": "baseline_guarded",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "DIRECT_TOOL",
+        "accepted": true,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 1.085,
+        "error": null
+      }
+    },
+    {
+      "task": "origin_repo",
+      "arm": "origin_preprod",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "SUCCEEDED",
+        "accepted": null,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 1.379,
+        "error": null
+      }
+    },
+    {
+      "task": "origin_repo",
+      "arm": "candidate_terminal",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "SUCCEEDED",
+        "accepted": true,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 2,
+        "wall_seconds": 1.512,
+        "error": null
+      }
+    },
+    {
+      "task": "origin_repo",
+      "arm": "fixed_preprod",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "SUCCEEDED",
+        "accepted": null,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 1.592,
+        "error": null
+      }
+    },
+    {
+      "task": "empty_repo",
+      "arm": "baseline_direct",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "DIRECT_TOOL",
+        "accepted": true,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 0.12,
+        "error": null
+      }
+    },
+    {
+      "task": "empty_repo",
+      "arm": "baseline_guarded",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "DIRECT_TOOL",
+        "accepted": true,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 0.117,
+        "error": null
+      }
+    },
+    {
+      "task": "empty_repo",
+      "arm": "origin_preprod",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "SUCCEEDED",
+        "accepted": null,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 0.652,
+        "error": null
+      }
+    },
+    {
+      "task": "empty_repo",
+      "arm": "candidate_terminal",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "SUCCEEDED",
+        "accepted": true,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 2,
+        "wall_seconds": 0.717,
+        "error": null
+      }
+    },
+    {
+      "task": "empty_repo",
+      "arm": "fixed_preprod",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "SUCCEEDED",
+        "accepted": null,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 0.556,
+        "error": null
+      }
+    },
+    {
+      "task": "tiny_repo",
+      "arm": "baseline_direct",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "DIRECT_TOOL",
+        "accepted": true,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 0.136,
+        "error": null
+      }
+    },
+    {
+      "task": "tiny_repo",
+      "arm": "baseline_guarded",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "DIRECT_TOOL",
+        "accepted": true,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 0.115,
+        "error": null
+      }
+    },
+    {
+      "task": "tiny_repo",
+      "arm": "origin_preprod",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "SUCCEEDED",
+        "accepted": null,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 0.551,
+        "error": null
+      }
+    },
+    {
+      "task": "tiny_repo",
+      "arm": "candidate_terminal",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "SUCCEEDED",
+        "accepted": true,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 2,
+        "wall_seconds": 0.62,
+        "error": null
+      }
+    },
+    {
+      "task": "tiny_repo",
+      "arm": "fixed_preprod",
+      "expected_success": true,
+      "observed_success": true,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "SUCCEEDED",
+        "accepted": null,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 0.569,
+        "error": null
+      }
+    },
+    {
+      "task": "missing_repo",
+      "arm": "baseline_direct",
+      "expected_success": false,
+      "observed_success": true,
+      "correct": false,
+      "false_success": true,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "DIRECT_TOOL",
+        "accepted": true,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 0.119,
+        "error": null
+      }
+    },
+    {
+      "task": "missing_repo",
+      "arm": "baseline_guarded",
+      "expected_success": false,
+      "observed_success": false,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": null,
+        "accepted": null,
+        "tool_calls": null,
+        "model_cycles": null,
+        "wall_seconds": 0.113,
+        "error": "FileNotFoundError: target does not exist: C:\\Users\\serge\\AppData\\Local\\Temp\\pareto_targets_aa9aaa1q\\does_not_exist"
+      }
+    },
+    {
+      "task": "missing_repo",
+      "arm": "origin_preprod",
+      "expected_success": false,
+      "observed_success": true,
+      "correct": false,
+      "false_success": true,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "SUCCEEDED",
+        "accepted": null,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 0,
+        "wall_seconds": 0.55,
+        "error": null
+      }
+    },
+    {
+      "task": "missing_repo",
+      "arm": "candidate_terminal",
+      "expected_success": false,
+      "observed_success": false,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "INCONCLUSIVE",
+        "accepted": true,
+        "tool_calls": {
+          "repo.audit": 1
+        },
+        "model_cycles": 2,
+        "wall_seconds": 0.555,
+        "error": null
+      }
+    },
+    {
+      "task": "missing_repo",
+      "arm": "fixed_preprod",
+      "expected_success": false,
+      "observed_success": false,
+      "correct": true,
+      "false_success": false,
+      "target_unchanged": true,
+      "result": {
+        "terminal": "INCONCLUSIVE",
+        "accepted": null,
+        "tool_calls": {
+          "repo.audit": 0
+        },
+        "model_cycles": 0,
+        "wall_seconds": 0.616,
+        "error": null
+      }
+    }
+  ]
+}

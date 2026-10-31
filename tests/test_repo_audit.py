@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from global_os.world.tools import run_repo_audit
 from global_os.world.tools.repo_audit import (
     scan_forbidden_patterns,
@@ -75,3 +77,15 @@ def test_deep_scanners_on_fixture_tree(tmp_path: Path):
     assert "f_invariants_missing" in ids
     assert any(i.startswith("f_forbidden_") for i in ids)
     assert any(i.startswith("f_provider_boundary_") and i != "f_provider_boundary_clean" for i in ids)
+
+
+def test_repo_audit_rejects_missing_target(tmp_path: Path) -> None:
+    with pytest.raises(FileNotFoundError, match="does not exist"):
+        run_repo_audit(tmp_path / "missing")
+
+
+def test_repo_audit_rejects_file_target(tmp_path: Path) -> None:
+    target = tmp_path / "not_a_directory.txt"
+    target.write_text("not a directory", encoding="utf-8")
+    with pytest.raises(NotADirectoryError, match="not a directory"):
+        run_repo_audit(target)

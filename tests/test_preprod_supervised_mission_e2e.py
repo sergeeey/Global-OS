@@ -317,3 +317,29 @@ def test_negative_insufficient_budget_not_succeeded(tmp_path: Path) -> None:
     )
     assert delivery["terminal_status"] != "SUCCEEDED"
     assert delivery["completion"]["status"] != CompletionStatus.ACHIEVED.value
+
+
+def test_negative_missing_target_not_succeeded(tmp_path: Path) -> None:
+    gos = tmp_path / ".gos"
+    delivery = start_mission(
+        _goal("goal_missing_target"),
+        target_path=tmp_path / "does_not_exist",
+        gos_root=gos,
+    )
+    assert delivery["terminal_status"] == "INCONCLUSIVE"
+    assert delivery["completion"]["status"] != CompletionStatus.ACHIEVED.value
+    assert delivery["completion"]["criteria_met"] == []
+
+
+def test_negative_file_target_not_succeeded(tmp_path: Path) -> None:
+    gos = tmp_path / ".gos"
+    target = tmp_path / "not_a_directory.txt"
+    target.write_text("not a directory", encoding="utf-8")
+    delivery = start_mission(
+        _goal("goal_file_target"),
+        target_path=target,
+        gos_root=gos,
+    )
+    assert delivery["terminal_status"] == "INCONCLUSIVE"
+    assert delivery["completion"]["status"] != CompletionStatus.ACHIEVED.value
+    assert delivery["completion"]["criteria_met"] == []
