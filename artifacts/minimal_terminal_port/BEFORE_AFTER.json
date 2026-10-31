@@ -1,0 +1,67 @@
+{
+  "schema_version": "terminal.minimal_port.before_after.v1",
+  "base_sha": "8257b049f92bebf91dcc6debaecef5832f798a1d",
+  "before": {
+    "missing_delivery_after_success": {
+      "status_mission": "SUCCEEDED",
+      "deliver_mission": "SupervisedMissionError",
+      "accepted": null
+    },
+    "tampered_artifact": {
+      "status_mission": "SUCCEEDED",
+      "delivery_terminal": "SUCCEEDED",
+      "completion": "ACHIEVED"
+    }
+  },
+  "after": {
+    "valid_success": {
+      "status_mission": "SUCCEEDED",
+      "delivery_terminal": "SUCCEEDED",
+      "accepted": true
+    },
+    "valid_failed": {
+      "status_mission": "FAILED",
+      "delivery_terminal": "FAILED",
+      "accepted": true
+    },
+    "normal_paused": {
+      "status_mission": "PAUSED",
+      "deliver_mission": "SupervisedMissionError: delivery not ready"
+    },
+    "missing_delivery_after_success": {
+      "status_mission": "INCONCLUSIVE",
+      "delivery_terminal": "INCONCLUSIVE",
+      "accepted": false,
+      "reason": "delivery_missing"
+    },
+    "delivery_control_mismatch": {
+      "status_mission": "INCONCLUSIVE",
+      "delivery_terminal": "INCONCLUSIVE",
+      "reason": "control_delivery_mismatch"
+    },
+    "artifact_missing": {
+      "status_mission": "INCONCLUSIVE",
+      "delivery_terminal": "INCONCLUSIVE",
+      "reason": "artifact_missing"
+    },
+    "artifact_tampered": {
+      "status_mission": "INCONCLUSIVE",
+      "delivery_terminal": "INCONCLUSIVE",
+      "reason": "artifact_digest_mismatch"
+    },
+    "empty_receipts": {
+      "status_mission": "INCONCLUSIVE",
+      "delivery_terminal": "INCONCLUSIVE",
+      "reason": "no_effect_receipts"
+    },
+    "artifact_verify_false": {
+      "status_mission": "INCONCLUSIVE",
+      "delivery_terminal": "INCONCLUSIVE",
+      "reason": "artifact_verify_failed"
+    }
+  },
+  "residuals": {
+    "cascade_trace": "NOT_APPLICABLE: no trace/state in origin",
+    "per_receipt_tool_binding": "NOT_IMPLEMENTED: receipts lack tool_id/artifact_digest"
+  }
+}

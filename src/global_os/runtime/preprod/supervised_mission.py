@@ -6,6 +6,7 @@ World effects only via ToolGateway; Achiever remains control-plane (world_effect
 
 from __future__ import annotations
 
+import hashlib
 import json
 from datetime import UTC, datetime
 from pathlib import Path
@@ -686,6 +687,112 @@ def cancel_mission(*, gos_root: Path | None = None, run_id: str | None = None) -
     return status_mission(gos_root=gos_root, run_id=run_id)
 
 
+_COMPLETION_TERMINAL = {
+    "ACHIEVED": "SUCCEEDED",
+    "PARTIAL": "PARTIAL",
+    "FAILED": "FAILED",
+    "UNKNOWN": "INCONCLUSIVE",
+}
+
+
+def _completion_terminal(completion: dict[str, Any]) -> str:
+    return _COMPLETION_TERMINAL.get(str(completion.get("status") or ""), "INCONCLUSIVE")
+
+
+def _resolve_terminal(
+    *,
+    run_dir: Path,
+    ctrl: dict[str, Any],
+    state: dict[str, Any],
+    delivery: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Resolve the trustworthy terminal label from persisted records.
+
+    ``accepted`` means the records needed for the claimed terminal are
+    consistent; it is not a success flag. Only data present in this runtime is
+    checked: no cascade trace, no per-receipt tool binding.
+    """
+    control_status = str(ctrl.get("status") or "INCONCLUSIVE")
+    if delivery is None:
+        if control_status == "SUCCEEDED":
+            integrity = {
+                "ok": False,
+                "reasons": ["delivery_missing"],
+                "control_status": control_status,
+                "delivery_terminal": None,
+                "completion_status": None,
+            }
+            return {
+                "effective_terminal": "INCONCLUSIVE",
+                "control_status": control_status,
+                "accepted": False,
+                "integrity": integrity,
+            }
+        return {
+            "effective_terminal": control_status,
+            "control_status": control_status,
+            "accepted": None,
+            "integrity": None,
+        }
+
+    reasons: list[str] = []
+    delivery_terminal = str(delivery.get("terminal_status") or "")
+    completion = state.get("completion") or delivery.get("completion") or {}
+    completion_status = str(completion.get("status") or "UNKNOWN")
+    expected_terminal = _completion_terminal(completion)
+
+    if not delivery_terminal:
+        reasons.append("delivery_terminal_missing")
+    if delivery_terminal != control_status:
+        reasons.append("control_delivery_mismatch")
+    if delivery_terminal != expected_terminal:
+        reasons.append("completion_terminal_mismatch")
+
+    delivery_completion = delivery.get("completion")
+    if (
+        isinstance(delivery_completion, dict)
+        and delivery_completion.get("status")
+        and str(delivery_completion.get("status")) != completion_status
+    ):
+        reasons.append("delivery_state_completion_mismatch")
+
+    if delivery_terminal == "SUCCEEDED":
+        digest = str(state.get("artifact_digest") or "")
+        if not digest.startswith("sha256:"):
+            reasons.append("artifact_digest_missing")
+        else:
+            hex_digest = digest.split(":", 1)[1]
+            artifact = run_dir / "artifacts" / "sha256" / hex_digest
+            if not artifact.is_file():
+                reasons.append("artifact_missing")
+            elif hashlib.sha256(artifact.read_bytes()).hexdigest() != hex_digest:
+                reasons.append("artifact_digest_mismatch")
+        receipts = list(state.get("effect_receipts") or [])
+        if not receipts:
+            reasons.append("no_effect_receipts")
+        verify = state.get("artifact_verify")
+        if not isinstance(verify, dict) or verify.get("ok") is not True:
+            reasons.append("artifact_verify_failed")
+        delivery_digest = str(delivery.get("artifact_digest") or "")
+        if delivery_digest and delivery_digest != digest:
+            reasons.append("delivery_artifact_digest_mismatch")
+
+    integrity = {
+        "ok": not reasons,
+        "reasons": sorted(set(reasons)),
+        "control_status": control_status,
+        "delivery_terminal": delivery_terminal,
+        "completion_status": completion_status,
+    }
+    accepted = not reasons
+    return {
+        "effective_terminal": delivery_terminal if accepted else "INCONCLUSIVE",
+        "control_status": control_status,
+        "accepted": accepted,
+        "integrity": integrity,
+    }
+
+
 def status_mission(*, gos_root: Path | None = None, run_id: str | None = None) -> dict[str, Any]:
     gos_root = gos_root or (Path.cwd() / ".gos")
     index = _load_index(gos_root)
@@ -700,20 +807,29 @@ def status_mission(*, gos_root: Path | None = None, run_id: str | None = None) -
     delivery = (
         _read_json(_delivery_path(run_dir)) if _delivery_path(run_dir).exists() else None
     )
+    resolved = _resolve_terminal(
+        run_dir=run_dir, ctrl=ctrl, state=state, delivery=delivery
+    )
+    effective = str(resolved["effective_terminal"])
+    integrity = resolved["integrity"]
     started = state.get("started_at")
     return {
         "profile": PROFILE,
         "run_id": run_id,
         "goal_id": ctrl.get("goal_id") or (state.get("goal") or {}).get("goal_id"),
-        "status": ctrl.get("status"),
+        "status": effective,
+        "control_status": resolved["control_status"],
         "phase": state.get("phase"),
         "started_at": started,
         "budget": state.get("budget"),
-        "human_action_required": ctrl.get("status")
-        in {CONTROL_PAUSED, "PARTIAL", "BLOCKED", CONTROL_CANCELLED},
-        "next": _next_hint(ctrl.get("status"), state.get("phase")),
+        "human_action_required": effective
+        in {CONTROL_PAUSED, "PARTIAL", "BLOCKED", CONTROL_CANCELLED}
+        or (integrity is not None and not bool(integrity.get("ok"))),
+        "next": _next_hint(effective, state.get("phase")),
         "delivery_available": delivery is not None,
         "completion": state.get("completion") or (delivery or {}).get("completion"),
+        "accepted": resolved["accepted"],
+        "delivery_integrity": integrity,
         "control_updated_at": ctrl.get("updated_at"),
     }
 
@@ -722,10 +838,46 @@ def deliver_mission(*, gos_root: Path | None = None, run_id: str | None = None) 
     gos_root = gos_root or (Path.cwd() / ".gos")
     st = status_mission(gos_root=gos_root, run_id=run_id)
     run_id = str(st["run_id"])
-    path = _delivery_path(_run_dir(gos_root, run_id))
+    run_dir = _run_dir(gos_root, run_id)
+    path = _delivery_path(run_dir)
     if not path.exists():
+        if st["control_status"] == "SUCCEEDED":
+            return {
+                "schema_version": "0.1.0",
+                "profile": PROFILE,
+                "run_id": run_id,
+                "goal_id": st["goal_id"],
+                "terminal_status": "INCONCLUSIVE",
+                "control_status": "SUCCEEDED",
+                "accepted": False,
+                "delivery_available": False,
+                "delivery_integrity": st["delivery_integrity"],
+                "needs_human": {
+                    "required": True,
+                    "reason": "delivery_missing",
+                },
+            }
         raise SupervisedMissionError("delivery not ready; resume mission until deliver step")
-    return _read_json(path)
+    delivery = _read_json(path)
+    state = _read_json(_state_path(run_dir)) if _state_path(run_dir).exists() else {}
+    ctrl = _read_json(_control_path(run_dir))
+    resolved = _resolve_terminal(
+        run_dir=run_dir, ctrl=ctrl, state=state, delivery=delivery
+    )
+    accepted = bool(resolved["accepted"])
+    result = {
+        **delivery,
+        "terminal_status": resolved["effective_terminal"],
+        "control_status": resolved["control_status"],
+        "accepted": accepted,
+        "delivery_integrity": resolved["integrity"],
+    }
+    if not accepted:
+        result["needs_human"] = {
+            "required": True,
+            "reason": "terminal_integrity_failure",
+        }
+    return result
 
 
 def _next_hint(status: Any, phase: Any) -> str:
