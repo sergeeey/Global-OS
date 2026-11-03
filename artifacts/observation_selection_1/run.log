@@ -1,0 +1,72 @@
+{
+  "A_baseline": {
+    "by_task": {
+      "missing": {
+        "achieved": false,
+        "correct_rejection": true,
+        "incorrect": false,
+        "false_success": false,
+        "median_tool_calls": 0,
+        "median_steps": 3,
+        "median_wall_ms": 175.426
+      },
+      "empty": {
+        "achieved": false,
+        "correct_rejection": false,
+        "incorrect": false,
+        "false_success": true,
+        "median_tool_calls": 1,
+        "median_steps": 3,
+        "median_wall_ms": 97.75
+      },
+      "nonempty": {
+        "achieved": true,
+        "correct_rejection": false,
+        "incorrect": false,
+        "false_success": false,
+        "median_tool_calls": 1,
+        "median_steps": 3,
+        "median_wall_ms": 84.673
+      }
+    },
+    "achieved_tasks": 1,
+    "correct_rejection_tasks": 1,
+    "false_success_tasks": 1,
+    "incorrect_tasks": 0
+  },
+  "B_selector": {
+    "by_task": {
+      "missing": {
+        "achieved": false,
+        "correct_rejection": true,
+        "incorrect": false,
+        "false_success": false,
+        "median_tool_calls": 1,
+        "median_steps": 1,
+        "median_wall_ms": 187.346
+      },
+      "empty": {
+        "achieved": false,
+        "correct_rejection": true,
+        "incorrect": false,
+        "false_success": false,
+        "median_tool_calls": 1,
+        "median_steps": 1,
+        "median_wall_ms": 64.039
+      },
+      "nonempty": {
+        "achieved": true,
+        "correct_rejection": false,
+        "incorrect": false,
+        "false_success": false,
+        "median_tool_calls": 2,
+        "median_steps": 4,
+        "median_wall_ms": 85.034
+      }
+    },
+    "achieved_tasks": 1,
+    "correct_rejection_tasks": 2,
+    "false_success_tasks": 0,
+    "incorrect_tasks": 0
+  }
+}

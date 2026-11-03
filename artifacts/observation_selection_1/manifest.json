@@ -1,0 +1,46 @@
+{
+  "schema_version": "gos.observation_selection.v1",
+  "experiment": "OBSERVATION-SELECTION-1",
+  "frozen_at": "2026-11-03T15:30:00+05:00",
+  "base": "6b312ab21770a18b82f3c1b89f72a61363e9317d",
+  "arms": {
+    "A": "unmodified 6b312ab preprod audit pipeline",
+    "B": "selector: inventory observation -> missing/empty rejection or audit"
+  },
+  "targets": {
+    "missing": "C:\\gos_observation_selection_1\\targets\\missing",
+    "empty": "C:\\gos_observation_selection_1\\targets\\empty",
+    "nonempty": "C:\\gos_observation_selection_1\\targets\\nonempty"
+  },
+  "oracle": {
+    "missing": {
+      "expected": "correct_rejection",
+      "reason": "target absent"
+    },
+    "empty": {
+      "expected": "correct_rejection",
+      "reason": "audit not applicable to empty directory"
+    },
+    "nonempty": {
+      "expected": "achieved",
+      "required_audit_file_count_min": 1,
+      "required_findings": ["f_missing_constitution", "f_no_tests"]
+    }
+  },
+  "metrics": [
+    "achieved",
+    "correct_rejection",
+    "incorrect",
+    "false_success",
+    "tool_calls",
+    "steps",
+    "wall_ms"
+  ],
+  "exclusions": [
+    "no LLM",
+    "no cascade",
+    "no memory",
+    "no planner framework",
+    "no oracle labels passed to selector"
+  ]
+}

@@ -1,0 +1,476 @@
+{
+  "manifest": {
+    "schema_version": "gos.observation_selection.v1",
+    "experiment": "OBSERVATION-SELECTION-1",
+    "frozen_at": "2026-11-03T15:30:00+05:00",
+    "base": "6b312ab21770a18b82f3c1b89f72a61363e9317d",
+    "arms": {
+      "A": "unmodified 6b312ab preprod audit pipeline",
+      "B": "selector: inventory observation -> missing/empty rejection or audit"
+    },
+    "targets": {
+      "missing": "C:\\gos_observation_selection_1\\targets\\missing",
+      "empty": "C:\\gos_observation_selection_1\\targets\\empty",
+      "nonempty": "C:\\gos_observation_selection_1\\targets\\nonempty"
+    },
+    "oracle": {
+      "missing": {
+        "expected": "correct_rejection",
+        "reason": "target absent"
+      },
+      "empty": {
+        "expected": "correct_rejection",
+        "reason": "audit not applicable to empty directory"
+      },
+      "nonempty": {
+        "expected": "achieved",
+        "required_audit_file_count_min": 1,
+        "required_findings": [
+          "f_missing_constitution",
+          "f_no_tests"
+        ]
+      }
+    },
+    "metrics": [
+      "achieved",
+      "correct_rejection",
+      "incorrect",
+      "false_success",
+      "tool_calls",
+      "steps",
+      "wall_ms"
+    ],
+    "exclusions": [
+      "no LLM",
+      "no cascade",
+      "no memory",
+      "no planner framework",
+      "no oracle labels passed to selector"
+    ]
+  },
+  "rows": [
+    {
+      "task": "missing",
+      "rep": 1,
+      "arm": "A_baseline",
+      "terminal": "INCONCLUSIVE",
+      "completion": "UNKNOWN",
+      "achieved": false,
+      "correct_rejection": true,
+      "incorrect": false,
+      "false_success": false,
+      "tool_calls": 0,
+      "steps": 3,
+      "wall_ms": 185.567,
+      "target_unchanged": true,
+      "observe_block": "invalid_target",
+      "observation": null,
+      "error": null
+    },
+    {
+      "task": "missing",
+      "rep": 1,
+      "arm": "B_selector",
+      "terminal": "INCONCLUSIVE",
+      "completion": "UNKNOWN",
+      "achieved": false,
+      "correct_rejection": true,
+      "incorrect": false,
+      "false_success": false,
+      "tool_calls": 1,
+      "steps": 1,
+      "wall_ms": 187.346,
+      "target_unchanged": true,
+      "observe_block": "invalid_target",
+      "observation": {
+        "tool_id": "repo.inventory",
+        "error": "invalid_target"
+      },
+      "error": null
+    },
+    {
+      "task": "missing",
+      "rep": 2,
+      "arm": "A_baseline",
+      "terminal": "INCONCLUSIVE",
+      "completion": "UNKNOWN",
+      "achieved": false,
+      "correct_rejection": true,
+      "incorrect": false,
+      "false_success": false,
+      "tool_calls": 0,
+      "steps": 3,
+      "wall_ms": 175.426,
+      "target_unchanged": true,
+      "observe_block": "invalid_target",
+      "observation": null,
+      "error": null
+    },
+    {
+      "task": "missing",
+      "rep": 2,
+      "arm": "B_selector",
+      "terminal": "INCONCLUSIVE",
+      "completion": "UNKNOWN",
+      "achieved": false,
+      "correct_rejection": true,
+      "incorrect": false,
+      "false_success": false,
+      "tool_calls": 1,
+      "steps": 1,
+      "wall_ms": 188.859,
+      "target_unchanged": true,
+      "observe_block": "invalid_target",
+      "observation": {
+        "tool_id": "repo.inventory",
+        "error": "invalid_target"
+      },
+      "error": null
+    },
+    {
+      "task": "missing",
+      "rep": 3,
+      "arm": "A_baseline",
+      "terminal": "INCONCLUSIVE",
+      "completion": "UNKNOWN",
+      "achieved": false,
+      "correct_rejection": true,
+      "incorrect": false,
+      "false_success": false,
+      "tool_calls": 0,
+      "steps": 3,
+      "wall_ms": 56.956,
+      "target_unchanged": true,
+      "observe_block": "invalid_target",
+      "observation": null,
+      "error": null
+    },
+    {
+      "task": "missing",
+      "rep": 3,
+      "arm": "B_selector",
+      "terminal": "INCONCLUSIVE",
+      "completion": "UNKNOWN",
+      "achieved": false,
+      "correct_rejection": true,
+      "incorrect": false,
+      "false_success": false,
+      "tool_calls": 1,
+      "steps": 1,
+      "wall_ms": 62.213,
+      "target_unchanged": true,
+      "observe_block": "invalid_target",
+      "observation": {
+        "tool_id": "repo.inventory",
+        "error": "invalid_target"
+      },
+      "error": null
+    },
+    {
+      "task": "empty",
+      "rep": 1,
+      "arm": "A_baseline",
+      "terminal": "SUCCEEDED",
+      "completion": "ACHIEVED",
+      "achieved": false,
+      "correct_rejection": false,
+      "incorrect": false,
+      "false_success": true,
+      "tool_calls": 1,
+      "steps": 3,
+      "wall_ms": 97.75,
+      "target_unchanged": true,
+      "observe_block": null,
+      "observation": null,
+      "error": null
+    },
+    {
+      "task": "empty",
+      "rep": 1,
+      "arm": "B_selector",
+      "terminal": "INCONCLUSIVE",
+      "completion": "UNKNOWN",
+      "achieved": false,
+      "correct_rejection": true,
+      "incorrect": false,
+      "false_success": false,
+      "tool_calls": 1,
+      "steps": 1,
+      "wall_ms": 113.108,
+      "target_unchanged": true,
+      "observe_block": "audit_not_applicable",
+      "observation": {
+        "tool_id": "repo.inventory",
+        "file_count": 0
+      },
+      "error": null
+    },
+    {
+      "task": "empty",
+      "rep": 2,
+      "arm": "A_baseline",
+      "terminal": "SUCCEEDED",
+      "completion": "ACHIEVED",
+      "achieved": false,
+      "correct_rejection": false,
+      "incorrect": false,
+      "false_success": true,
+      "tool_calls": 1,
+      "steps": 3,
+      "wall_ms": 101.623,
+      "target_unchanged": true,
+      "observe_block": null,
+      "observation": null,
+      "error": null
+    },
+    {
+      "task": "empty",
+      "rep": 2,
+      "arm": "B_selector",
+      "terminal": "INCONCLUSIVE",
+      "completion": "UNKNOWN",
+      "achieved": false,
+      "correct_rejection": true,
+      "incorrect": false,
+      "false_success": false,
+      "tool_calls": 1,
+      "steps": 1,
+      "wall_ms": 64.039,
+      "target_unchanged": true,
+      "observe_block": "audit_not_applicable",
+      "observation": {
+        "tool_id": "repo.inventory",
+        "file_count": 0
+      },
+      "error": null
+    },
+    {
+      "task": "empty",
+      "rep": 3,
+      "arm": "A_baseline",
+      "terminal": "SUCCEEDED",
+      "completion": "ACHIEVED",
+      "achieved": false,
+      "correct_rejection": false,
+      "incorrect": false,
+      "false_success": true,
+      "tool_calls": 1,
+      "steps": 3,
+      "wall_ms": 85.781,
+      "target_unchanged": true,
+      "observe_block": null,
+      "observation": null,
+      "error": null
+    },
+    {
+      "task": "empty",
+      "rep": 3,
+      "arm": "B_selector",
+      "terminal": "INCONCLUSIVE",
+      "completion": "UNKNOWN",
+      "achieved": false,
+      "correct_rejection": true,
+      "incorrect": false,
+      "false_success": false,
+      "tool_calls": 1,
+      "steps": 1,
+      "wall_ms": 60.268,
+      "target_unchanged": true,
+      "observe_block": "audit_not_applicable",
+      "observation": {
+        "tool_id": "repo.inventory",
+        "file_count": 0
+      },
+      "error": null
+    },
+    {
+      "task": "nonempty",
+      "rep": 1,
+      "arm": "A_baseline",
+      "terminal": "SUCCEEDED",
+      "completion": "ACHIEVED",
+      "achieved": true,
+      "correct_rejection": false,
+      "incorrect": false,
+      "false_success": false,
+      "tool_calls": 1,
+      "steps": 3,
+      "wall_ms": 84.673,
+      "target_unchanged": true,
+      "observe_block": null,
+      "observation": null,
+      "error": null
+    },
+    {
+      "task": "nonempty",
+      "rep": 1,
+      "arm": "B_selector",
+      "terminal": "SUCCEEDED",
+      "completion": "ACHIEVED",
+      "achieved": true,
+      "correct_rejection": false,
+      "incorrect": false,
+      "false_success": false,
+      "tool_calls": 2,
+      "steps": 4,
+      "wall_ms": 85.034,
+      "target_unchanged": true,
+      "observe_block": null,
+      "observation": {
+        "tool_id": "repo.inventory",
+        "file_count": 2
+      },
+      "error": null
+    },
+    {
+      "task": "nonempty",
+      "rep": 2,
+      "arm": "A_baseline",
+      "terminal": "SUCCEEDED",
+      "completion": "ACHIEVED",
+      "achieved": true,
+      "correct_rejection": false,
+      "incorrect": false,
+      "false_success": false,
+      "tool_calls": 1,
+      "steps": 3,
+      "wall_ms": 90.044,
+      "target_unchanged": true,
+      "observe_block": null,
+      "observation": null,
+      "error": null
+    },
+    {
+      "task": "nonempty",
+      "rep": 2,
+      "arm": "B_selector",
+      "terminal": "SUCCEEDED",
+      "completion": "ACHIEVED",
+      "achieved": true,
+      "correct_rejection": false,
+      "incorrect": false,
+      "false_success": false,
+      "tool_calls": 2,
+      "steps": 4,
+      "wall_ms": 82.265,
+      "target_unchanged": true,
+      "observe_block": null,
+      "observation": {
+        "tool_id": "repo.inventory",
+        "file_count": 2
+      },
+      "error": null
+    },
+    {
+      "task": "nonempty",
+      "rep": 3,
+      "arm": "A_baseline",
+      "terminal": "SUCCEEDED",
+      "completion": "ACHIEVED",
+      "achieved": true,
+      "correct_rejection": false,
+      "incorrect": false,
+      "false_success": false,
+      "tool_calls": 1,
+      "steps": 3,
+      "wall_ms": 83.877,
+      "target_unchanged": true,
+      "observe_block": null,
+      "observation": null,
+      "error": null
+    },
+    {
+      "task": "nonempty",
+      "rep": 3,
+      "arm": "B_selector",
+      "terminal": "SUCCEEDED",
+      "completion": "ACHIEVED",
+      "achieved": true,
+      "correct_rejection": false,
+      "incorrect": false,
+      "false_success": false,
+      "tool_calls": 2,
+      "steps": 4,
+      "wall_ms": 86.73,
+      "target_unchanged": true,
+      "observe_block": null,
+      "observation": {
+        "tool_id": "repo.inventory",
+        "file_count": 2
+      },
+      "error": null
+    }
+  ],
+  "summary": {
+    "A_baseline": {
+      "by_task": {
+        "missing": {
+          "achieved": false,
+          "correct_rejection": true,
+          "incorrect": false,
+          "false_success": false,
+          "median_tool_calls": 0,
+          "median_steps": 3,
+          "median_wall_ms": 175.426
+        },
+        "empty": {
+          "achieved": false,
+          "correct_rejection": false,
+          "incorrect": false,
+          "false_success": true,
+          "median_tool_calls": 1,
+          "median_steps": 3,
+          "median_wall_ms": 97.75
+        },
+        "nonempty": {
+          "achieved": true,
+          "correct_rejection": false,
+          "incorrect": false,
+          "false_success": false,
+          "median_tool_calls": 1,
+          "median_steps": 3,
+          "median_wall_ms": 84.673
+        }
+      },
+      "achieved_tasks": 1,
+      "correct_rejection_tasks": 1,
+      "false_success_tasks": 1,
+      "incorrect_tasks": 0
+    },
+    "B_selector": {
+      "by_task": {
+        "missing": {
+          "achieved": false,
+          "correct_rejection": true,
+          "incorrect": false,
+          "false_success": false,
+          "median_tool_calls": 1,
+          "median_steps": 1,
+          "median_wall_ms": 187.346
+        },
+        "empty": {
+          "achieved": false,
+          "correct_rejection": true,
+          "incorrect": false,
+          "false_success": false,
+          "median_tool_calls": 1,
+          "median_steps": 1,
+          "median_wall_ms": 64.039
+        },
+        "nonempty": {
+          "achieved": true,
+          "correct_rejection": false,
+          "incorrect": false,
+          "false_success": false,
+          "median_tool_calls": 2,
+          "median_steps": 4,
+          "median_wall_ms": 85.034
+        }
+      },
+      "achieved_tasks": 1,
+      "correct_rejection_tasks": 2,
+      "false_success_tasks": 0,
+      "incorrect_tasks": 0
+    }
+  }
+}

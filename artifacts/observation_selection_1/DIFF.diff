@@ -1,0 +1,105 @@
+diff --git a/docs/IMPLEMENTATION_STATUS.md b/docs/IMPLEMENTATION_STATUS.md
+index 8c54e5c..83a1465 100644
+--- a/docs/IMPLEMENTATION_STATUS.md
++++ b/docs/IMPLEMENTATION_STATUS.md
+@@ -2,7 +2,7 @@
+
+ Generated evidence snapshot. Do not hand-edit claims that contradict tests.
+
+-- pytest collected: **482**
++- pytest collected: **499**
+ - capabilities tracked: **79**
+
+ | Capability | State | Evidence |
+diff --git a/src/global_os/runtime/preprod/supervised_mission.py b/src/global_os/runtime/preprod/supervised_mission.py
+index 078f5a0..b94b8cb 100644
+--- a/src/global_os/runtime/preprod/supervised_mission.py
++++ b/src/global_os/runtime/preprod/supervised_mission.py
+@@ -28,7 +28,7 @@ from global_os.runtime.workflows.durable import (
+     WorkflowStep,
+ )
+ from global_os.world.artifacts import ArtifactStore
+-from global_os.world.tools import run_repo_audit
++from global_os.world.tools import run_repo_audit, run_repo_inventory
+
+ PROFILE = "PREPROD_SUPERVISED"
+ CONTROL_RUNNING = "RUNNING"
+@@ -235,6 +235,45 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
+     call_count_path = run_dir / "tool_calls.json"
+     prior = _read_json(call_count_path) if call_count_path.exists() else {"repo.audit": 0}
+
++    # Observation-selection preflight: inspect the target before deciding
++    # whether an audit is applicable. This uses only observable filesystem
++    # state; it does not receive the task label or the oracle.
++    try:
++        inventory = run_repo_inventory(target)
++    except (FileNotFoundError, NotADirectoryError):
++        state = {
++            **state,
++            "effect_receipts": [],
++            "artifact_digest": None,
++            "budget": budget,
++            "tool_calls": prior,
++            "observation": {"tool_id": "repo.inventory", "error": "invalid_target"},
++            "phase": "observed",
++            "observe_block": "invalid_target",
++            "artifact_verify": {"ok": False, "reason": "invalid_target"},
++        }
++        _write_json(_state_path(run_dir), {k: v for k, v in state.items() if k != "events"})
++        return state
++
++    observation = {
++        "tool_id": "repo.inventory",
++        "file_count": int(inventory["file_count"]),
++    }
++    state = {**state, "observation": observation}
++    if observation["file_count"] == 0:
++        state = {
++            **state,
++            "effect_receipts": [],
++            "artifact_digest": None,
++            "budget": budget,
++            "tool_calls": prior,
++            "phase": "observed",
++            "observe_block": "audit_not_applicable",
++            "artifact_verify": {"ok": False, "reason": "audit_not_applicable"},
++        }
++        _write_json(_state_path(run_dir), {k: v for k, v in state.items() if k != "events"})
++        return state
++
+     # 1) Produce audit first (or inject corrupt / empty body for negative tests).
+     if hooks.get("inject_corrupt_report"):
+         report: dict[str, Any] = {"findings": [], "modified_target": True}
+@@ -462,6 +501,7 @@ def _deliver_step(state: dict[str, Any]) -> dict[str, Any]:
+         "budget": state.get("budget"),
+         "artifact_digest": state.get("artifact_digest"),
+         "tool_calls": state.get("tool_calls"),
++        "observation": state.get("observation"),
+         "limits": {
+             "external_write": "human_confirmation_required",
+             "hmac_action_binding_residual": "NOT_CLAIMED_SOLVED",
+diff --git a/src/global_os/world/tools/__init__.py b/src/global_os/world/tools/__init__.py
+index e2401c8..af9b6f9 100644
+--- a/src/global_os/world/tools/__init__.py
++++ b/src/global_os/world/tools/__init__.py
+@@ -8,14 +8,20 @@ from global_os.world.tools.repo_audit import (
+     scan_repo_structure,
+     scan_schema_inventory,
+ )
++from global_os.world.tools.repo_inventory import (
++    run_repo_inventory,
++    verify_repo_inventory_report,
++)
+
+ __all__ = [
+     "RepoAuditFinding",
+     "build_findings",
+     "run_repo_audit",
++    "run_repo_inventory",
+     "scan_forbidden_patterns",
+     "scan_invariant_coverage",
+     "scan_provider_boundary",
+     "scan_repo_structure",
+     "scan_schema_inventory",
++    "verify_repo_inventory_report",
+ ]

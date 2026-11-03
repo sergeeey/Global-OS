@@ -1,0 +1,387 @@
+C:\Users\serge\miniconda3\envs\ape311\Lib\site-packages\cupy\_environment.py:215: UserWarning: CUDA path could not be detected. Set CUDA_PATH environment variable if CuPy fails to load.
+  warnings.warn(
+..........................F................s............................ [ 14%]
+........................................................................ [ 28%]
+..................................................s..................... [ 43%]
+...............................s.......................FF............... [ 57%]
+........ss......................................s.FF..................ss [ 72%]
+................s................F.........F..........FF......s......... [ 86%]
+..........ss.s..s..................................................      [100%]
+================================== FAILURES ===================================
+________________ test_y22_process_log_sha_is_public_dir_merkle ________________
+
+    def test_y22_process_log_sha_is_public_dir_merkle():
+        pub = ROOT / "artifacts" / "y22" / "public"
+        expected = _dir_sha256(pub)
+        pl = json.loads((ROOT / "artifacts" / "y22" / "arms" / "A" / "process_log.json").read_text())
+>       assert pl["public_pack_sha256"] == expected
+E       AssertionError: assert '6cf5ed7880ca...c17c1787db6bb' == 'ed0e2e8cfba5...007bb83cee30b'
+E         
+E         - ed0e2e8cfba505cdb792b2cf558507009a72b2bb7bc314989ea007bb83cee30b
+E         + 6cf5ed7880cadfe39fc07e3603473c71dca0fadef0e7061689cc17c1787db6bb
+
+tests\test_artifact_lock.py:21: AssertionError
+_____________________ test_pack_v2_five_integrity_checks ______________________
+
+    def test_pack_v2_five_integrity_checks() -> None:
+>       m = assert_pack_v2_integrity(root=ARTIFACT)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_pack_sealed_integrity.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def assert_pack_v2_integrity(*, root: Path | None = None) -> dict[str, Any]:
+        """Fail closed if sealed blob/dir drifted from freeze manifest (5 checks)."""
+        out = pack_v2_root(root)
+        manifest = load_manifest(root=root)
+        sealed_dir = out / "sealed"
+        sealed_path = sealed_dir / "sealed_pack.json"
+        warning_path = sealed_dir / "WARNING.txt"
+        if not sealed_path.is_file():
+            raise FileNotFoundError("sealed_pack.json missing")
+        if not warning_path.is_file():
+            raise FileNotFoundError("PACK-v2 sealed WARNING.txt missing")
+        content_sha = hashlib.sha256(sealed_path.read_bytes()).hexdigest()
+        expected_content = str(manifest.get("sealed_pack_sha256") or "")
+        if content_sha != expected_content:
+>           raise ValueError(
+                f"PACK-v2 sealed content drift: got {content_sha} expected {expected_content}"
+            )
+E           ValueError: PACK-v2 sealed content drift: got f10a85999a689049bb62d42dfaa731cb7bf88d01a2733c31a93cef8730415bb9 expected bb700056474c3d099b01b4cebe175d6251f4d8a8fda839ab517a80bf598287da
+
+src\global_os\evals\trust\pack_v2.py:149: ValueError
+_____________________ test_pack_v3_five_integrity_checks ______________________
+
+    def test_pack_v3_five_integrity_checks() -> None:
+>       m = assert_pack_v3_integrity(root=ARTIFACT)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_pack_sealed_integrity.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def assert_pack_v3_integrity(*, root: Path | None = None) -> dict[str, Any]:
+        """Fail closed if sealed blob/dir drifted from freeze manifest (5 checks)."""
+        out = pack_v3_root(root)
+        manifest = load_manifest(root=root)
+        sealed_dir = out / "sealed"
+        sealed_path = sealed_dir / "sealed_pack.json"
+        warning_path = sealed_dir / "WARNING.txt"
+        if not sealed_path.is_file():
+            raise FileNotFoundError("PACK-v3 sealed_pack.json missing")
+        if not warning_path.is_file():
+            raise FileNotFoundError("PACK-v3 sealed WARNING.txt missing")
+        content_sha = hashlib.sha256(sealed_path.read_bytes()).hexdigest()
+        expected_content = str(manifest.get("sealed_pack_sha256") or "")
+        if content_sha != expected_content:
+>           raise ValueError(f"PACK-v3 sealed content drift: {content_sha} != {expected_content}")
+E           ValueError: PACK-v3 sealed content drift: ee4e62b0ac89555c3187a952ec6da811a48245e2b9c222143c1bc2861c4285db != c6e3dad75512d4ee5b2a1b22845f6ee24b9f5db059511d5501df91b0294ad174
+
+src\global_os\evals\trust\pack_v3.py:215: ValueError
+_________________ test_rust_authority_default_deny_and_allow __________________
+
+    def test_rust_authority_default_deny_and_allow():
+>       _ensure_built()
+
+tests\test_rust_authority.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _ensure_built() -> Path:
+        root = Path(__file__).resolve().parents[1]
+        binary = find_gos_authority_bin()
+        if binary and binary.exists():
+            return binary
+        cargo = shutil.which("cargo")
+        if not cargo:
+            pytest.skip("cargo not available")
+        proc = subprocess.run(
+            [cargo, "build", "-p", "authority_kernel"],
+            cwd=root,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if proc.returncode != 0:
+            pytest.fail(f"cargo build failed: {proc.stderr}")
+        binary = find_gos_authority_bin()
+>       assert binary is not None
+E       assert None is not None
+
+tests\test_rust_authority.py:30: AssertionError
+__________________ test_rust_authority_gos_i04_parent_subset __________________
+
+    def test_rust_authority_gos_i04_parent_subset():
+>       _ensure_built()
+
+tests\test_rust_authority.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _ensure_built() -> Path:
+        root = Path(__file__).resolve().parents[1]
+        binary = find_gos_authority_bin()
+        if binary and binary.exists():
+            return binary
+        cargo = shutil.which("cargo")
+        if not cargo:
+            pytest.skip("cargo not available")
+        proc = subprocess.run(
+            [cargo, "build", "-p", "authority_kernel"],
+            cwd=root,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if proc.returncode != 0:
+            pytest.fail(f"cargo build failed: {proc.stderr}")
+        binary = find_gos_authority_bin()
+>       assert binary is not None
+E       assert None is not None
+
+tests\test_rust_authority.py:30: AssertionError
+_____________________ test_pack_v2_still_integrity_locked _____________________
+
+    def test_pack_v2_still_integrity_locked() -> None:
+        artifact_root = ROOT / "artifacts" / "safe_autonomy_t1"
+>       m = assert_pack_v2_integrity(root=artifact_root)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_t2_safe_autonomy.py:57: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def assert_pack_v2_integrity(*, root: Path | None = None) -> dict[str, Any]:
+        """Fail closed if sealed blob/dir drifted from freeze manifest (5 checks)."""
+        out = pack_v2_root(root)
+        manifest = load_manifest(root=root)
+        sealed_dir = out / "sealed"
+        sealed_path = sealed_dir / "sealed_pack.json"
+        warning_path = sealed_dir / "WARNING.txt"
+        if not sealed_path.is_file():
+            raise FileNotFoundError("sealed_pack.json missing")
+        if not warning_path.is_file():
+            raise FileNotFoundError("PACK-v2 sealed WARNING.txt missing")
+        content_sha = hashlib.sha256(sealed_path.read_bytes()).hexdigest()
+        expected_content = str(manifest.get("sealed_pack_sha256") or "")
+        if content_sha != expected_content:
+>           raise ValueError(
+                f"PACK-v2 sealed content drift: got {content_sha} expected {expected_content}"
+            )
+E           ValueError: PACK-v2 sealed content drift: got f10a85999a689049bb62d42dfaa731cb7bf88d01a2733c31a93cef8730415bb9 expected bb700056474c3d099b01b4cebe175d6251f4d8a8fda839ab517a80bf598287da
+
+src\global_os\evals\trust\pack_v2.py:149: ValueError
+________________ test_run_t2_with_injected_pack_no_repo_unseal ________________
+
+tmp_path = WindowsPath('C:/Users/serge/AppData/Local/Temp/pytest-of-serge/pytest-10323/test_run_t2_with_injected_pack0')
+
+    def test_run_t2_with_injected_pack_no_repo_unseal(tmp_path: Path) -> None:
+        """Unit path: run T2 scoring on synthetic pack without mutating repo seal."""
+        # Freeze SHA into repo is write-once — use already-frozen or freeze current.
+        # For isolated test, write SHA into tmp and monkeypatch path.
+        pack = build_pack_v2_sealed()
+        # Pre-create experiment sha file expected by freeze_sha=False path
+        sha_path = tmp_path / "T2_EXPERIMENT_SHA.txt"
+        sha_path.write_text("testsha00\n", encoding="utf-8")
+    
+        import global_os.evals.trust.t2_protocol as tp
+        import global_os.evals.trust.t2_runner as tr
+    
+        monkey_sha = tmp_path / "T2_EXPERIMENT_SHA.txt"
+    
+        def _sha_path(root: Path | None = None) -> Path:
+            del root
+            return monkey_sha
+    
+        # Patch both modules' path helpers
+        original = tp.t2_experiment_sha_path
+        tp.t2_experiment_sha_path = _sha_path  # type: ignore[assignment]
+        tr.t2_experiment_sha_path = _sha_path  # type: ignore[assignment]
+        try:
+>           raw = run_t2(
+                out_root=tmp_path / "t2_out",
+                freeze_sha=False,
+                unseal=False,
+                pack=pack,
+            )
+
+tests\test_t2_safe_autonomy.py:276: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\global_os\evals\trust\t2_runner.py:127: in run_t2
+    assert_pack_v2_integrity(root=artifact_root)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def assert_pack_v2_integrity(*, root: Path | None = None) -> dict[str, Any]:
+        """Fail closed if sealed blob/dir drifted from freeze manifest (5 checks)."""
+        out = pack_v2_root(root)
+        manifest = load_manifest(root=root)
+        sealed_dir = out / "sealed"
+        sealed_path = sealed_dir / "sealed_pack.json"
+        warning_path = sealed_dir / "WARNING.txt"
+        if not sealed_path.is_file():
+            raise FileNotFoundError("sealed_pack.json missing")
+        if not warning_path.is_file():
+            raise FileNotFoundError("PACK-v2 sealed WARNING.txt missing")
+        content_sha = hashlib.sha256(sealed_path.read_bytes()).hexdigest()
+        expected_content = str(manifest.get("sealed_pack_sha256") or "")
+        if content_sha != expected_content:
+>           raise ValueError(
+                f"PACK-v2 sealed content drift: got {content_sha} expected {expected_content}"
+            )
+E           ValueError: PACK-v2 sealed content drift: got f10a85999a689049bb62d42dfaa731cb7bf88d01a2733c31a93cef8730415bb9 expected bb700056474c3d099b01b4cebe175d6251f4d8a8fda839ab517a80bf598287da
+
+src\global_os\evals\trust\pack_v2.py:149: ValueError
+__________________ test_run_t3_injected_pack_no_repo_unseal ___________________
+
+tmp_path = WindowsPath('C:/Users/serge/AppData/Local/Temp/pytest-of-serge/pytest-10323/test_run_t3_injected_pack_no_r0')
+
+    def test_run_t3_injected_pack_no_repo_unseal(tmp_path: Path) -> None:
+        pack = build_pack_v3_sealed()
+        sha_path = tmp_path / "T3_EXPERIMENT_SHA.txt"
+        sha_path.write_text("testsha_t3\n", encoding="utf-8")
+    
+        import global_os.evals.trust.t3_protocol as tp
+        import global_os.evals.trust.t3_runner as tr
+    
+        def _sha_path(root: Path | None = None) -> Path:
+            del root
+            return sha_path
+    
+        # Seal a temp pack_v3 so integrity check can pass when runner uses repo —
+        # for injected path we skip unseal; still need pack_v3 integrity on repo.
+        # Ensure repo pack exists or seal into repo if missing.
+        from global_os.evals.trust.t3_runner import ensure_pack_v3_sealed
+    
+>       ensure_pack_v3_sealed(root=ROOT)
+
+tests\test_t3_safe_autonomy.py:212: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\global_os\evals\trust\t3_runner.py:185: in ensure_pack_v3_sealed
+    return assert_pack_v3_integrity(root=artifact_root)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def assert_pack_v3_integrity(*, root: Path | None = None) -> dict[str, Any]:
+        """Fail closed if sealed blob/dir drifted from freeze manifest (5 checks)."""
+        out = pack_v3_root(root)
+        manifest = load_manifest(root=root)
+        sealed_dir = out / "sealed"
+        sealed_path = sealed_dir / "sealed_pack.json"
+        warning_path = sealed_dir / "WARNING.txt"
+        if not sealed_path.is_file():
+            raise FileNotFoundError("PACK-v3 sealed_pack.json missing")
+        if not warning_path.is_file():
+            raise FileNotFoundError("PACK-v3 sealed WARNING.txt missing")
+        content_sha = hashlib.sha256(sealed_path.read_bytes()).hexdigest()
+        expected_content = str(manifest.get("sealed_pack_sha256") or "")
+        if content_sha != expected_content:
+>           raise ValueError(f"PACK-v3 sealed content drift: {content_sha} != {expected_content}")
+E           ValueError: PACK-v3 sealed content drift: ee4e62b0ac89555c3187a952ec6da811a48245e2b9c222143c1bc2861c4285db != c6e3dad75512d4ee5b2a1b22845f6ee24b9f5db059511d5501df91b0294ad174
+
+src\global_os\evals\trust\pack_v3.py:215: ValueError
+__________________ test_t3_continuation_attestation_present ___________________
+
+    def test_t3_continuation_attestation_present() -> None:
+        md = ART / "T3" / "T3_CONTINUATION.md"
+        js = ART / "T3" / "T3_CONTINUATION.json"
+        assert md.is_file() and js.is_file()
+        raw = json.loads(js.read_text(encoding="utf-8"))
+        assert raw["status"] in {
+            "AWAITING_LIVE_KEYS",
+            "AWAITING_PROVIDER_QUOTA",
+            "LIVE_COMPLETED_KEEP",
+        }
+        if raw["status"] == "AWAITING_PROVIDER_QUOTA":
+            assert raw["block_reason"] == "provider_quota_exhausted_live_layer"
+        if raw["status"] == "LIVE_COMPLETED_KEEP":
+            assert raw["primary_verdict_so_far"] == "KEEP"
+            assert raw["trust_kernel_promoted"] is False
+            assert raw.get("cycle_closed") is True
+            live_sha = (ART / "T3_LIVE_COMPLETED_SHA.txt").read_text(encoding="utf-8").strip()
+            assert live_sha == "3ef3f448d589dc7604b109fe20730de127cf994d"
+            assert raw.get("live_completed_sha") == live_sha
+            assert raw["claim_strength"]["trust_kernel_promotion"] == "NO"
+            assert raw["claim_strength"]["independent_replication"] == "NOT_YET_SHOWN"
+            rs = json.loads(
+                (ROOT / "artifacts/hardening/RUN_STATE.json").read_text(encoding="utf-8")
+            )
+            assert rs["selective_bounded_recovery"]["t3_verdict"] == "KEEP"
+            assert rs["selective_bounded_recovery"]["t3_live_completed_sha"] == live_sha
+            honesty = (ROOT / "docs/SCIENTIFIC_HONESTY_MAP.md").read_text(encoding="utf-8")
+            assert "T3: KEEP" in honesty
+            assert (ART / "T3" / "T3_CLOSED.md").is_file()
+        assert raw["is_continuation_of_same_prereg"] is True
+        assert raw["is_new_sealed_replication"] is False
+        assert raw["create_pack_v4_now"] is False
+        assert raw["post_unseal_changes"]["c2_recovery_router"] is False
+        assert raw["pack_unsealed_at_experiment_sha"] == (
+            ART / "T3_EXPERIMENT_SHA.txt"
+        ).read_text(encoding="utf-8").strip()
+        decision = (ART / "T3" / "T3_DECISION.md").read_text(encoding="utf-8")
+        assert "continuation of T3 under the same prereg" in decision
+        assert "not a new sealed replication" in decision
+        assert CONTINUATION_BINDING_TEXT.splitlines()[0] in decision
+        # Pin hashes must still match frozen files (fail-closed holdout integrity)
+>       att = assert_continuation_integrity(ROOT)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_t3_safe_autonomy.py:291: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+root = WindowsPath('C:/gos_obs_sel_1')
+
+    def assert_continuation_integrity(root: Path | None = None) -> dict[str, Any]:
+        """Fail closed if C2/prereg/router drifted after PACK-v3 unseal."""
+        r = root or repo_root()
+        att = load_continuation_attestation(r)
+        if att.get("is_new_sealed_replication") is not False:
+            raise ValueError("continuation attestation must mark not-new-sealed-replication")
+        if att.get("is_continuation_of_same_prereg") is not True:
+            raise ValueError("continuation attestation must mark same-prereg continuation")
+        if att.get("create_pack_v4_now") is not False:
+            raise ValueError("PACK-v4 must not be created while finishing T3 continuation")
+        if att.get("pack_unsealed_at_experiment_sha") != PACK_V3_UNSEALED_AT_SHA:
+            raise ValueError("pack unseal SHA drift vs PACK_V3_UNSEALED_AT_SHA")
+        # Canonical freeze file under repo artifacts (not a patched out-of-tree test path).
+        frozen_path = t1_artifact_root(r) / "T3_EXPERIMENT_SHA.txt"
+        frozen = frozen_path.read_text(encoding="utf-8").strip()
+        if frozen != PACK_V3_UNSEALED_AT_SHA:
+            raise ValueError("T3_EXPERIMENT_SHA drift vs first unseal SHA")
+        pins = att.get("pinned_hashes") or {}
+        if not isinstance(pins, dict):
+            raise TypeError("pinned_hashes must be object")
+        checks = {
+            "recovery_router_py_sha256": r / "src/global_os/evals/trust/recovery_router.py",
+            "selective_bounded_recovery_v1_json_sha256": (
+                t1_artifact_root(r) / "SELECTIVE_BOUNDED_RECOVERY_V1.json"
+            ),
+            "t3_prereg_json_sha256": t1_artifact_root(r) / "T3_PREREG.json",
+        }
+        for key, path in checks.items():
+            expected = str(pins.get(key) or "")
+            actual = hashlib.sha256(path.read_bytes()).hexdigest()
+            if not expected or actual != expected:
+>               raise ValueError(
+                    f"post-unseal integrity fail for {key}: "
+                    f"file changed after PACK-v3 unseal (holdout compromised)"
+                )
+E               ValueError: post-unseal integrity fail for recovery_router_py_sha256: file changed after PACK-v3 unseal (holdout compromised)
+
+src\global_os\evals\trust\t3_protocol.py:175: ValueError
+============================== warnings summary ===============================
+..\Users\serge\miniconda3\envs\ape311\Lib\site-packages\lark\utils.py:163
+  C:\Users\serge\miniconda3\envs\ape311\Lib\site-packages\lark\utils.py:163: DeprecationWarning: module 'sre_parse' is deprecated
+    import sre_parse
+
+..\Users\serge\miniconda3\envs\ape311\Lib\site-packages\lark\utils.py:164
+  C:\Users\serge\miniconda3\envs\ape311\Lib\site-packages\lark\utils.py:164: DeprecationWarning: module 'sre_constants' is deprecated
+    import sre_constants
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_artifact_lock.py::test_y22_process_log_sha_is_public_dir_merkle
+FAILED tests/test_pack_sealed_integrity.py::test_pack_v2_five_integrity_checks
+FAILED tests/test_pack_sealed_integrity.py::test_pack_v3_five_integrity_checks
+FAILED tests/test_rust_authority.py::test_rust_authority_default_deny_and_allow
+FAILED tests/test_rust_authority.py::test_rust_authority_gos_i04_parent_subset
+FAILED tests/test_t2_safe_autonomy.py::test_pack_v2_still_integrity_locked - ...
+FAILED tests/test_t2_safe_autonomy.py::test_run_t2_with_injected_pack_no_repo_unseal
+FAILED tests/test_t3_safe_autonomy.py::test_run_t3_injected_pack_no_repo_unseal
+FAILED tests/test_t3_safe_autonomy.py::test_t3_continuation_attestation_present
+9 failed, 476 passed, 14 skipped, 2 warnings in 192.24s (0:03:12)

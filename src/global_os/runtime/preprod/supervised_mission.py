@@ -28,7 +28,7 @@ from global_os.runtime.workflows.durable import (
     WorkflowStep,
 )
 from global_os.world.artifacts import ArtifactStore
-from global_os.world.tools import run_repo_audit
+from global_os.world.tools import run_repo_audit, run_repo_inventory
 
 PROFILE = "PREPROD_SUPERVISED"
 CONTROL_RUNNING = "RUNNING"
@@ -234,6 +234,45 @@ def _gateway_observe_step(state: dict[str, Any]) -> dict[str, Any]:
     target = Path(state["target_path"])
     call_count_path = run_dir / "tool_calls.json"
     prior = _read_json(call_count_path) if call_count_path.exists() else {"repo.audit": 0}
+
+    # Observation-selection preflight: inspect the target before deciding
+    # whether an audit is applicable. This uses only observable filesystem
+    # state; it does not receive the task label or the oracle.
+    try:
+        inventory = run_repo_inventory(target)
+    except (FileNotFoundError, NotADirectoryError):
+        state = {
+            **state,
+            "effect_receipts": [],
+            "artifact_digest": None,
+            "budget": budget,
+            "tool_calls": prior,
+            "observation": {"tool_id": "repo.inventory", "error": "invalid_target"},
+            "phase": "observed",
+            "observe_block": "invalid_target",
+            "artifact_verify": {"ok": False, "reason": "invalid_target"},
+        }
+        _write_json(_state_path(run_dir), {k: v for k, v in state.items() if k != "events"})
+        return state
+
+    observation = {
+        "tool_id": "repo.inventory",
+        "file_count": int(inventory["file_count"]),
+    }
+    state = {**state, "observation": observation}
+    if observation["file_count"] == 0:
+        state = {
+            **state,
+            "effect_receipts": [],
+            "artifact_digest": None,
+            "budget": budget,
+            "tool_calls": prior,
+            "phase": "observed",
+            "observe_block": "audit_not_applicable",
+            "artifact_verify": {"ok": False, "reason": "audit_not_applicable"},
+        }
+        _write_json(_state_path(run_dir), {k: v for k, v in state.items() if k != "events"})
+        return state
 
     # 1) Produce audit first (or inject corrupt / empty body for negative tests).
     if hooks.get("inject_corrupt_report"):
@@ -462,6 +501,7 @@ def _deliver_step(state: dict[str, Any]) -> dict[str, Any]:
         "budget": state.get("budget"),
         "artifact_digest": state.get("artifact_digest"),
         "tool_calls": state.get("tool_calls"),
+        "observation": state.get("observation"),
         "limits": {
             "external_write": "human_confirmation_required",
             "hmac_action_binding_residual": "NOT_CLAIMED_SOLVED",
