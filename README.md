@@ -6,6 +6,8 @@ Global OS принимает от человека или организации
 
 LLM **не** является архитектурным ядром. Модели — interchangeable compute за adapter boundary.
 
+> **North Star:** Before changing Global OS, read [docs/GLOBAL_OS_MISSION.md](docs/GLOBAL_OS_MISSION.md). Local work must be justified by its contribution to this mission.
+
 $$
 \text{GlobalOS} =
 \text{GoalContract} +
