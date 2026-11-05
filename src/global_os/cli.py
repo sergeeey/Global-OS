@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -97,6 +98,160 @@ def cmd_mission_start(args: argparse.Namespace) -> int:
         return 2
     print(dump_json(out))
     return 0
+
+
+def _goal_from_text(text: str) -> dict[str, Any]:
+    now = datetime.now(UTC)
+    return {
+        "schema_version": "0.1.0",
+        "goal_id": f"goal_repo_audit_{now.strftime('%Y%m%dT%H%M%S%fZ')}",
+        "version": 1,
+        "tenant_id": "tenant_local",
+        "workspace_id": "ws_working_v0",
+        "objective": {"text": text},
+        "success_criteria": [
+            {
+                "id": "sc_01",
+                "description": "verified engineering report with evidence-linked findings",
+            }
+        ],
+        "invariants": ["read_only_target_repo", "no_binding_external_commitments"],
+        "non_goals": ["modify_code", "push_commits"],
+        "forbidden_outcomes": ["write_to_target_repo", "disclose_secrets"],
+        "risk": {"tolerance": "low", "maximum_irreversibility": "none"},
+        "authority": {
+            "delegation_depth_max": 3,
+            "capabilities": ["filesystem.read", "git.read"],
+        },
+        "evidence_requirements": {"major_finding": {"verification_tier": 2}},
+        "termination": ["success_criteria_met", "user_cancelled"],
+        "created_at": now.isoformat(),
+    }
+
+
+def _read_json_file(path: Path) -> dict[str, Any]:
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return raw if isinstance(raw, dict) else {}
+
+
+def _mission_verdict(delivery: dict[str, Any], state: dict[str, Any]) -> tuple[str, str]:
+    terminal = str(delivery.get("terminal_status") or "INCONCLUSIVE")
+    block = str(state.get("observe_block") or "")
+    if block == "invalid_target":
+        return "INVALID_TARGET", "target is missing or is not a directory"
+    if block == "audit_not_applicable":
+        return "INCONCLUSIVE", "target is empty; no audit was performed"
+    if terminal == "SUCCEEDED":
+        return "SUCCEEDED", "verified repo-audit outcome"
+    if terminal == "FAILED":
+        return "FAILED", "mission failed"
+    return "INCONCLUSIVE", block or "completion not achieved"
+
+
+def _mission_report(
+    *,
+    run_dir: Path,
+    delivery: dict[str, Any],
+    state: dict[str, Any],
+    goal_text: str,
+    target: Path,
+) -> tuple[Path, Path, Path | None]:
+    report_path = run_dir / "REPORT.md"
+    evidence_path = run_dir / "delivery.json"
+    artifact_path: Path | None = None
+    report: dict[str, Any] = {}
+    digest = str(delivery.get("artifact_digest") or state.get("artifact_digest") or "")
+    if digest.startswith("sha256:"):
+        artifact_path = run_dir / "artifacts" / "sha256" / digest.split(":", 1)[1]
+        payload = _read_json_file(artifact_path)
+        report = payload.get("report") if isinstance(payload.get("report"), dict) else {}
+    findings = report.get("findings") if isinstance(report.get("findings"), list) else []
+    reason = delivery.get("completion") or state.get("completion") or {}
+    status, verdict_reason = _mission_verdict(delivery, state)
+    lines = [
+        "# Global OS Mission Report",
+        "",
+        f"- Mission: `{delivery.get('run_id')}`",
+        f"- Goal: {goal_text}",
+        f"- Target: `{target}`",
+        f"- Terminal: **{delivery.get('terminal_status')}**",
+        f"- Verdict: **{status}** ({verdict_reason})",
+        f"- Completion: `{reason.get('status', 'unknown')}`",
+        "",
+        "## Findings",
+        "",
+    ]
+    if findings:
+        for finding in findings:
+            fid = finding.get("id") if isinstance(finding, dict) else finding
+            statement = finding.get("statement", "") if isinstance(finding, dict) else ""
+            lines.append(f"- `{fid}` — {statement}")
+    else:
+        lines.append("No findings reported.")
+    lines.extend(
+        [
+            "",
+            "## Evidence",
+            "",
+            f"- Delivery: `{evidence_path}`",
+            f"- State: `{run_dir / 'state.json'}`",
+            f"- Events: `{run_dir / 'events.json'}`",
+            f"- Artifact: `{artifact_path or 'none'}`",
+            "",
+            "Read-only mission. No target writes or external side effects.",
+            "",
+        ]
+    )
+    report_path.write_text("\n".join(lines), encoding="utf-8")
+    return report_path, evidence_path, artifact_path
+
+
+def cmd_mission_run(args: argparse.Namespace) -> int:
+    from global_os.runtime.preprod import SupervisedMissionError, start_mission
+
+    goal_text = str(args.goal or "").strip()
+    if not goal_text:
+        print("error: --goal must not be empty")
+        return 2
+    target = Path(args.target).resolve()
+    try:
+        delivery = start_mission(
+            _goal_from_text(goal_text),
+            target_path=target,
+            gos_root=_gos_root(args),
+            budget_usd=float(args.budget_usd),
+            budget_tokens=int(args.budget_tokens),
+        )
+    except SupervisedMissionError as exc:
+        print(f"error: {exc}")
+        return 2
+    run_dir = _gos_root(args) / "missions" / str(delivery["run_id"])
+    state = _read_json_file(run_dir / "state.json")
+    report_path, evidence_path, artifact_path = _mission_report(
+        run_dir=run_dir,
+        delivery=delivery,
+        state=state,
+        goal_text=goal_text,
+        target=target,
+    )
+    status, reason = _mission_verdict(delivery, state)
+    print(f"mission_id: {delivery.get('run_id')}")
+    print(f"terminal: {delivery.get('terminal_status')}")
+    print(f"verdict: {status}")
+    print(f"reason: {reason}")
+    print(f"report: {report_path}")
+    print(f"evidence: {evidence_path}")
+    print(f"trace: {run_dir / 'events.json'}")
+    if artifact_path is not None:
+        print(f"artifact: {artifact_path}")
+    if delivery.get("terminal_status") == "SUCCEEDED":
+        return 0
+    if delivery.get("terminal_status") == "FAILED":
+        return 4
+    return 3
 
 
 def cmd_mission_status(args: argparse.Namespace) -> int:
@@ -222,6 +377,15 @@ def build_parser() -> argparse.ArgumentParser:
     m_start.add_argument("--budget-usd", default="15.0")
     m_start.add_argument("--budget-tokens", default="50000")
     m_start.set_defaults(func=cmd_mission_start)
+
+    m_run = mission_sub.add_parser(
+        "run", help="Run one supervised read-only repo-audit mission from goal text"
+    )
+    m_run.add_argument("--goal", required=True, help="Goal text (not a file path)")
+    m_run.add_argument("--target", required=True, help="Read-only repository path")
+    m_run.add_argument("--budget-usd", default="15.0")
+    m_run.add_argument("--budget-tokens", default="50000")
+    m_run.set_defaults(func=cmd_mission_run)
 
     for name, fn, help_text in (
         ("status", cmd_mission_status, "Show mission status"),

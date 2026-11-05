@@ -1,0 +1,8 @@
+mission_id: run_339a75aee9ce4c3d
+terminal: SUCCEEDED
+verdict: SUCCEEDED
+reason: verified repo-audit outcome
+report: C:\working_v0_acceptance\state_valid\missions\run_339a75aee9ce4c3d\REPORT.md
+evidence: C:\working_v0_acceptance\state_valid\missions\run_339a75aee9ce4c3d\delivery.json
+trace: C:\working_v0_acceptance\state_valid\missions\run_339a75aee9ce4c3d\events.json
+artifact: C:\working_v0_acceptance\state_valid\missions\run_339a75aee9ce4c3d\artifacts\sha256\2e47839da3c66e6cb7ad858d1ed104bf56aeea0051262da8f66dc06465ed0a1d

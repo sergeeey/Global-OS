@@ -1,0 +1,55 @@
+{
+  "events": [
+    {
+      "event_id": "evt_48dc5a4b1f124767",
+      "schema_version": "0.1.0",
+      "recorded_at": "2026-11-05T06:47:02.052968+00:00",
+      "content_hash": "sha256:4aecca56987662d072b02f518449ae3c21ba51f14c3679ded1ed8b9635ebb100",
+      "event_type": "goal.created",
+      "tenant_id": "tenant_local",
+      "workspace_id": "ws_working_v0",
+      "payload": {
+        "goal_id": "goal_repo_audit_20261105T064702049968Z",
+        "version": 1,
+        "content_hash": "sha256:744e99bf973e34d092f6ebc60d1cc2488dcb739b4ed9c7a497603a5b3d7b774b"
+      },
+      "producer": "runtime.goals",
+      "goal_id": "goal_repo_audit_20261105T064702049968Z",
+      "occurred_at": "2026-11-05T06:47:02.052968+00:00"
+    },
+    {
+      "event_id": "evt_ff0e743fe752420d",
+      "schema_version": "0.1.0",
+      "recorded_at": "2026-11-05T06:47:02.054972+00:00",
+      "content_hash": "sha256:8af92fecbd14bea0a8928946693deaaf555d643a2df4f9d020f079ac9abf14fe",
+      "event_type": "mission.assigned",
+      "tenant_id": "tenant_local",
+      "workspace_id": "ws_working_v0",
+      "payload": {
+        "mission_id": "msn_ebfff39022724dc5",
+        "objective": "audit empty target"
+      },
+      "producer": "organization.mission",
+      "goal_id": "goal_repo_audit_20261105T064702049968Z",
+      "org_unit_id": "org_5ffd324fc1764378",
+      "occurred_at": "2026-11-05T06:47:02.054972+00:00"
+    },
+    {
+      "event_id": "evt_6b06c154d9e1438b",
+      "schema_version": "0.1.0",
+      "recorded_at": "2026-11-05T06:47:02.178431+00:00",
+      "content_hash": "sha256:8ca5027b08315dd7bb7f482116afe7b462a4aa9dd234703bdc9ea520060e54f4",
+      "event_type": "null_result.recorded",
+      "tenant_id": "tenant_local",
+      "workspace_id": "ws_dev",
+      "payload": {
+        "attempt": "att_0",
+        "why_failed": "insufficient_evidence",
+        "approach": "primary"
+      },
+      "producer": "cognition.organs.pivot_replan",
+      "goal_id": "goal_repo_audit_20261105T064702049968Z",
+      "occurred_at": "2026-11-05T06:47:02.178431+00:00"
+    }
+  ]
+}

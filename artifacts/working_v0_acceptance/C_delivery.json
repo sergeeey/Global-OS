@@ -1,0 +1,111 @@
+{
+  "schema_version": "0.1.0",
+  "profile": "PREPROD_SUPERVISED",
+  "run_id": "run_6904f8935ce54406",
+  "goal_id": "goal_repo_audit_20261105T064702667078Z",
+  "mission_id": "msn_f2e5eca874ad4b52",
+  "terminal_status": "INCONCLUSIVE",
+  "completion": {
+    "status": "UNKNOWN",
+    "criteria_met": [],
+    "criteria_unmet": [],
+    "criteria_unknown": [
+      "sc_01"
+    ],
+    "invariant_violations": [],
+    "authority_ok": true,
+    "evidence_bound": false,
+    "reason": "insufficient_evidence",
+    "llm_used_as_oracle": false
+  },
+  "achiever_stop": "STOP_INCONCLUSIVE",
+  "budget": {
+    "usd": 15.0,
+    "tokens": 50000,
+    "spent_usd": 0.0,
+    "remaining_usd": 15.0
+  },
+  "artifact_digest": null,
+  "tool_calls": {
+    "repo.audit": 0
+  },
+  "observation": {
+    "tool_id": "repo.inventory",
+    "error": "invalid_target"
+  },
+  "limits": {
+    "external_write": "human_confirmation_required",
+    "hmac_action_binding_residual": "NOT_CLAIMED_SOLVED",
+    "challenge_ga": "NOT_STARTED"
+  },
+  "evidence": {
+    "effect_receipt_ids": [],
+    "events_path": "C:\\working_v0_acceptance\\state_missing\\missions\\run_6904f8935ce54406\\events.json",
+    "artifact_digest": null
+  },
+  "history_summary": [
+    "decomposed",
+    "brief:brf_a0f49bc7fbca467b",
+    "routed:ROUTE",
+    "completion:UNKNOWN",
+    "pivot:PIVOT",
+    "brief:brf_6a0ac3a2c75d4acb",
+    "routed:ROUTE",
+    "completion:UNKNOWN",
+    "budget_exhausted"
+  ],
+  "last_execution_brief": {
+    "brief_id": "brf_6a0ac3a2c75d4acb",
+    "schema_version": "0.1.0",
+    "goal_id": "goal_repo_audit_20261105T064702667078Z",
+    "goal_version": 1,
+    "plan_id": "plan_ed7584f524484549",
+    "task_id": "task_7ab1ae764f85415d",
+    "objective_text": "Advance Goal goal_repo_audit_20261105T064702667078Z via task 'implementation': produce evidence for criteria [sc_01]. Outcome context: audit missing target",
+    "criterion_ids": [
+      "sc_01"
+    ],
+    "allowed_tools": [
+      "filesystem.read",
+      "git.read"
+    ],
+    "budget": {
+      "usd": 7.5,
+      "tokens": 25000
+    },
+    "expected_artifacts": [
+      "effect_receipt",
+      "artifact_digest"
+    ],
+    "verification_method": "effect_receipt_completion_gate",
+    "constraints": [
+      "read_only_target_repo",
+      "no_binding_external_commitments",
+      "no_goal_mutation",
+      "no_self_certification"
+    ],
+    "human_approval_required": false,
+    "context_refs": [
+      "goal_contract",
+      "task_7ab1ae764f85415d",
+      "plan_ed7584f524484549",
+      "evt_c3e0dbc38aa24ee5",
+      "evt_a7379ef1bed049e3",
+      "evt_8d021532cd9049b2"
+    ],
+    "authority_check": {
+      "caps_subset": true
+    },
+    "material_reason": "pivot",
+    "env_id": "env_98f227bd1fb74d03",
+    "org_unit_id": "org_aa4d9b8d6c814874",
+    "content_hash": "sha256:320f24e556a6d79c1c5ebaff0052a87de8403eb3a5303e26ed7b860e4640ec5f"
+  },
+  "delivered_at": "2026-11-05T06:47:02.807288+00:00",
+  "honesty": {
+    "production_proven": 0,
+    "continual_si": "NOT_MEASURED",
+    "end_to_end_os_speedup": "NOT_CLAIMED",
+    "execution_brief": "ephemeral_work_order_not_completion"
+  }
+}

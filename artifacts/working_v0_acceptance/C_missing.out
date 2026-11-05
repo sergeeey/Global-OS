@@ -1,0 +1,7 @@
+mission_id: run_6904f8935ce54406
+terminal: INCONCLUSIVE
+verdict: INVALID_TARGET
+reason: target is missing or is not a directory
+report: C:\working_v0_acceptance\state_missing\missions\run_6904f8935ce54406\REPORT.md
+evidence: C:\working_v0_acceptance\state_missing\missions\run_6904f8935ce54406\delivery.json
+trace: C:\working_v0_acceptance\state_missing\missions\run_6904f8935ce54406\events.json

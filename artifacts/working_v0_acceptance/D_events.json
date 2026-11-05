@@ -1,0 +1,134 @@
+{
+  "events": [
+    {
+      "event_id": "evt_4800bdfaf2664c2e",
+      "schema_version": "0.1.0",
+      "recorded_at": "2026-11-05T06:47:03.322332+00:00",
+      "content_hash": "sha256:769b78e00eef6afdce964d742ee6e82ad2155e597924f803997acfbb966e7488",
+      "event_type": "goal.created",
+      "tenant_id": "tenant_local",
+      "workspace_id": "ws_working_v0",
+      "payload": {
+        "goal_id": "goal_repo_audit_20261105T064703319333Z",
+        "version": 1,
+        "content_hash": "sha256:7ad0320a7c979c9ffa582e5f20af86e71212caf2b9292fe729d37f97d887b717"
+      },
+      "producer": "runtime.goals",
+      "goal_id": "goal_repo_audit_20261105T064703319333Z",
+      "occurred_at": "2026-11-05T06:47:03.322332+00:00"
+    },
+    {
+      "event_id": "evt_37dd17d7f45e4680",
+      "schema_version": "0.1.0",
+      "recorded_at": "2026-11-05T06:47:03.327870+00:00",
+      "content_hash": "sha256:8621119200abbe82b1ff0375f6617d3a24a3d174a886a6564c2a38eb4431183d",
+      "event_type": "mission.assigned",
+      "tenant_id": "tenant_local",
+      "workspace_id": "ws_working_v0",
+      "payload": {
+        "mission_id": "msn_3874e70733d64179",
+        "objective": "Провести проверяемый read-only аудит рабочего репозитория Global OS"
+      },
+      "producer": "organization.mission",
+      "goal_id": "goal_repo_audit_20261105T064703319333Z",
+      "org_unit_id": "org_87526d18cb114eae",
+      "occurred_at": "2026-11-05T06:47:03.327870+00:00"
+    },
+    {
+      "event_id": "evt_8db691dc2e2942aa",
+      "schema_version": "0.1.0",
+      "recorded_at": "2026-11-05T06:47:04.405990+00:00",
+      "content_hash": "sha256:e7db9fd71acaccdb08e1317cfc0ff7fb9b9064281fcb8f94e39d08186cf23e23",
+      "event_type": "authority.granted",
+      "tenant_id": "tenant_local",
+      "workspace_id": "ws_working_v0",
+      "payload": {
+        "principal_id": "operator_supervised_1",
+        "capabilities": [
+          "filesystem.read",
+          "git.read"
+        ],
+        "parent_id": null
+      },
+      "producer": "kernel.authority",
+      "principal_id": "operator_supervised_1",
+      "occurred_at": "2026-11-05T06:47:04.405990+00:00"
+    },
+    {
+      "event_id": "evt_9dcefde9bad24848",
+      "schema_version": "0.1.0",
+      "recorded_at": "2026-11-05T06:47:04.407519+00:00",
+      "content_hash": "sha256:8c89f2a2dca86c7c31fef8f888d83e415348e67eb549afd6fab6e6a4085f8fe1",
+      "event_type": "authority.decision",
+      "tenant_id": "tenant_local",
+      "workspace_id": "ws_working_v0",
+      "payload": {
+        "decision": "ALLOW",
+        "reason": "permitted by cedar-aligned policy",
+        "proposal_id": "ap_run_61babeb770f84af9_audit",
+        "capability": "filesystem.read",
+        "proposal_hash": "sha256:51cbfd7ef8348d5237b935f511e3972edc0428768dba0a6fc89c9a3646d46ad5",
+        "backend": "python",
+        "execution_token_id": "et_095e5514e0c846c3",
+        "execution_token_hash": "sha256:8861fbd4a2e9b770a713ee11ecbc4caba7bfec66f8b01a4bfa8aa98d4c49e0d8"
+      },
+      "producer": "kernel.authority",
+      "goal_id": "goal_repo_audit_20261105T064703319333Z",
+      "principal_id": "operator_supervised_1",
+      "occurred_at": "2026-11-05T06:47:04.407519+00:00"
+    },
+    {
+      "event_id": "evt_f301f1b3af264af3",
+      "schema_version": "0.1.0",
+      "recorded_at": "2026-11-05T06:47:04.411517+00:00",
+      "content_hash": "sha256:a88e11bc0c1e41faa0559a6927de490e0c28edc6d43396a2b5d7bb33c98a13bb",
+      "event_type": "action.executed",
+      "tenant_id": "tenant_local",
+      "workspace_id": "ws_working_v0",
+      "payload": {
+        "action_id": "act_ab4b6e5a08e049da",
+        "tool_id": "repo.audit",
+        "success": true,
+        "idempotency_key": "preprod-run_61babeb770f84af9-repo-audit",
+        "reconciliation_status": "EXECUTED",
+        "execution_token_id": "et_095e5514e0c846c3",
+        "execution_token_jti_hash": "sha256:8cb9d182e83ffdc592e9c8ee30c226107bc12beec0d249e160494fa0626ea1ef",
+        "execution_token_hash": "sha256:8861fbd4a2e9b770a713ee11ecbc4caba7bfec66f8b01a4bfa8aa98d4c49e0d8",
+        "risk": "LOW",
+        "risk_source": "deterministic_policy"
+      },
+      "producer": "kernel.action_gateway",
+      "goal_id": "goal_repo_audit_20261105T064703319333Z",
+      "principal_id": "operator_supervised_1",
+      "occurred_at": "2026-11-05T06:47:04.411517+00:00"
+    },
+    {
+      "event_id": "evt_43468eca9b724a6e",
+      "schema_version": "0.1.0",
+      "recorded_at": "2026-11-05T06:47:04.414516+00:00",
+      "content_hash": "sha256:a6081264e2bfb3f618f54da03cb9624c76e8a0842e5ba327375fbe8e35c05458",
+      "event_type": "effect.receipted",
+      "tenant_id": "tenant_local",
+      "workspace_id": "ws_working_v0",
+      "payload": {
+        "receipt_id": "er_6f818f5b100b47e0",
+        "schema_version": "0.1.0",
+        "action_id": "act_ab4b6e5a08e049da",
+        "tool_response": {
+          "success": true
+        },
+        "intended_effect": "repo_audit_report",
+        "observed_effect": "repo_audit_report",
+        "discrepancy": "none",
+        "verified_at": "2026-11-05T06:47:04.412516+00:00",
+        "verification_method": "trusted_observation",
+        "reconciliation_status": "RECONCILED",
+        "world_success": true
+      },
+      "producer": "kernel.action_gateway",
+      "goal_id": "goal_repo_audit_20261105T064703319333Z",
+      "principal_id": "operator_supervised_1",
+      "occurred_at": "2026-11-05T06:47:04.414516+00:00"
+    }
+  ]
+}

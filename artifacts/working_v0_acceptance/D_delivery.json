@@ -1,0 +1,110 @@
+{
+  "schema_version": "0.1.0",
+  "profile": "PREPROD_SUPERVISED",
+  "run_id": "run_61babeb770f84af9",
+  "goal_id": "goal_repo_audit_20261105T064703319333Z",
+  "mission_id": "msn_3874e70733d64179",
+  "terminal_status": "SUCCEEDED",
+  "completion": {
+    "status": "ACHIEVED",
+    "criteria_met": [
+      "sc_01"
+    ],
+    "criteria_unmet": [],
+    "criteria_unknown": [],
+    "invariant_violations": [],
+    "authority_ok": true,
+    "evidence_bound": true,
+    "reason": "all_criteria_verified",
+    "llm_used_as_oracle": false
+  },
+  "achiever_stop": "STOP_SUCCESS",
+  "budget": {
+    "usd": 15.0,
+    "tokens": 50000,
+    "spent_usd": 0.01,
+    "remaining_usd": 14.99
+  },
+  "artifact_digest": "sha256:71f148900ea46e1d8864120ced5cd59d02ac53c5e5caffda718d08ed5327f9f4",
+  "tool_calls": {
+    "repo.audit": 1
+  },
+  "observation": {
+    "tool_id": "repo.inventory",
+    "file_count": 1487
+  },
+  "limits": {
+    "external_write": "human_confirmation_required",
+    "hmac_action_binding_residual": "NOT_CLAIMED_SOLVED",
+    "challenge_ga": "NOT_STARTED"
+  },
+  "evidence": {
+    "effect_receipt_ids": [
+      "er_6f818f5b100b47e0"
+    ],
+    "events_path": "C:\\working_v0_acceptance\\state_real\\missions\\run_61babeb770f84af9\\events.json",
+    "artifact_digest": "sha256:71f148900ea46e1d8864120ced5cd59d02ac53c5e5caffda718d08ed5327f9f4"
+  },
+  "history_summary": [
+    "decomposed",
+    "brief:brf_0e3f317576214ba0",
+    "routed:ROUTE",
+    "completion:ACHIEVED"
+  ],
+  "last_execution_brief": {
+    "brief_id": "brf_0e3f317576214ba0",
+    "schema_version": "0.1.0",
+    "goal_id": "goal_repo_audit_20261105T064703319333Z",
+    "goal_version": 1,
+    "plan_id": "plan_30864a1145e8408a",
+    "task_id": "task_ea7ce79712214cf0",
+    "objective_text": "Advance Goal goal_repo_audit_20261105T064703319333Z via task 'architecture': produce evidence for criteria [sc_01]. Outcome context: Провести проверяемый read-only аудит рабочего репозитория Global OS",
+    "criterion_ids": [
+      "sc_01"
+    ],
+    "allowed_tools": [
+      "filesystem.read",
+      "git.read"
+    ],
+    "budget": {
+      "usd": 7.5,
+      "tokens": 25000
+    },
+    "expected_artifacts": [
+      "effect_receipt",
+      "artifact_digest"
+    ],
+    "verification_method": "effect_receipt_completion_gate",
+    "constraints": [
+      "read_only_target_repo",
+      "no_binding_external_commitments",
+      "no_goal_mutation",
+      "no_self_certification"
+    ],
+    "human_approval_required": false,
+    "context_refs": [
+      "goal_contract",
+      "task_ea7ce79712214cf0",
+      "plan_30864a1145e8408a",
+      "evt_37dd17d7f45e4680",
+      "evt_8db691dc2e2942aa",
+      "evt_9dcefde9bad24848",
+      "evt_f301f1b3af264af3",
+      "evt_43468eca9b724a6e"
+    ],
+    "authority_check": {
+      "caps_subset": true
+    },
+    "material_reason": "first_attempt",
+    "env_id": "env_4894836d92cf4522",
+    "org_unit_id": "org_87526d18cb114eae",
+    "content_hash": "sha256:ec26fdaa6a4297001a997a52ecad1d73017d93ed235d746dc5a1d15abd1e9297"
+  },
+  "delivered_at": "2026-11-05T06:47:04.433879+00:00",
+  "honesty": {
+    "production_proven": 0,
+    "continual_si": "NOT_MEASURED",
+    "end_to_end_os_speedup": "NOT_CLAIMED",
+    "execution_brief": "ephemeral_work_order_not_completion"
+  }
+}

@@ -1,0 +1,7 @@
+mission_id: run_194220378c2849f7
+terminal: INCONCLUSIVE
+verdict: INCONCLUSIVE
+reason: target is empty; no audit was performed
+report: C:\working_v0_acceptance\state_empty\missions\run_194220378c2849f7\REPORT.md
+evidence: C:\working_v0_acceptance\state_empty\missions\run_194220378c2849f7\delivery.json
+trace: C:\working_v0_acceptance\state_empty\missions\run_194220378c2849f7\events.json

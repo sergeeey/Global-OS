@@ -1,0 +1,55 @@
+{
+  "events": [
+    {
+      "event_id": "evt_c3e0dbc38aa24ee5",
+      "schema_version": "0.1.0",
+      "recorded_at": "2026-11-05T06:47:02.669077+00:00",
+      "content_hash": "sha256:e6ed3a78166db0fd07d958150a9650217ed9c6643945ac2ff8c9230ae970f587",
+      "event_type": "goal.created",
+      "tenant_id": "tenant_local",
+      "workspace_id": "ws_working_v0",
+      "payload": {
+        "goal_id": "goal_repo_audit_20261105T064702667078Z",
+        "version": 1,
+        "content_hash": "sha256:35d81648c02040416be294643249d197ebfdb61510c33bc45ba4781a191f7648"
+      },
+      "producer": "runtime.goals",
+      "goal_id": "goal_repo_audit_20261105T064702667078Z",
+      "occurred_at": "2026-11-05T06:47:02.669077+00:00"
+    },
+    {
+      "event_id": "evt_a7379ef1bed049e3",
+      "schema_version": "0.1.0",
+      "recorded_at": "2026-11-05T06:47:02.672077+00:00",
+      "content_hash": "sha256:4d8cf273167920396bcfad71e50580f1129ec206cac0834ea1c514fdaf76cdef",
+      "event_type": "mission.assigned",
+      "tenant_id": "tenant_local",
+      "workspace_id": "ws_working_v0",
+      "payload": {
+        "mission_id": "msn_f2e5eca874ad4b52",
+        "objective": "audit missing target"
+      },
+      "producer": "organization.mission",
+      "goal_id": "goal_repo_audit_20261105T064702667078Z",
+      "org_unit_id": "org_aa4d9b8d6c814874",
+      "occurred_at": "2026-11-05T06:47:02.672077+00:00"
+    },
+    {
+      "event_id": "evt_8d021532cd9049b2",
+      "schema_version": "0.1.0",
+      "recorded_at": "2026-11-05T06:47:02.791936+00:00",
+      "content_hash": "sha256:41dcf995b5ef901ec11f6fd224a0fb2b493e9c8c4787b18250eda37281cb0e11",
+      "event_type": "null_result.recorded",
+      "tenant_id": "tenant_local",
+      "workspace_id": "ws_dev",
+      "payload": {
+        "attempt": "att_0",
+        "why_failed": "insufficient_evidence",
+        "approach": "primary"
+      },
+      "producer": "cognition.organs.pivot_replan",
+      "goal_id": "goal_repo_audit_20261105T064702667078Z",
+      "occurred_at": "2026-11-05T06:47:02.791936+00:00"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "schema_version": "0.1.0",
+  "profile": "PREPROD_SUPERVISED",
+  "run_id": "run_194220378c2849f7",
+  "goal_id": "goal_repo_audit_20261105T064702049968Z",
+  "mission_id": "msn_ebfff39022724dc5",
+  "terminal_status": "INCONCLUSIVE",
+  "completion": {
+    "status": "UNKNOWN",
+    "criteria_met": [],
+    "criteria_unmet": [],
+    "criteria_unknown": [
+      "sc_01"
+    ],
+    "invariant_violations": [],
+    "authority_ok": true,
+    "evidence_bound": false,
+    "reason": "insufficient_evidence",
+    "llm_used_as_oracle": false
+  },
+  "achiever_stop": "STOP_INCONCLUSIVE",
+  "budget": {
+    "usd": 15.0,
+    "tokens": 50000,
+    "spent_usd": 0.0,
+    "remaining_usd": 15.0
+  },
+  "artifact_digest": null,
+  "tool_calls": {
+    "repo.audit": 0
+  },
+  "observation": {
+    "tool_id": "repo.inventory",
+    "file_count": 0
+  },
+  "limits": {
+    "external_write": "human_confirmation_required",
+    "hmac_action_binding_residual": "NOT_CLAIMED_SOLVED",
+    "challenge_ga": "NOT_STARTED"
+  },
+  "evidence": {
+    "effect_receipt_ids": [],
+    "events_path": "C:\\working_v0_acceptance\\state_empty\\missions\\run_194220378c2849f7\\events.json",
+    "artifact_digest": null
+  },
+  "history_summary": [
+    "decomposed",
+    "brief:brf_f379c9fc4249419c",
+    "routed:ROUTE",
+    "completion:UNKNOWN",
+    "pivot:PIVOT",
+    "brief:brf_a2f24fca5fad4f0f",
+    "routed:ROUTE",
+    "completion:UNKNOWN",
+    "budget_exhausted"
+  ],
+  "last_execution_brief": {
+    "brief_id": "brf_a2f24fca5fad4f0f",
+    "schema_version": "0.1.0",
+    "goal_id": "goal_repo_audit_20261105T064702049968Z",
+    "goal_version": 1,
+    "plan_id": "plan_fa9634b39e4849b0",
+    "task_id": "task_75a47cac38a846bc",
+    "objective_text": "Advance Goal goal_repo_audit_20261105T064702049968Z via task 'implementation': produce evidence for criteria [sc_01]. Outcome context: audit empty target",
+    "criterion_ids": [
+      "sc_01"
+    ],
+    "allowed_tools": [
+      "filesystem.read",
+      "git.read"
+    ],
+    "budget": {
+      "usd": 7.5,
+      "tokens": 25000
+    },
+    "expected_artifacts": [
+      "effect_receipt",
+      "artifact_digest"
+    ],
+    "verification_method": "effect_receipt_completion_gate",
+    "constraints": [
+      "read_only_target_repo",
+      "no_binding_external_commitments",
+      "no_goal_mutation",
+      "no_self_certification"
+    ],
+    "human_approval_required": false,
+    "context_refs": [
+      "goal_contract",
+      "task_75a47cac38a846bc",
+      "plan_fa9634b39e4849b0",
+      "evt_48dc5a4b1f124767",
+      "evt_ff0e743fe752420d",
+      "evt_6b06c154d9e1438b"
+    ],
+    "authority_check": {
+      "caps_subset": true
+    },
+    "material_reason": "pivot",
+    "env_id": "env_52f15433c2374445",
+    "org_unit_id": "org_5ffd324fc1764378",
+    "content_hash": "sha256:2a0eec6d6bb945efdbbdbba0fe4a482aae7b1097c5b145ba3751e53eb867b7ed"
+  },
+  "delivered_at": "2026-11-05T06:47:02.200974+00:00",
+  "honesty": {
+    "production_proven": 0,
+    "continual_si": "NOT_MEASURED",
+    "end_to_end_os_speedup": "NOT_CLAIMED",
+    "execution_brief": "ephemeral_work_order_not_completion"
+  }
+}

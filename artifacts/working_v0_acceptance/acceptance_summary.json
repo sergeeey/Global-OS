@@ -1,0 +1,7 @@
+{
+  "A_valid": {"exit": 0, "terminal": "SUCCEEDED", "target": "C:/working_v0_acceptance/valid"},
+  "B_empty": {"exit": 3, "terminal": "INCONCLUSIVE", "target": "C:/working_v0_acceptance/empty"},
+  "C_missing": {"exit": 3, "terminal": "INCONCLUSIVE", "verdict": "INVALID_TARGET", "target": "C:/working_v0_acceptance/missing"},
+  "D_real_repo": {"exit": 0, "terminal": "SUCCEEDED", "target": "C:/gos_working_v0"},
+  "oracle": "A/D require SUCCEEDED; B/C require INCONCLUSIVE; no false SUCCESS"
+}
