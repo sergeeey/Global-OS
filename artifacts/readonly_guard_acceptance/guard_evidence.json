@@ -1,0 +1,10 @@
+{
+  "default_root_inside": {"exit": 2, "dotgos": false, "target_unchanged": true},
+  "explicit_root_inside": {"exit": 2, "dotgos": false, "target_unchanged": true},
+  "external_valid": {"exit": 0, "terminal": "SUCCEEDED", "target_unchanged": true},
+  "external_empty": {"exit": 3, "terminal": "INCONCLUSIVE", "target_unchanged": true},
+  "missing": {"exit": 3, "terminal": "INCONCLUSIVE", "verdict": "INVALID_TARGET"},
+  "real_repo": {"exit": 0, "terminal": "SUCCEEDED", "target_unchanged": true},
+  "terminal_tests": "31 passed",
+  "full": "9 failed, 483 passed, 14 skipped; same 9 pre-existing"
+}

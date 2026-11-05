@@ -1,0 +1,7 @@
+mission_id: run_7edb976b01b54cc7
+terminal: INCONCLUSIVE
+verdict: INVALID_TARGET
+reason: target is missing or is not a directory
+report: C:\readonly_guard_acceptance\state_missing\missions\run_7edb976b01b54cc7\REPORT.md
+evidence: C:\readonly_guard_acceptance\state_missing\missions\run_7edb976b01b54cc7\delivery.json
+trace: C:\readonly_guard_acceptance\state_missing\missions\run_7edb976b01b54cc7\events.json

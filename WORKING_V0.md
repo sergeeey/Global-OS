@@ -37,6 +37,11 @@ The installed console script uses the same command:
 gos --root <state-dir> mission run --goal "<goal>" --target <path>
 ```
 
+`--root` is mandatory in effect for a read-only mission: the resolved state
+root must be outside the resolved `--target`. The CLI rejects the invocation
+with exit 2 before creating any state if `--root` is equal to or inside
+`--target`, including the default `./.gos` when run from inside the target.
+
 ## What the user gets
 
 ```text
@@ -65,7 +70,8 @@ from "the tool returned without an exception".
 ## What v0 really does
 
 - accepts a goal string and a target path;
-- records the mission, events, budget, tool calls and delivery under `.gos`;
+- records the mission, events, budget, tool calls and delivery under the
+  external `.gos` state root;
 - performs a read-only repository audit;
 - verifies the report shape (`read_only`, `modified_target`, findings, scan);
 - returns `SUCCEEDED` only when the accepted completion gate is achieved;

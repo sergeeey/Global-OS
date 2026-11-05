@@ -2,10 +2,24 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
 from global_os.cli import main
+
+
+def _snapshot(path: Path) -> list[tuple[str, str]]:
+    rows: list[tuple[str, str]] = []
+    for child in sorted(path.rglob("*")):
+        if child.is_file():
+            rows.append(
+                (
+                    child.relative_to(path).as_posix(),
+                    hashlib.sha256(child.read_bytes()).hexdigest(),
+                )
+            )
+    return rows
 
 
 def _repo(path: Path) -> None:
@@ -89,3 +103,93 @@ def test_cli_mission_run_missing_target_is_invalid(tmp_path: Path, capsys) -> No
     assert "terminal: INCONCLUSIVE" in out
     assert "verdict: INVALID_TARGET" in out
     assert "target is missing" in out
+
+def test_cli_default_root_inside_target_is_rejected(
+    tmp_path: Path, monkeypatch, capsys
+) -> None:
+    target = tmp_path / "repo"
+    _repo(target)
+    before = _snapshot(target)
+    monkeypatch.chdir(target)
+    code = main(
+        [
+            "mission",
+            "run",
+            "--goal",
+            "audit current target",
+            "--target",
+            ".",
+        ]
+    )
+    assert code == 2
+    out = capsys.readouterr().out
+    assert "--root must be outside --target" in out
+    assert not (target / ".gos").exists()
+    assert _snapshot(target) == before
+
+
+def test_cli_explicit_root_inside_target_is_rejected(
+    tmp_path: Path, capsys
+) -> None:
+    target = tmp_path / "repo"
+    _repo(target)
+    before = _snapshot(target)
+    code = main(
+        [
+            "--root",
+            str(target / ".gos"),
+            "mission",
+            "run",
+            "--goal",
+            "audit current target",
+            "--target",
+            str(target),
+        ]
+    )
+    assert code == 2
+    assert "--root must be outside --target" in capsys.readouterr().out
+    assert not (target / ".gos").exists()
+    assert _snapshot(target) == before
+
+
+def test_cli_external_root_keeps_target_unchanged(tmp_path: Path, capsys) -> None:
+    target = tmp_path / "repo"
+    _repo(target)
+    before = _snapshot(target)
+    code = main(
+        [
+            "--root",
+            str(tmp_path / "state"),
+            "mission",
+            "run",
+            "--goal",
+            "audit repo",
+            "--target",
+            str(target),
+        ]
+    )
+    assert code == 0
+    assert "terminal: SUCCEEDED" in capsys.readouterr().out
+    assert _snapshot(target) == before
+
+def test_cli_mission_start_guard_rejects_inside_root(tmp_path: Path, capsys) -> None:
+    target = tmp_path / "repo"
+    _repo(target)
+    before = _snapshot(target)
+    goal = Path(__file__).resolve().parents[1] / "examples" / "goal_repo_audit.json"
+    code = main(
+        [
+            "--root",
+            str(target / ".gos"),
+            "mission",
+            "start",
+            "--goal",
+            str(goal),
+            "--target",
+            str(target),
+        ]
+    )
+    assert code == 2
+    assert "--root must be outside --target" in capsys.readouterr().out
+    assert not (target / ".gos").exists()
+    assert _snapshot(target) == before

@@ -81,15 +81,31 @@ def _gos_root(args: argparse.Namespace) -> Path:
     return Path(args.root) if getattr(args, "root", None) else Path.cwd() / ".gos"
 
 
+def _guard_readonly_root(
+    args: argparse.Namespace, target_arg: str
+) -> tuple[Path, Path] | None:
+    """Reject state roots inside the read-only target before any side effect."""
+    target = Path(target_arg).resolve()
+    gos_root = _gos_root(args).resolve()
+    if gos_root == target or gos_root.is_relative_to(target):
+        print("error: --root must be outside --target for a read-only mission")
+        return None
+    return target, gos_root
+
+
 def cmd_mission_start(args: argparse.Namespace) -> int:
     from global_os.runtime.preprod import SupervisedMissionError, start_mission
 
     draft = _load_goal_json(Path(args.goal))
+    guarded = _guard_readonly_root(args, args.target)
+    if guarded is None:
+        return 2
+    target, gos_root = guarded
     try:
         out = start_mission(
             draft,
-            target_path=args.target,
-            gos_root=_gos_root(args),
+            target_path=target,
+            gos_root=gos_root,
             budget_usd=float(args.budget_usd),
             budget_tokens=int(args.budget_tokens),
         )
@@ -216,19 +232,22 @@ def cmd_mission_run(args: argparse.Namespace) -> int:
     if not goal_text:
         print("error: --goal must not be empty")
         return 2
-    target = Path(args.target).resolve()
+    guarded = _guard_readonly_root(args, args.target)
+    if guarded is None:
+        return 2
+    target, gos_root = guarded
     try:
         delivery = start_mission(
             _goal_from_text(goal_text),
             target_path=target,
-            gos_root=_gos_root(args),
+            gos_root=gos_root,
             budget_usd=float(args.budget_usd),
             budget_tokens=int(args.budget_tokens),
         )
     except SupervisedMissionError as exc:
         print(f"error: {exc}")
         return 2
-    run_dir = _gos_root(args) / "missions" / str(delivery["run_id"])
+    run_dir = gos_root / "missions" / str(delivery["run_id"])
     state = _read_json_file(run_dir / "state.json")
     report_path, evidence_path, artifact_path = _mission_report(
         run_dir=run_dir,
@@ -319,7 +338,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--root",
         default=None,
-        help="Runtime root (default: ./.gos)",
+        help=(
+            "Runtime root (default: ./.gos; for a read-only mission it must "
+            "be outside --target)"
+        ),
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -376,15 +398,29 @@ def build_parser() -> argparse.ArgumentParser:
     )
     m_start.add_argument("--budget-usd", default="15.0")
     m_start.add_argument("--budget-tokens", default="50000")
+    m_start.add_argument(
+        "--root",
+        default=argparse.SUPPRESS,
+        help="Mission state root; must be outside --target",
+    )
     m_start.set_defaults(func=cmd_mission_start)
 
     m_run = mission_sub.add_parser(
-        "run", help="Run one supervised read-only repo-audit mission from goal text"
+        "run",
+        help=(
+            "Run one supervised read-only repo-audit mission; --root must be "
+            "outside --target"
+        ),
     )
     m_run.add_argument("--goal", required=True, help="Goal text (not a file path)")
     m_run.add_argument("--target", required=True, help="Read-only repository path")
     m_run.add_argument("--budget-usd", default="15.0")
     m_run.add_argument("--budget-tokens", default="50000")
+    m_run.add_argument(
+        "--root",
+        default=argparse.SUPPRESS,
+        help="Mission state root; must be outside --target",
+    )
     m_run.set_defaults(func=cmd_mission_run)
 
     for name, fn, help_text in (

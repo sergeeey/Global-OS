@@ -1,0 +1,8 @@
+mission_id: run_251dce8e35864fd0
+terminal: SUCCEEDED
+verdict: SUCCEEDED
+reason: verified repo-audit outcome
+report: C:\readonly_guard_acceptance\state_valid\missions\run_251dce8e35864fd0\REPORT.md
+evidence: C:\readonly_guard_acceptance\state_valid\missions\run_251dce8e35864fd0\delivery.json
+trace: C:\readonly_guard_acceptance\state_valid\missions\run_251dce8e35864fd0\events.json
+artifact: C:\readonly_guard_acceptance\state_valid\missions\run_251dce8e35864fd0\artifacts\sha256\a6cd9123d515cf352c25276f83745dbaea906e89ec7f1020dde5f951b83b32ea

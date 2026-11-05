@@ -1,0 +1,7 @@
+mission_id: run_c9774f51e6e14a90
+terminal: INCONCLUSIVE
+verdict: INCONCLUSIVE
+reason: target is empty; no audit was performed
+report: C:\readonly_guard_acceptance\state_empty\missions\run_c9774f51e6e14a90\REPORT.md
+evidence: C:\readonly_guard_acceptance\state_empty\missions\run_c9774f51e6e14a90\delivery.json
+trace: C:\readonly_guard_acceptance\state_empty\missions\run_c9774f51e6e14a90\events.json
