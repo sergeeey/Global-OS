@@ -1,0 +1,13 @@
+mission_id: run_f06551bbf2104707
+terminal: SUCCEEDED
+verdict: SUCCEEDED
+reason: verified repo-audit outcome
+report: C:\Users\serge\AppData\Local\Temp\rubric_y17_fix_state\missions\run_f06551bbf2104707\REPORT.md
+evidence: C:\Users\serge\AppData\Local\Temp\rubric_y17_fix_state\missions\run_f06551bbf2104707\delivery.json
+trace: C:\Users\serge\AppData\Local\Temp\rubric_y17_fix_state\missions\run_f06551bbf2104707\events.json
+artifact: C:\Users\serge\AppData\Local\Temp\rubric_y17_fix_state\missions\run_f06551bbf2104707\artifacts\sha256\85a4f85bcd0b83b95da7c40d16c371969855eda011bac9f5f70e0f3aff01c8cb
+execution_terminal: SUCCEEDED
+audit_verdict: FAIL
+rubric_report: C:\Users\serge\AppData\Local\Temp\rubric_y17_fix_state\missions\run_f06551bbf2104707\RUBRIC_REPORT.md
+rubric_result: C:\Users\serge\AppData\Local\Temp\rubric_y17_fix_state\missions\run_f06551bbf2104707\rubric_result.json
+rubric_artifact: C:\Users\serge\AppData\Local\Temp\rubric_y17_fix_state\missions\run_f06551bbf2104707\artifacts\sha256\798bed88c5d4a1f5e42c3fa124dbfc366dc0ff6644383230e4e00e042aeda960

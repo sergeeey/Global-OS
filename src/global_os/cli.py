@@ -225,6 +225,44 @@ def _mission_report(
     return report_path, evidence_path, artifact_path
 
 
+def _rubric_report(
+    run_dir: Path, result: dict[str, Any], execution_terminal: str
+) -> Path:
+    path = run_dir / "RUBRIC_REPORT.md"
+    lines = [
+        "# Global OS User-Defined Audit",
+        "",
+        f"EXECUTION TERMINAL: **{execution_terminal}**",
+        f"AUDIT VERDICT: **{result['audit_verdict']}**",
+        "",
+        f"- Rubric: `{result['rubric_id']}`",
+        f"- Execution terminal: `{result['execution_terminal']}`",
+        f"- Audit verdict: `{result['audit_verdict']}`",
+        "",
+        "## Criteria",
+        "",
+        "| Criterion | Verdict | Reason | Evidence | Missing |",
+        "|---|---|---|---|---|",
+    ]
+    for item in result["criterion_results"]:
+        refs = ", ".join(str(r.get("ref", "")) for r in item["evidence_refs"]) or "—"
+        missing = ", ".join(item["missing_evidence"]) or "—"
+        lines.append(
+            f"| `{item['criterion_id']}` | `{item['verdict']}` | "
+            f"{item['reason']} | {refs} | {missing} |"
+        )
+    lines.extend(
+        [
+            "",
+            "Execution terminal and audit verdict are independent.",
+            "An audit FAIL/UNKNOWN does not invalidate a correctly executed mission.",
+            "",
+        ]
+    )
+    path.write_text("\n".join(lines), encoding="utf-8")
+    return path
+
+
 def cmd_mission_run(args: argparse.Namespace) -> int:
     from global_os.runtime.preprod import SupervisedMissionError, start_mission
 
@@ -232,6 +270,16 @@ def cmd_mission_run(args: argparse.Namespace) -> int:
     if not goal_text:
         print("error: --goal must not be empty")
         return 2
+    rubric = None
+    rubric_path = getattr(args, "rubric", None)
+    if rubric_path:
+        from global_os.runtime.preprod.audit_rubric import AuditRubricError, load_rubric
+
+        try:
+            rubric = load_rubric(Path(rubric_path))
+        except AuditRubricError as exc:
+            print(f"error: {exc}")
+            return 2
     guarded = _guard_readonly_root(args, args.target)
     if guarded is None:
         return 2
@@ -266,6 +314,55 @@ def cmd_mission_run(args: argparse.Namespace) -> int:
     print(f"trace: {run_dir / 'events.json'}")
     if artifact_path is not None:
         print(f"artifact: {artifact_path}")
+
+    if rubric is not None:
+        from global_os.runtime.preprod.audit_rubric import (
+            AuditRubricError,
+            evaluate_rubric,
+        )
+        from global_os.world.artifacts import ArtifactStore
+
+        try:
+            result = evaluate_rubric(
+                target, rubric, str(delivery.get("terminal_status") or "INCONCLUSIVE")
+            )
+        except (AuditRubricError, OSError) as exc:
+            print(f"error: {exc}")
+            return 2
+        result_path = run_dir / "rubric_result.json"
+        result_path.write_text(
+            json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        store = ArtifactStore(run_dir / "artifacts")
+        ref = store.put_json(result)
+        rubric_report = _rubric_report(
+            run_dir, result, str(delivery.get("terminal_status") or "INCONCLUSIVE")
+        )
+        delivery_path = run_dir / "rubric_delivery.json"
+        delivery_path.write_text(
+            json.dumps(
+                {
+                    "schema_version": "audit-result-delivery/1",
+                    "rubric_id": result["rubric_id"],
+                    "execution_terminal": result["execution_terminal"],
+                    "audit_verdict": result["audit_verdict"],
+                    "result": str(result_path),
+                    "report": str(rubric_report),
+                    "artifact_digest": ref.digest,
+                    "artifact_path": ref.path,
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+        print(f"execution_terminal: {result['execution_terminal']}")
+        print(f"audit_verdict: {result['audit_verdict']}")
+        print(f"rubric_report: {rubric_report}")
+        print(f"rubric_result: {result_path}")
+        print(f"rubric_artifact: {ref.path}")
+
     if delivery.get("terminal_status") == "SUCCEEDED":
         return 0
     if delivery.get("terminal_status") == "FAILED":
@@ -414,6 +511,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     m_run.add_argument("--goal", required=True, help="Goal text (not a file path)")
     m_run.add_argument("--target", required=True, help="Read-only repository path")
+    m_run.add_argument(
+        "--rubric",
+        default=None,
+        help="Optional user-defined audit-rubric/1 JSON; omission keeps legacy repo-audit semantics",
+    )
     m_run.add_argument("--budget-usd", default="15.0")
     m_run.add_argument("--budget-tokens", default="50000")
     m_run.add_argument(

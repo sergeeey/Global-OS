@@ -1,0 +1,10 @@
+{
+  "schema_version": "audit-result-delivery/1",
+  "rubric_id": "y17-research-handoff-v1",
+  "execution_terminal": "SUCCEEDED",
+  "audit_verdict": "FAIL",
+  "result": "C:\\Users\\serge\\AppData\\Local\\Temp\\rubric_y17_fix_state\\missions\\run_f06551bbf2104707\\rubric_result.json",
+  "report": "C:\\Users\\serge\\AppData\\Local\\Temp\\rubric_y17_fix_state\\missions\\run_f06551bbf2104707\\RUBRIC_REPORT.md",
+  "artifact_digest": "sha256:798bed88c5d4a1f5e42c3fa124dbfc366dc0ff6644383230e4e00e042aeda960",
+  "artifact_path": "C:\\Users\\serge\\AppData\\Local\\Temp\\rubric_y17_fix_state\\missions\\run_f06551bbf2104707\\artifacts\\sha256\\798bed88c5d4a1f5e42c3fa124dbfc366dc0ff6644383230e4e00e042aeda960"
+}

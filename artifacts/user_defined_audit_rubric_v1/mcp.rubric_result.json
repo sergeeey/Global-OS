@@ -1,0 +1,112 @@
+{
+  "schema_version": "audit-result/1",
+  "rubric_id": "mcp-bouncer-operational-v1",
+  "execution_terminal": "SUCCEEDED",
+  "audit_verdict": "UNKNOWN",
+  "criterion_results": [
+    {
+      "criterion_id": "package-tests",
+      "verdict": "UNKNOWN",
+      "reason": "V1 does not support evidence kind: command",
+      "evidence_refs": [],
+      "missing_evidence": [
+        "unsupported evidence kind: command"
+      ]
+    },
+    {
+      "criterion_id": "ci-gate",
+      "verdict": "PASS",
+      "reason": "expected file exists (V1 checks presence only)",
+      "evidence_refs": [
+        {
+          "kind": "file",
+          "ref": ".github/workflows/tests.yml",
+          "hash": "sha256:4f0d9c1646fba42e0e81dea96fd8afce5a3269b30044f6a233a312b4f437189c"
+        }
+      ],
+      "missing_evidence": []
+    },
+    {
+      "criterion_id": "zero-dependency-claim",
+      "verdict": "PASS",
+      "reason": "expected file exists (V1 checks presence only)",
+      "evidence_refs": [
+        {
+          "kind": "file",
+          "ref": "pyproject.toml",
+          "hash": "sha256:3bd106c6ba5b50ec5004ae0af29300eef75e3271b09e4420cb6f2521c9e5542a"
+        }
+      ],
+      "missing_evidence": []
+    },
+    {
+      "criterion_id": "security-benchmark",
+      "verdict": "UNKNOWN",
+      "reason": "V1 does not support evidence kind: artifact",
+      "evidence_refs": [],
+      "missing_evidence": [
+        "unsupported evidence kind: artifact"
+      ]
+    },
+    {
+      "criterion_id": "fp-fn-evidence",
+      "verdict": "UNKNOWN",
+      "reason": "V1 does not support evidence kind: artifact",
+      "evidence_refs": [],
+      "missing_evidence": [
+        "unsupported evidence kind: artifact"
+      ]
+    },
+    {
+      "criterion_id": "threat-model-red-team",
+      "verdict": "UNKNOWN",
+      "reason": "V1 does not support evidence kind: artifact",
+      "evidence_refs": [],
+      "missing_evidence": [
+        "unsupported evidence kind: artifact"
+      ]
+    },
+    {
+      "criterion_id": "operational-limitations",
+      "verdict": "PASS",
+      "reason": "expected file exists (V1 checks presence only)",
+      "evidence_refs": [
+        {
+          "kind": "file",
+          "ref": "README.md",
+          "hash": "sha256:c4c7ed99daa4b4a75c408b118256e6feec7ba8ce4ce3b50c606e5d15c160fd7d"
+        }
+      ],
+      "missing_evidence": []
+    },
+    {
+      "criterion_id": "handoff-docs",
+      "verdict": "PASS",
+      "reason": "expected file exists (V1 checks presence only)",
+      "evidence_refs": [
+        {
+          "kind": "file",
+          "ref": "README.md",
+          "hash": "sha256:c4c7ed99daa4b4a75c408b118256e6feec7ba8ce4ce3b50c606e5d15c160fd7d"
+        }
+      ],
+      "missing_evidence": []
+    },
+    {
+      "criterion_id": "optional-changelog",
+      "verdict": "UNKNOWN",
+      "reason": "expected file is missing: CHANGELOG.md",
+      "evidence_refs": [],
+      "missing_evidence": [
+        "CHANGELOG.md"
+      ]
+    }
+  ],
+  "unresolved": [
+    "fp-fn-evidence",
+    "optional-changelog",
+    "package-tests",
+    "security-benchmark",
+    "threat-model-red-team"
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "schema_version": "audit-result/1",
+  "rubric_id": "y17-research-handoff-v1",
+  "execution_terminal": "SUCCEEDED",
+  "audit_verdict": "FAIL",
+  "criterion_results": [
+    {
+      "criterion_id": "clean-clone-tests",
+      "verdict": "UNKNOWN",
+      "reason": "V1 does not support evidence kind: command",
+      "evidence_refs": [],
+      "missing_evidence": [
+        "unsupported evidence kind: command"
+      ]
+    },
+    {
+      "criterion_id": "dependency-completeness",
+      "verdict": "PASS",
+      "reason": "expected file exists (V1 checks presence only)",
+      "evidence_refs": [
+        {
+          "kind": "file",
+          "ref": "pyproject.toml",
+          "hash": "sha256:de50c294df007f02e9590d78b67e994a41a9f361ff90dcc429cf8ff4c5c981be"
+        }
+      ],
+      "missing_evidence": []
+    },
+    {
+      "criterion_id": "ci-gate",
+      "verdict": "FAIL",
+      "reason": "expected file is missing: .github/workflows",
+      "evidence_refs": [],
+      "missing_evidence": [
+        ".github/workflows"
+      ]
+    },
+    {
+      "criterion_id": "reproducibility-lock",
+      "verdict": "FAIL",
+      "reason": "expected file is missing: pyproject.toml / requirements.txt",
+      "evidence_refs": [],
+      "missing_evidence": [
+        "pyproject.toml / requirements.txt"
+      ]
+    },
+    {
+      "criterion_id": "data-contracts",
+      "verdict": "PASS",
+      "reason": "expected file exists (V1 checks presence only)",
+      "evidence_refs": [
+        {
+          "kind": "file",
+          "ref": "registry/SCHEMA.md",
+          "hash": "sha256:3528f435f2b0e94809f9bbb463ac358f1a98aec586c4d893fdfe0654dad215c2"
+        }
+      ],
+      "missing_evidence": []
+    },
+    {
+      "criterion_id": "external-local-dependencies",
+      "verdict": "UNKNOWN",
+      "reason": "V1 cannot safely interpret absence evidence without a concrete absence predicate",
+      "evidence_refs": [],
+      "missing_evidence": [
+        "Obsidian vault / local paths"
+      ]
+    },
+    {
+      "criterion_id": "research-evidence",
+      "verdict": "UNKNOWN",
+      "reason": "V1 does not support evidence kind: artifact",
+      "evidence_refs": [],
+      "missing_evidence": [
+        "unsupported evidence kind: artifact"
+      ]
+    },
+    {
+      "criterion_id": "handoff-docs",
+      "verdict": "PASS",
+      "reason": "expected file exists (V1 checks presence only)",
+      "evidence_refs": [
+        {
+          "kind": "file",
+          "ref": "LAB.md",
+          "hash": "sha256:06566e1c7bd57099837d990164e2e26a71edcd86c53ff34613e37cc867229158"
+        }
+      ],
+      "missing_evidence": []
+    },
+    {
+      "criterion_id": "optional-changelog",
+      "verdict": "UNKNOWN",
+      "reason": "expected file is missing: CHANGELOG.md",
+      "evidence_refs": [],
+      "missing_evidence": [
+        "CHANGELOG.md"
+      ]
+    }
+  ],
+  "unresolved": [
+    "clean-clone-tests",
+    "external-local-dependencies",
+    "optional-changelog",
+    "research-evidence"
+  ]
+}

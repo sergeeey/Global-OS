@@ -1,0 +1,10 @@
+{
+  "schema_version": "audit-result-delivery/1",
+  "rubric_id": "mcp-bouncer-operational-v1",
+  "execution_terminal": "SUCCEEDED",
+  "audit_verdict": "UNKNOWN",
+  "result": "C:\\Users\\serge\\AppData\\Local\\Temp\\rubric_mcp_fix_state\\missions\\run_7c012259c9674a9b\\rubric_result.json",
+  "report": "C:\\Users\\serge\\AppData\\Local\\Temp\\rubric_mcp_fix_state\\missions\\run_7c012259c9674a9b\\RUBRIC_REPORT.md",
+  "artifact_digest": "sha256:f7a7c370fcd79eb0f038443280ad5819adb3f2cfb7d6041e416d94bc1889ad02",
+  "artifact_path": "C:\\Users\\serge\\AppData\\Local\\Temp\\rubric_mcp_fix_state\\missions\\run_7c012259c9674a9b\\artifacts\\sha256\\f7a7c370fcd79eb0f038443280ad5819adb3f2cfb7d6041e416d94bc1889ad02"
+}

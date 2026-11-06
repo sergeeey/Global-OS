@@ -1,0 +1,13 @@
+mission_id: run_7c012259c9674a9b
+terminal: SUCCEEDED
+verdict: SUCCEEDED
+reason: verified repo-audit outcome
+report: C:\Users\serge\AppData\Local\Temp\rubric_mcp_fix_state\missions\run_7c012259c9674a9b\REPORT.md
+evidence: C:\Users\serge\AppData\Local\Temp\rubric_mcp_fix_state\missions\run_7c012259c9674a9b\delivery.json
+trace: C:\Users\serge\AppData\Local\Temp\rubric_mcp_fix_state\missions\run_7c012259c9674a9b\events.json
+artifact: C:\Users\serge\AppData\Local\Temp\rubric_mcp_fix_state\missions\run_7c012259c9674a9b\artifacts\sha256\a41753abdb123749e0048d9e5437faad3d0f2afecb0aeba4db3a4fb28122dc7a
+execution_terminal: SUCCEEDED
+audit_verdict: UNKNOWN
+rubric_report: C:\Users\serge\AppData\Local\Temp\rubric_mcp_fix_state\missions\run_7c012259c9674a9b\RUBRIC_REPORT.md
+rubric_result: C:\Users\serge\AppData\Local\Temp\rubric_mcp_fix_state\missions\run_7c012259c9674a9b\rubric_result.json
+rubric_artifact: C:\Users\serge\AppData\Local\Temp\rubric_mcp_fix_state\missions\run_7c012259c9674a9b\artifacts\sha256\f7a7c370fcd79eb0f038443280ad5819adb3f2cfb7d6041e416d94bc1889ad02
