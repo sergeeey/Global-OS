@@ -1,0 +1,27 @@
+{
+  "schema_version": "audit-result/1",
+  "rubric_id": "adversarial-optional-mixed",
+  "execution_terminal": "SUCCEEDED",
+  "audit_verdict": "MIXED",
+  "criterion_results": [
+    {
+      "criterion_id": "required-passes",
+      "verdict": "PASS",
+      "reason": "Required evidence is present.",
+      "evidence_refs": [
+        {"kind": "file", "ref": "evidence/required.txt"}
+      ],
+      "missing_evidence": []
+    },
+    {
+      "criterion_id": "optional-fails",
+      "verdict": "FAIL",
+      "reason": "Optional criterion failed; policy MIXED reports it without blocking required PASS.",
+      "evidence_refs": [
+        {"kind": "file", "ref": "evidence/optional.txt"}
+      ],
+      "missing_evidence": []
+    }
+  ],
+  "unresolved": ["optional-fails"]
+}

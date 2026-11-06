@@ -1,0 +1,95 @@
+{
+  "schema_version": "audit-result/1",
+  "rubric_id": "mcp-bouncer-operational-v1",
+  "execution_terminal": "SUCCEEDED",
+  "audit_verdict": "UNKNOWN",
+  "criterion_results": [
+    {
+      "criterion_id": "package-tests",
+      "verdict": "PASS",
+      "reason": "Fresh clone test suite passes: 62 passed.",
+      "evidence_refs": [
+        {"kind": "command", "ref": "python -m pytest -q", "locator": "fresh clone"},
+        {"kind": "file", "ref": "C:/dev/mcp-bouncer/tests/test_guard.py"}
+      ],
+      "missing_evidence": []
+    },
+    {
+      "criterion_id": "ci-gate",
+      "verdict": "PASS",
+      "reason": "GitHub Actions runs pytest and Ruff on Python 3.11-3.13.",
+      "evidence_refs": [
+        {"kind": "file", "ref": "C:/dev/mcp-bouncer/.github/workflows/tests.yml"}
+      ],
+      "missing_evidence": []
+    },
+    {
+      "criterion_id": "zero-dependency-claim",
+      "verdict": "PASS",
+      "reason": "Package metadata declares an empty runtime dependency list.",
+      "evidence_refs": [
+        {"kind": "file", "ref": "C:/dev/mcp-bouncer/pyproject.toml", "locator": "dependencies = []"}
+      ],
+      "missing_evidence": []
+    },
+    {
+      "criterion_id": "security-benchmark",
+      "verdict": "UNKNOWN",
+      "reason": "README claims ~90% low-effort detection, but no representative corpus or measured benchmark artifact is included.",
+      "evidence_refs": [
+        {"kind": "file", "ref": "C:/dev/mcp-bouncer/README.md", "locator": "scope note"}
+      ],
+      "missing_evidence": ["representative benchmark corpus", "benchmark protocol", "measured detection results"]
+    },
+    {
+      "criterion_id": "fp-fn-evidence",
+      "verdict": "UNKNOWN",
+      "reason": "Unit/adversarial regressions exist, but measured false-positive/false-negative rates on realistic traffic are absent.",
+      "evidence_refs": [
+        {"kind": "file", "ref": "C:/dev/mcp-bouncer/tests/test_guard.py"}
+      ],
+      "missing_evidence": ["FP rate measurement", "FN rate measurement", "realistic traffic corpus"]
+    },
+    {
+      "criterion_id": "threat-model-red-team",
+      "verdict": "UNKNOWN",
+      "reason": "No dedicated threat model or independent red-team report was found.",
+      "evidence_refs": [
+        {"kind": "file", "ref": "C:/dev/mcp-bouncer/README.md", "locator": "heuristic scope only"}
+      ],
+      "missing_evidence": ["threat model", "independent red-team report"]
+    },
+    {
+      "criterion_id": "operational-limitations",
+      "verdict": "PASS",
+      "reason": "README explicitly states heuristic scope, bypassability and first-layer-only use.",
+      "evidence_refs": [
+        {"kind": "file", "ref": "C:/dev/mcp-bouncer/README.md", "locator": "Scope note"}
+      ],
+      "missing_evidence": []
+    },
+    {
+      "criterion_id": "handoff-docs",
+      "verdict": "PASS",
+      "reason": "Install, API, test and CI instructions are present and sufficient for a Python developer.",
+      "evidence_refs": [
+        {"kind": "file", "ref": "C:/dev/mcp-bouncer/README.md"},
+        {"kind": "file", "ref": "C:/dev/mcp-bouncer/pyproject.toml"}
+      ],
+      "missing_evidence": []
+    },
+    {
+      "criterion_id": "optional-changelog",
+      "verdict": "UNKNOWN",
+      "reason": "No changelog found; optional for this readiness question.",
+      "evidence_refs": [],
+      "missing_evidence": ["CHANGELOG.md"]
+    }
+  ],
+  "unresolved": [
+    "security-benchmark",
+    "fp-fn-evidence",
+    "threat-model-red-team",
+    "optional-changelog"
+  ]
+}

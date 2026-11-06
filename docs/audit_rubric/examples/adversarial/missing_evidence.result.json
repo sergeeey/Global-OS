@@ -1,0 +1,16 @@
+{
+  "schema_version": "audit-result/1",
+  "rubric_id": "adversarial-missing-evidence",
+  "execution_terminal": "SUCCEEDED",
+  "audit_verdict": "UNKNOWN",
+  "criterion_results": [
+    {
+      "criterion_id": "criterion-without-evidence",
+      "verdict": "UNKNOWN",
+      "reason": "No accessible evidence was found; the criterion was not converted into PASS or FAIL.",
+      "evidence_refs": [],
+      "missing_evidence": ["required artifact not available"]
+    }
+  ],
+  "unresolved": ["criterion-without-evidence"]
+}

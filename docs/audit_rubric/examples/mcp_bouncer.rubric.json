@@ -1,0 +1,76 @@
+{
+  "schema_version": "audit-rubric/1",
+  "rubric_id": "mcp-bouncer-operational-v1",
+  "goal": "Determine whether mcp-bouncer is ready for operational use as a first-layer prompt-injection pre-filter and for handoff.",
+  "criteria": [
+    {
+      "id": "package-tests",
+      "statement": "The package tests run successfully from a fresh checkout.",
+      "expected_evidence": {"description": "pytest result", "kind": "command", "locator": "pytest tests/"},
+      "acceptance_rule": {"on_missing_evidence": "UNKNOWN", "on_conflict": "FAIL", "rule": "evidence_supports"},
+      "required": true
+    },
+    {
+      "id": "ci-gate",
+      "statement": "CI runs tests and lint on supported Python versions.",
+      "expected_evidence": {"description": "CI workflow files", "kind": "file", "locator": ".github/workflows/tests.yml"},
+      "acceptance_rule": {"on_missing_evidence": "FAIL", "on_conflict": "FAIL", "rule": "evidence_supports"},
+      "required": true
+    },
+    {
+      "id": "zero-dependency-claim",
+      "statement": "The package has no runtime dependencies.",
+      "expected_evidence": {"description": "package metadata dependencies list", "kind": "file", "locator": "pyproject.toml"},
+      "acceptance_rule": {"on_missing_evidence": "FAIL", "on_conflict": "FAIL", "rule": "evidence_supports"},
+      "required": true
+    },
+    {
+      "id": "security-benchmark",
+      "statement": "Measured detection performance on a representative corpus is present.",
+      "expected_evidence": {"description": "benchmark corpus, protocol and measured results", "kind": "artifact", "locator": "security benchmark"},
+      "acceptance_rule": {"on_missing_evidence": "UNKNOWN", "on_conflict": "FAIL", "rule": "evidence_supports"},
+      "required": true
+    },
+    {
+      "id": "fp-fn-evidence",
+      "statement": "False-positive and false-negative rates are measured on realistic inputs.",
+      "expected_evidence": {"description": "FP/FN measurements and corpus", "kind": "artifact", "locator": "FP/FN report"},
+      "acceptance_rule": {"on_missing_evidence": "UNKNOWN", "on_conflict": "FAIL", "rule": "evidence_supports"},
+      "required": true
+    },
+    {
+      "id": "threat-model-red-team",
+      "statement": "A threat model or independent adversarial red-team assessment exists.",
+      "expected_evidence": {"description": "threat model or red-team artifact", "kind": "artifact", "locator": "threat model / red-team report"},
+      "acceptance_rule": {"on_missing_evidence": "UNKNOWN", "on_conflict": "FAIL", "rule": "evidence_supports"},
+      "required": true
+    },
+    {
+      "id": "operational-limitations",
+      "statement": "Operational limitations are explicitly documented.",
+      "expected_evidence": {"description": "README scope/bypass limitations", "kind": "file", "locator": "README.md"},
+      "acceptance_rule": {"on_missing_evidence": "UNKNOWN", "on_conflict": "FAIL", "rule": "evidence_supports"},
+      "required": true
+    },
+    {
+      "id": "handoff-docs",
+      "statement": "Install, API, test and CI instructions are sufficient for handoff.",
+      "expected_evidence": {"description": "README/package/CI docs", "kind": "file", "locator": "README.md"},
+      "acceptance_rule": {"on_missing_evidence": "UNKNOWN", "on_conflict": "FAIL", "rule": "evidence_supports"},
+      "required": true
+    },
+    {
+      "id": "optional-changelog",
+      "statement": "A changelog exists.",
+      "expected_evidence": {"description": "CHANGELOG.md", "kind": "file", "locator": "CHANGELOG.md"},
+      "acceptance_rule": {"on_missing_evidence": "UNKNOWN", "on_conflict": "FAIL", "rule": "evidence_absent"},
+      "required": false
+    }
+  ],
+  "aggregation_policy": {
+    "mode": "required_all_pass",
+    "optional_issues": "MIXED",
+    "unknown": "UNKNOWN",
+    "fail": "FAIL"
+  }
+}

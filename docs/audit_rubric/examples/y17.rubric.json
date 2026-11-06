@@ -1,0 +1,76 @@
+{
+  "schema_version": "audit-rubric/1",
+  "rubric_id": "y17-research-handoff-v1",
+  "goal": "Determine whether Y-17-100-gipotez is ready for research handoff/pilot and which engineering gaps must close first.",
+  "criteria": [
+    {
+      "id": "clean-clone-tests",
+      "statement": "A fresh clone can collect and run the declared test suite.",
+      "expected_evidence": {"description": "pytest collection/run output from a fresh clone", "kind": "command", "locator": "pytest"},
+      "acceptance_rule": {"on_missing_evidence": "UNKNOWN", "on_conflict": "FAIL", "rule": "evidence_supports"},
+      "required": true
+    },
+    {
+      "id": "dependency-completeness",
+      "statement": "Declared package metadata contains the dependencies needed by the test/runtime workflow.",
+      "expected_evidence": {"description": "pyproject and requirements cross-check", "kind": "file", "locator": "pyproject.toml"},
+      "acceptance_rule": {"on_missing_evidence": "FAIL", "on_conflict": "FAIL", "rule": "evidence_supports"},
+      "required": true
+    },
+    {
+      "id": "ci-gate",
+      "statement": "An automated CI gate runs the test suite.",
+      "expected_evidence": {"description": "CI workflow configuration", "kind": "file", "locator": ".github/workflows"},
+      "acceptance_rule": {"on_missing_evidence": "FAIL", "on_conflict": "FAIL", "rule": "evidence_absent"},
+      "required": true
+    },
+    {
+      "id": "reproducibility-lock",
+      "statement": "The repository root has a reproducible environment/lock or exact setup contract.",
+      "expected_evidence": {"description": "lockfile or exact environment specification", "kind": "file", "locator": "pyproject.toml / requirements.txt"},
+      "acceptance_rule": {"on_missing_evidence": "FAIL", "on_conflict": "FAIL", "rule": "evidence_absent"},
+      "required": true
+    },
+    {
+      "id": "data-contracts",
+      "statement": "The project has an explicit machine-readable data contract for its core registry.",
+      "expected_evidence": {"description": "registry schema and graph", "kind": "file", "locator": "registry/SCHEMA.md"},
+      "acceptance_rule": {"on_missing_evidence": "UNKNOWN", "on_conflict": "FAIL", "rule": "evidence_supports"},
+      "required": true
+    },
+    {
+      "id": "external-local-dependencies",
+      "statement": "The project can be handed off without inaccessible local-only/external source-of-truth dependencies.",
+      "expected_evidence": {"description": "external vault/local path inventory", "kind": "absence", "locator": "Obsidian vault / local paths"},
+      "acceptance_rule": {"on_missing_evidence": "UNKNOWN", "on_conflict": "FAIL", "rule": "evidence_supports"},
+      "required": true
+    },
+    {
+      "id": "research-evidence",
+      "statement": "Research claims are linked to reproducible experiment/decision evidence.",
+      "expected_evidence": {"description": "registry, claim, decision and invalidation artifacts", "kind": "artifact", "locator": "registry/graph.yaml"},
+      "acceptance_rule": {"on_missing_evidence": "UNKNOWN", "on_conflict": "FAIL", "rule": "evidence_supports"},
+      "required": true
+    },
+    {
+      "id": "handoff-docs",
+      "statement": "A new researcher can find purpose, workflow, gates and next action.",
+      "expected_evidence": {"description": "README/LAB/CLAUDE/handoff entrypoint", "kind": "file", "locator": "LAB.md"},
+      "acceptance_rule": {"on_missing_evidence": "UNKNOWN", "on_conflict": "FAIL", "rule": "evidence_supports"},
+      "required": true
+    },
+    {
+      "id": "optional-changelog",
+      "statement": "A changelog exists for handoff history.",
+      "expected_evidence": {"description": "CHANGELOG file", "kind": "file", "locator": "CHANGELOG.md"},
+      "acceptance_rule": {"on_missing_evidence": "UNKNOWN", "on_conflict": "FAIL", "rule": "evidence_absent"},
+      "required": false
+    }
+  ],
+  "aggregation_policy": {
+    "mode": "required_all_pass",
+    "optional_issues": "MIXED",
+    "unknown": "UNKNOWN",
+    "fail": "FAIL"
+  }
+}

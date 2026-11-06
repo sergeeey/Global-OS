@@ -1,0 +1,19 @@
+{
+  "schema_version": "audit-result/1",
+  "rubric_id": "adversarial-conflict",
+  "execution_terminal": "SUCCEEDED",
+  "audit_verdict": "FAIL",
+  "criterion_results": [
+    {
+      "criterion_id": "conflicting-sources",
+      "verdict": "FAIL",
+      "reason": "Two authoritative sources disagree; conflicting evidence never becomes PASS.",
+      "evidence_refs": [
+        {"kind": "file", "ref": "evidence/source-a.json", "hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+        {"kind": "file", "ref": "evidence/source-b.json", "hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}
+      ],
+      "missing_evidence": []
+    }
+  ],
+  "unresolved": []
+}

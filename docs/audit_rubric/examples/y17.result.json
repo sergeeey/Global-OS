@@ -1,0 +1,95 @@
+{
+  "schema_version": "audit-result/1",
+  "rubric_id": "y17-research-handoff-v1",
+  "execution_terminal": "SUCCEEDED",
+  "audit_verdict": "FAIL",
+  "criterion_results": [
+    {
+      "criterion_id": "clean-clone-tests",
+      "verdict": "FAIL",
+      "reason": "Fresh clone pytest collection fails: ModuleNotFoundError pseudopy in three test modules.",
+      "evidence_refs": [
+        {"kind": "command", "ref": "python -m pytest -q (fresh clone)", "locator": "collection errors"},
+        {"kind": "file", "ref": "requirements.txt", "locator": "pseudopy==1.2.5"}
+      ],
+      "missing_evidence": []
+    },
+    {
+      "criterion_id": "dependency-completeness",
+      "verdict": "FAIL",
+      "reason": "pyproject declares only pyyaml/numpy/requests; test workflow requires pseudopy, which is only in requirements.txt.",
+      "evidence_refs": [
+        {"kind": "file", "ref": "pyproject.toml", "locator": "dependencies"},
+        {"kind": "file", "ref": "requirements.txt", "locator": "pseudopy"}
+      ],
+      "missing_evidence": []
+    },
+    {
+      "criterion_id": "ci-gate",
+      "verdict": "FAIL",
+      "reason": "No GitHub Actions or equivalent automated test gate exists.",
+      "evidence_refs": [
+        {"kind": "absence", "ref": "C:/dev/Y-17-100-gipotez/.github/workflows", "locator": "absent"}
+      ],
+      "missing_evidence": [".github/workflows"]
+    },
+    {
+      "criterion_id": "reproducibility-lock",
+      "verdict": "FAIL",
+      "reason": "Dependencies use lower bounds and no lockfile/exact environment exists at repo root.",
+      "evidence_refs": [
+        {"kind": "file", "ref": "pyproject.toml", "locator": "dependencies use >= bounds"},
+        {"kind": "file", "ref": "requirements.txt", "locator": "no hash lock"}
+      ],
+      "missing_evidence": ["lockfile"]
+    },
+    {
+      "criterion_id": "data-contracts",
+      "verdict": "PASS",
+      "reason": "Registry schema and machine-readable graph exist and define node/edge/evidence semantics.",
+      "evidence_refs": [
+        {"kind": "file", "ref": "C:/dev/Y-17-100-gipotez/registry/SCHEMA.md"},
+        {"kind": "file", "ref": "C:/dev/Y-17-100-gipotez/registry/graph.yaml"}
+      ],
+      "missing_evidence": []
+    },
+    {
+      "criterion_id": "external-local-dependencies",
+      "verdict": "UNKNOWN",
+      "reason": "The external Obsidian vault and local-only collaboration context are referenced but not fully available for audit.",
+      "evidence_refs": [
+        {"kind": "file", "ref": "C:/dev/Y-17-100-gipotez/README.md", "locator": "vault source of truth"},
+        {"kind": "file", "ref": "C:/dev/Y-17-100-gipotez/CLAUDE.md", "locator": "local-only context"}
+      ],
+      "missing_evidence": ["external vault completeness", "local-only collaboration context"]
+    },
+    {
+      "criterion_id": "research-evidence",
+      "verdict": "PASS",
+      "reason": "Registry links claims to experiments, decisions and invalidations; evidence labels are present.",
+      "evidence_refs": [
+        {"kind": "artifact", "ref": "C:/dev/Y-17-100-gipotez/registry/graph.yaml"},
+        {"kind": "directory", "ref": "C:/dev/Y-17-100-gipotez/experiments"}
+      ],
+      "missing_evidence": []
+    },
+    {
+      "criterion_id": "handoff-docs",
+      "verdict": "PASS",
+      "reason": "README, LAB, CLAUDE and registry schema provide purpose, workflow, gates and next action.",
+      "evidence_refs": [
+        {"kind": "file", "ref": "C:/dev/Y-17-100-gipotez/LAB.md"},
+        {"kind": "file", "ref": "C:/dev/Y-17-100-gipotez/README.md"}
+      ],
+      "missing_evidence": []
+    },
+    {
+      "criterion_id": "optional-changelog",
+      "verdict": "UNKNOWN",
+      "reason": "No dedicated changelog was found; not required for the research handoff.",
+      "evidence_refs": [],
+      "missing_evidence": ["CHANGELOG.md"]
+    }
+  ],
+  "unresolved": ["external-local-dependencies", "optional-changelog"]
+}

@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.local/schemas/audit_result.schema.json",
+  "title": "AuditResult",
+  "description": "Result of a user-defined audit. Execution terminal and audit verdict are independent.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "rubric_id",
+    "execution_terminal",
+    "audit_verdict",
+    "criterion_results",
+    "unresolved"
+  ],
+  "properties": {
+    "schema_version": {"const": "audit-result/1"},
+    "rubric_id": {"type": "string", "minLength": 1},
+    "execution_terminal": {
+      "type": "string",
+      "enum": ["SUCCEEDED", "FAILED", "INCONCLUSIVE"]
+    },
+    "audit_verdict": {
+      "type": "string",
+      "enum": ["PASS", "FAIL", "UNKNOWN", "MIXED"]
+    },
+    "criterion_results": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/CriterionResult"}
+    },
+    "unresolved": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Criterion IDs whose evidence is UNKNOWN or optional non-PASS."
+    }
+  },
+  "$defs": {
+    "EvidenceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "ref"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["file", "directory", "command", "url", "artifact", "absence", "other"]
+        },
+        "ref": {"type": "string", "minLength": 1},
+        "locator": {"type": "string"},
+        "hash": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+        "observed_at": {"type": "string"}
+      }
+    },
+    "CriterionResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "criterion_id",
+        "verdict",
+        "reason",
+        "evidence_refs",
+        "missing_evidence"
+      ],
+      "properties": {
+        "criterion_id": {"type": "string", "minLength": 1},
+        "verdict": {"type": "string", "enum": ["PASS", "FAIL", "UNKNOWN"]},
+        "reason": {"type": "string", "minLength": 1},
+        "evidence_refs": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/EvidenceRef"}
+        },
+        "missing_evidence": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"verdict": {"const": "PASS"}},
+            "required": ["verdict"]
+          },
+          "then": {
+            "properties": {"evidence_refs": {"minItems": 1}},
+            "required": ["evidence_refs"]
+          }
+        },
+        {
+          "if": {
+            "properties": {"verdict": {"const": "UNKNOWN"}},
+            "required": ["verdict"]
+          },
+          "then": {
+            "properties": {"missing_evidence": {"minItems": 1}},
+            "required": ["missing_evidence"]
+          }
+        }
+      ]
+    }
+  }
+}

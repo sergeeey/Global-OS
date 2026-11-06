@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-os.local/schemas/audit_rubric.schema.json",
+  "title": "AuditRubric",
+  "description": "User-defined, project-agnostic audit rubric. The runtime must not add criteria automatically.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "rubric_id", "goal", "criteria", "aggregation_policy"],
+  "properties": {
+    "schema_version": {"const": "audit-rubric/1"},
+    "rubric_id": {"type": "string", "minLength": 1},
+    "goal": {"type": "string", "minLength": 1},
+    "criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/Criterion"},
+      "allOf": [
+        {
+          "contains": {
+            "type": "object",
+            "properties": {"required": {"const": true}},
+            "required": ["required"]
+          },
+          "minContains": 1
+        }
+      ]
+    },
+    "aggregation_policy": {"$ref": "#/$defs/AggregationPolicy"}
+  },
+  "$defs": {
+    "Criterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "statement", "expected_evidence", "required"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]{2,63}$",
+          "description": "Stable rubric-local identifier. Unique within a rubric."
+        },
+        "statement": {"type": "string", "minLength": 8},
+        "expected_evidence": {"$ref": "#/$defs/ExpectedEvidence"},
+        "acceptance_rule": {"$ref": "#/$defs/AcceptanceRule"},
+        "required": {
+          "type": "boolean",
+          "description": "True: may affect audit verdict. False: informational only unless aggregation policy says otherwise."
+        }
+      }
+    },
+    "ExpectedEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["description"],
+      "properties": {
+        "description": {"type": "string", "minLength": 1},
+        "kind": {
+          "type": "string",
+          "enum": ["file", "directory", "command", "url", "artifact", "absence", "other"],
+          "default": "other"
+        },
+        "locator": {"type": "string", "minLength": 1},
+        "notes": {"type": "string"}
+      }
+    },
+    "AcceptanceRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "on_missing_evidence": {
+          "type": "string",
+          "enum": ["UNKNOWN", "FAIL"],
+          "default": "UNKNOWN",
+          "description": "Absence of required evidence yields UNKNOWN unless the author explicitly chooses FAIL."
+        },
+        "on_conflict": {
+          "type": "string",
+          "enum": ["FAIL", "UNKNOWN"],
+          "default": "FAIL",
+          "description": "Conflicting evidence can never produce PASS."
+        },
+        "pass_requires_evidence": {"const": true},
+        "rule": {
+          "type": "string",
+          "enum": ["evidence_supports", "evidence_absent", "evidence_conflicts", "custom"],
+          "default": "evidence_supports"
+        }
+      }
+    },
+    "AggregationPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "optional_issues", "unknown", "fail"],
+      "properties": {
+        "mode": {"const": "required_all_pass"},
+        "optional_issues": {
+          "type": "string",
+          "enum": ["MIXED", "IGNORE"],
+          "description": "MIXED: optional FAIL/UNKNOWN yields MIXED; IGNORE: optional issues do not affect the verdict."
+        },
+        "unknown": {"const": "UNKNOWN"},
+        "fail": {"const": "FAIL"}
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "schema_version": "audit-rubric/1",
+  "rubric_id": "invalid-empty",
+  "goal": "This rubric must be rejected before any audit execution.",
+  "criteria": [],
+  "aggregation_policy": {
+    "mode": "required_all_pass",
+    "optional_issues": "MIXED",
+    "unknown": "UNKNOWN",
+    "fail": "FAIL"
+  }
+}
